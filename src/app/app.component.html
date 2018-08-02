@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Control Center</span>
+    <span class="spacer"></span>
+    <span>Lexa Svotin</span>
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-menu #userMenu="matMenu">
+    <button mat-menu-item>Logout</button>
+</mat-menu>
+
+<mat-sidenav-container>
+    <mat-sidenav
+            role="navigation"
+            #sidenav
+            mode="side"
+            fixedInViewport="true"
+            fixedTopGap="64">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let item of menuItems">
+                {{item}}
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content role="main">
+        <!--<router-outlet></router-outlet>-->
+    </mat-sidenav-content>
+</mat-sidenav-container>
