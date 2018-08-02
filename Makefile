@@ -42,7 +42,7 @@ build: src/gen-nodejs src/gen-json
 	npm run build
 
 clean:
-	rm -rf dist src/app/domain/gen-* config/runtime/gen-*
+	rm -rf dist src/app/domain/gen-* src/assets/gen-*
 
 # utils
 src/gen-nodejs: node_modules/damsel/proto/domain_config.thrift
