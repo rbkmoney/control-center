@@ -1,14 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-    menuItems: string[] = [
-        'Domain config',
-        'Выплаты',
-        'Заявки'
+export class AppComponent implements OnInit {
+
+    username: string;
+
+    menuItems: { name: string, route: string }[] = [
+        {name: 'Domain config', route: '/domain'},
+        {name: 'Выплаты', route: '/payouts'},
+        {name: 'Заявки', route: '/claims'}
     ];
+
+    constructor(private keycloakService: KeycloakService) {}
+
+    ngOnInit() {
+        this.username = this.keycloakService.getUsername();
+    }
+
+    logout() {
+        this.keycloakService.logout();
+    }
 }
