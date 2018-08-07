@@ -33,8 +33,10 @@ import { PayoutsModule } from './payouts/payouts.module';
         MatSidenavModule,
         MatListModule,
         ClaimsModule,
-        PayoutsModule
-        ClaimModule
+        PayoutsModule,
+        ClaimModule,
+        MatListModule,
+        ClaimsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
