@@ -1,42 +1,34 @@
 <div fxLayout="row" fxLayoutGap="10px" fxLayout.sm="column" fxLayout.xs="column">
     <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
-        <div fxLayout="row">
-            <label fxFlex="30">Claim ID:</label>
+        <div fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Claim ID:</label>
             <div>{{claimInfoContainer?.claimId}}</div>
         </div>
-        <div fxLayout="row">
-            <label fxFlex="30">Status:</label>
+        <div fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Status:</label>
             <div>{{claimInfoContainer?.status}}</div>
         </div>
-        <div fxLayout="row">
-            <label fxFlex="30">Reason:</label>
-            <div>{{claimInfoContainer?.reason}}</div>
-        </div>
-        <div fxLayout="row">
-            <label fxFlex="30">Revision:</label>
+        <div fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Revision:</label>
             <div>{{claimInfoContainer?.revision}}</div>
         </div>
-        <div fxLayout="row">
-            <label fxFlex="30">Created At:</label>
-            <div>{{claimInfoContainer?.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}</div>
-        </div>
-        <div fxLayout="row">
-            <label fxFlex="30">Updated At:</label>
-            <div>{{claimInfoContainer?.updatedAt | date: "dd.MM.yyyy HH:mm:ss"}}</div>
+        <div *ngIf="claimInfoContainer?.reason" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Reason:</label>
+            <div>{{claimInfoContainer?.reason}}</div>
         </div>
     </div>
     <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
-        <div fxLayout="row">
-            <label fxFlex="30">Party ID:</label>
+        <div fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Party ID:</label>
             <div>{{claimInfoContainer?.partyId}}</div>
         </div>
-        <div fxLayout="row">
-            <label fxFlex="30">Shop ID:</label>
-            <div>{{claimInfoContainer?.shopId}}</div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Created At:</label>
+            <div>{{claimInfoContainer?.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}</div>
         </div>
-        <div fxLayout="row">
-            <label fxFlex="30">Contract ID:</label>
-            <div>{{claimInfoContainer?.contractId}}</div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Updated At:</label>
+            <div>{{claimInfoContainer?.updatedAt | date: "dd.MM.yyyy HH:mm:ss"}}</div>
         </div>
     </div>
 </div>

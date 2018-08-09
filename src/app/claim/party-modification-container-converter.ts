@@ -4,15 +4,16 @@ import map from 'lodash-es/map';
 
 import {
     PartyModification,
-    ShopModification,
-    ContractModification
+    ShopModificationUnit,
+    ContractModificationUnit
 } from '../backend/model/damsel';
 import {
     PartyModificationUnitType,
     PartyModificationContainer,
     PartyModificationUnit,
     ContractModificationName,
-    ShopModificationName
+    ShopModificationName,
+    PartyModificationContainerType
 } from './model';
 
 export class PartyModificationContainerConverter {
@@ -26,6 +27,7 @@ export class PartyModificationContainerConverter {
             if (contractModification) {
                 return PartyModificationUnitType.ContractModification;
             }
+            // TODO check undefined
         });
         return reduce(grouped, (result, group, type) => {
             switch (type) {
@@ -41,26 +43,17 @@ export class PartyModificationContainerConverter {
     }
 
     private static resolveContractContainers(contracts: PartyModification[]) {
-        const {unitID, modifications} = this.toModificationChunk(contracts, 'contractModification');
-        return {unitID, containers: this.toContractContainers(modifications)};
+        const modifications = contracts.map((modification) => modification.contractModification);
+        return {containers: this.toContractContainers(modifications)};
     }
 
     private static resolveShopContainers(shops: PartyModification[]) {
-        const {unitID, modifications} = this.toModificationChunk(shops, 'shopModification');
-        return {unitID, containers: this.toShopContainer(modifications)};
+        const modifications = shops.map((modification) => modification.shopModification);
+        return {containers: this.toShopContainer(modifications)};
     }
 
-    private static toModificationChunk(modifications: PartyModification[], type: 'contractModification' | 'shopModification') {
-        return modifications.reduce((result, item) => {
-            const {id, modification} = item[type];
-            result.unitID = id; // TODO need to check
-            result.modifications.push(modification);
-            return result;
-        }, {unitID: null, modifications: []});
-    }
-
-    private static toContractContainers(modification: ContractModification[]): PartyModificationContainer[] {
-        const grouped = groupBy(modification, (item: ContractModification) => {
+    private static toContractContainers(modification: ContractModificationUnit[]): PartyModificationContainer[] {
+        const grouped = groupBy(modification, (item: ContractModificationUnit) => {
             const {
                 creation,
                 termination,
@@ -68,7 +61,7 @@ export class PartyModificationContainerConverter {
                 payoutToolModification,
                 legalAgreementBinding,
                 reportPreferencesModification
-            } = item;
+            } = item.modification;
             if (creation) {
                 return ContractModificationName.creation;
             }
@@ -89,11 +82,15 @@ export class PartyModificationContainerConverter {
             }
             // TODO check undefined
         });
-        return map(grouped, (modifications, name: ContractModificationName) => ({name, modifications}));
+        return map(grouped, (modifications, name: ContractModificationName) => ({
+            type: PartyModificationContainerType.ContractModification,
+            name,
+            modifications
+        }));
     }
 
-    private static toShopContainer(modification: ShopModification[]): PartyModificationContainer[] {
-        const grouped = groupBy(modification, (item: ShopModification) => {
+    private static toShopContainer(modification: ShopModificationUnit[]): PartyModificationContainer[] {
+        const grouped = groupBy(modification, (item: ShopModificationUnit) => {
             const {
                 creation,
                 categoryModification,
@@ -103,7 +100,7 @@ export class PartyModificationContainerConverter {
                 locationModification,
                 shopAccountCreation,
                 payoutScheduleModification
-            } = item;
+            } = item.modification;
             if (creation) {
                 return ShopModificationName.creation;
             }
@@ -130,6 +127,10 @@ export class PartyModificationContainerConverter {
             }
             // TODO check undefined
         });
-        return map(grouped, (modifications, name: ShopModificationName) => ({name, modifications}));
+        return map(grouped, (modifications, name: ShopModificationName) => ({
+            type: PartyModificationContainerType.ShopModification,
+            name,
+            modifications
+        }));
     }
 }

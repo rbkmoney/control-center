@@ -5,7 +5,6 @@ import { Subject } from 'rxjs/index';
 import { ClaimService as ClaimPapi } from '../backend/claim.service';
 import { ClaimInfo } from '../backend/model';
 import { ClaimInfoContainer } from './model';
-import { PartyModification } from '../backend/model/damsel';
 import { PartyModificationContainerConverter } from './party-modification-container-converter';
 
 @Injectable()
@@ -30,7 +29,6 @@ export class ClaimService {
 
     private toClaimInfoContainer(claimInfo: ClaimInfo): ClaimInfoContainer {
         const modifications = claimInfo.modifications.modifications;
-        const ids = this.findIds(modifications);
         return {
             claimId: claimInfo.claimId,
             partyId: claimInfo.partyId,
@@ -39,22 +37,7 @@ export class ClaimService {
             reason: claimInfo.reason,
             createdAt: claimInfo.createdAt,
             updatedAt: claimInfo.updatedAt,
-            partyModificationUnits: PartyModificationContainerConverter.convert(modifications),
-            ...ids
+            partyModificationUnits: PartyModificationContainerConverter.convert(modifications)
         };
-    }
-
-    private findIds(modifications: PartyModification[]): { shopId: string, contractId: string } {
-        return modifications.reduce((prev, current) => {
-            if (!prev.shopId && current.shopModification) {
-                const shopId = current.shopModification.id;
-                return {...prev, shopId};
-            } else if (!prev.contractId && current.contractModification) {
-                const contractId = current.contractModification.id;
-                return {...prev, contractId};
-            } else {
-                return prev;
-            }
-        }, {shopId: null, contractId: null});
     }
 }

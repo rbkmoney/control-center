@@ -1,0 +1,20 @@
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+    <div *ngIf="shopUnit" fxFlex="50" fxLayout="column" fxLayoutGap="20px">
+        <mat-card fxLayout="row" fxLayoutAlign="space-between stretch">
+            <small>Shop modifications</small>
+        </mat-card>
+        <cc-party-modification-container
+                *ngFor="let container of shopUnit.containers"
+                [container]="container">
+        </cc-party-modification-container>
+    </div>
+    <div *ngIf="contractUnit" fxFlex="50" fxLayout="column" fxLayoutGap="20px">
+        <mat-card fxLayout="row" fxLayoutAlign="space-between stretch">
+            <small>Contract modifications</small>
+        </mat-card>
+        <cc-party-modification-container
+                *ngFor="let container of contractUnit.containers"
+                [container]="container">
+        </cc-party-modification-container>
+    </div>
+</div>

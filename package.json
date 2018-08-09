@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "angular2-prettyjson": "3.0.1",
     "core-js": "^2.5.4",
     "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#1510cd7caa1e4338429a3a0783289d36e140472a",
     "hammerjs": "^2.0.8",
