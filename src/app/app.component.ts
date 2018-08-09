@@ -12,8 +12,8 @@ export class AppComponent implements OnInit {
 
     menuItems: { name: string, route: string }[] = [
         {name: 'Domain config', route: '/domain'},
-        {name: 'Выплаты', route: '/payouts'},
-        {name: 'Заявки', route: '/claims'}
+        {name: 'Payouts', route: '/payouts'},
+        {name: 'Claims', route: '/claims'}
     ];
 
     constructor(private keycloakService: KeycloakService) {}

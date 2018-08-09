@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/internal/operators';
 
 import { ClaimSearchParams } from './params/claim-search-params';
 import { ClaimInfo } from './model/claim-info';
 import { ConfigService } from '../core/config.service';
+import { ThriftFormatter } from '../shared/thrift-formatter';
 
 @Injectable()
 export class ClaimService {
@@ -17,5 +19,14 @@ export class ClaimService {
 
     getClaims(params: ClaimSearchParams): Observable<ClaimInfo[]> {
         return this.http.post<ClaimInfo[]>(`${this.papiEndpoint}/walk/claim/search`, params);
+    }
+
+    getClaim(partyID: string, claimID: string): Observable<ClaimInfo> {
+        const params = new HttpParams()
+            .set('partyId', partyID)
+            .set('claimId', claimID);
+        return this.http
+            .get<ClaimInfo>(`${this.papiEndpoint}/walk/claim`, {params})
+            .pipe(map((claim) => ThriftFormatter.decode(claim)));
     }
 }

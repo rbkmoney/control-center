@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ClaimsModule } from './claims/claims.module';
 import { AppRoutingModule } from './app-routing.module';
+import { ClaimModule } from './claim/claim.module';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { AppRoutingModule } from './app-routing.module';
         MatMenuModule,
         MatSidenavModule,
         MatListModule,
-        ClaimsModule
+        ClaimsModule,
+        ClaimModule
     ],
     providers: [],
     bootstrap: [AppComponent]

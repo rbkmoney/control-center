@@ -1,0 +1,42 @@
+<div fxLayout="row" fxLayoutGap="10px" fxLayout.sm="column" fxLayout.xs="column">
+    <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
+        <div fxLayout="row">
+            <label fxFlex="30">Claim ID:</label>
+            <div>{{claimInfoContainer?.claimId}}</div>
+        </div>
+        <div fxLayout="row">
+            <label fxFlex="30">Status:</label>
+            <div>{{claimInfoContainer?.status}}</div>
+        </div>
+        <div fxLayout="row">
+            <label fxFlex="30">Reason:</label>
+            <div>{{claimInfoContainer?.reason}}</div>
+        </div>
+        <div fxLayout="row">
+            <label fxFlex="30">Revision:</label>
+            <div>{{claimInfoContainer?.revision}}</div>
+        </div>
+        <div fxLayout="row">
+            <label fxFlex="30">Created At:</label>
+            <div>{{claimInfoContainer?.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}</div>
+        </div>
+        <div fxLayout="row">
+            <label fxFlex="30">Updated At:</label>
+            <div>{{claimInfoContainer?.updatedAt | date: "dd.MM.yyyy HH:mm:ss"}}</div>
+        </div>
+    </div>
+    <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
+        <div fxLayout="row">
+            <label fxFlex="30">Party ID:</label>
+            <div>{{claimInfoContainer?.partyId}}</div>
+        </div>
+        <div fxLayout="row">
+            <label fxFlex="30">Shop ID:</label>
+            <div>{{claimInfoContainer?.shopId}}</div>
+        </div>
+        <div fxLayout="row">
+            <label fxFlex="30">Contract ID:</label>
+            <div>{{claimInfoContainer?.contractId}}</div>
+        </div>
+    </div>
+</div>

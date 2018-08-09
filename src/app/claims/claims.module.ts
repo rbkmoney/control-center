@@ -13,7 +13,7 @@ import {
     MatTableModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CdkTableModule } from '@angular/cdk/table';
 
 import { ClaimsComponent } from './claims.component';
@@ -30,7 +30,6 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
         FlexLayoutModule,
         BackendModule,
         SharedModule,
-        FormsModule,
         ReactiveFormsModule,
         MatCardModule,
         MatFormFieldModule,

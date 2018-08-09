@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Claim details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <cc-claim-info-details [claimInfoContainer]="claimInfoContainer"></cc-claim-info-details>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="row" fxLayout.xs="column">
+            <button mat-button>CREATE CHANGE</button>
+            <button mat-button disabled>SAVE CHANGES</button>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <button mat-button color="primary">ACCEPT CLAIM</button>
+            <button mat-button color="warn">DECLINE CLAIM</button>
+        </div>
+    </mat-card-actions>
+</mat-card>

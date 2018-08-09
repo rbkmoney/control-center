@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ClaimInfo } from '../../backend/model';
 
@@ -22,4 +23,9 @@ export class ClaimsTableComponent {
         'claimDetailButton'
     ];
 
+    constructor(private router: Router) {}
+
+    navigateToClaim(claim: ClaimInfo) {
+        this.router.navigate([`/claims/${claim.partyId}/${claim.claimId}`]);
+    }
 }
