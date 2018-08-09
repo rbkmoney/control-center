@@ -34,9 +34,7 @@ import { PayoutsModule } from './payouts/payouts.module';
         MatListModule,
         ClaimsModule,
         PayoutsModule,
-        ClaimModule,
-        MatListModule,
-        ClaimsModule
+        ClaimModule
     ],
     providers: [],
     bootstrap: [AppComponent]

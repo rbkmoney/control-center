@@ -1,4 +1,4 @@
-// import { PartyModificationUnit } from './party-modification-unit';
+import { PartyModificationUnit } from './party-modification-unit';
 
 export class ClaimInfo {
     partyId: string;
@@ -8,9 +8,9 @@ export class ClaimInfo {
     description: string;
     reason: string;
     // modificationUnit: PartyModificationUnit;
-    // modifications: PartyModificationUnit;
+    modifications: PartyModificationUnit;
+    modificationUnit: any;
     revision: string;
     createdAt: string;
     updatedAt: string;
 }
-
