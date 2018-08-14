@@ -39,4 +39,3 @@ export * from './predicate';
 export * from './condition';
 export * from './party-condition';
 export * from './party-condition-definition';
-export * from './representative-document';

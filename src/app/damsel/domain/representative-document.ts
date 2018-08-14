@@ -1,7 +1,7 @@
 import { ArticlesOfAssociation } from './articles-of-association';
 import { PowerOfAttorney } from './power-of-attorney';
 
-export enum RepresentativeDocumentType {
+export enum RepresentativeDocumentTypeEnum {
     ArticlesOfAssociation = 'ArticlesOfAssociation',
     PowerOfAttorney = 'PowerOfAttorney'
 }
