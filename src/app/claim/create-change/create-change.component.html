@@ -1,0 +1,30 @@
+<div class="mat-dialog-title">Create {{claimAction.displayName}}</div>
+<mat-dialog-content>
+    <div *ngIf="claimAction.type === ActionType.contractAction">
+        <cc-create-legal-agreement
+                *ngIf="claimAction.name === ContractModificationName.legalAgreementBinding">
+        </cc-create-legal-agreement>
+        <cc-create-contract-template
+                *ngIf="claimAction.name === ContractModificationName.adjustmentModification">
+        </cc-create-contract-template>
+    </div>
+    <div *ngIf="claimAction.type === ActionType.shopAction">
+        <cc-create-category-ref
+                *ngIf="claimAction.name === ShopModificationName.categoryModification">
+        </cc-create-category-ref>
+        <cc-create-currency-ref
+                *ngIf="claimAction.name === ShopModificationName.shopAccountCreation">
+        </cc-create-currency-ref>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
+    <div>
+        <button mat-button
+                [disabled]="!isFormValid() || isLoading"
+                color="primary"
+                (click)="create()">CREATE
+        </button>
+        <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
+    </div>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>
