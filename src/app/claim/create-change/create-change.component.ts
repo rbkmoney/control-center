@@ -7,6 +7,7 @@ import { CreateLegalAgreementService } from './create-legal-agreement/create-leg
 import { CreateCategoryRefService } from './create-category-ref/create-category-ref.service';
 import { CreateCurrencyRefService } from './create-currency-ref/create-currency-ref.service';
 import { CreateContractTemplateService } from './create-contract-template/create-contract-template.service';
+import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
 import { ContractModificationName, ShopModificationName } from '../model';
 
 @Component({
@@ -16,7 +17,8 @@ import { ContractModificationName, ShopModificationName } from '../model';
         CreateLegalAgreementService,
         CreateCategoryRefService,
         CreateCurrencyRefService,
-        CreateContractTemplateService
+        CreateContractTemplateService,
+        CreateBusinessScheduleRefService
     ]
 })
 export class CreateChangeComponent {

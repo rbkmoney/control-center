@@ -38,6 +38,7 @@ import { CreateCurrencyRefComponent } from './create-change/create-currency-ref/
 import { CreateContractTemplateComponent } from './create-change/create-contract-template/create-contract-template.component';
 import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
 import { DenyClaimComponent } from './deny-claim/deny-claim.component';
+import { CreateBusinessScheduleRefComponent } from './create-change/create-business-schedule-ref/create-business-schedule-ref.component';
 
 @NgModule({
     imports: [
@@ -78,6 +79,7 @@ import { DenyClaimComponent } from './deny-claim/deny-claim.component';
         CreateCategoryRefComponent,
         CreateCurrencyRefComponent,
         CreateContractTemplateComponent,
+        CreateBusinessScheduleRefComponent,
         AcceptClaimComponent,
         DenyClaimComponent
     ],
