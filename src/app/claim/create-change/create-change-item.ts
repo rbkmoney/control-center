@@ -1,4 +1,4 @@
-import { ContractModification, ShopModification } from '../../backend/model/damsel';
+import { ContractModification, ShopModification } from '../../damsel';
 
 export interface CreateChangeItem {
     getValue(): ContractModification | ShopModification;

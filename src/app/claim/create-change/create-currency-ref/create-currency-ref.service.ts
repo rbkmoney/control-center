@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CreateChangeItem } from '../create-change-item';
-import { ShopModification } from '../../../backend/model/damsel/payment-processing';
+import { ShopModification } from '../../../damsel/payment-processing';
 
 @Injectable()
 export class CreateCurrencyRefService implements CreateChangeItem {

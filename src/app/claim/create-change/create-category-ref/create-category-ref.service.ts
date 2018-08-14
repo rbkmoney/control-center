@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import sortBy from 'lodash-es/sortBy';
 
 import { CreateChangeItem } from '../create-change-item';
-import { ShopModification } from '../../../backend/model';
+import { ShopModification } from '../../../damsel';
 import { CategoryService } from '../../../backend/category.service';
 import { Category } from '../../../backend/model';
 

@@ -6,7 +6,7 @@ import {
     PartyModification,
     ShopModificationUnit,
     ContractModificationUnit
-} from '../backend/model/damsel';
+} from '../damsel';
 import {
     PartyModificationUnitType,
     PartyModificationContainer,

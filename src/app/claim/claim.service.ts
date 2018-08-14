@@ -5,7 +5,7 @@ import isEqual from 'lodash-es/isEqual';
 
 import { ClaimService as ClaimPapi } from '../backend/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../backend/model';
-import { ShopModification, ContractModification, PartyModification } from '../backend/model/damsel';
+import { ShopModification, ContractModification, PartyModification } from '../damsel';
 import {
     ClaimInfoContainer,
     PartyModificationContainerType

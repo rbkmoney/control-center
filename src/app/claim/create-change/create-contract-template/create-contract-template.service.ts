@@ -5,7 +5,7 @@ import * as uuid from 'uuid/v4';
 import sortBy from 'lodash-es/sortBy';
 
 import { CreateChangeItem } from '../create-change-item';
-import { ContractModification } from '../../../backend/model/damsel/payment-processing';
+import { ContractModification } from '../../../damsel/payment-processing';
 import { ContractService } from '../../../backend/contract.service';
 import { ContractTemplate } from '../../../backend/model';
 

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 
 import { CreateChangeItem } from '../create-change-item';
-import { ContractModification } from '../../../backend/model/damsel';
+import { ContractModification } from '../../../damsel';
 
 @Injectable()
 export class CreateLegalAgreementService implements CreateChangeItem {
