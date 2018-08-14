@@ -1,3 +1,3 @@
 export class CurrencyRef {
-    public symbolicCode: string;
+    symbolicCode: string;
 }

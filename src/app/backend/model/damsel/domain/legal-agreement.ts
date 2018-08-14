@@ -1,4 +1,4 @@
 export class LegalAgreement {
-    public signedAt: string;
-    public legalAgreementId: string;
+    signedAt: string;
+    legalAgreementId: string;
 }
