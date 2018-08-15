@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ClaimStatus } from '../backend/model/claim-statuses';
+import { ClaimStatus } from '../papi/model/claim-statuses';
 
 @Pipe({
     name: 'ccClaimStatus'

@@ -21,19 +21,19 @@ export class ClaimService {
         return this.http.post<ClaimInfo[]>(`${this.papiEndpoint}/walk/claim/search`, params);
     }
 
-    getClaim(partyID: string, claimID: number): Observable<ClaimInfo> {
+    getClaim(partyID: string, claimID: string): Observable<ClaimInfo> {
         const params = new HttpParams()
             .set('partyId', partyID)
-            .set('claimId', claimID.toString());
+            .set('claimId', claimID);
         return this.http
             .get<ClaimInfo>(`${this.papiEndpoint}/walk/claim`, {params})
             .pipe(map((claim) => ThriftFormatter.decode(claim)));
     }
 
-    updateClaim(partyID: string, claimID: number, revision: string, unit: PartyModificationUnit): Observable<void> {
+    updateClaim(partyID: string, claimID: string, revision: string, unit: PartyModificationUnit): Observable<void> {
         const params = new HttpParams()
             .set('partyId', partyID)
-            .set('claimId', claimID.toString())
+            .set('claimId', claimID)
             .set('revision', revision);
         return this.http.post<void>(`${this.papiEndpoint}/walk/claim/update`, ThriftFormatter.encode(unit), {params});
     }
