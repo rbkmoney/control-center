@@ -11,7 +11,7 @@ const initializer = (keycloak: KeycloakService, configService: ConfigService) =>
             config: '/assets/authConfig.json',
             initOptions: {
                 onLoad: 'login-required',
-                checkLoginIframe: false
+                checkLoginIframe: true
             },
             enableBearerInterceptor: true,
             bearerExcludedUrls: [

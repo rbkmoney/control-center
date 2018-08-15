@@ -14,11 +14,15 @@ export class CreateBusinessScheduleRefService implements CreateChangeItem {
     }
 
     getValue(): ShopModification {
-        return undefined;
+        return {
+            payoutScheduleModification: {
+                schedule: this.form.value
+            }
+        };
     }
 
     isValid(): boolean {
-        return false;
+        return this.form.valid;
     }
 
     private prepareForm(): FormGroup {

@@ -33,7 +33,7 @@
     "moment": "^2.22.2",
     "rxjs": "^6.0.0",
     "uuid": "^3.3.2",
-    "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#e6e3eaeebc3933315abb6af4a099cb698424f830",
+    "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#dfe1ec26573de991f59952aa64b409280fec6c58",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

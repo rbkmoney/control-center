@@ -18,7 +18,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 
 import { ClaimsComponent } from './claims.component';
 import { ClaimsRoutingModule } from './claims-routing.module';
-import { BackendModule } from '../backend/backend.module';
+import { PapiModule } from '../papi/papi.module';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
@@ -28,7 +28,7 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
         CommonModule,
         ClaimsRoutingModule,
         FlexLayoutModule,
-        BackendModule,
+        PapiModule,
         SharedModule,
         ReactiveFormsModule,
         MatCardModule,

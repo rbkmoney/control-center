@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { ClaimService } from '../backend/claim.service';
-import { ClaimSearchParams } from '../backend/params';
-import { ClaimInfo } from '../backend/model';
+import { ClaimService } from '../papi/claim.service';
+import { ClaimSearchParams } from '../papi/params';
+import { ClaimInfo } from '../papi/model';
 
 @Component({
     templateUrl: 'claims.component.html',

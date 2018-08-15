@@ -7,7 +7,6 @@ export class ClaimInfo {
     assignedUserId: string;
     description: string;
     reason: string;
-    // modificationUnit: PartyModificationUnit;
     modifications: PartyModificationUnit;
     modificationUnit: any;
     revision: string;

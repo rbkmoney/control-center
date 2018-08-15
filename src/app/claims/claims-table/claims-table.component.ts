@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ClaimInfo } from '../../backend/model';
+import { ClaimInfo } from '../../papi/model';
 
 @Component({
     selector: 'cc-claims-table',

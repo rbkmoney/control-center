@@ -13,5 +13,4 @@ import { ContractService } from './contract.service';
         ContractService
     ]
 })
-export class BackendModule {
-}
+export class PapiModule {}

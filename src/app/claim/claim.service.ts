@@ -3,8 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { delay, repeatWhen, switchMap, takeWhile } from 'rxjs/internal/operators';
 import isEqual from 'lodash-es/isEqual';
 
-import { ClaimService as ClaimPapi } from '../backend/claim.service';
-import { ClaimInfo, PartyModificationUnit } from '../backend/model';
+import { ClaimService as ClaimPapi } from '../papi/claim.service';
+import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { ShopModification, ContractModification, PartyModification } from '../damsel';
 import {
     ClaimInfoContainer,

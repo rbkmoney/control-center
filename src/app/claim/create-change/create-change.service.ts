@@ -7,6 +7,7 @@ import { ActionType, ClaimAction } from '../claim-actions/claim-action';
 import { CreateCurrencyRefService } from './create-currency-ref/create-currency-ref.service';
 import { CreateContractTemplateService } from './create-contract-template/create-contract-template.service';
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
+import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.service';
 import { ContractModificationName, PartyModificationContainerType, ShopModificationName } from '../model';
 import { CreateChangeItem } from './create-change-item';
 import { ClaimService } from '../claim.service';
@@ -19,6 +20,7 @@ export class CreateChangeService {
                 private createCurrencyRefService: CreateCurrencyRefService,
                 private createContractTemplateService: CreateContractTemplateService,
                 private createBusinessScheduleRefService: CreateBusinessScheduleRefService,
+                private createServiceAcceptanceActPreferencesService: CreateServiceAcceptanceActPreferencesService,
                 private claimService: ClaimService) {
     }
 
@@ -49,6 +51,8 @@ export class CreateChangeService {
                 return this.createLegalAgreementService;
             case ContractModificationName.adjustmentModification:
                 return this.createContractTemplateService;
+            case ContractModificationName.reportPreferencesModification:
+                return this.createServiceAcceptanceActPreferencesService;
         }
     }
 

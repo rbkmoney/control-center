@@ -8,6 +8,7 @@ import { CreateCategoryRefService } from './create-category-ref/create-category-
 import { CreateCurrencyRefService } from './create-currency-ref/create-currency-ref.service';
 import { CreateContractTemplateService } from './create-contract-template/create-contract-template.service';
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
+import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.service';
 import { ContractModificationName, ShopModificationName } from '../model';
 
 @Component({
@@ -18,7 +19,8 @@ import { ContractModificationName, ShopModificationName } from '../model';
         CreateCategoryRefService,
         CreateCurrencyRefService,
         CreateContractTemplateService,
-        CreateBusinessScheduleRefService
+        CreateBusinessScheduleRefService,
+        CreateServiceAcceptanceActPreferencesService
     ]
 })
 export class CreateChangeComponent {

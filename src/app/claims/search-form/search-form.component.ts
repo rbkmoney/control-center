@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
-import { ClaimSearchParams } from '../../backend/params';
+import { ClaimSearchParams } from '../../papi/params';
 import { debounceTime } from 'rxjs/internal/operators';
 
 @Component({
