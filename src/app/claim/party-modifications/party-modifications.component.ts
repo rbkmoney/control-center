@@ -16,7 +16,7 @@ export class PartyModificationsComponent implements OnInit {
     constructor(private claimService: ClaimService) {}
 
     ngOnInit() {
-        this.claimService.$claimInfoContainer.subscribe((container) => {
+        this.claimService.claimInfoContainer$.subscribe((container) => {
             if (!container) {
                 return;
             }

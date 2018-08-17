@@ -21,7 +21,7 @@ export class ClaimInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.claimService.$claimInfoContainer.subscribe((container) => {
+        this.claimService.claimInfoContainer$.subscribe((container) => {
             this.claimInfoContainer = container;
         });
     }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { delay, repeatWhen, switchMap, takeWhile } from 'rxjs/internal/operators';
+import { delay, map, repeatWhen, switchMap, takeWhile, tap } from 'rxjs/internal/operators';
 import isEqual from 'lodash-es/isEqual';
 import get from 'lodash-es/get';
 
@@ -17,7 +17,7 @@ import { PartyModificationContainerConverter } from './party-modification-contai
 @Injectable()
 export class ClaimService {
 
-    $claimInfoContainer: Subject<ClaimInfoContainer> = new Subject(); // TODO $ in the end
+    claimInfoContainer$: Subject<ClaimInfoContainer> = new Subject();
 
     domainModificationInfo$: Subject<DomainModificationInfo> = new BehaviorSubject(null);
 
@@ -28,14 +28,18 @@ export class ClaimService {
     constructor(private papiClaimService: ClaimPapi) {
     }
 
-    resolveClaimInfo(partyID: string, claimID: string) { // TODO need return Observable
-        this.papiClaimService.getClaim(partyID, claimID).subscribe((claimInfo) => {
-            this.unitIDs = this.findIDs(claimInfo.modifications.modifications);
-            this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
-            const domainModificationInfo = this.toDomainModificationInfo(claimInfo, this.unitIDs.shopID);
-            this.domainModificationInfo$.next(domainModificationInfo);
-            this.$claimInfoContainer.next(this.claimInfoContainer);
-        });
+    resolveClaimInfo(partyID: string, claimID: string): Observable<void> {
+        return this.papiClaimService.getClaim(partyID, claimID)
+            .pipe(
+                tap((claimInfo) => {
+                    this.unitIDs = this.findIDs(claimInfo.modifications.modifications);
+                    this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
+                    const domainModificationInfo = this.toDomainModificationInfo(claimInfo, this.unitIDs.shopID);
+                    this.domainModificationInfo$.next(domainModificationInfo);
+                    this.claimInfoContainer$.next(this.claimInfoContainer);
+                }),
+                map(() => null)
+            );
     }
 
     createChange(type: PartyModificationContainerType, modification: ShopModification | ContractModification): Observable<void> {
@@ -156,7 +160,7 @@ export class ClaimService {
                     };
                     if (!isEqual(newPair, currentPair)) {
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
-                        this.$claimInfoContainer.next(this.claimInfoContainer);
+                        this.claimInfoContainer$.next(this.claimInfoContainer);
                         observer.next();
                         observer.complete();
                     }

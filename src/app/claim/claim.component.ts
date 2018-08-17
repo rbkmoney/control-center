@@ -1,18 +1,25 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { switchMap } from 'rxjs/internal/operators';
 
 import { ClaimService } from './claim.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: 'claim.component.html',
-    styleUrls: ['./claim.component.css'],
+    styleUrls: ['../shared/container.css'],
 })
 export class ClaimComponent {
 
     constructor(private route: ActivatedRoute,
-                private claimService: ClaimService) {
-        this.route.params.subscribe((params) => {
-            this.claimService.resolveClaimInfo(params.partyId, params.claimId);
+                private claimService: ClaimService,
+                private snackBar: MatSnackBar) {
+        this.route.params.pipe(switchMap((params) => {
+            const {partyId, claimId} = params;
+            return this.claimService.resolveClaimInfo(partyId, claimId);
+        })).subscribe(null, (error) => {
+            console.error(error);
+            this.snackBar.open('An error occurred while claim resolving', 'OK');
         });
     }
 }

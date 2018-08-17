@@ -2,10 +2,10 @@
     <mat-card-subtitle>{{container.name}}</mat-card-subtitle>
     <mat-card-content>
         <mat-tab-group>
-            <mat-tab *ngFor="let unit of modifications" label="revision">
+            <mat-tab *ngFor="let unit of modifications" label="modification unit">
                 <div fxLayout="column">
                     <div fxFlexOffset="20px" fxLayout="row" fxLayoutAlign="space-between stretch">
-                        <label>Modification unit ID:</label>
+                        <label>ID:</label>
                         <div>{{unit.id}}</div>
                     </div>
                     <pre>{{unit.modification[container.name] | json}}</pre>
