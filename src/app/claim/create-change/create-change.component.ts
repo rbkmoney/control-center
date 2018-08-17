@@ -55,16 +55,16 @@ export class CreateChangeComponent implements OnInit {
     }
 
     create() {
-        const {name} = this.claimAction;
+        const {displayName} = this.claimAction;
         this.isLoading = true;
         this.createChangeService.createChange(this.claimAction).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
-            this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
+            this.snackBar.open(`${displayName} created`, 'OK', {duration: 3000});
         }, (error) => {
             console.error(error);
             this.isLoading = false;
-            this.snackBar.open(`An error occurred while creating ${name}`, 'OK');
+            this.snackBar.open(`An error occurred while creating ${displayName}`, 'OK');
         });
     }
 
