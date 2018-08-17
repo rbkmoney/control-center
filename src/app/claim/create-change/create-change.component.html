@@ -22,6 +22,11 @@
                 *ngIf="claimAction.name === ShopModificationName.payoutScheduleModification">
         </cc-create-business-schedule-ref>
     </div>
+    <div *ngIf="claimAction.type === ActionType.domainAction">
+        <cc-create-terminal-object
+                [domainModificationInfo]="(domainModificationInfo$ | async)">
+        </cc-create-terminal-object>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>

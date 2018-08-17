@@ -53,7 +53,8 @@ export class ClaimActionsComponent {
     domainActions: ClaimAction[] = [
         {
             type: ActionType.domainAction,
-            displayName: 'TerminalObject'
+            displayName: 'TerminalObject',
+            name: 'TerminalObject'
         }
     ];
 

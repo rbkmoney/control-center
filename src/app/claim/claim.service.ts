@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { delay, repeatWhen, switchMap, takeWhile } from 'rxjs/internal/operators';
 import isEqual from 'lodash-es/isEqual';
+import get from 'lodash-es/get';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { ShopModification, ContractModification, PartyModification } from '../damsel';
 import {
     ClaimInfoContainer,
+    DomainModificationInfo,
     PartyModificationContainerType
 } from './model';
 import { PartyModificationContainerConverter } from './party-modification-container-converter';
@@ -16,6 +18,8 @@ import { PartyModificationContainerConverter } from './party-modification-contai
 export class ClaimService {
 
     $claimInfoContainer: Subject<ClaimInfoContainer> = new Subject(); // TODO $ in the end
+
+    domainModificationInfo$: Subject<DomainModificationInfo> = new BehaviorSubject(null);
 
     private unitIDs: { shopID: string, contractID: string };
 
@@ -26,9 +30,11 @@ export class ClaimService {
 
     resolveClaimInfo(partyID: string, claimID: string) { // TODO need return Observable
         this.papiClaimService.getClaim(partyID, claimID).subscribe((claimInfo) => {
-            this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
-            this.$claimInfoContainer.next(this.claimInfoContainer);
             this.unitIDs = this.findIDs(claimInfo.modifications.modifications);
+            this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
+            const domainModificationInfo = this.toDomainModificationInfo(claimInfo, this.unitIDs.shopID);
+            this.domainModificationInfo$.next(domainModificationInfo);
+            this.$claimInfoContainer.next(this.claimInfoContainer);
         });
     }
 
@@ -92,6 +98,21 @@ export class ClaimService {
             updatedAt: claimInfo.updatedAt,
             partyModificationUnits: PartyModificationContainerConverter.convert(modifications)
         };
+    }
+
+    private toDomainModificationInfo(claimInfo: ClaimInfo, shopId: string): DomainModificationInfo {
+        const modifications = claimInfo.modifications.modifications;
+        return {
+            shopUrl: this.findShopUrl(modifications),
+            shopId,
+            partyId: claimInfo.partyId
+        };
+    }
+
+    private findShopUrl(modifications: PartyModification[]): string {
+        const found = modifications.find((item) =>
+            !!(item.shopModification && item.shopModification.modification.creation));
+        return get(found, 'shopModification.modification.creation.location.url');
     }
 
     private findIDs(modifications: PartyModification[]): { shopID: string, contractID: string } {

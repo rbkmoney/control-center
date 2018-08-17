@@ -17,6 +17,9 @@ export class PartyModificationsComponent implements OnInit {
 
     ngOnInit() {
         this.claimService.$claimInfoContainer.subscribe((container) => {
+            if (!container) {
+                return;
+            }
             const units = container.partyModificationUnits;
             for (const unit of units) {
                 switch (unit.type) {

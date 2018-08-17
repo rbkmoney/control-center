@@ -20,7 +20,6 @@ import { ClaimsComponent } from './claims.component';
 import { ClaimsRoutingModule } from './claims-routing.module';
 import { PapiModule } from '../papi/papi.module';
 import { SearchFormComponent } from './search-form/search-form.component';
-import { SharedModule } from '../shared/shared.module';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
         ClaimsRoutingModule,
         FlexLayoutModule,
         PapiModule,
-        SharedModule,
         ReactiveFormsModule,
         MatCardModule,
         MatFormFieldModule,

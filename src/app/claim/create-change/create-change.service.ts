@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/internal/operators';
 
 import { CreateLegalAgreementService } from './create-legal-agreement/create-legal-agreement.service';
 import { CreateCategoryRefService } from './create-category-ref/create-category-ref.service';
@@ -8,12 +9,22 @@ import { CreateCurrencyRefService } from './create-currency-ref/create-currency-
 import { CreateContractTemplateService } from './create-contract-template/create-contract-template.service';
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
 import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.service';
-import { ContractModificationName, PartyModificationContainerType, ShopModificationName } from '../model';
+import { CreateTerminalObjectService } from './create-terminal-object/create-terminal-object.service';
+import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
+import {
+    ContractModificationName,
+    DomainModificationInfo,
+    PartyModificationContainerType,
+    ShopModificationName
+} from '../model';
 import { CreateChangeItem } from './create-change-item';
 import { ClaimService } from '../claim.service';
+import { ContractModification, ShopModification } from '../../damsel';
 
 @Injectable()
 export class CreateChangeService {
+
+    domainModificationInfo$: Observable<DomainModificationInfo>;
 
     constructor(private createLegalAgreementService: CreateLegalAgreementService,
                 private createCategoryRefService: CreateCategoryRefService,
@@ -21,14 +32,26 @@ export class CreateChangeService {
                 private createContractTemplateService: CreateContractTemplateService,
                 private createBusinessScheduleRefService: CreateBusinessScheduleRefService,
                 private createServiceAcceptanceActPreferencesService: CreateServiceAcceptanceActPreferencesService,
-                private claimService: ClaimService) {
+                private createTerminalObjectService: CreateTerminalObjectService,
+                private claimService: ClaimService,
+                private domainTypedManager: DomainTypedManager) {
+        this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
     }
 
     createChange(claimAction: ClaimAction): Observable<void> {
         const instance = this.getCreateServiceInstance(claimAction);
-        const modification = instance.getValue();
-        const partyType = this.toPartyModificationType(claimAction.type);
-        return this.claimService.createChange(partyType, modification);
+        const value = instance.getValue();
+        switch (claimAction.type) {
+            case ActionType.shopAction:
+            case ActionType.contractAction:
+                const partyType = this.toPartyModificationType(claimAction.type);
+                return this.claimService
+                    .createChange(partyType, value as ShopModification | ContractModification);
+            case ActionType.domainAction:
+                return this.domainTypedManager
+                    .createTerminal(value as CreateTerminalParams)
+                    .pipe(map(() => {}));
+        }
     }
 
     isFormValid(claimAction: ClaimAction): boolean {
@@ -42,6 +65,8 @@ export class CreateChangeService {
                 return this.getContractServiceInstance(action);
             case ActionType.shopAction:
                 return this.getShopServiceInstance(action);
+            case ActionType.domainAction:
+                return this.createTerminalObjectService;
         }
     }
 

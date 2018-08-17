@@ -24,7 +24,6 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import { PapiModule } from '../papi/papi.module';
 import { DomainModule } from '../domain/domain.module';
-import { SharedModule } from '../shared/shared.module';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ClaimInfoComponent } from './claim-info/claim-info.component';
@@ -42,13 +41,13 @@ import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
 import { DenyClaimComponent } from './deny-claim/deny-claim.component';
 import { CreateBusinessScheduleRefComponent } from './create-change/create-business-schedule-ref/create-business-schedule-ref.component';
 import { CreateServiceAcceptanceActPreferencesComponent } from './create-change/create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.component';
+import { CreateTerminalObjectComponent } from './create-change/create-terminal-object/create-terminal-object.component';
 
 @NgModule({
     imports: [
         PapiModule,
         DomainModule,
         CommonModule,
-        SharedModule,
         ReactiveFormsModule,
         ClaimRoutingModule,
         FlexLayoutModule,
@@ -87,7 +86,8 @@ import { CreateServiceAcceptanceActPreferencesComponent } from './create-change/
         CreateBusinessScheduleRefComponent,
         CreateServiceAcceptanceActPreferencesComponent,
         AcceptClaimComponent,
-        DenyClaimComponent
+        DenyClaimComponent,
+        CreateTerminalObjectComponent
     ],
     entryComponents: [
         ClaimActionsComponent,
