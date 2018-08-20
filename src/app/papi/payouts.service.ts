@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ConfigService } from '../core/config.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { PayoutCancelParams, PayoutCreateParams, PayoutSearchParams } from './params';
 import { Observable } from 'rxjs';
-import { Payout, PayoutsResponse } from './model';
 import { map } from 'rxjs/operators';
+
+import { ConfigService } from '../core/config.service';
+import { PayoutCancelParams, PayoutCreateParams, PayoutSearchParams } from './params';
+import { Payout, PayoutsResponse } from './model';
 
 @Injectable()
 export class PayoutsService {
