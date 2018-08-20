@@ -1,8 +1,11 @@
-import { camelCase, snakeCase, isArray, forIn } from 'lodash';
+import camelCase from 'lodash-es/camelCase';
+import snakeCase from 'lodash-es/snakeCase';
+import isArray from 'lodash-es/isArray';
+import forIn from 'lodash-es/forIn';
 
 export class ThriftFormatter {
 
-    public static decode(thrift): any | any[] {
+    static decode(thrift): any | any[] {
         let result;
         if (isArray(thrift)) {
             result = [];
@@ -24,7 +27,7 @@ export class ThriftFormatter {
         return result;
     }
 
-    public static encode(model): any | any[] {
+    static encode(model): any | any[] {
         let result;
         if (isArray(model)) {
             result = ['list'];

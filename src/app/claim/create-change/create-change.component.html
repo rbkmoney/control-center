@@ -1,4 +1,4 @@
-<div class="mat-dialog-title">Create {{claimAction.displayName}}</div>
+<div class="mat-dialog-title">{{claimAction.name | ccContainerName:getContainerType(claimAction.type)}}</div>
 <mat-dialog-content>
     <div *ngIf="claimAction.type === ActionType.contractAction">
         <cc-create-legal-agreement

@@ -9,5 +9,4 @@ export enum ActionType {
 export interface ClaimAction {
     type: ActionType;
     name?: ContractModificationName | ShopModificationName;
-    displayName: string;
 }

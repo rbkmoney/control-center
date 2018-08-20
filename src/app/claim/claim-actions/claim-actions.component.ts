@@ -17,43 +17,36 @@ export class ClaimActionsComponent {
     contractActions: ClaimAction[] = [
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.legalAgreementBinding,
-            displayName: 'LegalAgreement'
+            name: ContractModificationName.legalAgreementBinding
         },
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.reportPreferencesModification,
-            displayName: 'ServiceAcceptanceActPreferences'
+            name: ContractModificationName.reportPreferencesModification
         },
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.adjustmentModification,
-            displayName: 'ContractAdjustment'
+            name: ContractModificationName.adjustmentModification
         },
     ];
 
     shopActions: ClaimAction[] = [
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.categoryModification,
-            displayName: 'CategoryRef'
+            name: ShopModificationName.categoryModification
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.shopAccountCreation,
-            displayName: 'CurrencyRef'
+            name: ShopModificationName.shopAccountCreation
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.payoutScheduleModification,
-            displayName: 'BusinessScheduleRef'
+            name: ShopModificationName.payoutScheduleModification
         }
     ];
 
     domainActions: ClaimAction[] = [
         {
-            type: ActionType.domainAction,
-            displayName: 'TerminalObject'
+            type: ActionType.domainAction
         }
     ];
 

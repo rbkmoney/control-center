@@ -27,7 +27,7 @@ export class PartyModificationContainerConverter {
             if (contractModification) {
                 return PartyModificationUnitType.ContractModification;
             }
-            // TODO check undefined
+            return PartyModificationUnitType.unknown;
         });
         return reduce(grouped, (result, group, type) => {
             switch (type) {
@@ -60,7 +60,7 @@ export class PartyModificationContainerConverter {
                 adjustmentModification,
                 payoutToolModification,
                 legalAgreementBinding,
-                reportPreferencesModification
+                reportPreferencesModification,
             } = item.modification;
             if (creation) {
                 return ContractModificationName.creation;
@@ -80,7 +80,7 @@ export class PartyModificationContainerConverter {
             if (reportPreferencesModification) {
                 return ContractModificationName.reportPreferencesModification;
             }
-            // TODO check undefined
+            return ContractModificationName.unknown;
         });
         return map(grouped, (modifications, name: ContractModificationName) => ({
             type: PartyModificationContainerType.ContractModification,
@@ -125,7 +125,7 @@ export class PartyModificationContainerConverter {
             if (payoutScheduleModification) {
                 return ShopModificationName.payoutScheduleModification;
             }
-            // TODO check undefined
+            return ShopModificationName.unknown;
         });
         return map(grouped, (modifications, name: ShopModificationName) => ({
             type: PartyModificationContainerType.ShopModification,

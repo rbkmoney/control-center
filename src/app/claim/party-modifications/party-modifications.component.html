@@ -1,7 +1,14 @@
 <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
     <div *ngIf="shopUnit" fxFlex="50" fxLayout="column" fxLayoutGap="20px">
-        <mat-card fxLayout="row" fxLayoutAlign="space-between stretch">
-            <small>Shop modifications</small>
+        <mat-card>
+            <mat-card-subtitle fxLayout="row"
+                               fxLayout.sm="column"
+                               fxLayout.xs="column"
+                               fxLayoutGap="10px"
+                               fxLayoutAlign="space-between stretch">
+                <div>Shop modifications</div>
+                <div>Shop ID: {{extractedIds.shopId}}</div>
+            </mat-card-subtitle>
         </mat-card>
         <cc-party-modification-container
                 *ngFor="let container of shopUnit.containers"
@@ -9,8 +16,15 @@
         </cc-party-modification-container>
     </div>
     <div *ngIf="contractUnit" fxFlex="50" fxLayout="column" fxLayoutGap="20px">
-        <mat-card fxLayout="row" fxLayoutAlign="space-between stretch">
-            <small>Contract modifications</small>
+        <mat-card>
+            <mat-card-subtitle fxLayout="row"
+                               fxLayout.sm="column"
+                               fxLayout.xs="column"
+                               fxLayoutGap="10px"
+                               fxLayoutAlign="space-between stretch">
+                <div>Contract modifications</div>
+                <div>Contract ID: {{extractedIds.contractId}}</div>
+            </mat-card-subtitle>
         </mat-card>
         <cc-party-modification-container
                 *ngFor="let container of contractUnit.containers"
