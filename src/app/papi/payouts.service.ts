@@ -16,13 +16,13 @@ export class PayoutsService {
     }
 
     public getPayouts(params?: PayoutSearchParams): Observable<PayoutsResponse> {
-        const searchParams = new HttpParams();
+        let searchParams = new HttpParams();
         if (params) {
-            for (const key in params) {
-                if (params.hasOwnProperty(key)) {
-                    searchParams.set(key, params[key]);
+            Object.keys(params).forEach(key => {
+                if (params[key]) {
+                    searchParams = searchParams.append(key, params[key]);
                 }
-            }
+            });
         }
 
         return this.http.get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {params: searchParams})
