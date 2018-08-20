@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { values } from 'lodash-es';
+import { isString, mapValues, values } from 'lodash-es';
 
 import { PayoutSearchParams } from '../../papi/params';
 import { PayoutStatus } from '../../papi/model';
@@ -18,16 +18,15 @@ export class SearchFormService {
     }
 
     formValueToSearchParams(formValue): PayoutSearchParams {
-        return null;
-        // return mapValues(formValue, (value) => {
-        //     let result = value;
-        //     if (value === '') {
-        //         result = null;
-        //     } else if (isString(value)) {
-        //         result = value.trim();
-        //     }
-        //     return result;
-        // });
+        return mapValues(formValue, (value) => {
+            let result = value;
+            if (value === '') {
+                result = null;
+            } else if (isString(value)) {
+                result = value.trim();
+            }
+            return result;
+        });
     }
 
     private prepareForm(): FormGroup {
