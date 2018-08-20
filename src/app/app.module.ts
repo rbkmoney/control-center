@@ -15,6 +15,7 @@ import { CoreModule } from './core/core.module';
 import { ClaimsModule } from './claims/claims.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ClaimModule } from './claim/claim.module';
+import { PayoutsModule } from './payouts/payouts.module';
 
 @NgModule({
     declarations: [
@@ -32,9 +33,12 @@ import { ClaimModule } from './claim/claim.module';
         MatSidenavModule,
         MatListModule,
         ClaimsModule,
-        ClaimModule
+        ClaimModule,
+        PayoutsModule
+
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
