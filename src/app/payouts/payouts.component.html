@@ -1,22 +1,14 @@
-<div class='container' fxLayout='column' fxLayoutGap='20px'>
+<div class="container" fxLayout="column" fxLayoutGap="20px">
     <mat-card>
         <mat-card-header>
             <mat-card-title>Search Payouts</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <cc-payouts-search-form (valueChanges)='search($event)'></cc-payouts-search-form>
+            <cc-payouts-search-form (valueChanges)="search($event)"></cc-payouts-search-form>
         </mat-card-content>
-        <mat-card-footer *ngIf='isLoading'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+        <mat-card-footer *ngIf="isLoading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </mat-card-footer>
     </mat-card>
-    <cc-payouts-table [payouts]='payouts' (valueChanges)='tableOnChange($event)'></cc-payouts-table>
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between stretch" class='actions-button-container'>
-        <button *ngIf='hasSelected' mat-raised-button color='accent' (click)='acceptPayouts()'>
-            ACCEPT PAYOUTS ({{selectedPayoutsIds.length}})
-        </button>
-        <button mat-raised-button color='primary' (click)='createPayout()'>
-            CREATE PAYOUT
-        </button>
-    </div>
+    <cc-payouts-table [payouts]='payouts'></cc-payouts-table>
 </div>

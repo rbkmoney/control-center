@@ -33,10 +33,11 @@ import { PayoutsModule } from './payouts/payouts.module';
         MatSidenavModule,
         MatListModule,
         ClaimsModule,
-        PayoutsModule,
-        ClaimModule
+        ClaimModule,
+        PayoutsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

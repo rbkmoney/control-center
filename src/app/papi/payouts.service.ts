@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { ConfigService } from '../core/config.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { PayoutCancelParams, PayoutCreateParams, PayoutSearchParams } from './params';
+import { Observable } from 'rxjs';
 import { Payout, PayoutsResponse } from './model';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PayoutsService {
@@ -16,13 +15,13 @@ export class PayoutsService {
     }
 
     public getPayouts(params?: PayoutSearchParams): Observable<PayoutsResponse> {
-        let searchParams = new HttpParams();
+        const searchParams = new HttpParams();
         if (params) {
-            Object.keys(params).forEach(key => {
-                if (params[key]) {
-                    searchParams = searchParams.append(key, params[key]);
+            for (const key in params) {
+                if (params.hasOwnProperty(key)) {
+                    searchParams.set(key, params[key]);
                 }
-            });
+            }
         }
 
         return this.http.get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {params: searchParams})

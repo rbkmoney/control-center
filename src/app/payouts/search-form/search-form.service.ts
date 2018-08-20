@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { isString, mapValues, values } from 'lodash-es';
+import { values } from 'lodash-es';
 
 import { PayoutSearchParams } from '../../papi/params';
 import { PayoutStatus } from '../../papi/model';
@@ -18,20 +18,21 @@ export class SearchFormService {
     }
 
     formValueToSearchParams(formValue): PayoutSearchParams {
-        return mapValues(formValue, (value) => {
-            let result = value;
-            if (value === '') {
-                result = null;
-            } else if (isString(value)) {
-                result = value.trim();
-            }
-            return result;
-        });
+        return null;
+        // return mapValues(formValue, (value) => {
+        //     let result = value;
+        //     if (value === '') {
+        //         result = null;
+        //     } else if (isString(value)) {
+        //         result = value.trim();
+        //     }
+        //     return result;
+        // });
     }
 
     private prepareForm(): FormGroup {
         return this.fb.group({
-            status: 'pending',
+            payoutStatus: 'pending',
             fromTime: '',
             toTime: ''
         });
