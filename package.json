@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "./node_modules/.bin/ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 7000",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

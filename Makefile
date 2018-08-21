@@ -38,7 +38,7 @@ submodules: $(SUBTARGETS)
 init:
 	npm install
 
-build: src/gen-nodejs src/gen-json
+build: lint src/gen-nodejs src/gen-json
 	npm run build
 
 clean:
@@ -50,3 +50,6 @@ src/gen-nodejs: node_modules/damsel/proto/domain_config.thrift
 
 src/gen-json: node_modules/damsel/proto/domain_config.thrift
 	thrift -r -gen json -o ./src/assets ./node_modules/damsel/proto/domain_config.thrift
+
+lint:
+	npm run lint
