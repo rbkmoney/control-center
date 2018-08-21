@@ -7,6 +7,7 @@ import { PayoutSearchParams } from '../papi/params';
 import { PayoutsService } from '../papi/payouts.service';
 import { Payout } from '../papi/model';
 import { CreatePayoutComponent } from './create-payout/create-payout.component';
+import { AcceptPayoutsComponent } from './accept-payouts/accept-payouts.component';
 
 @Component({
     templateUrl: 'payouts.component.html',
@@ -45,7 +46,12 @@ export class PayoutsComponent implements OnInit {
     }
 
     acceptPayouts() {
-        console.log(this.selectedPayoutsIds);
+        const dialog = this.dialogRef.open(AcceptPayoutsComponent, {
+            width: '30vw',
+            disableClose: true,
+            data: this.selectedPayoutsIds
+        });
+        dialog.afterClosed().subscribe(() => this.search(this.lastSearchParams));
     }
 
     createPayout() {

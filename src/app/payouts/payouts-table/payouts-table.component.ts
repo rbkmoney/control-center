@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { Payout } from '../../papi/model';
@@ -8,7 +8,7 @@ import { Payout } from '../../papi/model';
     templateUrl: 'payouts-table.component.html',
     styleUrls: ['./payouts-table.component.css']
 })
-export class PayoutsTableComponent implements OnInit {
+export class PayoutsTableComponent implements OnInit, OnChanges {
 
     @Output()
     valueChanges: EventEmitter<Payout[]> = new EventEmitter();
@@ -45,5 +45,9 @@ export class PayoutsTableComponent implements OnInit {
         this.selection.onChange.asObservable().subscribe((e) => {
             this.valueChanges.emit(e.source.selected);
         });
+    }
+
+    public ngOnChanges() {
+        this.selection.clear();
     }
 }
