@@ -1,0 +1,13 @@
+<h4 class='mat-dialog-title'>Создать отчеты по выплатам</h4>
+<mat-dialog-content>
+    <form *ngIf='form' [formGroup]='form' fxLayout='column'>
+        <mat-form-field>
+            <input matInput placeholder='Payouts ids' formControlName='ids'>
+            <mat-hint>Пример: 1,2,3,4</mat-hint>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color='default' (click)='submit()' [disabled]='isLoading'>Create</button>
+    <button mat-dialog-close mat-raised-button color='default' (click)='close()'>Cancel</button>
+</mat-dialog-actions>
