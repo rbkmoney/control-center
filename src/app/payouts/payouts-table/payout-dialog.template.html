@@ -1,0 +1,80 @@
+<div class='close-dialog-container'>
+    <button class='close-dialog' mat-icon-button [mat-dialog-close]="false">
+        <mat-icon>cancel</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <div fxLayout="row">
+        <label fxFlex="50">
+            Payout ID:
+        </label>
+        <div>
+            {{payout.id}}
+        </div>
+    </div>
+    <div fxLayout="row">
+        <label fxFlex="50">
+            Status:
+        </label>
+        <div>
+            {{payout.status}}
+        </div>
+    </div>
+    <div fxLayout="row">
+        <label fxFlex="50">
+            Amount:
+        </label>
+        <div>
+            {{payout.amount | ccFormatAmount}} {{payout.currencyCode | ccCurrency}}
+        </div>
+    </div>
+    <div fxLayout="row">
+        <label fxFlex="50">
+            Created at:
+        </label>
+        <div>
+            {{payout.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+        </div>
+    </div>
+    <div fxLayout="row">
+        <label fxFlex="50">
+            Period:
+        </label>
+        <div>
+            {{ payout.fromTime | date: "dd.MM.yyyy HH:mm:ss" }} — {{ payout.toTime | date: "dd.MM.yyyy HH:mm:ss" }}
+        </div>
+    </div>
+    <div fxLayout="row">
+        <label fxFlex="50">
+            Merchant ID:
+        </label>
+        <div>
+            {{payout.partyId}}
+        </div>
+    </div>
+    <div fxLayout="row">
+        <label fxFlex="50">
+            Shop ID:
+        </label>
+        <div>
+            {{payout.shopId}}
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button *ngIf="isShowAcceptButton" (click)="acceptPayout()" [disabled]="isLoading" color="primary" mat-raised-button>Accept</button>
+    <button *ngIf="payout.status !== 'cancelled'" (click)="toggleCancel()" [disabled]="isLoading" color="default" mat-raised-button>Revoke</button>
+</mat-dialog-actions>
+<div *ngIf="isCanceling">
+    <mat-dialog-content>
+        <form [formGroup]="cancelForm" fxLayout='column'>
+            <mat-form-field>
+                <textarea matInput placeholder="Reason" formControlName="reason"></textarea>
+            </mat-form-field>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-raised-button color="warn" (click)="cancelPayout()" [disabled]="isLoading">Revoke</button>
+        <button mat-dialog-close mat-raised-button color="default" (click)="toggleCancel()">Cancel</button>
+    </mat-dialog-actions>
+</div>

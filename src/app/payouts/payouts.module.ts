@@ -4,7 +4,7 @@ import {
     MatButtonModule,
     MatCardModule, MatCheckboxModule,
     MatDatepickerModule, MatDialogModule,
-    MatFormFieldModule,
+    MatFormFieldModule, MatIconModule,
     MatInputModule,
     MatProgressBarModule,
     MatSelectModule,
@@ -23,6 +23,7 @@ import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { CreatePayoutComponent } from './create-payout/create-payout.component';
 import { AcceptPayoutsComponent } from './accept-payouts/accept-payouts.component';
+import { PayoutDialogComponent } from './payouts-table/payout-dialog.component';
 
 @NgModule({
     imports: [
@@ -43,18 +44,21 @@ import { AcceptPayoutsComponent } from './accept-payouts/accept-payouts.componen
         MatCheckboxModule,
         SharedModule,
         MatButtonModule,
-        MatDialogModule
+        MatDialogModule,
+        MatIconModule
     ],
     declarations: [
         PayoutsComponent,
         SearchFormComponent,
         PayoutsTableComponent,
         CreatePayoutComponent,
-        AcceptPayoutsComponent
+        AcceptPayoutsComponent,
+        PayoutDialogComponent
     ],
     entryComponents: [
         CreatePayoutComponent,
-        AcceptPayoutsComponent
+        AcceptPayoutsComponent,
+        PayoutDialogComponent
     ],
     providers: [
         PayoutsService

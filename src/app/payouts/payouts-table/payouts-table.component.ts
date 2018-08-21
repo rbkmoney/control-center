@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { Payout } from '../../papi/model';
+import { Payout, PayoutStatus } from '../../papi/model';
+import { PayoutDialogComponent } from './payout-dialog.component';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'cc-payouts-table',
@@ -26,8 +29,13 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         'amount',
         'period',
         'status',
-        'createdAt'
+        'createdAt',
+        'payoutDetailButton'
     ];
+
+    constructor(private matDialog: MatDialog,
+                private snackBar: MatSnackBar) {
+    }
 
     public isAllSelected() {
         const numSelected = this.selection.selected.length;
@@ -49,5 +57,20 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
 
     public ngOnChanges() {
         this.selection.clear();
+    }
+
+    public openPayoutDetails(payouts: Payout) {
+        this.matDialog.open(PayoutDialogComponent, {
+            data: this.payouts.find((payout) => payout.id === payouts.id),
+            width: '45vw'
+        }).afterClosed()
+            .pipe(filter((result) => result === PayoutStatus.confirmed || result === PayoutStatus.cancelled))
+            .subscribe((result) => {
+                const message = result === PayoutStatus.confirmed ? 'Payout accepted' : 'Payout revoked';
+                this.snackBar.open(message, 'OK', {
+                    duration: 1500
+                });
+                this.valueChanges.emit();
+            });
     }
 }
