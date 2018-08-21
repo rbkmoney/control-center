@@ -1,0 +1,21 @@
+<form fxLayout="row"
+      fxLayout.sm="column"
+      fxLayout.xs="column"
+      fxLayoutGap="20px"
+      [formGroup]="form">
+    <mat-form-field fxFlex="50">
+        <input matInput
+               placeholder="Legal agreement ID"
+               formControlName="legalAgreementId"
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex="50">
+        <input matInput
+               [matDatepicker]="signedAtDatepicker"
+               placeholder="Signed at"
+               formControlName="signedAt"
+               required>
+        <mat-datepicker-toggle matSuffix [for]="signedAtDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #signedAtDatepicker></mat-datepicker>
+    </mat-form-field>
+</form>

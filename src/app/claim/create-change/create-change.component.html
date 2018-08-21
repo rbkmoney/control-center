@@ -1,0 +1,41 @@
+<div class="mat-dialog-title">{{claimAction.name | ccContainerName:getContainerType(claimAction.type)}}</div>
+<mat-dialog-content>
+    <div *ngIf="claimAction.type === ActionType.contractAction">
+        <cc-create-legal-agreement
+                *ngIf="claimAction.name === ContractModificationName.legalAgreementBinding">
+        </cc-create-legal-agreement>
+        <cc-create-contract-template
+                *ngIf="claimAction.name === ContractModificationName.adjustmentModification">
+        </cc-create-contract-template>
+        <cc-create-service-acceptance-act-preferences
+                *ngIf="claimAction.name === ContractModificationName.reportPreferencesModification">
+        </cc-create-service-acceptance-act-preferences>
+    </div>
+    <div *ngIf="claimAction.type === ActionType.shopAction">
+        <cc-create-category-ref
+                *ngIf="claimAction.name === ShopModificationName.categoryModification">
+        </cc-create-category-ref>
+        <cc-create-currency-ref
+                *ngIf="claimAction.name === ShopModificationName.shopAccountCreation">
+        </cc-create-currency-ref>
+        <cc-create-business-schedule-ref
+                *ngIf="claimAction.name === ShopModificationName.payoutScheduleModification">
+        </cc-create-business-schedule-ref>
+    </div>
+    <div *ngIf="claimAction.type === ActionType.domainAction">
+        <cc-create-terminal-object
+                [domainModificationInfo]="(domainModificationInfo$ | async)">
+        </cc-create-terminal-object>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
+    <div>
+        <button mat-button
+                [disabled]="!isFormValid() || isLoading"
+                color="primary"
+                (click)="create()">CREATE
+        </button>
+        <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
+    </div>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>

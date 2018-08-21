@@ -11,6 +11,10 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
+import { ClaimsModule } from './claims/claims.module';
+import { AppRoutingModule } from './app-routing.module';
+import { ClaimModule } from './claim/claim.module';
 
 @NgModule({
     declarations: [
@@ -19,15 +23,18 @@ import { AppComponent } from './app.component';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        AppRoutingModule,
+        CoreModule,
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
         MatMenuModule,
         MatSidenavModule,
-        MatListModule
+        MatListModule,
+        ClaimsModule,
+        ClaimModule
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

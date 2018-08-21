@@ -1,0 +1,13 @@
+<mat-nav-list>
+    <a mat-list-item *ngFor="let contractAction of contractActions" (click)="select(contractAction)">
+        {{contractAction.name | ccContainerName:"ContractModification"}}
+    </a>
+    <mat-divider></mat-divider>
+    <a mat-list-item *ngFor="let shopAction of shopActions" (click)="select(shopAction)">
+        {{shopAction.name | ccContainerName:"ShopModification"}}
+    </a>
+    <mat-divider></mat-divider>
+    <a mat-list-item *ngFor="let domainAction of domainActions" (click)="select(domainAction)">
+        Domain config modification: Add terminal
+    </a>
+</mat-nav-list>

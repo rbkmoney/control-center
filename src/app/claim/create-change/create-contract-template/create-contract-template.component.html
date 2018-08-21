@@ -1,0 +1,14 @@
+<form fxLayout="row"
+      fxLayout.sm="column"
+      fxLayout.xs="column"
+      fxLayoutGap="20px"
+      [formGroup]="form">
+    <mat-form-field fxFlex>
+        <mat-select placeholder="Select contract template"
+                    formControlName="id">
+            <mat-option *ngFor="let contract of contracts$ | async" [value]="contract.id" required>
+                {{contract.id}} {{contract.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
