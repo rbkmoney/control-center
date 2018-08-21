@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { ClaimStatusPipe } from './claim-status.pipe';
 import { CurrencyPipe } from './pipes/currency.pipe';
 import { FormatAmountPipe } from './pipes/format-amount.pipe';
 import { ThriftEncodePipe } from './thrift-encode.pipe';
@@ -9,14 +8,12 @@ import { ThriftEncodePipe } from './thrift-encode.pipe';
     declarations: [
         CurrencyPipe,
         FormatAmountPipe,
-        ThriftEncodePipe,
-        ClaimStatusPipe
+        ThriftEncodePipe
     ],
     exports: [
         CurrencyPipe,
         FormatAmountPipe,
-        ThriftEncodePipe,
-        ClaimStatusPipe
+        ThriftEncodePipe
     ]
 })
 export class SharedModule {
