@@ -1,4 +1,5 @@
 export enum PartyModificationUnitType {
     ShopModification = 'ShopModification',
-    ContractModification = 'ContractModification'
+    ContractModification = 'ContractModification',
+    unknown = 'unknown'
 }

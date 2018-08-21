@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
 import { PartyModificationUnit, PartyModificationUnitType } from '../model';
@@ -13,13 +14,21 @@ export class PartyModificationsComponent implements OnInit {
 
     contractUnit: PartyModificationUnit;
 
-    constructor(private claimService: ClaimService) {}
+    extractedIds: {
+        shopId: string;
+        contractId: string;
+    };
+
+    constructor(private claimService: ClaimService,
+                private snackBar: MatSnackBar) {
+    }
 
     ngOnInit() {
         this.claimService.claimInfoContainer$.subscribe((container) => {
             if (!container) {
                 return;
             }
+            this.extractedIds = container.extractedIds;
             const units = container.partyModificationUnits;
             for (const unit of units) {
                 switch (unit.type) {
@@ -29,8 +38,9 @@ export class PartyModificationsComponent implements OnInit {
                     case PartyModificationUnitType.ContractModification:
                         this.contractUnit = unit;
                         break;
-                    default:
-                    // TODO implement
+                    case PartyModificationUnitType.unknown:
+                        this.snackBar.open('Detected unknown party modification unit', 'OK');
+                        break;
                 }
             }
         });

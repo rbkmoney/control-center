@@ -42,12 +42,15 @@ import { DenyClaimComponent } from './deny-claim/deny-claim.component';
 import { CreateBusinessScheduleRefComponent } from './create-change/create-business-schedule-ref/create-business-schedule-ref.component';
 import { CreateServiceAcceptanceActPreferencesComponent } from './create-change/create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.component';
 import { CreateTerminalObjectComponent } from './create-change/create-terminal-object/create-terminal-object.component';
+import { SharedModule } from '../shared/shared.module';
+import { ContainerNamePipe } from './container-name.pipe';
 
 @NgModule({
     imports: [
         PapiModule,
         DomainModule,
         CommonModule,
+        SharedModule,
         ReactiveFormsModule,
         ClaimRoutingModule,
         FlexLayoutModule,
@@ -87,7 +90,8 @@ import { CreateTerminalObjectComponent } from './create-change/create-terminal-o
         CreateServiceAcceptanceActPreferencesComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
-        CreateTerminalObjectComponent
+        CreateTerminalObjectComponent,
+        ContainerNamePipe
     ],
     entryComponents: [
         ClaimActionsComponent,

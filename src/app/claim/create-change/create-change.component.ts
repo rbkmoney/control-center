@@ -11,7 +11,12 @@ import { CreateContractTemplateService } from './create-contract-template/create
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
 import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.service';
 import { CreateTerminalObjectService } from './create-terminal-object/create-terminal-object.service';
-import { ContractModificationName, DomainModificationInfo, ShopModificationName } from '../model';
+import {
+    ContractModificationName,
+    DomainModificationInfo,
+    ShopModificationName,
+    PartyModificationContainerType
+} from '../model';
 
 @Component({
     templateUrl: 'create-change.component.html',
@@ -50,20 +55,31 @@ export class CreateChangeComponent implements OnInit {
     }
 
     create() {
-        const {displayName} = this.claimAction;
+        const {name} = this.claimAction;
         this.isLoading = true;
         this.createChangeService.createChange(this.claimAction).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
-            this.snackBar.open(`${displayName} created`, 'OK', {duration: 3000});
+            this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
         }, (error) => {
             console.error(error);
             this.isLoading = false;
-            this.snackBar.open(`An error occurred while creating ${displayName}`, 'OK');
+            this.snackBar.open(`An error occurred while creating ${name}`, 'OK');
         });
     }
 
     isFormValid() {
         return this.createChangeService.isFormValid(this.claimAction);
+    }
+
+    getContainerType(type: ActionType): string {
+        switch (type) {
+            case ActionType.shopAction:
+                return PartyModificationContainerType.ShopModification;
+            case ActionType.contractAction:
+                return PartyModificationContainerType.ContractModification;
+            case ActionType.domainAction:
+                return 'Domain modification';
+        }
     }
 }

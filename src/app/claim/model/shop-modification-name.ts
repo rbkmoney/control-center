@@ -6,5 +6,6 @@ export enum ShopModificationName {
     payoutToolModification = 'payoutToolModification',
     locationModification = 'locationModification',
     shopAccountCreation = 'shopAccountCreation',
-    payoutScheduleModification = 'payoutScheduleModification'
+    payoutScheduleModification = 'payoutScheduleModification',
+    unknown = 'unknown'
 }
