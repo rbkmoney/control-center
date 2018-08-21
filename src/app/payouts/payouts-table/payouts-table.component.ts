@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { filter } from 'rxjs/operators';
 
 import { Payout, PayoutStatus } from '../../papi/model';
 import { PayoutDialogComponent } from './payout-dialog.component';
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'cc-payouts-table',
