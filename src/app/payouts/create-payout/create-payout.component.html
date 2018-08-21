@@ -1,0 +1,21 @@
+<h4 class='mat-dialog-title'>Создать выплату</h4>
+<mat-dialog-content>
+    <form *ngIf='form' [formGroup]='form' fxLayout='column'>
+        <mat-form-field>
+            <input matInput placeholder='Party ID' formControlName='partyId'>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder='Shop ID' formControlName='shopId'>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder='From time' formControlName='fromTime'>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder='To time' formControlName='toTime'>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color='default' (click)='submit()' [disabled]='isLoading'>Create</button>
+    <button mat-dialog-close mat-raised-button color='default' (click)='close()'>Cancel</button>
+</mat-dialog-actions>

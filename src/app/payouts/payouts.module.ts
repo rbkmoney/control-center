@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-    MatCardModule,
-    MatDatepickerModule,
+    MatButtonModule,
+    MatCardModule, MatCheckboxModule,
+    MatDatepickerModule, MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatProgressBarModule,
@@ -19,6 +20,8 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { PapiModule } from '../papi/papi.module';
 import { PayoutsService } from '../papi/payouts.service';
 import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
+import { SharedModule } from '../shared/shared.module';
+import { CreatePayoutComponent } from './create-payout/create-payout.component';
 
 @NgModule({
     imports: [
@@ -35,12 +38,20 @@ import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
         MatSelectModule,
         MatDatepickerModule,
         CdkTableModule,
-        MatTableModule
+        MatTableModule,
+        MatCheckboxModule,
+        SharedModule,
+        MatButtonModule,
+        MatDialogModule
     ],
     declarations: [
         PayoutsComponent,
         SearchFormComponent,
-        PayoutsTableComponent
+        PayoutsTableComponent,
+        CreatePayoutComponent
+    ],
+    entryComponents: [
+        CreatePayoutComponent
     ],
     providers: [
         PayoutsService
