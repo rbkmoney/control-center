@@ -22,7 +22,9 @@
             fixedInViewport="true"
             fixedTopGap="64">
         <mat-nav-list>
-            <mat-list-item *ngFor="let item of menuItems" [routerLink]="item.route">
+            <mat-list-item *ngFor="let item of menuItems"
+                           [routerLink]="item.route"
+                           [routerLinkActive]="['active']">
                 {{item.name}}
             </mat-list-item>
         </mat-nav-list>

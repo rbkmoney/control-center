@@ -54,8 +54,7 @@ export class ClaimActionsComponent {
         this.bottomSheetRef.dismiss();
         const config = {
             data: action,
-            minWidth: '60vw',
-            maxWidth: '80vw',
+            width: '720px',
             disableClose: true
         };
         this.dialog.open<CreateChangeComponent, ClaimAction>(CreateChangeComponent, config);
