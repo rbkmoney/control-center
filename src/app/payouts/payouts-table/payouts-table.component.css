@@ -2,17 +2,11 @@ table {
     width: 100%;
 }
 
-.close-dialog {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-
-mat-dialog-container {
-    position: relative !important;
-}
-
 .action-cell {
     width: 88px;
     text-align: center;
+}
+
+.revoke-dialog {
+    margin-top: 30px;
 }

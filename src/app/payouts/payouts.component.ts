@@ -47,7 +47,7 @@ export class PayoutsComponent implements OnInit {
 
     acceptPayouts() {
         const dialog = this.dialogRef.open(AcceptPayoutsComponent, {
-            width: '30vw',
+            width: '720px',
             disableClose: true,
             data: this.selectedPayoutsIds
         });
@@ -56,7 +56,7 @@ export class PayoutsComponent implements OnInit {
 
     createPayout() {
         const dialog = this.dialogRef.open(CreatePayoutComponent, {
-            width: '30vw',
+            width: '720px',
             disableClose: true
         });
         dialog.afterClosed().subscribe(() => this.search(this.lastSearchParams));

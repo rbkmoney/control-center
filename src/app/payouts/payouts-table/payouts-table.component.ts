@@ -62,7 +62,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     public openPayoutDetails(payouts: Payout) {
         this.matDialog.open(PayoutDialogComponent, {
             data: this.payouts.find((payout) => payout.id === payouts.id),
-            width: '45vw'
+            width: '720px'
         }).afterClosed()
             .pipe(filter((result) => result === PayoutStatus.confirmed || result === PayoutStatus.cancelled))
             .subscribe((result) => {

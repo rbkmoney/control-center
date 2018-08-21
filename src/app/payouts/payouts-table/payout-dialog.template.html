@@ -1,8 +1,3 @@
-<div class='close-dialog-container'>
-    <button class='close-dialog' mat-icon-button [mat-dialog-close]="false">
-        <mat-icon>cancel</mat-icon>
-    </button>
-</div>
 <mat-dialog-content>
     <div fxLayout="row">
         <label fxFlex="50">
@@ -65,7 +60,7 @@
     <button *ngIf="isShowAcceptButton" (click)="acceptPayout()" [disabled]="isLoading" color="primary" mat-raised-button>Accept</button>
     <button *ngIf="payout.status !== 'cancelled'" (click)="toggleCancel()" [disabled]="isLoading" color="default" mat-raised-button>Revoke</button>
 </mat-dialog-actions>
-<div *ngIf="isCanceling">
+<div *ngIf="isCanceling" class='revoke-dialog'>
     <mat-dialog-content>
         <form [formGroup]="cancelForm" fxLayout='column'>
             <mat-form-field>
