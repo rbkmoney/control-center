@@ -15,7 +15,9 @@ build('control-center', 'docker-host') {
   pipeDefault() {
     runStage('init') {
       withGithubSshCredentials {
-        sh 'make wc_init'
+        withWsCache("node_modules") {
+          sh 'make wc_init'
+        }
       }
     }
     runStage('build') {
