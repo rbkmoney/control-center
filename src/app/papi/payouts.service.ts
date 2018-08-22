@@ -9,7 +9,8 @@ import { Payout, PayoutsResponse } from './model';
 
 @Injectable()
 export class PayoutsService {
-    private papiEndpoint: string;
+
+    private readonly papiEndpoint: string;
 
     constructor(private http: HttpClient, private configService: ConfigService) {
         this.papiEndpoint = configService.config.papiEndpoint;
@@ -25,7 +26,8 @@ export class PayoutsService {
             });
         }
 
-        return this.http.get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {params: searchParams})
+        return this.http
+            .get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {params: searchParams})
             .pipe(map(payouts => payouts));
     }
 

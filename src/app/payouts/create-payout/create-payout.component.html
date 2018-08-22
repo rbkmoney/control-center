@@ -7,15 +7,17 @@
         <mat-form-field>
             <input matInput placeholder='Shop ID' formControlName='shopId'>
         </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder='From time' formControlName='fromTime'>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder='To time' formControlName='toTime'>
-        </mat-form-field>
+        <div fxLayout='row'>
+            <mat-form-field fxFlex='50'>
+                <input matInput placeholder='From time' formControlName='fromTime'>
+            </mat-form-field>
+            <mat-form-field fxFlex='50'>
+                <input matInput placeholder='To time' formControlName='toTime'>
+            </mat-form-field>
+        </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-raised-button color='default' (click)='submit()' [disabled]='isLoading'>Create</button>
-    <button mat-dialog-close mat-raised-button color='default' (click)='close()'>Cancel</button>
+    <button mat-button color='default' (click)='submit()' [disabled]='isLoading'>CREATE</button>
+    <button mat-dialog-close mat-button color='default' (click)='close()'>CANCEL</button>
 </mat-dialog-actions>

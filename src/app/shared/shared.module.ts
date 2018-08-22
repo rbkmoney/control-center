@@ -16,5 +16,4 @@ import { ThriftEncodePipe } from './thrift-encode.pipe';
         ThriftEncodePipe
     ]
 })
-export class SharedModule {
-}
+export class SharedModule {}

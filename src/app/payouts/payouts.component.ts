@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
 
 import { PayoutSearchParams } from '../papi/params';
@@ -20,7 +20,9 @@ export class PayoutsComponent implements OnInit {
     selectedPayoutsIds: string[];
     lastSearchParams: PayoutSearchParams;
 
-    constructor(private payoutsService: PayoutsService, private snackBar: MatSnackBar, private dialogRef: MatDialog) {
+    constructor(private payoutsService: PayoutsService,
+                private snackBar: MatSnackBar,
+                private dialogRef: MatDialog) {
     }
 
     ngOnInit() {
@@ -30,7 +32,7 @@ export class PayoutsComponent implements OnInit {
     search(params?: PayoutSearchParams) {
         this.lastSearchParams = params;
         this.isLoading = true;
-        this.payoutsService.getPayouts(this.convertToParams(params)).subscribe(payoutsResponse => {
+        this.payoutsService.getPayouts(this.convertToParams(params)).subscribe((payoutsResponse) => {
             this.isLoading = false;
             this.payouts = payoutsResponse.payouts;
         }, (error: HttpErrorResponse) => {
@@ -44,14 +46,16 @@ export class PayoutsComponent implements OnInit {
         this.selectedPayoutsIds = selectedPayouts.reduce((acc, current) => acc.concat(current.id), []);
     }
 
-    createReports() {
+    pay() {
         this.payoutsService.createPayoutsReports(this.selectedPayoutsIds).subscribe(() => {
+            this.handleSuccess('Successfully payed');
             this.search(this.lastSearchParams);
         }, (e) => this.handleError(e));
     }
 
-    acceptPayouts() {
+    confirmPayouts() {
         this.payoutsService.acceptPayouts(this.selectedPayoutsIds).subscribe(() => {
+            this.handleSuccess('Successfully confirmed');
             this.search(this.lastSearchParams);
         }, (e) => this.handleError(e));
     }
@@ -61,13 +65,19 @@ export class PayoutsComponent implements OnInit {
             width: '720px',
             disableClose: true
         });
-        dialog.afterClosed().subscribe(() => this.search(this.lastSearchParams), e => console.log(e));
+        dialog.afterClosed().subscribe(() => {
+            this.search(this.lastSearchParams);
+        }, (e) => this.handleError(e));
     }
 
     private handleError(e: HttpErrorResponse) {
         const message = e.message;
         this.snackBar.open(`${message ? message : 'Error'}`, 'OK');
         console.error(e);
+    }
+
+    private handleSuccess(message: string) {
+        this.snackBar.open(`${message ? message : 'Success'}`, 'OK');
     }
 
     private convertToParams(formValues: any): PayoutSearchParams {

@@ -26,6 +26,8 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     displayedColumns = [
         'select',
         'id',
+        'partyId',
+        'shopId',
         'amount',
         'period',
         'status',
@@ -46,7 +48,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     masterToggle() {
         this.isAllSelected() ?
             this.selection.clear() :
-            this.payouts.forEach(row => this.selection.select(row));
+            this.payouts.forEach((row) => this.selection.select(row));
     }
 
     ngOnInit() {

@@ -1,4 +1,7 @@
-<form fxLayout='row' fxLayout.xs='column' fxLayoutGap='20px' [formGroup]='form'>
+<form fxLayout='row' fxLayout.sm='column' fxLayout.xs='column' fxLayoutGap='20px' [formGroup]='form'>
+    <mat-form-field fxFlex='15' fxFlex.sm='30'>
+        <input matInput formControlName='payoutIds' placeholder='Payout IDs (comma separated)'>
+    </mat-form-field>
     <mat-form-field fxFlex='15' fxFlex.sm='30'>
         <mat-select placeholder='Payout status' formControlName='status'>
             <mat-option [value]='null'>any</mat-option>

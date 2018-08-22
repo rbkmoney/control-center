@@ -2,13 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
-    MatCardModule, MatCheckboxModule,
-    MatDatepickerModule, MatDialogModule,
-    MatFormFieldModule, MatIconModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatProgressBarModule,
     MatSelectModule,
-    MatSnackBarModule, MatTableModule
+    MatSnackBarModule,
+    MatTableModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -61,5 +65,4 @@ import { PayoutDialogComponent } from './payouts-table/payout-dialog.component';
         PayoutsService
     ]
 })
-export class PayoutsModule {
-}
+export class PayoutsModule {}

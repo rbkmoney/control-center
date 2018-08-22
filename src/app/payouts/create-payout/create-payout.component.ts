@@ -27,13 +27,9 @@ export class CreatePayoutComponent implements OnInit {
     submit() {
         if (this.form.valid) {
             const formValues = this.form.value;
-            const payoutParams = {
-                ...formValues,
-                fromTime: this.createPayoutService.convertDate(formValues.fromTime),
-                toTime: this.createPayoutService.convertDate(formValues.toTime)
-            };
             this.isLoading = true;
-            this.payoutService.createPayout(payoutParams).subscribe(() => {
+            this.payoutService.createPayout(this.createPayoutService.makeParams(formValues)).subscribe(() => {
+                this.handleSuccess('Successfully created');
                 this.dialogRef.close();
                 this.isLoading = false;
             }, (error) => {
@@ -45,6 +41,10 @@ export class CreatePayoutComponent implements OnInit {
 
     close() {
         this.dialogRef.close();
+    }
+
+    private handleSuccess(message: string) {
+        this.snackBar.open(`${message ? message : 'Success'}`, 'OK');
     }
 
     private handleError(error: any) {

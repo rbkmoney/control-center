@@ -1,9 +1,9 @@
 <div class='container'>
-    <div class="card-container" fxLayout="column" fxLayoutGap="20px">
+    <div class='card-container' fxLayout='column' fxLayoutGap='20px'>
         <mat-card>
-            <mat-card-header>
-                <mat-card-title>Search Payouts</mat-card-title>
-            </mat-card-header>
+            <mat-card-subtitle>
+                Search payouts
+            </mat-card-subtitle>
             <mat-card-content>
                 <cc-payouts-search-form (valueChanges)='search($event)'></cc-payouts-search-form>
             </mat-card-content>
@@ -12,12 +12,12 @@
             </mat-card-footer>
         </mat-card>
         <cc-payouts-table [payouts]='payouts' (valueChanges)='tableOnChange($event)'></cc-payouts-table>
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between stretch" class='actions-button-container'>
-            <button *ngIf='hasSelected' mat-raised-button color='accent' (click)='acceptPayouts()'>
-                ACCEPT PAYOUTS ({{selectedPayoutsIds.length}})
+        <div fxLayout='row' fxLayoutGap='10px' fxLayoutAlign='space-between stretch' class='actions-button-container'>
+            <button *ngIf='hasSelected' mat-raised-button color='accent' (click)='confirmPayouts()'>
+                CONFIRM PAYOUTS ({{selectedPayoutsIds.length}})
             </button>
-            <button *ngIf='hasSelected' mat-raised-button color='accent' (click)='createReports()'>
-                CREATE REPORTS ({{selectedPayoutsIds.length}})
+            <button *ngIf='hasSelected' mat-raised-button color='accent' (click)='pay()'>
+                PAY ({{selectedPayoutsIds.length}})
             </button>
             <button mat-raised-button color='primary' (click)='createPayout()'>
                 CREATE PAYOUT

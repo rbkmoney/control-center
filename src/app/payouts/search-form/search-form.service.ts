@@ -23,7 +23,14 @@ export class SearchFormService {
             if (value === '') {
                 result = null;
             } else if (isString(value)) {
-                result = value.trim();
+                if (/,/g.test(value)) {
+                    result = value.replace(/\s/g, '').split(',');
+                    if (result[result.length - 1] === '') {
+                        result = result.slice(0, -1);
+                    }
+                } else {
+                    result = value.trim();
+                }
             }
             return result;
         });
@@ -31,7 +38,8 @@ export class SearchFormService {
 
     private prepareForm(): FormGroup {
         return this.fb.group({
-            status: 'pending',
+            payoutIds: '',
+            status: '',
             fromTime: '',
             toTime: ''
         });
