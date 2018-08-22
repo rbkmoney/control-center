@@ -7,7 +7,7 @@
         <mat-form-field>
             <input matInput placeholder='Shop ID' formControlName='shopId'>
         </mat-form-field>
-        <div fxLayout='row'>
+        <div fxLayout='row' fxLayout.xs='column'>
             <mat-form-field fxFlex='50'>
                 <input matInput placeholder='From time' formControlName='fromTime'>
             </mat-form-field>
@@ -18,6 +18,9 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button color='default' (click)='submit()' [disabled]='isLoading'>CREATE</button>
-    <button mat-dialog-close mat-button color='default' (click)='close()'>CANCEL</button>
+    <div>
+        <button mat-button color='default' (click)='submit()' [disabled]='isLoading || !form.valid'>CREATE</button>
+        <button mat-dialog-close mat-button color='default' (click)='close()'>CANCEL</button>
+    </div>
+    <mat-progress-bar *ngIf='isLoading' mode='indeterminate'></mat-progress-bar>
 </mat-dialog-actions>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import * as moment from 'moment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { PayoutSearchParams } from '../papi/params';
 import { PayoutsService } from '../papi/payouts.service';
@@ -32,7 +31,7 @@ export class PayoutsComponent implements OnInit {
     search(params?: PayoutSearchParams) {
         this.lastSearchParams = params;
         this.isLoading = true;
-        this.payoutsService.getPayouts(this.convertToParams(params)).subscribe((payoutsResponse) => {
+        this.payoutsService.getPayouts(params).subscribe((payoutsResponse) => {
             this.isLoading = false;
             this.payouts = payoutsResponse.payouts;
         }, (error: HttpErrorResponse) => {
@@ -78,17 +77,5 @@ export class PayoutsComponent implements OnInit {
 
     private handleSuccess(message: string) {
         this.snackBar.open(`${message ? message : 'Success'}`, 'OK');
-    }
-
-    private convertToParams(formValues: any): PayoutSearchParams {
-        if (formValues) {
-            if (formValues.fromTime) {
-                formValues.fromTime = moment(formValues.fromTime).startOf('day').utc().format();
-            }
-            if (formValues.toTime) {
-                formValues.toTime = moment(formValues.toTime).endOf('day').utc().format();
-            }
-        }
-        return formValues;
     }
 }

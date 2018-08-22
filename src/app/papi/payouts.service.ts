@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { ConfigService } from '../core/config.service';
 import { PayoutCancelParams, PayoutCreateParams, PayoutSearchParams } from './params';
@@ -19,10 +20,9 @@ export class PayoutsService {
     getPayouts(params?: PayoutSearchParams): Observable<PayoutsResponse> {
         let searchParams = new HttpParams();
         if (params) {
-            Object.keys(params).forEach(key => {
-                if (params[key]) {
-                    searchParams = searchParams.append(key, params[key]);
-                }
+            const convertedParams = this.convertToPayoutSearchParams(params);
+            Object.keys(convertedParams).forEach((key) => {
+                searchParams = params[key] ? searchParams.set(key, params[key]) : searchParams;
             });
         }
 
@@ -45,5 +45,23 @@ export class PayoutsService {
 
     cancelPayout(payoutID: string, params: PayoutCancelParams): Observable<void> {
         return this.http.post<void>(`${this.papiEndpoint}/payouts/${payoutID}/cancel`, params);
+    }
+
+    private convertToPayoutSearchParams(formValues: any): any {
+        if (formValues.fromTime) {
+            formValues.fromTime = moment(formValues.fromTime).startOf('day').utc().format();
+        }
+        if (formValues.toTime) {
+            formValues.toTime = moment(formValues.toTime).endOf('day').utc().format();
+        }
+        if (formValues.payoutIds) {
+            if (/,/g.test(formValues.payoutIds)) {
+                formValues.payoutIds = formValues.payoutIds.replace(/\s/g, '').split(',');
+                if (formValues.payoutIds[formValues.payoutIds.length - 1] === '') {
+                    formValues.payoutIds = formValues.payoutIds.slice(0, -1).join(',');
+                }
+            }
+        }
+        return formValues;
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { isString, mapValues, values } from 'lodash-es';
 
 import { PayoutSearchParams } from '../../papi/params';
@@ -23,14 +23,7 @@ export class SearchFormService {
             if (value === '') {
                 result = null;
             } else if (isString(value)) {
-                if (/,/g.test(value)) {
-                    result = value.replace(/\s/g, '').split(',');
-                    if (result[result.length - 1] === '') {
-                        result = result.slice(0, -1);
-                    }
-                } else {
-                    result = value.trim();
-                }
+                result = value.trim();
             }
             return result;
         });
