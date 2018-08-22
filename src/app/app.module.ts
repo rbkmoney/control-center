@@ -39,5 +39,4 @@ import { PayoutsModule } from './payouts/payouts.module';
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}
