@@ -10,3 +10,7 @@ table {
 .revoke-dialog {
     margin-top: 30px;
 }
+
+dt {
+    font-weight: bold;
+}

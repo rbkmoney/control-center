@@ -16,10 +16,12 @@
             <button *ngIf='hasSelected' mat-raised-button color='accent' (click)='acceptPayouts()'>
                 ACCEPT PAYOUTS ({{selectedPayoutsIds.length}})
             </button>
+            <button *ngIf='hasSelected' mat-raised-button color='accent' (click)='createReports()'>
+                CREATE REPORTS ({{selectedPayoutsIds.length}})
+            </button>
             <button mat-raised-button color='primary' (click)='createPayout()'>
                 CREATE PAYOUT
             </button>
         </div>
     </div>
-
 </div>

@@ -1,63 +1,63 @@
-<mat-dialog-content>
-    <div fxLayout="row">
-        <label fxFlex="50">
+<mat-dialog-content class="mat-typography"  >
+    <dl fxLayout="row">
+        <dt fxFlex="20">
             Payout ID:
-        </label>
-        <div>
+        </dt>
+        <dd>
             {{payout.id}}
-        </div>
-    </div>
-    <div fxLayout="row">
-        <label fxFlex="50">
+        </dd>
+    </dl>
+    <dl fxLayout="row">
+        <dt fxFlex="20">
             Status:
-        </label>
-        <div>
+        </dt>
+        <dd>
             {{payout.status}}
-        </div>
-    </div>
-    <div fxLayout="row">
-        <label fxFlex="50">
+        </dd>
+    </dl>
+    <dl fxLayout="row">
+        <dt fxFlex="20">
             Amount:
-        </label>
-        <div>
+        </dt>
+        <dd>
             {{payout.amount | ccFormatAmount}} {{payout.currencyCode | ccCurrency}}
-        </div>
-    </div>
-    <div fxLayout="row">
-        <label fxFlex="50">
+        </dd>
+    </dl>
+    <dl fxLayout="row">
+        <dt fxFlex="20">
             Created at:
-        </label>
-        <div>
+        </dt>
+        <dd>
             {{payout.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
-        </div>
-    </div>
-    <div fxLayout="row">
-        <label fxFlex="50">
+        </dd>
+    </dl>
+    <dl fxLayout="row">
+        <dt fxFlex="20">
             Period:
-        </label>
-        <div>
+        </dt>
+        <dd>
             {{ payout.fromTime | date: "dd.MM.yyyy HH:mm:ss" }} — {{ payout.toTime | date: "dd.MM.yyyy HH:mm:ss" }}
-        </div>
-    </div>
-    <div fxLayout="row">
-        <label fxFlex="50">
+        </dd>
+    </dl>
+    <dl fxLayout="row">
+        <dt fxFlex="20">
             Merchant ID:
-        </label>
-        <div>
+        </dt>
+        <dd>
             {{payout.partyId}}
-        </div>
-    </div>
-    <div fxLayout="row">
-        <label fxFlex="50">
+        </dd>
+    </dl>
+    <dl fxLayout="row">
+        <dt fxFlex="20">
             Shop ID:
-        </label>
-        <div>
+        </dt>
+        <dd>
             {{payout.shopId}}
-        </div>
-    </div>
+        </dd>
+    </dl>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button *ngIf="isShowAcceptButton" (click)="acceptPayout()" [disabled]="isLoading" color="primary" mat-raised-button>Accept</button>
+    <!--<button *ngIf="isShowAcceptButton" (click)="acceptPayouts()" [disabled]="isLoading" color="primary" mat-raised-button>Accept</button>-->
     <button *ngIf="payout.status !== 'cancelled'" (click)="toggleCancel()" [disabled]="isLoading" color="default" mat-raised-button>Revoke</button>
 </mat-dialog-actions>
 <div *ngIf="isCanceling" class='revoke-dialog'>

@@ -19,11 +19,11 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     @Input()
     payouts: Payout[];
 
-    public initialSelection = [];
-    public allowMultiSelect = true;
-    public selection = new SelectionModel<Payout>(this.allowMultiSelect, this.initialSelection);
+    initialSelection = [];
+    allowMultiSelect = true;
+    selection = new SelectionModel<Payout>(this.allowMultiSelect, this.initialSelection);
 
-    public displayedColumns = [
+    displayedColumns = [
         'select',
         'id',
         'amount',
@@ -37,29 +37,29 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
                 private snackBar: MatSnackBar) {
     }
 
-    public isAllSelected() {
+    isAllSelected() {
         const numSelected = this.selection.selected.length;
         const numRows = this.payouts.length;
         return numSelected === numRows;
     }
 
-    public masterToggle() {
+    masterToggle() {
         this.isAllSelected() ?
             this.selection.clear() :
             this.payouts.forEach(row => this.selection.select(row));
     }
 
-    public ngOnInit() {
+    ngOnInit() {
         this.selection.onChange.asObservable().subscribe((e) => {
             this.valueChanges.emit(e.source.selected);
         });
     }
 
-    public ngOnChanges() {
+    ngOnChanges() {
         this.selection.clear();
     }
 
-    public openPayoutDetails(payouts: Payout) {
+    openPayoutDetails(payouts: Payout) {
         this.matDialog.open(PayoutDialogComponent, {
             data: this.payouts.find((payout) => payout.id === payouts.id),
             width: '720px'

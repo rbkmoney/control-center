@@ -13,11 +13,11 @@ import { PayoutsService } from '../../papi/payouts.service';
 })
 export class PayoutDialogComponent implements OnInit {
 
-    public payout: Payout;
-    public isLoading = false;
-    public isShowAcceptButton = false;
-    public isCanceling = false;
-    public cancelForm: FormGroup;
+    payout: Payout;
+    isLoading = false;
+    isShowAcceptButton = false;
+    isCanceling = false;
+    cancelForm: FormGroup;
 
     constructor(private payoutService: PayoutsService,
                 private cancelPayoutService: CancelPayoutService,
@@ -30,16 +30,6 @@ export class PayoutDialogComponent implements OnInit {
         this.cancelForm = this.cancelPayoutService.createPayoutGroup;
         this.payout = this.data;
         this.setVisibilityAcceptPayoutButton(this.payout.status);
-    }
-
-    acceptPayout() {
-        this.isLoading = true;
-        this.payoutService.acceptPayout(this.payout.id).subscribe(() => {
-            this.setVisibilityAcceptPayoutButton(this.payout.status);
-            this.isLoading = false;
-            this.payout.status = PayoutStatus.confirmed;
-            this.dialogRef.close(PayoutStatus.confirmed);
-        }, (error) => this.snackBar.open(`Error status: ${error.status}`, 'OK'));
     }
 
     toggleCancel() {

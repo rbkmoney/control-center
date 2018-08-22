@@ -22,7 +22,6 @@ import { PayoutsService } from '../papi/payouts.service';
 import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { CreatePayoutComponent } from './create-payout/create-payout.component';
-import { AcceptPayoutsComponent } from './accept-payouts/accept-payouts.component';
 import { PayoutDialogComponent } from './payouts-table/payout-dialog.component';
 
 @NgModule({
@@ -52,12 +51,10 @@ import { PayoutDialogComponent } from './payouts-table/payout-dialog.component';
         SearchFormComponent,
         PayoutsTableComponent,
         CreatePayoutComponent,
-        AcceptPayoutsComponent,
         PayoutDialogComponent
     ],
     entryComponents: [
         CreatePayoutComponent,
-        AcceptPayoutsComponent,
         PayoutDialogComponent
     ],
     providers: [

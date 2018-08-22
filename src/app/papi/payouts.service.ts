@@ -15,7 +15,7 @@ export class PayoutsService {
         this.papiEndpoint = configService.config.papiEndpoint;
     }
 
-    public getPayouts(params?: PayoutSearchParams): Observable<PayoutsResponse> {
+    getPayouts(params?: PayoutSearchParams): Observable<PayoutsResponse> {
         let searchParams = new HttpParams();
         if (params) {
             Object.keys(params).forEach(key => {
@@ -29,19 +29,19 @@ export class PayoutsService {
             .pipe(map(payouts => payouts));
     }
 
-    public acceptPayout(payoutID: string): Observable<string[]> {
-        return this.http.post<string[]>(`${this.papiEndpoint}/payouts/confirm`, {payoutIds: [payoutID]});
+    acceptPayouts(payoutIds: string[]): Observable<string[]> {
+        return this.http.post<string[]>(`${this.papiEndpoint}/payouts/confirm`, {payoutIds});
     }
 
-    public createPayout(params: PayoutCreateParams): Observable<Payout> {
+    createPayout(params: PayoutCreateParams): Observable<Payout> {
         return this.http.post<Payout>(`${this.papiEndpoint}/payouts`, params);
     }
 
-    public createPayoutsReports(payoutIds: string[]): Observable<void> {
+    createPayoutsReports(payoutIds: string[]): Observable<void> {
         return this.http.post<void>(`${this.papiEndpoint}/payouts/pay`, {payoutIds});
     }
 
-    public cancelPayout(payoutID: string, params: PayoutCancelParams): Observable<void> {
+    cancelPayout(payoutID: string, params: PayoutCancelParams): Observable<void> {
         return this.http.post<void>(`${this.papiEndpoint}/payouts/${payoutID}/cancel`, params);
     }
 }

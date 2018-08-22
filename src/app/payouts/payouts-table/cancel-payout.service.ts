@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable()
 export class CancelPayoutService {
-    public createPayoutGroup: FormGroup;
+    createPayoutGroup: FormGroup;
 
     constructor(private fb: FormBuilder) {
         this.createPayoutGroup = this.prepareForm();
