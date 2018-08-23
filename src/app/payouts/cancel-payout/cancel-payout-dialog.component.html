@@ -7,6 +7,6 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-raised-button color='warn' (click)='submit()' [disabled]='isLoading || !this.form.valid'>Cancel</button>
-    <button mat-dialog-close mat-raised-button color='default' (click)='close()'>Exit</button>
+    <button mat-button color='warn' (click)='submit()' [disabled]='isLoading || !this.form.valid'>CONFIRM</button>
+    <button mat-dialog-close mat-button color='default' (click)='close()'>CANCEL</button>
 </mat-dialog-actions>
