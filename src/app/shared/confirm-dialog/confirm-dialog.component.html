@@ -1,0 +1,8 @@
+<h4 class='mat-dialog-title'>{{data.header ? data.header : 'Confirm?'}}</h4>
+<mat-dialog-content>
+    {{data.text}}
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button color='default' (click)='submit()'>YES</button>
+    <button mat-dialog-close mat-button color='default' (click)='close()'>NO</button>
+</mat-dialog-actions>

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import * as moment from 'moment';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { ConfigService } from '../core/config.service';
 import { PayoutCancelParams, PayoutCreateParams, PayoutSearchParams } from './params';
@@ -11,27 +9,33 @@ import { Payout, PayoutsResponse } from './model';
 @Injectable()
 export class PayoutsService {
 
+    payouts$: Subject<Payout[]> = new Subject();
+    lastSearchParams$: BehaviorSubject<PayoutSearchParams> = new BehaviorSubject({});
+    isGetPayoutsInProgress$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
     private readonly papiEndpoint: string;
 
     constructor(private http: HttpClient, private configService: ConfigService) {
         this.papiEndpoint = configService.config.papiEndpoint;
     }
 
-    getPayouts(params?: PayoutSearchParams): Observable<PayoutsResponse> {
+    getPayouts(params?: PayoutSearchParams): void {
+        this.lastSearchParams$.next(params);
         let searchParams = new HttpParams();
         if (params) {
-            const convertedParams = this.convertToPayoutSearchParams(params);
-            Object.keys(convertedParams).forEach((key) => {
+            Object.keys(params).forEach((key) => {
                 searchParams = params[key] ? searchParams.set(key, params[key]) : searchParams;
             });
         }
-
-        return this.http
-            .get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {params: searchParams})
-            .pipe(map(payouts => payouts));
+        this.isGetPayoutsInProgress$.next(true);
+        this.http.get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {params: searchParams})
+            .subscribe((response) => {
+                this.payouts$.next(response.payouts);
+                this.isGetPayoutsInProgress$.next(false);
+            });
     }
 
-    acceptPayouts(payoutIds: string[]): Observable<string[]> {
+    confirmPayouts(payoutIds: string[]): Observable<string[]> {
         return this.http.post<string[]>(`${this.papiEndpoint}/payouts/confirm`, {payoutIds});
     }
 
@@ -45,23 +49,5 @@ export class PayoutsService {
 
     cancelPayout(payoutID: string, params: PayoutCancelParams): Observable<void> {
         return this.http.post<void>(`${this.papiEndpoint}/payouts/${payoutID}/cancel`, params);
-    }
-
-    private convertToPayoutSearchParams(formValues: any): any {
-        if (formValues.fromTime) {
-            formValues.fromTime = moment(formValues.fromTime).startOf('day').utc().format();
-        }
-        if (formValues.toTime) {
-            formValues.toTime = moment(formValues.toTime).endOf('day').utc().format();
-        }
-        if (formValues.payoutIds) {
-            if (/,/g.test(formValues.payoutIds)) {
-                formValues.payoutIds = formValues.payoutIds.replace(/\s/g, '').split(',');
-                if (formValues.payoutIds[formValues.payoutIds.length - 1] === '') {
-                    formValues.payoutIds = formValues.payoutIds.slice(0, -1).join(',');
-                }
-            }
-        }
-        return formValues;
     }
 }

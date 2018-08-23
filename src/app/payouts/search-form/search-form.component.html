@@ -1,5 +1,5 @@
 <form fxLayout='row' fxLayout.sm='column' fxLayout.xs='column' fxLayoutGap='20px' [formGroup]='form'>
-    <mat-form-field fxFlex='15' fxFlex.sm='30'>
+    <mat-form-field fxFlex='30' fxFlex.sm='30'>
         <input matInput formControlName='payoutIds' placeholder='Payout IDs (comma separated)'>
     </mat-form-field>
     <mat-form-field fxFlex='15' fxFlex.sm='30'>
@@ -8,12 +8,12 @@
             <mat-option *ngFor='let status of payoutStatuses' [value]='status'>{{status}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field fxFlex='15'>
         <input matInput formControlName='fromTime' [matDatepicker]='fromTimePicker' placeholder='From time'>
         <mat-datepicker-toggle matSuffix [for]='fromTimePicker'></mat-datepicker-toggle>
         <mat-datepicker #fromTimePicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field fxFlex='15'>
         <input matInput formControlName='toTime' [matDatepicker]='toTimePicker' placeholder='To time'>
         <mat-datepicker-toggle matSuffix [for]='toTimePicker'></mat-datepicker-toggle>
         <mat-datepicker #toTimePicker></mat-datepicker>

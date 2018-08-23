@@ -57,8 +57,7 @@
     </dl>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <!--<button *ngIf="isShowAcceptButton" (click)="acceptPayouts()" [disabled]="isLoading" color="primary" mat-raised-button>Accept</button>-->
-    <button *ngIf="payout.status !== 'cancelled'" (click)="toggleCancel()" [disabled]="isLoading" color="default" mat-raised-button>Revoke</button>
+    <button *ngIf="payout.status !== 'cancelled'" (click)="toggleCancel()" [disabled]='isLoading' color="default" mat-raised-button>Revoke</button>
 </mat-dialog-actions>
 <div *ngIf="isCanceling" class='revoke-dialog'>
     <mat-dialog-content>
@@ -69,7 +68,7 @@
         </form>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button color="warn" (click)="cancelPayout()" [disabled]="isLoading">Revoke</button>
+        <button mat-raised-button color="warn" (click)="cancelPayout()" [disabled]='isLoading'>Revoke</button>
         <button mat-dialog-close mat-raised-button color="default" (click)="toggleCancel()">Cancel</button>
     </mat-dialog-actions>
 </div>

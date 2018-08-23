@@ -1,0 +1,12 @@
+<h4 class='mat-dialog-title'>Cancel payout?</h4>
+<mat-dialog-content>
+    <form [formGroup]='form' fxLayout='column'>
+        <mat-form-field>
+            <textarea matInput placeholder='Reason' formControlName='reason'></textarea>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color='warn' (click)='submit()' [disabled]='isLoading'>Cancel</button>
+    <button mat-dialog-close mat-raised-button color='default' (click)='close()'>Exit</button>
+</mat-dialog-actions>

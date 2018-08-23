@@ -5,6 +5,9 @@ import { filter } from 'rxjs/operators';
 
 import { Payout, PayoutStatus } from '../../papi/model';
 import { PayoutDialogComponent } from './payout-dialog.component';
+import { PayoutsService } from '../../papi/payouts.service';
+import { PayoutCancelParams } from '../../papi/params';
+import { CancelPayoutDialogComponent } from '../cancel-payout/cancel-payout-dialog.component';
 
 @Component({
     selector: 'cc-payouts-table',
@@ -59,6 +62,12 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         this.selection.clear();
+    }
+
+    cancelPayout(id: string) {
+        this.matDialog.open(CancelPayoutDialogComponent, {
+            data: id
+        });
     }
 
     openPayoutDetails(payouts: Payout) {

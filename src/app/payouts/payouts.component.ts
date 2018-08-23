@@ -2,22 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { PayoutSearchParams } from '../papi/params';
 import { PayoutsService } from '../papi/payouts.service';
 import { Payout } from '../papi/model';
 import { CreatePayoutComponent } from './create-payout/create-payout.component';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
     templateUrl: 'payouts.component.html',
-    styleUrls: ['../shared/container.css', './payouts.component.css']
+    styleUrls: [
+        '../shared/container.css',
+        './payouts.component.css']
 })
 export class PayoutsComponent implements OnInit {
 
-    isLoading: boolean;
+    isGetPayoutsInProgress: boolean;
+    isPayingInProgress: boolean;
+    isConfirmingInProgress: boolean;
     payouts: Payout[];
     hasSelected: boolean;
-    selectedPayoutsIds: string[];
-    lastSearchParams: PayoutSearchParams;
+    selectedPayoutsIds: string[] = [];
 
     constructor(private payoutsService: PayoutsService,
                 private snackBar: MatSnackBar,
@@ -25,19 +28,11 @@ export class PayoutsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.search();
-    }
-
-    search(params?: PayoutSearchParams) {
-        this.lastSearchParams = params;
-        this.isLoading = true;
-        this.payoutsService.getPayouts(params).subscribe((payoutsResponse) => {
-            this.isLoading = false;
-            this.payouts = payoutsResponse.payouts;
-        }, (error: HttpErrorResponse) => {
-            this.isLoading = false;
-            this.snackBar.open(`${error.status}: ${error.message}`, 'OK');
-        });
+        this.payoutsService.payouts$.asObservable()
+            .subscribe((payouts) => this.payouts = payouts);
+        this.payoutsService.isGetPayoutsInProgress$.asObservable()
+            .subscribe((isGetPayoutsInProgress) => this.isGetPayoutsInProgress = isGetPayoutsInProgress);
+        this.payoutsService.getPayouts();
     }
 
     tableOnChange(selectedPayouts: Payout[]) {
@@ -46,17 +41,46 @@ export class PayoutsComponent implements OnInit {
     }
 
     pay() {
-        this.payoutsService.createPayoutsReports(this.selectedPayoutsIds).subscribe(() => {
-            this.handleSuccess('Successfully payed');
-            this.search(this.lastSearchParams);
-        }, (e) => this.handleError(e));
+        const dialog = this.dialogRef.open(ConfirmDialogComponent, {
+            data: {
+                header: 'Pay?'
+            }
+        });
+        dialog.afterClosed().subscribe((result) => {
+            if (result) {
+                this.isPayingInProgress = true;
+                this.payoutsService.createPayoutsReports(this.selectedPayoutsIds).subscribe(() => {
+                    this.isPayingInProgress = false;
+                    this.handleSuccess('Successfully payed');
+                    this.payoutsService.getPayouts(this.payoutsService.lastSearchParams$.getValue());
+                }, (e) => {
+                    this.isPayingInProgress = false;
+                    this.handleError(e);
+                });
+            }
+        });
+
     }
 
     confirmPayouts() {
-        this.payoutsService.acceptPayouts(this.selectedPayoutsIds).subscribe(() => {
-            this.handleSuccess('Successfully confirmed');
-            this.search(this.lastSearchParams);
-        }, (e) => this.handleError(e));
+        const dialog = this.dialogRef.open(ConfirmDialogComponent, {
+            data: {
+                header: 'Confirm payouts?'
+            }
+        });
+        dialog.afterClosed().subscribe((result) => {
+            if (result) {
+                this.isConfirmingInProgress = true;
+                this.payoutsService.confirmPayouts(this.selectedPayoutsIds).subscribe(() => {
+                    this.isConfirmingInProgress = false;
+                    this.handleSuccess('Successfully confirmed');
+                    this.payoutsService.getPayouts(this.payoutsService.lastSearchParams$.getValue());
+                }, (e) => {
+                    this.isConfirmingInProgress = false;
+                    this.handleError(e);
+                });
+            }
+        });
     }
 
     createPayout() {
@@ -65,8 +89,11 @@ export class PayoutsComponent implements OnInit {
             disableClose: true
         });
         dialog.afterClosed().subscribe(() => {
-            this.search(this.lastSearchParams);
         }, (e) => this.handleError(e));
+    }
+
+    isAdditionalActionInProgress() {
+        return this.isConfirmingInProgress || this.isPayingInProgress;
     }
 
     private handleError(e: HttpErrorResponse) {

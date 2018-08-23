@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+    MatBadgeModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -9,7 +10,9 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule
@@ -22,11 +25,11 @@ import { PayoutsComponent } from './payouts.component';
 import { PayoutsRoutingModule } from './payouts-routing.module';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { PapiModule } from '../papi/papi.module';
-import { PayoutsService } from '../papi/payouts.service';
 import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { CreatePayoutComponent } from './create-payout/create-payout.component';
 import { PayoutDialogComponent } from './payouts-table/payout-dialog.component';
+import { CancelPayoutDialogComponent } from './cancel-payout/cancel-payout-dialog.component';
 
 @NgModule({
     imports: [
@@ -48,21 +51,24 @@ import { PayoutDialogComponent } from './payouts-table/payout-dialog.component';
         SharedModule,
         MatButtonModule,
         MatDialogModule,
-        MatIconModule
+        MatIconModule,
+        PapiModule,
+        MatProgressSpinnerModule,
+        MatBadgeModule,
+        MatMenuModule
     ],
     declarations: [
         PayoutsComponent,
         SearchFormComponent,
         PayoutsTableComponent,
         CreatePayoutComponent,
-        PayoutDialogComponent
+        PayoutDialogComponent,
+        CancelPayoutDialogComponent
     ],
     entryComponents: [
         CreatePayoutComponent,
-        PayoutDialogComponent
-    ],
-    providers: [
-        PayoutsService
+        PayoutDialogComponent,
+        CancelPayoutDialogComponent
     ]
 })
 export class PayoutsModule {}
