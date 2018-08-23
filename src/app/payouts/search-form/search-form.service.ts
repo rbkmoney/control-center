@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { isString, keys, mapValues, values } from 'lodash-es';
+import { isString, keys, values } from 'lodash-es';
+import * as moment from 'moment';
 
 import { PayoutSearchParams } from '../../papi/params';
 import { PayoutStatus } from '../../papi/model';
-import * as moment from 'moment';
 
 @Injectable()
 export class SearchFormService {
@@ -43,8 +43,8 @@ export class SearchFormService {
         return this.fb.group({
             payoutIds: '',
             status: PayoutStatus.unpaid,
-            fromTime: '',
-            toTime: ''
+            fromTime: moment().subtract(1, 'months').toDate(),
+            toTime: moment().toDate()
         });
     }
 }
