@@ -11,6 +11,7 @@ import { PayoutsService } from '../../papi/payouts.service';
 })
 export class CancelPayoutDialogComponent implements OnInit {
     form: FormGroup;
+    isLoading: boolean;
 
     constructor(private dialogRef: MatDialogRef<CancelPayoutDialogComponent>,
                 private cancelPayoutDialogService: CancelPayoutDialogService,
@@ -25,11 +26,16 @@ export class CancelPayoutDialogComponent implements OnInit {
     }
 
     submit() {
+        this.isLoading = true;
         this.payoutsService.cancelPayout(this.data, this.form.value).subscribe(() => {
+            this.isLoading = false;
             this.payoutsService.getPayouts(this.payoutsService.lastSearchParams$.getValue());
             this.dialogRef.close();
             this.snackBar.open('Successfully cancelled', 'OK');
-        }, () => this.snackBar.open('An error occured', 'OK'));
+        }, () => {
+            this.isLoading = false;
+            this.snackBar.open('An error occured', 'OK');
+        });
     }
 
     close() {
