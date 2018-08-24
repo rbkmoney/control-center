@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ConfigService } from '../core/config.service';
 import { PayoutCancelParams, PayoutCreateParams, PayoutSearchParams } from './params';
@@ -9,30 +9,20 @@ import { Payout, PayoutsResponse } from './model';
 @Injectable()
 export class PayoutsService {
 
-    payouts$: Subject<Payout[]> = new Subject();
-    lastSearchParams$: BehaviorSubject<PayoutSearchParams> = new BehaviorSubject({});
-    isGetPayoutsInProgress$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
     private readonly papiEndpoint: string;
 
     constructor(private http: HttpClient, private configService: ConfigService) {
         this.papiEndpoint = configService.config.papiEndpoint;
     }
 
-    getPayouts(params?: PayoutSearchParams): void {
-        this.lastSearchParams$.next(params);
+    getPayouts(params?: PayoutSearchParams): Observable<PayoutsResponse> {
         let searchParams = new HttpParams();
         if (params) {
             Object.keys(params).forEach((key) => {
                 searchParams = params[key] ? searchParams.set(key, params[key]) : searchParams;
             });
         }
-        this.isGetPayoutsInProgress$.next(true);
-        this.http.get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {params: searchParams})
-            .subscribe((response) => {
-                this.payouts$.next(response.payouts);
-                this.isGetPayoutsInProgress$.next(false);
-            });
+        return this.http.get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {params: searchParams});
     }
 
     confirmPayouts(payoutIds: string[]): Observable<string[]> {
@@ -43,7 +33,7 @@ export class PayoutsService {
         return this.http.post<Payout>(`${this.papiEndpoint}/payouts`, params);
     }
 
-    createPayoutsReports(payoutIds: string[]): Observable<void> {
+    pay(payoutIds: string[]): Observable<void> {
         return this.http.post<void>(`${this.papiEndpoint}/payouts/pay`, {payoutIds});
     }
 

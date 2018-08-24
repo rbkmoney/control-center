@@ -7,39 +7,16 @@
             <mat-card-content>
                 <cc-payouts-search-form></cc-payouts-search-form>
             </mat-card-content>
-            <mat-card-footer *ngIf='isGetPayoutsInProgress'>
+            <mat-card-footer *ngIf='isLoading'>
                 <mat-progress-bar mode='indeterminate'></mat-progress-bar>
             </mat-card-footer>
         </mat-card>
         <mat-card>
             <mat-card-subtitle>Payout actions</mat-card-subtitle>
             <mat-card-content fxLayout='row' fxLayoutGap='20px'>
-                <button mat-raised-button color='primary' (click)='createPayout()'>
-                    CREATE
-                </button>
-                <button [matBadgeHidden]='selectedPayoutsIds.length === 0'
-                        matBadge='{{selectedPayoutsIds.length}}'
-                        matBadgePosition="after"
-                        matBadgeColor="primary"
-                        mat-raised-button
-                        color='accent'
-                        (click)='confirmPayouts()'
-                        [disabled]='isAdditionalActionInProgress() || selectedPayoutsIds.length === 0'>
-                    CONFIRM
-                    <mat-spinner [diameter]='20' *ngIf='isConfirmingInProgress'></mat-spinner>
-                </button>
-                <button [matBadgeHidden]='selectedPayoutsIds.length === 0'
-                        matBadge="{{selectedPayoutsIds.length}}"
-                        matBadgePosition="after"
-                        matBadgeColor="primary"
-                        mat-raised-button color='accent'
-                        (click)='pay()'
-                        [disabled]='isAdditionalActionInProgress() || selectedPayoutsIds.length === 0'>
-                    PAY
-                    <mat-spinner [diameter]='20' *ngIf='isPayingInProgress'></mat-spinner>
-                </button>
+                <cc-payouts-actions [selectedPayoutsIds]='selectedPayoutsIds'></cc-payouts-actions>
             </mat-card-content>
         </mat-card>
-        <cc-payouts-table [payouts]='payouts' (valueChanges)='tableOnChange($event)'></cc-payouts-table>
+        <cc-payouts-table [payouts]='payouts$ | async' (valueChanges)='tableOnChange($event)'></cc-payouts-table>
     </div>
 </div>

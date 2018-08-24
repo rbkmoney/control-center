@@ -27,9 +27,13 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { PapiModule } from '../papi/papi.module';
 import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
 import { SharedModule } from '../shared/shared.module';
-import { CreatePayoutComponent } from './create-payout/create-payout.component';
+import { CreatePayoutComponent } from './create-dialog/create-payout.component';
 import { PayoutDialogComponent } from './payouts-table/payout-dialog.component';
-import { CancelPayoutDialogComponent } from './cancel-payout/cancel-payout-dialog.component';
+import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
+import { PayoutsService } from './payouts.service';
+import { PayDialogComponent } from './pay-dialog/pay-dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ActionsComponent } from './actions/actions.component';
 
 @NgModule({
     imports: [
@@ -63,12 +67,20 @@ import { CancelPayoutDialogComponent } from './cancel-payout/cancel-payout-dialo
         PayoutsTableComponent,
         CreatePayoutComponent,
         PayoutDialogComponent,
-        CancelPayoutDialogComponent
+        CancelDialogComponent,
+        PayDialogComponent,
+        ConfirmDialogComponent,
+        ActionsComponent
     ],
     entryComponents: [
         CreatePayoutComponent,
         PayoutDialogComponent,
-        CancelPayoutDialogComponent
+        CancelDialogComponent,
+        PayDialogComponent,
+        ConfirmDialogComponent
+    ],
+    providers: [
+        PayoutsService
     ]
 })
 export class PayoutsModule {}

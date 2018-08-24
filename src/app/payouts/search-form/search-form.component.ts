@@ -24,6 +24,7 @@ export class SearchFormComponent implements OnInit {
         const {payoutStatuses, form, formValueToSearchParams} = this.searchFormService;
         this.form = form;
         this.payoutStatuses = payoutStatuses;
+        this.payoutsService.getPayouts(formValueToSearchParams(form.value));
         this.form.valueChanges
             .pipe(debounceTime(600))
             .subscribe((value) => this.payoutsService.getPayouts(formValueToSearchParams(value)));

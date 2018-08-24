@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 import { CreatePayoutService } from './create-payout.service';
-import { PayoutsService } from '../../papi/payouts.service';
+import { PayoutsService } from '../payouts.service';
 
 @Component({
     templateUrl: 'create-payout.component.html',
@@ -28,28 +28,20 @@ export class CreatePayoutComponent implements OnInit {
         if (this.form.valid) {
             const formValues = this.form.value;
             this.isLoading = true;
-            this.payoutService.createPayout(this.createPayoutService.makeParams(formValues)).subscribe(() => {
-                this.handleSuccess('Successfully created');
+            this.payoutService.create(this.createPayoutService.makeParams(formValues)).subscribe(() => {
                 this.dialogRef.close();
                 this.isLoading = false;
+                this.snackBar.open('Successfully created', 'OK', {duration: 3000});
+                this.payoutService.get(this.payoutService.lastSearchParams$.getValue());
             }, (error) => {
-                this.isLoading = false;
-                this.handleError(error);
+                const message = error.message;
+                this.snackBar.open(`${message ? message : 'Error'}`, 'OK');
+                console.error(error);
             });
         }
     }
 
     close() {
         this.dialogRef.close();
-    }
-
-    private handleSuccess(message: string) {
-        this.snackBar.open(`${message ? message : 'Success'}`, 'OK');
-    }
-
-    private handleError(error: any) {
-        const message = error.message;
-        this.snackBar.open(`${message ? message : 'Error'}`, 'OK');
-        console.error(error);
     }
 }

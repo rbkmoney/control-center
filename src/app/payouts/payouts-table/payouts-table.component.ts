@@ -7,7 +7,7 @@ import { Payout, PayoutStatus } from '../../papi/model';
 import { PayoutDialogComponent } from './payout-dialog.component';
 import { PayoutsService } from '../../papi/payouts.service';
 import { PayoutCancelParams } from '../../papi/params';
-import { CancelPayoutDialogComponent } from '../cancel-payout/cancel-payout-dialog.component';
+import { CancelDialogComponent } from '../cancel-dialog/cancel-dialog.component';
 
 @Component({
     selector: 'cc-payouts-table',
@@ -65,7 +65,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     }
 
     cancelPayout(id: string) {
-        this.matDialog.open(CancelPayoutDialogComponent, {
+        this.matDialog.open(CancelDialogComponent, {
             data: id
         });
     }
