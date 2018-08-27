@@ -5,8 +5,6 @@ import { filter } from 'rxjs/operators';
 
 import { Payout, PayoutStatus } from '../../papi/model';
 import { PayoutDialogComponent } from './payout-dialog.component';
-import { PayoutsService } from '../../papi/payouts.service';
-import { PayoutCancelParams } from '../../papi/params';
 import { CancelDialogComponent } from '../cancel-dialog/cancel-dialog.component';
 
 @Component({
@@ -68,20 +66,5 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         this.matDialog.open(CancelDialogComponent, {
             data: id
         });
-    }
-
-    openPayoutDetails(payouts: Payout) {
-        this.matDialog.open(PayoutDialogComponent, {
-            data: this.payouts.find((payout) => payout.id === payouts.id),
-            width: '720px'
-        }).afterClosed()
-            .pipe(filter((result) => result === PayoutStatus.confirmed || result === PayoutStatus.cancelled))
-            .subscribe((result) => {
-                const message = result === PayoutStatus.confirmed ? 'Payout accepted' : 'Payout revoked';
-                this.snackBar.open(message, 'OK', {
-                    duration: 1500
-                });
-                this.valueChanges.emit();
-            });
     }
 }
