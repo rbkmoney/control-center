@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { PayPayoutsComponent } from '../pay-payouts/pay-payouts.component';
 import { ConfirmPayoutsComponent } from '../confirm-payouts/confirm-payouts.component';
@@ -9,12 +9,18 @@ import { MatDialog } from '@angular/material';
     selector: 'cc-payouts-actions',
     templateUrl: 'payouts-actions.component.html'
 })
-export class PayoutsActionsComponent {
+export class PayoutsActionsComponent implements OnInit {
     @Input()
     selectedPayoutsIds: string[];
 
+    roles: string[];
+
     constructor(private keycloakService: KeycloakService,
                 private dialogRef: MatDialog) {
+    }
+
+    ngOnInit() {
+        this.roles = this.keycloakService.getUserRoles();
     }
 
     pay() {
@@ -33,7 +39,6 @@ export class PayoutsActionsComponent {
     }
 
     hasRole(role: string): boolean {
-        const roles = this.keycloakService.getUserRoles();
-        return roles.includes(role);
+        return this.roles.includes(role);
     }
 }

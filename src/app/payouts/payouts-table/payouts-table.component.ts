@@ -19,6 +19,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     @Input()
     payouts: Payout[];
 
+    roles: string[];
     initialSelection = [];
     allowMultiSelect = true;
     selection = new SelectionModel<Payout>(this.allowMultiSelect, this.initialSelection);
@@ -39,6 +40,13 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
                 private keycloakService: KeycloakService) {
     }
 
+    ngOnInit() {
+        this.roles = this.keycloakService.getUserRoles();
+        this.selection.onChange.subscribe((e) => {
+            this.valueChanges.emit(e.source.selected);
+        });
+    }
+
     isAllSelected() {
         const numSelected = this.selection.selected.length;
         const numRows = this.payouts.length;
@@ -49,12 +57,6 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         this.isAllSelected() ?
             this.selection.clear() :
             this.payouts.forEach((row) => this.selection.select(row));
-    }
-
-    ngOnInit() {
-        this.selection.onChange.subscribe((e) => {
-            this.valueChanges.emit(e.source.selected);
-        });
     }
 
     ngOnChanges() {
@@ -68,7 +70,6 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     }
 
     hasRole(role: string): boolean {
-        const roles = this.keycloakService.getUserRoles();
-        return roles.includes(role);
+        return this.roles.includes(role);
     }
 }
