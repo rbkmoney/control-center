@@ -1,27 +1,29 @@
-<button *ngIf='hasRole("payout:generate")'
-        mat-raised-button
-        color='primary'
-        (click)='createPayout()'>
-    CREATE
-</button>
-<button *ngIf='hasRole("payout:confirm")'
-        [matBadgeHidden]='selectedPayoutsIds.length === 0'
-        matBadge='{{selectedPayoutsIds.length}}'
-        matBadgePosition='after'
-        matBadgeColor='primary'
-        mat-raised-button
-        color='accent'
-        (click)='confirmPayouts()'
-        [disabled]='selectedPayoutsIds.length === 0'>
-    CONFIRM
-</button>
-<button *ngIf='hasRole("payout:pay")'
-        [matBadgeHidden]='selectedPayoutsIds.length === 0'
-        matBadge='{{selectedPayoutsIds.length}}'
-        matBadgePosition='after'
-        matBadgeColor='primary'
-        mat-raised-button color='accent'
-        (click)='pay()'
-        [disabled]='selectedPayoutsIds.length === 0'>
-    PAY
-</button>
+<div fxLayout='row' fxLayoutGap='20px'>
+    <button *ngIf='hasRole("payout:generate")'
+            mat-raised-button
+            color='primary'
+            (click)='createPayout()'>
+        CREATE
+    </button>
+    <button *ngIf='hasRole("payout:confirm")'
+            [matBadgeHidden]='selectedPayoutsIds.length === 0'
+            matBadge='{{selectedPayoutsIds.length}}'
+            matBadgePosition='after'
+            matBadgeColor='primary'
+            mat-raised-button
+            color='accent'
+            (click)='confirmPayouts()'
+            [disabled]='selectedPayoutsIds.length === 0'>
+        CONFIRM
+    </button>
+    <button *ngIf='hasRole("payout:pay")'
+            [matBadgeHidden]='selectedPayoutsIds.length === 0'
+            matBadge='{{selectedPayoutsIds.length}}'
+            matBadgePosition='after'
+            matBadgeColor='primary'
+            mat-raised-button color='accent'
+            (click)='pay()'
+            [disabled]='selectedPayoutsIds.length === 0'>
+        PAY
+    </button>
+</div>

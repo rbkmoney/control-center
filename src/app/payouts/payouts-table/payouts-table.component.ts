@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 
 import { Payout } from '../../papi/model';
 import { CancelPayoutComponent } from '../cancel-payout/cancel-payout.component';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
     selector: 'cc-payouts-table',
@@ -34,7 +35,8 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         'payoutDetailButton'
     ];
 
-    constructor(private matDialog: MatDialog) {
+    constructor(private matDialog: MatDialog,
+                private keycloakService: KeycloakService) {
     }
 
     isAllSelected() {
@@ -63,5 +65,10 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         this.matDialog.open(CancelPayoutComponent, {
             data: id
         });
+    }
+
+    hasRole(role: string): boolean {
+        const roles = this.keycloakService.getUserRoles();
+        return roles.includes(role);
     }
 }
