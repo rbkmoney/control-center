@@ -17,7 +17,7 @@
         </div>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions>
+<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>
         <button mat-button color='default' (click)='submit()' [disabled]='isLoading || !form.valid'>CREATE</button>
         <button mat-dialog-close mat-button color='default' (click)='close()'>CANCEL</button>
