@@ -1,8 +1,0 @@
-<h4 class='mat-dialog-title'>Confirm?</h4>
-<mat-dialog-actions>
-    <div>
-        <button mat-button color='default' (click)='submit()' [disabled]='isLoading'>YES</button>
-        <button mat-dialog-close mat-button color='default' (click)='close()'>NO</button>
-    </div>
-    <mat-progress-bar mode='indeterminate' *ngIf='isLoading'></mat-progress-bar>
-</mat-dialog-actions>

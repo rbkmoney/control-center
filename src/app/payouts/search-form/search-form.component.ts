@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/internal/operators';
+import { debounceTime, switchMap } from 'rxjs/internal/operators';
 
 import { SearchFormService } from './search-form.service';
 import { PayoutsService } from '../payouts.service';
@@ -25,7 +25,10 @@ export class SearchFormComponent implements OnInit {
         this.form = form;
         this.payoutStatuses = payoutStatuses;
         this.form.valueChanges
-            .pipe(debounceTime(600))
-            .subscribe((value) => this.payoutsService.get(formValueToSearchParams(value)).subscribe());
+            .pipe(
+                debounceTime(600),
+                switchMap((value) => this.payoutsService.get(formValueToSearchParams(value)))
+            )
+            .subscribe();
     }
 }

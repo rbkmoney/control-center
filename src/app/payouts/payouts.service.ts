@@ -9,7 +9,7 @@ import { PayoutsService as PayoutsPapiService } from '../papi/payouts.service';
 @Injectable()
 export class PayoutsService {
     payouts$: Subject<Payout[]> = new Subject();
-    lastSearchParams: PayoutSearchParams;
+    private lastSearchParams: PayoutSearchParams;
 
     constructor(private payoutsPapiService: PayoutsPapiService) {
     }

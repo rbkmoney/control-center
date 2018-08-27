@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable()
-export class CancelDialogService {
+export class CancelPayoutService {
     createFormGroup: FormGroup;
 
     constructor(private fb: FormBuilder) {

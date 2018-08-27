@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { isString, keys, values } from 'lodash-es';
 import * as moment from 'moment';
+import isString from 'lodash-es/isString';
+import keys from 'lodash-es/keys';
+import values from 'lodash-es/values';
 
 import { PayoutSearchParams } from '../../papi/params';
 import { PayoutStatus } from '../../papi/model';

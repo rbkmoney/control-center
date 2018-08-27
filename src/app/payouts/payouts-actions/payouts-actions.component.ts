@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { PayDialogComponent } from '../pay-dialog/pay-dialog.component';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { CreatePayoutComponent } from '../create-dialog/create-payout.component';
+import { PayPayoutsComponent } from '../pay-payouts/pay-payouts.component';
+import { ConfirmPayoutsComponent } from '../confirm-payouts/confirm-payouts.component';
+import { CreatePayoutComponent } from '../create-payout/create-payout.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
     selector: 'cc-payouts-actions',
-    templateUrl: 'actions.component.html'
+    templateUrl: 'payouts-actions.component.html'
 })
-export class ActionsComponent {
+export class PayoutsActionsComponent {
     @Input()
     selectedPayoutsIds: string[];
 
@@ -18,11 +18,11 @@ export class ActionsComponent {
     }
 
     pay() {
-        this.dialogRef.open(PayDialogComponent, {data: this.selectedPayoutsIds});
+        this.dialogRef.open(PayPayoutsComponent, {data: this.selectedPayoutsIds});
     }
 
     confirmPayouts() {
-        this.dialogRef.open(ConfirmDialogComponent, {data: this.selectedPayoutsIds});
+        this.dialogRef.open(ConfirmPayoutsComponent, {data: this.selectedPayoutsIds});
     }
 
     createPayout() {

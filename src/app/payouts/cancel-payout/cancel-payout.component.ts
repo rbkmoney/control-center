@@ -2,23 +2,23 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 
-import { CancelDialogService } from './cancel-dialog.service';
+import { CancelPayoutService } from './cancel-payout.service';
 import { PayoutsService } from '../payouts.service';
 
 @Component({
-    templateUrl: './cancel-dialog.component.html',
-    providers: [CancelDialogService]
+    templateUrl: './cancel-payout.component.html',
+    providers: [CancelPayoutService]
 })
-export class CancelDialogComponent implements OnInit {
+export class CancelPayoutComponent implements OnInit {
     form: FormGroup;
     isLoading: boolean;
 
-    constructor(private dialogRef: MatDialogRef<CancelDialogComponent>,
-                private cancelPayoutDialogService: CancelDialogService,
+    constructor(private dialogRef: MatDialogRef<CancelPayoutComponent>,
+                private cancelPayoutDialogService: CancelPayoutService,
                 private payoutsService: PayoutsService,
                 private snackBar: MatSnackBar,
                 @Inject(MAT_DIALOG_DATA)
-                public data: string) {
+                public payoutId: string) {
     }
 
     ngOnInit() {
@@ -27,13 +27,13 @@ export class CancelDialogComponent implements OnInit {
 
     submit() {
         this.isLoading = true;
-        this.payoutsService.cancel(this.data, this.form.value).subscribe(() => {
+        this.payoutsService.cancel(this.payoutId, this.form.value).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open('Successfully cancelled', 'OK', {duration: 3000});
         }, (error) => {
             this.isLoading = false;
-            this.snackBar.open('An error occured', 'OK', {duration: 3000});
+            this.snackBar.open('An error occurred while payout cancel.', 'OK');
             console.error(error);
         });
     }

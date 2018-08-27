@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { filter } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
 
-import { Payout, PayoutStatus } from '../../papi/model';
-import { PayoutDialogComponent } from './payout-dialog.component';
-import { CancelDialogComponent } from '../cancel-dialog/cancel-dialog.component';
+import { Payout } from '../../papi/model';
+import { CancelPayoutComponent } from '../cancel-payout/cancel-payout.component';
 
 @Component({
     selector: 'cc-payouts-table',
@@ -36,8 +34,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         'payoutDetailButton'
     ];
 
-    constructor(private matDialog: MatDialog,
-                private snackBar: MatSnackBar) {
+    constructor(private matDialog: MatDialog) {
     }
 
     isAllSelected() {
@@ -63,7 +60,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     }
 
     cancelPayout(id: string) {
-        this.matDialog.open(CancelDialogComponent, {
+        this.matDialog.open(CancelPayoutComponent, {
             data: id
         });
     }
