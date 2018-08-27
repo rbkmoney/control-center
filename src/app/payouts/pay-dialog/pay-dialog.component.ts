@@ -20,7 +20,6 @@ export class PayDialogComponent {
         this.payoutsService.pay(this.data).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
-            this.payoutsService.get(this.payoutsService.lastSearchParams$.getValue()).subscribe();
             this.snackBar.open('Successfully payed', 'OK', {duration: 3000});
         }, (error) => {
             this.isLoading = false;

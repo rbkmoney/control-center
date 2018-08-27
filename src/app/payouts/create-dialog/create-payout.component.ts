@@ -32,7 +32,6 @@ export class CreatePayoutComponent implements OnInit {
                 this.dialogRef.close();
                 this.isLoading = false;
                 this.snackBar.open('Successfully created', 'OK', {duration: 3000});
-                this.payoutService.get(this.payoutService.lastSearchParams$.getValue());
             }, (error) => {
                 const message = error.message;
                 this.snackBar.open(`${message ? message : 'Error'}`, 'OK');

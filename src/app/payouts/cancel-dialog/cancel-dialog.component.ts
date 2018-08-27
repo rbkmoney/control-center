@@ -30,7 +30,6 @@ export class CancelDialogComponent implements OnInit {
         this.payoutsService.cancel(this.data, this.form.value).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
-            this.payoutsService.get(this.payoutsService.lastSearchParams$.getValue()).subscribe();
             this.snackBar.open('Successfully cancelled', 'OK', {duration: 3000});
         }, (error) => {
             this.isLoading = false;
