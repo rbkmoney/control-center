@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { Payout, PayoutsResponse } from '../papi/model';
 import { PayoutCancelParams, PayoutCreateParams, PayoutSearchParams } from '../papi/params';
@@ -9,34 +9,46 @@ import { PayoutsService as PayoutsPapiService } from '../papi/payouts.service';
 @Injectable()
 export class PayoutsService {
     payouts$: Subject<Payout[]> = new Subject();
-    lastSearchParams$: BehaviorSubject<PayoutSearchParams> = new BehaviorSubject({});
+    lastSearchParams: PayoutSearchParams;
 
     constructor(private payoutsPapiService: PayoutsPapiService) {
     }
 
     get(params: PayoutSearchParams): Observable<PayoutsResponse> {
-        this.lastSearchParams$.next(params);
+        this.lastSearchParams = params;
         return this.payoutsPapiService.getPayouts(params)
             .pipe(tap((response) => this.payouts$.next(response.payouts)));
     }
 
-    confirm(payoutsIds: string[]): Observable<string[]> {
+    confirm(payoutsIds: string[]): Observable<void> {
         return this.payoutsPapiService.confirmPayouts(payoutsIds)
-            .pipe(tap(() => this.get(this.lastSearchParams$.getValue()).subscribe()));
+            .pipe(
+                switchMap(() => this.get(this.lastSearchParams)),
+                map(() => null)
+            );
     }
 
-    pay(payoutsIds: string[]) {
+    pay(payoutsIds: string[]): Observable<void> {
         return this.payoutsPapiService.pay(payoutsIds)
-            .pipe(tap(() => this.get(this.lastSearchParams$.getValue()).subscribe()));
+            .pipe(
+                switchMap(() => this.get(this.lastSearchParams)),
+                map(() => null)
+            );
     }
 
     cancel(payoutId: string, params: PayoutCancelParams): Observable<void> {
         return this.payoutsPapiService.cancelPayout(payoutId, params)
-            .pipe(tap(() => this.get(this.lastSearchParams$.getValue()).subscribe()));
+            .pipe(
+                switchMap(() => this.get(this.lastSearchParams)),
+                map(() => null)
+            );
     }
 
-    create(params: PayoutCreateParams): Observable<Payout> {
+    create(params: PayoutCreateParams): Observable<void> {
         return this.payoutsPapiService.createPayout(params)
-            .pipe(tap(() => this.get(this.lastSearchParams$.getValue()).subscribe()));
+            .pipe(
+                switchMap(() => this.get(this.lastSearchParams)),
+                map(() => null)
+            );
     }
 }
