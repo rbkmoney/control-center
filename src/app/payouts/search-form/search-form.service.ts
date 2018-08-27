@@ -43,8 +43,8 @@ export class SearchFormService {
         return this.fb.group({
             payoutIds: '',
             status: PayoutStatus.unpaid,
-            fromTime: moment().subtract(1, 'months').toDate(),
-            toTime: moment().toDate()
+            fromTime: moment().subtract(1, 'months').utc().toDate(),
+            toTime: moment().add(1, 'days').utc().toDate()
         });
     }
 }
