@@ -23,7 +23,7 @@ export class PayPayoutsComponent {
             this.snackBar.open('Successfully payed', 'OK', {duration: 3000});
         }, (error) => {
             this.isLoading = false;
-            this.snackBar.open('An error occured', 'OK', {duration: 3000});
+            this.snackBar.open('An error occured', 'OK');
             console.error(error);
         });
     }
