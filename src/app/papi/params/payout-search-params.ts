@@ -5,6 +5,6 @@ export class PayoutSearchParams {
     toTime?: string;
     status?: PayoutStatus;
     payoutIds?: string[];
-    fromId?: string;
+    fromId?: number;
     size?: string;
 }

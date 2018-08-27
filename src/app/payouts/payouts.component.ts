@@ -18,7 +18,7 @@ export class PayoutsComponent implements OnInit {
 
     isLoading: boolean;
     payouts$: Observable<Payout[]>;
-    selectedPayoutsIds: string[] = [];
+    selectedPayouts: Payout[] = [];
 
     constructor(private payoutsService: PayoutsService,
                 private snackBar: MatSnackBar,
@@ -45,7 +45,7 @@ export class PayoutsComponent implements OnInit {
     }
 
     tableOnChange(selectedPayouts: Payout[]) {
-        this.selectedPayoutsIds = selectedPayouts.reduce((acc, current) => acc.concat(current.id), []);
+        this.selectedPayouts = selectedPayouts;
         this.cdRef.detectChanges();
     }
 }

@@ -14,7 +14,7 @@
         <mat-card>
             <mat-card-subtitle>Payout actions</mat-card-subtitle>
             <mat-card-content fxLayout='row' fxLayoutGap='20px'>
-                <cc-payouts-actions [selectedPayoutsIds]='selectedPayoutsIds'></cc-payouts-actions>
+                <cc-payouts-actions [selectedPayouts]='selectedPayouts'></cc-payouts-actions>
             </mat-card-content>
         </mat-card>
         <cc-payouts-table [payouts]='payouts$ | async' (valueChanges)='tableOnChange($event)'></cc-payouts-table>

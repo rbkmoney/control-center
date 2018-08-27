@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material';
+import { KeycloakService } from 'keycloak-angular';
 
 import { Payout } from '../../papi/model';
 import { CancelPayoutComponent } from '../cancel-payout/cancel-payout.component';
-import { KeycloakService } from 'keycloak-angular';
 
 @Component({
     selector: 'cc-payouts-table',

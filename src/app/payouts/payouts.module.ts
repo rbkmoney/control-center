@@ -15,7 +15,8 @@ import {
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -59,7 +60,8 @@ import { PayoutsActionsComponent } from './payouts-actions/payouts-actions.compo
         PapiModule,
         MatProgressSpinnerModule,
         MatBadgeModule,
-        MatMenuModule
+        MatMenuModule,
+        MatTooltipModule
     ],
     declarations: [
         PayoutsComponent,
