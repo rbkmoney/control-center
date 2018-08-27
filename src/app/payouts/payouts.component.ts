@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 
@@ -18,7 +18,8 @@ export class PayoutsComponent implements OnInit {
     selectedPayoutsIds: string[] = [];
 
     constructor(private payoutsService: PayoutsService,
-                private snackBar: MatSnackBar) {
+                private snackBar: MatSnackBar,
+                private cdRef: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -36,5 +37,6 @@ export class PayoutsComponent implements OnInit {
 
     tableOnChange(selectedPayouts: Payout[]) {
         this.selectedPayoutsIds = selectedPayouts.reduce((acc, current) => acc.concat(current.id), []);
+        this.cdRef.detectChanges();
     }
 }
