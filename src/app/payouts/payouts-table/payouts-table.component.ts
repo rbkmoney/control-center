@@ -50,7 +50,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.selection.onChange.asObservable().subscribe((e) => {
+        this.selection.onChange.subscribe((e) => {
             this.valueChanges.emit(e.source.selected);
         });
     }
