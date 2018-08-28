@@ -1,0 +1,10 @@
+.actions-button-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+
+mat-spinner {
+    display: inline-block;
+    margin-left: 15px;
+}

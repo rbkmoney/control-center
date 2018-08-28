@@ -1,0 +1,15 @@
+table {
+    width: 100%;
+}
+
+.action-cell {
+    width: 10px;
+}
+
+.revoke-dialog {
+    margin-top: 30px;
+}
+
+dt {
+    font-weight: bold;
+}

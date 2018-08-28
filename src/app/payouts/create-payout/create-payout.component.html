@@ -1,0 +1,26 @@
+<h4 class='mat-dialog-title'>Create payout</h4>
+<mat-dialog-content>
+    <form *ngIf='form' [formGroup]='form' fxLayout='column'>
+        <mat-form-field>
+            <input matInput placeholder='Party ID' formControlName='partyId'>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder='Shop ID' formControlName='shopId'>
+        </mat-form-field>
+        <div fxLayout='row' fxLayout.xs='column'>
+            <mat-form-field fxFlex='50'>
+                <input matInput placeholder='From time' formControlName='fromTime'>
+            </mat-form-field>
+            <mat-form-field fxFlex='50'>
+                <input matInput placeholder='To time' formControlName='toTime'>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
+    <div>
+        <button mat-button color='default' (click)='submit()' [disabled]='isLoading || !form.valid'>CREATE</button>
+        <button mat-dialog-close mat-button color='default' (click)='close()'>CANCEL</button>
+    </div>
+    <mat-progress-bar *ngIf='isLoading' mode='indeterminate'></mat-progress-bar>
+</mat-dialog-actions>
