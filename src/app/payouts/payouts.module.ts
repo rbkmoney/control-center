@@ -29,7 +29,6 @@ import { PapiModule } from '../papi/papi.module';
 import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { CreatePayoutComponent } from './create-payout/create-payout.component';
-import { PayoutDialogComponent } from './payouts-table/payout-dialog.component';
 import { CancelPayoutComponent } from './cancel-payout/cancel-payout.component';
 import { PayoutsService } from './payouts.service';
 import { PayPayoutsComponent } from './pay-payouts/pay-payouts.component';
@@ -68,7 +67,6 @@ import { PayoutsActionsComponent } from './payouts-actions/payouts-actions.compo
         SearchFormComponent,
         PayoutsTableComponent,
         CreatePayoutComponent,
-        PayoutDialogComponent,
         CancelPayoutComponent,
         PayPayoutsComponent,
         ConfirmPayoutsComponent,
@@ -76,7 +74,6 @@ import { PayoutsActionsComponent } from './payouts-actions/payouts-actions.compo
     ],
     entryComponents: [
         CreatePayoutComponent,
-        PayoutDialogComponent,
         CancelPayoutComponent,
         PayPayoutsComponent,
         ConfirmPayoutsComponent
