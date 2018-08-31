@@ -1,9 +1,18 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog } from '@angular/material';
 
-import { ShopModificationName, ContractModificationName } from '../model';
+import {
+    ShopModificationName,
+    ContractModificationName,
+    PartyModificationUnitType
+} from '../model';
 import { ActionType, ClaimAction } from './claim-action';
 import { CreateChangeComponent, CreateChangeComponentInterface } from '../create-change/create-change.component';
+
+export interface ClaimActionsComponentInterface {
+    unitID: string;
+    type: PartyModificationUnitType;
+}
 
 @Component({
     templateUrl: 'claim-actions.component.html'
@@ -12,7 +21,7 @@ export class ClaimActionsComponent {
 
     constructor(private bottomSheetRef: MatBottomSheetRef,
                 private dialog: MatDialog,
-                @Inject(MAT_BOTTOM_SHEET_DATA) private unitID: string) {
+                @Inject(MAT_BOTTOM_SHEET_DATA) public data: ClaimActionsComponentInterface) {
     }
 
     contractActions: ClaimAction[] = [
@@ -66,7 +75,7 @@ export class ClaimActionsComponent {
     select(action: ClaimAction) {
         this.bottomSheetRef.dismiss();
         const config = {
-            data: {action, unitID: this.unitID},
+            data: {action, unitID: this.data.unitID},
             width: '720px',
             disableClose: true
         };

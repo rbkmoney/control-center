@@ -56,7 +56,7 @@ export class CreateChangeService {
                     .createChange(partyType, value as ShopModification | ContractModification, unitID);
             case ActionType.domainAction:
                 return this.domainTypedManager
-                    .createTerminal(value as CreateTerminalParams)
+                    .createTerminal(value as CreateTerminalParams, unitID)
                     .pipe(map(() => {}));
         }
     }
