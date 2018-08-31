@@ -2,6 +2,6 @@
   "realm" : "internal",
   "auth-server-url" : "http://auth.rbk.test:8080/auth/",
   "ssl-required" : "external",
-  "resource" : "weezing",
+  "resource" : "control-center",
   "public-client" : true
 }

@@ -1,34 +1,46 @@
-<div fxLayout="row" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
-    <div *ngIf="shopUnit" fxFlex="50" fxLayout="column" fxLayoutGap="20px">
-        <mat-card>
-            <mat-card-subtitle fxLayout="row"
-                               fxLayout.sm="column"
-                               fxLayout.xs="column"
-                               fxLayoutGap="10px"
-                               fxLayoutAlign="space-between stretch">
-                <div>Shop modifications</div>
-                <div>Shop ID: {{extractedIds.shopId}}</div>
-            </mat-card-subtitle>
-        </mat-card>
-        <cc-party-modification-container
-                *ngFor="let container of shopUnit.containers"
-                [container]="container">
-        </cc-party-modification-container>
+<div fxLayout='row' fxLayout.md='column' fxLayout.sm='column' fxLayout.xs='column' fxLayoutGap='20px'>
+    <div fxFlex='50' fxLayout='column' fxLayoutGap='20px'>
+        <div *ngFor='let unit of shopUnits' fxLayout='column' fxLayoutGap='20px'>
+            <mat-card>
+                <mat-card-subtitle fxLayout='row'
+                                   fxLayout.sm='column'
+                                   fxLayout.xs='column'
+                                   fxLayoutGap='10px'
+                                   fxLayoutAlign='space-between center'>
+                    <!--<div>Shop modifications</div>-->
+                    <div>Shop ID: {{unit.unitID}}</div>
+                    <button mat-button
+                            [disabled]="claimInfoStatus !== 'pending'"
+                            (click)='openClaimActions(unit)'>CREATE CHANGE
+                    </button>
+                </mat-card-subtitle>
+            </mat-card>
+            <cc-party-modification-container
+                    *ngFor='let container of unit.containers'
+                    [container]='container'>
+            </cc-party-modification-container>
+        </div>
     </div>
-    <div *ngIf="contractUnit" fxFlex="50" fxLayout="column" fxLayoutGap="20px">
-        <mat-card>
-            <mat-card-subtitle fxLayout="row"
-                               fxLayout.sm="column"
-                               fxLayout.xs="column"
-                               fxLayoutGap="10px"
-                               fxLayoutAlign="space-between stretch">
-                <div>Contract modifications</div>
-                <div>Contract ID: {{extractedIds.contractId}}</div>
-            </mat-card-subtitle>
-        </mat-card>
-        <cc-party-modification-container
-                *ngFor="let container of contractUnit.containers"
-                [container]="container">
-        </cc-party-modification-container>
+    <div fxFlex='50' fxLayout='column' fxLayoutGap='20px'>
+        <div *ngFor='let unit of contractUnits' fxLayout='column' fxLayoutGap='20px'>
+            <mat-card>
+                <mat-card-subtitle fxLayout='row'
+                                   fxLayout.sm='column'
+                                   fxLayout.xs='column'
+                                   fxLayoutGap='10px'
+                                   fxLayoutAlign='space-between center'>
+                    <!--<div>Contract modifications</div>-->
+                    <div>Contract ID: {{unit.unitID}}</div>
+                    <button mat-button
+                            [disabled]="claimInfoStatus !== 'pending'"
+                            (click)='openClaimActions(unit)'>CREATE CHANGE
+                    </button>
+                </mat-card-subtitle>
+            </mat-card>
+            <cc-party-modification-container
+                    *ngFor='let container of unit.containers'
+                    [container]='container'>
+            </cc-party-modification-container>
+        </div>
     </div>
 </div>

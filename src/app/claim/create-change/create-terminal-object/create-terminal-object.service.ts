@@ -35,8 +35,8 @@ export class CreateTerminalObjectService implements CreateChangeItem {
     }
 
     getValue(): CreateTerminalParams {
-        const {partyId, shopId} = this.domainModificationInfo;
-        return this.toCreateTerminalParams(partyId, shopId);
+        const {partyId} = this.domainModificationInfo;
+        return this.toCreateTerminalParams(partyId);
     }
 
     isValid(): boolean {
@@ -86,7 +86,7 @@ export class CreateTerminalObjectService implements CreateChangeItem {
         });
     }
 
-    private toCreateTerminalParams(partyID: string, shopID: string): CreateTerminalParams {
+    private toCreateTerminalParams(partyID: string): CreateTerminalParams {
         const {
             providerID,
             terminalName,
@@ -100,8 +100,7 @@ export class CreateTerminalObjectService implements CreateChangeItem {
             terminalDescription,
             riskCoverage,
             options,
-            partyID,
-            shopID
+            partyID
         };
     }
 }

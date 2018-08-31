@@ -12,5 +12,5 @@ export class CreateTerminalParams {
     riskCoverage: RiskScore;
     options: TerminalOption[];
     partyID: string;
-    shopID: string;
+    // shopID: string;
 }
