@@ -46,6 +46,9 @@ import {
 import { CreateTerminalObjectComponent } from './create-change/create-terminal-object/create-terminal-object.component';
 import { SharedModule } from '../shared/shared.module';
 import { ContainerNamePipe } from './container-name.pipe';
+import { CreateShopComponent } from './create-change/create-shop/create-shop.component';
+import { CreateLocationComponent } from './create-change/create-location/create-location.component';
+import { CreateDetailsComponent } from './create-change/create-details/create-details.component';
 
 @NgModule({
     imports: [
@@ -90,6 +93,9 @@ import { ContainerNamePipe } from './container-name.pipe';
         CreateContractTemplateComponent,
         CreateBusinessScheduleRefComponent,
         CreateServiceAcceptanceActPreferencesComponent,
+        CreateShopComponent,
+        CreateLocationComponent,
+        CreateDetailsComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
         CreateTerminalObjectComponent,

@@ -20,6 +20,10 @@ import {
 import { CreateChangeItem } from './create-change-item';
 import { ClaimService } from '../claim.service';
 import { ContractModification, ShopModification } from '../../damsel';
+import { CreateLocationService } from './create-location/create-location.service';
+import { CreateDetailsService } from './create-details/create-details.service';
+
+// import { CreateShopService } from './create-shop/create-shop.service';
 
 @Injectable()
 export class CreateChangeService {
@@ -28,6 +32,9 @@ export class CreateChangeService {
 
     constructor(private createLegalAgreementService: CreateLegalAgreementService,
                 private createCategoryRefService: CreateCategoryRefService,
+                // private createShopService: CreateShopService,
+                private createDetailsService: CreateDetailsService,
+                private createLocationService: CreateLocationService,
                 private createCurrencyRefService: CreateCurrencyRefService,
                 private createContractTemplateService: CreateContractTemplateService,
                 private createBusinessScheduleRefService: CreateBusinessScheduleRefService,
@@ -38,7 +45,7 @@ export class CreateChangeService {
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
     }
 
-    createChange(claimAction: ClaimAction): Observable<void> {
+    createChange(claimAction: ClaimAction, unitID: string): Observable<void> {
         const instance = this.getCreateServiceInstance(claimAction);
         const value = instance.getValue();
         switch (claimAction.type) {
@@ -46,7 +53,7 @@ export class CreateChangeService {
             case ActionType.contractAction:
                 const partyType = this.toPartyModificationType(claimAction.type);
                 return this.claimService
-                    .createChange(partyType, value as ShopModification | ContractModification);
+                    .createChange(partyType, value as ShopModification | ContractModification, unitID);
             case ActionType.domainAction:
                 return this.domainTypedManager
                     .createTerminal(value as CreateTerminalParams)
@@ -83,6 +90,12 @@ export class CreateChangeService {
 
     private getShopServiceInstance(action: ClaimAction): CreateChangeItem {
         switch (action.name) {
+            // case ShopModificationName.creation:
+            //     return this.createShopService;
+            case ShopModificationName.detailsModification:
+                return this.createDetailsService;
+            case ShopModificationName.locationModification:
+                return this.createLocationService;
             case ShopModificationName.categoryModification:
                 return this.createCategoryRefService;
             case ShopModificationName.shopAccountCreation:

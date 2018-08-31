@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatBottomSheet, MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
-import { PartyModificationUnit, PartyModificationUnitType } from '../model';
+import { PartyModificationUnit, PartyModificationUnitContainerType } from '../model';
+import { ClaimActionsComponent } from '../claim-actions/claim-actions.component';
 
 @Component({
     selector: 'cc-party-modifications',
@@ -10,17 +11,15 @@ import { PartyModificationUnit, PartyModificationUnitType } from '../model';
 })
 export class PartyModificationsComponent implements OnInit {
 
-    shopUnit: PartyModificationUnit;
+    shopUnits: PartyModificationUnit[] = [];
 
-    contractUnit: PartyModificationUnit;
+    contractUnits: PartyModificationUnit[] = [];
 
-    extractedIds: {
-        shopId: string;
-        contractId: string;
-    };
+    claimInfoStatus: string;
 
     constructor(private claimService: ClaimService,
-                private snackBar: MatSnackBar) {
+                private snackBar: MatSnackBar,
+                private bottomSheet: MatBottomSheet) {
     }
 
     ngOnInit() {
@@ -28,21 +27,25 @@ export class PartyModificationsComponent implements OnInit {
             if (!container) {
                 return;
             }
-            this.extractedIds = container.extractedIds;
-            const units = container.partyModificationUnits;
+            this.claimInfoStatus = container.status;
+            const units = container.partyModificationUnitContainers;
             for (const unit of units) {
                 switch (unit.type) {
-                    case PartyModificationUnitType.ShopModification:
-                        this.shopUnit = unit;
+                    case PartyModificationUnitContainerType.ShopUnitContainer:
+                        this.shopUnits = unit.units;
                         break;
-                    case PartyModificationUnitType.ContractModification:
-                        this.contractUnit = unit;
+                    case PartyModificationUnitContainerType.ContractUnitContainer:
+                        this.contractUnits = unit.units;
                         break;
-                    case PartyModificationUnitType.unknown:
+                    case PartyModificationUnitContainerType.unknown:
                         this.snackBar.open('Detected unknown party modification unit', 'OK');
                         break;
                 }
             }
         });
+    }
+
+    openClaimActions(unit: PartyModificationUnit) {
+        this.bottomSheet.open(ClaimActionsComponent, {data: unit.unitID});
     }
 }

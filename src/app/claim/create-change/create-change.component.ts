@@ -15,8 +15,16 @@ import {
     ContractModificationName,
     DomainModificationInfo,
     ShopModificationName,
-    PartyModificationContainerType
+    PartyModificationContainerType, PartyModificationUnit
 } from '../model';
+import { CreateShopService } from './create-shop/create-shop.service';
+import { CreateLocationService } from './create-location/create-location.service';
+import { CreateDetailsService } from './create-details/create-details.service';
+
+export interface CreateChangeComponentInterface {
+    action: ClaimAction;
+    unitID: string;
+}
 
 @Component({
     templateUrl: 'create-change.component.html',
@@ -28,7 +36,10 @@ import {
         CreateContractTemplateService,
         CreateBusinessScheduleRefService,
         CreateServiceAcceptanceActPreferencesService,
-        CreateTerminalObjectService
+        CreateTerminalObjectService,
+        CreateShopService,
+        CreateLocationService,
+        CreateDetailsService
     ]
 })
 export class CreateChangeComponent implements OnInit {
@@ -45,7 +56,7 @@ export class CreateChangeComponent implements OnInit {
 
     constructor(
         private dialogRef: MatDialogRef<CreateChangeComponent>,
-        @Inject(MAT_DIALOG_DATA) public claimAction: ClaimAction,
+        @Inject(MAT_DIALOG_DATA) public data: CreateChangeComponentInterface,
         private snackBar: MatSnackBar,
         private createChangeService: CreateChangeService) {
     }
@@ -55,9 +66,9 @@ export class CreateChangeComponent implements OnInit {
     }
 
     create() {
-        const {name} = this.claimAction;
+        const {name} = this.data.action;
         this.isLoading = true;
-        this.createChangeService.createChange(this.claimAction).subscribe(() => {
+        this.createChangeService.createChange(this.data.action, this.data.unitID).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
@@ -69,7 +80,7 @@ export class CreateChangeComponent implements OnInit {
     }
 
     isFormValid() {
-        return this.createChangeService.isFormValid(this.claimAction);
+        return this.createChangeService.isFormValid(this.data.action);
     }
 
     getContainerType(type: ActionType): string {

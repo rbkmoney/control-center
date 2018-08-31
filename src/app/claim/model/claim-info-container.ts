@@ -1,4 +1,4 @@
-import { PartyModificationUnit } from './party-modification-unit';
+import { PartyModificationUnitContainer } from './party-modification-unit-container';
 
 export class ClaimInfoContainer {
     status: string;
@@ -8,9 +8,5 @@ export class ClaimInfoContainer {
     createdAt: string;
     updatedAt: string;
     reason: string;
-    partyModificationUnits: PartyModificationUnit[];
-    extractedIds: {
-        shopId: string,
-        contractId: string
-    };
+    partyModificationUnitContainers: PartyModificationUnitContainer[];
 }

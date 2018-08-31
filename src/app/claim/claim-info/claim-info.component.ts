@@ -9,7 +9,7 @@ import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 
 @Component({
     selector: 'cc-claim-info',
-    templateUrl: 'claim.info.component.html'
+    templateUrl: 'claim-info.component.html'
 })
 export class ClaimInfoComponent implements OnInit {
 
@@ -26,9 +26,9 @@ export class ClaimInfoComponent implements OnInit {
         });
     }
 
-    openClaimActions() {
-        this.bottomSheet.open(ClaimActionsComponent);
-    }
+    // openClaimActions() {
+    //     this.bottomSheet.open(ClaimActionsComponent);
+    // }
 
     accept() {
         this.dialog.open(AcceptClaimComponent, {

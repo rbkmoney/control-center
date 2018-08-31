@@ -1,25 +1,23 @@
 import groupBy from 'lodash-es/groupBy';
-import reduce from 'lodash-es/reduce';
 import map from 'lodash-es/map';
+import forIn from 'lodash-es/forIn';
 
+import { ContractModificationUnit, PartyModification, ShopModificationUnit } from '../damsel';
 import {
-    PartyModification,
-    ShopModificationUnit,
-    ContractModificationUnit
-} from '../damsel';
-import {
-    PartyModificationUnitType,
-    PartyModificationContainer,
-    PartyModificationUnit,
     ContractModificationName,
-    ShopModificationName,
-    PartyModificationContainerType
+    PartyModificationContainer,
+    PartyModificationContainerType,
+    PartyModificationUnit,
+    PartyModificationUnitContainer, PartyModificationUnitContainerType,
+    PartyModificationUnitType,
+    ShopModificationName
 } from './model';
+import { reduce } from 'lodash-es';
 
 export class PartyModificationContainerConverter {
 
-    static convert(modificationUnits: PartyModification[]): PartyModificationUnit[] {
-        const grouped = groupBy(modificationUnits, (item: PartyModification) => {
+    static convert(modificationUnits: PartyModification[]): PartyModificationUnitContainer[] {
+        const {ShopModification, ContractModification} = groupBy(modificationUnits, (item: PartyModification) => {
             const {shopModification, contractModification} = item;
             if (shopModification) {
                 return PartyModificationUnitType.ShopModification;
@@ -29,27 +27,58 @@ export class PartyModificationContainerConverter {
             }
             return PartyModificationUnitType.unknown;
         });
-        return reduce(grouped, (result, group, type) => {
-            switch (type) {
-                case PartyModificationUnitType.ContractModification:
-                    result.push({type, ...this.resolveContractContainers(group)});
-                    break;
-                case PartyModificationUnitType.ShopModification:
-                    result.push({type, ...this.resolveShopContainers(group)});
-                    break;
+        const result = [];
+        if (ShopModification) {
+            result.push({
+                type: PartyModificationUnitContainerType.ShopUnitContainer,
+                units: this.convertToPartyModificationUnit(ShopModification, PartyModificationUnitType.ShopModification)
+            });
+        }
+        if (ContractModification) {
+            result.push({
+                type: PartyModificationUnitContainerType.ContractUnitContainer,
+                units: this.convertToPartyModificationUnit(ContractModification, PartyModificationUnitType.ContractModification)
+            });
+        }
+        return result;
+    }
+
+    private static convertToPartyModificationUnit(modificationUnits: PartyModification[], type: PartyModificationUnitType): PartyModificationUnit[] {
+        const grouped = groupBy(modificationUnits, (item: PartyModification) => {
+            const {shopModification, contractModification} = item;
+            if (shopModification) {
+                return shopModification.id;
             }
-            return result;
-        }, []);
+            if (contractModification) {
+                return contractModification.id;
+            }
+        });
+        const result = [];
+        forIn(grouped, (value, key) => {
+            result.push({
+                unitID: key,
+                containers: reduce(value, (acc, item) => {
+                    switch (type) {
+                        case PartyModificationUnitType.ShopModification:
+                            return acc.concat(this.resolveShopContainers([item]));
+                        case PartyModificationUnitType.ContractModification:
+                            return acc.concat(this.resolveContractContainers([item]));
+                    }
+                }, []),
+                type
+            });
+        });
+        return result;
     }
 
     private static resolveContractContainers(contracts: PartyModification[]) {
         const modifications = contracts.map((modification) => modification.contractModification);
-        return {containers: this.toContractContainers(modifications)};
+        return this.toContractContainers(modifications);
     }
 
     private static resolveShopContainers(shops: PartyModification[]) {
         const modifications = shops.map((modification) => modification.shopModification);
-        return {containers: this.toShopContainer(modifications)};
+        return this.toShopContainer(modifications);
     }
 
     private static toContractContainers(modification: ContractModificationUnit[]): PartyModificationContainer[] {
@@ -60,7 +89,7 @@ export class PartyModificationContainerConverter {
                 adjustmentModification,
                 payoutToolModification,
                 legalAgreementBinding,
-                reportPreferencesModification,
+                reportPreferencesModification
             } = item.modification;
             if (creation) {
                 return ContractModificationName.creation;

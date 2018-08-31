@@ -1,41 +1,50 @@
-<div class="mat-dialog-title">{{claimAction.name | ccContainerName:getContainerType(claimAction.type)}}</div>
+<div class='mat-dialog-title'>{{data.action.name | ccContainerName:getContainerType(data.action.type)}}</div>
 <mat-dialog-content>
-    <div *ngIf="claimAction.type === ActionType.contractAction">
+    <div *ngIf='data.action.type === ActionType.contractAction'>
         <cc-create-legal-agreement
-                *ngIf="claimAction.name === ContractModificationName.legalAgreementBinding">
+                *ngIf='data.action.name === ContractModificationName.legalAgreementBinding'>
         </cc-create-legal-agreement>
         <cc-create-contract-template
-                *ngIf="claimAction.name === ContractModificationName.adjustmentModification">
+                *ngIf='data.action.name === ContractModificationName.adjustmentModification'>
         </cc-create-contract-template>
         <cc-create-service-acceptance-act-preferences
-                *ngIf="claimAction.name === ContractModificationName.reportPreferencesModification">
+                *ngIf='data.action.name === ContractModificationName.reportPreferencesModification'>
         </cc-create-service-acceptance-act-preferences>
     </div>
-    <div *ngIf="claimAction.type === ActionType.shopAction">
+    <div *ngIf='data.action.type === ActionType.shopAction'>
+        <!--<cc-create-shop-->
+            <!--*ngIf="data.action.name === ShopModificationName.creation">-->
+        <!--</cc-create-shop>-->
+        <cc-create-location
+                *ngIf='data.action.name === ShopModificationName.locationModification'>
+        </cc-create-location>
+        <cc-create-details
+                *ngIf='data.action.name === ShopModificationName.detailsModification'>
+        </cc-create-details>
         <cc-create-category-ref
-                *ngIf="claimAction.name === ShopModificationName.categoryModification">
+                *ngIf='data.action.name === ShopModificationName.categoryModification'>
         </cc-create-category-ref>
         <cc-create-currency-ref
-                *ngIf="claimAction.name === ShopModificationName.shopAccountCreation">
+                *ngIf='data.action.name === ShopModificationName.shopAccountCreation'>
         </cc-create-currency-ref>
         <cc-create-business-schedule-ref
-                *ngIf="claimAction.name === ShopModificationName.payoutScheduleModification">
+                *ngIf='data.action.name === ShopModificationName.payoutScheduleModification'>
         </cc-create-business-schedule-ref>
     </div>
-    <div *ngIf="claimAction.type === ActionType.domainAction">
+    <div *ngIf='data.action.type === ActionType.domainAction'>
         <cc-create-terminal-object
-                [domainModificationInfo]="(domainModificationInfo$ | async)">
+                [domainModificationInfo]='(domainModificationInfo$ | async)'>
         </cc-create-terminal-object>
     </div>
 </mat-dialog-content>
-<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
+<mat-dialog-actions fxLayout='column' fxLayoutGap='10px'>
     <div>
         <button mat-button
-                [disabled]="!isFormValid() || isLoading"
-                color="primary"
-                (click)="create()">CREATE
+                [disabled]='!isFormValid() || isLoading'
+                color='primary'
+                (click)='create()'>CREATE
         </button>
-        <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
+        <button [disabled]='isLoading' mat-button [mat-dialog-close]='false'>CANCEL</button>
     </div>
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar *ngIf='isLoading' mode='indeterminate'></mat-progress-bar>
 </mat-dialog-actions>
