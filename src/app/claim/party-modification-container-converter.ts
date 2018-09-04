@@ -13,44 +13,6 @@ import {
     ShopModificationName
 } from './model';
 
-const convertToPartyModificationUnit = (modificationUnits: PartyModification[], type: PartyModificationUnitType): PartyModificationUnit[] => {
-    const grouped = groupBy(modificationUnits, (item: PartyModification) => {
-        const {shopModification, contractModification} = item;
-        if (shopModification) {
-            return shopModification.id;
-        }
-        if (contractModification) {
-            return contractModification.id;
-        }
-    });
-    return map(grouped, (value, key) => {
-        let containers;
-        switch (type) {
-            case PartyModificationUnitType.ShopModification:
-                containers = resolveShopContainers(value);
-                break;
-            case PartyModificationUnitType.ContractModification:
-                containers = resolveContractContainers(value);
-                break;
-        }
-        return {
-            unitID: key,
-            containers,
-            type
-        };
-    });
-};
-
-const resolveContractContainers = (contracts: PartyModification[]) => {
-    const modifications = contracts.map((modification) => modification.contractModification);
-    return toContractContainers(modifications);
-};
-
-const resolveShopContainers = (shops: PartyModification[]) => {
-    const modifications = shops.map((modification) => modification.shopModification);
-    return toShopContainer(modifications);
-};
-
 const toContractContainers = (modification: ContractModificationUnit[]): PartyModificationContainer[] => {
     const grouped = groupBy(modification, (item: ContractModificationUnit) => {
         const {
@@ -133,7 +95,45 @@ const toShopContainer = (modification: ShopModificationUnit[]): PartyModificatio
     }));
 };
 
-export function convertToPartyModificationContainer(modificationUnits: PartyModification[]): PartyModificationUnitContainer[] {
+const resolveContractContainers = (contracts: PartyModification[]) => {
+    const modifications = contracts.map((modification) => modification.contractModification);
+    return toContractContainers(modifications);
+};
+
+const resolveShopContainers = (shops: PartyModification[]) => {
+    const modifications = shops.map((modification) => modification.shopModification);
+    return toShopContainer(modifications);
+};
+
+const convertToPartyModificationUnit = (modificationUnits: PartyModification[], type: PartyModificationUnitType): PartyModificationUnit[] => {
+    const grouped = groupBy(modificationUnits, (item: PartyModification) => {
+        const {shopModification, contractModification} = item;
+        if (shopModification) {
+            return shopModification.id;
+        }
+        if (contractModification) {
+            return contractModification.id;
+        }
+    });
+    return map(grouped, (value, key) => {
+        let containers;
+        switch (type) {
+            case PartyModificationUnitType.ShopModification:
+                containers = resolveShopContainers(value);
+                break;
+            case PartyModificationUnitType.ContractModification:
+                containers = resolveContractContainers(value);
+                break;
+        }
+        return {
+            unitID: key,
+            containers,
+            type
+        };
+    });
+};
+
+export function convert(modificationUnits: PartyModification[]): PartyModificationUnitContainer[] {
     const grouped = groupBy(modificationUnits, (item: PartyModification) => {
         const {shopModification, contractModification} = item;
         if (shopModification) {
