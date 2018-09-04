@@ -55,16 +55,18 @@ export class PartyModificationContainerConverter {
         });
         const result = [];
         forIn(grouped, (value, key) => {
+            let containers;
+            switch (type) {
+                case PartyModificationUnitType.ShopModification:
+                    containers = this.resolveShopContainers(value);
+                    break;
+                case PartyModificationUnitType.ContractModification:
+                    containers = this.resolveContractContainers(value);
+                    break;
+            }
             result.push({
                 unitID: key,
-                containers: reduce(value, (acc, item) => {
-                    switch (type) {
-                        case PartyModificationUnitType.ShopModification:
-                            return acc.concat(this.resolveShopContainers([item]));
-                        case PartyModificationUnitType.ContractModification:
-                            return acc.concat(this.resolveContractContainers([item]));
-                    }
-                }, []),
+                containers,
                 type
             });
         });
