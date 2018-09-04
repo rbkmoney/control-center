@@ -6,7 +6,7 @@ import {
     ContractModificationName,
     PartyModificationUnitType
 } from '../model';
-import { ActionType, ClaimAction } from './claim-action';
+import { ActionType, UnitAction } from '../unit-action';
 import { CreateChangeComponent, CreateChangeComponentInterface } from '../create-change/create-change.component';
 
 export interface ClaimActionsComponentInterface {
@@ -15,16 +15,16 @@ export interface ClaimActionsComponentInterface {
 }
 
 @Component({
-    templateUrl: 'claim-actions.component.html'
+    templateUrl: 'unit-actions.component.html'
 })
-export class ClaimActionsComponent {
+export class UnitActionsComponent {
 
     constructor(private bottomSheetRef: MatBottomSheetRef,
                 private dialog: MatDialog,
                 @Inject(MAT_BOTTOM_SHEET_DATA) public data: ClaimActionsComponentInterface) {
     }
 
-    contractActions: ClaimAction[] = [
+    contractActions: UnitAction[] = [
         {
             type: ActionType.contractAction,
             name: ContractModificationName.legalAgreementBinding
@@ -39,11 +39,7 @@ export class ClaimActionsComponent {
         }
     ];
 
-    shopActions: ClaimAction[] = [
-        // {
-        //     type: ActionType.shopAction,
-        //     name: ShopModificationName.creation
-        // },
+    shopActions: UnitAction[] = [
         {
             type: ActionType.shopAction,
             name: ShopModificationName.detailsModification
@@ -66,13 +62,13 @@ export class ClaimActionsComponent {
         }
     ];
 
-    domainActions: ClaimAction[] = [
+    domainActions: UnitAction[] = [
         {
             type: ActionType.domainAction
         }
     ];
 
-    select(action: ClaimAction) {
+    select(action: UnitAction) {
         this.bottomSheetRef.dismiss();
         const config = {
             data: {action, unitID: this.data.unitID},

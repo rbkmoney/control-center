@@ -30,7 +30,7 @@ import { ClaimInfoComponent } from './claim-info/claim-info.component';
 import { ClaimInfoDetailsComponent } from './claim-info/claim-info-details/claim-info-details.component';
 import { PartyModificationsComponent } from './party-modifications/party-modifications.component';
 import { PartyModificationContainerComponent } from './party-modification-container/party-modification-container.component';
-import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
+import { UnitActionsComponent } from './unit-actions/unit-actions.component';
 import { CreateChangeComponent } from './create-change/create-change.component';
 import { CreateLegalAgreementComponent } from './create-change/create-legal-agreement/create-legal-agreement.component';
 import { CreateCategoryRefComponent } from './create-change/create-category-ref/create-category-ref.component';
@@ -49,6 +49,11 @@ import { ContainerNamePipe } from './container-name.pipe';
 import { CreateShopComponent } from './create-change/create-shop/create-shop.component';
 import { CreateLocationComponent } from './create-change/create-location/create-location.component';
 import { CreateDetailsComponent } from './create-change/create-details/create-details.component';
+import { CreateUnitComponent } from './create-unit/create-unit.component';
+import { CreateContractComponent } from './create-change/create-contract/create-contract.component';
+import { RussianLegalEntityFormComponent } from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-legal-entity-form.component';
+import { RussianBankAccountFormComponent } from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-bank-account-form/russian-bank-account-form.component';
+import { RussianLegalEntityFormService } from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-legal-entity-form.service';
 
 @NgModule({
     imports: [
@@ -85,7 +90,8 @@ import { CreateDetailsComponent } from './create-change/create-details/create-de
         ClaimInfoDetailsComponent,
         PartyModificationsComponent,
         PartyModificationContainerComponent,
-        ClaimActionsComponent,
+        UnitActionsComponent,
+        CreateUnitComponent,
         CreateChangeComponent,
         CreateLegalAgreementComponent,
         CreateCategoryRefComponent,
@@ -94,6 +100,9 @@ import { CreateDetailsComponent } from './create-change/create-details/create-de
         CreateBusinessScheduleRefComponent,
         CreateServiceAcceptanceActPreferencesComponent,
         CreateShopComponent,
+        CreateContractComponent,
+        RussianLegalEntityFormComponent,
+        RussianBankAccountFormComponent,
         CreateLocationComponent,
         CreateDetailsComponent,
         AcceptClaimComponent,
@@ -102,7 +111,8 @@ import { CreateDetailsComponent } from './create-change/create-details/create-de
         ContainerNamePipe
     ],
     entryComponents: [
-        ClaimActionsComponent,
+        UnitActionsComponent,
+        CreateUnitComponent,
         CreateChangeComponent,
         AcceptClaimComponent,
         DenyClaimComponent

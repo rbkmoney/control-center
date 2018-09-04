@@ -1,6 +1,4 @@
-<form fxLayout='row'
-      fxLayout.sm='column'
-      fxLayout.xs='column'
+<form fxLayout='column'
       fxLayoutGap='20px'
       [formGroup]='form'>
     <mat-form-field fxFlex>
@@ -19,5 +17,15 @@
         <input matInput
                placeholder='Description'
                formControlName='description'>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Contract ID'
+               formControlName='contractId'>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Payout tool ID'
+               formControlName='payoutToolId'>
     </mat-form-field>
 </form>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as uuid from 'uuid/v4';
 
 import { CreateChangeItem } from '../create-change-item';
 import { ShopModification } from '../../../damsel/payment-processing';

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 
-import { ActionType, ClaimAction } from '../claim-actions/claim-action';
+import { ActionType, UnitAction } from '../unit-action';
 import { CreateChangeService } from './create-change.service';
 import { CreateLegalAgreementService } from './create-legal-agreement/create-legal-agreement.service';
 import { CreateCategoryRefService } from './create-category-ref/create-category-ref.service';
@@ -15,15 +15,20 @@ import {
     ContractModificationName,
     DomainModificationInfo,
     ShopModificationName,
-    PartyModificationContainerType, PartyModificationUnit
+    PartyModificationContainerType
 } from '../model';
 import { CreateShopService } from './create-shop/create-shop.service';
 import { CreateLocationService } from './create-location/create-location.service';
 import { CreateDetailsService } from './create-details/create-details.service';
+import { CreateContractService } from './create-contract/create-contract.service';
+import { RussianLegalEntityFormService } from './create-contract/legal-entity-form/russian-legal-entity-form/russian-legal-entity-form.service';
+import {
+    RussianBankAccountFormService
+} from './create-contract/legal-entity-form/russian-legal-entity-form/russian-bank-account-form/russian-bank-account-form.service';
 
 export interface CreateChangeComponentInterface {
-    action: ClaimAction;
-    unitID: string;
+    action: UnitAction;
+    unitID?: string;
 }
 
 @Component({
@@ -38,8 +43,11 @@ export interface CreateChangeComponentInterface {
         CreateServiceAcceptanceActPreferencesService,
         CreateTerminalObjectService,
         CreateShopService,
+        CreateContractService,
         CreateLocationService,
-        CreateDetailsService
+        CreateDetailsService,
+        RussianLegalEntityFormService,
+        RussianBankAccountFormService
     ]
 })
 export class CreateChangeComponent implements OnInit {

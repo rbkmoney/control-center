@@ -3,7 +3,7 @@ import { MatBottomSheet, MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
 import { PartyModificationUnit, PartyModificationUnitContainerType } from '../model';
-import { ClaimActionsComponent, ClaimActionsComponentInterface } from '../claim-actions/claim-actions.component';
+import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 
 @Component({
     selector: 'cc-party-modifications',
@@ -45,7 +45,7 @@ export class PartyModificationsComponent implements OnInit {
         });
     }
 
-    openClaimActions(unit: PartyModificationUnit) {
-        this.bottomSheet.open(ClaimActionsComponent, {data: {unitID: unit.unitID, type: unit.type}});
+    openUnitActions(unit: PartyModificationUnit) {
+        this.bottomSheet.open(UnitActionsComponent, {data: {unitID: unit.unitID, type: unit.type}});
     }
 }

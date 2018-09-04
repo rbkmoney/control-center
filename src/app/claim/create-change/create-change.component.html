@@ -1,6 +1,9 @@
 <div class='mat-dialog-title'>{{data.action.name | ccContainerName:getContainerType(data.action.type)}}</div>
 <mat-dialog-content>
     <div *ngIf='data.action.type === ActionType.contractAction'>
+        <cc-create-contract
+            *ngIf='data.action.name === ContractModificationName.creation'>
+        </cc-create-contract>
         <cc-create-legal-agreement
                 *ngIf='data.action.name === ContractModificationName.legalAgreementBinding'>
         </cc-create-legal-agreement>
@@ -12,9 +15,9 @@
         </cc-create-service-acceptance-act-preferences>
     </div>
     <div *ngIf='data.action.type === ActionType.shopAction'>
-        <!--<cc-create-shop-->
-            <!--*ngIf="data.action.name === ShopModificationName.creation">-->
-        <!--</cc-create-shop>-->
+        <cc-create-shop
+            *ngIf="data.action.name === ShopModificationName.creation">
+        </cc-create-shop>
         <cc-create-location
                 *ngIf='data.action.name === ShopModificationName.locationModification'>
         </cc-create-location>

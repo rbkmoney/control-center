@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as uuid from 'uuid/v4';
 
 import { CreateChangeItem } from '../create-change-item';
 import { ShopModification } from '../../../damsel/payment-processing';
@@ -15,11 +14,18 @@ export class CreateShopService implements CreateChangeItem {
     }
 
     getValue(): ShopModification {
-        const {url, name, description} = this.form.value;
+        const {url, name, description, contractId, payoutToolId} = this.form.value;
         return {
-            detailsModification: {
-                name,
-                description
+            creation: {
+                location: {
+                    url
+                },
+                details: {
+                    name,
+                    description
+                },
+                contractId,
+                payoutToolId
             }
         };
     }
@@ -32,7 +38,9 @@ export class CreateShopService implements CreateChangeItem {
         return this.fb.group({
             url: ['', Validators.required],
             name: ['', Validators.required],
-            description: ''
+            description: '',
+            contractId: '',
+            payoutToolId: ''
         });
     }
 }

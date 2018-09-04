@@ -1,0 +1,15 @@
+<form fxLayout='column'
+      fxLayoutGap='20px'
+      [formGroup]='form'>
+    <mat-form-field fxFlex>
+        <mat-select placeholder='Legal entity type'
+                    formControlName='legalEntityType'>
+            <mat-option *ngFor='let type of legalEntityTypes' [value]='type.value' required>
+                {{type.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <cc-russian-legal-entity-form
+        *ngIf='form.value.legalEntityType === "RussianLegalEntity"'>
+    </cc-russian-legal-entity-form>
+</form>

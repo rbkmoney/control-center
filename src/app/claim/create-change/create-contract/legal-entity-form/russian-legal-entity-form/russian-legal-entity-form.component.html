@@ -1,0 +1,54 @@
+<form fxLayout='column'
+      fxLayoutGap='20px'
+      [formGroup]='form'>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Registered name'
+               formControlName='registeredName'
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Registered number'
+               formControlName='registeredNumber'
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='INN'
+               formControlName='inn'
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Actual address'
+               formControlName='actualAddress'
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Post address'
+               formControlName='postAddress'
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Representative position'
+               formControlName='representativePosition'
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Representative full name'
+               formControlName='representativeFullName'
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder='Representative document'
+               formControlName='representativeDocument'
+               required>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <cc-russian-bank-account-form></cc-russian-bank-account-form>
+</form>

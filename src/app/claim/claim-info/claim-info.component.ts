@@ -3,9 +3,9 @@ import { MatBottomSheet, MatDialog } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
 import { ClaimInfoContainer } from '../model';
-import { ClaimActionsComponent } from '../claim-actions/claim-actions.component';
 import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
+import { CreateUnitComponent } from '../create-unit/create-unit.component';
 
 @Component({
     selector: 'cc-claim-info',
@@ -26,9 +26,9 @@ export class ClaimInfoComponent implements OnInit {
         });
     }
 
-    // openClaimActions() {
-    //     this.bottomSheet.open(ClaimActionsComponent);
-    // }
+    openClaimActions() {
+        this.bottomSheet.open(CreateUnitComponent);
+    }
 
     accept() {
         this.dialog.open(AcceptClaimComponent, {

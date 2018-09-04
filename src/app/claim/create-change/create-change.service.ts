@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
+import * as uuid from 'uuid/v4';
 
 import { CreateLegalAgreementService } from './create-legal-agreement/create-legal-agreement.service';
 import { CreateCategoryRefService } from './create-category-ref/create-category-ref.service';
-import { ActionType, ClaimAction } from '../claim-actions/claim-action';
+import { ActionType, UnitAction } from '../unit-action';
 import { CreateCurrencyRefService } from './create-currency-ref/create-currency-ref.service';
 import { CreateContractTemplateService } from './create-contract-template/create-contract-template.service';
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
@@ -22,8 +23,8 @@ import { ClaimService } from '../claim.service';
 import { ContractModification, ShopModification } from '../../damsel';
 import { CreateLocationService } from './create-location/create-location.service';
 import { CreateDetailsService } from './create-details/create-details.service';
-
-// import { CreateShopService } from './create-shop/create-shop.service';
+import { CreateShopService } from './create-shop/create-shop.service';
+import { CreateContractService } from './create-contract/create-contract.service';
 
 @Injectable()
 export class CreateChangeService {
@@ -32,7 +33,8 @@ export class CreateChangeService {
 
     constructor(private createLegalAgreementService: CreateLegalAgreementService,
                 private createCategoryRefService: CreateCategoryRefService,
-                // private createShopService: CreateShopService,
+                private createShopService: CreateShopService,
+                private createContractService: CreateContractService,
                 private createDetailsService: CreateDetailsService,
                 private createLocationService: CreateLocationService,
                 private createCurrencyRefService: CreateCurrencyRefService,
@@ -45,7 +47,7 @@ export class CreateChangeService {
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
     }
 
-    createChange(claimAction: ClaimAction, unitID: string): Observable<void> {
+    createChange(claimAction: UnitAction, unitID: string = uuid()): Observable<void> {
         const instance = this.getCreateServiceInstance(claimAction);
         const value = instance.getValue();
         switch (claimAction.type) {
@@ -61,12 +63,12 @@ export class CreateChangeService {
         }
     }
 
-    isFormValid(claimAction: ClaimAction): boolean {
+    isFormValid(claimAction: UnitAction): boolean {
         const instance = this.getCreateServiceInstance(claimAction);
         return instance.isValid();
     }
 
-    private getCreateServiceInstance(action: ClaimAction): CreateChangeItem {
+    private getCreateServiceInstance(action: UnitAction): CreateChangeItem {
         switch (action.type) {
             case ActionType.contractAction:
                 return this.getContractServiceInstance(action);
@@ -77,8 +79,10 @@ export class CreateChangeService {
         }
     }
 
-    private getContractServiceInstance(action: ClaimAction): CreateChangeItem {
+    private getContractServiceInstance(action: UnitAction): CreateChangeItem {
         switch (action.name) {
+            case ContractModificationName.creation:
+                return this.createContractService;
             case ContractModificationName.legalAgreementBinding:
                 return this.createLegalAgreementService;
             case ContractModificationName.adjustmentModification:
@@ -88,10 +92,10 @@ export class CreateChangeService {
         }
     }
 
-    private getShopServiceInstance(action: ClaimAction): CreateChangeItem {
+    private getShopServiceInstance(action: UnitAction): CreateChangeItem {
         switch (action.name) {
-            // case ShopModificationName.creation:
-            //     return this.createShopService;
+            case ShopModificationName.creation:
+                return this.createShopService;
             case ShopModificationName.detailsModification:
                 return this.createDetailsService;
             case ShopModificationName.locationModification:

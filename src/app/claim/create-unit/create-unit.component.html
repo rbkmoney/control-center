@@ -1,0 +1,5 @@
+<mat-nav-list>
+    <a mat-list-item *ngFor='let action of actions' (click)='select(action)'>
+        {{action.name | ccContainerName: getContainerType(action.type)}}
+    </a>
+</mat-nav-list>
