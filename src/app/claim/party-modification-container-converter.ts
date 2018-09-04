@@ -5,11 +5,9 @@ import { ContractModificationUnit, PartyModification, ShopModificationUnit } fro
 import {
     ContractModificationName,
     PartyModificationContainer,
-    PartyModificationContainerType,
     PartyModificationUnit,
     PartyModificationUnitContainer,
-    PartyModificationUnitContainerType,
-    PartyModificationUnitType,
+    UnitContainerType,
     ShopModificationName
 } from './model';
 
@@ -44,7 +42,6 @@ const toContractContainers = (modification: ContractModificationUnit[]): PartyMo
         return ContractModificationName.unknown;
     });
     return map(grouped, (modifications, name: ContractModificationName) => ({
-        type: PartyModificationContainerType.ContractModification,
         name,
         modifications
     }));
@@ -89,77 +86,54 @@ const toShopContainer = (modification: ShopModificationUnit[]): PartyModificatio
         return ShopModificationName.unknown;
     });
     return map(grouped, (modifications, name: ShopModificationName) => ({
-        type: PartyModificationContainerType.ShopModification,
         name,
         modifications
     }));
 };
 
-const resolveContractContainers = (contracts: PartyModification[]) => {
-    const modifications = contracts.map((modification) => modification.contractModification);
-    return toContractContainers(modifications);
+const toShopPartyModificationUnit = (shopUnits: PartyModification[]): PartyModificationUnit[] => {
+    const grouped = groupBy(shopUnits, (item) => item.shopModification.id);
+    return map(grouped, (units, unitID) => ({
+        unitID,
+        containers: toShopContainer(units.map((m) => m.shopModification))
+    }));
 };
 
-const resolveShopContainers = (shops: PartyModification[]) => {
-    const modifications = shops.map((modification) => modification.shopModification);
-    return toShopContainer(modifications);
+const toContractPartyModificationUnit = (contractUnits: PartyModification[]): PartyModificationUnit[] => {
+    const grouped = groupBy(contractUnits, (item) => item.contractModification.id);
+    return map(grouped, (units, unitID) => ({
+        unitID,
+        containers: toContractContainers(units.map((m) => m.contractModification))
+    }));
 };
 
-const convertToPartyModificationUnit = (modificationUnits: PartyModification[], type: PartyModificationUnitType): PartyModificationUnit[] => {
+export const convert = (modificationUnits: PartyModification[]): PartyModificationUnitContainer[] => {
     const grouped = groupBy(modificationUnits, (item: PartyModification) => {
         const {shopModification, contractModification} = item;
         if (shopModification) {
-            return shopModification.id;
+            return UnitContainerType.ShopUnitContainer;
         }
         if (contractModification) {
-            return contractModification.id;
+            return UnitContainerType.ContractUnitContainer;
         }
+        return UnitContainerType.unknown;
     });
-    return map(grouped, (modification, unitID) => {
-        let containers;
+    return map(grouped, (units, type) => {
         switch (type) {
-            case PartyModificationUnitType.ShopModification:
-                containers = resolveShopContainers(modification);
-                break;
-            case PartyModificationUnitType.ContractModification:
-                containers = resolveContractContainers(modification);
-                break;
+            case UnitContainerType.ShopUnitContainer:
+                return {
+                    type: UnitContainerType.ShopUnitContainer,
+                    units: toShopPartyModificationUnit(units)
+                };
+            case UnitContainerType.ContractUnitContainer:
+                return {
+                    type: UnitContainerType.ContractUnitContainer,
+                    units: toContractPartyModificationUnit(units)
+                };
+            case UnitContainerType.unknown:
+                return {
+                    type: UnitContainerType.unknown
+                };
         }
-        return {
-            unitID,
-            containers,
-            type
-        };
     });
 };
-
-export function convert(modificationUnits: PartyModification[]): PartyModificationUnitContainer[] {
-    const grouped = groupBy(modificationUnits, (item: PartyModification) => {
-        const {shopModification, contractModification} = item;
-        if (shopModification) {
-            return PartyModificationUnitType.ShopModification;
-        }
-        if (contractModification) {
-            return PartyModificationUnitType.ContractModification;
-        }
-        return PartyModificationUnitType.unknown;
-    });
-    return map(grouped, (unit, type) => {
-        switch (type) {
-            case PartyModificationUnitType.ShopModification:
-                return {
-                    type: PartyModificationUnitContainerType.ShopUnitContainer,
-                    units: convertToPartyModificationUnit(unit, type)
-                };
-            case PartyModificationUnitType.ContractModification:
-                return {
-                    type: PartyModificationUnitContainerType.ContractUnitContainer,
-                    units: convertToPartyModificationUnit(unit, type)
-                };
-            case PartyModificationUnitType.unknown:
-                return {
-                    type: PartyModificationUnitContainerType.unknown
-                };
-        }
-    });
-}

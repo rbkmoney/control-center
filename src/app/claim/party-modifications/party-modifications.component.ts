@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
-import { PartyModificationUnit, PartyModificationUnitContainerType } from '../model';
+import { PartyModificationUnit, UnitContainerType } from '../model';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 
 @Component({
@@ -31,13 +31,13 @@ export class PartyModificationsComponent implements OnInit {
             const units = container.partyModificationUnitContainers;
             for (const unit of units) {
                 switch (unit.type) {
-                    case PartyModificationUnitContainerType.ShopUnitContainer:
+                    case UnitContainerType.ShopUnitContainer:
                         this.shopUnits = unit.units;
                         break;
-                    case PartyModificationUnitContainerType.ContractUnitContainer:
+                    case UnitContainerType.ContractUnitContainer:
                         this.contractUnits = unit.units;
                         break;
-                    case PartyModificationUnitContainerType.unknown:
+                    case UnitContainerType.unknown:
                         this.snackBar.open('Detected unknown party modification unit', 'OK');
                         break;
                 }

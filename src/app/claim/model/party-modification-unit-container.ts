@@ -1,7 +1,7 @@
 import { PartyModificationUnit } from './party-modification-unit';
-import { PartyModificationUnitContainerType } from './party-modification-unit-container-type';
+import { UnitContainerType } from './party-modification-unit-container-type';
 
 export class PartyModificationUnitContainer {
-    type: PartyModificationUnitContainerType;
+    type: UnitContainerType;
     units?: PartyModificationUnit[];
 }
