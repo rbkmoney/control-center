@@ -13,7 +13,7 @@ import {
     DomainModificationInfo,
     PartyModificationContainerType
 } from './model';
-import { PartyModificationContainerConverter } from './party-modification-container-converter';
+import { convertToPartyModificationContainer } from './party-modification-container-converter';
 
 @Injectable()
 export class ClaimService {
@@ -114,7 +114,7 @@ export class ClaimService {
     private toClaimInfoContainer(claimInfo: ClaimInfo): ClaimInfoContainer {
         const modifications = claimInfo.modifications.modifications;
         const {claimId, partyId, revision, status, reason, createdAt, updatedAt} = claimInfo;
-        const partyModificationUnitContainers = PartyModificationContainerConverter.convert(modifications);
+        const partyModificationUnitContainers = convertToPartyModificationContainer(modifications);
         return {
             claimId,
             partyId,
