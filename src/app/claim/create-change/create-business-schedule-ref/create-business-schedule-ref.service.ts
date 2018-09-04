@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { CreateChangeItem } from '../create-change-item';
 import { ShopModification, ScheduleModification } from '../../../damsel/payment-processing';
@@ -7,7 +7,6 @@ import { ShopModification, ScheduleModification } from '../../../damsel/payment-
 @Injectable()
 export class CreateBusinessScheduleRefService implements CreateChangeItem {
 
-    static FORM_ID_NONE = 'none';
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -16,9 +15,7 @@ export class CreateBusinessScheduleRefService implements CreateChangeItem {
 
     getValue(): ShopModification {
         const {value} = this.form;
-        const payoutScheduleModification: ScheduleModification = value.id === CreateBusinessScheduleRefService.FORM_ID_NONE
-            ? {}
-            : {schedule: value};
+        const payoutScheduleModification: ScheduleModification = value.id ? {schedule: value} : {};
         return {payoutScheduleModification};
     }
 
@@ -28,7 +25,7 @@ export class CreateBusinessScheduleRefService implements CreateChangeItem {
 
     private prepareForm(): FormGroup {
         return this.fb.group({
-            id: ['', Validators.required]
+            id: ['']
         });
     }
 }

@@ -13,13 +13,12 @@ import { DomainTypedManager } from '../../../domain/domain-typed-manager';
 export class CreateBusinessScheduleRefComponent implements OnInit {
 
     form: FormGroup;
-    formIdNone: string;
+
     payoutSchedules$: Observable<BusinessScheduleObject[]>;
 
     constructor(
         private createBusinessScheduleRefService: CreateBusinessScheduleRefService,
         private domainManager: DomainTypedManager) {
-        this.formIdNone = CreateBusinessScheduleRefService.FORM_ID_NONE;
     }
 
     ngOnInit() {
