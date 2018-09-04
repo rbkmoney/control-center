@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CreateChangeItem } from '../create-change-item';
-import { ShopModification } from '../../../damsel/payment-processing';
+import { ShopModification, ScheduleModification } from '../../../damsel/payment-processing';
 
 @Injectable()
 export class CreateBusinessScheduleRefService implements CreateChangeItem {
 
+    static FORM_ID_NONE = 'none';
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -14,11 +15,11 @@ export class CreateBusinessScheduleRefService implements CreateChangeItem {
     }
 
     getValue(): ShopModification {
-        return {
-            payoutScheduleModification: {
-                schedule: this.form.value
-            }
-        };
+        const {value} = this.form;
+        const payoutScheduleModification: ScheduleModification = value.id === CreateBusinessScheduleRefService.FORM_ID_NONE
+            ? {}
+            : {schedule: value};
+        return {payoutScheduleModification};
     }
 
     isValid(): boolean {

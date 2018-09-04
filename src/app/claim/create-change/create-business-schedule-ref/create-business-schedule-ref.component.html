@@ -6,7 +6,8 @@
     <mat-form-field fxFlex>
         <mat-select placeholder="Select payout schedule"
                     formControlName="id">
-            <mat-option *ngFor="let schedule of payoutSchedules$ | async" [value]="schedule.ref.id" required>
+            <mat-option [value]="formIdNone">None</mat-option>
+            <mat-option *ngFor="let schedule of payoutSchedules$ | async" [value]="schedule.ref.id">
                 {{schedule.ref.id}} {{schedule.data.name}}
             </mat-option>
         </mat-select>
