@@ -115,18 +115,18 @@ const convertToPartyModificationUnit = (modificationUnits: PartyModification[], 
             return contractModification.id;
         }
     });
-    return map(grouped, (value, key) => {
+    return map(grouped, (modification, unitID) => {
         let containers;
         switch (type) {
             case PartyModificationUnitType.ShopModification:
-                containers = resolveShopContainers(value);
+                containers = resolveShopContainers(modification);
                 break;
             case PartyModificationUnitType.ContractModification:
-                containers = resolveContractContainers(value);
+                containers = resolveContractContainers(modification);
                 break;
         }
         return {
-            unitID: key,
+            unitID,
             containers,
             type
         };
@@ -144,17 +144,21 @@ export function convert(modificationUnits: PartyModification[]): PartyModificati
         }
         return PartyModificationUnitType.unknown;
     });
-    return map(grouped, (value, key) => {
-        switch (key) {
+    return map(grouped, (unit, type) => {
+        switch (type) {
             case PartyModificationUnitType.ShopModification:
                 return {
                     type: PartyModificationUnitContainerType.ShopUnitContainer,
-                    units: convertToPartyModificationUnit(value, key)
+                    units: convertToPartyModificationUnit(unit, type)
                 };
             case PartyModificationUnitType.ContractModification:
                 return {
                     type: PartyModificationUnitContainerType.ContractUnitContainer,
-                    units: convertToPartyModificationUnit(value, key)
+                    units: convertToPartyModificationUnit(unit, type)
+                };
+            case PartyModificationUnitType.unknown:
+                return {
+                    type: PartyModificationUnitContainerType.unknown
                 };
         }
     });

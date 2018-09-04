@@ -3,5 +3,5 @@ import { PartyModificationUnitContainerType } from './party-modification-unit-co
 
 export class PartyModificationUnitContainer {
     type: PartyModificationUnitContainerType;
-    units: PartyModificationUnit[];
+    units?: PartyModificationUnit[];
 }
