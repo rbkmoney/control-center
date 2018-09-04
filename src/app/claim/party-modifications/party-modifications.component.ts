@@ -28,14 +28,14 @@ export class PartyModificationsComponent implements OnInit {
                 return;
             }
             this.claimInfoStatus = container.status;
-            const units = container.partyModificationUnitContainers;
-            for (const unit of units) {
-                switch (unit.type) {
+            const unitContainers = container.partyModificationUnitContainers;
+            for (const unitContainer of unitContainers) {
+                switch (unitContainer.type) {
                     case UnitContainerType.ShopUnitContainer:
-                        this.shopUnits = unit.units;
+                        this.shopUnits = unitContainer.units;
                         break;
                     case UnitContainerType.ContractUnitContainer:
-                        this.contractUnits = unit.units;
+                        this.contractUnits = unitContainer.units;
                         break;
                     case UnitContainerType.unknown:
                         this.snackBar.open('Detected unknown party modification unit', 'OK');
@@ -45,7 +45,7 @@ export class PartyModificationsComponent implements OnInit {
         });
     }
 
-    openUnitActions(unit: PartyModificationUnit) {
-        this.bottomSheet.open(UnitActionsComponent, {data: {unitID: unit.unitID, type: unit.type}});
+    openUnitActions(unit: PartyModificationUnit, type: UnitContainerType) {
+        this.bottomSheet.open(UnitActionsComponent, {data: {unitID: unit.unitID, type}});
     }
 }

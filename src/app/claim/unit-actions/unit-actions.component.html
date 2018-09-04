@@ -1,12 +1,12 @@
 <mat-nav-list>
-    <div *ngIf='data.type === "ContractModification"'>
+    <div *ngIf='data.type === "ContractUnitContainer"'>
         <a mat-list-item *ngFor='let contractAction of contractActions' (click)='select(contractAction)'>
-            {{contractAction.name | ccContainerName:"ContractModification"}}
+            {{contractAction.name | ccContainerName:"ContractUnitContainer"}}
         </a>
     </div>
-    <div *ngIf='data.type === "ShopModification"'>
+    <div *ngIf='data.type === "ShopUnitContainer"'>
         <a mat-list-item *ngFor='let shopAction of shopActions' (click)='select(shopAction)'>
-            {{shopAction.name | ccContainerName:"ShopModification"}}
+            {{shopAction.name | ccContainerName:"ShopUnitContainer"}}
         </a>
         <mat-divider></mat-divider>
         <a mat-list-item *ngFor='let domainAction of domainActions' (click)='select(domainAction)'>

@@ -14,8 +14,7 @@ import { CreateTerminalObjectService } from './create-terminal-object/create-ter
 import {
     ContractModificationName,
     DomainModificationInfo,
-    ShopModificationName,
-    PartyModificationContainerType
+    ShopModificationName, UnitContainerType
 } from '../model';
 import { CreateShopService } from './create-shop/create-shop.service';
 import { CreateLocationService } from './create-location/create-location.service';
@@ -94,9 +93,9 @@ export class CreateChangeComponent implements OnInit {
     getContainerType(type: ActionType): string {
         switch (type) {
             case ActionType.shopAction:
-                return PartyModificationContainerType.ShopModification;
+                return UnitContainerType.ShopUnitContainer;
             case ActionType.contractAction:
-                return PartyModificationContainerType.ContractModification;
+                return UnitContainerType.ContractUnitContainer;
             case ActionType.domainAction:
                 return 'Domain modification';
         }

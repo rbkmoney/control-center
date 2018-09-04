@@ -4,14 +4,14 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog } from '@angular/ma
 import {
     ShopModificationName,
     ContractModificationName,
-    PartyModificationUnitType
+    UnitContainerType
 } from '../model';
 import { ActionType, UnitAction } from '../unit-action';
 import { CreateChangeComponent, CreateChangeComponentInterface } from '../create-change/create-change.component';
 
 export interface ClaimActionsComponentInterface {
     unitID: string;
-    type: PartyModificationUnitType;
+    type: UnitContainerType;
 }
 
 @Component({

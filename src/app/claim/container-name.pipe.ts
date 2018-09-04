@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import {
-    PartyModificationContainerType,
     ShopModificationName,
-    ContractModificationName
+    ContractModificationName,
+    UnitContainerType
 } from './model';
 
 @Pipe({
@@ -15,11 +15,11 @@ export class ContainerNamePipe implements PipeTransform {
         if (args.length < 1) {
             return value;
         }
-        const type = args[0] as PartyModificationContainerType;
+        const type = args[0] as UnitContainerType;
         switch (type) {
-            case PartyModificationContainerType.ShopModification:
+            case UnitContainerType.ShopUnitContainer:
                 return this.transformShopModification(value);
-            case PartyModificationContainerType.ContractModification:
+            case UnitContainerType.ContractUnitContainer:
                 return this.transformContractModificationName(value);
             default:
                 return value;

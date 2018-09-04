@@ -15,8 +15,7 @@ import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-ty
 import {
     ContractModificationName,
     DomainModificationInfo,
-    PartyModificationContainerType,
-    ShopModificationName
+    ShopModificationName, UnitContainerType
 } from '../model';
 import { CreateChangeItem } from './create-change-item';
 import { ClaimService } from '../claim.service';
@@ -110,12 +109,12 @@ export class CreateChangeService {
     }
 
 
-    private toPartyModificationType(type: ActionType): PartyModificationContainerType {
+    private toPartyModificationType(type: ActionType): UnitContainerType {
         switch (type) {
             case ActionType.contractAction:
-                return PartyModificationContainerType.ContractModification;
+                return UnitContainerType.ContractUnitContainer;
             case ActionType.shopAction:
-                return PartyModificationContainerType.ShopModification;
+                return UnitContainerType.ShopUnitContainer;
         }
     }
 }

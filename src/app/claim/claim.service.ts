@@ -10,8 +10,7 @@ import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { ShopModification, ContractModification, PartyModification } from '../damsel';
 import {
     ClaimInfoContainer,
-    DomainModificationInfo,
-    PartyModificationContainerType
+    DomainModificationInfo, UnitContainerType
 } from './model';
 import { convert } from './party-modification-container-converter';
 
@@ -40,7 +39,7 @@ export class ClaimService {
             );
     }
 
-    createChange(type: PartyModificationContainerType, modification: ShopModification | ContractModification, unitID: string): Observable<void> {
+    createChange(type: UnitContainerType, modification: ShopModification | ContractModification, unitID: string): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
         const unit = this.toModificationUnit(type, modification, unitID);
         return this.papiClaimService.getClaim(partyId, claimId)
@@ -81,7 +80,7 @@ export class ClaimService {
     }
 
     private toModificationUnit(
-        type: PartyModificationContainerType,
+        type: UnitContainerType,
         modification: ShopModification | ContractModification,
         unitID: string
     ): PartyModificationUnit {
@@ -90,7 +89,7 @@ export class ClaimService {
         };
         let unit;
         switch (type) {
-            case PartyModificationContainerType.ContractModification:
+            case UnitContainerType.ContractUnitContainer:
                 unit = {
                     contractModification: {
                         id: unitID,
@@ -98,7 +97,7 @@ export class ClaimService {
                     }
                 };
                 break;
-            case PartyModificationContainerType.ShopModification:
+            case UnitContainerType.ShopUnitContainer:
                 unit = {
                     shopModification: {
                         id: unitID,

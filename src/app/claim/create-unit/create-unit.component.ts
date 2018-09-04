@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActionType, UnitAction } from '../unit-action';
-import { ContractModificationName, PartyModificationContainerType, ShopModificationName } from '../model';
+import { ContractModificationName, ShopModificationName, UnitContainerType } from '../model';
 import { CreateChangeComponent, CreateChangeComponentInterface } from '../create-change/create-change.component';
 import { MatBottomSheetRef, MatDialog } from '@angular/material';
 
@@ -34,12 +34,12 @@ export class CreateUnitComponent {
         this.dialog.open<CreateChangeComponent, CreateChangeComponentInterface>(CreateChangeComponent, config);
     }
 
-    getContainerType(name: ActionType): PartyModificationContainerType {
+    getContainerType(name: ActionType): UnitContainerType {
         switch (name) {
             case ActionType.shopAction:
-                return PartyModificationContainerType.ShopModification;
+                return UnitContainerType.ShopUnitContainer;
             case ActionType.contractAction:
-                return PartyModificationContainerType.ContractModification;
+                return UnitContainerType.ContractUnitContainer;
         }
     }
 }
