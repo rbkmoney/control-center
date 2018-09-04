@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet, MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
 import { PartyModificationUnit, UnitContainerType } from '../model';
-import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 
 @Component({
     selector: 'cc-party-modifications',
@@ -18,8 +17,7 @@ export class PartyModificationsComponent implements OnInit {
     claimInfoStatus: string;
 
     constructor(private claimService: ClaimService,
-                private snackBar: MatSnackBar,
-                private bottomSheet: MatBottomSheet) {
+                private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -43,9 +41,5 @@ export class PartyModificationsComponent implements OnInit {
                 }
             }
         });
-    }
-
-    openUnitActions(unit: PartyModificationUnit, type: UnitContainerType) {
-        this.bottomSheet.open(UnitActionsComponent, {data: {unitID: unit.unitID, type}});
     }
 }

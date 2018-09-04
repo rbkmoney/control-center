@@ -49,11 +49,13 @@ import { ContainerNamePipe } from './container-name.pipe';
 import { CreateShopComponent } from './create-change/create-shop/create-shop.component';
 import { CreateLocationComponent } from './create-change/create-location/create-location.component';
 import { CreateDetailsComponent } from './create-change/create-details/create-details.component';
-import { CreateUnitComponent } from './create-unit/create-unit.component';
 import { CreateContractComponent } from './create-change/create-contract/create-contract.component';
-import { RussianLegalEntityFormComponent } from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-legal-entity-form.component';
-import { RussianBankAccountFormComponent } from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-bank-account-form/russian-bank-account-form.component';
-import { RussianLegalEntityFormService } from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-legal-entity-form.service';
+import {
+    RussianLegalEntityFormComponent
+} from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-legal-entity-form.component';
+import {
+    RussianBankAccountFormComponent
+} from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-bank-account-form/russian-bank-account-form.component';
 
 @NgModule({
     imports: [
@@ -91,7 +93,6 @@ import { RussianLegalEntityFormService } from './create-change/create-contract/l
         PartyModificationsComponent,
         PartyModificationContainerComponent,
         UnitActionsComponent,
-        CreateUnitComponent,
         CreateChangeComponent,
         CreateLegalAgreementComponent,
         CreateCategoryRefComponent,
@@ -112,7 +113,6 @@ import { RussianLegalEntityFormService } from './create-change/create-contract/l
     ],
     entryComponents: [
         UnitActionsComponent,
-        CreateUnitComponent,
         CreateChangeComponent,
         AcceptClaimComponent,
         DenyClaimComponent

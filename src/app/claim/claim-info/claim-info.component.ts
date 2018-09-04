@@ -5,7 +5,7 @@ import { ClaimService } from '../claim.service';
 import { ClaimInfoContainer } from '../model';
 import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
-import { CreateUnitComponent } from '../create-unit/create-unit.component';
+import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 
 @Component({
     selector: 'cc-claim-info',
@@ -26,8 +26,8 @@ export class ClaimInfoComponent implements OnInit {
         });
     }
 
-    openClaimActions() {
-        this.bottomSheet.open(CreateUnitComponent);
+    createChange() {
+        this.bottomSheet.open(UnitActionsComponent);
     }
 
     accept() {

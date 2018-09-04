@@ -83,13 +83,13 @@ export class DomainTypedManager {
             .pipe(map((domain) => findTerminalObjects(domain)));
     }
 
-    createTerminal(params: CreateTerminalParams, unitID: string): Observable<Version> {
+    createTerminal(params: CreateTerminalParams): Observable<Version> {
         return combineLatest(
             this.getLastVersion(),
             this.getTerminalObjects(),
             this.getProviderObject(params.providerID)
         ).pipe(switchMap(([version, terminalObjects, providerObject]) =>
-            this.dmtService.commit(version, createShopTerminal(terminalObjects, providerObject, params, unitID))));
+            this.dmtService.commit(version, createShopTerminal(terminalObjects, providerObject, params))));
     }
 
     getLastVersion(): Observable<number> {

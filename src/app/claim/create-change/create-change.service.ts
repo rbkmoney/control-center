@@ -46,7 +46,7 @@ export class CreateChangeService {
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
     }
 
-    createChange(claimAction: UnitAction, unitID: string = uuid()): Observable<void> {
+    createChange(claimAction: UnitAction): Observable<void> {
         const instance = this.getCreateServiceInstance(claimAction);
         const value = instance.getValue();
         switch (claimAction.type) {
@@ -54,10 +54,10 @@ export class CreateChangeService {
             case ActionType.contractAction:
                 const partyType = this.toPartyModificationType(claimAction.type);
                 return this.claimService
-                    .createChange(partyType, value as ShopModification | ContractModification, unitID);
+                    .createChange(partyType, value as ShopModification | ContractModification);
             case ActionType.domainAction:
                 return this.domainTypedManager
-                    .createTerminal(value as CreateTerminalParams, unitID)
+                    .createTerminal(value as CreateTerminalParams)
                     .pipe(map(() => {}));
         }
     }

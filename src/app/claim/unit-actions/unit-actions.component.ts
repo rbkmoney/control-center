@@ -71,7 +71,7 @@ export class UnitActionsComponent {
     select(action: UnitAction) {
         this.bottomSheetRef.dismiss();
         const config = {
-            data: {action, unitID: this.data.unitID},
+            data: {action},
             width: '720px',
             disableClose: true
         };

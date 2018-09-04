@@ -9,4 +9,8 @@ export class ClaimInfoContainer {
     updatedAt: string;
     reason: string;
     partyModificationUnitContainers: PartyModificationUnitContainer[];
+    extractedIds: {
+        shopId: string,
+        contractId: string
+    };
 }

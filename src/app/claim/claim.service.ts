@@ -31,7 +31,7 @@ export class ClaimService {
             .pipe(
                 tap((claimInfo) => {
                     this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
-                    const domainModificationInfo = this.toDomainModificationInfo(claimInfo);
+                    const domainModificationInfo = this.toDomainModificationInfo(claimInfo, this.claimInfoContainer.extractedIds.shopId);
                     this.domainModificationInfo$.next(domainModificationInfo);
                     this.claimInfoContainer$.next(this.claimInfoContainer);
                 }),
@@ -39,9 +39,9 @@ export class ClaimService {
             );
     }
 
-    createChange(type: UnitContainerType, modification: ShopModification | ContractModification, unitID: string): Observable<void> {
+    createChange(type: UnitContainerType, modification: ShopModification | ContractModification): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
-        const unit = this.toModificationUnit(type, modification, unitID);
+        const unit = this.toModificationUnit(type, modification);
         return this.papiClaimService.getClaim(partyId, claimId)
             .pipe(
                 switchMap((claimInfo) =>
@@ -81,18 +81,18 @@ export class ClaimService {
 
     private toModificationUnit(
         type: UnitContainerType,
-        modification: ShopModification | ContractModification,
-        unitID: string
+        modification: ShopModification | ContractModification
     ): PartyModificationUnit {
         const result = {
             modifications: []
         };
         let unit;
+        const {contractId, shopId} = this.claimInfoContainer.extractedIds;
         switch (type) {
             case UnitContainerType.ContractUnitContainer:
                 unit = {
                     contractModification: {
-                        id: unitID,
+                        id: contractId,
                         modification
                     }
                 };
@@ -100,7 +100,7 @@ export class ClaimService {
             case UnitContainerType.ShopUnitContainer:
                 unit = {
                     shopModification: {
-                        id: unitID,
+                        id: shopId,
                         modification
                     }
                 };
@@ -114,6 +114,7 @@ export class ClaimService {
         const modifications = claimInfo.modifications.modifications;
         const {claimId, partyId, revision, status, reason, createdAt, updatedAt} = claimInfo;
         const partyModificationUnitContainers = convert(modifications);
+        const extractedIds = this.extractIds(modifications);
         return {
             claimId,
             partyId,
@@ -122,15 +123,17 @@ export class ClaimService {
             reason,
             createdAt,
             updatedAt,
-            partyModificationUnitContainers
+            partyModificationUnitContainers,
+            extractedIds
         };
     }
 
-    private toDomainModificationInfo(claimInfo: ClaimInfo): DomainModificationInfo {
+    private toDomainModificationInfo(claimInfo: ClaimInfo, shopId: string): DomainModificationInfo {
         const modifications = claimInfo.modifications.modifications;
         return {
             shopUrl: this.findShopUrl(modifications),
-            partyId: claimInfo.partyId
+            partyId: claimInfo.partyId,
+            shopId
         };
     }
 
@@ -138,6 +141,20 @@ export class ClaimService {
         const found = modifications.find((item) =>
             !!(item.shopModification && item.shopModification.modification.creation));
         return get(found, 'shopModification.modification.creation.location.url');
+    }
+
+    private extractIds(modifications: PartyModification[]): { shopId: string, contractId: string } {
+        return modifications.reduce((prev, current) => {
+            if (!prev.shopId && current.shopModification) {
+                const shopId = current.shopModification.id;
+                return {...prev, shopId};
+            } else if (!prev.contractId && current.contractModification) {
+                const contractId = current.contractModification.id;
+                return {...prev, contractId};
+            } else {
+                return prev;
+            }
+        }, {shopId: null, contractId: null});
     }
 
     private pollClaimChange(revision: string, delayMs = 2000, retryCount = 15): Observable<void> {

@@ -27,7 +27,6 @@ import {
 
 export interface CreateChangeComponentInterface {
     action: UnitAction;
-    unitID?: string;
 }
 
 @Component({
@@ -75,7 +74,7 @@ export class CreateChangeComponent implements OnInit {
     create() {
         const {name} = this.data.action;
         this.isLoading = true;
-        this.createChangeService.createChange(this.data.action, this.data.unitID).subscribe(() => {
+        this.createChangeService.createChange(this.data.action).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});

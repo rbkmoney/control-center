@@ -7,12 +7,8 @@
                                    fxLayout.xs='column'
                                    fxLayoutGap='10px'
                                    fxLayoutAlign='space-between center'>
-                    <!--<div>Shop modifications</div>-->
+                    <div>Shop modifications</div>
                     <div>Shop ID: {{unit.unitID}}</div>
-                    <button mat-button
-                            [disabled]="claimInfoStatus !== 'pending'"
-                            (click)='openUnitActions(unit, "ShopUnitContainer")'>CREATE CHANGE
-                    </button>
                 </mat-card-subtitle>
             </mat-card>
             <cc-party-modification-container
@@ -29,12 +25,8 @@
                                    fxLayout.xs='column'
                                    fxLayoutGap='10px'
                                    fxLayoutAlign='space-between center'>
-                    <!--<div>Contract modifications</div>-->
+                    <div>Contract modifications</div>
                     <div>Contract ID: {{unit.unitID}}</div>
-                    <button mat-button
-                            [disabled]="claimInfoStatus !== 'pending'"
-                            (click)='openUnitActions(unit, "ContractUnitContainer")'>CREATE CHANGE
-                    </button>
                 </mat-card-subtitle>
             </mat-card>
             <cc-party-modification-container
