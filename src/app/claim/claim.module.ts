@@ -46,16 +46,8 @@ import {
 import { CreateTerminalObjectComponent } from './create-change/create-terminal-object/create-terminal-object.component';
 import { SharedModule } from '../shared/shared.module';
 import { ContainerNamePipe } from './container-name.pipe';
-import { CreateShopComponent } from './create-change/create-shop/create-shop.component';
 import { CreateLocationComponent } from './create-change/create-location/create-location.component';
 import { CreateDetailsComponent } from './create-change/create-details/create-details.component';
-import { CreateContractComponent } from './create-change/create-contract/create-contract.component';
-import {
-    RussianLegalEntityFormComponent
-} from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-legal-entity-form.component';
-import {
-    RussianBankAccountFormComponent
-} from './create-change/create-contract/legal-entity-form/russian-legal-entity-form/russian-bank-account-form/russian-bank-account-form.component';
 
 @NgModule({
     imports: [
@@ -100,10 +92,6 @@ import {
         CreateContractTemplateComponent,
         CreateBusinessScheduleRefComponent,
         CreateServiceAcceptanceActPreferencesComponent,
-        CreateShopComponent,
-        CreateContractComponent,
-        RussianLegalEntityFormComponent,
-        RussianBankAccountFormComponent,
         CreateLocationComponent,
         CreateDetailsComponent,
         AcceptClaimComponent,
