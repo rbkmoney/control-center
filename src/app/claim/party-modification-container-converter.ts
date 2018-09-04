@@ -7,7 +7,8 @@ import {
     PartyModificationContainer,
     PartyModificationContainerType,
     PartyModificationUnit,
-    PartyModificationUnitContainer, PartyModificationUnitContainerType,
+    PartyModificationUnitContainer,
+    PartyModificationUnitContainerType,
     PartyModificationUnitType,
     ShopModificationName
 } from './model';
