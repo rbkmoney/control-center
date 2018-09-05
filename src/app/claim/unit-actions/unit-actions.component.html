@@ -4,7 +4,7 @@
     </a>
     <mat-divider></mat-divider>
     <a mat-list-item *ngFor="let shopAction of shopActions" (click)="select(shopAction)">
-        {{shopAction.name | ccContainerName:'ShopUnitContaine'}}
+        {{shopAction.name | ccContainerName:'ShopUnitContainer'}}
     </a>
     <mat-divider></mat-divider>
     <a mat-list-item *ngFor="let domainAction of domainActions" (click)="select(domainAction)">
