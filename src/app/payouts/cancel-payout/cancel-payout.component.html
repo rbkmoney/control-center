@@ -1,15 +1,15 @@
-<h4 class='mat-dialog-title'>Cancel payouts</h4>
+<h4 class="mat-dialog-title">Cancel payouts</h4>
 <mat-dialog-content>
-    <form [formGroup]='form' fxLayout='column'>
+    <form [formGroup]="form" fxLayout="column">
         <mat-form-field>
-            <textarea matInput placeholder='Reason' formControlName='reason'></textarea>
+            <textarea matInput placeholder="Reason" formControlName="reason"></textarea>
         </mat-form-field>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>
-        <button mat-button color='warn' (click)='submit()' [disabled]='isLoading || !this.form.valid'>CONFIRM</button>
-        <button mat-dialog-close mat-button color='default' (click)='close()'>CANCEL</button>
+        <button mat-button color="warn" (click)="submit()" [disabled]="isLoading || !this.form.valid">CONFIRM</button>
+        <button mat-dialog-close mat-button color="default" (click)="close()">CANCEL</button>
     </div>
-    <mat-progress-bar mode='indeterminate' *ngIf='isLoading'></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </mat-dialog-actions>
