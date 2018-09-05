@@ -16,14 +16,8 @@ import {
     DomainModificationInfo,
     ShopModificationName, UnitContainerType
 } from '../model';
-import { CreateShopService } from './create-shop/create-shop.service';
 import { CreateLocationService } from './create-location/create-location.service';
 import { CreateDetailsService } from './create-details/create-details.service';
-import { CreateContractService } from './create-contract/create-contract.service';
-import { RussianLegalEntityFormService } from './create-contract/legal-entity-form/russian-legal-entity-form/russian-legal-entity-form.service';
-import {
-    RussianBankAccountFormService
-} from './create-contract/legal-entity-form/russian-legal-entity-form/russian-bank-account-form/russian-bank-account-form.service';
 
 export interface CreateChangeComponentInterface {
     action: UnitAction;
@@ -40,12 +34,8 @@ export interface CreateChangeComponentInterface {
         CreateBusinessScheduleRefService,
         CreateServiceAcceptanceActPreferencesService,
         CreateTerminalObjectService,
-        CreateShopService,
-        CreateContractService,
         CreateLocationService,
-        CreateDetailsService,
-        RussianLegalEntityFormService,
-        RussianBankAccountFormService
+        CreateDetailsService
     ]
 })
 export class CreateChangeComponent implements OnInit {
