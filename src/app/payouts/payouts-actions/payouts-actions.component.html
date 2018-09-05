@@ -1,37 +1,37 @@
-<div fxLayout='row' fxLayoutGap='10px'>
+<div fxLayout="row" fxLayoutGap="10px">
     <button *ngIf='hasRole("payout:generate")'
             mat-raised-button
-            color='primary'
-            (click)='createPayout()'>
+            color="primary"
+            (click)="createPayout()">
         CREATE
     </button>
-    <div #payTooltip='matTooltip'
+    <div #payTooltip="matTooltip"
          matTooltip='Select payouts with status "unpaid"'
-         [matTooltipDisabled]='isCanPay()'>
+         [matTooltipDisabled]="isCanPay()">
         <button *ngIf='hasRole("payout:pay")'
-                [matBadgeHidden]='!isCanPay()'
-                matBadge='{{selectedPayouts.length}}'
-                matBadgePosition='after'
-                matBadgeColor='primary'
-                mat-raised-button color='accent'
-                (click)='pay()'
-                [disabled]='!isCanPay()'>
+                [matBadgeHidden]="!isCanPay()"
+                matBadge="{{selectedPayouts.length}}"
+                matBadgePosition="after"
+                matBadgeColor="primary"
+                mat-raised-button color="accent"
+                (click)="pay()"
+                [disabled]="!isCanPay()">
             PAY
         </button>
     </div>
 
-    <div #confirmTooltip='matTooltip'
+    <div #confirmTooltip="matTooltip"
          matTooltip='Select payouts with status "paid"'
-         [matTooltipDisabled]='isCanConfirm()'>
+         [matTooltipDisabled]="isCanConfirm()">
         <button *ngIf='hasRole("payout:confirm")'
-                [matBadgeHidden]='!isCanConfirm()'
-                matBadge='{{selectedPayouts.length}}'
-                matBadgePosition='after'
-                matBadgeColor='primary'
+                [matBadgeHidden]="!isCanConfirm()"
+                matBadge="{{selectedPayouts.length}}"
+                matBadgePosition="after"
+                matBadgeColor="primary"
                 mat-raised-button
-                color='accent'
-                (click)='confirmPayouts()'
-                [disabled]='!isCanConfirm()'>
+                color="accent"
+                (click)="confirmPayouts()"
+                [disabled]="!isCanConfirm()">
             CONFIRM
         </button>
     </div>

@@ -1,5 +1,5 @@
 <mat-card>
-    <mat-card-subtitle>{{container.name | ccContainerName:container.type }}</mat-card-subtitle>
+    <mat-card-subtitle>{{container.name | ccContainerName:type }}</mat-card-subtitle>
     <mat-card-content>
         <mat-tab-group>
             <mat-tab *ngFor="let unit of modifications" label="Modification unit">

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
-import { PartyModificationUnit, PartyModificationUnitType } from '../model';
+import { PartyModificationUnit, UnitContainerType } from '../model';
 
 @Component({
     selector: 'cc-party-modifications',
@@ -10,14 +10,11 @@ import { PartyModificationUnit, PartyModificationUnitType } from '../model';
 })
 export class PartyModificationsComponent implements OnInit {
 
-    shopUnit: PartyModificationUnit;
+    shopUnits: PartyModificationUnit[] = [];
 
-    contractUnit: PartyModificationUnit;
+    contractUnits: PartyModificationUnit[] = [];
 
-    extractedIds: {
-        shopId: string;
-        contractId: string;
-    };
+    claimInfoStatus: string;
 
     constructor(private claimService: ClaimService,
                 private snackBar: MatSnackBar) {
@@ -28,17 +25,17 @@ export class PartyModificationsComponent implements OnInit {
             if (!container) {
                 return;
             }
-            this.extractedIds = container.extractedIds;
-            const units = container.partyModificationUnits;
-            for (const unit of units) {
-                switch (unit.type) {
-                    case PartyModificationUnitType.ShopModification:
-                        this.shopUnit = unit;
+            this.claimInfoStatus = container.status;
+            const unitContainers = container.partyModificationUnitContainers;
+            for (const unitContainer of unitContainers) {
+                switch (unitContainer.type) {
+                    case UnitContainerType.ShopUnitContainer:
+                        this.shopUnits = unitContainer.units;
                         break;
-                    case PartyModificationUnitType.ContractModification:
-                        this.contractUnit = unit;
+                    case UnitContainerType.ContractUnitContainer:
+                        this.contractUnits = unitContainer.units;
                         break;
-                    case PartyModificationUnitType.unknown:
+                    case UnitContainerType.unknown:
                         this.snackBar.open('Detected unknown party modification unit', 'OK');
                         break;
                 }

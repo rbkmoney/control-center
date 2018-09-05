@@ -7,13 +7,9 @@ import toNumber from 'lodash-es/toNumber';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
-import { ShopModification, ContractModification, PartyModification } from '../damsel';
-import {
-    ClaimInfoContainer,
-    DomainModificationInfo,
-    PartyModificationContainerType
-} from './model';
-import { PartyModificationContainerConverter } from './party-modification-container-converter';
+import { ContractModification, PartyModification, ShopModification } from '../damsel';
+import { ClaimInfoContainer, DomainModificationInfo, UnitContainerType } from './model';
+import { convert } from './party-modification-container-converter';
 
 @Injectable()
 export class ClaimService {
@@ -40,7 +36,7 @@ export class ClaimService {
             );
     }
 
-    createChange(type: PartyModificationContainerType, modification: ShopModification | ContractModification): Observable<void> {
+    createChange(type: UnitContainerType, modification: ShopModification | ContractModification): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
         const unit = this.toModificationUnit(type, modification);
         return this.papiClaimService.getClaim(partyId, claimId)
@@ -80,14 +76,17 @@ export class ClaimService {
             );
     }
 
-    private toModificationUnit(type: PartyModificationContainerType, modification: ShopModification | ContractModification): PartyModificationUnit {
+    private toModificationUnit(
+        type: UnitContainerType,
+        modification: ShopModification | ContractModification
+    ): PartyModificationUnit {
         const result = {
             modifications: []
         };
         let unit;
         const {contractId, shopId} = this.claimInfoContainer.extractedIds;
         switch (type) {
-            case PartyModificationContainerType.ContractModification:
+            case UnitContainerType.ContractUnitContainer:
                 unit = {
                     contractModification: {
                         id: contractId,
@@ -95,7 +94,7 @@ export class ClaimService {
                     }
                 };
                 break;
-            case PartyModificationContainerType.ShopModification:
+            case UnitContainerType.ShopUnitContainer:
                 unit = {
                     shopModification: {
                         id: shopId,
@@ -111,7 +110,7 @@ export class ClaimService {
     private toClaimInfoContainer(claimInfo: ClaimInfo): ClaimInfoContainer {
         const modifications = claimInfo.modifications.modifications;
         const {claimId, partyId, revision, status, reason, createdAt, updatedAt} = claimInfo;
-        const partyModificationUnits = PartyModificationContainerConverter.convert(modifications);
+        const partyModificationUnitContainers = convert(modifications);
         const extractedIds = this.extractIds(modifications);
         return {
             claimId,
@@ -121,8 +120,8 @@ export class ClaimService {
             reason,
             createdAt,
             updatedAt,
-            extractedIds,
-            partyModificationUnits
+            partyModificationUnitContainers,
+            extractedIds
         };
     }
 
@@ -130,8 +129,8 @@ export class ClaimService {
         const modifications = claimInfo.modifications.modifications;
         return {
             shopUrl: this.findShopUrl(modifications),
-            shopId,
-            partyId: claimInfo.partyId
+            partyId: claimInfo.partyId,
+            shopId
         };
     }
 

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 
-import { ActionType, ClaimAction } from '../claim-actions/claim-action';
+import { ActionType, UnitAction } from '../unit-action';
 import { CreateChangeService } from './create-change.service';
 import { CreateLegalAgreementService } from './create-legal-agreement/create-legal-agreement.service';
 import { CreateCategoryRefService } from './create-category-ref/create-category-ref.service';
@@ -11,12 +11,9 @@ import { CreateContractTemplateService } from './create-contract-template/create
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
 import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.service';
 import { CreateTerminalObjectService } from './create-terminal-object/create-terminal-object.service';
-import {
-    ContractModificationName,
-    DomainModificationInfo,
-    ShopModificationName,
-    PartyModificationContainerType
-} from '../model';
+import { ContractModificationName, DomainModificationInfo, ShopModificationName, UnitContainerType } from '../model';
+import { CreateLocationService } from './create-location/create-location.service';
+import { CreateDetailsService } from './create-details/create-details.service';
 
 @Component({
     templateUrl: 'create-change.component.html',
@@ -28,7 +25,9 @@ import {
         CreateContractTemplateService,
         CreateBusinessScheduleRefService,
         CreateServiceAcceptanceActPreferencesService,
-        CreateTerminalObjectService
+        CreateTerminalObjectService,
+        CreateLocationService,
+        CreateDetailsService
     ]
 })
 export class CreateChangeComponent implements OnInit {
@@ -45,7 +44,7 @@ export class CreateChangeComponent implements OnInit {
 
     constructor(
         private dialogRef: MatDialogRef<CreateChangeComponent>,
-        @Inject(MAT_DIALOG_DATA) public claimAction: ClaimAction,
+        @Inject(MAT_DIALOG_DATA) public action: UnitAction,
         private snackBar: MatSnackBar,
         private createChangeService: CreateChangeService) {
     }
@@ -55,9 +54,9 @@ export class CreateChangeComponent implements OnInit {
     }
 
     create() {
-        const {name} = this.claimAction;
+        const {name} = this.action;
         this.isLoading = true;
-        this.createChangeService.createChange(this.claimAction).subscribe(() => {
+        this.createChangeService.createChange(this.action).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
@@ -69,15 +68,15 @@ export class CreateChangeComponent implements OnInit {
     }
 
     isFormValid() {
-        return this.createChangeService.isFormValid(this.claimAction);
+        return this.createChangeService.isFormValid(this.action);
     }
 
     getContainerType(type: ActionType): string {
         switch (type) {
             case ActionType.shopAction:
-                return PartyModificationContainerType.ShopModification;
+                return UnitContainerType.ShopUnitContainer;
             case ActionType.contractAction:
-                return PartyModificationContainerType.ContractModification;
+                return UnitContainerType.ContractUnitContainer;
             case ActionType.domainAction:
                 return 'Domain modification';
         }

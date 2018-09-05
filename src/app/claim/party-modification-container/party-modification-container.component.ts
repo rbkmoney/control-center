@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { PartyModificationContainer } from '../model';
+import { PartyModificationContainer, UnitContainerType } from '../model';
 import { ContractModificationUnit, ShopModificationUnit } from '../../damsel';
 
 @Component({
@@ -37,6 +37,9 @@ export class PartyModificationContainerComponent implements OnInit {
 
     @Input()
     container: PartyModificationContainer;
+
+    @Input()
+    type: UnitContainerType;
 
     modifications: ContractModificationUnit[] | ShopModificationUnit[];
 

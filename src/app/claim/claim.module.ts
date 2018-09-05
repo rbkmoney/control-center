@@ -30,7 +30,7 @@ import { ClaimInfoComponent } from './claim-info/claim-info.component';
 import { ClaimInfoDetailsComponent } from './claim-info/claim-info-details/claim-info-details.component';
 import { PartyModificationsComponent } from './party-modifications/party-modifications.component';
 import { PartyModificationContainerComponent } from './party-modification-container/party-modification-container.component';
-import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
+import { UnitActionsComponent } from './unit-actions/unit-actions.component';
 import { CreateChangeComponent } from './create-change/create-change.component';
 import { CreateLegalAgreementComponent } from './create-change/create-legal-agreement/create-legal-agreement.component';
 import { CreateCategoryRefComponent } from './create-change/create-category-ref/create-category-ref.component';
@@ -46,6 +46,8 @@ import {
 import { CreateTerminalObjectComponent } from './create-change/create-terminal-object/create-terminal-object.component';
 import { SharedModule } from '../shared/shared.module';
 import { ContainerNamePipe } from './container-name.pipe';
+import { CreateLocationComponent } from './create-change/create-location/create-location.component';
+import { CreateDetailsComponent } from './create-change/create-details/create-details.component';
 
 @NgModule({
     imports: [
@@ -82,7 +84,7 @@ import { ContainerNamePipe } from './container-name.pipe';
         ClaimInfoDetailsComponent,
         PartyModificationsComponent,
         PartyModificationContainerComponent,
-        ClaimActionsComponent,
+        UnitActionsComponent,
         CreateChangeComponent,
         CreateLegalAgreementComponent,
         CreateCategoryRefComponent,
@@ -90,13 +92,15 @@ import { ContainerNamePipe } from './container-name.pipe';
         CreateContractTemplateComponent,
         CreateBusinessScheduleRefComponent,
         CreateServiceAcceptanceActPreferencesComponent,
+        CreateLocationComponent,
+        CreateDetailsComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
         CreateTerminalObjectComponent,
         ContainerNamePipe
     ],
     entryComponents: [
-        ClaimActionsComponent,
+        UnitActionsComponent,
         CreateChangeComponent,
         AcceptClaimComponent,
         DenyClaimComponent

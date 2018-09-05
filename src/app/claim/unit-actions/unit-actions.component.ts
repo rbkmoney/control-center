@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { MatBottomSheetRef, MatDialog } from '@angular/material';
 
-import { ShopModificationName, ContractModificationName } from '../model';
-import { ActionType, ClaimAction } from './claim-action';
+import { ContractModificationName, ShopModificationName } from '../model';
+import { ActionType, UnitAction } from '../unit-action';
 import { CreateChangeComponent } from '../create-change/create-change.component';
 
 @Component({
-    templateUrl: 'claim-actions.component.html'
+    templateUrl: 'unit-actions.component.html'
 })
-export class ClaimActionsComponent {
+export class UnitActionsComponent {
 
     constructor(private bottomSheetRef: MatBottomSheetRef,
                 private dialog: MatDialog) {
     }
 
-    contractActions: ClaimAction[] = [
+    contractActions: UnitAction[] = [
         {
             type: ActionType.contractAction,
             name: ContractModificationName.legalAgreementBinding
@@ -26,10 +26,18 @@ export class ClaimActionsComponent {
         {
             type: ActionType.contractAction,
             name: ContractModificationName.adjustmentModification
-        },
+        }
     ];
 
-    shopActions: ClaimAction[] = [
+    shopActions: UnitAction[] = [
+        {
+            type: ActionType.shopAction,
+            name: ShopModificationName.detailsModification
+        },
+        {
+            type: ActionType.shopAction,
+            name: ShopModificationName.locationModification
+        },
         {
             type: ActionType.shopAction,
             name: ShopModificationName.categoryModification
@@ -44,19 +52,19 @@ export class ClaimActionsComponent {
         }
     ];
 
-    domainActions: ClaimAction[] = [
+    domainActions: UnitAction[] = [
         {
             type: ActionType.domainAction
         }
     ];
 
-    select(action: ClaimAction) {
+    select(action: UnitAction) {
         this.bottomSheetRef.dismiss();
         const config = {
             data: action,
             width: '720px',
             disableClose: true
         };
-        this.dialog.open<CreateChangeComponent, ClaimAction>(CreateChangeComponent, config);
+        this.dialog.open<CreateChangeComponent>(CreateChangeComponent, config);
     }
 }
