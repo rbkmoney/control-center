@@ -18,7 +18,8 @@ export class CreateBusinessScheduleRefComponent implements OnInit {
 
     constructor(
         private createBusinessScheduleRefService: CreateBusinessScheduleRefService,
-        private domainManager: DomainTypedManager) {}
+        private domainManager: DomainTypedManager) {
+    }
 
     ngOnInit() {
         this.form = this.createBusinessScheduleRefService.form;
