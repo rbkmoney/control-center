@@ -15,10 +15,6 @@ import { ContractModificationName, DomainModificationInfo, ShopModificationName,
 import { CreateLocationService } from './create-location/create-location.service';
 import { CreateDetailsService } from './create-details/create-details.service';
 
-export interface CreateChangeComponentInterface {
-    action: UnitAction;
-}
-
 @Component({
     templateUrl: 'create-change.component.html',
     providers: [
@@ -48,7 +44,7 @@ export class CreateChangeComponent implements OnInit {
 
     constructor(
         private dialogRef: MatDialogRef<CreateChangeComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: CreateChangeComponentInterface,
+        @Inject(MAT_DIALOG_DATA) public action: UnitAction,
         private snackBar: MatSnackBar,
         private createChangeService: CreateChangeService) {
     }
@@ -58,9 +54,9 @@ export class CreateChangeComponent implements OnInit {
     }
 
     create() {
-        const {name} = this.data.action;
+        const {name} = this.action;
         this.isLoading = true;
-        this.createChangeService.createChange(this.data.action).subscribe(() => {
+        this.createChangeService.createChange(this.action).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
@@ -72,7 +68,7 @@ export class CreateChangeComponent implements OnInit {
     }
 
     isFormValid() {
-        return this.createChangeService.isFormValid(this.data.action);
+        return this.createChangeService.isFormValid(this.action);
     }
 
     getContainerType(type: ActionType): string {

@@ -1,14 +1,9 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog } from '@angular/material';
+import { Component } from '@angular/core';
+import { MatBottomSheetRef, MatDialog } from '@angular/material';
 
-import { ContractModificationName, ShopModificationName, UnitContainerType } from '../model';
+import { ContractModificationName, ShopModificationName } from '../model';
 import { ActionType, UnitAction } from '../unit-action';
-import { CreateChangeComponent, CreateChangeComponentInterface } from '../create-change/create-change.component';
-
-export interface ClaimActionsComponentInterface {
-    unitID: string;
-    type: UnitContainerType;
-}
+import { CreateChangeComponent } from '../create-change/create-change.component';
 
 @Component({
     templateUrl: 'unit-actions.component.html'
@@ -16,8 +11,7 @@ export interface ClaimActionsComponentInterface {
 export class UnitActionsComponent {
 
     constructor(private bottomSheetRef: MatBottomSheetRef,
-                private dialog: MatDialog,
-                @Inject(MAT_BOTTOM_SHEET_DATA) public data: ClaimActionsComponentInterface) {
+                private dialog: MatDialog) {
     }
 
     contractActions: UnitAction[] = [
@@ -67,10 +61,10 @@ export class UnitActionsComponent {
     select(action: UnitAction) {
         this.bottomSheetRef.dismiss();
         const config = {
-            data: {action},
+            data: action,
             width: '720px',
             disableClose: true
         };
-        this.dialog.open<CreateChangeComponent, CreateChangeComponentInterface>(CreateChangeComponent, config);
+        this.dialog.open<CreateChangeComponent>(CreateChangeComponent, config);
     }
 }
