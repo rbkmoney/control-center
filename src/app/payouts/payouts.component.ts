@@ -30,8 +30,7 @@ export class PayoutsComponent implements OnInit {
         this.payouts$ = this.payoutsService.payouts$;
         this.isLoading = true;
         this.payoutsService.get(this.searchService.formValueToSearchParams({
-                status: PayoutStatus.unpaid,
-                fromTime: moment().subtract(1, 'months'),
+                fromTime: moment().subtract(1, 'weeks'),
                 toTime: moment().add(1, 'days')
             }
         )).subscribe(() => {
