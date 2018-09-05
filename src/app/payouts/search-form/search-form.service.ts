@@ -44,8 +44,8 @@ export class SearchFormService {
     private prepareForm(): FormGroup {
         return this.fb.group({
             payoutIds: '',
-            status: PayoutStatus.unpaid,
-            fromTime: moment().subtract(1, 'months').utc().toDate(),
+            status: '',
+            fromTime: moment().subtract(1, 'weeks').utc().toDate(),
             toTime: moment().add(1, 'days').utc().toDate()
         });
     }
