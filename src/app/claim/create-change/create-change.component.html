@@ -1,34 +1,34 @@
-<div class="mat-dialog-title">{{data.action.name | ccContainerName:getContainerType(data.action.type)}}</div>
+<div class="mat-dialog-title">{{action.name | ccContainerName:getContainerType(action.type)}}</div>
 <mat-dialog-content>
-    <div *ngIf="data.action.type === ActionType.contractAction">
+    <div *ngIf="action.type === ActionType.contractAction">
         <cc-create-legal-agreement
-                *ngIf="data.action.name === ContractModificationName.legalAgreementBinding">
+                *ngIf="action.name === ContractModificationName.legalAgreementBinding">
         </cc-create-legal-agreement>
         <cc-create-contract-template
-                *ngIf="data.action.name === ContractModificationName.adjustmentModification">
+                *ngIf="action.name === ContractModificationName.adjustmentModification">
         </cc-create-contract-template>
         <cc-create-service-acceptance-act-preferences
-                *ngIf="data.action.name === ContractModificationName.reportPreferencesModification">
+                *ngIf="action.name === ContractModificationName.reportPreferencesModification">
         </cc-create-service-acceptance-act-preferences>
     </div>
-    <div *ngIf="data.action.type === ActionType.shopAction">
+    <div *ngIf="action.type === ActionType.shopAction">
         <cc-create-location
-                *ngIf="data.action.name === ShopModificationName.locationModification">
+                *ngIf="action.name === ShopModificationName.locationModification">
         </cc-create-location>
         <cc-create-details
-                *ngIf="data.action.name === ShopModificationName.detailsModification">
+                *ngIf="action.name === ShopModificationName.detailsModification">
         </cc-create-details>
         <cc-create-category-ref
-                *ngIf="data.action.name === ShopModificationName.categoryModification">
+                *ngIf="action.name === ShopModificationName.categoryModification">
         </cc-create-category-ref>
         <cc-create-currency-ref
-                *ngIf="data.action.name === ShopModificationName.shopAccountCreation">
+                *ngIf="action.name === ShopModificationName.shopAccountCreation">
         </cc-create-currency-ref>
         <cc-create-business-schedule-ref
-                *ngIf="data.action.name === ShopModificationName.payoutScheduleModification">
+                *ngIf="action.name === ShopModificationName.payoutScheduleModification">
         </cc-create-business-schedule-ref>
     </div>
-    <div *ngIf="data.action.type === ActionType.domainAction">
+    <div *ngIf="action.type === ActionType.domainAction">
         <cc-create-terminal-object
                 [domainModificationInfo]="(domainModificationInfo$ | async)">
         </cc-create-terminal-object>
