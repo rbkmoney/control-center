@@ -1,11 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog } from '@angular/material';
 
-import {
-    ShopModificationName,
-    ContractModificationName,
-    UnitContainerType
-} from '../model';
+import { ContractModificationName, ShopModificationName, UnitContainerType } from '../model';
 import { ActionType, UnitAction } from '../unit-action';
 import { CreateChangeComponent, CreateChangeComponentInterface } from '../create-change/create-change.component';
 

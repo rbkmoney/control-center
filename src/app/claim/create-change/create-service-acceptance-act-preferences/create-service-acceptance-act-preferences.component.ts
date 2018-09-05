@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences.service';
-import { RepresentativeDocumentType } from '../../../damsel/domain/representative-document';
+import { RepresentativeDocumentType } from '../../../damsel/domain';
 
 @Component({
     selector: 'cc-create-service-acceptance-act-preferences',

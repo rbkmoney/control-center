@@ -7,8 +7,8 @@ import {
     PartyModificationContainer,
     PartyModificationUnit,
     PartyModificationUnitContainer,
-    UnitContainerType,
-    ShopModificationName
+    ShopModificationName,
+    UnitContainerType
 } from './model';
 
 const toContractContainers = (modification: ContractModificationUnit[]): PartyModificationContainer[] => {

@@ -7,11 +7,8 @@ import toNumber from 'lodash-es/toNumber';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
-import { ShopModification, ContractModification, PartyModification } from '../damsel';
-import {
-    ClaimInfoContainer,
-    DomainModificationInfo, UnitContainerType
-} from './model';
+import { ContractModification, PartyModification, ShopModification } from '../damsel';
+import { ClaimInfoContainer, DomainModificationInfo, UnitContainerType } from './model';
 import { convert } from './party-modification-container-converter';
 
 @Injectable()

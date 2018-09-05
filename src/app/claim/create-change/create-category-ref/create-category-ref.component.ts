@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import sortBy from 'lodash-es/sortBy';
 
-import { Category } from '../../../papi/model/category';
+import { Category } from '../../../papi/model';
 import { CreateCategoryRefService } from './create-category-ref.service';
 import { CategoryService } from '../../../papi/category.service';
 

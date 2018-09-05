@@ -1,4 +1,4 @@
-import { ContractModificationName, ShopModificationName } from './model/index';
+import { ContractModificationName, ShopModificationName } from './model';
 
 export enum ActionType {
     contractAction = 'contractAction',

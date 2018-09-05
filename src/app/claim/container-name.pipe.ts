@@ -1,10 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import {
-    ShopModificationName,
-    ContractModificationName,
-    UnitContainerType
-} from './model';
+import { ContractModificationName, ShopModificationName, UnitContainerType } from './model';
 
 @Pipe({
     name: 'ccContainerName'

@@ -5,7 +5,7 @@ import * as moment from 'moment';
 
 import { CreateChangeItem } from '../create-change-item';
 import { ContractModification } from '../../../damsel/payment-processing';
-import { RepresentativeDocument, RepresentativeDocumentType } from '../../../damsel/domain/representative-document';
+import { RepresentativeDocument, RepresentativeDocumentType } from '../../../damsel/domain';
 
 @Injectable()
 export class CreateServiceAcceptanceActPreferencesService implements CreateChangeItem {

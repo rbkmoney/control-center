@@ -11,11 +11,7 @@ import { CreateBusinessScheduleRefService } from './create-business-schedule-ref
 import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.service';
 import { CreateTerminalObjectService } from './create-terminal-object/create-terminal-object.service';
 import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
-import {
-    ContractModificationName,
-    DomainModificationInfo,
-    ShopModificationName, UnitContainerType
-} from '../model';
+import { ContractModificationName, DomainModificationInfo, ShopModificationName, UnitContainerType } from '../model';
 import { CreateChangeItem } from './create-change-item';
 import { ClaimService } from '../claim.service';
 import { ContractModification, ShopModification } from '../../damsel';
