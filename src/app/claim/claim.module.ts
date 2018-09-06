@@ -48,6 +48,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ContainerNamePipe } from './container-name.pipe';
 import { CreateLocationComponent } from './create-change/create-location/create-location.component';
 import { CreateDetailsComponent } from './create-change/create-details/create-details.component';
+import { PartyModificationUnitsComponent } from './party-modification-units/party-modification-units.component';
 
 @NgModule({
     imports: [
@@ -97,6 +98,7 @@ import { CreateDetailsComponent } from './create-change/create-details/create-de
         AcceptClaimComponent,
         DenyClaimComponent,
         CreateTerminalObjectComponent,
+        PartyModificationUnitsComponent,
         ContainerNamePipe
     ],
     entryComponents: [
