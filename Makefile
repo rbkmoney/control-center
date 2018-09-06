@@ -38,18 +38,21 @@ submodules: $(SUBTARGETS)
 init:
 	npm install
 
-build: lint src/gen-nodejs src/gen-json
+build: lint src/gen-nodejs src/gen-json thrift-to-js/payment-processing
 	npm run build
 
 clean:
 	rm -rf dist src/app/domain/gen-* src/assets/gen-*
 
 # utils
-src/gen-nodejs: node_modules/damsel/proto/domain_config.thrift
+src/gen-nodejs:
 	thrift -r -gen js:node,runtime_package=woody_js/src/client/gen -o ./src/app/domain ./node_modules/damsel/proto/domain_config.thrift
 
-src/gen-json: node_modules/damsel/proto/domain_config.thrift
+src/gen-json:
 	thrift -r -gen json -o ./src/assets ./node_modules/damsel/proto/domain_config.thrift
+
+thrift-to-js/payment-processing:
+	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/payment-adjustment ./node_modules/damsel/proto/payment_processing.thrift
 
 lint:
 	npm run lint
