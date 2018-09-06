@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
-import { Payout, PayoutStatus } from '../papi/model';
+import { Payout } from '../papi/model';
 import { PayoutsService } from './payouts.service';
 import { SearchFormService } from './search-form/search-form.service';
 
