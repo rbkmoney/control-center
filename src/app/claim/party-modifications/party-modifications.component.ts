@@ -14,8 +14,6 @@ export class PartyModificationsComponent implements OnInit {
 
     contractUnits: PartyModificationUnit[] = [];
 
-    claimInfoStatus: string;
-
     constructor(private claimService: ClaimService,
                 private snackBar: MatSnackBar) {
     }
@@ -25,7 +23,6 @@ export class PartyModificationsComponent implements OnInit {
             if (!container) {
                 return;
             }
-            this.claimInfoStatus = container.status;
             const unitContainers = container.partyModificationUnitContainers;
             for (const unitContainer of unitContainers) {
                 switch (unitContainer.type) {
