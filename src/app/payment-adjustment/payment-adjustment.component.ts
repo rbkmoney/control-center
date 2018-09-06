@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/create-payment-adjustment.component';
 
 @Component({
     selector: 'cc-payment-adjustment',
@@ -7,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentAdjustmentComponent implements OnInit {
 
-    constructor() {
+    constructor(private dialogRef: MatDialog) {
     }
 
     ngOnInit() {
+    }
+
+    createPaymentAdjustment() {
+        this.dialogRef.open(CreatePaymentAdjustmentComponent);
     }
 
 }

@@ -5,11 +5,8 @@
                 Payment adjustment actions
             </mat-card-subtitle>
             <mat-card-content>
-                <button mat-raised-button color="primary" [disabled]="isLoading">Create</button>
+                <button mat-raised-button color="primary" (click)="createPaymentAdjustment()">Create</button>
             </mat-card-content>
-            <mat-card-footer *ngIf="isLoading">
-                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </mat-card-footer>
         </mat-card>
     </div>
 </div>

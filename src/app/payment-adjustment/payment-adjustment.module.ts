@@ -4,6 +4,7 @@ import { MatButtonModule, MatCardModule, MatProgressBarModule } from '@angular/m
 
 import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
+import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/create-payment-adjustment.component';
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { PaymentAdjustmentComponent } from './payment-adjustment.component';
         MatProgressBarModule,
         MatButtonModule
     ],
-    declarations: [PaymentAdjustmentComponent]
+    declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent],
+    entryComponents: [CreatePaymentAdjustmentComponent]
 })
 export class PaymentAdjustmentModule {
 }
