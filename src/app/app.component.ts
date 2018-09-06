@@ -31,7 +31,6 @@ export class AppComponent implements OnInit {
             {name: 'Payment adjustment', route: '/payment-adjustment', activateRole: 'adjustment:create'}
         ];
         const roles = this.keycloakService.getUserRoles();
-        console.dir(roles);
         return menuItems.filter((item) => roles.includes(item.activateRole));
     }
 }
