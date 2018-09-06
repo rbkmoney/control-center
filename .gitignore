@@ -39,4 +39,4 @@ testem.log
 Thumbs.db
 /src/assets/gen-json/
 /src/app/domain/gen-nodejs/
-/src/app/payment-adjustment/gen-nodejs/
+/src/app/payment-processing/gen-nodejs/

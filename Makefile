@@ -52,7 +52,7 @@ src/gen-json:
 	thrift -r -gen json -o ./src/assets ./node_modules/damsel/proto/domain_config.thrift
 
 thrift-to-js/payment-processing:
-	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/payment-adjustment ./node_modules/damsel/proto/payment_processing.thrift
+	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/payment-processing ./node_modules/damsel/proto/payment_processing.thrift
 
 lint:
 	npm run lint
