@@ -1,3 +1,18 @@
-<p>
-  create-payment-adjustment works!
-</p>
+<h4 class="mat-dialog-title">Create payment adjustment</h4>
+<mat-dialog-content>
+    <form *ngIf="form" [formGroup]="form" fxLayout="column">
+        <mat-form-field>
+            <input matInput placeholder="Payment ID" formControlName="paymentId">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Reason" formControlName="reason">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
+    <div>
+        <button mat-button color="default" (click)="submit()" [disabled]="isLoading || !form.valid">CREATE</button>
+        <button mat-dialog-close mat-button color="default">CANCEL</button>
+    </div>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>

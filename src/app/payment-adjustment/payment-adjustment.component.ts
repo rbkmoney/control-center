@@ -16,7 +16,10 @@ export class PaymentAdjustmentComponent implements OnInit {
     }
 
     createPaymentAdjustment() {
-        this.dialogRef.open(CreatePaymentAdjustmentComponent);
+        this.dialogRef.open(CreatePaymentAdjustmentComponent, {
+            width: '720px',
+            disableClose: true
+        });
     }
 
 }

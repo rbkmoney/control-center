@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatCardModule, MatProgressBarModule } from '@angular/material';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule, MatInputModule,
+    MatProgressBarModule
+} from '@angular/material';
 
 import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
 import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/create-payment-adjustment.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     imports: [
@@ -12,7 +20,12 @@ import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/cr
         PaymentAdjustmentRoutingModule,
         MatCardModule,
         MatProgressBarModule,
-        MatButtonModule
+        MatButtonModule,
+        MatFormFieldModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        FlexLayoutModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent],
     entryComponents: [CreatePaymentAdjustmentComponent]
