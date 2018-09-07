@@ -1,20 +1,17 @@
-<div fxLayout="column" fxLayoutGap="20px">
-    <div fxLayout="column" fxLayoutGap="10px">
-        <div class="mat-body-1">Payout tool modification</div>
-        <mat-radio-group
-                fxLayout="row"
-                fxLayout.sm="column"
-                fxLayout.xs="column"
-                fxLayoutGap="10px">
-            <mat-radio-button
-                    *ngFor="let modification of modifications"
-                    [value]="modification"
-                    (click)="select(modification)">{{modification}}
-            </mat-radio-button>
-        </mat-radio-group>
-    </div>
+<div fxLayout="column">
+    <mat-form-field>
+        <mat-select placeholder="Payout tool modification"
+                    [(value)]="selected"
+                    (selectionChange)="select()">
+            <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+        </mat-select>
+    </mat-form-field>
     <cc-payout-tool-params
-            *ngIf="selected === m.creation"
-            [form]="form.get(m.creation)">
+            *ngIf="selected === t.creation"
+            [form]="form.get(t.creation)">
     </cc-payout-tool-params>
+    <cc-payout-tool-info
+            *ngIf="selected === t.infoModification"
+            [form]="form.get(t.infoModification)">
+    </cc-payout-tool-info>
 </div>

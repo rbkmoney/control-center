@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-enum Modification {
+enum Type {
     creation = 'creation',
     infoModification = 'infoModification'
 }
@@ -15,26 +15,25 @@ export class PayoutToolModificationComponent {
     @Input()
     form: FormGroup;
 
-    modifications = [Modification.creation, Modification.infoModification];
+    types = [Type.creation, Type.infoModification];
 
-    selected: Modification;
+    selected: Type;
 
-    m = Modification;
+    t = Type;
 
     constructor(private fb: FormBuilder) {
     }
 
-    select(name: Modification) {
-        switch (name) {
-            case Modification.creation:
-                this.form.addControl(Modification.creation, this.fb.group({}));
-                this.form.removeControl(Modification.infoModification);
+    select() {
+        switch (this.selected) {
+            case Type.creation:
+                this.form.addControl(Type.creation, this.fb.group({}));
+                this.form.removeControl(Type.infoModification);
                 break;
-            case Modification.infoModification:
-                this.form.addControl(Modification.infoModification, this.fb.group({}));
-                this.form.removeControl(Modification.creation);
+            case Type.infoModification:
+                this.form.addControl(Type.infoModification, this.fb.group({}));
+                this.form.removeControl(Type.creation);
                 break;
         }
-        this.selected = name;
     }
 }

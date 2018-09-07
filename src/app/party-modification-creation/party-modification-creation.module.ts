@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
@@ -17,6 +18,9 @@ import { PayoutToolModificationComponent } from './contract/payout-tool-modifica
 import { PayoutToolParamsComponent } from './contract/payout-tool-params/payout-tool-params.component';
 import { CurrencyRefComponent } from './currency-ref/currency-ref.component';
 import { PayoutToolInfoComponent } from './payout-tool-info/payout-tool-info.component';
+import { RussianBankAccountComponent } from './payout-tool-info/russian-bank-account/russian-bank-account.component';
+import { InternationalBankAccountComponent } from './payout-tool-info/international-bank-account/international-bank-account.component';
+import { InternationalBankDetailsComponent } from './payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
 
 @NgModule({
     imports: [
@@ -28,7 +32,8 @@ import { PayoutToolInfoComponent } from './payout-tool-info/payout-tool-info.com
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
-        MatRadioModule
+        MatRadioModule,
+        MatCheckboxModule
     ],
     declarations: [
         PartyModificationCreationComponent,
@@ -36,7 +41,10 @@ import { PayoutToolInfoComponent } from './payout-tool-info/payout-tool-info.com
         PayoutToolModificationComponent,
         PayoutToolParamsComponent,
         CurrencyRefComponent,
-        PayoutToolInfoComponent
+        PayoutToolInfoComponent,
+        RussianBankAccountComponent,
+        InternationalBankAccountComponent,
+        InternationalBankDetailsComponent
     ],
     exports: [
         PartyModificationCreationComponent

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 enum Type {
     russianBankAccount = 'russianBankAccount',
@@ -15,9 +15,26 @@ export class PayoutToolInfoComponent {
     @Input()
     form: FormGroup;
 
+    selected: Type;
+
     types = [Type.russianBankAccount, Type.internationalBankAccount];
 
-    select(type: Type) {
+    t = Type;
 
+    constructor(private fb: FormBuilder) {
+    }
+
+    select() {
+        switch (this.selected) {
+            case Type.russianBankAccount:
+                this.form.addControl(Type.russianBankAccount, this.fb.group({}));
+                this.form.removeControl(Type.internationalBankAccount);
+                break;
+            case Type.internationalBankAccount:
+                this.form.addControl(Type.internationalBankAccount, this.fb.group({}));
+                this.form.removeControl(Type.russianBankAccount);
+                break;
+        }
+        // this.selected = type;
     }
 }

@@ -1,16 +1,17 @@
-<div fxLayout="column" fxLayoutGap="20px">
-    <div fxLayout="column" fxLayoutGap="10px">
-        <div class="mat-body-1">Payout tool info</div>
-        <mat-radio-group
-                fxLayout="row"
-                fxLayout.sm="column"
-                fxLayout.xs="column"
-                fxLayoutGap="10px">
-            <mat-radio-button
-                    *ngFor="let type of types"
-                    [value]="info"
-                    (click)="select(type)">{{type}}
-            </mat-radio-button>
-        </mat-radio-group>
-    </div>
+<div fxLayout="column">
+    <mat-form-field>
+        <mat-select placeholder="Payout tool info"
+                    [(value)]="selected"
+                    (selectionChange)="select()">
+            <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <cc-russian-bank-account
+            *ngIf="selected === t.russianBankAccount"
+            [form]="form.get(t.russianBankAccount)">
+    </cc-russian-bank-account>
+    <cc-international-bank-account
+            *ngIf="selected === t.internationalBankAccount"
+            [form]="form.get(t.internationalBankAccount)">
+    </cc-international-bank-account>
 </div>
