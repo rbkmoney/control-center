@@ -14,7 +14,8 @@ import { PaymentAdjustmentComponent } from './payment-adjustment.component';
 import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/create-payment-adjustment.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { PaymentAdjustmentTableComponent } from './payment-adjustment-table/payment-adjustment-table.component';
+import { PaymentsAdjustmentsTableComponent } from './payments-adjustments-table/payments-adjustments-table.component';
+import { SearchPaymentsAdjustmentsComponent } from './search-payments-adjustments/search-payments-adjustments.component';
 
 @NgModule({
     imports: [
@@ -31,8 +32,8 @@ import { PaymentAdjustmentTableComponent } from './payment-adjustment-table/paym
         MatTableModule,
         CdkTableModule
     ],
-    declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentAdjustmentTableComponent],
-    entryComponents: [CreatePaymentAdjustmentComponent, PaymentAdjustmentTableComponent]
+    declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchPaymentsAdjustmentsComponent],
+    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent]
 })
 export class PaymentAdjustmentModule {
 }

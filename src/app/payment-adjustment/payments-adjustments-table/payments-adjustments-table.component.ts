@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Payment } from '../../papi/model';
 
 @Component({
-    selector: 'cc-payment-adjustment-table',
-    templateUrl: './payment-adjustment-table.component.html',
-    styleUrls: ['./payment-adjustment-table.component.css']
+    selector: 'cc-payments-adjustments-table',
+    templateUrl: './payments-adjustments-table.component.html',
+    styleUrls: ['./payments-adjustments-table.component.css']
 })
-export class PaymentAdjustmentTableComponent implements OnInit {
+export class PaymentsAdjustmentsTableComponent implements OnInit {
 
     payments: Payment[] = [];
 
