@@ -1,0 +1,12 @@
+<table mat-table [dataSource]="payments" class="mat-elevation-z2">
+    <ng-container matColumnDef="invoiceId">
+        <th mat-header-cell *matHeaderCellDef fxHide.xs fxHide.sm>Invoice ID</th>
+        <td mat-cell *matCellDef="let payment" fxHide.xs fxHide.sm>{{ payment.invoiceId }}</td>
+    </ng-container>
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Payment ID</th>
+        <td mat-cell *matCellDef="let payment">{{ payment.id }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="cols"></tr>
+    <tr mat-row *matRowDef="let payment; columns: cols;"></tr>
+</table>

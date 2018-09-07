@@ -2,11 +2,20 @@
     <div class="card-container" fxLayout="column" fxLayoutGap="20px">
         <mat-card>
             <mat-card-subtitle>
+                Search payment adjustments
+            </mat-card-subtitle>
+            <mat-card-content>
+                test
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-subtitle>
                 Payment adjustment actions
             </mat-card-subtitle>
             <mat-card-content>
                 <button mat-raised-button color="primary" (click)="createPaymentAdjustment()">Create</button>
             </mat-card-content>
         </mat-card>
+        <cc-payment-adjustment-table></cc-payment-adjustment-table>
     </div>
 </div>
