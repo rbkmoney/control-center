@@ -33,7 +33,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
         CdkTableModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
-    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent]
+    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent]
 })
 export class PaymentAdjustmentModule {
 }
