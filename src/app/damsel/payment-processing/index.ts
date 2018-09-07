@@ -16,3 +16,5 @@ export * from './shop-contract-modification';
 export * from './shop-modification';
 export * from './shop-modification-unit';
 export * from './shop-params';
+export * from './contractor-modification';
+export * from './contract-adjustment-modification-unit';

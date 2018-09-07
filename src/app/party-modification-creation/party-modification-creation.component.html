@@ -1,0 +1,14 @@
+<form [formGroup]="form"
+      fxLayout="column"
+      fxLayoutGap="5px">
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Unit ID"
+               formControlName="unitID"
+               required>
+    </mat-form-field>
+    <cc-contract-payout-tool-modification-unit
+            *ngIf="modification === m.ContractPayoutToolModification"
+            [form]="form.get('modification')">
+    </cc-contract-payout-tool-modification-unit>
+</form>

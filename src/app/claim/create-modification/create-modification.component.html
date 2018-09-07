@@ -1,0 +1,17 @@
+<div class="mat-dialog-title">{{action.name | ccContainerName:getContainerType(action.type)}}</div>
+<mat-dialog-content>
+    <cc-party-modification-creation
+            [modification]="name.ContractPayoutToolModification"
+            (valueChange)="valueChange($event)">
+    </cc-party-modification-creation>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
+    <div>
+        <button mat-button
+                [disabled]="!valid || isLoading"
+                color="primary">CREATE
+        </button>
+        <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
+    </div>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>

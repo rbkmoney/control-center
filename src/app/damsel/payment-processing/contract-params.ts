@@ -1,7 +1,15 @@
-import { PaymentInstitutionRef, ContractTemplateRef, Contractor } from '../domain';
+import {
+    PaymentInstitutionRef,
+    ContractTemplateRef,
+    Contractor,
+    ContractorID
+} from '../domain';
 
 export class ContractParams {
-    contractor: Contractor;
+    contractorId: ContractorID;
     template?: ContractTemplateRef;
     paymentInstitution?: PaymentInstitutionRef;
+
+    // depricated
+    contractor: Contractor;
 }

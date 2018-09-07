@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutGap="20px">
+    <div fxLayout="column" fxLayoutGap="10px">
+        <div class="mat-body-1">Payout tool info</div>
+        <mat-radio-group
+                fxLayout="row"
+                fxLayout.sm="column"
+                fxLayout.xs="column"
+                fxLayoutGap="10px">
+            <mat-radio-button
+                    *ngFor="let type of types"
+                    [value]="info"
+                    (click)="select(type)">{{type}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>

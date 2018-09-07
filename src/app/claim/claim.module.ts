@@ -49,6 +49,8 @@ import { ContainerNamePipe } from './container-name.pipe';
 import { CreateLocationComponent } from './create-change/create-location/create-location.component';
 import { CreateDetailsComponent } from './create-change/create-details/create-details.component';
 import { PartyModificationUnitsComponent } from './party-modification-units/party-modification-units.component';
+import { PartyModificationCreationModule } from '../party-modification-creation';
+import { CreateModificationComponent } from './create-modification/create-modification.component';
 
 @NgModule({
     imports: [
@@ -77,7 +79,8 @@ import { PartyModificationUnitsComponent } from './party-modification-units/part
         MatRadioModule,
         PrettyJsonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        PartyModificationCreationModule
     ],
     declarations: [
         ClaimComponent,
@@ -99,13 +102,16 @@ import { PartyModificationUnitsComponent } from './party-modification-units/part
         DenyClaimComponent,
         CreateTerminalObjectComponent,
         PartyModificationUnitsComponent,
-        ContainerNamePipe
+        ContainerNamePipe,
+        CreateModificationComponent
     ],
     entryComponents: [
         UnitActionsComponent,
         CreateChangeComponent,
         AcceptClaimComponent,
-        DenyClaimComponent
+        DenyClaimComponent,
+
+        CreateModificationComponent
     ],
     providers: [
         ClaimService
