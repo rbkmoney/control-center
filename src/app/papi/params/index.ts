@@ -4,3 +4,4 @@ export * from './claim-deny-params';
 export * from './payout-search-params';
 export * from './payout-cancel-params';
 export * from './payout-create-params';
+export * from './report-search-params';

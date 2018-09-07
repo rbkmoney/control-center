@@ -5,7 +5,7 @@ import {
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule, MatInputModule,
-    MatProgressBarModule, MatTableModule
+    MatProgressBarModule, MatSnackBarModule, MatTableModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -16,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PaymentsAdjustmentsTableComponent } from './payments-adjustments-table/payments-adjustments-table.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { PaymentAdjustmentService } from './payment-adjustment.service';
+import { ReportService } from '../papi/report.service';
 
 @NgModule({
     imports: [
@@ -30,10 +32,12 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatInputModule,
         FlexLayoutModule,
         MatTableModule,
-        CdkTableModule
+        CdkTableModule,
+        MatSnackBarModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
-    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent]
+    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
+    providers: [PaymentAdjustmentService, ReportService]
 })
 export class PaymentAdjustmentModule {
 }
