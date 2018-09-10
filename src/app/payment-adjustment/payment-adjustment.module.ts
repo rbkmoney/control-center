@@ -10,7 +10,8 @@ import {
     MatInputModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -40,7 +41,8 @@ import { ReportService } from '../papi/report.service';
         CdkTableModule,
         MatSnackBarModule,
         MatDatepickerModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatTooltipModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
     entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],

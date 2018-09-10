@@ -13,9 +13,14 @@
                 Payment adjustment actions
             </mat-card-subtitle>
             <mat-card-content>
-                <button mat-raised-button color="primary" (click)="createPaymentAdjustment()">Create</button>
+                <span matTooltip="You must select at least one 'payment'" [matTooltipDisabled]="!!selectedPayments.length">
+                    <button mat-raised-button color="primary" (click)="createPaymentAdjustment()"
+                            [disabled]="!selectedPayments.length">Create
+                    </button>
+                </span>
             </mat-card-content>
         </mat-card>
-        <cc-payments-adjustments-table [payments]="payments$ | async" (changeSelected)="changeSelected($event)"></cc-payments-adjustments-table>
+        <cc-payments-adjustments-table [payments]="payments$ | async"
+                                       (changeSelected)="changeSelected($event)"></cc-payments-adjustments-table>
     </div>
 </div>
