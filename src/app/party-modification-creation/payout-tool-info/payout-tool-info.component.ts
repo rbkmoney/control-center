@@ -35,6 +35,5 @@ export class PayoutToolInfoComponent {
                 this.form.removeControl(Type.russianBankAccount);
                 break;
         }
-        // this.selected = type;
     }
 }
