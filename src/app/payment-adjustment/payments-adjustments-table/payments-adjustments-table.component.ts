@@ -13,7 +13,10 @@ export class PaymentsAdjustmentsTableComponent implements OnInit {
 
     cols = [
         'invoiceId',
-        'id'
+        'id',
+        'createdAt',
+        'shopId',
+        'ownerId'
     ];
 
     constructor() {
