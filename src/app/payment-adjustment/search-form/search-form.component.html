@@ -1,3 +1,12 @@
-<p>
-  search-form works!
-</p>
+<form fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" [formGroup]="form">
+  <mat-form-field fxFlex="15">
+    <input matInput formControlName="fromTime" [matDatepicker]="fromTimePicker" placeholder="From time">
+    <mat-datepicker-toggle matSuffix [for]="fromTimePicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromTimePicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field fxFlex="15">
+    <input matInput formControlName="toTime" [matDatepicker]="toTimePicker" placeholder="To time">
+    <mat-datepicker-toggle matSuffix [for]="toTimePicker"></mat-datepicker-toggle>
+    <mat-datepicker #toTimePicker></mat-datepicker>
+  </mat-form-field>
+</form>

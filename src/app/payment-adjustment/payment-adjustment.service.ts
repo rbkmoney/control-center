@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
 
 import { ReportSearchParams } from '../papi/params';
 import { Payment } from '../papi/model';
@@ -16,7 +15,7 @@ export class PaymentAdjustmentService {
     constructor(private reportService: ReportService) {
     }
 
-    getPayments(params: ReportSearchParams): Observable<Payment[]> {
-        return this.reportService.getPayments(params).pipe(tap((response) => this.payments$.next(response)));
+    getPayments(params: ReportSearchParams): Subscription {
+        return this.reportService.getPayments(params).subscribe((response) => this.payments$.next(response));
     }
 }

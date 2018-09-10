@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
     MatCardModule,
+    MatDatepickerModule,
     MatDialogModule,
-    MatFormFieldModule, MatInputModule,
-    MatProgressBarModule, MatSnackBarModule, MatTableModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatProgressBarModule,
+    MatSnackBarModule,
+    MatTableModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -33,7 +37,8 @@ import { ReportService } from '../papi/report.service';
         FlexLayoutModule,
         MatTableModule,
         CdkTableModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatDatepickerModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
     entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],

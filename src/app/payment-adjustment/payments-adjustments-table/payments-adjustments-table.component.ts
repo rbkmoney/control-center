@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Payment } from '../../papi/model';
 
 @Component({
@@ -8,7 +8,8 @@ import { Payment } from '../../papi/model';
 })
 export class PaymentsAdjustmentsTableComponent implements OnInit {
 
-    payments: Payment[] = [];
+    @Input()
+    payments: Payment[];
 
     cols = [
         'invoiceId',

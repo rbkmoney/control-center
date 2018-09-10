@@ -1,28 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import { Observable } from 'rxjs';
 
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/create-payment-adjustment.component';
+import { Payment } from '../papi/model';
 
 @Component({
     selector: 'cc-payment-adjustment',
     templateUrl: './payment-adjustment.component.html',
-    styleUrls: ['./payment-adjustment.component.css', '../shared/container.css'],
+    styleUrls: ['./payment-adjustment.component.css', '../shared/container.css']
 })
 export class PaymentAdjustmentComponent implements OnInit {
 
     private isLoading = false;
+    payments$: Observable<Payment[]>;
 
-    constructor(private dialogRef: MatDialog, private paymentAdjustmentService: PaymentAdjustmentService, private snackBar: MatSnackBar) {
+    constructor(
+        private dialogRef: MatDialog,
+        private paymentAdjustmentService: PaymentAdjustmentService,
+        private snackBar: MatSnackBar
+    ) {
     }
 
     ngOnInit() {
-        this.paymentAdjustmentService.getPayments({
-            fromTime: new Date().toISOString(),
-            toTime: new Date().toISOString(),
-            from: String(0),
-            size: String(1000)
-        }).subscribe(() => {
+        this.payments$ = this.paymentAdjustmentService.payments$;
+        this.payments$.subscribe(() => {
             this.isLoading = false;
         }, (e) => {
             this.isLoading = false;
