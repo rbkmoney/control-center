@@ -4,7 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { CreateChangeComponent } from '../create-change/create-change.component';
 import { ActionType, UnitAction } from '../unit-action';
 import { UnitContainerType } from '../model';
-import { PartyModificationEvent, CreatableModificationName } from '../../party-modification-creation';
+import { CreatableModificationName } from '../../party-modification-creation';
+import { PartyModification } from '../../damsel/payment-processing';
 
 @Component({
     templateUrl: 'create-modification.component.html'
@@ -23,8 +24,12 @@ export class CreateModificationComponent {
         private snackBar: MatSnackBar) {
     }
 
-    valueChange(e: PartyModificationEvent) {
-        this.valid = e.valid;
+    valueChanges(e: PartyModification) {
+        console.log(e);
+    }
+
+    statusChanges(status: string) {
+        this.valid = status === 'VALID';
     }
 
     getContainerType(type: ActionType): string {

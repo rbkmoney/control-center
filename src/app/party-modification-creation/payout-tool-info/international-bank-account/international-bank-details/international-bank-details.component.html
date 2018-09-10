@@ -6,11 +6,6 @@
     </mat-form-field>
     <mat-form-field>
         <input matInput
-               placeholder="Country"
-               formControlName="country">
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput
                placeholder="Name"
                formControlName="name">
     </mat-form-field>
@@ -23,5 +18,12 @@
         <input matInput
                placeholder="ABA routing transit number"
                formControlName="abaRtn">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Country" formControlName="country">
+            <mat-option *ngFor="let residence of residences" [value]="Residence[residence]">
+                {{residence}}
+            </mat-option>
+        </mat-select>
     </mat-form-field>
 </form>

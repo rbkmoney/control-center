@@ -2,7 +2,8 @@
 <mat-dialog-content>
     <cc-party-modification-creation
             [modification]="name.ContractPayoutToolModification"
-            (valueChange)="valueChange($event)">
+            (valueChanges)="valueChanges($event)"
+            (statusChanges)="statusChanges($event)">
     </cc-party-modification-creation>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
