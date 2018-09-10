@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+
 import { Payment } from '../../papi/model';
 
 @Component({
@@ -11,7 +13,11 @@ export class PaymentsAdjustmentsTableComponent implements OnInit {
     @Input()
     payments: Payment[];
 
+    @Output()
+    selection = new SelectionModel<Payment>(true, []);
+
     cols = [
+        'select',
         'invoiceId',
         'id',
         'createdAt',
@@ -23,6 +29,16 @@ export class PaymentsAdjustmentsTableComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    masterToggle() {
+        this.isAllSelected() ?
+            this.selection.clear() :
+            this.payments.forEach((row) => this.selection.select(row));
+    }
+
+    isAllSelected() {
+        return this.selection.selected.length === this.payments.length;
     }
 
 }

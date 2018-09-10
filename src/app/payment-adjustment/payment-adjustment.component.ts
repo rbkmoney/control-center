@@ -25,14 +25,16 @@ export class PaymentAdjustmentComponent implements OnInit {
 
     ngOnInit() {
         this.payments$ = this.paymentAdjustmentService.payments$;
-        this.payments$.subscribe(() => {
-            this.isLoading = false;
-        }, (e) => {
-            this.isLoading = false;
-            const message = e.message;
-            this.snackBar.open(`${message ? message : 'Error'}`, 'OK', {duration: 3000});
-            console.error(e);
-        });
+        this.payments$.subscribe(
+            () => {
+            }, (e) => {
+                const message = e.message;
+                this.snackBar.open(`${message ? message : 'Error'}`, 'OK', {duration: 3000});
+                console.error(e);
+            }, () => {
+                this.isLoading = false;
+            }
+        );
     }
 
     createPaymentAdjustment() {

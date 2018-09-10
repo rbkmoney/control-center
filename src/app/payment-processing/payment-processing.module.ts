@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
 import { PaymentProcessingTypedManager } from './payment-processing-typed-manager';
-import { DmtService } from './dmt.service';
+import { PaymentProcessingService } from './payment-processing.service';
 
 @NgModule({
     providers: [
-        DmtService,
+        PaymentProcessingService,
         PaymentProcessingTypedManager
     ]
 })

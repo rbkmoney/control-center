@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -38,7 +39,8 @@ import { ReportService } from '../papi/report.service';
         MatTableModule,
         CdkTableModule,
         MatSnackBarModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatCheckboxModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
     entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],

@@ -16,6 +16,9 @@ export class PaymentAdjustmentService {
     }
 
     getPayments(params: ReportSearchParams): Subscription {
-        return this.reportService.getPayments(params).subscribe((response) => this.payments$.next(response));
+        return this.reportService.getPayments(params).subscribe(
+            (response) => this.payments$.next(response),
+            (e) => this.payments$.next([])
+        );
     }
 }

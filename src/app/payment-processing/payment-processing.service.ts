@@ -10,7 +10,7 @@ import { InvoicePaymentAdjustment } from '../damsel/domain/invoice-payment-adjus
 type Exception = any;
 
 @Injectable()
-export class DmtService {
+export class PaymentProcessingService {
 
     private paymentProcessingClient: PaymentProcessingClient = createHttpClient(Invoicing);
 
