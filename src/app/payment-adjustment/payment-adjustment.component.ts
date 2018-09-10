@@ -17,6 +17,8 @@ export class PaymentAdjustmentComponent implements OnInit {
 
     payments$: Observable<Payment[]>;
 
+    payments: Payment[] = [];
+
     selectedPayments: Payment[] = [];
 
     constructor(
@@ -29,7 +31,8 @@ export class PaymentAdjustmentComponent implements OnInit {
     ngOnInit() {
         this.payments$ = this.paymentAdjustmentService.payments$;
         this.payments$.subscribe(
-            () => {
+            (payments) => {
+                this.payments = payments;
             }, (e) => {
                 const message = e.message;
                 this.snackBar.open(`${message ? message : 'Error'}`, 'OK', {duration: 3000});

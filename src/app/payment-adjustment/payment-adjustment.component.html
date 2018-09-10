@@ -1,19 +1,32 @@
 <div class="container">
     <div class="card-container" fxLayout="column" fxLayoutGap="20px">
         <mat-card>
-            <mat-card-subtitle>
-                Search payments
+            <mat-card-subtitle fxLayout="row">
+                <div fxFlex="50">Search payments</div>
+                <div fxFlex="50" style="text-align: right" *ngIf="payments.length">
+                    Found: <b>{{payments.length}}</b>
+                </div>
+                <div fxFlex="50" style="text-align: right" *ngIf="!payments.length">
+                    Not found
+                </div>
             </mat-card-subtitle>
             <mat-card-content>
                 <cc-payment-adjustment-search-form></cc-payment-adjustment-search-form>
             </mat-card-content>
         </mat-card>
         <mat-card>
-            <mat-card-subtitle>
-                Payment adjustment actions
+            <mat-card-subtitle fxLayout="row">
+                <div fxFlex="50">Payment adjustment actions</div>
+                <div fxFlex="50" style="text-align: right" *ngIf="selectedPayments.length">
+                    Selected: <b>{{selectedPayments.length}}</b>
+                </div>
+                <div fxFlex="50" style="text-align: right" *ngIf="payments.length && !selectedPayments.length">
+                    Not selected
+                </div>
             </mat-card-subtitle>
             <mat-card-content>
-                <span matTooltip="You must select at least one 'payment'" [matTooltipDisabled]="!!selectedPayments.length">
+                <span matTooltip="You must select at least one 'payment'"
+                      [matTooltipDisabled]="!!selectedPayments.length">
                     <button mat-raised-button color="primary" (click)="createPaymentAdjustment()"
                             [disabled]="!selectedPayments.length">Create
                     </button>
