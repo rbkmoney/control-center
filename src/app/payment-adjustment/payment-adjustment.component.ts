@@ -14,7 +14,10 @@ import { Payment } from '../papi/model';
 export class PaymentAdjustmentComponent implements OnInit {
 
     private isLoading = false;
+
     payments$: Observable<Payment[]>;
+
+    selectedPayments: Payment[] = [];
 
     constructor(
         private dialogRef: MatDialog,
@@ -42,6 +45,10 @@ export class PaymentAdjustmentComponent implements OnInit {
             width: '720px',
             disableClose: true
         });
+    }
+
+    changeSelected(e) {
+        this.selectedPayments = e;
     }
 
 }

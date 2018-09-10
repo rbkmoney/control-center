@@ -16,6 +16,6 @@
                 <button mat-raised-button color="primary" (click)="createPaymentAdjustment()">Create</button>
             </mat-card-content>
         </mat-card>
-        <cc-payments-adjustments-table [payments]="payments$ | async"></cc-payments-adjustments-table>
+        <cc-payments-adjustments-table [payments]="payments$ | async" (changeSelected)="changeSelected($event)"></cc-payments-adjustments-table>
     </div>
 </div>
