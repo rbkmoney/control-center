@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
@@ -8,6 +8,7 @@ import { CreatePaymentAdjustmentService } from './create-payment-adjustment.serv
 import { Payment } from '../../papi/model';
 import { UserInfo } from '../../damsel';
 import { PaymentProcessingTypedManager } from '../../payment-processing/payment-processing-typed-manager';
+import { CaptureComponent } from '../capture/capture.component';
 
 @Component({
     selector: 'cc-create-payment-adjustment',
@@ -23,6 +24,7 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
     payments: Payment[];
 
     constructor(private dialogRef: MatDialogRef<CreatePaymentAdjustmentComponent>,
+                private dialog: MatDialog,
                 private createPaymentAdjustmentService: CreatePaymentAdjustmentService,
                 @Inject(MAT_DIALOG_DATA) data: { payments: Payment[] },
                 private keycloakService: KeycloakService,
@@ -50,7 +52,13 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
             params
         ))).subscribe((results) => {
             this.isLoading = false;
-            console.dir(results);
+            this.dialogRef.close();
+            const resultsMap = results.map((paymentAdjustment, idx) => [this.payments[idx], paymentAdjustment]);
+            this.dialog.open(CaptureComponent, {
+                width: '720px',
+                disableClose: true,
+                data: { paymentsWithAdjustments: resultsMap }
+            });
         }, (error) => {
             this.snackBar.open(error, 'OK', {duration: 3000});
             console.error(error);

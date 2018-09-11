@@ -14,13 +14,13 @@ import {
     MatTooltipModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { KeycloakService } from 'keycloak-angular';
 
 import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
 import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/create-payment-adjustment.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { PaymentsAdjustmentsTableComponent } from './payments-adjustments-table/payments-adjustments-table.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
@@ -49,7 +49,7 @@ import { CaptureComponent } from './capture/capture.component';
         PaymentProcessingModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent, CaptureComponent],
-    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
+    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent, CaptureComponent],
     providers: [PaymentAdjustmentService, ReportService, KeycloakService]
 })
 export class PaymentAdjustmentModule {

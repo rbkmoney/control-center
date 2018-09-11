@@ -16,4 +16,8 @@ export class PaymentProcessingTypedManager {
         return this.paymentProcessingService.createPaymentAdjustment(toGenPaymentProcessing(user), id, paymentId, toGenInvoicePaymentAdjustmentParams(params));
     }
 
+    capturePaymentAdjustment(user: UserInfo, id: string, paymentId: string, adjustmentId: string): Observable<void> {
+        return this.paymentProcessingService.capturePaymentAdjustment(toGenPaymentProcessing(user), id, paymentId, adjustmentId);
+    }
+
 }
