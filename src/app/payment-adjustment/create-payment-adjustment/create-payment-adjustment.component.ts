@@ -37,7 +37,7 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
 
     submit() {
         const {value} = this.form;
-        const user: UserInfo = {id: this.keycloakService.getUsername(), type: {external_user: {}}};
+        const user: UserInfo = {id: this.keycloakService.getUsername(), type: {internal_user: {}}};
         const params = {
             domain_revision: value.revision,
             reason: value.reason
