@@ -26,6 +26,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { ReportService } from '../papi/report.service';
 import { PaymentProcessingModule } from '../payment-processing/payment-processing.module';
+import { CaptureComponent } from './capture/capture.component';
 
 @NgModule({
     imports: [
@@ -47,7 +48,7 @@ import { PaymentProcessingModule } from '../payment-processing/payment-processin
         MatTooltipModule,
         PaymentProcessingModule
     ],
-    declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
+    declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent, CaptureComponent],
     entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
     providers: [PaymentAdjustmentService, ReportService, KeycloakService]
 })

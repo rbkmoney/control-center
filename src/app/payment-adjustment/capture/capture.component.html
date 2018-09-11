@@ -1,0 +1,18 @@
+<h4 class="mat-dialog-title">Capture payment adjustment for the {{payments.length}} payment{{payments.length === 1 ? '' : 's'}}</h4>
+<mat-dialog-content class="mat-body">
+  <form *ngIf="form" [formGroup]="form" fxLayout="column">
+    <mat-form-field>
+      <input matInput placeholder="Domain revision" formControlName="revision" type="number">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Reason" formControlName="reason">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
+  <div>
+    <button mat-button color="default" (click)="submit()" [disabled]="isLoading || !form.valid">CAPTURE</button>
+    <button mat-dialog-close mat-button color="default">CANCEL</button>
+  </div>
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>
