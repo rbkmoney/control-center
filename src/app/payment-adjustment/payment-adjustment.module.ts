@@ -14,6 +14,7 @@ import {
     MatTooltipModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
+import { KeycloakService } from 'keycloak-angular';
 
 import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
@@ -24,6 +25,7 @@ import { PaymentsAdjustmentsTableComponent } from './payments-adjustments-table/
 import { SearchFormComponent } from './search-form/search-form.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { ReportService } from '../papi/report.service';
+import { PaymentProcessingModule } from '../payment-processing/payment-processing.module';
 
 @NgModule({
     imports: [
@@ -42,11 +44,12 @@ import { ReportService } from '../papi/report.service';
         MatSnackBarModule,
         MatDatepickerModule,
         MatCheckboxModule,
-        MatTooltipModule
+        MatTooltipModule,
+        PaymentProcessingModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
     entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
-    providers: [PaymentAdjustmentService, ReportService]
+    providers: [PaymentAdjustmentService, ReportService, KeycloakService]
 })
 export class PaymentAdjustmentModule {
 }
