@@ -33,7 +33,9 @@
                 </span>
             </mat-card-content>
         </mat-card>
-        <cc-payments-adjustments-table [payments]="payments"
-                                       (changeSelected)="changeSelected($event)"></cc-payments-adjustments-table>
+        <div class="mat-elevation-z2">
+            <cc-payments-adjustments-table [payments]="payments"
+                                           (changeSelected)="changeSelected($event)"></cc-payments-adjustments-table>
+        </div>
     </div>
 </div>

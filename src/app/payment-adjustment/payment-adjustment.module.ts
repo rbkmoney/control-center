@@ -8,6 +8,7 @@ import {
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatPaginatorModule,
     MatProgressBarModule,
     MatSnackBarModule,
     MatTableModule,
@@ -46,7 +47,8 @@ import { CaptureComponent } from './capture/capture.component';
         MatDatepickerModule,
         MatCheckboxModule,
         MatTooltipModule,
-        PaymentProcessingModule
+        PaymentProcessingModule,
+        MatPaginatorModule
     ],
     declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent, CaptureComponent],
     entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent, CaptureComponent],

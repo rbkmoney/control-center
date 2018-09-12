@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="payments" class="mat-elevation-z2">
+<table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -36,3 +36,4 @@
     <tr mat-header-row *matHeaderRowDef="cols"></tr>
     <tr mat-row *matRowDef="let payment; columns: cols;"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="[50, 100, 250, 500, 1000]" showFirstLastButtons></mat-paginator>
