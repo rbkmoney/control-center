@@ -18,24 +18,23 @@ export class PaymentProcessingService {
     }
 
     createPaymentAdjustment(user: UserInfo, id: string, paymentId: string, params: InvoicePaymentAdjustmentParams): Observable<InvoicePaymentAdjustment> {
-        return Observable.create((observer) => {
-            this.paymentProcessingClient.CreatePaymentAdjustment(user, id, paymentId, params, (ex: Exception, result) => {
-                this.zone.run(() => {
-                    ex ? observer.error(ex) : observer.next(result);
-                    observer.complete();
-                });
-            });
-        });
+        return this.toObservableAction(this.paymentProcessingClient.CreatePaymentAdjustment.bind(this.paymentProcessingClient), user, id, paymentId, params);
     }
 
     capturePaymentAdjustment(user: UserInfo, id: string, paymentId: string, adjustmentId: string): Observable<void> {
-        return Observable.create((observer) => {
-            this.paymentProcessingClient.CapturePaymentAdjustment(user, id, paymentId, adjustmentId, (ex: Exception, result) => {
+        return this.toObservableAction(
+            this.paymentProcessingClient.CapturePaymentAdjustment.bind(this.paymentProcessingClient), user, id, paymentId, adjustmentId
+        );
+    }
+
+    toObservableAction(func: Function, ...args: any[]) {
+        return Observable.create((observer) =>
+            func(...args, (ex: Exception, result) =>
                 this.zone.run(() => {
                     ex ? observer.error(ex) : observer.next(result);
                     observer.complete();
-                });
-            });
-        });
+                })
+            )
+        );
     }
 }
