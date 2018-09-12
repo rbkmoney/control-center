@@ -12,8 +12,8 @@
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>
-        <button mat-button color="default" (click)="submit()" [disabled]="isLoading">CAPTURE</button>
-        <button mat-dialog-close mat-button color="default">CANCEL</button>
+        <button mat-button color="primary" (click)="submit()" [disabled]="isLoading">CAPTURE</button>
+        <button mat-button color="warn" (click)="cancel()">CANCEL</button>
     </div>
     <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 </mat-dialog-actions>

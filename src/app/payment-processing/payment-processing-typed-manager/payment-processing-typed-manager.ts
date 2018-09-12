@@ -20,4 +20,8 @@ export class PaymentProcessingTypedManager {
         return this.paymentProcessingService.capturePaymentAdjustment(toGenPaymentProcessing(user), id, paymentId, adjustmentId);
     }
 
+    cancelPaymentAdjustment(user: UserInfo, id: string, paymentId: string, adjustmentId: string): Observable<void> {
+        return this.paymentProcessingService.cancelPaymentAdjustment(toGenPaymentProcessing(user), id, paymentId, adjustmentId);
+    }
+
 }

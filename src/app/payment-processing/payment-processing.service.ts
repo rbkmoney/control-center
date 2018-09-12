@@ -27,6 +27,12 @@ export class PaymentProcessingService {
         );
     }
 
+    cancelPaymentAdjustment(user: UserInfo, id: string, paymentId: string, adjustmentId: string): Observable<void> {
+        return this.toObservableAction(
+            this.paymentProcessingClient.CancelPaymentAdjustment.bind(this.paymentProcessingClient), user, id, paymentId, adjustmentId
+        );
+    }
+
     toObservableAction(func: Function, ...args: any[]) {
         return Observable.create((observer) =>
             func(...args, (ex: Exception, result) =>
