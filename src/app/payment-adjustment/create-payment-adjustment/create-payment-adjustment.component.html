@@ -2,10 +2,10 @@
 <mat-dialog-content class="mat-body">
     <form *ngIf="form" [formGroup]="form" fxLayout="column">
         <mat-form-field>
-            <input matInput placeholder="Domain revision" formControlName="revision" type="number">
+            <input matInput placeholder="Domain revision" formControlName="revision" type="number" required>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Reason" formControlName="reason">
+            <input matInput placeholder="Reason" formControlName="reason" required>
         </mat-form-field>
     </form>
 </mat-dialog-content>

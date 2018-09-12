@@ -50,7 +50,13 @@ import { CaptureComponent } from './capture/capture.component';
         PaymentProcessingModule,
         MatPaginatorModule
     ],
-    declarations: [PaymentAdjustmentComponent, CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent, CaptureComponent],
+    declarations: [
+        PaymentAdjustmentComponent,
+        CreatePaymentAdjustmentComponent,
+        PaymentsAdjustmentsTableComponent,
+        SearchFormComponent,
+        CaptureComponent
+    ],
     entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent, CaptureComponent],
     providers: [PaymentAdjustmentService, ReportService, KeycloakService]
 })

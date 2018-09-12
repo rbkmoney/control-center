@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
-import { forkJoin } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
+import { forkJoin, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 import { CreatePaymentAdjustmentService } from './create-payment-adjustment.service';
 import { Payment } from '../../papi/model';
-import { UserInfo } from '../../damsel';
+import { InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
 import { PaymentProcessingTypedManager } from '../../payment-processing/payment-processing-typed-manager';
 import { CaptureComponent } from '../capture/capture.component';
 
@@ -37,31 +38,40 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
         this.form = this.createPaymentAdjustmentService.createPaymentAdjustmentGroup;
     }
 
+    createCancelCreatePaymentAdjustment(user: UserInfo, invoiceId: string, id: string, params: InvoicePaymentAdjustmentParams) {
+        return this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params)
+            .pipe(
+                catchError((error) => {
+                    if (error.name === 'InvoicePaymentAdjustmentPending') {
+                        return this.paymentProcessingTypedManager.cancelPaymentAdjustment(user, invoiceId, id, error.id)
+                            .pipe(switchMap(() => this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params)));
+                    }
+                    return throwError(error);
+                })
+            );
+    }
+
     submit() {
         const {value} = this.form;
         const user: UserInfo = {id: this.keycloakService.getUsername(), type: {internal_user: {}}};
-        const params = {
+        const params: InvoicePaymentAdjustmentParams = {
             domain_revision: value.revision,
             reason: value.reason
         };
         this.isLoading = true;
-        forkJoin(this.payments.map((payment) => this.paymentProcessingTypedManager.createPaymentAdjustment(
-            user,
-            payment.invoiceId,
-            payment.id,
-            params
-        ))).subscribe((results) => {
-            this.isLoading = false;
-            this.dialogRef.close();
-            const resultsMap = results.map((paymentAdjustment, idx) => [this.payments[idx], paymentAdjustment]);
-            this.dialog.open(CaptureComponent, {
-                width: '720px',
-                disableClose: true,
-                data: { paymentsWithAdjustments: resultsMap }
+        forkJoin(this.payments.map(({invoiceId, id}) => this.createCancelCreatePaymentAdjustment(user, invoiceId, id, params)))
+            .subscribe((results) => {
+                this.isLoading = false;
+                this.dialogRef.close();
+                const resultsMap = results.map((paymentAdjustment, idx) => [this.payments[idx], paymentAdjustment]);
+                this.dialog.open(CaptureComponent, {
+                    width: '720px',
+                    disableClose: true,
+                    data: {paymentsWithAdjustments: resultsMap}
+                });
+            }, (error) => {
+                this.snackBar.open(error, 'OK', {duration: 3000});
+                console.error(error);
             });
-        }, (error) => {
-            this.snackBar.open(error, 'OK', {duration: 3000});
-            console.error(error);
-        });
     }
 }
