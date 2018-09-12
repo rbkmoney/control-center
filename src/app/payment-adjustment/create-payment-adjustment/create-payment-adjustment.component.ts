@@ -39,7 +39,7 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
         this.form = this.createPaymentAdjustmentService.createPaymentAdjustmentGroup;
     }
 
-    async createCancelCreatePaymentAdjustment(user: UserInfo, invoiceId: string, id: string, params: InvoicePaymentAdjustmentParams) {
+    async createPaymentAdjustment(user: UserInfo, invoiceId: string, id: string, params: InvoicePaymentAdjustmentParams) {
         try {
             return await this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params).toPromise();
         } catch (error) {
@@ -59,7 +59,7 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
             reason: value.reason
         };
         this.isLoading = true;
-        forkJoin(this.payments.map(({invoiceId, id}) => fromPromise(this.createCancelCreatePaymentAdjustment(user, invoiceId, id, params))))
+        forkJoin(this.payments.map(({invoiceId, id}) => fromPromise(this.createPaymentAdjustment(user, invoiceId, id, params))))
             .subscribe((results) => {
                 this.isLoading = false;
                 this.dialogRef.close();
