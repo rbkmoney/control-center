@@ -40,3 +40,5 @@ export * from './condition';
 export * from './party-condition';
 export * from './party-condition-definition';
 export * from './representative-document';
+export * from './invoice-payment-status';
+export * from './invoice-payment-adjustment';
