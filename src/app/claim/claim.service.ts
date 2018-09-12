@@ -36,9 +36,9 @@ export class ClaimService {
             );
     }
 
-    createChange(type: UnitContainerType, modification: ShopModification | ContractModification): Observable<void> {
+    createChange(modification: PartyModification): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
-        const unit = this.toModificationUnit(type, modification);
+        const unit = this.toModificationUnit(modification);
         return this.papiClaimService.getClaim(partyId, claimId)
             .pipe(
                 switchMap((claimInfo) =>
@@ -76,34 +76,11 @@ export class ClaimService {
             );
     }
 
-    private toModificationUnit(
-        type: UnitContainerType,
-        modification: ShopModification | ContractModification
-    ): PartyModificationUnit {
+    private toModificationUnit(modification: PartyModification): PartyModificationUnit {
         const result = {
             modifications: []
         };
-        let unit;
-        const {contractId, shopId} = this.claimInfoContainer.extractedIds;
-        switch (type) {
-            case UnitContainerType.ContractUnitContainer:
-                unit = {
-                    contractModification: {
-                        id: contractId,
-                        modification
-                    }
-                };
-                break;
-            case UnitContainerType.ShopUnitContainer:
-                unit = {
-                    shopModification: {
-                        id: shopId,
-                        modification
-                    }
-                };
-                break;
-        }
-        result.modifications.push(unit);
+        result.modifications.push(modification);
         return result;
     }
 

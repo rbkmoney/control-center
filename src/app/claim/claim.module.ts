@@ -31,7 +31,6 @@ import { ClaimInfoDetailsComponent } from './claim-info/claim-info-details/claim
 import { PartyModificationsComponent } from './party-modifications/party-modifications.component';
 import { PartyModificationContainerComponent } from './party-modification-container/party-modification-container.component';
 import { UnitActionsComponent } from './unit-actions/unit-actions.component';
-import { CreateChangeComponent } from './create-change/create-change.component';
 import { CreateLegalAgreementComponent } from './create-change/create-legal-agreement/create-legal-agreement.component';
 import { CreateCategoryRefComponent } from './create-change/create-category-ref/create-category-ref.component';
 import { ClaimService } from './claim.service';
@@ -89,7 +88,6 @@ import { CreateModificationComponent } from './create-modification/create-modifi
         PartyModificationsComponent,
         PartyModificationContainerComponent,
         UnitActionsComponent,
-        CreateChangeComponent,
         CreateLegalAgreementComponent,
         CreateCategoryRefComponent,
         CreateCurrencyRefComponent,
@@ -107,7 +105,6 @@ import { CreateModificationComponent } from './create-modification/create-modifi
     ],
     entryComponents: [
         UnitActionsComponent,
-        CreateChangeComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
 

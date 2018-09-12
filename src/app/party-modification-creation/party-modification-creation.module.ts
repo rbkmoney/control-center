@@ -20,7 +20,24 @@ import { CurrencyRefComponent } from './currency-ref/currency-ref.component';
 import { PayoutToolInfoComponent } from './payout-tool-info/payout-tool-info.component';
 import { RussianBankAccountComponent } from './payout-tool-info/russian-bank-account/russian-bank-account.component';
 import { InternationalBankAccountComponent } from './payout-tool-info/international-bank-account/international-bank-account.component';
-import { InternationalBankDetailsComponent } from './payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
+import {
+    InternationalBankDetailsComponent
+} from './payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
+import { CategoryRefComponent } from './category-ref/category-ref.component';
+import { ShopDetailsComponent } from './shop/shop-details/shop-details.component';
+import { ShopLocationComponent } from './shop/location-modification/shop-location.component';
+import { ShopAccountCreationComponent } from './shop/shop-account-creation/shop-account-creation.component';
+import { ScheduleRefComponent } from './schedule-ref/schedule-ref.component';
+import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-schedule-modification/shop-payout-schedule-modification.component';
+import { LegalAgreementBindingComponent } from './contract/legal-agreement-binding/legal-agreement-binding.component';
+import { AdjustmentModificationUnitComponent } from './contract/adjustment-modification-unit/adjustment-modification-unit.component';
+import { AdjustmentModificationComponent } from './contract/adjustment-modification/adjustment-modification.component';
+import { AdjustmentParamsComponent } from './contract/adjustment-params/adjustment-params.component';
+import { ContractTemplateRefComponent } from './contract/contract-template-ref/contract-template-ref.component';
+import { BusinessScheduleRefComponent } from './business-schedule-ref/business-schedule-ref.component';
+import { RepresentativeComponent } from './contract/representative/representative.component';
+import { RepresentativeDocumentComponent } from './contract/representative-document/representative-document.component';
+import { ReportPreferencesComponent } from './contract/report-preferences/report-preferences.component';
 
 @NgModule({
     imports: [
@@ -44,7 +61,22 @@ import { InternationalBankDetailsComponent } from './payout-tool-info/internatio
         PayoutToolInfoComponent,
         RussianBankAccountComponent,
         InternationalBankAccountComponent,
-        InternationalBankDetailsComponent
+        InternationalBankDetailsComponent,
+        CategoryRefComponent,
+        ShopDetailsComponent,
+        ShopLocationComponent,
+        ShopAccountCreationComponent,
+        ScheduleRefComponent,
+        ShopPayoutScheduleModificationComponent,
+        LegalAgreementBindingComponent,
+        AdjustmentModificationUnitComponent,
+        AdjustmentModificationComponent,
+        AdjustmentParamsComponent,
+        ContractTemplateRefComponent,
+        BusinessScheduleRefComponent,
+        RepresentativeComponent,
+        RepresentativeDocumentComponent,
+        ReportPreferencesComponent
     ],
     exports: [
         PartyModificationCreationComponent

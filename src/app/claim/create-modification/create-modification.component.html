@@ -1,7 +1,7 @@
 <div class="mat-dialog-title">{{action.name | ccContainerName:getContainerType(action.type)}}</div>
 <mat-dialog-content>
     <cc-party-modification-creation
-            [modification]="name.ContractPayoutToolModification"
+            [modification]="action.name"
             (valueChanges)="valueChanges($event)"
             (statusChanges)="statusChanges($event)">
     </cc-party-modification-creation>
@@ -10,7 +10,8 @@
     <div>
         <button mat-button
                 [disabled]="!valid || isLoading"
-                color="primary">CREATE
+                color="primary"
+                (click)="create()">CREATE
         </button>
         <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
     </div>

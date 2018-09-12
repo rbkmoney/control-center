@@ -3,8 +3,8 @@ import { MatBottomSheetRef, MatDialog } from '@angular/material';
 
 import { ContractModificationName, ShopModificationName } from '../model';
 import { ActionType, UnitAction } from '../unit-action';
-import { CreateChangeComponent } from '../create-change/create-change.component';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
+import { CreatableModificationName } from '../../party-modification-creation';
 
 @Component({
     templateUrl: 'unit-actions.component.html'
@@ -18,38 +18,42 @@ export class UnitActionsComponent {
     contractActions: UnitAction[] = [
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.legalAgreementBinding
+            name: CreatableModificationName.ContractLegalAgreementBinding
         },
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.reportPreferencesModification
+            name: CreatableModificationName.ContractReportPreferencesModification
         },
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.adjustmentModification
+            name: CreatableModificationName.ContractAdjustmentModification
+        },
+        {
+            type: ActionType.contractAction,
+            name: CreatableModificationName.ContractPayoutToolModification
         }
     ];
 
     shopActions: UnitAction[] = [
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.detailsModification
+            name: CreatableModificationName.ShopDetailsModification
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.locationModification
+            name: CreatableModificationName.ShopLocationModification
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.categoryModification
+            name: CreatableModificationName.ShopCategoryModification
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.shopAccountCreation
+            name: CreatableModificationName.ShopAccountCreation
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.payoutScheduleModification
+            name: CreatableModificationName.ShopScheduleModification
         }
     ];
 
@@ -66,7 +70,6 @@ export class UnitActionsComponent {
             width: '720px',
             disableClose: true
         };
-        // this.dialog.open<CreateChangeComponent>(CreateChangeComponent, config);
         this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
     }
 }

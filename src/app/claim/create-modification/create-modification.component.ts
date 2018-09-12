@@ -1,14 +1,15 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 
-import { CreateChangeComponent } from '../create-change/create-change.component';
 import { ActionType, UnitAction } from '../unit-action';
 import { UnitContainerType } from '../model';
 import { CreatableModificationName } from '../../party-modification-creation';
 import { PartyModification } from '../../damsel/payment-processing';
+import { CreateChangeService } from '../create-change/create-change.service';
 
 @Component({
-    templateUrl: 'create-modification.component.html'
+    templateUrl: 'create-modification.component.html',
+    providers: [CreateChangeService]
 })
 export class CreateModificationComponent {
 
@@ -16,20 +17,36 @@ export class CreateModificationComponent {
 
     valid = false;
 
+    modification: PartyModification;
+
     name = CreatableModificationName;
 
     constructor(
-        private dialogRef: MatDialogRef<CreateChangeComponent>,
+        private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public action: UnitAction,
-        private snackBar: MatSnackBar) {
+        private snackBar: MatSnackBar,
+        private createChangeService: CreateChangeService) {
     }
 
     valueChanges(e: PartyModification) {
-        console.log(e);
+        this.modification = e;
     }
 
     statusChanges(status: string) {
         this.valid = status === 'VALID';
+    }
+
+    create() {
+        this.isLoading = true;
+        this.createChangeService.createChange(this.modification, this.action).subscribe(() => {
+            this.isLoading = false;
+            this.dialogRef.close();
+            this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
+        }, (error) => {
+            console.error(error);
+            this.isLoading = false;
+            this.snackBar.open(`An error occurred while creating ${name}`, 'OK');
+        });
     }
 
     getContainerType(type: ActionType): string {

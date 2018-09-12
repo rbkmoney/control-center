@@ -11,4 +11,36 @@
             *ngIf="modification === m.ContractPayoutToolModification"
             [form]="form.get('modification')">
     </cc-contract-payout-tool-modification-unit>
+    <cc-legal-agreement-binding
+            *ngIf="modification === m.ContractLegalAgreementBinding"
+            [form]="form.get('modification')">
+    </cc-legal-agreement-binding>
+    <cc-adjustment-modification-unit
+            *ngIf="modification === m.ContractAdjustmentModification"
+            [form]="form.get('modification')">
+    </cc-adjustment-modification-unit>
+    <cc-report-preferences
+            *ngIf="modification === m.ContractReportPreferencesModification"
+            [form]="form.get('modification')">
+    </cc-report-preferences>
+    <cc-category-ref
+            *ngIf="modification === m.ShopCategoryModification"
+            [form]="form.get('modification')">
+    </cc-category-ref>
+    <cc-shop-details
+            *ngIf="modification === m.ShopDetailsModification"
+            [form]="form.get('modification')">
+    </cc-shop-details>
+    <cc-shop-location
+            *ngIf="modification === m.ShopLocationModification"
+            [form]="form.get('modification')">
+    </cc-shop-location>
+    <cc-shop-account-creation
+            *ngIf="modification === m.ShopAccountCreation"
+            [form]="form.get('modification')">
+    </cc-shop-account-creation>
+    <cc-shop-schedule-modification
+            *ngIf="modification === m.ShopScheduleModification"
+            [form]="form.get('modification')">
+    </cc-shop-schedule-modification>
 </form>
