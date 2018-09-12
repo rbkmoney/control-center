@@ -9,10 +9,10 @@
         <mat-datepicker-toggle matSuffix [for]="toTimePicker"></mat-datepicker-toggle>
         <mat-datepicker #toTimePicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field fxFlex="20">
         <input matInput formControlName="partyId" placeholder="Party ID">
     </mat-form-field>
-    <!--<mat-form-field fxFlex="30">-->
-    <!--<input matInput formControlName="invoicesIds" placeholder="Invoices IDs (comma separated)">-->
-    <!--</mat-form-field>-->
+    <mat-form-field fxFlex="50">
+        <input matInput formControlName="invoicesIds" placeholder="Invoices IDs (comma separated)">
+    </mat-form-field>
 </form>

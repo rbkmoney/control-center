@@ -6,9 +6,10 @@ import keys from 'lodash-es/keys';
 import { ReportSearchParams } from '../../papi/params';
 
 const initFormValues = {
-    fromTime: moment().subtract(1, 'weeks').utc().toDate(),
+    fromTime: moment().subtract(1, 'months').utc().toDate(),
     toTime: moment().add(1, 'days').utc().toDate(),
-    partyId: ''
+    partyId: '',
+    invoicesIds: ''
 };
 
 @Injectable({
@@ -26,13 +27,17 @@ export class SearchFormService {
         const result: ReportSearchParams = {from: 0, size: 1000} as any;
         keys(formValues).forEach((key: keyof typeof initFormValues) => {
             if (formValues[key]) {
+                const value = formValues[key];
                 switch (key) {
                     case 'fromTime':
                     case 'toTime':
-                        result[key] = moment(formValues[key]).startOf('day').utc().format();
+                        result[key] = moment(value).startOf('day').utc().format();
                         break;
                     case 'partyId':
-                        result.merchantId = formValues[key];
+                        result.merchantId = value;
+                        break;
+                    case 'invoicesIds':
+                        result.invoiceId = value.split(',').map((part) => part.trim());
                         break;
                 }
             }
