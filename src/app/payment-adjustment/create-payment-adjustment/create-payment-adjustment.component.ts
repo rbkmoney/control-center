@@ -10,6 +10,7 @@ import { Payment } from '../../papi/model';
 import { InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
 import { PaymentProcessingTypedManager } from '../../payment-processing/payment-processing-typed-manager';
 import { CaptureComponent } from '../capture/capture.component';
+import { fromPromise } from 'rxjs/internal-compatibility';
 
 @Component({
     selector: 'cc-create-payment-adjustment',
@@ -38,17 +39,16 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
         this.form = this.createPaymentAdjustmentService.createPaymentAdjustmentGroup;
     }
 
-    createCancelCreatePaymentAdjustment(user: UserInfo, invoiceId: string, id: string, params: InvoicePaymentAdjustmentParams) {
-        return this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params)
-            .pipe(
-                catchError((error) => {
-                    if (error.name === 'InvoicePaymentAdjustmentPending') {
-                        return this.paymentProcessingTypedManager.cancelPaymentAdjustment(user, invoiceId, id, error.id)
-                            .pipe(switchMap(() => this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params)));
-                    }
-                    return throwError(error);
-                })
-            );
+    async createCancelCreatePaymentAdjustment(user: UserInfo, invoiceId: string, id: string, params: InvoicePaymentAdjustmentParams) {
+        try {
+            return await this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params).toPromise();
+        } catch (error) {
+            if (error.name === 'InvoicePaymentAdjustmentPending') {
+                await this.paymentProcessingTypedManager.cancelPaymentAdjustment(user, invoiceId, id, error.id).toPromise();
+                return await this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params).toPromise();
+            }
+            throw error;
+        }
     }
 
     submit() {
@@ -59,7 +59,7 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
             reason: value.reason
         };
         this.isLoading = true;
-        forkJoin(this.payments.map(({invoiceId, id}) => this.createCancelCreatePaymentAdjustment(user, invoiceId, id, params)))
+        forkJoin(this.payments.map(({invoiceId, id}) => fromPromise(this.createCancelCreatePaymentAdjustment(user, invoiceId, id, params))))
             .subscribe((results) => {
                 this.isLoading = false;
                 this.dialogRef.close();
