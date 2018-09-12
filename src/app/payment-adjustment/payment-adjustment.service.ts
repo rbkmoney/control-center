@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { ReportSearchParams } from '../papi/params';
 import { Payment } from '../papi/model';
@@ -15,15 +15,18 @@ export class PaymentAdjustmentService {
     constructor(private reportService: ReportService) {
     }
 
-    getPayments(params: ReportSearchParams): Subscription {
+    getFilteredPayments(payments: Payment[], invoicesIds: string[]) {
+        return invoicesIds && invoicesIds.length
+            ? payments.filter((payment) => invoicesIds.find((id) => id === payment.invoiceId))
+            : payments;
+    }
+
+    getPayments(params: ReportSearchParams): void {
         const {invoiceId, ...restParams} = params;
-        return this.reportService.getPayments(restParams).subscribe(
-            (response) => this.payments$.next(
-                invoiceId && invoiceId.length
-                    ? response.filter((payment) => (invoiceId as any).find((id) => id === payment.invoiceId))
-                    : response
-            ),
-            (e) => this.payments$.next([])
-        );
+        this.reportService.getPayments(restParams)
+            .subscribe(
+                (response) => this.payments$.next(this.getFilteredPayments(response, invoiceId as any)),
+                (e) => this.payments$.next([])
+            );
     }
 }
