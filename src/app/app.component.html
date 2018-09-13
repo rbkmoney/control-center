@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="toolbar">
     <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
@@ -29,7 +29,7 @@
             </mat-list-item>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content role="main">
+    <mat-sidenav-content role="main" class="content">
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
