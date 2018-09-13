@@ -11,7 +11,7 @@ import { PaymentProcessingTypedManager } from '../../payment-processing/payment-
 import { fromPromise } from 'rxjs/internal-compatibility';
 
 @Component({
-    selector: 'cc-create-and-capture',
+    selector: 'cc-create-and-capture-payment-adjustment',
     templateUrl: './create-and-capture.component.html',
     styleUrls: ['./create-and-capture.component.css']
 })
