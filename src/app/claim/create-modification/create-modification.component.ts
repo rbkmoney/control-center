@@ -1,17 +1,18 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 
 import { ActionType, UnitAction } from '../unit-action';
-import { UnitContainerType } from '../model';
+import { DomainModificationInfo, UnitContainerType } from '../model';
 import { CreatableModificationName } from '../../party-modification-creation';
 import { PartyModification } from '../../damsel/payment-processing';
-import { CreateChangeService } from '../create-change/create-change.service';
+import { PartyModificationCreationService } from '../../party-modification-creation/party-modification-creation.service';
+import { Observable } from 'rxjs';
 
 @Component({
     templateUrl: 'create-modification.component.html',
-    providers: [CreateChangeService]
+    providers: [PartyModificationCreationService]
 })
-export class CreateModificationComponent {
+export class CreateModificationComponent implements OnInit {
 
     isLoading = false;
 
@@ -21,11 +22,17 @@ export class CreateModificationComponent {
 
     name = CreatableModificationName;
 
+    domainModificationInfo$: Observable<DomainModificationInfo>;
+
     constructor(
         private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public action: UnitAction,
         private snackBar: MatSnackBar,
-        private createChangeService: CreateChangeService) {
+        private createChangeService: PartyModificationCreationService) {
+    }
+
+    ngOnInit() {
+        this.domainModificationInfo$ = this.createChangeService.domainModificationInfo$;
     }
 
     valueChanges(e: PartyModification) {

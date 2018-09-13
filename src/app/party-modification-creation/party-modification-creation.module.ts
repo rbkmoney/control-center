@@ -38,6 +38,7 @@ import { BusinessScheduleRefComponent } from './business-schedule-ref/business-s
 import { RepresentativeComponent } from './contract/representative/representative.component';
 import { RepresentativeDocumentComponent } from './contract/representative-document/representative-document.component';
 import { ReportPreferencesComponent } from './contract/report-preferences/report-preferences.component';
+import { CreateTerminalObjectComponent } from '../claim/create-change/create-terminal-object/create-terminal-object.component';
 
 @NgModule({
     imports: [

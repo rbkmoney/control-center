@@ -70,6 +70,7 @@ export class CreateTerminalObjectService implements CreateChangeItem {
     private prepareForm(param: DomainModificationInfo): FormGroup {
         const defaultOption = 'VTB';
         return this.fb.group({
+            shopUrl: [param.shopUrl, Validators.required],
             providerID: ['', Validators.required],
             terminalName: [prepareTerminalName(defaultOption, param.shopUrl), Validators.required],
             terminalDescription: 'No',

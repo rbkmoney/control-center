@@ -103,19 +103,19 @@ export class ClaimService {
     }
 
     private toDomainModificationInfo(claimInfo: ClaimInfo, shopId: string): DomainModificationInfo {
-        const modifications = claimInfo.modifications.modifications;
+        // const modifications = claimInfo.modifications.modifications;
         return {
-            shopUrl: this.findShopUrl(modifications),
+            shopUrl: '',
             partyId: claimInfo.partyId,
-            shopId
+            shopId: ''
         };
     }
 
-    private findShopUrl(modifications: PartyModification[]): string {
-        const found = modifications.find((item) =>
-            !!(item.shopModification && item.shopModification.modification.creation));
-        return get(found, 'shopModification.modification.creation.location.url');
-    }
+    // private findShopUrl(modifications: PartyModification[]): string {
+    //     const found = modifications.find((item) =>
+    //         !!(item.shopModification && item.shopModification.modification.creation));
+    //     return get(found, 'shopModification.modification.creation.location.url');
+    // }
 
     private extractIds(modifications: PartyModification[]): { shopId: string, contractId: string } {
         return modifications.reduce((prev, current) => {

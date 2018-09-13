@@ -5,8 +5,8 @@ import { getSngbTemplateOptions } from './get-sngb-template-options';
 import { TerminalOption } from '../../../../domain/domain-typed-manager';
 import { DomainModificationInfo } from '../../../model';
 
-export const getOptions = (option: string, param: DomainModificationInfo): TerminalOption[] => {
-    const {shopUrl, partyId} = param;
+export const getOptions = (option: string, params: DomainModificationInfo): TerminalOption[] => {
+    const {shopUrl, partyId} = params;
     let options = [{key: '', value: ''}];
     switch (option) {
         case 'VTB':

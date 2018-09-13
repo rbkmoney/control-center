@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ActionType, UnitAction } from '../unit-action';
-import { DomainModificationInfo } from '../model';
-import { ClaimService } from '../claim.service';
-import { PartyModification } from '../../damsel';
+import { ActionType, UnitAction } from '../claim/unit-action';
+import { DomainModificationInfo } from '../claim/model';
+import { ClaimService } from '../claim/claim.service';
+import { PartyModification } from '../damsel/index';
 
 @Injectable()
-export class CreateChangeService {
+export class PartyModificationCreationService {
 
     domainModificationInfo$: Observable<DomainModificationInfo>;
 

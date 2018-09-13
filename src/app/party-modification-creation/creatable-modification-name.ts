@@ -7,5 +7,6 @@ export enum CreatableModificationName {
     ShopDetailsModification = 'ShopDetailsModification',
     ShopLocationModification = 'ShopLocationModification',
     ShopAccountCreation = 'ShopAccountCreation',
-    ShopScheduleModification = 'ShopScheduleModification'
+    ShopScheduleModification = 'ShopScheduleModification',
+    DomainConfigModificationAddTerminal = 'DomainConfigModificationAddTerminal'
 }

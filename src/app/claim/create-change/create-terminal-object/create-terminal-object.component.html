@@ -1,6 +1,14 @@
 <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="20px">
     <div fxLayout>
         <mat-form-field fxFlex>
+            <input matInput
+                   placeholder="Shop Url"
+                   formControlName="shopUrl"
+                   required>
+        </mat-form-field>
+    </div>
+    <div fxLayout>
+        <mat-form-field fxFlex>
             <mat-select placeholder="Provider name" formControlName="providerID" required>
                 <mat-option *ngFor="let provider of providerObjects$ | async" [value]="provider.ref.id">
                     {{provider.ref.id}} {{provider.data.name}}

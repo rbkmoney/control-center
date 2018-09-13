@@ -6,6 +6,7 @@ import { CreateTerminalObjectService } from './create-terminal-object.service';
 import { DomainTypedManager } from '../../../domain/domain-typed-manager';
 import { ProviderObject } from '../../../damsel/domain';
 import { DomainModificationInfo } from '../../model';
+import { ClaimService } from '../../claim.service';
 
 @Component({
     selector: 'cc-create-terminal-object',
@@ -16,6 +17,7 @@ export class CreateTerminalObjectComponent implements OnInit, OnChanges {
     @Input()
     domainModificationInfo: DomainModificationInfo;
 
+    @Input()
     form: FormGroup;
 
     providerObjects$: Observable<ProviderObject[]>;
@@ -25,18 +27,22 @@ export class CreateTerminalObjectComponent implements OnInit, OnChanges {
     riskCoverages: Array<{ name: string, value: number }>;
 
     constructor(private createTerminalObjectService: CreateTerminalObjectService,
-                private domainTypedManager: DomainTypedManager) {
+                private domainTypedManager: DomainTypedManager,
+                private claimService: ClaimService) {
     }
 
     ngOnInit() {
         this.providerObjects$ = this.domainTypedManager.getProviderObjects();
         this.optionTemplates = this.createTerminalObjectService.optionTemplates;
         this.riskCoverages = this.createTerminalObjectService.riskCoverages;
+        this.form.controls.shopUrl.valueChanges.subscribe((newUrl) => {
+            this.claimService.domainModificationInfo$.next({...this.domainModificationInfo, shopUrl: newUrl});
+        });
     }
 
     ngOnChanges() {
         if (this.domainModificationInfo) {
-            this.form = this.createTerminalObjectService.initForm(this.domainModificationInfo);
+            // this.form = this.createTerminalObjectService.initForm(this.domainModificationInfo);
         }
     }
 

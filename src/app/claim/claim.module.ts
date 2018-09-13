@@ -80,16 +80,15 @@ import { CreateModificationComponent } from './create-modification/create-modifi
         UnitActionsComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
-        CreateTerminalObjectComponent,
         PartyModificationUnitsComponent,
         ContainerNamePipe,
-        CreateModificationComponent
+        CreateModificationComponent,
+        CreateTerminalObjectComponent
     ],
     entryComponents: [
         UnitActionsComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
-
         CreateModificationComponent
     ],
     providers: [
