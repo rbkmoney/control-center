@@ -1,9 +1,10 @@
-import { NgZone } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
 import { Exception } from './exception';
 
+@Injectable()
 export class ThriftService {
     constructor(private zone: NgZone) {
     }

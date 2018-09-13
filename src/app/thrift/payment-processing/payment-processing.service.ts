@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { createHttpClient, PaymentProcessingClient } from './payment-processing-connector';
@@ -6,7 +5,6 @@ import { InvoicePaymentAdjustmentParams, UserInfo, InvoicePaymentAdjustment } fr
 import * as Invoicing from '../gen-nodejs/Invoicing';
 import { ThriftService } from '../thrift-service';
 
-@Injectable()
 export class PaymentProcessingService extends ThriftService {
 
     private paymentProcessingClient: PaymentProcessingClient = createHttpClient(Invoicing);
