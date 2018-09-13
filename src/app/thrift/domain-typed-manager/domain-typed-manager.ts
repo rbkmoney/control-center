@@ -7,13 +7,13 @@ import {
     BusinessScheduleObject,
     ProviderObject,
     TerminalObject
-} from '../../damsel/domain';
-import { Version } from '../../damsel';
+} from '../../damsel/domain/index';
+import { Version } from '../../damsel/index';
 import { DmtService } from '../dmt.service';
 import { CreateTerminalParams } from './create-terminal-params';
 import { findDomainObject, findDomainObjects } from './utils';
 import { createShopTerminal } from './create-shop-terminal';
-import { toGenReference } from './gen-conversion';
+import { toGenReference } from './gen-conversion/index';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');

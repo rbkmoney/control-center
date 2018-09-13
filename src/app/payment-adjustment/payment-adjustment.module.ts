@@ -27,7 +27,7 @@ import { TableComponent } from './table/table.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { ReportService } from '../papi/report.service';
-import { PaymentProcessingModule } from '../payment-processing/payment-processing.module';
+import { PaymentProcessingModule } from '../thrift/payment-processing.module';
 
 @NgModule({
     imports: [

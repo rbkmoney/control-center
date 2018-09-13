@@ -4,6 +4,4 @@
 
     make wc_shell
 
-    make src/gen-nodejs src/gen-json
-
-    make thrift-to-js/payment-processing
+    make src/gen-nodejs src/gen-json thrift-to-js/payment-processing

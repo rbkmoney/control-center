@@ -38,5 +38,4 @@ testem.log
 .DS_Store
 Thumbs.db
 /src/assets/gen-json/
-/src/app/domain/gen-nodejs/
-/src/app/payment-processing/gen-nodejs/
+/src/app/thrift/gen-nodejs/

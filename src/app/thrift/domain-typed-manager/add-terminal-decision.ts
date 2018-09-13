@@ -3,8 +3,8 @@ import {
     ProviderObject,
     TerminalSelector,
     TerminalDecision
-} from '../../damsel';
-import { toGenTerminalDecision } from './gen-conversion';
+} from '../../damsel/index';
+import { toGenTerminalDecision } from './gen-conversion/index';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision =>
     ({

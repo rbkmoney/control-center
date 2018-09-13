@@ -8,7 +8,7 @@ import {
     Version,
     Commit,
     Reference
-} from '../damsel';
+} from '../damsel/index';
 
 import * as Repository from './gen-nodejs/Repository';
 

@@ -7,7 +7,7 @@ import {
     PartyConditionDefinition,
     TerminalSelector,
     TerminalRef
-} from '../../../damsel';
+} from '../../../damsel/index';
 
 const toPartyConditionDefinitionGen = (definition: PartyConditionDefinition): PartyConditionDefinition => {
     const definitionGen = new DomainTypes.PartyConditionDefinition();

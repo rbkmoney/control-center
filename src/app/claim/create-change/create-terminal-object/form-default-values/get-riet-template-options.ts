@@ -1,4 +1,4 @@
-import { TerminalOption } from '../../../../domain/domain-typed-manager';
+import { TerminalOption } from '../../../../thrift/domain-typed-manager';
 
 export const getRietTemplateOptions = (): TerminalOption[] =>
     ([

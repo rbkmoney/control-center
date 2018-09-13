@@ -1,7 +1,7 @@
 import { CreateTerminalParams } from './create-terminal-params';
 import { generateID, toMap } from './utils';
-import { toGenTerminalObject } from './gen-conversion';
-import { TerminalObject } from '../../damsel/domain';
+import { toGenTerminalObject } from './gen-conversion/index';
+import { TerminalObject } from '../../damsel/domain/index';
 
 const convert = (id: number, params: CreateTerminalParams): TerminalObject => ({
     ref: {

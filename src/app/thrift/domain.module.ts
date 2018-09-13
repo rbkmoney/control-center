@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { DomainTypedManager } from './domain-typed-manager';
+import { DomainTypedManager } from './domain-typed-manager/index';
 import { DmtService } from './dmt.service';
 
 @NgModule({

@@ -23,7 +23,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import { PapiModule } from '../papi/papi.module';
-import { DomainModule } from '../domain/domain.module';
+import { DomainModule } from '../thrift/domain.module';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ClaimInfoComponent } from './claim-info/claim-info.component';

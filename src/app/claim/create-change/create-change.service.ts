@@ -10,7 +10,7 @@ import { CreateContractTemplateService } from './create-contract-template/create
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
 import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.service';
 import { CreateTerminalObjectService } from './create-terminal-object/create-terminal-object.service';
-import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
+import { CreateTerminalParams, DomainTypedManager } from '../../thrift/domain-typed-manager';
 import { ContractModificationName, DomainModificationInfo, ShopModificationName, UnitContainerType } from '../model';
 import { CreateChangeItem } from './create-change-item';
 import { ClaimService } from '../claim.service';
