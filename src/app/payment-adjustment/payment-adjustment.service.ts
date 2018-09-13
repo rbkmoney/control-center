@@ -23,10 +23,8 @@ export class PaymentAdjustmentService {
 
     getPayments(params: ReportSearchParams): void {
         const {invoiceId, ...restParams} = params;
+        this.payments$.next([]);
         this.reportService.getPayments(restParams)
-            .subscribe(
-                (response) => this.payments$.next(this.getFilteredPayments(response, invoiceId as any)),
-                (e) => this.payments$.next([])
-            );
+            .subscribe((response) => this.payments$.next(this.getFilteredPayments(response, invoiceId as any)));
     }
 }

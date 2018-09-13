@@ -23,7 +23,7 @@ export class SearchFormComponent implements OnInit {
         this.form = form;
         this.paymentAdjustmentService.getPayments(formValueToSearchParams());
         this.form.valueChanges
-            .pipe(debounceTime(300))
+            .pipe(debounceTime(500))
             .subscribe((value) => this.paymentAdjustmentService.getPayments(formValueToSearchParams(value)));
     }
 
