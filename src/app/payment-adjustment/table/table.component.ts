@@ -5,11 +5,11 @@ import { Payment } from '../../papi/model';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
-    selector: 'cc-payments-adjustments-table',
-    templateUrl: './payments-adjustments-table.component.html',
-    styleUrls: ['./payments-adjustments-table.component.css']
+    selector: 'cc-payment-adjustment-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.css']
 })
-export class PaymentsAdjustmentsTableComponent implements OnInit, OnChanges {
+export class TableComponent implements OnInit, OnChanges {
 
     @Input()
     payments: Payment[];
