@@ -27,7 +27,7 @@
             <mat-card-content>
                 <span matTooltip="You must select at least one 'payment'"
                       [matTooltipDisabled]="!!selectedPayments.length">
-                    <button mat-raised-button color="primary" (click)="createPaymentAdjustment()"
+                    <button mat-raised-button color="primary" (click)="createAndCapturePaymentAdjustment()"
                             [disabled]="!selectedPayments.length">Create
                     </button>
                 </span>

@@ -22,7 +22,7 @@ import { KeycloakService } from 'keycloak-angular';
 
 import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
-import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/create-payment-adjustment.component';
+import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
 import { PaymentsAdjustmentsTableComponent } from './payments-adjustments-table/payments-adjustments-table.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
@@ -53,11 +53,11 @@ import { PaymentProcessingModule } from '../payment-processing/payment-processin
     ],
     declarations: [
         PaymentAdjustmentComponent,
-        CreatePaymentAdjustmentComponent,
+        CreateAndCaptureComponent,
         PaymentsAdjustmentsTableComponent,
         SearchFormComponent
     ],
-    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
+    entryComponents: [CreateAndCaptureComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
     providers: [PaymentAdjustmentService, ReportService, KeycloakService]
 })
 export class PaymentAdjustmentModule {

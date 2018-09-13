@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Injectable({
     providedIn: 'root'
 })
-export class CreatePaymentAdjustmentService {
+export class CreateAndCaptureService {
 
     createPaymentAdjustmentGroup: FormGroup;
 

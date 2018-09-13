@@ -4,18 +4,18 @@ import { FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { forkJoin, Subscription } from 'rxjs';
 
-import { CreatePaymentAdjustmentService } from './create-payment-adjustment.service';
+import { CreateAndCaptureService } from './create-and-capture.service';
 import { Payment } from '../../papi/model';
 import { InvoicePaymentAdjustment, InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
 import { PaymentProcessingTypedManager } from '../../payment-processing/payment-processing-typed-manager';
 import { fromPromise } from 'rxjs/internal-compatibility';
 
 @Component({
-    selector: 'cc-create-payment-adjustment',
-    templateUrl: './create-payment-adjustment.component.html',
-    styleUrls: ['./create-payment-adjustment.component.css']
+    selector: 'cc-create-and-capture',
+    templateUrl: './create-and-capture.component.html',
+    styleUrls: ['./create-and-capture.component.css']
 })
-export class CreatePaymentAdjustmentComponent implements OnInit {
+export class CreateAndCaptureComponent implements OnInit {
 
     form: FormGroup;
 
@@ -30,9 +30,9 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
     @ViewChild('stepper')
     stepper;
 
-    constructor(private dialogRef: MatDialogRef<CreatePaymentAdjustmentComponent>,
+    constructor(private dialogRef: MatDialogRef<CreateAndCaptureComponent>,
                 private dialog: MatDialog,
-                private createPaymentAdjustmentService: CreatePaymentAdjustmentService,
+                private createAndCaptureService: CreateAndCaptureService,
                 @Inject(MAT_DIALOG_DATA) data: { payments: Payment[] },
                 private keycloakService: KeycloakService,
                 private paymentProcessingTypedManager: PaymentProcessingTypedManager,
@@ -41,12 +41,7 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form = this.createPaymentAdjustmentService.createPaymentAdjustmentGroup;
-    }
-
-    reset() {
-        this.payments = undefined;
-        this.paymentAdjustments = undefined;
+        this.form = this.createAndCaptureService.createPaymentAdjustmentGroup;
     }
 
     async createPaymentAdjustment(user: UserInfo, invoiceId: string, id: string, params: InvoicePaymentAdjustmentParams) {

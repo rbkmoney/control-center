@@ -3,7 +3,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 
 import { PaymentAdjustmentService } from './payment-adjustment.service';
-import { CreatePaymentAdjustmentComponent } from './create-payment-adjustment/create-payment-adjustment.component';
+import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
 import { Payment } from '../papi/model';
 
 @Component({
@@ -43,8 +43,8 @@ export class PaymentAdjustmentComponent implements OnInit {
         );
     }
 
-    createPaymentAdjustment() {
-        this.dialogRef.open(CreatePaymentAdjustmentComponent, {
+    createAndCapturePaymentAdjustment() {
+        this.dialogRef.open(CreateAndCaptureComponent, {
             width: '720px',
             disableClose: true,
             data: { payments: this.selectedPayments }
