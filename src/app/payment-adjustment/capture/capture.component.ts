@@ -42,12 +42,13 @@ export class CaptureComponent implements OnInit {
             payment.id,
             paymentAdjustment.id
         ))).subscribe((results) => {
-            this.isLoading = false;
             this.snackBar.open(`${results.length} payment adjustment(s) captured`, 'OK', {duration: 3000});
             this.dialogRef.close();
+            this.isLoading = false;
         }, (error) => {
-            this.snackBar.open(error, 'OK', {duration: 3000});
+            this.snackBar.open(`Could not capture all payment adjustments (${error})`, 'OK', {duration: 60000});
             console.error(error);
+            this.isLoading = false;
         });
     }
 

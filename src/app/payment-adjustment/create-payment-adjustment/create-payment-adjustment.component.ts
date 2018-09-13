@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 
 import { CreatePaymentAdjustmentService } from './create-payment-adjustment.service';
 import { Payment } from '../../papi/model';
@@ -23,6 +23,8 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
     isLoading: boolean;
 
     payments: Payment[];
+
+    createSubscription: Subscription;
 
     constructor(private dialogRef: MatDialogRef<CreatePaymentAdjustmentComponent>,
                 private dialog: MatDialog,
@@ -58,20 +60,27 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
             reason: value.reason
         };
         this.isLoading = true;
-        forkJoin(this.payments.map(({invoiceId, id}) => fromPromise(this.createPaymentAdjustment(user, invoiceId, id, params))))
-            .subscribe((results) => {
-                const resultsMap = results.map((paymentAdjustment, idx) => [this.payments[idx], paymentAdjustment]);
-                this.dialogRef.close();
-                this.dialog.open(CaptureComponent, {
-                    width: '720px',
-                    disableClose: true,
-                    data: {paymentsWithAdjustments: resultsMap}
-                });
-                this.isLoading = false;
-            }, (error) => {
-                this.snackBar.open(`Could not create all payment adjustments (${error})`, 'OK', {duration: 60000});
-                console.error(error);
-                this.isLoading = false;
+        const create$ = forkJoin(this.payments.map(({invoiceId, id}) => fromPromise(this.createPaymentAdjustment(user, invoiceId, id, params))));
+        this.createSubscription = create$.subscribe((results) => {
+            const resultsMap = results.map((paymentAdjustment, idx) => [this.payments[idx], paymentAdjustment]);
+            this.dialogRef.close();
+            this.dialog.open(CaptureComponent, {
+                width: '720px',
+                disableClose: true,
+                data: {paymentsWithAdjustments: resultsMap}
             });
+            this.isLoading = false;
+        }, (error) => {
+            this.snackBar.open(`Could not create all payment adjustments (${error})`, 'OK', {duration: 60000});
+            console.error(error);
+            this.isLoading = false;
+        });
+    }
+
+    cancel() {
+        if (this.createSubscription) {
+            this.createSubscription.unsubscribe();
+        }
+        this.dialogRef.close();
     }
 }
