@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+import { timeout } from 'rxjs/operators';
 
 import { createHttpClient, PaymentProcessingClient } from './payment-processing-connector';
 import { InvoicePaymentAdjustmentParams, UserInfo, InvoicePaymentAdjustment, InvoicePaymentStatus } from '../damsel';
@@ -41,13 +42,18 @@ export class PaymentProcessingService {
     }
 
     toObservableAction(func: Function, ...args: any[]) {
-        return Observable.create((observer) =>
-            func(...args, (ex: Exception, result) =>
-                this.zone.run(() => {
-                    ex ? observer.error(ex) : observer.next(result);
+        return Observable.create((observer) => {
+            this.zone.run((e) => {
+                try {
+                    func(...args, (ex: Exception, result) => {
+                        ex ? observer.error(ex) : observer.next(result);
+                        observer.complete();
+                    });
+                } catch (e) {
+                    observer.error(e);
                     observer.complete();
-                })
-            )
-        );
+                }
+            });
+        }).pipe(timeout(30000));
     }
 }

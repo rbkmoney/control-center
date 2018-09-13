@@ -2,8 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import { forkJoin, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 import { CreatePaymentAdjustmentService } from './create-payment-adjustment.service';
 import { Payment } from '../../papi/model';
@@ -61,17 +60,18 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
         this.isLoading = true;
         forkJoin(this.payments.map(({invoiceId, id}) => fromPromise(this.createPaymentAdjustment(user, invoiceId, id, params))))
             .subscribe((results) => {
-                this.isLoading = false;
-                this.dialogRef.close();
                 const resultsMap = results.map((paymentAdjustment, idx) => [this.payments[idx], paymentAdjustment]);
+                this.dialogRef.close();
                 this.dialog.open(CaptureComponent, {
                     width: '720px',
                     disableClose: true,
                     data: {paymentsWithAdjustments: resultsMap}
                 });
+                this.isLoading = false;
             }, (error) => {
-                this.snackBar.open(error, 'OK', {duration: 3000});
+                this.snackBar.open(`Could not create all payment adjustments (${error})`, 'OK', {duration: 60000});
                 console.error(error);
+                this.isLoading = false;
             });
     }
 }
