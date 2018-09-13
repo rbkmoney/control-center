@@ -11,6 +11,7 @@ import {
     MatPaginatorModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    MatStepperModule,
     MatTableModule,
     MatTooltipModule
 } from '@angular/material';
@@ -27,7 +28,6 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { ReportService } from '../papi/report.service';
 import { PaymentProcessingModule } from '../payment-processing/payment-processing.module';
-import { CaptureComponent } from './capture/capture.component';
 
 @NgModule({
     imports: [
@@ -48,16 +48,16 @@ import { CaptureComponent } from './capture/capture.component';
         MatCheckboxModule,
         MatTooltipModule,
         PaymentProcessingModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatStepperModule
     ],
     declarations: [
         PaymentAdjustmentComponent,
         CreatePaymentAdjustmentComponent,
         PaymentsAdjustmentsTableComponent,
-        SearchFormComponent,
-        CaptureComponent
+        SearchFormComponent
     ],
-    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent, CaptureComponent],
+    entryComponents: [CreatePaymentAdjustmentComponent, PaymentsAdjustmentsTableComponent, SearchFormComponent],
     providers: [PaymentAdjustmentService, ReportService, KeycloakService]
 })
 export class PaymentAdjustmentModule {

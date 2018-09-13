@@ -20,12 +20,7 @@ export class PaymentProcessingService {
     constructor(private zone: NgZone) {
     }
 
-    createPaymentAdjustment(
-        user: UserInfo, id: string, paymentId: string, params: InvoicePaymentAdjustmentParams
-    ): Observable<InvoicePaymentAdjustment
-        | Exception<'InvalidUser' | 'InvoiceNotFound' | 'InvoicePaymentNotFound'>
-        | Exception<'InvalidPaymentStatus', { status: InvoicePaymentStatus }>
-        | Exception<'InvoicePaymentAdjustmentPending', { id: string }>> {
+    createPaymentAdjustment(user: UserInfo, id: string, paymentId: string, params: InvoicePaymentAdjustmentParams): Observable<InvoicePaymentAdjustment> {
         return this.toObservableAction(this.paymentProcessingClient.CreatePaymentAdjustment.bind(this.paymentProcessingClient), user, id, paymentId, params);
     }
 

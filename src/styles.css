@@ -3,3 +3,12 @@
 body {
     margin: 0;
 }
+
+.mat-horizontal-content-container-without-padding .mat-horizontal-content-container {
+     padding: 0;
+}
+
+.mat-horizontal-stepper-header-without-events .mat-horizontal-stepper-header {
+    pointer-events: none;
+    user-select: none;
+}

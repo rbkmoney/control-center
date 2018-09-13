@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
@@ -6,9 +6,8 @@ import { forkJoin, Subscription } from 'rxjs';
 
 import { CreatePaymentAdjustmentService } from './create-payment-adjustment.service';
 import { Payment } from '../../papi/model';
-import { InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
+import { InvoicePaymentAdjustment, InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
 import { PaymentProcessingTypedManager } from '../../payment-processing/payment-processing-typed-manager';
-import { CaptureComponent } from '../capture/capture.component';
 import { fromPromise } from 'rxjs/internal-compatibility';
 
 @Component({
@@ -24,7 +23,12 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
 
     payments: Payment[];
 
+    paymentAdjustments: InvoicePaymentAdjustment[];
+
     createSubscription: Subscription;
+
+    @ViewChild('stepper')
+    stepper;
 
     constructor(private dialogRef: MatDialogRef<CreatePaymentAdjustmentComponent>,
                 private dialog: MatDialog,
@@ -40,6 +44,11 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
         this.form = this.createPaymentAdjustmentService.createPaymentAdjustmentGroup;
     }
 
+    reset() {
+        this.payments = undefined;
+        this.paymentAdjustments = undefined;
+    }
+
     async createPaymentAdjustment(user: UserInfo, invoiceId: string, id: string, params: InvoicePaymentAdjustmentParams) {
         try {
             return await this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params).toPromise();
@@ -52,7 +61,7 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
         }
     }
 
-    submit() {
+    create() {
         const {value} = this.form;
         const user: UserInfo = {id: this.keycloakService.getUsername(), type: {internal_user: {}}};
         const params: InvoicePaymentAdjustmentParams = {
@@ -62,16 +71,30 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
         this.isLoading = true;
         const create$ = forkJoin(this.payments.map(({invoiceId, id}) => fromPromise(this.createPaymentAdjustment(user, invoiceId, id, params))));
         this.createSubscription = create$.subscribe((results) => {
-            const resultsMap = results.map((paymentAdjustment, idx) => [this.payments[idx], paymentAdjustment]);
-            this.dialogRef.close();
-            this.dialog.open(CaptureComponent, {
-                width: '720px',
-                disableClose: true,
-                data: {paymentsWithAdjustments: resultsMap}
-            });
+            this.paymentAdjustments = results;
+            this.stepper.next();
             this.isLoading = false;
         }, (error) => {
             this.snackBar.open(`Could not create all payment adjustments (${error})`, 'OK', {duration: 60000});
+            console.error(error);
+            this.isLoading = false;
+        });
+    }
+
+    capture() {
+        const user: UserInfo = {id: this.keycloakService.getUsername(), type: {internal_user: {}}};
+        this.isLoading = true;
+        forkJoin(this.paymentAdjustments.map((paymentAdjustment, idx) => this.paymentProcessingTypedManager.capturePaymentAdjustment(
+            user,
+            this.payments[idx].invoiceId,
+            this.payments[idx].id,
+            paymentAdjustment.id
+        ))).subscribe((results) => {
+            this.snackBar.open(`${results.length} payment adjustment(s) captured`, 'OK', {duration: 3000});
+            this.dialogRef.close();
+            this.isLoading = false;
+        }, (error) => {
+            this.snackBar.open(`Could not capture all payment adjustments (${error})`, 'OK', {duration: 60000});
             console.error(error);
             this.isLoading = false;
         });
@@ -81,6 +104,25 @@ export class CreatePaymentAdjustmentComponent implements OnInit {
         if (this.createSubscription) {
             this.createSubscription.unsubscribe();
         }
-        this.dialogRef.close();
+        if (this.paymentAdjustments) {
+            const user: UserInfo = {id: this.keycloakService.getUsername(), type: {internal_user: {}}};
+            this.isLoading = true;
+            forkJoin(this.paymentAdjustments.map((paymentAdjustment, idx) => this.paymentProcessingTypedManager.cancelPaymentAdjustment(
+                user,
+                this.payments[idx].invoiceId,
+                this.payments[idx].id,
+                paymentAdjustment.id
+            ))).subscribe((results) => {
+                this.isLoading = false;
+                this.snackBar.open(`${results.length} payment adjustment(s) cancelled`, 'OK', {duration: 3000});
+            }, (error) => {
+                this.snackBar.open(error, 'OK', {duration: 3000});
+                console.error(error);
+            }, () => {
+                this.dialogRef.close();
+            });
+        } else {
+            this.dialogRef.close();
+        }
     }
 }
