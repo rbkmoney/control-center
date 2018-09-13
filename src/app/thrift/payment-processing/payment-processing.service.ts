@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 import { createHttpClient, PaymentProcessingClient } from './payment-processing-connector';
 import { InvoicePaymentAdjustmentParams, UserInfo, InvoicePaymentAdjustment } from '../../damsel';
-
 import * as Invoicing from '../gen-nodejs/Invoicing';
 import { ThriftService } from '../thrift-service';
 import { Exception } from '../exception';

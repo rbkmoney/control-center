@@ -10,7 +10,7 @@ export class ThriftService {
 
     toObservableAction(func: Function, ...args: any[]) {
         return Observable.create((observer) => {
-            this.zone.run((e) => {
+            this.zone.run(() => {
                 try {
                     func(...args, (ex: Exception, result) => {
                         ex ? observer.error(ex) : observer.next(result);
