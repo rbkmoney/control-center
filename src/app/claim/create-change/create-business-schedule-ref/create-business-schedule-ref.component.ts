@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref.service';
 import { BusinessScheduleObject } from '../../../damsel/domain';
-import { DomainTypedManager } from '../../../thrift/domain-typed-manager';
+import { DomainTypedManager } from '../../../thrift/domain/domain-typed-manager';
 
 @Component({
     selector: 'cc-create-business-schedule-ref',

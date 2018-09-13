@@ -7,7 +7,7 @@ import { forkJoin, Subscription } from 'rxjs';
 import { CreateAndCaptureService } from './create-and-capture.service';
 import { Payment } from '../../papi/model';
 import { InvoicePaymentAdjustment, InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
-import { PaymentProcessingTypedManager } from '../../thrift/payment-processing-typed-manager';
+import { PaymentProcessingTypedManager } from '../../thrift/payment-processing/payment-processing-typed-manager';
 import { fromPromise } from 'rxjs/internal-compatibility';
 
 @Component({

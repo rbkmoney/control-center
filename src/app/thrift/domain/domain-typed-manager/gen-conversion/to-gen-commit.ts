@@ -1,5 +1,5 @@
-import * as DomainConfigTypes from '../../gen-nodejs/domain_config_types';
-import { Commit, InsertOp, Operation, UpdateOp } from '../../../damsel/index';
+import * as DomainConfigTypes from '../../../gen-nodejs/domain_config_types';
+import { Commit, InsertOp, Operation, UpdateOp } from '../../../../damsel/index';
 
 const toGenInsertOp = (insertOp: InsertOp): InsertOp => {
     const insertOpGen = new DomainConfigTypes.InsertOp();

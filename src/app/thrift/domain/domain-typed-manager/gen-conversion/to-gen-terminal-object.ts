@@ -1,5 +1,5 @@
-import * as DomainTypes from '../../gen-nodejs/domain_types';
-import { Terminal, TerminalObject, TerminalRef } from '../../../damsel/domain/index';
+import * as DomainTypes from '../../../gen-nodejs/domain_types';
+import { Terminal, TerminalObject, TerminalRef } from '../../../../damsel/domain/index';
 
 const toGenTerminalRef = (ref: TerminalRef): TerminalRef => {
     const terminalRef = new DomainTypes.TerminalRef();

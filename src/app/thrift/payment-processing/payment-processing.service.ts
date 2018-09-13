@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
 import { createHttpClient, PaymentProcessingClient } from './payment-processing-connector';
-import { InvoicePaymentAdjustmentParams, UserInfo, InvoicePaymentAdjustment, InvoicePaymentStatus } from '../damsel';
+import { InvoicePaymentAdjustmentParams, UserInfo, InvoicePaymentAdjustment, InvoicePaymentStatus } from '../../damsel/index';
 
-import * as Invoicing from './gen-nodejs/Invoicing';
+import * as Invoicing from '../gen-nodejs/Invoicing';
 
 export type  Exception<N = string, T = {}> = {
     name: N;

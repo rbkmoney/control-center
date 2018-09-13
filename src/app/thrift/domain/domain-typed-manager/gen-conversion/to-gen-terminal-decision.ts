@@ -1,4 +1,4 @@
-import * as DomainTypes from '../../gen-nodejs/domain_types';
+import * as DomainTypes from '../../../gen-nodejs/domain_types';
 import {
     TerminalDecision,
     Predicate,
@@ -7,7 +7,7 @@ import {
     PartyConditionDefinition,
     TerminalSelector,
     TerminalRef
-} from '../../../damsel/index';
+} from '../../../../damsel/index';
 
 const toPartyConditionDefinitionGen = (definition: PartyConditionDefinition): PartyConditionDefinition => {
     const definitionGen = new DomainTypes.PartyConditionDefinition();

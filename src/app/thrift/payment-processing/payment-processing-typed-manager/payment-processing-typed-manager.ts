@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { PaymentProcessingService } from '../payment-processing.service';
-import { InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
-import { toGenInvoicePaymentAdjustmentParams, toGenPaymentProcessing } from './gen-conversation';
+import { InvoicePaymentAdjustmentParams, UserInfo } from '../../../damsel/index';
+import { toGenInvoicePaymentAdjustmentParams, toGenPaymentProcessing } from './gen-conversation/index';
 
 @Injectable()
 export class PaymentProcessingTypedManager {

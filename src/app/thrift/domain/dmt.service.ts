@@ -8,9 +8,9 @@ import {
     Version,
     Commit,
     Reference
-} from '../damsel/index';
+} from '../../damsel/index';
 
-import * as Repository from './gen-nodejs/Repository';
+import * as Repository from '../gen-nodejs/Repository';
 
 type Exception = any;
 

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { CreateTerminalObjectService } from './create-terminal-object.service';
-import { DomainTypedManager } from '../../../thrift/domain-typed-manager';
+import { DomainTypedManager } from '../../../thrift/domain/domain-typed-manager';
 import { ProviderObject } from '../../../damsel/domain';
 import { DomainModificationInfo } from '../../model';
 

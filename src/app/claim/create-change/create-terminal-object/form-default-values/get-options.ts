@@ -2,7 +2,7 @@ import { getVtbTemplateOptions } from './get-vtb-template-options';
 import { getTcsTemplateOptions } from './get-tcs-template-options';
 import { getRietTemplateOptions } from './get-riet-template-options';
 import { getSngbTemplateOptions } from './get-sngb-template-options';
-import { TerminalOption } from '../../../../thrift/domain-typed-manager';
+import { TerminalOption } from '../../../../thrift/domain/domain-typed-manager';
 import { DomainModificationInfo } from '../../../model';
 
 export const getOptions = (option: string, param: DomainModificationInfo): TerminalOption[] => {
