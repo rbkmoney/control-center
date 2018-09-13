@@ -13,6 +13,9 @@
             <mat-card-content>
                 <cc-payment-adjustment-search-form></cc-payment-adjustment-search-form>
             </mat-card-content>
+            <mat-card-footer *ngIf="isLoading">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-card-footer>
         </mat-card>
         <mat-card>
             <mat-card-subtitle fxLayout="row">

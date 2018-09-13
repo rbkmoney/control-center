@@ -13,7 +13,7 @@ import { Payment } from '../papi/model';
 })
 export class PaymentAdjustmentComponent implements OnInit {
 
-    private isLoading = false;
+    isLoading = true;
 
     payments$: Observable<Payment[]>;
 
@@ -32,12 +32,13 @@ export class PaymentAdjustmentComponent implements OnInit {
         this.payments$ = this.paymentAdjustmentService.payments$;
         this.payments$.subscribe(
             (payments) => {
-                this.payments = payments;
+                this.payments = payments || [];
+                this.isLoading = !payments;
             }, (e) => {
+                this.payments = [];
                 const message = e.message;
                 this.snackBar.open(`${message ? message : 'Error'}`, 'OK', {duration: 3000});
                 console.error(e);
-            }, () => {
                 this.isLoading = false;
             }
         );
