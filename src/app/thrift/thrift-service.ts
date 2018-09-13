@@ -8,8 +8,8 @@ export class ThriftService {
     constructor(private zone: NgZone) {
     }
 
-    toObservableAction(func: Function, ...args: any[]) {
-        return Observable.create((observer) => {
+    toObservableAction<T extends (...A: any[]) => Observable<any>>(func: Function): T {
+        return ((...args) => Observable.create((observer) => {
             this.zone.run(() => {
                 try {
                     func(...args, (ex: Exception, result) => {
@@ -21,6 +21,6 @@ export class ThriftService {
                     observer.complete();
                 }
             });
-        }).pipe(timeout(30000));
+        }).pipe(timeout(30000))) as any;
     }
 }
