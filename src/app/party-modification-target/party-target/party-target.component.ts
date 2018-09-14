@@ -30,7 +30,12 @@ export class PartyTargetComponent implements OnInit {
     }
 
     change(item: SelectableItem, change: MatCheckboxChange) {
-
+        for (const selectedItem of this.items) {
+            selectedItem.checked = false;
+        }
+        item.checked = change.checked;
+        const value = change.checked ? item.id : '';
+        this.valueChanges.emit(value);
     }
 
     ngOnInit() {

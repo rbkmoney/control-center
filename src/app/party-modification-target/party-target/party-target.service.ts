@@ -18,11 +18,7 @@ export class PartyTargetService {
             .pipe(map((party) => {
                 const result = [];
                 const target = this.getTarget(party, targetName);
-                target.forEach((value, key) => result.push({
-                    id: key,
-                    item: value,
-                    checked: false
-                }));
+                target.forEach((item, id) => result.push({item, id}));
                 return result;
             }));
     }

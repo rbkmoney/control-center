@@ -2,11 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 
 import { PartyTarget } from './party-target';
-
-enum TargetType {
-    fillIn = 'fillIn',
-    partyItem = 'partyItem'
-}
+import { TargetType } from './targe-type';
 
 @Component({
     selector: 'cc-party-modification-target',
@@ -23,23 +19,18 @@ export class PartyModificationTargetComponent {
     @Output()
     valueChanges: EventEmitter<string> = new EventEmitter();
 
-    radioItems = [{
-        label: 'Fill in party modification unit ID',
-        target: TargetType.fillIn
-    }, {
-        label: 'Select party contract',
-        target: TargetType.partyItem
-    }];
+    radioItems = [TargetType.fillIn, TargetType.partyItem];
 
     selectedTarget: TargetType = TargetType.fillIn;
 
     t = TargetType;
 
-    targetChange(change: MatRadioChange) {
+    targetChanges(change: MatRadioChange) {
         this.selectedTarget = change.value;
+        this.valueChanges.emit('');
     }
 
-    fillInValueChanges(unitID: string) {
+    unitIDChanges(unitID: string) {
         this.valueChanges.emit(unitID);
     }
 }

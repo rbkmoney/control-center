@@ -16,6 +16,7 @@ import { PartyModificationTargetComponent } from './party-modification-target.co
 import { FillInUnitIdComponent } from './fill-in-unit-id/fill-in-unit-id.component';
 import { PartyTargetComponent } from './party-target/party-target.component';
 import { SharedModule } from '../shared/shared.module';
+import { PartyItemNamePipe } from './party-item-name.pipe';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { SharedModule } from '../shared/shared.module';
     declarations: [
         PartyModificationTargetComponent,
         FillInUnitIdComponent,
-        PartyTargetComponent
+        PartyTargetComponent,
+        PartyItemNamePipe
     ],
     exports: [
         PartyModificationTargetComponent
