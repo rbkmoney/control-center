@@ -34,7 +34,6 @@ import { UnitActionsComponent } from './unit-actions/unit-actions.component';
 import { ClaimService } from './claim.service';
 import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
 import { DenyClaimComponent } from './deny-claim/deny-claim.component';
-import { CreateTerminalObjectComponent } from './create-change/create-terminal-object/create-terminal-object.component';
 import { SharedModule } from '../shared/shared.module';
 import { ContainerNamePipe } from './container-name.pipe';
 import { PartyModificationUnitsComponent } from './party-modification-units/party-modification-units.component';
@@ -82,8 +81,7 @@ import { CreateModificationComponent } from './create-modification/create-modifi
         DenyClaimComponent,
         PartyModificationUnitsComponent,
         ContainerNamePipe,
-        CreateModificationComponent,
-        CreateTerminalObjectComponent
+        CreateModificationComponent
     ],
     entryComponents: [
         UnitActionsComponent,

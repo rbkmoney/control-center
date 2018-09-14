@@ -44,9 +44,14 @@ export class TerminalObjectComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(e: SimpleChanges) {
-        if (e.domainModificationInfo) {
-            this.form.removeControl('modification');
-            this.form.setControl('modification', this.terminalObjectService.initForm(e.domainModificationInfo.currentValue));
+        const form = this.form.get('modification');
+        if (e.domainModificationInfo && form) {
+            form.patchValue({
+                shopUrl: e.domainModificationInfo.currentValue.shopUrl,
+                shopID: e.domainModificationInfo.currentValue.shopId,
+                terminalName: prepareTerminalName('VTB', form.value.shopUrl),
+                partyID: e.domainModificationInfo.currentValue.partyId
+            });
         }
         if (e.unitID) {
             this.claimService.domainModificationInfo$.next({...this.domainModificationInfo, shopId: e.unitID.currentValue});

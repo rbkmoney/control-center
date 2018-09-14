@@ -60,6 +60,8 @@ export class TerminalObjectService {
     private prepareForm(param: DomainModificationInfo): FormGroup {
         const defaultOption = 'VTB';
         return this.fb.group({
+            shopID: ['', Validators.required],
+            partyID: ['', Validators.required],
             shopUrl: [param.shopUrl, Validators.required],
             providerID: ['', Validators.required],
             terminalName: [prepareTerminalName(defaultOption, param.shopUrl), Validators.required],
