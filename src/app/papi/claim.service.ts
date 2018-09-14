@@ -5,7 +5,7 @@ import { map } from 'rxjs/internal/operators';
 
 import { ClaimInfo, PartyModificationUnit } from './model';
 import { ConfigService } from '../core/config.service';
-import { ThriftFormatter } from '../shared/thrift-formatter';
+import { decode, ThriftFormatter } from '../shared/thrift-formatter';
 import { ClaimAcceptParams, ClaimDenyParams, ClaimSearchParams } from './params';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class ClaimService {
             .set('claimId', claimID.toString());
         return this.http
             .get<ClaimInfo>(`${this.papiEndpoint}/walk/claim`, {params})
-            .pipe(map((claim) => ThriftFormatter.decode(claim)));
+            .pipe(map((claim) => decode(claim)));
     }
 
     updateClaim(partyID: string, claimID: number, revision: string, unit: PartyModificationUnit): Observable<void> {

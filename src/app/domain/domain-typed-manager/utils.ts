@@ -1,4 +1,6 @@
-import { sortBy, transform } from 'lodash';
+import sortBy from 'lodash-es/sortBy';
+import transform from 'lodash-es/transform';
+
 import { AbstractDomainObject, AbstractStringMapItem, Domain } from '../../damsel/domain';
 
 export const generateID = (objects: AbstractDomainObject[]): number => {
