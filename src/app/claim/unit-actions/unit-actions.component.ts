@@ -63,7 +63,7 @@ export class UnitActionsComponent {
         this.bottomSheetRef.dismiss();
         const config = {
             data: action,
-            width: '720px',
+            width: '800px',
             disableClose: true
         };
         // this.dialog.open<CreateChangeComponent>(CreateChangeComponent, config);

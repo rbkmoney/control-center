@@ -7,7 +7,7 @@ import {
     MatInputModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatSelectModule,
+    MatSelectModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,9 @@ import { CurrencyRefComponent } from './currency-ref/currency-ref.component';
 import { PayoutToolInfoComponent } from './payout-tool-info/payout-tool-info.component';
 import { RussianBankAccountComponent } from './payout-tool-info/russian-bank-account/russian-bank-account.component';
 import { InternationalBankAccountComponent } from './payout-tool-info/international-bank-account/international-bank-account.component';
-import { InternationalBankDetailsComponent } from './payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
+import {
+    InternationalBankDetailsComponent
+} from './payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
 
 @NgModule({
     imports: [

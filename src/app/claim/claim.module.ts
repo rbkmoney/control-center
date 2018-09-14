@@ -17,10 +17,10 @@ import {
     MatRadioModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatStepperModule,
     MatTabsModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import { PapiModule } from '../papi/papi.module';
 import { DomainModule } from '../domain/domain.module';
@@ -51,6 +51,7 @@ import { CreateDetailsComponent } from './create-change/create-details/create-de
 import { PartyModificationUnitsComponent } from './party-modification-units/party-modification-units.component';
 import { PartyModificationCreationModule } from '../party-modification-creation';
 import { CreateModificationComponent } from './create-modification/create-modification.component';
+import { PartyModificationTargetModule } from '../party-modification-target/party-modification-target.module';
 
 @NgModule({
     imports: [
@@ -77,10 +78,11 @@ import { CreateModificationComponent } from './create-modification/create-modifi
         MatProgressSpinnerModule,
         MatSnackBarModule,
         MatRadioModule,
-        PrettyJsonModule,
+        MatStepperModule,
         FormsModule,
         ReactiveFormsModule,
-        PartyModificationCreationModule
+        PartyModificationCreationModule,
+        PartyModificationTargetModule
     ],
     declarations: [
         ClaimComponent,

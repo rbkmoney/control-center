@@ -18,14 +18,20 @@ export class CreateModificationComponent {
 
     name = CreatableModificationName;
 
+    unitID: string;
+
     constructor(
         private dialogRef: MatDialogRef<CreateChangeComponent>,
         @Inject(MAT_DIALOG_DATA) public action: UnitAction,
         private snackBar: MatSnackBar) {
     }
 
+    unitIDChange(unitID: string) {
+        this.unitID = unitID;
+    }
+
     valueChanges(e: PartyModification) {
-        console.log(e);
+        // console.log(e);
     }
 
     statusChanges(status: string) {

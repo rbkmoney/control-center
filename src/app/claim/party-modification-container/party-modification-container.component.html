@@ -3,7 +3,7 @@
     <mat-card-content>
         <mat-tab-group>
             <mat-tab *ngFor="let unit of modifications; let index = index" [label]="'unit ' + (index + 1)">
-                <pre [innerHtml]="unit | ccThriftEncode | prettyjson:2"></pre>
+                <cc-thrift-json [object]="unit"></cc-thrift-json>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

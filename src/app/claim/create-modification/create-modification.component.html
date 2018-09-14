@@ -1,10 +1,28 @@
 <div class="mat-dialog-title">{{action.name | ccContainerName:getContainerType(action.type)}}</div>
 <mat-dialog-content>
-    <cc-party-modification-creation
-            [modification]="name.ContractPayoutToolModification"
-            (valueChanges)="valueChanges($event)"
-            (statusChanges)="statusChanges($event)">
-    </cc-party-modification-creation>
+    <mat-vertical-stepper>
+        <mat-step>
+            <ng-template matStepLabel>Prepare party modification target</ng-template>
+            <cc-party-modification-target
+                    partyID="281220eb-a4ef-4d03-b666-bdec4b26c5f7"
+                    partyTarget="contract"
+
+                    (valueChanges)="unitIDChange($event)">
+            </cc-party-modification-target>
+        </mat-step>
+        <mat-step>
+            <form>
+                <ng-template matStepLabel>Fill in party modification params</ng-template>
+                <cc-party-modification-creation
+                        [unitID]="unitID"
+                        unitIDDisabled="true"
+                        [modification]="name.ContractPayoutToolModification"
+                        (valueChanges)="valueChanges($event)"
+                        (statusChanges)="statusChanges($event)">
+                </cc-party-modification-creation>
+            </form>
+        </mat-step>
+    </mat-vertical-stepper>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>
