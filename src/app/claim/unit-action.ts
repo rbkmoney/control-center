@@ -8,5 +8,5 @@ export enum ActionType {
 
 export interface UnitAction {
     type: ActionType;
-    name?: CreatableModificationName;
+    name: CreatableModificationName;
 }

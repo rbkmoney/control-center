@@ -58,5 +58,7 @@ export const toPartyModification = (name: CreatableModificationName, formValue: 
             return toModification(UnitName.shopModification, ShopModificationName.shopAccountCreation, unitID, modification);
         case CreatableModificationName.ShopScheduleModification:
             return toModification(UnitName.shopModification, ShopModificationName.payoutScheduleModification, unitID, modification);
+        case CreatableModificationName.DomainConfigModificationAddTerminal:
+            return modification.modification;
     }
 };

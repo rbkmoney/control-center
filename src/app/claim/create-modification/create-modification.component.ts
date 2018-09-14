@@ -7,6 +7,7 @@ import { CreatableModificationName } from '../../party-modification-creation';
 import { PartyModification } from '../../damsel/payment-processing';
 import { PartyModificationCreationService } from '../../party-modification-creation/party-modification-creation.service';
 import { Observable } from 'rxjs';
+import { CreateTerminalParams } from '../../domain/domain-typed-manager';
 
 @Component({
     templateUrl: 'create-modification.component.html',
@@ -18,7 +19,7 @@ export class CreateModificationComponent implements OnInit {
 
     valid = false;
 
-    modification: PartyModification;
+    values: PartyModification | CreateTerminalParams;
 
     name = CreatableModificationName;
 
@@ -35,8 +36,8 @@ export class CreateModificationComponent implements OnInit {
         this.domainModificationInfo$ = this.createChangeService.domainModificationInfo$;
     }
 
-    valueChanges(e: PartyModification) {
-        this.modification = e;
+    valueChanges(e: PartyModification | CreateTerminalParams) {
+        this.values = e;
     }
 
     statusChanges(status: string) {
@@ -45,7 +46,7 @@ export class CreateModificationComponent implements OnInit {
 
     create() {
         this.isLoading = true;
-        this.createChangeService.createChange(this.modification, this.action).subscribe(() => {
+        this.createChangeService.createChange(this.values, this.action).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});

@@ -7,11 +7,12 @@
                formControlName="unitID"
                required>
     </mat-form-field>
-    <cc-create-terminal-object
-            *ngIf="modification === m.ContractPayoutToolModification"
+    <cc-terminal-object
+            *ngIf="modification === m.DomainConfigModificationAddTerminal"
             [form]="form.get('modification')"
-            [domainModificationInfo]="(domainModificationInfo$ | async)">
-    </cc-create-terminal-object>
+            [domainModificationInfo]="(domainModificationInfo$ | async)"
+            [unitID]="form.value.unitID">
+    </cc-terminal-object>
     <cc-contract-payout-tool-modification-unit
             *ngIf="modification === m.ContractPayoutToolModification"
             [form]="form.get('modification')">

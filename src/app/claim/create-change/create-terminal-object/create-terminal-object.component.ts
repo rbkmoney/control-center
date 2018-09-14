@@ -35,14 +35,11 @@ export class CreateTerminalObjectComponent implements OnInit, OnChanges {
         this.providerObjects$ = this.domainTypedManager.getProviderObjects();
         this.optionTemplates = this.createTerminalObjectService.optionTemplates;
         this.riskCoverages = this.createTerminalObjectService.riskCoverages;
-        this.form.controls.shopUrl.valueChanges.subscribe((newUrl) => {
-            this.claimService.domainModificationInfo$.next({...this.domainModificationInfo, shopUrl: newUrl});
-        });
     }
 
     ngOnChanges() {
         if (this.domainModificationInfo) {
-            // this.form = this.createTerminalObjectService.initForm(this.domainModificationInfo);
+            this.form = this.createTerminalObjectService.initForm(this.domainModificationInfo);
         }
     }
 

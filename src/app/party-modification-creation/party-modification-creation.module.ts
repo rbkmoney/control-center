@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
     MatCheckboxModule,
-    MatDatepickerModule,
+    MatDatepickerModule, MatIconModule,
     MatInputModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatSelectModule,
+    MatSelectModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -38,7 +38,7 @@ import { BusinessScheduleRefComponent } from './business-schedule-ref/business-s
 import { RepresentativeComponent } from './contract/representative/representative.component';
 import { RepresentativeDocumentComponent } from './contract/representative-document/representative-document.component';
 import { ReportPreferencesComponent } from './contract/report-preferences/report-preferences.component';
-import { CreateTerminalObjectComponent } from '../claim/create-change/create-terminal-object/create-terminal-object.component';
+import { TerminalObjectComponent } from './domain/terminal-object/terminal-object.component';
 
 @NgModule({
     imports: [
@@ -51,7 +51,8 @@ import { CreateTerminalObjectComponent } from '../claim/create-change/create-ter
         MatNativeDateModule,
         MatSelectModule,
         MatRadioModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatIconModule
     ],
     declarations: [
         PartyModificationCreationComponent,
@@ -77,7 +78,8 @@ import { CreateTerminalObjectComponent } from '../claim/create-change/create-ter
         BusinessScheduleRefComponent,
         RepresentativeComponent,
         RepresentativeDocumentComponent,
-        ReportPreferencesComponent
+        ReportPreferencesComponent,
+        TerminalObjectComponent
     ],
     exports: [
         PartyModificationCreationComponent

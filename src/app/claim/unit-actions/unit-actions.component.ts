@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { MatBottomSheetRef, MatDialog } from '@angular/material';
-
-import { ContractModificationName, ShopModificationName } from '../model';
 import { ActionType, UnitAction } from '../unit-action';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
 import { CreatableModificationName } from '../../party-modification-creation';
@@ -59,7 +57,8 @@ export class UnitActionsComponent {
 
     domainActions: UnitAction[] = [
         {
-            type: ActionType.domainAction
+            type: ActionType.domainAction,
+            name: CreatableModificationName.DomainConfigModificationAddTerminal
         }
     ];
 
