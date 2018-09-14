@@ -37,8 +37,8 @@ const toModification = (unitName: UnitName, modificationName: ShopModificationNa
     }
 });
 
-export const toPartyModification = (name: CreatableModificationName, formValue: any) => {
-    const {unitID, modification} = formValue;
+export const toPartyModification = (name: CreatableModificationName, formValue: any, unitID: string) => {
+    const {modification} = formValue;
     switch (name) {
         case CreatableModificationName.ContractPayoutToolModification:
             return toModification(UnitName.contractModification, ContractModificationName.payoutToolModification, unitID, modification);

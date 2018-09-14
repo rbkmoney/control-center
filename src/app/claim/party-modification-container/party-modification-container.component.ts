@@ -5,33 +5,7 @@ import { ContractModificationUnit, ShopModificationUnit } from '../../damsel';
 
 @Component({
     selector: 'cc-party-modification-container',
-    templateUrl: 'party-modification-container.component.html',
-    styles: [`
-        :host /deep/ .string {
-            color: #008000;
-            font-weight: bold;
-        }
-
-        :host /deep/ .number {
-            color: #0000FF;
-            font-weight: bold;
-        }
-
-        :host /deep/ .boolean {
-            color: #000080;
-            font-weight: bold;
-        }
-
-        :host /deep/ .null {
-            color: magenta;
-            font-weight: bold;
-        }
-
-        :host /deep/ .key {
-            color: #660E7A;
-            font-weight: bold;
-        }
-    `]
+    templateUrl: 'party-modification-container.component.html'
 })
 export class PartyModificationContainerComponent implements OnInit {
 

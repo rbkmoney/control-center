@@ -1,8 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CreatableModificationName } from './creatable-modification-name';
-import { toPartyModification } from './to-party-modification';
 import { PartyModification } from '../damsel/payment-processing';
 import { ClaimService } from '../claim/claim.service';
 import { DomainModificationInfo } from '../claim/model';
@@ -12,7 +19,13 @@ import { Observable } from 'rxjs';
     selector: 'cc-party-modification-creation',
     templateUrl: 'party-modification-creation.component.html'
 })
-export class PartyModificationCreationComponent implements OnInit {
+export class PartyModificationCreationComponent implements OnInit, OnChanges {
+
+    @Input()
+    unitID = '';
+
+    @Input()
+    unitIDDisabled = false;
 
     @Input()
     modification: CreatableModificationName;
@@ -36,14 +49,24 @@ export class PartyModificationCreationComponent implements OnInit {
     ngOnInit() {
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
         this.form = this.fb.group({
-            unitID: ['', Validators.required],
+            unitID: [{
+                value: this.unitID,
+                disabled: this.unitIDDisabled
+            }, Validators.required],
             modification: this.fb.group({})
         });
         this.form.statusChanges.subscribe((status) => {
             this.statusChanges.emit(status);
         });
         this.form.valueChanges.subscribe((value) => {
-            this.valueChanges.emit(toPartyModification(this.modification, value));
+            this.valueChanges.emit(value);
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        const {unitID} = changes;
+        if (unitID && !unitID.firstChange) {
+            this.form.patchValue({unitID: unitID.currentValue});
+        }
     }
 }

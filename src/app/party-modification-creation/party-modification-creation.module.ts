@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
     MatCheckboxModule,
-    MatDatepickerModule, MatIconModule,
+    MatDatepickerModule,
+    MatIconModule,
     MatInputModule,
     MatNativeDateModule,
     MatRadioModule,
@@ -23,22 +24,22 @@ import { InternationalBankAccountComponent } from './payout-tool-info/internatio
 import {
     InternationalBankDetailsComponent
 } from './payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
+import { TerminalObjectComponent } from './domain/terminal-object/terminal-object.component';
+import { LegalAgreementBindingComponent } from './contract/legal-agreement-binding/legal-agreement-binding.component';
+import { AdjustmentModificationUnitComponent } from './contract/adjustment-modification-unit/adjustment-modification-unit.component';
+import { ReportPreferencesComponent } from './contract/report-preferences/report-preferences.component';
 import { CategoryRefComponent } from './category-ref/category-ref.component';
 import { ShopDetailsComponent } from './shop/shop-details/shop-details.component';
 import { ShopLocationComponent } from './shop/location-modification/shop-location.component';
 import { ShopAccountCreationComponent } from './shop/shop-account-creation/shop-account-creation.component';
-import { ScheduleRefComponent } from './schedule-ref/schedule-ref.component';
 import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-schedule-modification/shop-payout-schedule-modification.component';
-import { LegalAgreementBindingComponent } from './contract/legal-agreement-binding/legal-agreement-binding.component';
-import { AdjustmentModificationUnitComponent } from './contract/adjustment-modification-unit/adjustment-modification-unit.component';
 import { AdjustmentModificationComponent } from './contract/adjustment-modification/adjustment-modification.component';
-import { AdjustmentParamsComponent } from './contract/adjustment-params/adjustment-params.component';
-import { ContractTemplateRefComponent } from './contract/contract-template-ref/contract-template-ref.component';
 import { BusinessScheduleRefComponent } from './business-schedule-ref/business-schedule-ref.component';
 import { RepresentativeComponent } from './contract/representative/representative.component';
+import { ScheduleRefComponent } from './schedule-ref/schedule-ref.component';
+import { AdjustmentParamsComponent } from './contract/adjustment-params/adjustment-params.component';
 import { RepresentativeDocumentComponent } from './contract/representative-document/representative-document.component';
-import { ReportPreferencesComponent } from './contract/report-preferences/report-preferences.component';
-import { TerminalObjectComponent } from './domain/terminal-object/terminal-object.component';
+import { ContractTemplateRefComponent } from './contract/contract-template-ref/contract-template-ref.component';
 
 @NgModule({
     imports: [
@@ -64,22 +65,22 @@ import { TerminalObjectComponent } from './domain/terminal-object/terminal-objec
         RussianBankAccountComponent,
         InternationalBankAccountComponent,
         InternationalBankDetailsComponent,
+        TerminalObjectComponent,
+        LegalAgreementBindingComponent,
+        AdjustmentModificationUnitComponent,
+        ReportPreferencesComponent,
         CategoryRefComponent,
         ShopDetailsComponent,
         ShopLocationComponent,
         ShopAccountCreationComponent,
-        ScheduleRefComponent,
         ShopPayoutScheduleModificationComponent,
-        LegalAgreementBindingComponent,
-        AdjustmentModificationUnitComponent,
         AdjustmentModificationComponent,
-        AdjustmentParamsComponent,
-        ContractTemplateRefComponent,
         BusinessScheduleRefComponent,
         RepresentativeComponent,
+        ScheduleRefComponent,
+        AdjustmentParamsComponent,
         RepresentativeDocumentComponent,
-        ReportPreferencesComponent,
-        TerminalObjectComponent
+        ContractTemplateRefComponent
     ],
     exports: [
         PartyModificationCreationComponent

@@ -8,6 +8,7 @@ import { PartyModification } from '../../damsel/payment-processing';
 import { PartyModificationCreationService } from '../../party-modification-creation/party-modification-creation.service';
 import { Observable } from 'rxjs';
 import { CreateTerminalParams } from '../../domain/domain-typed-manager';
+import { toPartyModification } from '../../party-modification-creation/to-party-modification';
 
 @Component({
     templateUrl: 'create-modification.component.html',
@@ -24,29 +25,36 @@ export class CreateModificationComponent implements OnInit {
     name = CreatableModificationName;
 
     domainModificationInfo$: Observable<DomainModificationInfo>;
+    unitID: string;
 
     constructor(
         private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public action: UnitAction,
         private snackBar: MatSnackBar,
-        private createChangeService: PartyModificationCreationService) {
+        private createChangeService: PartyModificationCreationService,
+        private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit() {
         this.domainModificationInfo$ = this.createChangeService.domainModificationInfo$;
     }
 
-    valueChanges(e: PartyModification | CreateTerminalParams) {
+    valueChanges(e: any) {
         this.values = e;
+    }
+
+    unitIDChange(unitID: string) {
+        this.unitID = unitID;
     }
 
     statusChanges(status: string) {
         this.valid = status === 'VALID';
+        this.cdr.detectChanges();
     }
 
     create() {
         this.isLoading = true;
-        this.createChangeService.createChange(this.values, this.action).subscribe(() => {
+        this.createChangeService.createChange(toPartyModification(this.action.name, this.values, this.unitID), this.action).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
