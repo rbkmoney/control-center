@@ -23,7 +23,7 @@ export class CategoryRefComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('id', this.fb.control('', Validators.required));
+        this.form.registerControl('id', this.fb.control('', Validators.required));
 
         this.categories$ = this.categoryService
             .getCategories()

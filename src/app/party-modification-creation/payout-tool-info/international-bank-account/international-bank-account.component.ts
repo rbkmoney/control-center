@@ -26,14 +26,14 @@ export class InternationalBankAccountComponent implements OnInit {
     detailsChange(change: MatCheckboxChange) {
         this.isBankDetails = change.checked;
         change.checked
-            ? this.form.addControl('bank', this.fb.group({}))
+            ? this.form.registerControl('bank', this.fb.group({}))
             : this.form.removeControl('bank');
     }
 
     accountChange(change: MatCheckboxChange) {
         this.isCorrespondentAccount = change.checked;
         change.checked
-            ? this.form.addControl('correspondentAccount', this.fb.group({}))
+            ? this.form.registerControl('correspondentAccount', this.fb.group({}))
             : this.form.removeControl('correspondentAccount');
     }
 }

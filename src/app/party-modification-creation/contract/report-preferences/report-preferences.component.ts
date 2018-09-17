@@ -10,11 +10,15 @@ export class ReportPreferencesComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    serviceAcceptanceActPreferencesForm: FormGroup;
+
     constructor(private fb: FormBuilder) {
     }
 
     ngOnInit() {
-        this.form.registerControl('schedule', this.fb.group({}));
-        this.form.registerControl('signer', this.fb.group({}));
+        this.form.registerControl('serviceAcceptanceActPreferences', this.fb.group({}));
+        this.serviceAcceptanceActPreferencesForm = this.form.get('serviceAcceptanceActPreferences') as FormGroup;
+        this.serviceAcceptanceActPreferencesForm.registerControl('schedule', this.fb.group({}));
+        this.serviceAcceptanceActPreferencesForm.registerControl('signer', this.fb.group({}));
     }
 }

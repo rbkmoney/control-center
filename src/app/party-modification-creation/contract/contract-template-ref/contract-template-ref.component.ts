@@ -22,7 +22,7 @@ export class ContractTemplateRefComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('id', this.fb.control('', Validators.required));
+        this.form.registerControl('id', this.fb.control('', Validators.required));
         this.contracts$ = this.contractService
             .getContractTemplates()
             .pipe(map((contracts) => sortBy(contracts, 'id')));

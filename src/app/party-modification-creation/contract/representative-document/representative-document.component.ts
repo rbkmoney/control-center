@@ -27,11 +27,11 @@ export class RepresentativeDocumentComponent {
     select() {
         switch (this.selected) {
             case Type.articlesOfAssociation:
-                this.form.addControl(Type.articlesOfAssociation, this.fb.group({}));
+                this.form.registerControl(Type.articlesOfAssociation, this.fb.group({}));
                 this.form.removeControl(Type.legalAgreement);
                 break;
             case Type.legalAgreement:
-                this.form.addControl(Type.legalAgreement, this.fb.group({}));
+                this.form.registerControl(Type.legalAgreement, this.fb.group({}));
                 this.form.removeControl(Type.articlesOfAssociation);
                 break;
         }

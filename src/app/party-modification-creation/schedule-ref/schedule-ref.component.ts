@@ -20,7 +20,7 @@ export class ScheduleRefComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('id', this.fb.control('RUB', Validators.required));
+        this.form.registerControl('id', this.fb.control('RUB', Validators.required));
         this.payoutSchedules$ = this.domainManager.getBusinessScheduleObjects();
     }
 }

@@ -27,11 +27,11 @@ export class PayoutToolModificationComponent {
     select() {
         switch (this.selected) {
             case Type.creation:
-                this.form.addControl(Type.creation, this.fb.group({}));
+                this.form.registerControl(Type.creation, this.fb.group({}));
                 this.form.removeControl(Type.infoModification);
                 break;
             case Type.infoModification:
-                this.form.addControl(Type.infoModification, this.fb.group({}));
+                this.form.registerControl(Type.infoModification, this.fb.group({}));
                 this.form.removeControl(Type.creation);
                 break;
         }
