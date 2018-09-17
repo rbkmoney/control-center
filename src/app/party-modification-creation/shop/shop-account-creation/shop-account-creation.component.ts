@@ -14,6 +14,6 @@ export class ShopAccountCreationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('currency', this.fb.group({}));
+        this.form.registerControl('currency', this.fb.group({}));
     }
 }

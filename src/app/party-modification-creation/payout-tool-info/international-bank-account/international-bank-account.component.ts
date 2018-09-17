@@ -19,8 +19,8 @@ export class InternationalBankAccountComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('number', this.fb.control(''));
-        this.form.addControl('iban', this.fb.control(''));
+        this.form.registerControl('number', this.fb.control(''));
+        this.form.registerControl('iban', this.fb.control(''));
     }
 
     detailsChange(change: MatCheckboxChange) {

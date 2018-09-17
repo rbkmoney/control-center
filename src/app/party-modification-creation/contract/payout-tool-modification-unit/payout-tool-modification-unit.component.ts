@@ -14,7 +14,7 @@ export class PayoutToolModificationUnitComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.setControl('payoutToolId', this.fb.control('', Validators.required));
-        this.form.setControl('modification', this.fb.group({}));
+        this.form.registerControl('payoutToolId', this.fb.control('', Validators.required));
+        this.form.registerControl('modification', this.fb.group({}));
     }
 }

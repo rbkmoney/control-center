@@ -14,6 +14,6 @@ export class ShopLocationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('url', this.fb.control(''));
+        this.form.registerControl('url', this.fb.control(''));
     }
 }

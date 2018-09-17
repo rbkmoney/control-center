@@ -14,6 +14,6 @@ export class AdjustmentModificationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('creation', this.fb.group({}));
+        this.form.registerControl('creation', this.fb.group({}));
     }
 }

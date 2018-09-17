@@ -16,9 +16,9 @@ export class LegalAgreementBindingComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('legalAgreementId', this.fb.control('', Validators.required));
-        this.form.addControl('signedAt', this.fb.control('', Validators.required));
-        this.form.addControl('validUntil', this.fb.control(''));
+        this.form.registerControl('legalAgreementId', this.fb.control('', Validators.required));
+        this.form.registerControl('signedAt', this.fb.control('', Validators.required));
+        this.form.registerControl('validUntil', this.fb.control(''));
     }
 
     formatDate(type: string, event: MatDatepickerInputEvent<Date>) {

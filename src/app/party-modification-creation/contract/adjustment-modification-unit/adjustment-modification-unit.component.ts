@@ -14,7 +14,7 @@ export class AdjustmentModificationUnitComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.setControl('adjustmentId', this.fb.control('', Validators.required));
-        this.form.setControl('modification', this.fb.group({}));
+        this.form.registerControl('adjustmentId', this.fb.control('', Validators.required));
+        this.form.registerControl('modification', this.fb.group({}));
     }
 }

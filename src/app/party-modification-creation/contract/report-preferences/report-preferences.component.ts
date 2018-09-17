@@ -14,7 +14,7 @@ export class ReportPreferencesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.setControl('schedule', this.fb.group({}));
-        this.form.setControl('signer', this.fb.group({}));
+        this.form.registerControl('schedule', this.fb.group({}));
+        this.form.registerControl('signer', this.fb.group({}));
     }
 }

@@ -14,6 +14,6 @@ export class ShopPayoutScheduleModificationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('schedule', this.fb.group({}));
+        this.form.registerControl('schedule', this.fb.group({}));
     }
 }

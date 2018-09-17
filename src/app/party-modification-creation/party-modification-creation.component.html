@@ -11,7 +11,7 @@
             *ngIf="modification === m.DomainConfigModificationAddTerminal"
             [form]="form.get('modification')"
             [domainModificationInfo]="(domainModificationInfo$ | async)"
-            [unitID]="form.value.unitID">
+            [unitID]="unitID">
     </cc-terminal-object>
     <cc-contract-payout-tool-modification-unit
             *ngIf="modification === m.ContractPayoutToolModification"

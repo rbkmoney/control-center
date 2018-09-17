@@ -22,11 +22,11 @@ export class InternationalBankDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.residences = this.toResidences();
-        this.form.addControl('bic', this.fb.control(''));
-        this.form.addControl('country', this.fb.control('')); // Residence enum
-        this.form.addControl('name', this.fb.control(''));
-        this.form.addControl('address', this.fb.control(''));
-        this.form.addControl('abaRtn', this.fb.control(''));
+        this.form.registerControl('bic', this.fb.control(''));
+        this.form.registerControl('country', this.fb.control('')); // Residence enum
+        this.form.registerControl('name', this.fb.control(''));
+        this.form.registerControl('address', this.fb.control(''));
+        this.form.registerControl('abaRtn', this.fb.control(''));
     }
 
     private toResidences(): string[] {

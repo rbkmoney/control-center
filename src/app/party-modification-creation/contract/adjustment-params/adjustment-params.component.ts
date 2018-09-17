@@ -14,6 +14,6 @@ export class AdjustmentParamsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('template', this.fb.group({}));
+        this.form.registerControl('template', this.fb.group({}));
     }
 }

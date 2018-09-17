@@ -3,6 +3,7 @@ import { MatBottomSheetRef, MatDialog } from '@angular/material';
 import { ActionType, UnitAction } from '../unit-action';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
 import { CreatableModificationName } from '../../party-modification-creation';
+import { ContractModificationName, ShopModificationName } from '../model';
 
 @Component({
     templateUrl: 'unit-actions.component.html'
@@ -16,49 +17,57 @@ export class UnitActionsComponent {
     contractActions: UnitAction[] = [
         {
             type: ActionType.contractAction,
-            name: CreatableModificationName.ContractLegalAgreementBinding
+            name: ContractModificationName.legalAgreementBinding,
+            modificationName: CreatableModificationName.ContractLegalAgreementBinding
         },
         {
             type: ActionType.contractAction,
-            name: CreatableModificationName.ContractReportPreferencesModification
+            name: ContractModificationName.reportPreferencesModification,
+            modificationName: CreatableModificationName.ContractReportPreferencesModification
         },
         {
             type: ActionType.contractAction,
-            name: CreatableModificationName.ContractAdjustmentModification
+            name: ContractModificationName.adjustmentModification,
+            modificationName: CreatableModificationName.ContractAdjustmentModification
         },
         {
             type: ActionType.contractAction,
-            name: CreatableModificationName.ContractPayoutToolModification
+            name: ContractModificationName.payoutToolModification,
+            modificationName: CreatableModificationName.ContractPayoutToolModification
         }
     ];
 
     shopActions: UnitAction[] = [
         {
             type: ActionType.shopAction,
-            name: CreatableModificationName.ShopDetailsModification
+            name: ShopModificationName.detailsModification,
+            modificationName: CreatableModificationName.ShopDetailsModification
         },
         {
             type: ActionType.shopAction,
-            name: CreatableModificationName.ShopLocationModification
+            name: ShopModificationName.locationModification,
+            modificationName: CreatableModificationName.ShopLocationModification
         },
         {
             type: ActionType.shopAction,
-            name: CreatableModificationName.ShopCategoryModification
+            name: ShopModificationName.categoryModification,
+            modificationName: CreatableModificationName.ShopCategoryModification
         },
         {
             type: ActionType.shopAction,
-            name: CreatableModificationName.ShopAccountCreation
+            name: ShopModificationName.shopAccountCreation,
+            modificationName: CreatableModificationName.ShopAccountCreation
         },
         {
             type: ActionType.shopAction,
-            name: CreatableModificationName.ShopScheduleModification
+            name: ShopModificationName.payoutScheduleModification,
+            modificationName: CreatableModificationName.ShopScheduleModification
         }
     ];
 
     domainActions: UnitAction[] = [
         {
-            type: ActionType.domainAction,
-            name: CreatableModificationName.DomainConfigModificationAddTerminal
+            type: ActionType.domainAction
         }
     ];
 

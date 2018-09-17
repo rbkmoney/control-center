@@ -9,6 +9,8 @@ import { PartyModificationCreationService } from '../../party-modification-creat
 import { Observable } from 'rxjs';
 import { CreateTerminalParams } from '../../domain/domain-typed-manager';
 import { toPartyModification } from '../../party-modification-creation/to-party-modification';
+import { PartyTarget } from '../../party-modification-target';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: 'create-modification.component.html',
@@ -20,6 +22,8 @@ export class CreateModificationComponent implements OnInit {
 
     valid = false;
 
+    partyId: string;
+
     values: PartyModification | CreateTerminalParams;
 
     name = CreatableModificationName;
@@ -28,6 +32,7 @@ export class CreateModificationComponent implements OnInit {
     unitID: string;
 
     constructor(
+        private route: ActivatedRoute,
         private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public action: UnitAction,
         private snackBar: MatSnackBar,
@@ -36,6 +41,9 @@ export class CreateModificationComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.route.firstChild.params.subscribe((params) => {
+            this.partyId = params.partyId;
+        });
         this.domainModificationInfo$ = this.createChangeService.domainModificationInfo$;
     }
 
@@ -54,7 +62,7 @@ export class CreateModificationComponent implements OnInit {
 
     create() {
         this.isLoading = true;
-        this.createChangeService.createChange(toPartyModification(this.action.name, this.values, this.unitID), this.action).subscribe(() => {
+        this.createChangeService.createChange(toPartyModification(this.action.modificationName, this.values, this.unitID), this.action).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
@@ -73,6 +81,15 @@ export class CreateModificationComponent implements OnInit {
                 return UnitContainerType.ContractUnitContainer;
             case ActionType.domainAction:
                 return 'Domain modification';
+        }
+    }
+
+    getPartyTarget(type: ActionType): PartyTarget {
+        switch (type) {
+            case ActionType.shopAction:
+                return PartyTarget.shop;
+            case ActionType.contractAction:
+                return PartyTarget.contract;
         }
     }
 }

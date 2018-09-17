@@ -14,8 +14,8 @@ export class RepresentativeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('position', this.fb.control('', Validators.required));
-        this.form.addControl('fullName', this.fb.control('', Validators.required));
-        this.form.addControl('document', this.fb.group({}));
+        this.form.registerControl('position', this.fb.control('', Validators.required));
+        this.form.registerControl('fullName', this.fb.control('', Validators.required));
+        this.form.registerControl('document', this.fb.group({}));
     }
 }

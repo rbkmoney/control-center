@@ -14,7 +14,7 @@ export class ShopDetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('name', this.fb.control('', Validators.required));
-        this.form.addControl('description', this.fb.control(''));
+        this.form.registerControl('name', this.fb.control('', Validators.required));
+        this.form.registerControl('description', this.fb.control(''));
     }
 }

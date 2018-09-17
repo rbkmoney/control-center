@@ -4,8 +4,8 @@
         <mat-step>
             <ng-template matStepLabel>Prepare party modification target</ng-template>
             <cc-party-modification-target
-                    partyID="281220eb-a4ef-4d03-b666-bdec4b26c5f7"
-                    partyTarget="shop"
+                    [partyID]="partyId"
+                    [partyTarget]="getPartyTarget(action.type)"
                     (valueChanges)="unitIDChange($event)">
             </cc-party-modification-target>
         </mat-step>
@@ -15,7 +15,7 @@
                 <cc-party-modification-creation
                         [unitID]="unitID"
                         unitIDDisabled="true"
-                        [modification]="action.name"
+                        [modification]="action.modificationName"
                         (valueChanges)="valueChanges($event)"
                         (statusChanges)="statusChanges($event)">
                 </cc-party-modification-creation>

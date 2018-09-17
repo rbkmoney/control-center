@@ -1,4 +1,5 @@
 import { CreatableModificationName } from '../party-modification-creation';
+import { ContractModificationName, ShopModificationName } from './model';
 
 export enum ActionType {
     contractAction = 'contractAction',
@@ -8,5 +9,6 @@ export enum ActionType {
 
 export interface UnitAction {
     type: ActionType;
-    name: CreatableModificationName;
+    name?: ContractModificationName | ShopModificationName;
+    modificationName?: CreatableModificationName;
 }
