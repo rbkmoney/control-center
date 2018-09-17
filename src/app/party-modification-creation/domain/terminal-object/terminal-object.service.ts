@@ -53,7 +53,7 @@ export class TerminalObjectService {
     setBankOptionsTemplate(option: string) {
         this.form.setControl('options', toFormArray(this.fb, getOptions(option, this.domainModificationInfo)));
         this.form.patchValue({
-            terminalName: prepareTerminalName(option, this.domainModificationInfo.shopUrl)
+            terminalName: prepareTerminalName(option, this.form.value.shopUrl)
         });
     }
 
@@ -77,24 +77,5 @@ export class TerminalObjectService {
             key: '',
             value: ''
         });
-    }
-
-    private toCreateTerminalParams(partyID: string, shopID: string): CreateTerminalParams {
-        const {
-            providerID,
-            terminalName,
-            terminalDescription,
-            riskCoverage,
-            options
-        } = this.form.value;
-        return {
-            providerID,
-            terminalName,
-            terminalDescription,
-            riskCoverage,
-            options,
-            partyID,
-            shopID
-        };
     }
 }

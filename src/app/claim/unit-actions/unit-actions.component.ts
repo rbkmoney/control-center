@@ -67,7 +67,8 @@ export class UnitActionsComponent {
 
     domainActions: UnitAction[] = [
         {
-            type: ActionType.domainAction
+            type: ActionType.domainAction,
+            modificationName: CreatableModificationName.DomainConfigModificationAddTerminal
         }
     ];
 

@@ -49,7 +49,6 @@ export class TerminalObjectComponent implements OnInit, OnChanges {
             form.patchValue({
                 shopUrl: e.domainModificationInfo.currentValue.shopUrl,
                 shopID: e.domainModificationInfo.currentValue.shopId,
-                terminalName: prepareTerminalName('VTB', form.value.shopUrl),
                 partyID: e.domainModificationInfo.currentValue.partyId
             });
         }

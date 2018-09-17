@@ -87,6 +87,7 @@ export class CreateModificationComponent implements OnInit {
     getPartyTarget(type: ActionType): PartyTarget {
         switch (type) {
             case ActionType.shopAction:
+            case ActionType.domainAction:
                 return PartyTarget.shop;
             case ActionType.contractAction:
                 return PartyTarget.contract;
