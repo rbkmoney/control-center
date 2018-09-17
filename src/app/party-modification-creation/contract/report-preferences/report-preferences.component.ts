@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -12,7 +12,8 @@ export class ReportPreferencesComponent implements OnInit {
 
     serviceAcceptanceActPreferencesForm: FormGroup;
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder,
+                private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -20,5 +21,6 @@ export class ReportPreferencesComponent implements OnInit {
         this.serviceAcceptanceActPreferencesForm = this.form.get('serviceAcceptanceActPreferences') as FormGroup;
         this.serviceAcceptanceActPreferencesForm.registerControl('schedule', this.fb.group({}));
         this.serviceAcceptanceActPreferencesForm.registerControl('signer', this.fb.group({}));
+        this.cdr.detectChanges();
     }
 }
