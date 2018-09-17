@@ -1,11 +1,11 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+
 import { DomainModificationInfo } from '../../../claim/model';
 import { TerminalObjectService } from './terminal-object.service';
-import { Observable } from 'rxjs';
 import { ProviderObject } from '../../../damsel/domain';
 import { DomainTypedManager } from '../../../domain/domain-typed-manager';
-import { prepareTerminalName } from './form-default-values';
 import { ClaimService } from '../../../claim/claim.service';
 
 @Component({

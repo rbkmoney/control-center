@@ -39,7 +39,7 @@ import { ContainerNamePipe } from './container-name.pipe';
 import { PartyModificationUnitsComponent } from './party-modification-units/party-modification-units.component';
 import { PartyModificationCreationModule } from '../party-modification-creation';
 import { CreateModificationComponent } from './create-modification/create-modification.component';
-import { PartyModificationTargetModule } from '../party-modification-target/party-modification-target.module';
+import { PartyModificationTargetModule } from '../party-modification-target';
 
 @NgModule({
     imports: [
