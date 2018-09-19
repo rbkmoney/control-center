@@ -18,7 +18,6 @@ import {
 import { CdkTableModule } from '@angular/cdk/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { KeycloakService } from 'keycloak-angular';
 
 import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
@@ -26,30 +25,31 @@ import { CreateAndCaptureComponent } from './create-and-capture/create-and-captu
 import { TableComponent } from './table/table.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
-import { ReportService } from '../papi/report.service';
-import { PaymentProcessingModule } from '../thrift';
+import { PapiModule } from '../papi/papi.module';
+import { ThriftModule } from '../thrift/thrift.module';
 
 @NgModule({
     imports: [
         CommonModule,
         PaymentAdjustmentRoutingModule,
+        FlexLayoutModule,
+        ReactiveFormsModule,
+        CdkTableModule,
         MatCardModule,
         MatProgressBarModule,
         MatButtonModule,
         MatFormFieldModule,
         MatDialogModule,
-        ReactiveFormsModule,
         MatInputModule,
-        FlexLayoutModule,
         MatTableModule,
-        CdkTableModule,
         MatSnackBarModule,
         MatDatepickerModule,
         MatCheckboxModule,
         MatTooltipModule,
-        PaymentProcessingModule,
         MatPaginatorModule,
-        MatStepperModule
+        MatStepperModule,
+        PapiModule,
+        ThriftModule
     ],
     declarations: [
         PaymentAdjustmentComponent,
@@ -57,8 +57,14 @@ import { PaymentProcessingModule } from '../thrift';
         TableComponent,
         SearchFormComponent
     ],
-    entryComponents: [CreateAndCaptureComponent, TableComponent, SearchFormComponent],
-    providers: [PaymentAdjustmentService, ReportService, KeycloakService]
+    entryComponents: [
+        CreateAndCaptureComponent,
+        TableComponent,
+        SearchFormComponent
+    ],
+    providers: [
+        PaymentAdjustmentService
+    ]
 })
 export class PaymentAdjustmentModule {
 }

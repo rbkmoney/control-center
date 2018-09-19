@@ -1,20 +1,20 @@
-import * as DomainConfigTypes from '../../../gen-nodejs/domain_config_types';
-import { Commit, InsertOp, Operation, UpdateOp } from '../../../../damsel/index';
+import * as DomainConfigTypes from '../gen-nodejs/domain_config_types';
+import { Commit, InsertOp, Operation, UpdateOp } from '../../damsel';
 
-const toGenInsertOp = (insertOp: InsertOp): InsertOp => {
+const toGenInsertOp = (insertOp: InsertOp) => {
     const insertOpGen = new DomainConfigTypes.InsertOp();
     insertOpGen.object = insertOp.object;
     return insertOpGen;
 };
 
-const toGenUpdateOp = (updateOp: UpdateOp): UpdateOp => {
+const toGenUpdateOp = (updateOp: UpdateOp) => {
     const updateOpGen = new DomainConfigTypes.UpdateOp();
     updateOpGen.old_object = updateOp.oldObject;
     updateOpGen.new_object = updateOp.newObject;
     return updateOpGen;
 };
 
-const toGenOperation = (operation: Operation): Operation => {
+const toGenOperation = (operation: Operation) => {
     const operationGen = new DomainConfigTypes.Operation();
     if (operation.insert) {
         operationGen.insert = toGenInsertOp(operation.insert);
@@ -24,10 +24,10 @@ const toGenOperation = (operation: Operation): Operation => {
     return operationGen;
 };
 
-const toGenCommitOps = (operations: Operation[]): Operation[] =>
+const toGenCommitOps = (operations: Operation[]) =>
     operations.map((operation) => toGenOperation(operation));
 
-export const toGenCommit = (commit: Commit): Commit => {
+export const toGenCommit = (commit: Commit) => {
     const genCommit = new DomainConfigTypes.Commit();
     genCommit.ops = toGenCommitOps(commit.ops);
     return genCommit;

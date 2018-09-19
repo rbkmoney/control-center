@@ -1,4 +1,4 @@
 export interface InvoicePaymentAdjustmentParams {
-    domain_revision?: number;
+    domainRevision?: number;
     reason: string;
 }

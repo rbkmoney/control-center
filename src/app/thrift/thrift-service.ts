@@ -1,15 +1,22 @@
-import { Injectable, NgZone } from '@angular/core';
+import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
+import connectClient from 'woody_js/dist/connect-client';
 
-import { Exception } from './exception';
+type Exception<N = string, T = {}> = {
+    name: N;
+    message: string;
+} & T;
 
-@Injectable()
 export class ThriftService {
-    constructor(private zone: NgZone) {
+
+    protected client: any;
+
+    constructor(private zone: NgZone, endpoint: string, thriftService: any) {
+        this.client = this.createThriftClient(endpoint, thriftService);
     }
 
-    toObservableAction<T extends (...A: any[]) => Observable<any>>(func: Function): T {
+    protected toObservableAction<T extends (...A: any[]) => Observable<any>>(func: Function): T {
         return ((...args) => Observable.create((observer) => {
             this.zone.run(() => {
                 try {
@@ -23,5 +30,10 @@ export class ThriftService {
                 }
             });
         }).pipe(timeout(30000))) as any;
+    }
+
+    private createThriftClient(endpoint: string, thriftService: any) {
+        const {hostname, port} = location;
+        return connectClient(hostname, port, endpoint, thriftService);
     }
 }

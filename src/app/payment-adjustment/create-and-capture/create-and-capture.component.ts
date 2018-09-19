@@ -7,13 +7,14 @@ import { forkJoin, Subscription } from 'rxjs';
 import { CreateAndCaptureService } from './create-and-capture.service';
 import { Payment } from '../../papi/model';
 import { InvoicePaymentAdjustment, InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
-import { PaymentProcessingTypedManager } from '../../thrift/payment-processing/payment-processing-typed-manager';
 import { fromPromise } from 'rxjs/internal-compatibility';
+import { PaymentProcessingTypedManager } from './payment-processing-typed-manager';
 
 @Component({
     selector: 'cc-create-and-capture-payment-adjustment',
     templateUrl: './create-and-capture.component.html',
-    styleUrls: ['./create-and-capture.component.css']
+    styleUrls: ['./create-and-capture.component.css'],
+    providers: [PaymentProcessingTypedManager]
 })
 export class CreateAndCaptureComponent implements OnInit {
 
@@ -60,7 +61,7 @@ export class CreateAndCaptureComponent implements OnInit {
         const {value} = this.form;
         const user: UserInfo = {id: this.keycloakService.getUsername(), type: {internal_user: {}}};
         const params: InvoicePaymentAdjustmentParams = {
-            domain_revision: value.revision,
+            domainRevision: value.revision,
             reason: value.reason
         };
         this.isLoading = true;

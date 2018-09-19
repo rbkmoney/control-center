@@ -10,13 +10,13 @@ import { CreateContractTemplateService } from './create-contract-template/create
 import { CreateBusinessScheduleRefService } from './create-business-schedule-ref/create-business-schedule-ref.service';
 import { CreateServiceAcceptanceActPreferencesService } from './create-service-acceptance-act-preferences/create-service-acceptance-act-preferences.service';
 import { CreateTerminalObjectService } from './create-terminal-object/create-terminal-object.service';
-import { CreateTerminalParams, DomainTypedManager } from '../../thrift/domain/domain-typed-manager';
 import { ContractModificationName, DomainModificationInfo, ShopModificationName, UnitContainerType } from '../model';
 import { CreateChangeItem } from './create-change-item';
 import { ClaimService } from '../claim.service';
 import { ContractModification, ShopModification } from '../../damsel';
 import { CreateLocationService } from './create-location/create-location.service';
 import { CreateDetailsService } from './create-details/create-details.service';
+import { CreateTerminalParams, DomainTypedManager } from '../domain-typed-manager';
 
 @Injectable()
 export class CreateChangeService {

@@ -1,5 +1,5 @@
-import { Reference, Version } from '../../../../damsel/index';
-import * as DomainConfigTypes from '../../../gen-nodejs/domain_config_types';
+import { Reference, Version } from '../../damsel';
+import * as DomainConfigTypes from '../gen-nodejs/domain_config_types';
 
 const toGenHead = () => {
     const reference = new DomainConfigTypes.Reference();
@@ -13,7 +13,7 @@ const toGenVersion = (version: Version) => {
     return reference;
 };
 
-export const toGenReference = (reference: Reference = {head: {}}): any => {
+export const toGenReference = (reference: Reference = {head: {}}) => {
     let result;
     if (reference.head) {
         result = toGenHead();
