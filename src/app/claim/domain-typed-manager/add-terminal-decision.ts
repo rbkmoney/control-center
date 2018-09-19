@@ -1,10 +1,12 @@
-import { last, dropRight, cloneDeep } from 'lodash';
+import last from 'lodash-es/last';
+import dropRight from 'lodash-es/dropRight';
+import cloneDeep from 'lodash-es/cloneDeep';
 import {
     ProviderObject,
     TerminalSelector,
     TerminalDecision
-} from '../../../damsel/index';
-import { toGenTerminalDecision } from './gen-conversion/index';
+} from '../../damsel/index';
+import { toGenTerminalDecision } from '../../thrift/converters';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision =>
     ({

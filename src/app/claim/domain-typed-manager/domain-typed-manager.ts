@@ -7,13 +7,13 @@ import {
     BusinessScheduleObject,
     ProviderObject,
     TerminalObject
-} from '../../../damsel/domain/index';
-import { Version } from '../../../damsel/index';
-import { DmtService } from '../dmt.service';
+} from '../../damsel/domain';
+import { Version } from '../../damsel';
 import { CreateTerminalParams } from './create-terminal-params';
 import { findDomainObject, findDomainObjects } from './utils';
 import { createShopTerminal } from './create-shop-terminal';
-import { toGenReference } from './gen-conversion/index';
+import { toGenReference } from '../../thrift/converters';
+import { DomainService } from '../../thrift/domain.service';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -41,7 +41,7 @@ export class DomainTypedManager {
 
     private domain: Observable<Domain>;
 
-    constructor(private dmtService: DmtService) {
+    constructor(private dmtService: DomainService) {
         this.domain = this.dmtService
             .checkout(toGenReference())
             .pipe(map((snapshot) => snapshot.domain));

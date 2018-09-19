@@ -1,9 +1,8 @@
-import { toGenDomainObject } from './gen-conversion/index';
 import { addTerminalDecision } from './add-terminal-decision';
 import { createTerminalObject } from './create-terminal-object';
 import { CreateTerminalParams } from './create-terminal-params';
-import { toGenCommit } from './gen-conversion/index';
-import { ProviderObject, TerminalObject, Commit } from '../../../damsel/index';
+import { toGenCommit, toGenDomainObject } from '../../thrift/converters';
+import { ProviderObject, TerminalObject, Commit } from '../../damsel';
 
 export const createShopTerminal = (terminalObjects: TerminalObject[], providerObject: ProviderObject, params: CreateTerminalParams): Commit => {
     const terminalObject = createTerminalObject(terminalObjects, params);

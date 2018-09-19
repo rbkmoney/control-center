@@ -23,7 +23,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import { PapiModule } from '../papi/papi.module';
-import { DomainModule } from '../thrift';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ClaimInfoComponent } from './claim-info/claim-info.component';
@@ -48,11 +47,12 @@ import { SharedModule } from '../shared/shared.module';
 import { ContainerNamePipe } from './container-name.pipe';
 import { CreateLocationComponent } from './create-change/create-location/create-location.component';
 import { CreateDetailsComponent } from './create-change/create-details/create-details.component';
+import { ThriftModule } from '../thrift/thrift.module';
 
 @NgModule({
     imports: [
         PapiModule,
-        DomainModule,
+        ThriftModule,
         CommonModule,
         SharedModule,
         ReactiveFormsModule,

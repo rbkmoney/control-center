@@ -14,6 +14,7 @@ import { CreateTerminalObjectService } from './create-terminal-object/create-ter
 import { ContractModificationName, DomainModificationInfo, ShopModificationName, UnitContainerType } from '../model';
 import { CreateLocationService } from './create-location/create-location.service';
 import { CreateDetailsService } from './create-details/create-details.service';
+import { DomainTypedManager } from '../domain-typed-manager';
 
 @Component({
     templateUrl: 'create-change.component.html',
@@ -27,7 +28,8 @@ import { CreateDetailsService } from './create-details/create-details.service';
         CreateServiceAcceptanceActPreferencesService,
         CreateTerminalObjectService,
         CreateLocationService,
-        CreateDetailsService
+        CreateDetailsService,
+        DomainTypedManager
     ]
 })
 export class CreateChangeComponent implements OnInit {
