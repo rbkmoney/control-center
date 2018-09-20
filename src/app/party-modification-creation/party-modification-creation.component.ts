@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import isObject from 'lodash-es/isObject';
+import mapValues from 'lodash-es/mapValues';
 
 import { PartyModification } from '../damsel/payment-processing';
 import { ClaimService } from '../claim/claim.service';
@@ -43,6 +45,8 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     shopModificationNames = ShopModificationName;
     contractModificationNames = ContractModificationName;
 
+    valid = false;
+
     form: FormGroup;
 
     constructor(private fb: FormBuilder,
@@ -59,9 +63,11 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
             modification: this.fb.group({})
         });
         this.form.statusChanges.subscribe((status) => {
+            this.valid = status === 'VALID';
             this.statusChanges.emit(status);
         });
         this.form.valueChanges.subscribe((value) => {
+            value = this.valid ? this.makeCleanValue(value) : value;
             this.valueChanges.emit(toPartyModification(this.action.type, this.action.name, value, this.unitID));
         });
     }
@@ -71,5 +77,18 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
         if (unitID && !unitID.firstChange) {
             this.form.patchValue({unitID: unitID.currentValue});
         }
+    }
+
+    private makeCleanValue(value: any) {
+        if (isObject(value)) {
+            const cleanObj = {};
+            mapValues(value, (val, key) => {
+                if (val !== '') {
+                    cleanObj[key] = this.makeCleanValue(val);
+                }
+            });
+            return cleanObj;
+        }
+        return value;
     }
 }
