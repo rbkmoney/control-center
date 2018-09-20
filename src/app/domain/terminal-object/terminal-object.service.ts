@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TerminalOption } from '../../../domain/domain-typed-manager';
+import { TerminalOption } from '../domain-typed-manager';
 import { getOptions, prepareTerminalName } from './form-default-values';
-import { DomainModificationInfo } from '../../../claim/model';
+import { DomainModificationInfo } from '../../claim/model';
 
 const toFormArray = (fb: FormBuilder, options: TerminalOption[]): FormArray =>
     fb.array(options.map((option) => fb.group(option)));
@@ -61,8 +61,8 @@ export class TerminalObjectService {
         const defaultOption = 'VTB';
         return this.fb.group({
             shopID: ['', Validators.required],
-            partyID: ['', Validators.required],
-            shopUrl: [param.shopUrl, Validators.required],
+            partyID: [param.partyId, Validators.required],
+            shopUrl: '',
             providerID: ['', Validators.required],
             terminalName: [prepareTerminalName(defaultOption, param.shopUrl), Validators.required],
             terminalDescription: 'No',

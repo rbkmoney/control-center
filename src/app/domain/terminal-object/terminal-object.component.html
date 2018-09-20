@@ -1,9 +1,24 @@
-<form *ngIf="form.get('modification')" [formGroup]="form.get('modification')" fxLayout="column">
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="15px">
+    <div fxLayout>
+        <mat-form-field fxFlex>
+            <input matInput
+                   placeholder="Party ID"
+                   formControlName="partyID"
+                   required>
+        </mat-form-field>
+    </div>
+    <div fxLayout>
+        <mat-form-field fxFlex>
+            <input matInput
+                   placeholder="Shop ID"
+                   formControlName="shopID"
+                   required>
+        </mat-form-field>
+    </div>
     <div fxLayout>
         <mat-form-field fxFlex>
             <input matInput
                    placeholder="Shop Url"
-                   formControlName="shopUrl"
                    required>
         </mat-form-field>
     </div>
@@ -57,7 +72,7 @@
             <div fxLayout="row"
                  fxLayout.sm="column"
                  fxLayout.xs="column"
-                 *ngFor="let option of form.get('modification').controls.options.controls; let i=index"
+                 *ngFor="let option of form.controls.options.controls; let i=index"
                  [formGroupName]="i">
                 <mat-form-field fxFlex="30">
                     <input matInput

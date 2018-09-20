@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatBottomSheetRef, MatDialog } from '@angular/material';
-import { ActionType, UnitAction } from '../unit-action';
+
+import { ActionType, ModificationAction } from '../modification-action';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
-import { CreatableModificationName } from '../../party-modification-creation';
 import { ContractModificationName, ShopModificationName } from '../model';
+import { CreateDomainModificationComponent } from '../create-domain-modification/create-domain-modification.component';
 
 @Component({
     templateUrl: 'unit-actions.component.html'
@@ -14,71 +15,81 @@ export class UnitActionsComponent {
                 private dialog: MatDialog) {
     }
 
-    contractActions: UnitAction[] = [
+    contractActions: ModificationAction[] = [
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.legalAgreementBinding,
-            modificationName: CreatableModificationName.ContractLegalAgreementBinding
+            name: ContractModificationName.legalAgreementBinding
         },
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.reportPreferencesModification,
-            modificationName: CreatableModificationName.ContractReportPreferencesModification
+            name: ContractModificationName.reportPreferencesModification
         },
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.adjustmentModification,
-            modificationName: CreatableModificationName.ContractAdjustmentModification
+            name: ContractModificationName.adjustmentModification
         },
         {
             type: ActionType.contractAction,
-            name: ContractModificationName.payoutToolModification,
-            modificationName: CreatableModificationName.ContractPayoutToolModification
+            name: ContractModificationName.payoutToolModification
         }
     ];
 
-    shopActions: UnitAction[] = [
+    shopActions: ModificationAction[] = [
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.detailsModification,
-            modificationName: CreatableModificationName.ShopDetailsModification
+            name: ShopModificationName.creation
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.locationModification,
-            modificationName: CreatableModificationName.ShopLocationModification
+            name: ShopModificationName.detailsModification
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.categoryModification,
-            modificationName: CreatableModificationName.ShopCategoryModification
+            name: ShopModificationName.locationModification
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.shopAccountCreation,
-            modificationName: CreatableModificationName.ShopAccountCreation
+            name: ShopModificationName.categoryModification
         },
         {
             type: ActionType.shopAction,
-            name: ShopModificationName.payoutScheduleModification,
-            modificationName: CreatableModificationName.ShopScheduleModification
+            name: ShopModificationName.shopAccountCreation
+        },
+        {
+            type: ActionType.shopAction,
+            name: ShopModificationName.payoutScheduleModification
+        },
+        {
+            type: ActionType.shopAction,
+            name: ShopModificationName.payoutToolModification
+        },
+        {
+            type: ActionType.shopAction,
+            name: ShopModificationName.contractModification
         }
     ];
 
-    domainActions: UnitAction[] = [
+    domainActions: ModificationAction[] = [
         {
-            type: ActionType.domainAction,
-            modificationName: CreatableModificationName.DomainConfigModificationAddTerminal
+            type: ActionType.domainAction
         }
     ];
 
-    select(action: UnitAction) {
+    select(action: ModificationAction) {
         this.bottomSheetRef.dismiss();
         const config = {
             data: action,
             width: '800px',
             disableClose: true
         };
-        this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
+        switch (action.type) {
+            case ActionType.contractAction:
+            case ActionType.shopAction:
+                this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
+                break;
+            case ActionType.domainAction:
+                this.dialog.open<CreateDomainModificationComponent>(CreateDomainModificationComponent, config);
+                break;
+        }
     }
 }

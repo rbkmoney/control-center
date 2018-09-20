@@ -7,46 +7,44 @@
                formControlName="unitID"
                required>
     </mat-form-field>
-    <cc-terminal-object
-            *ngIf="modification === m.DomainConfigModificationAddTerminal"
-            [form]="form.get('modification')"
-            [domainModificationInfo]="(domainModificationInfo$ | async)"
-            [unitID]="unitID">
-    </cc-terminal-object>
-    <cc-contract-payout-tool-modification-unit
-            *ngIf="modification === m.ContractPayoutToolModification"
-            [form]="form.get('modification')">
-    </cc-contract-payout-tool-modification-unit>
-    <cc-legal-agreement-binding
-            *ngIf="modification === m.ContractLegalAgreementBinding"
-            [form]="form.get('modification')">
-    </cc-legal-agreement-binding>
-    <cc-adjustment-modification-unit
-            *ngIf="modification === m.ContractAdjustmentModification"
-            [form]="form.get('modification')">
-    </cc-adjustment-modification-unit>
-    <cc-report-preferences
-            *ngIf="modification === m.ContractReportPreferencesModification"
-            [form]="form.get('modification')">
-    </cc-report-preferences>
-    <cc-category-ref
-            *ngIf="modification === m.ShopCategoryModification"
-            [form]="form.get('modification')">
-    </cc-category-ref>
-    <cc-shop-details
-            *ngIf="modification === m.ShopDetailsModification"
-            [form]="form.get('modification')">
-    </cc-shop-details>
-    <cc-shop-location
-            *ngIf="modification === m.ShopLocationModification"
-            [form]="form.get('modification')">
-    </cc-shop-location>
-    <cc-shop-account-creation
-            *ngIf="modification === m.ShopAccountCreation"
-            [form]="form.get('modification')">
-    </cc-shop-account-creation>
-    <cc-shop-schedule-modification
-            *ngIf="modification === m.ShopScheduleModification"
-            [form]="form.get('modification')">
-    </cc-shop-schedule-modification>
+    <div *ngIf="action.type === actionTypes.contractAction">
+        <cc-contract-payout-tool-modification-unit
+                *ngIf="action.name === contractModificationNames.payoutToolModification"
+                [form]="form.get('modification')">
+        </cc-contract-payout-tool-modification-unit>
+        <cc-legal-agreement-binding
+                *ngIf="action.name === contractModificationNames.legalAgreementBinding"
+                [form]="form.get('modification')">
+        </cc-legal-agreement-binding>
+        <cc-adjustment-modification-unit
+                *ngIf="action.name === contractModificationNames.adjustmentModification"
+                [form]="form.get('modification')">
+        </cc-adjustment-modification-unit>
+        <cc-report-preferences
+                *ngIf="action.name === contractModificationNames.reportPreferencesModification"
+                [form]="form.get('modification')">
+        </cc-report-preferences>
+    </div>
+    <div *ngIf="action.type === actionTypes.shopAction">
+        <cc-category-ref
+                *ngIf="action.name === shopModificationNames.categoryModification"
+                [form]="form.get('modification')">
+        </cc-category-ref>
+        <cc-shop-details
+                *ngIf="action.name === shopModificationNames.detailsModification"
+                [form]="form.get('modification')">
+        </cc-shop-details>
+        <cc-shop-location
+                *ngIf="action.name === shopModificationNames.locationModification"
+                [form]="form.get('modification')">
+        </cc-shop-location>
+        <cc-shop-account-creation
+                *ngIf="action.name === shopModificationNames.shopAccountCreation"
+                [form]="form.get('modification')">
+        </cc-shop-account-creation>
+        <cc-shop-schedule-modification
+                *ngIf="action.name === shopModificationNames.payoutScheduleModification"
+                [form]="form.get('modification')">
+        </cc-shop-schedule-modification>
+    </div>
 </form>

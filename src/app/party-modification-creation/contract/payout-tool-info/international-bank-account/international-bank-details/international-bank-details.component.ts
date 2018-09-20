@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import isString from 'lodash-es/isString';
 
-import { Residence } from '../../../../damsel/domain';
+import { Residence } from '../../../../../damsel/domain';
 
 @Component({
     selector: 'cc-international-bank-details',

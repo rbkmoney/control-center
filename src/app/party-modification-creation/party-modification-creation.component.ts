@@ -8,12 +8,13 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
-import { CreatableModificationName } from './creatable-modification-name';
 import { PartyModification } from '../damsel/payment-processing';
 import { ClaimService } from '../claim/claim.service';
-import { DomainModificationInfo } from '../claim/model';
-import { Observable } from 'rxjs';
+import { ContractModificationName, DomainModificationInfo, ShopModificationName } from '../claim/model';
+import { toPartyModification } from './to-party-modification';
+import { ActionType, ModificationAction } from '../claim/modification-action';
 
 @Component({
     selector: 'cc-party-modification-creation',
@@ -25,10 +26,10 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     unitID = '';
 
     @Input()
-    unitIDDisabled = false;
+    action: ModificationAction;
 
     @Input()
-    modification: CreatableModificationName;
+    unitIDDisabled = false;
 
     @Output()
     valueChanges: EventEmitter<PartyModification> = new EventEmitter();
@@ -38,7 +39,9 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
 
     domainModificationInfo$: Observable<DomainModificationInfo>;
 
-    m = CreatableModificationName;
+    actionTypes = ActionType;
+    shopModificationNames = ShopModificationName;
+    contractModificationNames = ContractModificationName;
 
     form: FormGroup;
 
@@ -59,7 +62,7 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
             this.statusChanges.emit(status);
         });
         this.form.valueChanges.subscribe((value) => {
-            this.valueChanges.emit(value);
+            this.valueChanges.emit(toPartyModification(this.action.type, this.action.name, value, this.unitID));
         });
     }
 

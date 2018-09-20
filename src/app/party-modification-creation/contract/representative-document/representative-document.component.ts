@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 enum Type {
     articlesOfAssociation = 'articlesOfAssociation',
-    legalAgreement = 'legalAgreement'
+    powerOfAttorney = 'powerOfAttorney'
 }
 
 @Component({
@@ -17,7 +17,7 @@ export class RepresentativeDocumentComponent {
 
     selected: Type;
 
-    types = [Type.articlesOfAssociation, Type.legalAgreement];
+    types = [Type.articlesOfAssociation, Type.powerOfAttorney];
 
     t = Type;
 
@@ -28,10 +28,10 @@ export class RepresentativeDocumentComponent {
         switch (this.selected) {
             case Type.articlesOfAssociation:
                 this.form.registerControl(Type.articlesOfAssociation, this.fb.group({}));
-                this.form.removeControl(Type.legalAgreement);
+                this.form.removeControl(Type.powerOfAttorney);
                 break;
-            case Type.legalAgreement:
-                this.form.registerControl(Type.legalAgreement, this.fb.group({}));
+            case Type.powerOfAttorney:
+                this.form.registerControl(Type.powerOfAttorney, this.fb.group({}));
                 this.form.removeControl(Type.articlesOfAssociation);
                 break;
         }

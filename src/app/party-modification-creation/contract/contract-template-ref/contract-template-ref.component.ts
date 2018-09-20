@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ContractTemplate } from '../../../papi/model';
 import { map } from 'rxjs/operators';
 import sortBy from 'lodash-es/sortBy';
+
+import { ContractTemplate } from '../../../papi/model';
 import { ContractService } from '../../../papi/contract.service';
 
 @Component({

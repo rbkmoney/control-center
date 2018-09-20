@@ -40,6 +40,8 @@ import { PartyModificationUnitsComponent } from './party-modification-units/part
 import { PartyModificationCreationModule } from '../party-modification-creation';
 import { CreateModificationComponent } from './create-modification/create-modification.component';
 import { PartyModificationTargetModule } from '../party-modification-target';
+import { CreateDomainModificationComponent } from './create-domain-modification/create-domain-modification.component';
+import { TerminalObjectComponent } from '../domain/terminal-object/terminal-object.component';
 
 @NgModule({
     imports: [
@@ -83,13 +85,16 @@ import { PartyModificationTargetModule } from '../party-modification-target';
         DenyClaimComponent,
         PartyModificationUnitsComponent,
         ContainerNamePipe,
-        CreateModificationComponent
+        CreateModificationComponent,
+        CreateDomainModificationComponent,
+        TerminalObjectComponent
     ],
     entryComponents: [
         UnitActionsComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
-        CreateModificationComponent
+        CreateModificationComponent,
+        CreateDomainModificationComponent
     ],
     providers: [
         ClaimService

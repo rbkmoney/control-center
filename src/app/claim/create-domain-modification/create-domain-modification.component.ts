@@ -1,19 +1,20 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
-import { UnitContainerType } from '../model';
-import { PartyModification } from '../../damsel/payment-processing';
+import { DomainModificationInfo } from '../model';
 import { PartyModificationCreationService } from '../../party-modification-creation/party-modification-creation.service';
-import { CreateTerminalParams } from '../../domain/domain-typed-manager';
-import { PartyTarget } from '../../party-modification-target';
+import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClaimService } from '../claim.service';
 
 @Component({
-    templateUrl: 'create-modification.component.html',
+    templateUrl: 'create-domain-modification.component.html',
     providers: [PartyModificationCreationService]
 })
-export class CreateModificationComponent implements OnInit {
+export class CreateDomainModificationComponent implements OnInit {
 
     isLoading = false;
 
@@ -21,31 +22,37 @@ export class CreateModificationComponent implements OnInit {
 
     partyId: string;
 
-    values: PartyModification | CreateTerminalParams;
+    values: CreateTerminalParams;
 
     unitID: string;
 
+    domainModificationInfo$: Observable<DomainModificationInfo>;
+
+    form: FormGroup;
+
     constructor(
+        private fb: FormBuilder,
+        private claimService: ClaimService,
         private route: ActivatedRoute,
-        private dialogRef: MatDialogRef<CreateModificationComponent>,
+        private dialogRef: MatDialogRef<CreateDomainModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
         private snackBar: MatSnackBar,
-        private createChangeService: PartyModificationCreationService,
-        private cdr: ChangeDetectorRef) {
+        private cdr: ChangeDetectorRef,
+        private domainTypedManager: DomainTypedManager) {
     }
 
     ngOnInit() {
         this.route.firstChild.params.subscribe((params) => {
             this.partyId = params.partyId;
         });
+        this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
+        this.form = this.fb.group({
+            modification: this.fb.group({})
+        });
     }
 
     valueChanges(e: any) {
         this.values = e;
-    }
-
-    unitIDChange(unitID: string) {
-        this.unitID = unitID;
     }
 
     statusChanges(status: string) {
@@ -55,7 +62,8 @@ export class CreateModificationComponent implements OnInit {
 
     create() {
         this.isLoading = true;
-        this.createChangeService.createChange(this.values, this.action).subscribe(() => {
+        this.domainTypedManager
+            .createTerminal(this.values as CreateTerminalParams).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
@@ -68,21 +76,8 @@ export class CreateModificationComponent implements OnInit {
 
     getContainerType(type: ActionType): string {
         switch (type) {
-            case ActionType.shopAction:
-                return UnitContainerType.ShopUnitContainer;
-            case ActionType.contractAction:
-                return UnitContainerType.ContractUnitContainer;
             case ActionType.domainAction:
                 return 'Domain modification';
-        }
-    }
-
-    getPartyTarget(type: ActionType): PartyTarget {
-        switch (type) {
-            case ActionType.shopAction:
-                return PartyTarget.shop;
-            case ActionType.contractAction:
-                return PartyTarget.contract;
         }
     }
 }
