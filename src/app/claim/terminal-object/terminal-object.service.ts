@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TerminalOption } from '../domain-typed-manager';
-import { getOptions, prepareTerminalName } from './form-default-values';
-import { DomainModificationInfo } from '../../claim/model';
+import { TerminalOption } from '../../domain/domain-typed-manager/index';
+import { getOptions, prepareTerminalName } from './form-default-values/index';
+import { DomainModificationInfo } from '../model/index';
 
 const toFormArray = (fb: FormBuilder, options: TerminalOption[]): FormArray =>
     fb.array(options.map((option) => fb.group(option)));

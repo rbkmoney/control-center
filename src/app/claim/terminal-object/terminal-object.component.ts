@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { DomainModificationInfo } from '../../claim/model';
+import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
 import { ProviderObject } from '../../damsel/domain';
-import { CreateTerminalParams, DomainTypedManager } from '../domain-typed-manager';
+import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
 
 @Component({
     selector: 'cc-terminal-object',
@@ -17,14 +17,13 @@ export class TerminalObjectComponent implements OnInit {
     @Input()
     domainModificationInfo: DomainModificationInfo;
 
-    @Input()
-    form: FormGroup;
-
     @Output()
     valueChanges: EventEmitter<CreateTerminalParams> = new EventEmitter();
 
     @Output()
     statusChanges: EventEmitter<'VALID' | 'INVALID'> = new EventEmitter();
+
+    form: FormGroup;
 
     providerObjects$: Observable<ProviderObject[]>;
 
@@ -39,7 +38,7 @@ export class TerminalObjectComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.terminalObjectService.initForm(this.domainModificationInfo);
-        this.providerObjects$ = this.domainTypedManager.getProviderObjects();
+        this.providerObjects$ = this.domainTypedManager.getProviderObjectsWithSelector('decisions');
         this.optionTemplates = this.terminalObjectService.optionTemplates;
         this.riskCoverages = this.terminalObjectService.riskCoverages;
         this.form.statusChanges.subscribe((status) => {

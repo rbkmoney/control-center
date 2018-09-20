@@ -4,7 +4,6 @@ import { MatBottomSheetRef, MatDialog } from '@angular/material';
 import { ActionType, ModificationAction } from '../modification-action';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
 import { ContractModificationName, ShopModificationName } from '../model';
-import { CreateDomainModificationComponent } from '../create-domain-modification/create-domain-modification.component';
 
 @Component({
     templateUrl: 'unit-actions.component.html'
@@ -82,14 +81,6 @@ export class UnitActionsComponent {
             width: '800px',
             disableClose: true
         };
-        switch (action.type) {
-            case ActionType.contractAction:
-            case ActionType.shopAction:
-                this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
-                break;
-            case ActionType.domainAction:
-                this.dialog.open<CreateDomainModificationComponent>(CreateDomainModificationComponent, config);
-                break;
-        }
+        this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
     }
 }

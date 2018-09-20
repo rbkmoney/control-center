@@ -39,8 +39,6 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     @Output()
     statusChanges: EventEmitter<'VALID' | 'INVALID'> = new EventEmitter();
 
-    domainModificationInfo$: Observable<DomainModificationInfo>;
-
     actionTypes = ActionType;
     shopModificationNames = ShopModificationName;
     contractModificationNames = ContractModificationName;
@@ -49,12 +47,10 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
 
     form: FormGroup;
 
-    constructor(private fb: FormBuilder,
-                private claimService: ClaimService) {
+    constructor(private fb: FormBuilder) {
     }
 
     ngOnInit() {
-        this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
         this.form = this.fb.group({
             unitID: [{
                 value: this.unitID,

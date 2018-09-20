@@ -3,10 +3,12 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 
 import { ActionType, ModificationAction } from '../modification-action';
-import { UnitContainerType } from '../model';
+import { DomainModificationInfo, UnitContainerType } from '../model';
 import { PartyModification } from '../../damsel/payment-processing';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
+import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
+import { Observable } from 'rxjs';
 
 @Component({
     templateUrl: 'create-modification.component.html'
@@ -19,9 +21,11 @@ export class CreateModificationComponent implements OnInit {
 
     partyId: string;
 
-    values: PartyModification;
+    values: PartyModification | CreateTerminalParams;
 
     unitID: string;
+
+    domainModificationInfo$: Observable<DomainModificationInfo>;
 
     constructor(
         private route: ActivatedRoute,
@@ -29,13 +33,15 @@ export class CreateModificationComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
         private snackBar: MatSnackBar,
         private cdr: ChangeDetectorRef,
-        private claimService: ClaimService) {
+        private claimService: ClaimService,
+        private domainTypedManager: DomainTypedManager) {
     }
 
     ngOnInit() {
         this.route.firstChild.params.subscribe((params) => {
             this.partyId = params.partyId;
         });
+        this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
     }
 
     valueChanges(e: any) {
@@ -52,16 +58,16 @@ export class CreateModificationComponent implements OnInit {
     }
 
     create() {
-        this.isLoading = true;
-        this.claimService.createChange(this.values).subscribe(() => {
-            this.isLoading = false;
-            this.dialogRef.close();
-            this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
-        }, (error) => {
-            console.error(error);
-            this.isLoading = false;
-            this.snackBar.open(`An error occurred while creating ${name}`, 'OK');
-        });
+        switch (this.action.type) {
+            case ActionType.shopAction:
+            case ActionType.contractAction:
+                this.createChange();
+                break;
+            case ActionType.domainAction:
+                this.createTerminal();
+                break;
+        }
+
     }
 
     getContainerType(type: ActionType): string {
@@ -82,5 +88,30 @@ export class CreateModificationComponent implements OnInit {
             case ActionType.contractAction:
                 return PartyTarget.contract;
         }
+    }
+
+    private createChange() {
+        this.isLoading = true;
+        this.claimService.createChange(this.values as PartyModification)
+            .subscribe(() => this.success(), this.failed);
+    }
+
+    private createTerminal() {
+        this.isLoading = true;
+        this.domainTypedManager
+            .createTerminal(this.values as CreateTerminalParams)
+            .subscribe(() => this.success(), this.failed);
+    }
+
+    private success() {
+        this.isLoading = false;
+        this.dialogRef.close();
+        this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
+    }
+
+    private failed(error) {
+        console.error(error);
+        this.isLoading = false;
+        this.snackBar.open(`An error occurred while creating ${name}`, 'OK');
     }
 }
