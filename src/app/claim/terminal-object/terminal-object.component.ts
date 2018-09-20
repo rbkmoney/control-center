@@ -25,6 +25,8 @@ export class TerminalObjectComponent implements OnInit {
 
     form: FormGroup;
 
+    options: FormGroup;
+
     providerObjects$: Observable<ProviderObject[]>;
 
     optionTemplates: string[];
@@ -45,6 +47,7 @@ export class TerminalObjectComponent implements OnInit {
             this.statusChanges.emit(status);
         });
         this.form.valueChanges.subscribe((value) => {
+            this.options = this.form.controls.options as FormGroup;
             this.valueChanges.emit(value);
         });
     }

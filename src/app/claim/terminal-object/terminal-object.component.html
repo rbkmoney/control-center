@@ -72,7 +72,7 @@
             <div fxLayout="row"
                  fxLayout.sm="column"
                  fxLayout.xs="column"
-                 *ngFor="let option of form.controls.options.controls; let i=index"
+                 *ngFor="let option of options.controls; let i=index"
                  [formGroupName]="i">
                 <mat-form-field fxFlex="30">
                     <input matInput

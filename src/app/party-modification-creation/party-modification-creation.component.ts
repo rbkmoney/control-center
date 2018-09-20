@@ -8,13 +8,11 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import isObject from 'lodash-es/isObject';
 import mapValues from 'lodash-es/mapValues';
 
 import { PartyModification } from '../damsel/payment-processing';
-import { ClaimService } from '../claim/claim.service';
-import { ContractModificationName, DomainModificationInfo, ShopModificationName } from '../claim/model';
+import { ContractModificationName, ShopModificationName } from '../claim/model';
 import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../claim/modification-action';
 
