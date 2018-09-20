@@ -6,8 +6,8 @@ import { ActionType, ModificationAction } from '../modification-action';
 import { UnitContainerType } from '../model';
 import { PartyModification } from '../../damsel/payment-processing';
 import { PartyModificationCreationService } from '../../party-modification-creation/party-modification-creation.service';
-import { CreateTerminalParams } from '../../domain/domain-typed-manager';
 import { PartyTarget } from '../../party-modification-target';
+import { ClaimService } from '../claim.service';
 
 @Component({
     templateUrl: 'create-modification.component.html',
@@ -21,7 +21,7 @@ export class CreateModificationComponent implements OnInit {
 
     partyId: string;
 
-    values: PartyModification | CreateTerminalParams;
+    values: PartyModification;
 
     unitID: string;
 
@@ -31,7 +31,8 @@ export class CreateModificationComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
         private snackBar: MatSnackBar,
         private createChangeService: PartyModificationCreationService,
-        private cdr: ChangeDetectorRef) {
+        private cdr: ChangeDetectorRef,
+        private claimService: ClaimService) {
     }
 
     ngOnInit() {
@@ -55,7 +56,7 @@ export class CreateModificationComponent implements OnInit {
 
     create() {
         this.isLoading = true;
-        this.createChangeService.createChange(this.values, this.action).subscribe(() => {
+        this.claimService.createChange(this.values).subscribe(() => {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
