@@ -1,10 +1,13 @@
-<form [formGroup]="form" fxLayout="column">
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="15px">
     <mat-form-field fxFlex>
         <input matInput
                placeholder="Adjustment ID"
                formControlName="adjustmentId"
                required>
     </mat-form-field>
+    <div>
+        <button (click)="generate()" mat-stroked-button>GENERATE NEW VALUE</button>
+    </div>
     <cc-adjustment-modification
             [form]="form.get('modification')">
     </cc-adjustment-modification>

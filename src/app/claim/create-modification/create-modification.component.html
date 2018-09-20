@@ -26,9 +26,9 @@
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>
         <button mat-button
-                [disabled]="!valid || isLoading"
+                [disabled]="isLoading || !valid"
                 color="primary"
-                (click)="create()">CREATE
+                (click)="create()">CREATE MODIFICATION
         </button>
         <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
     </div>
