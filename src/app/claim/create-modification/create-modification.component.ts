@@ -5,13 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ActionType, ModificationAction } from '../modification-action';
 import { UnitContainerType } from '../model';
 import { PartyModification } from '../../damsel/payment-processing';
-import { PartyModificationCreationService } from '../../party-modification-creation/party-modification-creation.service';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
 
 @Component({
-    templateUrl: 'create-modification.component.html',
-    providers: [PartyModificationCreationService]
+    templateUrl: 'create-modification.component.html'
 })
 export class CreateModificationComponent implements OnInit {
 
@@ -30,7 +28,6 @@ export class CreateModificationComponent implements OnInit {
         private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
         private snackBar: MatSnackBar,
-        private createChangeService: PartyModificationCreationService,
         private cdr: ChangeDetectorRef,
         private claimService: ClaimService) {
     }

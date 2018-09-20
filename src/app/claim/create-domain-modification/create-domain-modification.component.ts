@@ -5,14 +5,12 @@ import { Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
 import { DomainModificationInfo } from '../model';
-import { PartyModificationCreationService } from '../../party-modification-creation/party-modification-creation.service';
 import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClaimService } from '../claim.service';
 
 @Component({
-    templateUrl: 'create-domain-modification.component.html',
-    providers: [PartyModificationCreationService]
+    templateUrl: 'create-domain-modification.component.html'
 })
 export class CreateDomainModificationComponent implements OnInit {
 
