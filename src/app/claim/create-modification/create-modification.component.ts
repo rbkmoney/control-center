@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -32,7 +32,6 @@ export class CreateModificationComponent implements OnInit {
         private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
         private snackBar: MatSnackBar,
-        private cdr: ChangeDetectorRef,
         private claimService: ClaimService,
         private domainTypedManager: DomainTypedManager) {
     }
@@ -54,7 +53,6 @@ export class CreateModificationComponent implements OnInit {
 
     statusChanges(status: string) {
         this.valid.next(status === 'VALID');
-        // this.cdr.detectChanges();
     }
 
     create() {
@@ -93,14 +91,14 @@ export class CreateModificationComponent implements OnInit {
     private createChange() {
         this.isLoading = true;
         this.claimService.createChange(this.values as PartyModification)
-            .subscribe(() => this.success(), this.failed);
+            .subscribe(() => this.success(), (e) => this.failed(e));
     }
 
     private createTerminal() {
         this.isLoading = true;
         this.domainTypedManager
             .createTerminal(this.values as CreateTerminalParams)
-            .subscribe(() => this.success(), this.failed);
+            .subscribe(() => this.success(), (e) => this.failed(e));
     }
 
     private success() {
