@@ -32,7 +32,7 @@
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>
         <button mat-button
-                [disabled]="isLoading || !valid"
+                [disabled]="isLoading || !(valid | async)"
                 color="primary"
                 (click)="create()">CREATE
         </button>

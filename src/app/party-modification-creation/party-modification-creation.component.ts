@@ -15,6 +15,8 @@ import { PartyModification } from '../damsel/payment-processing';
 import { ContractModificationName, ShopModificationName } from '../claim/model';
 import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../claim/modification-action';
+import { assign, isEmpty, pickBy, reduce, transform } from 'lodash-es';
+import { isDate } from 'moment';
 
 @Component({
     selector: 'cc-party-modification-creation',
@@ -74,15 +76,16 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     }
 
     private makeCleanValue(value: any) {
-        if (isObject(value)) {
-            const cleanObj = {};
-            mapValues(value, (val, key) => {
-                if (val !== '') {
-                    cleanObj[key] = this.makeCleanValue(val);
+        if (!isDate(value) && isObject(value)) {
+            return transform(value, (acc, current, key) => {
+                if (current !== '') {
+                    return assign(acc, {[key]: this.makeCleanValue(current)});
+                } else {
+                    return acc;
                 }
-            });
-            return cleanObj;
+            }, {});
+        } else {
+            return value;
         }
-        return value;
     }
 }

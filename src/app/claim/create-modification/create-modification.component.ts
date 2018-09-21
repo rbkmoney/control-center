@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
 import { DomainModificationInfo, UnitContainerType } from '../model';
@@ -8,7 +9,6 @@ import { PartyModification } from '../../damsel/payment-processing';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
 import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
-import { Observable } from 'rxjs';
 
 @Component({
     templateUrl: 'create-modification.component.html'
@@ -17,7 +17,7 @@ export class CreateModificationComponent implements OnInit {
 
     isLoading = false;
 
-    valid = false;
+    valid = new BehaviorSubject(false);
 
     partyId: string;
 
@@ -53,8 +53,8 @@ export class CreateModificationComponent implements OnInit {
     }
 
     statusChanges(status: string) {
-        this.valid = status === 'VALID';
-        this.cdr.detectChanges();
+        this.valid.next(status === 'VALID');
+        // this.cdr.detectChanges();
     }
 
     create() {
