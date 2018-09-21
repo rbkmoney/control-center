@@ -77,13 +77,8 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
 
     private makeCleanValue(value: any) {
         if (!isDate(value) && isObject(value)) {
-            return transform(value, (acc, current, key) => {
-                if (current !== '') {
-                    return assign(acc, {[key]: this.makeCleanValue(current)});
-                } else {
-                    return acc;
-                }
-            }, {});
+            return transform(value, (acc, current, key) =>
+                current !== '' ? assign(acc, {[key]: this.makeCleanValue(current)}) : acc, {});
         } else {
             return value;
         }
