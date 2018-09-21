@@ -20,6 +20,6 @@ export class PayoutToolModificationUnitComponent implements OnInit {
     }
 
     generate() {
-        this.form.setValue({...this.form.value, payoutToolId: uuid()});
+        this.form.patchValue({payoutToolId: uuid()});
     }
 }

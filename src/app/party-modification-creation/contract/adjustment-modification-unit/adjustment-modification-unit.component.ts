@@ -20,6 +20,6 @@ export class AdjustmentModificationUnitComponent implements OnInit {
     }
 
     generate() {
-        this.form.setValue({...this.form.value, adjustmentId: uuid()});
+        this.form.patchValue({adjustmentId: uuid()});
     }
 }
