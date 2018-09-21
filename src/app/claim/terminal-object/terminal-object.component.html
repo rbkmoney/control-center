@@ -66,7 +66,7 @@
             </mat-radio-button>
         </mat-radio-group>
     </div>
-    <div fxLayout="column" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutGap="10px" *ngIf="options">
         <div>Options:</div>
         <div formArrayName="options">
             <div fxLayout="row"
