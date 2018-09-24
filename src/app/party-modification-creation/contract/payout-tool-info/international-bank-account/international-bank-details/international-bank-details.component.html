@@ -21,7 +21,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-select placeholder="Country" formControlName="country">
-            <mat-option *ngFor="let residence of residences" [value]="Residence[residence]">
+            <mat-option *ngFor="let residence of residences" [value]="residence">
                 {{residence}}
             </mat-option>
         </mat-select>

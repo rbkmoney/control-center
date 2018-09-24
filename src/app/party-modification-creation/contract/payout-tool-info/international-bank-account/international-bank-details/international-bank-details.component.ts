@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import isString from 'lodash-es/isString';
+import values from 'lodash-es/values';
 
 import { Residence } from '../../../../../damsel/domain';
 
@@ -30,15 +30,6 @@ export class InternationalBankDetailsComponent implements OnInit {
     }
 
     private toResidences(): string[] {
-        const result = [];
-        for (const residenceKey in Residence) {
-            if (Residence[residenceKey]) {
-                const key = Residence[residenceKey];
-                if (isString(key)) {
-                    result.push(key);
-                }
-            }
-        }
-        return result;
+        return values(Residence);
     }
 }
