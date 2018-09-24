@@ -8,15 +8,13 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import isObject from 'lodash-es/isObject';
-import assign from 'lodash-es/assign';
-import transform from 'lodash-es/transform';
-import { isDate } from 'moment';
+
 
 import { PartyModification } from '../damsel/payment-processing';
 import { ContractModificationName, ShopModificationName } from '../claim/model';
 import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../claim/modification-action';
+import { filterEmptyStringValues } from './filter-empty-string-value';
 
 @Component({
     selector: 'cc-party-modification-creation',
@@ -43,8 +41,6 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     shopModificationNames = ShopModificationName;
     contractModificationNames = ContractModificationName;
 
-    valid = false;
-
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -58,13 +54,11 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
             }, Validators.required],
             modification: this.fb.group({})
         });
-        this.form.statusChanges.subscribe((status) => {
-            this.valid = status === 'VALID';
-            this.statusChanges.emit(status);
-        });
-        this.form.valueChanges.subscribe((value) => {
-            value = this.valid ? this.makeCleanValue(value) : value;
-            this.valueChanges.emit(toPartyModification(this.action.type, this.action.name, value, this.unitID));
+        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
+        this.form.valueChanges.subscribe(() => {
+            const filtered = filterEmptyStringValues(this.form.getRawValue());
+            const modification = toPartyModification(this.action, filtered);
+            this.valueChanges.emit(modification);
         });
     }
 
@@ -72,15 +66,6 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
         const {unitID} = changes;
         if (unitID && !unitID.firstChange) {
             this.form.patchValue({unitID: unitID.currentValue});
-        }
-    }
-
-    private makeCleanValue(value: any) {
-        if (!isDate(value) && isObject(value)) {
-            return transform(value, (acc, current, key) =>
-                current !== '' ? assign(acc, {[key]: this.makeCleanValue(current)}) : acc, {});
-        } else {
-            return value;
         }
     }
 }
