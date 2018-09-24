@@ -1,41 +1,71 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { CreateChangeComponent } from '../create-change/create-change.component';
-import { ActionType, UnitAction } from '../unit-action';
-import { UnitContainerType } from '../model';
-import { CreatableModificationName } from '../../party-modification-creation';
+import { ActionType, ModificationAction } from '../modification-action';
+import { DomainModificationInfo, UnitContainerType } from '../model';
 import { PartyModification } from '../../damsel/payment-processing';
+import { PartyTarget } from '../../party-modification-target';
+import { ClaimService } from '../claim.service';
+import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
 
 @Component({
     templateUrl: 'create-modification.component.html'
 })
-export class CreateModificationComponent {
+export class CreateModificationComponent implements OnInit {
 
     isLoading = false;
 
-    valid = false;
+    valid = new BehaviorSubject(false);
 
-    name = CreatableModificationName;
+    partyId: string;
+
+    values: PartyModification | CreateTerminalParams;
 
     unitID: string;
 
+    domainModificationInfo$: Observable<DomainModificationInfo>;
+
     constructor(
-        private dialogRef: MatDialogRef<CreateChangeComponent>,
-        @Inject(MAT_DIALOG_DATA) public action: UnitAction,
-        private snackBar: MatSnackBar) {
+        private route: ActivatedRoute,
+        private dialogRef: MatDialogRef<CreateModificationComponent>,
+        @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
+        private snackBar: MatSnackBar,
+        private claimService: ClaimService,
+        private domainTypedManager: DomainTypedManager) {
+    }
+
+    ngOnInit() {
+        this.route.firstChild.params.subscribe((params) => {
+            this.partyId = params.partyId;
+        });
+        this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
+    }
+
+    valueChanges(e: any) {
+        this.values = e;
     }
 
     unitIDChange(unitID: string) {
         this.unitID = unitID;
     }
 
-    valueChanges(e: PartyModification) {
-        // console.log(e);
+    statusChanges(status: string) {
+        this.valid.next(status === 'VALID');
     }
 
-    statusChanges(status: string) {
-        this.valid = status === 'VALID';
+    create() {
+        switch (this.action.type) {
+            case ActionType.shopAction:
+            case ActionType.contractAction:
+                this.createChange();
+                break;
+            case ActionType.domainAction:
+                this.createTerminal();
+                break;
+        }
+
     }
 
     getContainerType(type: ActionType): string {
@@ -47,5 +77,39 @@ export class CreateModificationComponent {
             case ActionType.domainAction:
                 return 'Domain modification';
         }
+    }
+
+    getPartyTarget(type: ActionType): PartyTarget {
+        switch (type) {
+            case ActionType.shopAction:
+                return PartyTarget.shop;
+            case ActionType.contractAction:
+                return PartyTarget.contract;
+        }
+    }
+
+    private createChange() {
+        this.isLoading = true;
+        this.claimService.createChange(this.values as PartyModification)
+            .subscribe(() => this.success(), (e) => this.failed(e));
+    }
+
+    private createTerminal() {
+        this.isLoading = true;
+        this.domainTypedManager
+            .createTerminal(this.values as CreateTerminalParams)
+            .subscribe(() => this.success(), (e) => this.failed(e));
+    }
+
+    private success() {
+        this.isLoading = false;
+        this.dialogRef.close();
+        this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
+    }
+
+    private failed(error) {
+        console.error(error);
+        this.isLoading = false;
+        this.snackBar.open(`An error occurred while creating ${name}`, 'OK');
     }
 }

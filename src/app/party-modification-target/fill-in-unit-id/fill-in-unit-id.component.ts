@@ -24,6 +24,6 @@ export class FillInUnitIdComponent implements OnInit {
     }
 
     generate() {
-        this.form.setValue({unitID: uuid()});
+        this.form.patchValue({unitID: uuid()});
     }
 }

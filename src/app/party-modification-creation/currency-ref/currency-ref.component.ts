@@ -14,6 +14,6 @@ export class CurrencyRefComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.addControl('symbolicCode', this.fb.control('RUB', Validators.required));
+        this.form.registerControl('symbolicCode', this.fb.control('RUB', Validators.required));
     }
 }

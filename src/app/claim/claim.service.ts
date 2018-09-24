@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { delay, map, repeatWhen, switchMap, takeWhile, tap } from 'rxjs/internal/operators';
 import isEqual from 'lodash-es/isEqual';
-import get from 'lodash-es/get';
 import toNumber from 'lodash-es/toNumber';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
-import { ContractModification, PartyModification, ShopModification } from '../damsel';
-import { ClaimInfoContainer, DomainModificationInfo, UnitContainerType } from './model';
+import { PartyModification } from '../damsel';
+import { ClaimInfoContainer, DomainModificationInfo } from './model';
 import { convert } from './party-modification-container-converter';
 
 @Injectable()
@@ -28,7 +27,7 @@ export class ClaimService {
             .pipe(
                 tap((claimInfo) => {
                     this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
-                    const domainModificationInfo = this.toDomainModificationInfo(claimInfo, this.claimInfoContainer.extractedIds.shopId);
+                    const domainModificationInfo = this.toDomainModificationInfo(claimInfo);
                     this.domainModificationInfo$.next(domainModificationInfo);
                     this.claimInfoContainer$.next(this.claimInfoContainer);
                 }),
@@ -36,9 +35,9 @@ export class ClaimService {
             );
     }
 
-    createChange(type: UnitContainerType, modification: ShopModification | ContractModification): Observable<void> {
+    createChange(modification: PartyModification): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
-        const unit = this.toModificationUnit(type, modification);
+        const unit = this.toModificationUnit(modification);
         return this.papiClaimService.getClaim(partyId, claimId)
             .pipe(
                 switchMap((claimInfo) =>
@@ -76,34 +75,11 @@ export class ClaimService {
             );
     }
 
-    private toModificationUnit(
-        type: UnitContainerType,
-        modification: ShopModification | ContractModification
-    ): PartyModificationUnit {
+    private toModificationUnit(modification: PartyModification): PartyModificationUnit {
         const result = {
             modifications: []
         };
-        let unit;
-        const {contractId, shopId} = this.claimInfoContainer.extractedIds;
-        switch (type) {
-            case UnitContainerType.ContractUnitContainer:
-                unit = {
-                    contractModification: {
-                        id: contractId,
-                        modification
-                    }
-                };
-                break;
-            case UnitContainerType.ShopUnitContainer:
-                unit = {
-                    shopModification: {
-                        id: shopId,
-                        modification
-                    }
-                };
-                break;
-        }
-        result.modifications.push(unit);
+        result.modifications.push(modification);
         return result;
     }
 
@@ -125,19 +101,12 @@ export class ClaimService {
         };
     }
 
-    private toDomainModificationInfo(claimInfo: ClaimInfo, shopId: string): DomainModificationInfo {
-        const modifications = claimInfo.modifications.modifications;
+    private toDomainModificationInfo(claimInfo: ClaimInfo): DomainModificationInfo {
         return {
-            shopUrl: this.findShopUrl(modifications),
+            shopUrl: '',
             partyId: claimInfo.partyId,
-            shopId
+            shopId: ''
         };
-    }
-
-    private findShopUrl(modifications: PartyModification[]): string {
-        const found = modifications.find((item) =>
-            !!(item.shopModification && item.shopModification.modification.creation));
-        return get(found, 'shopModification.modification.creation.location.url');
     }
 
     private extractIds(modifications: PartyModification[]): { shopId: string, contractId: string } {

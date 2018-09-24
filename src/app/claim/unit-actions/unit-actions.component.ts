@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { MatBottomSheetRef, MatDialog } from '@angular/material';
 
-import { ContractModificationName, ShopModificationName } from '../model';
-import { ActionType, UnitAction } from '../unit-action';
-import { CreateChangeComponent } from '../create-change/create-change.component';
+import { ActionType, ModificationAction } from '../modification-action';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
+import { ContractModificationName, ShopModificationName } from '../model';
 
 @Component({
     templateUrl: 'unit-actions.component.html'
@@ -15,7 +14,7 @@ export class UnitActionsComponent {
                 private dialog: MatDialog) {
     }
 
-    contractActions: UnitAction[] = [
+    contractActions: ModificationAction[] = [
         {
             type: ActionType.contractAction,
             name: ContractModificationName.legalAgreementBinding
@@ -27,10 +26,18 @@ export class UnitActionsComponent {
         {
             type: ActionType.contractAction,
             name: ContractModificationName.adjustmentModification
+        },
+        {
+            type: ActionType.contractAction,
+            name: ContractModificationName.payoutToolModification
         }
     ];
 
-    shopActions: UnitAction[] = [
+    shopActions: ModificationAction[] = [
+        {
+            type: ActionType.shopAction,
+            name: ShopModificationName.creation
+        },
         {
             type: ActionType.shopAction,
             name: ShopModificationName.detailsModification
@@ -50,23 +57,30 @@ export class UnitActionsComponent {
         {
             type: ActionType.shopAction,
             name: ShopModificationName.payoutScheduleModification
+        },
+        {
+            type: ActionType.shopAction,
+            name: ShopModificationName.payoutToolModification
+        },
+        {
+            type: ActionType.shopAction,
+            name: ShopModificationName.contractModification
         }
     ];
 
-    domainActions: UnitAction[] = [
+    domainActions: ModificationAction[] = [
         {
             type: ActionType.domainAction
         }
     ];
 
-    select(action: UnitAction) {
+    select(action: ModificationAction) {
         this.bottomSheetRef.dismiss();
         const config = {
             data: action,
             width: '800px',
             disableClose: true
         };
-        // this.dialog.open<CreateChangeComponent>(CreateChangeComponent, config);
         this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
     }
 }

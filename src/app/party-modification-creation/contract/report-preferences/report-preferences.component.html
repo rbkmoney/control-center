@@ -1,0 +1,8 @@
+<form [formGroup]="form" fxLayout="column">
+    <cc-business-schedule-ref
+            [form]="form.get('serviceAcceptanceActPreferences').get('schedule')">
+    </cc-business-schedule-ref>
+    <cc-representative
+            [form]="form.get('serviceAcceptanceActPreferences').get('signer')">
+    </cc-representative>
+</form>

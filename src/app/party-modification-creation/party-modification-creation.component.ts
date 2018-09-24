@@ -9,13 +9,16 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { CreatableModificationName } from './creatable-modification-name';
-import { toPartyModification } from './to-party-modification';
+
 import { PartyModification } from '../damsel/payment-processing';
+import { ContractModificationName, ShopModificationName } from '../claim/model';
+import { toPartyModification } from './to-party-modification';
+import { ActionType, ModificationAction } from '../claim/modification-action';
+import { filterEmptyStringValues } from './filter-empty-string-value';
 
 @Component({
     selector: 'cc-party-modification-creation',
-    templateUrl: 'party-modification-creation.component.html',
+    templateUrl: 'party-modification-creation.component.html'
 })
 export class PartyModificationCreationComponent implements OnInit, OnChanges {
 
@@ -23,10 +26,10 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     unitID = '';
 
     @Input()
-    unitIDDisabled = false;
+    action: ModificationAction;
 
     @Input()
-    modification: CreatableModificationName;
+    unitIDDisabled = false;
 
     @Output()
     valueChanges: EventEmitter<PartyModification> = new EventEmitter();
@@ -34,7 +37,9 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     @Output()
     statusChanges: EventEmitter<'VALID' | 'INVALID'> = new EventEmitter();
 
-    m = CreatableModificationName;
+    actionTypes = ActionType;
+    shopModificationNames = ShopModificationName;
+    contractModificationNames = ContractModificationName;
 
     form: FormGroup;
 
@@ -49,11 +54,11 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
             }, Validators.required],
             modification: this.fb.group({})
         });
-        this.form.statusChanges.subscribe((status) => {
-            this.statusChanges.emit(status);
-        });
-        this.form.valueChanges.subscribe((value) => {
-            this.valueChanges.emit(toPartyModification(this.modification, value));
+        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
+        this.form.valueChanges.subscribe(() => {
+            const filtered = filterEmptyStringValues(this.form.getRawValue());
+            const modification = toPartyModification(this.action, filtered);
+            this.valueChanges.emit(modification);
         });
     }
 

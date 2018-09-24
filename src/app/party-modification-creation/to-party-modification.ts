@@ -1,20 +1,33 @@
-import { CreatableModificationName } from './creatable-modification-name';
+import { ActionType, ModificationAction } from '../claim/modification-action';
+import { ContractModificationName, ShopModificationName } from '../claim/model';
 
-const toContractModification = (unitID: string, modification: any) => (
-    {
-        contractModification: {
-            id: unitID,
-            modification: {
-                payoutToolModification: modification
-            }
+enum UnitName {
+    shopModification = 'shopModification',
+    contractModification = 'contractModification'
+}
+
+const toModification = (
+    unitID: string,
+    modification: any,
+    unitName: UnitName,
+    modificationName: ShopModificationName | ContractModificationName
+) => ({
+    [unitName]: {
+        id: unitID,
+        modification: {
+            [modificationName]: modification
         }
     }
-);
+});
 
-export const toPartyModification = (name: CreatableModificationName, formValue: any) => {
+export const toPartyModification = (action: ModificationAction, formValue: any) => {
     const {unitID, modification} = formValue;
-    switch (name) {
-        case CreatableModificationName.ContractPayoutToolModification:
-            return toContractModification(unitID, modification);
+    const toMod = toModification.bind(null, unitID, modification);
+    const {type, name} = action;
+    switch (type) {
+        case ActionType.shopAction:
+            return toMod(UnitName.shopModification, name);
+        case ActionType.contractAction:
+            return toMod(UnitName.contractModification, name);
     }
 };
