@@ -1,11 +1,11 @@
 <h4 class="mat-dialog-title">Payment adjustment{{payments.length === 1 ? '' : 's'}}
     for the {{payments.length}} payment{{payments.length === 1 ? '' : 's'}}</h4>
-<mat-horizontal-stepper linear #stepper
-                        class="mat-horizontal-content-container-without-padding mat-horizontal-stepper-header-without-events">
-    <mat-step [stepControl]="form" [editable]="false">
-        <ng-template matStepLabel>Create</ng-template>
-        <mat-dialog-content>
-            <form *ngIf="form" [formGroup]="form" fxLayout="column">
+<mat-dialog-content>
+    <mat-horizontal-stepper linear #stepper
+                            class="mat-horizontal-content-container-without-padding mat-horizontal-stepper-header-without-events">
+        <mat-step [stepControl]="form" [editable]="false">
+            <ng-template matStepLabel>Create</ng-template>
+                <form *ngIf="form" [formGroup]="form" fxLayout="column">
                 <mat-form-field>
                     <input matInput placeholder="Domain revision" formControlName="revision" type="number" required>
                 </mat-form-field>
@@ -13,12 +13,12 @@
                     <input matInput placeholder="Reason" formControlName="reason" required>
                 </mat-form-field>
             </form>
-        </mat-dialog-content>
-    </mat-step>
-    <mat-step [editable]="false">
-        <ng-template matStepLabel>Capture</ng-template>
-    </mat-step>
-</mat-horizontal-stepper>
+        </mat-step>
+        <mat-step [editable]="false">
+            <ng-template matStepLabel>Capture</ng-template>
+        </mat-step>
+    </mat-horizontal-stepper>
+</mat-dialog-content>
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>
         <button mat-button color="primary" (click)="stepper.selectedIndex === 0 ? create() : capture()"

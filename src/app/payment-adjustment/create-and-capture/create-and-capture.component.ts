@@ -3,18 +3,18 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/
 import { FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { forkJoin, Subscription } from 'rxjs';
+import { fromPromise } from 'rxjs/internal-compatibility';
 
 import { CreateAndCaptureService } from './create-and-capture.service';
 import { Payment } from '../../papi/model';
 import { InvoicePaymentAdjustment, InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel';
-import { fromPromise } from 'rxjs/internal-compatibility';
 import { PaymentProcessingTypedManager } from './payment-processing-typed-manager';
 
 @Component({
     selector: 'cc-create-and-capture-payment-adjustment',
     templateUrl: './create-and-capture.component.html',
     styleUrls: ['./create-and-capture.component.css'],
-    providers: [PaymentProcessingTypedManager]
+    providers: [PaymentProcessingTypedManager, CreateAndCaptureService]
 })
 export class CreateAndCaptureComponent implements OnInit {
 
