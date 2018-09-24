@@ -12,9 +12,7 @@ const initFormValues = {
     invoicesIds: ''
 };
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class SearchFormService {
 
     form: FormGroup;
