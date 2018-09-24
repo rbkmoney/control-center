@@ -5,7 +5,7 @@ import {
     ProviderObject,
     TerminalSelector,
     TerminalDecision
-} from '../../damsel/index';
+} from '../../damsel';
 import { toGenTerminalDecision } from '../../thrift/converters';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision =>
