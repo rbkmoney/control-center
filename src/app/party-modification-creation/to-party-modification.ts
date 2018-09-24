@@ -1,4 +1,4 @@
-import { ActionType } from '../claim/modification-action';
+import { ActionType, ModificationAction } from '../claim/modification-action';
 import { ContractModificationName, ShopModificationName } from '../claim/model';
 
 enum UnitName {
@@ -20,9 +20,10 @@ const toModification = (
     }
 });
 
-export const toPartyModification = (type: ActionType, name: ContractModificationName | ShopModificationName, formValue: any, unitID: string) => {
-    const {modification} = formValue;
+export const toPartyModification = (action: ModificationAction, formValue: any) => {
+    const {unitID, modification} = formValue;
     const toMod = toModification.bind(null, unitID, modification);
+    const {type, name} = action;
     switch (type) {
         case ActionType.shopAction:
             return toMod(UnitName.shopModification, name);
