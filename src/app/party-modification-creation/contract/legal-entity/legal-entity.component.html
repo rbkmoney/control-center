@@ -1,0 +1,17 @@
+<div fxLayout="column">
+    <mat-form-field>
+        <mat-select placeholder="Legal entity type"
+                    [(value)]="selected"
+                    (selectionChange)="select()">
+            <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <cc-russian-legal-entity
+            *ngIf="selected === t.russianLegalEntity"
+            [form]="form">
+    </cc-russian-legal-entity>
+    <cc-international-legal-entity
+            *ngIf="selected === t.internationalLegalEntity"
+            [form]="form">
+    </cc-international-legal-entity>
+</div>

@@ -1,0 +1,21 @@
+<form *ngIf="form" [formGroup]="form.get('modification')"
+      fxLayout="column"
+      fxLayoutGap="5px">
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Contract ID"
+               formControlName="contractId"
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Payout tool ID"
+               formControlName="payoutToolId">
+    </mat-form-field>
+    <cc-shop-details [form]="form.get('modification').get('details')">
+    </cc-shop-details>
+    <cc-shop-location [form]="form.get('modification').get('location')">
+    </cc-shop-location>
+    <cc-category-ref [form]="form.get('modification').get('category')">
+    </cc-category-ref>
+</form>

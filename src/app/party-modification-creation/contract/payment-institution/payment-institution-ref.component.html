@@ -1,0 +1,11 @@
+<form [formGroup]="form"
+      fxLayout="column"
+      fxLayoutGap="5px">
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Payment institution ID"
+               formControlName="id"
+               type="number"
+               required>
+    </mat-form-field>
+</form>

@@ -8,6 +8,10 @@
                required>
     </mat-form-field>
     <div *ngIf="action.type === actionTypes.contractAction">
+        <cc-contract-params
+                *ngIf="action.name === contractModificationNames.creation"
+                [form]="form">
+        </cc-contract-params>
         <cc-contract-payout-tool-modification-unit
                 *ngIf="action.name === contractModificationNames.payoutToolModification"
                 [form]="form.get('modification')">
@@ -24,6 +28,14 @@
                 *ngIf="action.name === contractModificationNames.reportPreferencesModification"
                 [form]="form.get('modification')">
         </cc-report-preferences>
+        <cc-termination
+                *ngIf="action.name === contractModificationNames.termination"
+                [form]="form.get('modification')">
+        </cc-termination>
+        <cc-contractor-id
+                *ngIf="action.name === contractModificationNames.contractorModification"
+                [form]="form">
+        </cc-contractor-id>
     </div>
     <div *ngIf="action.type === actionTypes.shopAction">
         <cc-category-ref
@@ -46,5 +58,17 @@
                 *ngIf="action.name === shopModificationNames.payoutScheduleModification"
                 [form]="form.get('modification')">
         </cc-shop-schedule-modification>
+        <cc-shop-contract-modification
+                *ngIf="action.name === shopModificationNames.contractModification"
+                [form]="form.get('modification')">
+        </cc-shop-contract-modification>
+        <cc-shop-payout-tool-modification
+                *ngIf="action.name === shopModificationNames.payoutToolModification"
+                [form]="form">
+        </cc-shop-payout-tool-modification>
+        <cc-shop-params
+                *ngIf="action.name === shopModificationNames.creation"
+                [form]="form">
+        </cc-shop-params>
     </div>
 </form>

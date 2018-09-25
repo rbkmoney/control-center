@@ -41,6 +41,17 @@ import { ScheduleRefComponent } from './shop/schedule-ref/schedule-ref.component
 import { AdjustmentParamsComponent } from './contract/adjustment-params/adjustment-params.component';
 import { RepresentativeDocumentComponent } from './contract/representative-document/representative-document.component';
 import { ContractTemplateRefComponent } from './contract/contract-template-ref/contract-template-ref.component';
+import { ContractModificationComponent } from './shop/contract-modification/contract-modification.component';
+import { PayoutToolModificationComponent as ShopPayoutToolModificationComponent } from './shop/payout-tool-modification/payout-tool-modification.component';
+import { ShopParamsComponent } from './shop/shop-params/shop-params.component';
+import { TerminationComponent } from './contract/termination/termination.component';
+import { ContractorIdComponent } from './contract/contractor-id/contractor-id.component';
+import { PaymentInstitutionRefComponent } from './contract/payment-institution/payment-institution-ref.component';
+import { ContractParamsComponent } from './contract/contract-params/contract-params.component';
+import { ContractorComponent } from './contract/contractor/contractor.component';
+import { LegalEntityComponent } from './contract/legal-entity/legal-entity.component';
+import { RussianLegalEntityComponent } from './contract/legal-entity/russian-legal-entity/russian-legal-entity.component';
+import { InternationalLegalEntityComponent } from './contract/legal-entity/international-legal-entity/international-legal-entity.component';
 
 @NgModule({
     imports: [
@@ -80,7 +91,18 @@ import { ContractTemplateRefComponent } from './contract/contract-template-ref/c
         ScheduleRefComponent,
         AdjustmentParamsComponent,
         RepresentativeDocumentComponent,
-        ContractTemplateRefComponent
+        ContractTemplateRefComponent,
+        ContractModificationComponent,
+        ShopPayoutToolModificationComponent,
+        ShopParamsComponent,
+        TerminationComponent,
+        ContractorIdComponent,
+        PaymentInstitutionRefComponent,
+        ContractParamsComponent,
+        ContractorComponent,
+        LegalEntityComponent,
+        RussianLegalEntityComponent,
+        InternationalLegalEntityComponent
     ],
     exports: [
         PartyModificationCreationComponent
