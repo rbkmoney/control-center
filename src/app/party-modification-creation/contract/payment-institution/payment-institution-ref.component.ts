@@ -25,7 +25,7 @@ export class PaymentInstitutionRefComponent implements OnInit {
     ngOnInit() {
         this.paymentInstitutions$ = this.dtm
             .getPaymentInstitutions()
-            .pipe(map((paymentInstitutions) => sortBy(paymentInstitutions, 'id')));
+            .pipe(map((paymentInstitutions) => sortBy(paymentInstitutions, (paymentInstitution) => paymentInstitution.ref.id)));
         this.form.registerControl('id', this.fb.control('', Validators.required));
     }
 }
