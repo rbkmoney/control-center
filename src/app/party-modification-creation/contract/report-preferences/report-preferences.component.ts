@@ -19,4 +19,24 @@ export class ReportPreferencesComponent implements OnInit {
             signer: this.fb.group({})
         }));
     }
+
+    toggleCheckbox(e, data) {
+        if (e.checked) {
+            this.form.registerControl(data, this.fb.group({...this.getFormGroup(data)}));
+        } else {
+            this.form.removeControl(data);
+        }
+    }
+
+    private getFormGroup(type: string) {
+        switch (type) {
+            case 'serviceAcceptanceActPreferences':
+                return {
+                    schedule: this.fb.group({}),
+                    signer: this.fb.group({})
+                };
+            default:
+                return {};
+        }
+    }
 }
