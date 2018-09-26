@@ -15,8 +15,14 @@ export class ContractParamsComponent implements OnInit {
 
     ngOnInit() {
         // this.form.registerControl('contractorId', this.fb.control('', Validators.required));
-        this.form.registerControl('template', this.fb.group({}));
-        this.form.registerControl('paymentInstitution', this.fb.group({}));
         this.form.registerControl('contractor', this.fb.group({}));
+    }
+
+    toggleCheckbox(e, data) {
+        if (e.checked) {
+            this.form.registerControl(data, this.fb.group({}));
+        } else {
+            this.form.removeControl(data);
+        }
     }
 }

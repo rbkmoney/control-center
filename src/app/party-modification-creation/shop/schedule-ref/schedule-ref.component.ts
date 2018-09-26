@@ -14,9 +14,6 @@ export class ScheduleRefComponent implements OnInit {
     @Input()
     form: FormGroup;
 
-    @Input()
-    required: boolean;
-
     payoutSchedules$: Observable<BusinessScheduleObject[]>;
 
     constructor(private fb: FormBuilder,
@@ -24,7 +21,7 @@ export class ScheduleRefComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.registerControl('id', this.fb.control('', this.required ? Validators.required : null));
+        this.form.registerControl('id', this.fb.control('', Validators.required));
         this.payoutSchedules$ = this.domainManager.getBusinessScheduleObjects();
     }
 }

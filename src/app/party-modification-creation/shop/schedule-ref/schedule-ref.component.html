@@ -3,8 +3,8 @@
       fxLayoutGap="5px">
     <mat-form-field fxFlex>
         <mat-select placeholder="Select schedule"
-                    formControlName="id">
-            <mat-option value="">-- None --</mat-option>
+                    formControlName="id"
+                    required>
             <mat-option *ngFor="let schedule of payoutSchedules$ | async" [value]="schedule.ref.id">
                 {{schedule.ref.id}} {{schedule.data.name}}
             </mat-option>

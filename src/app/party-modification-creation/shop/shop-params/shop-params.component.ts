@@ -18,6 +18,13 @@ export class ShopParamsComponent implements OnInit {
         this.form.registerControl('payoutToolId', this.fb.control('', Validators.required));
         this.form.registerControl('details', this.fb.group({}));
         this.form.registerControl('location', this.fb.group({}));
-        this.form.registerControl('category', this.fb.group({}));
+    }
+
+    toggleCheckbox(e, data) {
+        if (e.checked) {
+            this.form.registerControl(data, this.fb.group({}));
+        } else {
+            this.form.removeControl(data);
+        }
     }
 }

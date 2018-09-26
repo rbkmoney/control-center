@@ -16,6 +16,7 @@
     </cc-shop-details>
     <cc-shop-location [form]="form.get('location')">
     </cc-shop-location>
-    <cc-category-ref [form]="form.get('category')" [required]="false">
+    <mat-checkbox (change)="toggleCheckbox($event, 'category')">Category</mat-checkbox>
+    <cc-category-ref *ngIf="form.get('category')" [form]="form.get('category')" [required]="false">
     </cc-category-ref>
 </form>
