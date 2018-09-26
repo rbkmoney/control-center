@@ -1,0 +1,26 @@
+<form *ngIf="form" [formGroup]="form"
+      fxLayout="column"
+      fxLayoutGap="5px">
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Contract ID"
+               formControlName="contractId"
+               required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Payout tool ID"
+               formControlName="payoutToolId">
+    </mat-form-field>
+    <cc-nested-form-wrapper caption="details">
+        <cc-shop-details fxFlex [form]="form.get('details')">
+        </cc-shop-details>
+    </cc-nested-form-wrapper>
+    <cc-nested-form-wrapper caption="location">
+        <cc-shop-location fxFlex [form]="form.get('location')">
+        </cc-shop-location>
+    </cc-nested-form-wrapper>
+    <mat-checkbox (change)="toggleCheckbox($event, 'category')">Category</mat-checkbox>
+    <cc-category-ref *ngIf="form.get('category')" [form]="form.get('category')" [required]="false">
+    </cc-category-ref>
+</form>

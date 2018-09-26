@@ -5,5 +5,6 @@ export enum ContractModificationName {
     payoutToolModification = 'payoutToolModification',
     legalAgreementBinding = 'legalAgreementBinding',
     reportPreferencesModification = 'reportPreferencesModification',
+    contractorModification = 'contractorModification',
     unknown = 'unknown'
 }

@@ -16,6 +16,9 @@ export class CategoryRefComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    @Input()
+    required: boolean;
+
     categories$: Observable<Category[]>;
 
     constructor(private categoryService: CategoryService,
@@ -23,7 +26,7 @@ export class CategoryRefComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.registerControl('id', this.fb.control('', Validators.required));
+        this.form.registerControl('id', this.fb.control('', this.required ? Validators.required : null));
 
         this.categories$ = this.categoryService
             .getCategories()

@@ -1,0 +1,20 @@
+<form *ngIf="form" [formGroup]="form"
+      fxLayout="column"
+      fxLayoutGap="5px">
+    <!--<mat-form-field fxFlex>-->
+        <!--<input matInput-->
+               <!--placeholder="Contractor ID"-->
+               <!--formControlName="contractorId"-->
+               <!--required>-->
+    <!--</mat-form-field>-->
+    <mat-checkbox (change)="toggleCheckbox($event, 'template')">Template</mat-checkbox>
+    <cc-contract-template-ref *ngIf="form.get('template')" [form]="form.get('template')">
+    </cc-contract-template-ref>
+    <mat-checkbox (change)="toggleCheckbox($event, 'paymentInstitution')">Payment institution</mat-checkbox>
+    <cc-payment-institution-ref *ngIf="form.get('paymentInstitution')" [form]="form.get('paymentInstitution')">
+    </cc-payment-institution-ref>
+    <cc-nested-form-wrapper caption="contractor">
+        <cc-contractor fxFlex [form]="form.get('contractor')">
+        </cc-contractor>
+    </cc-nested-form-wrapper>
+</form>

@@ -17,6 +17,10 @@ export class UnitActionsComponent {
     contractActions: ModificationAction[] = [
         {
             type: ActionType.contractAction,
+            name: ContractModificationName.creation
+        },
+        {
+            type: ActionType.contractAction,
             name: ContractModificationName.legalAgreementBinding
         },
         {
@@ -30,7 +34,15 @@ export class UnitActionsComponent {
         {
             type: ActionType.contractAction,
             name: ContractModificationName.payoutToolModification
-        }
+        },
+        {
+            type: ActionType.contractAction,
+            name: ContractModificationName.termination
+        },
+        // {
+        //     type: ActionType.contractAction,
+        //     name: ContractModificationName.contractorModification
+        // }
     ];
 
     shopActions: ModificationAction[] = [

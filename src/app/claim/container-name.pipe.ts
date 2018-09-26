@@ -39,7 +39,7 @@ export class ContainerNamePipe implements PipeTransform {
             case ShopModificationName.shopAccountCreation:
                 return 'Shop account creation';
             case ShopModificationName.payoutScheduleModification:
-                return 'Shop payout schedule modification';
+                return 'Shop schedule modification';
             default:
                 return value;
         }
