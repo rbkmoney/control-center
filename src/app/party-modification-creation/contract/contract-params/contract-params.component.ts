@@ -14,11 +14,9 @@ export class ContractParamsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.setControl('modification', this.fb.group({
-            // contractorId: this.fb.control(''),
-            template: this.fb.group({}),
-            paymentInstitution: this.fb.group({}),
-            contractor: this.fb.group({})
-        }));
+        // this.form.registerControl('contractorId', this.fb.control('', Validators.required));
+        this.form.registerControl('template', this.fb.group({}));
+        this.form.registerControl('paymentInstitution', this.fb.group({}));
+        this.form.registerControl('contractor', this.fb.group({}));
     }
 }

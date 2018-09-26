@@ -14,12 +14,11 @@ export class InternationalLegalEntityComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.setControl('internationalLegalEntity', this.fb.group({
-            legalName: this.fb.control('', Validators.required),
-            tradingName: this.fb.control(''),
-            registeredAddress: this.fb.control('', Validators.required),
-            actualAddress: this.fb.control(''),
-            registeredNumber: this.fb.control('')
-        }));
+        this.form.registerControl('legalName', this.fb.control('', Validators.required));
+        this.form.registerControl('registeredAddress', this.fb.control('', Validators.required));
+
+        this.form.registerControl('tradingName', this.fb.control(''));
+        this.form.registerControl('actualAddress', this.fb.control(''));
+        this.form.registerControl('registeredNumber', this.fb.control(''));
     }
 }

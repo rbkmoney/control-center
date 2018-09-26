@@ -1,4 +1,4 @@
-<form [formGroup]="form.get('russianLegalEntity')">
+<form [formGroup]="form">
     <div fxLayout="column">
         <mat-form-field fxFlex>
             <input matInput
@@ -48,7 +48,7 @@
                    formControlName="representativeDocument"
                    required>
         </mat-form-field>
-        <cc-russian-bank-account [form]="form.get('russianLegalEntity').get('russianBankAccount')">
+        <cc-russian-bank-account [form]="form.get('russianBankAccount')">
         </cc-russian-bank-account>
     </div>
 </form>

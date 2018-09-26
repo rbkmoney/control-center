@@ -14,16 +14,15 @@ export class RussianLegalEntityComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.setControl('russianLegalEntity', this.fb.group({
-            registeredName: this.fb.control('', Validators.required),
-            registeredNumber: this.fb.control('', Validators.required),
-            inn: this.fb.control('', Validators.required),
-            actualAddress: this.fb.control('', Validators.required),
-            postAddress: this.fb.control('', Validators.required),
-            representativePosition: this.fb.control('', Validators.required),
-            representativeFullName: this.fb.control('', Validators.required),
-            representativeDocument: this.fb.control('', Validators.required),
-            russianBankAccount: this.fb.group({})
-        }));
+        const control = () => this.fb.control('', Validators.required);
+        this.form.registerControl('registeredName', control());
+        this.form.registerControl('registeredNumber', control());
+        this.form.registerControl('inn', control());
+        this.form.registerControl('actualAddress', control());
+        this.form.registerControl('postAddress', control());
+        this.form.registerControl('representativePosition', control());
+        this.form.registerControl('representativeFullName', control());
+        this.form.registerControl('representativeDocument', control());
+        this.form.registerControl('russianBankAccount', this.fb.group({}));
     }
 }

@@ -8,10 +8,10 @@
     </mat-form-field>
     <cc-russian-legal-entity
             *ngIf="selected === t.russianLegalEntity"
-            [form]="form">
+            [form]="form.get(t.russianLegalEntity)">
     </cc-russian-legal-entity>
     <cc-international-legal-entity
             *ngIf="selected === t.internationalLegalEntity"
-            [form]="form">
+            [form]="form.get(t.internationalLegalEntity)">
     </cc-international-legal-entity>
 </div>

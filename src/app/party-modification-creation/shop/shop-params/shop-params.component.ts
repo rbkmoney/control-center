@@ -14,12 +14,10 @@ export class ShopParamsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.setControl('modification', this.fb.group({
-            contractId: this.fb.control('', Validators.required),
-            payoutToolId: this.fb.control('', Validators.required),
-            details: this.fb.group({}),
-            location: this.fb.group({}),
-            category: this.fb.group({})
-        }));
+        this.form.registerControl('contractId', this.fb.control('', Validators.required));
+        this.form.registerControl('payoutToolId', this.fb.control('', Validators.required));
+        this.form.registerControl('details', this.fb.group({}));
+        this.form.registerControl('location', this.fb.group({}));
+        this.form.registerControl('category', this.fb.group({}));
     }
 }

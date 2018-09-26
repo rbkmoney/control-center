@@ -1,4 +1,4 @@
-<form *ngIf="form" [formGroup]="form.get('modification')"
+<form *ngIf="form" [formGroup]="form"
       fxLayout="column"
       fxLayoutGap="5px">
     <!--<mat-form-field fxFlex>-->
@@ -7,10 +7,10 @@
                <!--formControlName="contractorId"-->
                <!--required>-->
     <!--</mat-form-field>-->
-    <cc-contract-template-ref [form]="form.get('modification').get('template')">
+    <cc-contract-template-ref [form]="form.get('template')">
     </cc-contract-template-ref>
-    <cc-payment-institution-ref [form]="form.get('modification').get('paymentInstitution')">
+    <cc-payment-institution-ref [form]="form.get('paymentInstitution')">
     </cc-payment-institution-ref>
-    <cc-contractor [form]="form.get('modification')">
+    <cc-contractor [form]="form.get('contractor')">
     </cc-contractor>
 </form>

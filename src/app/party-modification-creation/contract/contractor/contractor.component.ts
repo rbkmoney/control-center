@@ -14,8 +14,6 @@ export class ContractorComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.setControl('contractor', this.fb.group({
-            legalEntity: this.fb.group({})
-        }));
+        this.form.registerControl('legalEntity', this.fb.group({}));
     }
 }

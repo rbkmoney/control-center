@@ -10,7 +10,7 @@
     <div *ngIf="action.type === actionTypes.contractAction">
         <cc-contract-params
                 *ngIf="action.name === contractModificationNames.creation"
-                [form]="form">
+                [form]="form.get('modification')">
         </cc-contract-params>
         <cc-contract-payout-tool-modification-unit
                 *ngIf="action.name === contractModificationNames.payoutToolModification"
@@ -64,11 +64,11 @@
         </cc-shop-contract-modification>
         <cc-shop-payout-tool-modification
                 *ngIf="action.name === shopModificationNames.payoutToolModification"
-                [form]="form">
+                [form]="form.get('modification')">
         </cc-shop-payout-tool-modification>
         <cc-shop-params
                 *ngIf="action.name === shopModificationNames.creation"
-                [form]="form">
+                [form]="form.get('modification')">
         </cc-shop-params>
     </div>
 </form>
