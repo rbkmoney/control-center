@@ -1,12 +1,12 @@
 <div class="container">
     <div class="card-container" fxLayout="column" fxLayoutGap="20px">
         <mat-card>
-            <mat-card-subtitle fxLayout="row">
-                <div fxFlex="50">Search payments</div>
-                <div fxFlex="50" style="text-align: right" *ngIf="payments.length">
+            <mat-card-subtitle fxLayout="row" fxLayoutAlign="space-between none">
+                <div>Search payments</div>
+                <div *ngIf="payments.length">
                     Found: <b>{{payments.length}}</b>
                 </div>
-                <div fxFlex="50" style="text-align: right" *ngIf="!payments.length">
+                <div *ngIf="!payments.length">
                     Not found
                 </div>
             </mat-card-subtitle>
@@ -18,12 +18,12 @@
             </mat-card-footer>
         </mat-card>
         <mat-card>
-            <mat-card-subtitle fxLayout="row">
-                <div fxFlex="50">Payment adjustment actions</div>
-                <div fxFlex="50" style="text-align: right" *ngIf="selectedPayments.length">
+            <mat-card-subtitle fxLayout="row" fxLayoutAlign="space-between none">
+                <div>Payment adjustment actions</div>
+                <div *ngIf="selectedPayments.length">
                     Selected: <b>{{selectedPayments.length}}</b>
                 </div>
-                <div fxFlex="50" style="text-align: right" *ngIf="payments.length && !selectedPayments.length">
+                <div *ngIf="payments.length && !selectedPayments.length">
                     Not selected
                 </div>
             </mat-card-subtitle>
