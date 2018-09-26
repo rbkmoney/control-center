@@ -13,13 +13,15 @@
                     <input matInput placeholder="Reason" formControlName="reason" required>
                 </mat-form-field>
             </form>
-            <button mat-raised-button color="primary" (click)="stepper.selectedIndex === 0 ? create() : capture()"
-                    [disabled]="isLoading || !form.valid">
-                {{stepper.selectedIndex === 0 ? 'CREATE' : 'CAPTURE'}}
+            <button mat-raised-button color="primary" (click)="create()" [disabled]="isLoading || !form.valid">
+                CREATE
             </button>
         </mat-step>
         <mat-step [editable]="false">
             <ng-template matStepLabel>Capture</ng-template>
+            <button mat-raised-button color="primary" (click)="capture()" [disabled]="isLoading">
+                CAPTURE
+            </button>
         </mat-step>
     </mat-horizontal-stepper>
 </mat-dialog-content>
