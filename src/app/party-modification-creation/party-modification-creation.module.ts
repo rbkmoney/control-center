@@ -4,6 +4,7 @@ import {
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatDividerModule,
     MatIconModule,
     MatInputModule,
     MatNativeDateModule,
@@ -15,9 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { PartyModificationCreationComponent } from './party-modification-creation.component';
 import { PayoutToolModificationUnitComponent } from './contract/payout-tool-modification-unit/payout-tool-modification-unit.component';
-import {
-    PayoutToolModificationComponent as ContractPayoutToolModificationComponent
-} from './contract/payout-tool-modification/payout-tool-modification.component';
+import { PayoutToolModificationComponent } from './contract/payout-tool-modification/payout-tool-modification.component';
 import { PayoutToolParamsComponent } from './contract/payout-tool-params/payout-tool-params.component';
 import { CurrencyRefComponent } from './currency-ref/currency-ref.component';
 import { PayoutToolInfoComponent } from './contract/payout-tool-info/payout-tool-info.component';
@@ -52,6 +51,8 @@ import { ContractorComponent } from './contract/contractor/contractor.component'
 import { LegalEntityComponent } from './contract/legal-entity/legal-entity.component';
 import { RussianLegalEntityComponent } from './contract/legal-entity/russian-legal-entity/russian-legal-entity.component';
 import { InternationalLegalEntityComponent } from './contract/legal-entity/international-legal-entity/international-legal-entity.component';
+import { NestedFormWrapperComponent } from './nested-form-wrapper/nested-form-wrapper.component';
+import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
 
 @NgModule({
     imports: [
@@ -65,12 +66,13 @@ import { InternationalLegalEntityComponent } from './contract/legal-entity/inter
         MatSelectModule,
         MatRadioModule,
         MatCheckboxModule,
-        MatIconModule
+        MatIconModule,
+        MatDividerModule
     ],
     declarations: [
         PartyModificationCreationComponent,
         PayoutToolModificationUnitComponent,
-        ContractPayoutToolModificationComponent,
+        PayoutToolModificationComponent,
         PayoutToolParamsComponent,
         CurrencyRefComponent,
         PayoutToolInfoComponent,
@@ -102,7 +104,9 @@ import { InternationalLegalEntityComponent } from './contract/legal-entity/inter
         ContractorComponent,
         LegalEntityComponent,
         RussianLegalEntityComponent,
-        InternationalLegalEntityComponent
+        InternationalLegalEntityComponent,
+        NestedFormWrapperComponent,
+        FormWrapperComponent
     ],
     exports: [
         PartyModificationCreationComponent
