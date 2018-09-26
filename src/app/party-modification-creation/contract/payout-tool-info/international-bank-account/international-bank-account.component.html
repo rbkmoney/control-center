@@ -1,32 +1,34 @@
-<form [formGroup]="form" fxLayout="column">
-    <mat-form-field>
-        <input matInput
-               placeholder="Number"
-               formControlName="number">
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput
-               placeholder="IBAN"
-               formControlName="iban">
-    </mat-form-field>
-    <div fxLayout="column" fxLayoutGap="15px">
-        <section>
-            <mat-checkbox (change)="detailsChange($event)">International bank details</mat-checkbox>
-        </section>
-        <cc-international-bank-details
-                *ngIf="isBankDetails"
-                [form]="form.get('bank')">
-        </cc-international-bank-details>
-        <section>
-            <mat-checkbox (change)="accountChange($event)">Correspondent account</mat-checkbox>
-        </section>
-        <div fxLayout>
-            <div fxFlex="10"></div>
-            <cc-international-bank-account
-                    fxFlex="90"
-                    *ngIf="isCorrespondentAccount"
-                    [form]="form.get('correspondentAccount')">
-            </cc-international-bank-account>
+<cc-form-wrapper name="International bank account">
+    <form [formGroup]="form" fxLayout="column">
+        <mat-form-field>
+            <input matInput
+                   placeholder="Number"
+                   formControlName="number">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput
+                   placeholder="IBAN"
+                   formControlName="iban">
+        </mat-form-field>
+        <div fxLayout="column" fxLayoutGap="15px">
+            <section>
+                <mat-checkbox (change)="detailsChange($event)">International bank details</mat-checkbox>
+            </section>
+            <cc-international-bank-details
+                    *ngIf="isBankDetails"
+                    [form]="form.get('bank')">
+            </cc-international-bank-details>
+            <section>
+                <mat-checkbox (change)="accountChange($event)">Correspondent account</mat-checkbox>
+            </section>
+            <div fxLayout>
+                <div fxFlex="10"></div>
+                <cc-international-bank-account
+                        fxFlex="90"
+                        *ngIf="isCorrespondentAccount"
+                        [form]="form.get('correspondentAccount')">
+                </cc-international-bank-account>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</cc-form-wrapper>
