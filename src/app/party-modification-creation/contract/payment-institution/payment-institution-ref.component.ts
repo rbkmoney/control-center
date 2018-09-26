@@ -16,6 +16,9 @@ export class PaymentInstitutionRefComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    @Input()
+    required: boolean;
+
     paymentInstitutions$: Observable<PaymentInstitutionObject[]>;
 
     constructor(private fb: FormBuilder,
@@ -26,6 +29,6 @@ export class PaymentInstitutionRefComponent implements OnInit {
         this.paymentInstitutions$ = this.dtm
             .getPaymentInstitutions()
             .pipe(map((paymentInstitutions) => sortBy(paymentInstitutions, (paymentInstitution) => paymentInstitution.ref.id)));
-        this.form.registerControl('id', this.fb.control('', Validators.required));
+        this.form.registerControl('id', this.fb.control('', this.required ? Validators.required : null));
     }
 }

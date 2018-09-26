@@ -7,9 +7,9 @@
                <!--formControlName="contractorId"-->
                <!--required>-->
     <!--</mat-form-field>-->
-    <cc-contract-template-ref [form]="form.get('template')">
+    <cc-contract-template-ref [form]="form.get('template')" [required]="false">
     </cc-contract-template-ref>
-    <cc-payment-institution-ref [form]="form.get('paymentInstitution')">
+    <cc-payment-institution-ref [form]="form.get('paymentInstitution')" [required]="false">
     </cc-payment-institution-ref>
     <cc-contractor [form]="form.get('contractor')">
     </cc-contractor>

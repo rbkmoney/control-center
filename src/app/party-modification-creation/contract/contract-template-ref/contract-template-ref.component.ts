@@ -16,6 +16,9 @@ export class ContractTemplateRefComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    @Input()
+    required: boolean;
+
     contracts$: Observable<ContractTemplate[]>;
 
     constructor(private fb: FormBuilder,
@@ -23,7 +26,7 @@ export class ContractTemplateRefComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form.registerControl('id', this.fb.control('', Validators.required));
+        this.form.registerControl('id', this.fb.control('', this.required ? Validators.required : null));
         this.contracts$ = this.contractService
             .getContractTemplates()
             .pipe(map((contracts) => sortBy(contracts, 'id')));
