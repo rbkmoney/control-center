@@ -8,7 +8,6 @@ import { PaymentAdjustmentService } from '../payment-adjustment.service';
 @Component({
     selector: 'cc-payment-adjustment-search-form',
     templateUrl: './search-form.component.html',
-    styleUrls: ['./search-form.component.css'],
     providers: [SearchFormService]
 })
 export class SearchFormComponent implements OnInit {

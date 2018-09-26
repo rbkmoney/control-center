@@ -9,7 +9,7 @@ import { Payment } from '../papi/model';
 @Component({
     selector: 'cc-payment-adjustment',
     templateUrl: './payment-adjustment.component.html',
-    styleUrls: ['./payment-adjustment.component.css', '../shared/container.css']
+    styleUrls: ['../shared/container.css']
 })
 export class PaymentAdjustmentComponent implements OnInit {
 

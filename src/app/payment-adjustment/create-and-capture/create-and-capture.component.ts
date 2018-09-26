@@ -11,7 +11,6 @@ import { PaymentProcessingTypedManager } from './payment-processing-typed-manage
 @Component({
     selector: 'cc-create-and-capture-payment-adjustment',
     templateUrl: './create-and-capture.component.html',
-    styleUrls: ['./create-and-capture.component.css'],
     providers: [CreateAndCaptureService, PaymentProcessingTypedManager]
 })
 export class CreateAndCaptureComponent implements OnInit {
