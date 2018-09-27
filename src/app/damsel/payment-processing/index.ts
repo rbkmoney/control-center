@@ -18,3 +18,4 @@ export * from './shop-modification-unit';
 export * from './shop-params';
 export * from './invoice-payment-adjustment-params';
 export * from './user-info';
+export * from './contractor-modification';

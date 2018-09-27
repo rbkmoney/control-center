@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutGap="5px">
+    <mat-card>
+        <mat-card-subtitle>{{unitsName}}</mat-card-subtitle>
+    </mat-card>
+    <mat-tab-group>
+        <mat-tab *ngFor="let unit of units" [label]="unit.unitID">
+            <div class="tab-container" fxLayout="column" fxLayoutGap="20px">
+                <cc-party-modification-container
+                        *ngFor="let container of unit.containers"
+                        [container]="container"
+                        [type]="type">
+                </cc-party-modification-container>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

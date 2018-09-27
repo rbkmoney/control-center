@@ -1,40 +1,16 @@
-<div fxLayout="row" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
-    <div fxFlex="50" fxLayout="column" fxLayoutGap="20px">
-        <div *ngFor="let unit of shopUnits" fxLayout="column" fxLayoutGap="20px">
-            <mat-card>
-                <mat-card-subtitle fxLayout="row"
-                                   fxLayout.sm="column"
-                                   fxLayout.xs="column"
-                                   fxLayoutGap="10px"
-                                   fxLayoutAlign="space-between center">
-                    <div>Shop modifications</div>
-                    <div>Shop ID: {{unit.unitID}}</div>
-                </mat-card-subtitle>
-            </mat-card>
-            <cc-party-modification-container
-                    *ngFor="let container of unit.containers"
-                    [container]="container"
-                    [type]="'ShopUnitContainer'">
-            </cc-party-modification-container>
-        </div>
+<div fxLayout="row" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+    <div fxFlex="50">
+        <cc-party-modification-units
+                unitsName="Shop modification units"
+                [type]="'ShopUnitContainer'"
+                [units]="shopUnits">
+        </cc-party-modification-units>
     </div>
-    <div fxFlex="50" fxLayout="column" fxLayoutGap="20px">
-        <div *ngFor="let unit of contractUnits" fxLayout="column" fxLayoutGap="20px">
-            <mat-card>
-                <mat-card-subtitle fxLayout="row"
-                                   fxLayout.sm="column"
-                                   fxLayout.xs="column"
-                                   fxLayoutGap="10px"
-                                   fxLayoutAlign="space-between center">
-                    <div>Contract modifications</div>
-                    <div>Contract ID: {{unit.unitID}}</div>
-                </mat-card-subtitle>
-            </mat-card>
-            <cc-party-modification-container
-                    *ngFor="let container of unit.containers"
-                    [container]="container"
-                    [type]="'ContractUnitContainer'">
-            </cc-party-modification-container>
-        </div>
+    <div fxFlex="50">
+        <cc-party-modification-units
+                unitsName="Contract modification units"
+                [type]="'ContractUnitContainer'"
+                [units]="contractUnits">
+        </cc-party-modification-units>
     </div>
 </div>

@@ -2,8 +2,8 @@
     <mat-card-subtitle>{{container.name | ccContainerName:type }}</mat-card-subtitle>
     <mat-card-content>
         <mat-tab-group>
-            <mat-tab *ngFor="let unit of modifications" label="Modification unit">
-                <pre [innerHtml]="unit | ccThriftEncode | prettyjson:2"></pre>
+            <mat-tab *ngFor="let unit of modifications; let index = index" [label]="'unit ' + (index + 1)">
+                <cc-thrift-json [object]="unit"></cc-thrift-json>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

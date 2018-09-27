@@ -1,3 +1,1 @@
-export class ContractID {
-    id: string;
-}
+export type ContractID = string;

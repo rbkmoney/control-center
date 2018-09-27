@@ -1,0 +1,12 @@
+<form [formGroup]="form"
+      fxLayout="column"
+      fxLayoutGap="5px">
+    <mat-form-field fxFlex>
+        <mat-select placeholder="Select category"
+                    formControlName="id">
+            <mat-option *ngFor="let category of categories$ | async" [value]="category.id" required>
+                {{category.id}} {{category.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>

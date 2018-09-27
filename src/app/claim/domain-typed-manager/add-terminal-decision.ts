@@ -1,6 +1,6 @@
+import cloneDeep from 'lodash-es/cloneDeep';
 import last from 'lodash-es/last';
 import dropRight from 'lodash-es/dropRight';
-import cloneDeep from 'lodash-es/cloneDeep';
 import {
     ProviderObject,
     TerminalSelector,
