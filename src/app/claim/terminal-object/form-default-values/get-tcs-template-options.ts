@@ -1,5 +1,5 @@
 import { getHost } from './get-host';
-import { TerminalOption } from '../../../domain/domain-typed-manager/index';
+import { TerminalOption } from '../../../domain/domain-typed-manager';
 
 export const getTcsTemplateOptions = (shopUrl: string): TerminalOption[] =>
     ([
