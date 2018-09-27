@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Invoice, Payment } from './model';
 import { ReportSearchParams } from './params';
 import { ConfigService } from '../core/config.service';
-import { decode } from '../shared/thrift-formatter';
+import { decode } from '../shared/papi-formatter';
 
 interface Params {
     [param: string]: string | string[];
