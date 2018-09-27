@@ -7,4 +7,5 @@ export class ReportSearchParams {
     invoiceId?: string;
     status?: string;
     categoryIds?: string[];
+    paymentDomainRevision?: string;
 }
