@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "./node_modules/.bin/ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 7000",
+    "postinstall": "npm run thrift-ts",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "thrift-ts": "thrift-ts node_modules/damsel/proto -o src/app/gen-damsel -d false -c true"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +34,7 @@
     "lodash-es": "^4.17.10",
     "moment": "^2.22.2",
     "rxjs": "^6.0.0",
+    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#65ece027ae9b8c63a02810b05b8aca96dd4ef210",
     "uuid": "^3.3.2",
     "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#dfe1ec26573de991f59952aa64b409280fec6c58",
     "zone.js": "~0.8.26"
