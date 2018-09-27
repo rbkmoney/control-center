@@ -1,5 +1,4 @@
-import { InvoicePaymentAdjustmentParams } from '../../damsel';
-import { UserInfo } from '../../damsel/payment-processing';
+import { InvoicePaymentAdjustmentParams, UserInfo } from '../../gen-damsel/payment_processing';
 import * as PaymentProcessingTypes from '../gen-nodejs/payment_processing_types';
 
 export const toGenPaymentProcessing = (user: UserInfo) => {

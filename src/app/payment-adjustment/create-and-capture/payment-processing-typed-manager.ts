@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { toGenInvoicePaymentAdjustmentParams, toGenPaymentProcessing } from '../../thrift/converters';
 import { PaymentProcessingService } from '../../thrift/payment-processing.service';
-import { InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel/payment-processing';
+import { InvoicePaymentAdjustmentParams, UserInfo } from '../../gen-damsel/payment_processing';
+import { encode } from '../../shared/thrift-js-formatter';
 
 @Injectable()
 export class PaymentProcessingTypedManager {
@@ -11,18 +12,18 @@ export class PaymentProcessingTypedManager {
     }
 
     createPaymentAdjustment(user: UserInfo, id: string, paymentId: string, params: InvoicePaymentAdjustmentParams) {
-        const genUser = toGenPaymentProcessing(user);
-        const genParams = toGenInvoicePaymentAdjustmentParams(params);
+        const genUser = toGenPaymentProcessing(encode(user));
+        const genParams = toGenInvoicePaymentAdjustmentParams(encode(params));
         return this.paymentProcessingService.createPaymentAdjustment(genUser, id, paymentId, genParams);
     }
 
     capturePaymentAdjustment(user: UserInfo, id: string, paymentId: string, adjustmentId: string) {
-        const genUser = toGenPaymentProcessing(user);
+        const genUser = toGenPaymentProcessing(encode(user));
         return this.paymentProcessingService.capturePaymentAdjustment(genUser, id, paymentId, adjustmentId);
     }
 
     cancelPaymentAdjustment(user: UserInfo, id: string, paymentId: string, adjustmentId: string) {
-        const genUser = toGenPaymentProcessing(user);
+        const genUser = toGenPaymentProcessing(encode(user));
         return this.paymentProcessingService.cancelPaymentAdjustment(genUser, id, paymentId, adjustmentId);
     }
 

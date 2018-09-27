@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { PartyModificationContainer, UnitContainerType } from '../model';
-import { ContractModificationUnit, ShopModificationUnit } from '../../damsel';
+import { ContractModificationUnit, ShopModificationUnit } from '../../gen-damsel/payment_processing';
 
 @Component({
     selector: 'cc-party-modification-container',

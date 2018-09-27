@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { CreateAndCaptureService } from './create-and-capture.service';
 import { Payment } from '../../papi/model';
-import { InvoicePaymentAdjustment, InvoicePaymentAdjustmentParams } from '../../damsel';
+import { InvoicePaymentAdjustment, InvoicePaymentAdjustmentParams } from '../../gen-damsel/payment_processing';
 import { PaymentProcessingTypedManager } from './payment-processing-typed-manager';
 
 @Component({

@@ -6,7 +6,7 @@ import toNumber from 'lodash-es/toNumber';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
-import { PartyModification } from '../damsel';
+import { PartyModification } from '../gen-damsel/payment_processing';
 import { ClaimInfoContainer, DomainModificationInfo } from './model';
 import { convert } from './party-modification-container-converter';
 

@@ -1,7 +1,7 @@
 import groupBy from 'lodash-es/groupBy';
 import map from 'lodash-es/map';
 
-import { ContractModificationUnit, PartyModification, ShopModificationUnit } from '../damsel';
+import { ContractModificationUnit, PartyModification, ShopModificationUnit } from '../gen-damsel/payment_processing';
 import {
     ContractModificationName,
     PartyModificationContainer,

@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
 import { DomainModificationInfo, UnitContainerType } from '../model';
-import { PartyModification } from '../../damsel/payment-processing';
+import { PartyModification } from '../../gen-damsel/payment_processing';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
 import { CreateTerminalParams, DomainTypedManager } from '../domain-typed-manager';

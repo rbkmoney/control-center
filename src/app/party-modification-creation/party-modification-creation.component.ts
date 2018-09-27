@@ -9,8 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
-import { PartyModification } from '../damsel/payment-processing';
+import { PartyModification } from '../gen-damsel/payment_processing';
 import { ContractModificationName, ShopModificationName } from '../claim/model';
 import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../claim/modification-action';

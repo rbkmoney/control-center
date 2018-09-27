@@ -4,10 +4,10 @@ import { forkJoin } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { KeycloakService } from 'keycloak-angular';
 
-import { InvoicePaymentAdjustmentParams, UserInfo } from '../../damsel/payment-processing';
+import { InvoicePaymentAdjustmentParams, UserInfo } from '../../gen-damsel/payment_processing';
 import { PaymentProcessingTypedManager } from './payment-processing-typed-manager';
 import { Payment } from '../../papi/model';
-import { InvoicePaymentAdjustment } from '../../damsel/domain';
+import { InvoicePaymentAdjustment } from '../../gen-damsel/domain';
 
 @Injectable()
 export class CreateAndCaptureService {
@@ -57,7 +57,7 @@ export class CreateAndCaptureService {
     }
 
     private getUser(): UserInfo {
-        return {id: this.keycloakService.getUsername(), type: {internal_user: {}}};
+        return {id: this.keycloakService.getUsername(), type: {internalUser: {}}};
     }
 
     private prepareForm(): FormGroup {
