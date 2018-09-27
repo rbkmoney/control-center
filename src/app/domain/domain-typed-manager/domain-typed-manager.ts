@@ -6,7 +6,8 @@ import {
     Domain,
     BusinessScheduleObject,
     ProviderObject,
-    TerminalObject
+    TerminalObject,
+    PaymentInstitutionObject
 } from '../../damsel/domain';
 import { Version } from '../../damsel';
 import { DmtService } from '../dmt.service';
@@ -23,6 +24,9 @@ const findProviderObjects = (domain: Domain): ProviderObject[] =>
 
 const findTerminalObjects = (domain: Domain): TerminalObject[] =>
     findDomainObjects(domain, 'terminal');
+
+const findPaymentInstitutions = (domain: Domain): PaymentInstitutionObject[] =>
+    findDomainObjects(domain, 'payment_institution');
 
 const filterByTerminalSelector = (objects: ProviderObject[], filter: 'decisions' | 'value'): ProviderObject[] => {
     return objects.filter((object) => {
@@ -96,5 +100,10 @@ export class DomainTypedManager {
         return this.dmtService
             .checkout(toGenReference())
             .pipe(map((snapshot) => snapshot.version));
+    }
+
+    getPaymentInstitutions(): Observable<PaymentInstitutionObject[]> {
+        return this.domain
+            .pipe(map((domain) => findPaymentInstitutions(domain)));
     }
 }

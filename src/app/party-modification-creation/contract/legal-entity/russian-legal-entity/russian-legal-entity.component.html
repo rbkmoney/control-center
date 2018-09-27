@@ -1,0 +1,59 @@
+<cc-form-wrapper name="Russian legal entity">
+    <form [formGroup]="form">
+        <div fxLayout="column">
+            <mat-form-field fxFlex>
+                <input matInput
+                       placeholder="Registered name"
+                       formControlName="registeredName"
+                       required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput
+                       placeholder="Registered number"
+                       formControlName="registeredNumber"
+                       required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput
+                       placeholder="INN"
+                       formControlName="inn"
+                       required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput
+                       placeholder="Actual address"
+                       formControlName="actualAddress"
+                       required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput
+                       placeholder="Post address"
+                       formControlName="postAddress"
+                       required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput
+                       placeholder="Representative position"
+                       formControlName="representativePosition"
+                       required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput
+                       placeholder="Representative full name"
+                       formControlName="representativeFullName"
+                       required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput
+                       placeholder="Representative document"
+                       formControlName="representativeDocument"
+                       required>
+            </mat-form-field>
+            <cc-nested-form-wrapper caption="russian_bank_account">
+                <cc-russian-bank-account fxFlex
+                                         [form]="form.get('russianBankAccount')">
+                </cc-russian-bank-account>
+            </cc-nested-form-wrapper>
+        </div>
+    </form>
+</cc-form-wrapper>

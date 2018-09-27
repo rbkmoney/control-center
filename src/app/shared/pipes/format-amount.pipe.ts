@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { round } from 'lodash-es';
+import round from 'lodash-es/round';
 
 @Pipe({
     name: 'ccFormatAmount'
