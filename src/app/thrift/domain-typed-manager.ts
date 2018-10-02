@@ -8,13 +8,13 @@ import {
     ProviderObject,
     TerminalObject,
     PaymentInstitutionObject
-} from '../../damsel/domain';
-import { Version } from '../../damsel';
-import { CreateTerminalParams } from './create-terminal-params';
-import { findDomainObject, findDomainObjects } from './utils';
-import { createShopTerminal } from './create-shop-terminal';
-import { toGenReference } from '../../thrift/converters';
-import { DomainService } from '../../thrift/domain.service';
+} from '../damsel/domain';
+import { Version } from '../damsel';
+import { CreateTerminalParams } from '../claim/domain-typed-manager/create-terminal-params';
+import { findDomainObject, findDomainObjects } from '../claim/domain-typed-manager/utils';
+import { createShopTerminal } from '../claim/domain-typed-manager/create-shop-terminal';
+import { toGenReference } from './converters';
+import { DomainService } from './domain.service';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');

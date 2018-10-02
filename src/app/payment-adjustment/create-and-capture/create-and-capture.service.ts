@@ -5,7 +5,7 @@ import { fromPromise } from 'rxjs/internal-compatibility';
 import { KeycloakService } from 'keycloak-angular';
 
 import { InvoicePaymentAdjustmentParams, UserInfo } from '../../gen-damsel/payment_processing';
-import { PaymentProcessingTypedManager } from './payment-processing-typed-manager';
+import { PaymentProcessingTypedManager } from '../../thrift/payment-processing-typed-manager';
 import { Payment } from '../../papi/model';
 import { InvoicePaymentAdjustment } from '../../gen-damsel/domain';
 

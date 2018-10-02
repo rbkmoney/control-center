@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { toGenInvoicePaymentAdjustmentParams, toGenPaymentProcessing } from '../../thrift/converters';
-import { PaymentProcessingService } from '../../thrift/payment-processing.service';
-import { InvoicePaymentAdjustmentParams, UserInfo } from '../../gen-damsel/payment_processing';
-import { encode } from '../../shared/thrift-js-formatter';
+import { toGenInvoicePaymentAdjustmentParams, toGenPaymentProcessing } from './converters';
+import { PaymentProcessingService } from './payment-processing.service';
+import { InvoicePaymentAdjustmentParams, UserInfo } from '../gen-damsel/payment_processing';
+import { encode } from '../shared/thrift-js-formatter';
 
 @Injectable()
 export class PaymentProcessingTypedManager {

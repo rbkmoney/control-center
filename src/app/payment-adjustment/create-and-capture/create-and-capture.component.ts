@@ -6,12 +6,11 @@ import { Subscription } from 'rxjs';
 import { CreateAndCaptureService } from './create-and-capture.service';
 import { Payment } from '../../papi/model';
 import { InvoicePaymentAdjustment, InvoicePaymentAdjustmentParams } from '../../gen-damsel/payment_processing';
-import { PaymentProcessingTypedManager } from './payment-processing-typed-manager';
 
 @Component({
     selector: 'cc-create-and-capture-payment-adjustment',
     templateUrl: './create-and-capture.component.html',
-    providers: [CreateAndCaptureService, PaymentProcessingTypedManager]
+    providers: [CreateAndCaptureService]
 })
 export class CreateAndCaptureComponent implements OnInit {
 
