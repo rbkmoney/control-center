@@ -24,12 +24,16 @@ export class SearchFormService {
         const result = formValues;
         keys(formValues).forEach((key) => {
             if (key === 'fromTime' || key === 'toTime') {
-                result[key] = result[key] ? moment(result[key]).startOf('day').utc().format() : null;
+                result[key] = result[key] ? moment(result[key]).startOf('day').utc().format() : null; // convert date to UTC format
+            }
+            if (key === 'minAmount' || key === 'maxAmount') {
+                result[key] = result[key] ? result[key] * 100 : null; // convert to minor values
             }
             if (result[key] === '') {
-                result[key] = null;
+                result[key] = null; // remove empty field values
             } else if (isString(result[key])) {
                 result[key] = result[key].trim();
+                // logic for remove last comma symbol
                 if (/,/g.test(result[key])) {
                     result[key] = result[key].replace(/\s/g, '').split(',');
                     if (result[key][result[key].length - 1] === '') {
@@ -46,7 +50,10 @@ export class SearchFormService {
             payoutIds: '',
             status: '',
             fromTime: moment().subtract(1, 'weeks').utc().toDate(),
-            toTime: moment().add(1, 'days').utc().toDate()
+            toTime: moment().add(1, 'days').utc().toDate(),
+            currencyCode: '',
+            minAmount: '',
+            maxAmount: ''
         });
     }
 }
