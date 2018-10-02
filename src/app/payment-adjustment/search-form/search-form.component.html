@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px" fxLayoutGap.sm="0px">
         <mat-form-field fxFlex="15">
             <input matInput formControlName="fromTime" [matDatepicker]="fromTimePicker" placeholder="From time">
             <mat-datepicker-toggle matSuffix [for]="fromTimePicker"></mat-datepicker-toggle>
@@ -17,12 +17,12 @@
             <input matInput formControlName="invoicesIds" placeholder="Invoices IDs (comma separated)">
         </mat-form-field>
     </div>
-    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px" fxLayoutGap.sm="0px">
         <mat-form-field fxFlex="15">
-            <input matInput formControlName="fromRevision" placeholder="From domain revision">
+            <input matInput formControlName="fromRevision" placeholder="Domain revision">
         </mat-form-field>
-        <mat-form-field fxFlex="15">
-            <input matInput formControlName="toRevision" placeholder="To domain revision">
-        </mat-form-field>
+        <!--<mat-form-field fxFlex="15">-->
+            <!--<input matInput formControlName="toRevision" placeholder="To domain revision">-->
+        <!--</mat-form-field>-->
     </div>
 </form>

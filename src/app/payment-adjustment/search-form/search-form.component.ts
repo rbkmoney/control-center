@@ -20,9 +20,9 @@ export class SearchFormComponent implements OnInit {
     ngOnInit() {
         const {form, formValueToSearchParams} = this.searchFormService;
         this.form = form;
-        this.paymentAdjustmentService.getAllPayments(formValueToSearchParams());
+        this.paymentAdjustmentService.fetchPayments(formValueToSearchParams());
         this.form.valueChanges
             .pipe(debounceTime(500))
-            .subscribe((value) => this.paymentAdjustmentService.getAllPayments(formValueToSearchParams(value)));
+            .subscribe((value) => this.paymentAdjustmentService.fetchPayments(formValueToSearchParams(value)));
     }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
-import keys from 'lodash-es/keys';
 
 import { SearchFormParams } from './search-form-params';
 
@@ -23,32 +22,15 @@ export class SearchFormService {
         this.form = this.prepareForm();
     }
 
-    formValueToSearchParams = (formValues = this.form.value): SearchFormParams => {
-        const result: SearchFormParams = {} as any;
-        keys(formValues).forEach((key: keyof typeof initFormValues) => {
-            if (formValues[key]) {
-                const value = formValues[key];
-                switch (key) {
-                    case 'fromTime':
-                    case 'toTime':
-                        result[key] = moment(value).startOf('day').utc().format();
-                        break;
-                    case 'partyId':
-                        result.merchantId = value;
-                        break;
-                    case 'invoicesIds':
-                        result.invoiceId = value.split(',').map((part) => part.trim());
-                        break;
-                    case 'fromRevision':
-                        result.paymentDomainRevision = result.paymentDomainRevision ? [value, result.paymentDomainRevision[1]] : [value];
-                        break;
-                    case 'toRevision':
-                        result.paymentDomainRevision = result.paymentDomainRevision ? [result.paymentDomainRevision[0], value] : [undefined, value];
-                        break;
-                }
-            }
-        });
-        return result;
+    formValueToSearchParams({fromTime, toTime, partyId, invoicesIds, fromRevision, toRevision} = this.form.value): SearchFormParams {
+        return {
+            fromTime: moment(fromTime).startOf('day').utc().format(),
+            toTime: moment(toTime).startOf('day').utc().format(),
+            partyId,
+            invoicesIds: invoicesIds.split(',').map((part) => part.trim()),
+            fromRevision,
+            toRevision
+        };
     }
 
     private prepareForm(): FormGroup {
