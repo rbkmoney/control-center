@@ -33,6 +33,7 @@ export class PaymentAdjustmentComponent implements OnInit {
         this.payments$.subscribe(
             (payments) => {
                 this.payments = payments || [];
+                this.selectedPayments = [];
                 this.isLoading = !payments;
             }, (e) => {
                 this.payments = [];
