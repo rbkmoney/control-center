@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { PaymentAdjustmentService } from '../payment-adjustment.service';
@@ -14,15 +13,18 @@ export class SearchFormComponent implements OnInit {
 
     form: FormGroup;
 
+    fetchPayments: () => any;
+
+    @Input()
+    isLoading: boolean;
+
     constructor(private searchFormService: SearchFormService, private paymentAdjustmentService: PaymentAdjustmentService) {
     }
 
     ngOnInit() {
         const {form, formValueToSearchParams} = this.searchFormService;
         this.form = form;
-        this.paymentAdjustmentService.fetchPayments(formValueToSearchParams());
-        this.form.valueChanges
-            .pipe(debounceTime(500))
-            .subscribe((value) => this.paymentAdjustmentService.fetchPayments(formValueToSearchParams(value)));
+        this.fetchPayments = () => this.paymentAdjustmentService.fetchPayments(formValueToSearchParams());
+        this.form.valueChanges.subscribe(() => this.paymentAdjustmentService.clearPayments());
     }
 }

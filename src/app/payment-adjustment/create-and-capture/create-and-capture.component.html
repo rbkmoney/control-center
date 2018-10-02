@@ -26,7 +26,7 @@
     </mat-horizontal-stepper>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
-    <div>
+    <div fxLayout="row" fxLayoutAlign="end none">
         <button mat-button color="warn" (click)="cancel()"
                 [disabled]="stepper.selectedIndex === 0 ? false : isLoading">
             CANCEL

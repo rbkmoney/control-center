@@ -13,7 +13,7 @@ import { StatPayment } from '../gen-damsel/merch_stat';
 })
 export class PaymentAdjustmentComponent implements OnInit {
 
-    isLoading = true;
+    isLoading = false;
 
     payments$: Observable<StatPayment[]>;
 

@@ -28,7 +28,7 @@ export class PaymentAdjustmentService {
             dsl: JSON.stringify({
                 query: {
                     payments: {
-                        merchant_id: partyId,
+                        ...(partyId ? { merchant_id: partyId } : {}),
                         from_time: fromTime,
                         to_time: toTime,
                         ...(fromRevision ? {payment_domain_revision: fromRevision} : {})
@@ -48,9 +48,14 @@ export class PaymentAdjustmentService {
 
     fetchPayments(params: SearchFormParams): void {
         const {invoicesIds} = params;
+        this.payments$.next(null);
         this.getAllPayments(params).subscribe(
             (response) => this.payments$.next(this.getFilteredPayments(response, invoicesIds)),
-            (e) => this.payments$.next([])
+            (e) => this.clearPayments()
         );
+    }
+
+    clearPayments() {
+        this.payments$.next([]);
     }
 }

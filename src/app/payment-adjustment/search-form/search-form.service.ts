@@ -22,12 +22,12 @@ export class SearchFormService {
         this.form = this.prepareForm();
     }
 
-    formValueToSearchParams({fromTime, toTime, partyId, invoicesIds, fromRevision, toRevision} = this.form.value): SearchFormParams {
+    formValueToSearchParams = ({fromTime, toTime, partyId, invoicesIds, fromRevision, toRevision} = this.form.value): SearchFormParams => {
         return {
             fromTime: moment(fromTime).startOf('day').utc().format(),
             toTime: moment(toTime).startOf('day').utc().format(),
             partyId,
-            invoicesIds: invoicesIds.split(',').map((part) => part.trim()),
+            invoicesIds: invoicesIds ? invoicesIds.split(',').map((part) => part.trim()) : null,
             fromRevision,
             toRevision
         };

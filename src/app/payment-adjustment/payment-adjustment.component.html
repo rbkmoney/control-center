@@ -6,12 +6,9 @@
                 <div *ngIf="payments.length">
                     Found: <b>{{payments.length}}</b>
                 </div>
-                <div *ngIf="!payments.length">
-                    Not found
-                </div>
             </mat-card-subtitle>
             <mat-card-content>
-                <cc-payment-adjustment-search-form></cc-payment-adjustment-search-form>
+                <cc-payment-adjustment-search-form [isLoading]="isLoading"></cc-payment-adjustment-search-form>
             </mat-card-content>
             <mat-card-footer *ngIf="isLoading">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>

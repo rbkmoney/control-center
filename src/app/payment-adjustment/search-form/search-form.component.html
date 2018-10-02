@@ -22,7 +22,10 @@
             <input matInput formControlName="fromRevision" placeholder="Domain revision">
         </mat-form-field>
         <!--<mat-form-field fxFlex="15">-->
-            <!--<input matInput formControlName="toRevision" placeholder="To domain revision">-->
+        <!--<input matInput formControlName="toRevision" placeholder="To domain revision">-->
         <!--</mat-form-field>-->
     </div>
+    <button mat-raised-button color="primary" (click)="fetchPayments()" [disabled]="!form.valid || isLoading">
+        SEARCH
+    </button>
 </form>
