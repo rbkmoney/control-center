@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
-import { Payment } from '../papi/model';
+import { StatPayment } from '../gen-damsel/merch_stat';
 
 @Component({
     selector: 'cc-payment-adjustment',
@@ -15,11 +15,11 @@ export class PaymentAdjustmentComponent implements OnInit {
 
     isLoading = true;
 
-    payments$: Observable<Payment[]>;
+    payments$: Observable<StatPayment[]>;
 
-    payments: Payment[] = [];
+    payments: StatPayment[] = [];
 
-    selectedPayments: Payment[] = [];
+    selectedPayments: StatPayment[] = [];
 
     constructor(
         private dialogRef: MatDialog,

@@ -40,10 +40,10 @@ export class SearchFormService {
                         result.invoiceId = value.split(',').map((part) => part.trim());
                         break;
                     case 'fromRevision':
-                        result.paymentDomainRevision = [value];
+                        result.paymentDomainRevision = result.paymentDomainRevision ? [value, result.paymentDomainRevision[1]] : [value];
                         break;
                     case 'toRevision':
-                        result.paymentDomainRevision = result.paymentDomainRevision ? value : [...result.paymentDomainRevision, value];
+                        result.paymentDomainRevision = result.paymentDomainRevision ? [result.paymentDomainRevision[0], value] : [undefined, value];
                         break;
                 }
             }
