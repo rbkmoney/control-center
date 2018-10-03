@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Payout, PayoutsResponse } from '../papi/model';
 import { PayoutCancelParams, PayoutCreateParams, PayoutSearchParams } from '../papi/params';
