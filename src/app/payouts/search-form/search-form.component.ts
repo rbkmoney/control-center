@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { formValueToSearchParams } from './to-search-params';
@@ -30,7 +30,9 @@ export class SearchFormComponent implements OnInit {
         this.form = form;
         this.payoutStatuses = payoutStatuses;
         this.form.valueChanges
-            .pipe(debounceTime(this.debounceTime))
+            .pipe(
+                filter(() => this.form.valid),
+                debounceTime(this.debounceTime))
             .subscribe((value) => this.valueChanges.emit(formValueToSearchParams(value)));
     }
 }
