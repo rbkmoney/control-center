@@ -5,7 +5,10 @@
                 Search payouts
             </mat-card-subtitle>
             <mat-card-content>
-                <cc-payouts-search-form></cc-payouts-search-form>
+                <cc-payouts-search-form
+                        [debounceTime]="600"
+                        (valueChanges)="getPayouts($event)">
+                </cc-payouts-search-form>
             </mat-card-content>
             <mat-card-footer *ngIf="isLoading">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -17,6 +20,6 @@
                 <cc-payouts-actions [selectedPayouts]="selectedPayouts"></cc-payouts-actions>
             </mat-card-content>
         </mat-card>
-        <cc-payouts-table [payouts]="payouts$ | async" (valueChanges)="tableOnChange($event)"></cc-payouts-table>
+        <cc-payouts-table [payouts]="payouts" (valueChanges)="tableOnChange($event)"></cc-payouts-table>
     </div>
 </div>
