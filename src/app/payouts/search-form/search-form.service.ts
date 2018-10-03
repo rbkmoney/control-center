@@ -24,8 +24,8 @@ export class SearchFormService {
             fromTime: moment().subtract(1, 'weeks').utc().toDate(),
             toTime: moment().add(1, 'days').utc().toDate(),
             currencyCode: '',
-            minAmount: [0, Validators.required],
-            maxAmount: [1000, Validators.required]
+            minAmount: [0, [Validators.required, Validators.min(0)]],
+            maxAmount: [1000, [Validators.required, Validators.min(0)]]
         });
     }
 }
