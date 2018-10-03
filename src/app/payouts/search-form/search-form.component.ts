@@ -4,6 +4,7 @@ import { debounceTime, filter } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { formValueToSearchParams } from './to-search-params';
+import { PayoutSearchParams } from '../../papi/params';
 
 @Component({
     selector: 'cc-payouts-search-form',
@@ -13,7 +14,7 @@ import { formValueToSearchParams } from './to-search-params';
 export class SearchFormComponent implements OnInit {
 
     @Output()
-    valueChanges: EventEmitter<any> = new EventEmitter<any>();
+    valueChanges: EventEmitter<PayoutSearchParams> = new EventEmitter<PayoutSearchParams>();
 
     @Input()
     debounceTime = 0;
