@@ -5,9 +5,5 @@ export const toGenPaymentProcessing = (user: UserInfo) => {
     return new PaymentProcessingTypes.UserInfo(user);
 };
 
-export const toGenInvoicePaymentAdjustmentParams = (params: InvoicePaymentAdjustmentParams) => {
-    const result = new PaymentProcessingTypes.InvoicePaymentAdjustmentParams(params);
-    result.domain_revision = params.domainRevision;
-    result.reason = params.reason;
-    return result;
-};
+export const toGenInvoicePaymentAdjustmentParams = (params: InvoicePaymentAdjustmentParams) =>
+    new PaymentProcessingTypes.InvoicePaymentAdjustmentParams(params);
