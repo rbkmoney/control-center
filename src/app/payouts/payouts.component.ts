@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
-import { Payout } from '../papi/model';
+import { Payout, PayoutsResponse } from '../papi/model';
 import { PayoutsService } from './payouts.service';
 import { SearchFormService } from './search-form/search-form.service';
 import { PayoutSearchParams } from '../papi/params';
@@ -19,7 +18,7 @@ import { PayoutSearchParams } from '../papi/params';
 export class PayoutsComponent implements OnInit {
 
     isLoading: boolean;
-    payouts$: Observable<Payout[]>;
+    payouts: Payout[];
     selectedPayouts: Payout[] = [];
 
     constructor(private payoutsService: PayoutsService,
@@ -28,7 +27,6 @@ export class PayoutsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.payouts$ = this.payoutsService.payouts$;
         this.getPayouts({
             fromTime: moment().subtract(1, 'weeks').utc().format(),
             toTime: moment().add(1, 'days').utc().format()
@@ -42,8 +40,9 @@ export class PayoutsComponent implements OnInit {
 
     getPayouts(params: PayoutSearchParams) {
         this.isLoading = true;
-        return this.payoutsService.get(params).subscribe(() => {
+        return this.payoutsService.get(params).subscribe((response: PayoutsResponse) => {
             this.isLoading = false;
+            this.payouts = response.payouts;
         }, (e) => {
             this.isLoading = false;
             const message = e.message;

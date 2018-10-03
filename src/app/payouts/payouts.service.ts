@@ -8,7 +8,6 @@ import { PayoutsService as PayoutsPapiService } from '../papi/payouts.service';
 
 @Injectable()
 export class PayoutsService {
-    payouts$: Subject<Payout[]> = new Subject();
     private lastSearchParams: PayoutSearchParams;
 
     constructor(private payoutsPapiService: PayoutsPapiService) {
@@ -16,10 +15,7 @@ export class PayoutsService {
 
     get(params: PayoutSearchParams): Observable<PayoutsResponse> {
         this.lastSearchParams = params;
-        return this.payoutsPapiService.getPayouts(params)
-            .pipe(tap((response) => {
-                this.payouts$.next(response.payouts);
-            }));
+        return this.payoutsPapiService.getPayouts(params);
     }
 
     confirm(payoutsIds: string[]): Observable<void> {
