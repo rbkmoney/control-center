@@ -29,7 +29,9 @@ export class PayoutsComponent implements OnInit {
     ngOnInit() {
         this.getPayouts({
             fromTime: moment().subtract(1, 'weeks').utc().format(),
-            toTime: moment().add(1, 'days').utc().format()
+            toTime: moment().add(1, 'days').utc().format(),
+            minAmount: 0,
+            maxAmount: 1000
         });
     }
 

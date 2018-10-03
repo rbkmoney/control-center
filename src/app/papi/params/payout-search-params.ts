@@ -7,4 +7,7 @@ export class PayoutSearchParams {
     payoutIds?: string[];
     fromId?: number;
     size?: string;
+    minAmount?: number;
+    maxAmount?: number;
+    currencyCode?: string;
 }

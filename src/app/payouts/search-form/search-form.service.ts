@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import values from 'lodash-es/values';
 
@@ -24,8 +24,8 @@ export class SearchFormService {
             fromTime: moment().subtract(1, 'weeks').utc().toDate(),
             toTime: moment().add(1, 'days').utc().toDate(),
             currencyCode: '',
-            minAmount: '',
-            maxAmount: ''
+            minAmount: [0, Validators.required],
+            maxAmount: [1000, Validators.required]
         });
     }
 }
