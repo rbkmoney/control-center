@@ -25,7 +25,7 @@ export class PaymentAdjustmentService {
     }
 
     private getPayments(params: SearchFormParams, continuationToken?: string): Observable<StatResponse> {
-        const {fromRevision, partyId, fromTime, toTime} = params;
+        const {fromRevision, partyId, fromTime, toTime, status} = params;
         return this.merchantStatisticsService.getPayments({
             dsl: JSON.stringify({
                 query: {
@@ -33,7 +33,8 @@ export class PaymentAdjustmentService {
                         ...(partyId ? { merchant_id: partyId } : {}),
                         from_time: fromTime,
                         to_time: toTime,
-                        ...(fromRevision ? {payment_domain_revision: fromRevision} : {})
+                        ...(fromRevision ? {payment_domain_revision: fromRevision} : {}),
+                        ...(status ? {payment_status: status} : {})
                     }
                 }
             } as QueryDSL),

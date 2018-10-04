@@ -10,6 +10,7 @@ import {
     MatInputModule,
     MatPaginatorModule,
     MatProgressBarModule,
+    MatSelectModule,
     MatSnackBarModule,
     MatStepperModule,
     MatTableModule,
@@ -49,7 +50,8 @@ import { ThriftModule } from '../thrift/thrift.module';
         MatPaginatorModule,
         MatStepperModule,
         PapiModule,
-        ThriftModule
+        ThriftModule,
+        MatSelectModule
     ],
     declarations: [
         PaymentAdjustmentComponent,

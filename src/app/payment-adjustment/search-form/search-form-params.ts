@@ -5,4 +5,5 @@ export interface SearchFormParams {
     invoicesIds: string[];
     fromRevision: string;
     toRevision: string;
+    status: string;
 }

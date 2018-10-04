@@ -22,6 +22,8 @@ export class SearchFormComponent implements OnInit {
 
     form: FormGroup;
 
+    statuses: string[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
+
     constructor(private searchFormService: SearchFormService) {
     }
 
