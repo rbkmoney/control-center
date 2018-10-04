@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { Observable } from 'rxjs';
 
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
 import { StatPayment } from '../gen-damsel/merch_stat';
+import { SearchFormParams } from './search-form/search-form-params';
 
 @Component({
     selector: 'cc-payment-adjustment',
     templateUrl: './payment-adjustment.component.html',
     styleUrls: ['../shared/container.css']
 })
-export class PaymentAdjustmentComponent implements OnInit {
+export class PaymentAdjustmentComponent {
 
     isLoading = false;
-
-    payments$: Observable<StatPayment[]>;
 
     payments: StatPayment[] = [];
 
@@ -26,23 +24,6 @@ export class PaymentAdjustmentComponent implements OnInit {
         private paymentAdjustmentService: PaymentAdjustmentService,
         private snackBar: MatSnackBar
     ) {
-    }
-
-    ngOnInit() {
-        this.payments$ = this.paymentAdjustmentService.payments$;
-        this.payments$.subscribe(
-            (payments) => {
-                this.payments = payments || [];
-                this.selectedPayments = [];
-                this.isLoading = !payments;
-            }, (e) => {
-                this.payments = [];
-                const message = e.message;
-                this.snackBar.open(`${message ? message : 'Error'}`, 'OK', {duration: 3000});
-                console.error(e);
-                this.isLoading = false;
-            }
-        );
     }
 
     createAndCapturePaymentAdjustment() {
@@ -57,4 +38,22 @@ export class PaymentAdjustmentComponent implements OnInit {
         this.selectedPayments = e;
     }
 
+    search(params: SearchFormParams) {
+        this.isLoading = true;
+        this.paymentAdjustmentService.fetchPayments(params).subscribe((payments) => {
+            this.payments = payments || [];
+        }, (e) => {
+            this.payments = [];
+            this.snackBar.open(`${e.message || 'Error'}`, 'OK');
+            console.error(e);
+        }, () => {
+            this.selectedPayments = [];
+            this.isLoading = false;
+        });
+    }
+
+    change() {
+        this.payments = [];
+        this.selectedPayments = [];
+    }
 }

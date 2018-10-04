@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
-import { PaymentAdjustmentService } from '../payment-adjustment.service';
+import { SearchFormParams } from './search-form-params';
 
 @Component({
     selector: 'cc-payment-adjustment-search-form',
@@ -11,20 +11,27 @@ import { PaymentAdjustmentService } from '../payment-adjustment.service';
 })
 export class SearchFormComponent implements OnInit {
 
-    form: FormGroup;
-
-    fetchPayments: () => any;
-
     @Input()
     isLoading: boolean;
 
-    constructor(private searchFormService: SearchFormService, private paymentAdjustmentService: PaymentAdjustmentService) {
+    @Output()
+    search: EventEmitter<SearchFormParams> = new EventEmitter();
+
+    @Output()
+    change: EventEmitter<SearchFormParams> = new EventEmitter();
+
+    form: FormGroup;
+
+    constructor(private searchFormService: SearchFormService) {
     }
 
     ngOnInit() {
         const {form, formValueToSearchParams} = this.searchFormService;
         this.form = form;
-        this.fetchPayments = () => this.paymentAdjustmentService.fetchPayments(formValueToSearchParams());
-        this.form.valueChanges.subscribe(() => this.paymentAdjustmentService.clearPayments());
+        this.form.valueChanges.subscribe(() => this.change.emit(formValueToSearchParams(this.form.value)));
+    }
+
+    searchPayments() {
+        this.search.emit(this.searchFormService.formValueToSearchParams(this.form.value));
     }
 }

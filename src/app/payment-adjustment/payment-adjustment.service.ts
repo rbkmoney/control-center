@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 
 import { ReportService } from '../papi/report.service';
 import { SearchFormParams } from './search-form/search-form-params';
@@ -11,22 +11,11 @@ import { QueryDSL } from '../query-dsl';
 @Injectable()
 export class PaymentAdjustmentService {
 
-    payments$: Subject<StatPayment[]> = new Subject();
-
     constructor(private reportService: ReportService, private merchantStatisticsService: MerchantStatisticsService) {
     }
 
-    fetchPayments(params: SearchFormParams): void {
-        const {invoicesIds} = params;
-        this.payments$.next(null);
-        this.getAllPayments(params).subscribe(
-            (response) => this.payments$.next(this.getFilteredPayments(response, invoicesIds)),
-            (e) => this.clearPayments()
-        );
-    }
-
-    clearPayments(): void {
-        this.payments$.next([]);
+    fetchPayments(params: SearchFormParams): Observable<StatPayment[]> {
+        return this.getAllPayments(params).pipe(map((payments) => this.getFilteredPayments(payments, params.invoicesIds)));
     }
 
     private getFilteredPayments(payments: StatPayment[], invoicesIds?: string[]): StatPayment[] {
