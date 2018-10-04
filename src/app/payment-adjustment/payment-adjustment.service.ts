@@ -6,7 +6,7 @@ import { ReportService } from '../papi/report.service';
 import { SearchFormParams } from './search-form/search-form-params';
 import { MerchantStatisticsService } from '../thrift/merchant-statistics.service';
 import { StatPayment, StatResponse } from '../gen-damsel/merch_stat';
-import { QueryDSL } from '../magista';
+import { QueryDSL } from '../query-dsl';
 
 @Injectable()
 export class PaymentAdjustmentService {
