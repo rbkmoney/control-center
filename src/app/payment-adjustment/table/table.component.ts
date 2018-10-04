@@ -33,9 +33,6 @@ export class TableComponent implements OnInit, OnChanges {
         'ownerId'
     ];
 
-    constructor() {
-    }
-
     ngOnInit() {
         this.selection.onChange.subscribe((e) => this.changeSelected.emit(e.source.selected));
     }
