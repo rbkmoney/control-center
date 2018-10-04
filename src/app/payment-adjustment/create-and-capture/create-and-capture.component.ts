@@ -49,7 +49,7 @@ export class CreateAndCaptureComponent implements OnInit {
             this.stepper.next();
             this.isLoading = false;
         }, (error) => {
-            this.snackBar.open(`Could not create all payment adjustments (${error})`, 'OK', {duration: 60000});
+            this.snackBar.open(`Could not create all payment adjustments (${error})`, 'OK');
             console.error(error);
             this.isLoading = false;
         });
@@ -62,7 +62,7 @@ export class CreateAndCaptureComponent implements OnInit {
             this.dialogRef.close();
             this.isLoading = false;
         }, (error) => {
-            this.snackBar.open(`Could not capture all payment adjustments (${error})`, 'OK', {duration: 60000});
+            this.snackBar.open(`Could not capture all payment adjustments (${error})`, 'OK');
             console.error(error);
             this.isLoading = false;
         });
@@ -75,7 +75,7 @@ export class CreateAndCaptureComponent implements OnInit {
                 this.isLoading = false;
                 this.snackBar.open(`${results.length} payment adjustment(s) cancelled`, 'OK', {duration: 3000});
             }, (error) => {
-                this.snackBar.open(error, 'OK', {duration: 3000});
+                this.snackBar.open(error, 'OK');
                 console.error(error);
             }, () => {
                 this.dialogRef.close();
