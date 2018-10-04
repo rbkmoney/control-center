@@ -11,7 +11,7 @@ const initFormValues = {
     invoicesIds: '',
     fromRevision: '',
     toRevision: '',
-    status: null
+    status: 'captured'
 };
 
 @Injectable()
