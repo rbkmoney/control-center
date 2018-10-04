@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { KeycloakService } from 'keycloak-angular';
 
@@ -22,7 +22,32 @@ export class CreateAndCaptureService {
         this.createPaymentAdjustmentGroup = this.prepareForm();
     }
 
-    async createPaymentAdjustment(user: UserInfo, invoiceId: string, id: string, params: InvoicePaymentAdjustmentParams) {
+    create(payments: Payment[], params: InvoicePaymentAdjustmentParams): Observable<InvoicePaymentAdjustment[]> {
+        return forkJoin(payments.map(({invoiceId, id}) => fromPromise(this.createPaymentAdjustment(this.getUser(), invoiceId, id, params))));
+    }
+
+    capture(paymentAdjustments: InvoicePaymentAdjustment[], payments: Payment[]): Observable<void[]> {
+        return forkJoin(paymentAdjustments.map((paymentAdjustment, idx) => this.paymentProcessingTypedManager.capturePaymentAdjustment(
+            this.getUser(),
+            payments[idx].invoiceId,
+            payments[idx].id,
+            paymentAdjustment.id
+        )));
+    }
+
+    cancel(paymentAdjustments: InvoicePaymentAdjustment[], payments: Payment[]): Observable<void[]> {
+        return forkJoin(paymentAdjustments.map((paymentAdjustment, idx) => this.paymentProcessingTypedManager.cancelPaymentAdjustment(
+            this.getUser(),
+            payments[idx].invoiceId,
+            payments[idx].id,
+            paymentAdjustment.id
+        )));
+    }
+
+    private async createPaymentAdjustment(
+        user: UserInfo, invoiceId: string,
+        id: string, params: InvoicePaymentAdjustmentParams
+    ): Promise<InvoicePaymentAdjustment> {
         try {
             return await this.paymentProcessingTypedManager.createPaymentAdjustment(user, invoiceId, id, params).toPromise();
         } catch (error) {
@@ -32,28 +57,6 @@ export class CreateAndCaptureService {
             }
             throw error;
         }
-    }
-
-    create(payments: Payment[], params: InvoicePaymentAdjustmentParams) {
-        return forkJoin(payments.map(({invoiceId, id}) => fromPromise(this.createPaymentAdjustment(this.getUser(), invoiceId, id, params))));
-    }
-
-    capture(paymentAdjustments: InvoicePaymentAdjustment[], payments: Payment[]) {
-        return forkJoin(paymentAdjustments.map((paymentAdjustment, idx) => this.paymentProcessingTypedManager.capturePaymentAdjustment(
-            this.getUser(),
-            payments[idx].invoiceId,
-            payments[idx].id,
-            paymentAdjustment.id
-        )));
-    }
-
-    cancel(paymentAdjustments: InvoicePaymentAdjustment[], payments: Payment[]) {
-        return forkJoin(paymentAdjustments.map((paymentAdjustment, idx) => this.paymentProcessingTypedManager.cancelPaymentAdjustment(
-            this.getUser(),
-            payments[idx].invoiceId,
-            payments[idx].id,
-            paymentAdjustment.id
-        )));
     }
 
     private getUser(): UserInfo {
