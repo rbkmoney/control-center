@@ -22,8 +22,6 @@ export class CreateAndCaptureComponent implements OnInit {
 
     paymentAdjustments: InvoicePaymentAdjustment[];
 
-    createSubscription: Subscription;
-
     @ViewChild('stepper')
     stepper;
 
@@ -71,9 +69,6 @@ export class CreateAndCaptureComponent implements OnInit {
     }
 
     cancel() {
-        if (this.createSubscription) {
-            this.createSubscription.unsubscribe();
-        }
         if (this.paymentAdjustments) {
             this.isLoading = true;
             this.createAndCaptureService.cancel(this.paymentAdjustments, this.payments).subscribe((results) => {
