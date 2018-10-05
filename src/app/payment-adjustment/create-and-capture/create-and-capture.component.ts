@@ -22,6 +22,8 @@ export class CreateAndCaptureComponent implements OnInit {
 
     paymentAdjustments: InvoicePaymentAdjustment[];
 
+    createOrCaptureSubscription: Subscription;
+
     @ViewChild('stepper')
     stepper;
 
@@ -44,7 +46,7 @@ export class CreateAndCaptureComponent implements OnInit {
             reason: value.reason
         };
         this.isLoading = true;
-        this.createAndCaptureService.create(this.payments, params).subscribe((results) => {
+        this.createOrCaptureSubscription = this.createAndCaptureService.create(this.payments, params).subscribe((results) => {
             this.paymentAdjustments = results;
             this.stepper.next();
             this.isLoading = false;
@@ -57,7 +59,7 @@ export class CreateAndCaptureComponent implements OnInit {
 
     capture() {
         this.isLoading = true;
-        this.createAndCaptureService.capture(this.paymentAdjustments, this.payments).subscribe((results) => {
+        this.createOrCaptureSubscription = this.createAndCaptureService.capture(this.paymentAdjustments, this.payments).subscribe((results) => {
             this.snackBar.open(`${results.length} payment adjustment(s) captured`, 'OK', {duration: 3000});
             this.dialogRef.close();
             this.isLoading = false;
@@ -69,6 +71,9 @@ export class CreateAndCaptureComponent implements OnInit {
     }
 
     cancel() {
+        if (this.createOrCaptureSubscription) {
+            this.createOrCaptureSubscription.unsubscribe();
+        }
         if (this.paymentAdjustments) {
             this.isLoading = true;
             this.createAndCaptureService.cancel(this.paymentAdjustments, this.payments).subscribe((results) => {
