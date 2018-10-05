@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { KeycloakService } from 'keycloak-angular';
 import flatten from 'lodash-es/flatten';
 
@@ -25,47 +26,42 @@ export class CreateAndCaptureService {
 
     create(payments: Payment[], params: InvoicePaymentAdjustmentParams): Observable<InvoicePaymentAdjustment[]> {
         const user = this.getUser();
-        return fromPromise(
-            this.parallel(payments.map(({invoiceId, id}) => () => this.createPaymentAdjustment(user, invoiceId, id, params)))
-        );
+        return this.parallel(payments.map(({invoiceId, id}) => () => fromPromise(this.createPaymentAdjustment(user, invoiceId, id, params))));
     }
 
     capture(paymentAdjustments: InvoicePaymentAdjustment[], payments: Payment[]): Observable<void[]> {
         const user = this.getUser();
-        return fromPromise(
-            this.parallel(paymentAdjustments.map(({id}, idx) => () => this.paymentProcessingTypedManager.capturePaymentAdjustment(
-                user,
-                payments[idx].invoiceId,
-                payments[idx].id,
-                id
-            ).toPromise()))
-        );
+        return this.parallel(paymentAdjustments.map(({id}, idx) => () => this.paymentProcessingTypedManager.capturePaymentAdjustment(
+            user,
+            payments[idx].invoiceId,
+            payments[idx].id,
+            id
+        )));
     }
 
     cancel(paymentAdjustments: InvoicePaymentAdjustment[], payments: Payment[]): Observable<void[]> {
         const user = this.getUser();
-        return fromPromise(
-            this.parallel(paymentAdjustments.map(({id}, idx) => () => this.paymentProcessingTypedManager.cancelPaymentAdjustment(
-                user,
-                payments[idx].invoiceId,
-                payments[idx].id,
-                id
-            ).toPromise()))
-        );
+        return this.parallel(paymentAdjustments.map(({id}, idx) => () => this.paymentProcessingTypedManager.cancelPaymentAdjustment(
+            user,
+            payments[idx].invoiceId,
+            payments[idx].id,
+            id
+        )));
     }
 
-    private async parallel<T>(funcs: Array<(...args: any[]) => Promise<T>>, concurrenciesCount = 4): Promise<T[]> {
+    private parallel<T>(funcs: Array<(...args: any[]) => Observable<T>>, concurrenciesCount = 4): Observable<T[]> {
         const tmpFuncs = funcs.slice();
-        const currency = async () => {
-            const results: T[] = [];
-            let func: typeof funcs[0];
-            while (func = tmpFuncs.pop()) {
-                results.push(await func());
+        function currency(results: T[] = []) {
+            let func;
+            if (func = tmpFuncs.pop()) {
+                return func().pipe(
+                    catchError(() => of(undefined)),
+                    switchMap((nextRes: T) => currency([...results, nextRes]))
+                );
             }
-            return results;
-        };
-        const promises = (new Array(concurrenciesCount)).fill(undefined).map(currency);
-        return flatten(await Promise.all(promises));
+            return of(results);
+        }
+        return forkJoin((new Array(concurrenciesCount)).fill([]).map(currency)).pipe(map((res) => flatten(res)));
     }
 
     private async createPaymentAdjustment(
