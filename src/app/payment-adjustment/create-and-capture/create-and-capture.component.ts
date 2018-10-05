@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 import { CreateAndCaptureService } from './create-and-capture.service';
 import { Payment } from '../../papi/model';
@@ -24,6 +24,8 @@ export class CreateAndCaptureComponent implements OnInit {
 
     createOrCaptureSubscription: Subscription;
 
+    progress$: Subject<number>;
+
     @ViewChild('stepper')
     stepper;
 
@@ -37,6 +39,7 @@ export class CreateAndCaptureComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.createAndCaptureService.createPaymentAdjustmentGroup;
+        this.progress$ = this.createAndCaptureService.progress$;
     }
 
     create() {

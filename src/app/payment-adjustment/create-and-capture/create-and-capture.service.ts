@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { KeycloakService } from 'keycloak-angular';
@@ -15,6 +15,8 @@ import { InvoicePaymentAdjustment } from '../../gen-damsel/domain';
 export class CreateAndCaptureService {
 
     createPaymentAdjustmentGroup: FormGroup;
+
+    progress$: Subject<number> = new Subject();
 
     constructor(
         private fb: FormBuilder,
@@ -51,17 +53,23 @@ export class CreateAndCaptureService {
 
     private parallel<T>(funcs: Array<(...args: any[]) => Observable<T>>, concurrenciesCount = 4): Observable<T[]> {
         const tmpFuncs = funcs.slice();
-        function currency(results: T[] = []) {
-            let func;
-            if (func = tmpFuncs.pop()) {
+        this.updateProgress(funcs.length, 0);
+        const currency = (results: T[] = []) => {
+            const func = tmpFuncs.pop();
+            this.updateProgress(funcs.length, funcs.length - tmpFuncs.length - concurrenciesCount);
+            if (func) {
                 return func().pipe(
                     catchError(() => of(undefined)),
                     switchMap((nextRes: T) => currency([...results, nextRes]))
                 );
             }
             return of(results);
-        }
+        };
         return forkJoin((new Array(concurrenciesCount)).fill([]).map(currency)).pipe(map((res) => flatten(res)));
+    }
+
+    private updateProgress(length: number, value: number) {
+        this.progress$.next(Math.min(Math.max(Math.round(value / length * 100), 0), 100));
     }
 
     private async createPaymentAdjustment(

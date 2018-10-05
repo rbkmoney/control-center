@@ -32,5 +32,5 @@
             CANCEL
         </button>
     </div>
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar *ngIf="isLoading" mode="determinate" [value]="progress$ | async"></mat-progress-bar>
 </mat-dialog-actions>
