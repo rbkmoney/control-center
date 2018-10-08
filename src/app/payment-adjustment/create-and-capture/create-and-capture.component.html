@@ -28,7 +28,7 @@
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div fxLayout="row" fxLayoutAlign="end none">
         <button mat-button color="warn" (click)="cancel()"
-                [disabled]="stepper.selectedIndex === 0 ? false : isLoading">
+                [disabled]="stepper.selectedIndex !== 0 && isLoading">
             CANCEL
         </button>
     </div>
