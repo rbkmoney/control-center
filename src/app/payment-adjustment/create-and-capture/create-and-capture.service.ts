@@ -33,22 +33,26 @@ export class CreateAndCaptureService {
 
     capture(paymentAdjustments: InvoicePaymentAdjustment[], payments: Payment[]): Observable<void[]> {
         const user = this.getUser();
-        return this.parallel(paymentAdjustments.map(({id}, idx) => () => this.paymentProcessingTypedManager.capturePaymentAdjustment(
-            user,
-            payments[idx].invoiceId,
-            payments[idx].id,
-            id
-        )));
+        return this.parallel(paymentAdjustments.reduce((list, paymentAdjustment, idx) => paymentAdjustment
+            ? [...list, () => this.paymentProcessingTypedManager.capturePaymentAdjustment(
+                user,
+                payments[idx].invoiceId,
+                payments[idx].id,
+                paymentAdjustment.id
+            )]
+            : list, []));
     }
 
     cancel(paymentAdjustments: InvoicePaymentAdjustment[], payments: Payment[]): Observable<void[]> {
         const user = this.getUser();
-        return this.parallel(paymentAdjustments.map(({id}, idx) => () => this.paymentProcessingTypedManager.cancelPaymentAdjustment(
-            user,
-            payments[idx].invoiceId,
-            payments[idx].id,
-            id
-        )));
+        return this.parallel(paymentAdjustments.reduce((list, paymentAdjustment, idx) => paymentAdjustment
+            ? [...list, () => this.paymentProcessingTypedManager.cancelPaymentAdjustment(
+                user,
+                payments[idx].invoiceId,
+                payments[idx].id,
+                paymentAdjustment.id
+            )]
+            : list, []));
     }
 
     private parallel<T>(funcs: Array<(...args: any[]) => Observable<T>>, concurrenciesCount = 4): Observable<T[]> {

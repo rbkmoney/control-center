@@ -51,6 +51,9 @@ export class CreateAndCaptureComponent implements OnInit {
         this.isLoading = true;
         this.createOrCaptureSubscription = this.createAndCaptureService.create(this.payments, params).subscribe((results) => {
             this.paymentAdjustments = results;
+            if (results.findIndex((item) => item === undefined) !== -1) {
+                this.snackBar.open(`Created ${results.filter((item) => !!item).length} of ${results.length}`, 'OK');
+            }
             this.stepper.next();
             this.isLoading = false;
         }, (error) => {
