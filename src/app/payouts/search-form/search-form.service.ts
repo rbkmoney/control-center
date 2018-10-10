@@ -20,12 +20,12 @@ export class SearchFormService {
     private prepareForm(): FormGroup {
         return this.fb.group({
             payoutIds: '',
-            status: '',
-            fromTime: moment().subtract(1, 'weeks').utc().toDate(),
-            toTime: moment().add(1, 'days').utc().toDate(),
+            status: PayoutStatus.paid,
+            fromTime: moment().startOf('day').utc().format(),
+            toTime: moment().add(1, 'days').startOf('day').utc().format(),
             currencyCode: '',
             minAmount: [0, [Validators.required, Validators.min(0)]],
-            maxAmount: [1000, [Validators.required, Validators.min(0)]]
+            maxAmount: [1000000000, [Validators.required, Validators.min(0)]]
         });
     }
 }

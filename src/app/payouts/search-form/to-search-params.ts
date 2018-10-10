@@ -1,4 +1,4 @@
-import { PayoutSearchParams } from '../../papi/params/index';
+import { PayoutSearchParams } from '../../papi/params';
 import reduce from 'lodash-es/reduce';
 import * as moment from 'moment';
 import toNumber from 'lodash-es/toNumber';
@@ -15,6 +15,9 @@ export const formValueToSearchParams = (formValues: object): PayoutSearchParams 
                 ...acc,
                 [key]: toNumber(toString(value).replace(/\s/g, '').replace(/,/g, '.')) * 100
             } : acc;
+        }
+        if (key === 'currencyCode') {
+            return value ? {...acc, [key]: value.toUpperCase()} : acc;
         }
         if (value === '') {
             return acc;
