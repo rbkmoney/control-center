@@ -7,8 +7,11 @@ import isString from 'lodash-es/isString';
 
 export const formValueToSearchParams = (formValues: object): PayoutSearchParams => {
     return reduce(formValues, (acc, value, key) => {
-        if (key === 'fromTime' || key === 'toTime') {
+        if (key === 'fromTime') {
             return value ? {...acc, [key]: moment(value).startOf('day').utc().format()} : acc;
+        }
+        if (key === 'toTime') {
+            return value ? {...acc, [key]: moment(value).endOf('day').utc().format()} : acc;
         }
         if (key === 'minAmount' || key === 'maxAmount') {
             return value ? {
