@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
-import { Payout, PayoutStatus } from '../papi/model';
+import { Payout } from '../papi/model';
 import { PayoutsService } from './payouts.service';
 import { SearchFormService } from './search-form/search-form.service';
 import { PayoutSearchParams } from '../papi/params';
@@ -24,18 +23,13 @@ export class PayoutsComponent implements OnInit {
 
     constructor(private payoutsService: PayoutsService,
                 private snackBar: MatSnackBar,
-                private cdRef: ChangeDetectorRef) {
+                private cdRef: ChangeDetectorRef,
+                private searchFormService: SearchFormService) {
     }
 
     ngOnInit() {
         this.payouts$ = this.payoutsService.payouts$;
-        this.getPayouts({
-            fromTime: moment().startOf('day').utc().format(),
-            toTime: moment().add(1, 'days').startOf('day').utc().format(),
-            minAmount: 0,
-            maxAmount: 100000000000,
-            status: PayoutStatus.paid
-        });
+        this.getPayouts(this.searchFormService.initSearchParams);
     }
 
     tableOnChange(selectedPayouts: Payout[]) {
