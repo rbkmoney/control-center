@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import values from 'lodash-es/values';
 
 import { PayoutStatus } from '../../papi/model';
+import { PayoutSearchParams } from '../../papi/params';
 
 @Injectable()
 export class SearchFormService {
@@ -12,20 +13,29 @@ export class SearchFormService {
 
     payoutStatuses: string[];
 
+    initSearchParams: PayoutSearchParams = {
+        fromTime: moment().startOf('day').utc().format(),
+        toTime: moment().endOf('day').utc().format(),
+        minAmount: 0,
+        maxAmount: 100000000000,
+        status: PayoutStatus.paid
+    };
+
     constructor(private fb: FormBuilder) {
         this.form = this.prepareForm();
         this.payoutStatuses = values(PayoutStatus);
     }
 
     private prepareForm(): FormGroup {
+        const {status, fromTime, toTime, minAmount, maxAmount} = this.initSearchParams;
         return this.fb.group({
+            status,
+            fromTime,
+            toTime,
             payoutIds: '',
-            status: '',
-            fromTime: moment().subtract(1, 'weeks').utc().toDate(),
-            toTime: moment().add(1, 'days').utc().toDate(),
             currencyCode: '',
-            minAmount: [0, [Validators.required, Validators.min(0)]],
-            maxAmount: [1000, [Validators.required, Validators.min(0)]]
+            minAmount: [minAmount / 100, [Validators.required, Validators.min(0)]],
+            maxAmount: [maxAmount / 100, [Validators.required, Validators.min(0)]]
         });
     }
 }
