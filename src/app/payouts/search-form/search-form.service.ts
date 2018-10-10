@@ -29,10 +29,10 @@ export class SearchFormService {
     private prepareForm(): FormGroup {
         const {status, fromTime, toTime, minAmount, maxAmount} = this.initSearchParams;
         return this.fb.group({
+            status,
+            fromTime,
+            toTime,
             payoutIds: '',
-            status: status,
-            fromTime: fromTime,
-            toTime: toTime,
             currencyCode: '',
             minAmount: [minAmount / 100, [Validators.required, Validators.min(0)]],
             maxAmount: [maxAmount / 100, [Validators.required, Validators.min(0)]]
