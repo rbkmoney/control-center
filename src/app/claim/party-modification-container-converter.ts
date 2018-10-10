@@ -10,6 +10,7 @@ import {
     ShopModificationName,
     UnitContainerType
 } from './model';
+import { ModificationUnitContainer } from './model/modification-unit-container';
 
 const toContractContainers = (modification: ContractModificationUnit[]): PartyModificationContainer[] => {
     const grouped = groupBy(modification, (item: ContractModificationUnit) => {
@@ -43,7 +44,7 @@ const toContractContainers = (modification: ContractModificationUnit[]): PartyMo
     });
     return map(grouped, (modifications, name: ContractModificationName) => ({
         name,
-        modifications
+        unitContainers: toUnitContainers(modifications)
     }));
 };
 
@@ -87,9 +88,12 @@ const toShopContainer = (modification: ShopModificationUnit[]): PartyModificatio
     });
     return map(grouped, (modifications, name: ShopModificationName) => ({
         name,
-        modifications
+        unitContainers: toUnitContainers(modifications)
     }));
 };
+
+const toUnitContainers = (modifications, saved = true): ModificationUnitContainer[] =>
+    map(modifications, (modification) => ({modificationUnit: modification, saved}));
 
 const toShopPartyModificationUnit = (shopUnits: PartyModification[]): PartyModificationUnit[] => {
     const grouped = groupBy(shopUnits, (item) => item.shopModification.id);
@@ -136,4 +140,9 @@ export const convert = (modificationUnits: PartyModification[]): PartyModificati
                 };
         }
     });
+};
+
+export const toModificationUnitContainer = (modification: PartyModification, saved = true): ModificationUnitContainer => {
+    ({saved, modificationUnit:  } as ModificationUnitContainer)
+    return null;
 };

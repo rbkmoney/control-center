@@ -8,7 +8,9 @@ import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { PartyModification } from '../damsel';
 import { ClaimInfoContainer, DomainModificationInfo } from './model';
-import { convert } from './party-modification-container-converter';
+import { convert, toModificationUnitContainer } from './party-modification-container-converter';
+import { ModificationUnitContainer } from './model/modification-unit-container';
+import { ModificationUnitContainerService } from './modification-unit-container.service';
 
 @Injectable()
 export class ClaimService {
@@ -19,13 +21,18 @@ export class ClaimService {
 
     private claimInfoContainer: ClaimInfoContainer;
 
-    constructor(private papiClaimService: ClaimPapi) {
+    private containers: ModificationUnitContainer[];
+
+    constructor(private papiClaimService: ClaimPapi,
+                private modificationUnitContainerService: ModificationUnitContainerService) {
     }
 
     resolveClaimInfo(partyID: string, claimID: string): Observable<void> {
         return this.papiClaimService.getClaim(partyID, toNumber(claimID))
             .pipe(
                 tap((claimInfo) => {
+                    claimInfo.modifications.modifications.forEach((modification) =>
+                        this.modificationUnitContainerService.addContainer(toModificationUnitContainer(modification)));
                     this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
                     const domainModificationInfo = this.toDomainModificationInfo(claimInfo);
                     this.domainModificationInfo$.next(domainModificationInfo);
@@ -33,6 +40,13 @@ export class ClaimService {
                 }),
                 map(() => null)
             );
+    }
+
+    addChange(modification: PartyModification) {
+        console.log(modification);
+        // console.log(convert([modification]));
+        // console.log(this.claimInfoContainer);
+        // this.createChange(modification).subscribe();
     }
 
     createChange(modification: PartyModification): Observable<void> {
@@ -86,7 +100,8 @@ export class ClaimService {
     private toClaimInfoContainer(claimInfo: ClaimInfo): ClaimInfoContainer {
         const modifications = claimInfo.modifications.modifications;
         const {claimId, partyId, revision, status, reason, createdAt, updatedAt} = claimInfo;
-        const partyModificationUnitContainers = convert(modifications);
+        // const partyModificationUnitContainers = convert(modifications);
+        // console.log(partyModificationUnitContainers);
         const extractedIds = this.extractIds(modifications);
         return {
             claimId,
@@ -96,7 +111,7 @@ export class ClaimService {
             reason,
             createdAt,
             updatedAt,
-            partyModificationUnitContainers,
+            // partyModificationUnitContainers,
             extractedIds
         };
     }

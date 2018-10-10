@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { PartyModificationContainer, UnitContainerType } from '../model';
-import { ContractModificationUnit, ShopModificationUnit } from '../../damsel';
+import { ModificationUnitContainer } from '../model/modification-unit-container';
 
 @Component({
     selector: 'cc-party-modification-container',
@@ -15,11 +15,15 @@ export class PartyModificationContainerComponent implements OnInit {
     @Input()
     type: UnitContainerType;
 
-    modifications: ContractModificationUnit[] | ShopModificationUnit[];
+    modifications: ModificationUnitContainer[];
 
     ngOnInit() {
-        this.modifications = this.container.modifications
+        this.modifications = this.container.unitContainers
             .slice()
             .reverse();
+    }
+
+    remove(unit: ModificationUnitContainer) {
+        console.log('remove candidat', unit);
     }
 }

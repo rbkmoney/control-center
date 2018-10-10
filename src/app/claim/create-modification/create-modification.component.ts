@@ -68,6 +68,18 @@ export class CreateModificationComponent implements OnInit {
 
     }
 
+    add() {
+        switch (this.action.type) {
+            case ActionType.shopAction:
+            case ActionType.contractAction:
+                this.addChange();
+                break;
+            case ActionType.domainAction:
+                this.createTerminal();
+                break;
+        }
+    }
+
     getContainerType(type: ActionType): string {
         switch (type) {
             case ActionType.shopAction:
@@ -92,6 +104,11 @@ export class CreateModificationComponent implements OnInit {
         this.isLoading = true;
         this.claimService.createChange(this.values as PartyModification)
             .subscribe(() => this.success(), (e) => this.failed(e));
+    }
+
+    private addChange() {
+        this.isLoading = true;
+        this.claimService.addChange(this.values as PartyModification);
     }
 
     private createTerminal() {

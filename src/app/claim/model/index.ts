@@ -6,3 +6,4 @@ export * from './shop-modification-name';
 export * from './domain-modification-info';
 export * from './party-modification-unit-container';
 export * from './unit-container-type';
+export * from './modification-unit-container';
