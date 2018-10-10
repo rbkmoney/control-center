@@ -27,14 +27,15 @@ export class SearchFormService {
     }
 
     private prepareForm(): FormGroup {
+        const {status, fromTime, toTime, minAmount, maxAmount} = this.initSearchParams;
         return this.fb.group({
             payoutIds: '',
-            status: this.initSearchParams.status,
-            fromTime: this.initSearchParams.fromTime,
-            toTime: this.initSearchParams.toTime,
+            status: status,
+            fromTime: fromTime,
+            toTime: toTime,
             currencyCode: '',
-            minAmount: [this.initSearchParams.minAmount / 100, [Validators.required, Validators.min(0)]],
-            maxAmount: [this.initSearchParams.maxAmount / 100, [Validators.required, Validators.min(0)]]
+            minAmount: [minAmount / 100, [Validators.required, Validators.min(0)]],
+            maxAmount: [maxAmount / 100, [Validators.required, Validators.min(0)]]
         });
     }
 }
