@@ -20,6 +20,6 @@
                 <cc-payouts-actions [selectedPayouts]="selectedPayouts"></cc-payouts-actions>
             </mat-card-content>
         </mat-card>
-        <cc-payouts-table [payouts]="payouts" (valueChanges)="tableOnChange($event)"></cc-payouts-table>
+        <cc-payouts-table [payouts]="payouts$ | async" (valueChanges)="tableOnChange($event)"></cc-payouts-table>
     </div>
 </div>
