@@ -15,7 +15,7 @@ export class SearchFormService {
 
     initSearchParams: PayoutSearchParams = {
         fromTime: moment().startOf('day').utc().format(),
-        toTime: moment().add(1, 'days').startOf('day').utc().format(),
+        toTime: moment().endOf('day').utc().format(),
         minAmount: 0,
         maxAmount: 100000000000,
         status: PayoutStatus.paid
