@@ -19,6 +19,10 @@ export class PaymentAdjustmentComponent {
 
     selectedPayments: StatPayment[] = [];
 
+    searchParams: SearchFormParams;
+
+    formValid: boolean;
+
     constructor(
         private dialogRef: MatDialog,
         private paymentAdjustmentService: PaymentAdjustmentService,
@@ -26,11 +30,19 @@ export class PaymentAdjustmentComponent {
     ) {
     }
 
+    formValueChanges(params: SearchFormParams) {
+        this.searchParams = params;
+    }
+
+    formStatusChanges(status: string) {
+        this.formValid = status === 'VALID';
+    }
+
     createAndCapturePaymentAdjustment() {
         this.dialogRef.open(CreateAndCaptureComponent, {
-            width: '720px',
+            width: '800px',
             disableClose: true,
-            data: { payments: this.selectedPayments }
+            data: this.selectedPayments
         });
     }
 
@@ -38,9 +50,9 @@ export class PaymentAdjustmentComponent {
         this.selectedPayments = e;
     }
 
-    search(params: SearchFormParams) {
+    search() {
         this.isLoading = true;
-        this.paymentAdjustmentService.fetchPayments(params).subscribe((payments) => {
+        this.paymentAdjustmentService.fetchPayments(this.searchParams).subscribe((payments) => {
             this.payments = payments || [];
         }, (e) => {
             this.payments = [];
@@ -50,10 +62,5 @@ export class PaymentAdjustmentComponent {
             this.selectedPayments = [];
             this.isLoading = false;
         });
-    }
-
-    change() {
-        this.payments = [];
-        this.selectedPayments = [];
     }
 }

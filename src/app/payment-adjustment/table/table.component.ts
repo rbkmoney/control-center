@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { Payment } from '../../papi/model';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { StatPayment } from '../../gen-damsel/merch_stat';
 
 @Component({
     selector: 'cc-payment-adjustment-table',
@@ -12,14 +12,14 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 export class TableComponent implements OnInit, OnChanges {
 
     @Input()
-    payments: Payment[];
+    payments: StatPayment[];
 
-    dataSource: MatTableDataSource<Payment>;
+    dataSource: MatTableDataSource<StatPayment>;
 
     @Output()
-    changeSelected: EventEmitter<Payment[]> = new EventEmitter();
+    changeSelected: EventEmitter<StatPayment[]> = new EventEmitter();
 
-    selection = new SelectionModel<Payment>(true, []);
+    selection = new SelectionModel<StatPayment>(true, []);
 
     @ViewChild(MatPaginator)
     paginator: MatPaginator;

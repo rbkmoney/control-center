@@ -1,18 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 
 import { SearchFormParams } from './search-form-params';
-
-const initFormValues = {
-    fromTime: moment().subtract(1, 'months').utc().toDate(),
-    toTime: moment().add(1, 'days').utc().toDate(),
-    partyId: '',
-    invoicesIds: '',
-    fromRevision: '',
-    toRevision: '',
-    status: 'captured'
-};
 
 @Injectable()
 export class SearchFormService {
@@ -23,10 +13,11 @@ export class SearchFormService {
         this.form = this.prepareForm();
     }
 
-    formValueToSearchParams = ({fromTime, toTime, partyId, invoicesIds, fromRevision, toRevision, status} = this.form.value): SearchFormParams => {
+    formValueToSearchParams(value: any): SearchFormParams {
+        const {fromTime, toTime, partyId, invoicesIds, fromRevision, toRevision, status} = value;
         return {
             fromTime: moment(fromTime).startOf('day').utc().format(),
-            toTime: moment(toTime).startOf('day').utc().format(),
+            toTime: moment(toTime).endOf('day').utc().format(),
             partyId,
             invoicesIds: invoicesIds ? invoicesIds.split(',').map((part) => part.trim()) : null,
             fromRevision,
@@ -36,6 +27,15 @@ export class SearchFormService {
     }
 
     private prepareForm(): FormGroup {
-        return this.fb.group(initFormValues);
+        const defaultDate = [moment().utc().format(), Validators.required];
+        return this.fb.group({
+            fromTime: defaultDate,
+            toTime: defaultDate,
+            partyId: '',
+            invoicesIds: '',
+            fromRevision: [0, Validators.required],
+            toRevision: [10, Validators.required],
+            status: 'captured'
+        });
     }
 }

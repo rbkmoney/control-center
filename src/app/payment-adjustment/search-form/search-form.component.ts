@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
@@ -11,14 +11,11 @@ import { SearchFormParams } from './search-form-params';
 })
 export class SearchFormComponent implements OnInit {
 
-    @Input()
-    isLoading: boolean;
+    @Output()
+    valueChanges: EventEmitter<SearchFormParams> = new EventEmitter();
 
     @Output()
-    search: EventEmitter<SearchFormParams> = new EventEmitter();
-
-    @Output()
-    change: EventEmitter<SearchFormParams> = new EventEmitter();
+    statusChanges: EventEmitter<string> = new EventEmitter();
 
     form: FormGroup;
 
@@ -30,10 +27,7 @@ export class SearchFormComponent implements OnInit {
     ngOnInit() {
         const {form, formValueToSearchParams} = this.searchFormService;
         this.form = form;
-        this.form.valueChanges.subscribe(() => this.change.emit(formValueToSearchParams(this.form.value)));
-    }
-
-    searchPayments() {
-        this.search.emit(this.searchFormService.formValueToSearchParams(this.form.value));
+        this.form.valueChanges.subscribe((value) => this.valueChanges.emit(formValueToSearchParams(value)));
+        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
     }
 }

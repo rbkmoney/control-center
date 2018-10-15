@@ -8,6 +8,7 @@ import {
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatListModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatSelectModule,
@@ -49,6 +50,7 @@ import { ThriftModule } from '../thrift/thrift.module';
         MatTooltipModule,
         MatPaginatorModule,
         MatStepperModule,
+        MatListModule,
         PapiModule,
         ThriftModule,
         MatSelectModule

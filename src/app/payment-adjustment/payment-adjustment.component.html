@@ -8,8 +8,16 @@
                 </div>
             </mat-card-subtitle>
             <mat-card-content>
-                <cc-payment-adjustment-search-form [isLoading]="isLoading" (search)="search($event)" (change)="change()"></cc-payment-adjustment-search-form>
+                <cc-payment-adjustment-search-form
+                        (valueChanges)="formValueChanges($event)"
+                        (statusChanges)="formStatusChanges($event)">
+                </cc-payment-adjustment-search-form>
             </mat-card-content>
+            <mat-card-actions>
+                <button mat-button color="primary" [disabled]="!formValid || isLoading" (click)="search()">
+                    SEARCH
+                </button>
+            </mat-card-actions>
             <mat-card-footer *ngIf="isLoading">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </mat-card-footer>

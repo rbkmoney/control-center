@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 import { ReportService } from '../papi/report.service';
@@ -25,15 +25,16 @@ export class PaymentAdjustmentService {
     }
 
     private getPayments(params: SearchFormParams, continuationToken?: string): Observable<StatResponse> {
-        const {fromRevision, partyId, fromTime, toTime, status} = params;
+        const {fromRevision, toRevision, partyId, fromTime, toTime, status} = params;
         return this.merchantStatisticsService.getPayments({
             dsl: JSON.stringify({
                 query: {
                     payments: {
-                        ...(partyId ? { merchant_id: partyId } : {}),
+                        ...(partyId ? {merchant_id: partyId} : {}),
                         from_time: fromTime,
                         to_time: toTime,
-                        ...(fromRevision ? {payment_domain_revision: fromRevision} : {}),
+                        from_payment_domain_revision: fromRevision,
+                        to_payment_domain_revision: toRevision,
                         ...(status ? {payment_status: status} : {})
                     }
                 }

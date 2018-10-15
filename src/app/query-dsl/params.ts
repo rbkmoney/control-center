@@ -4,4 +4,6 @@ export interface Params {
     from_time?: string;
     to_time?: string;
     split_interval?: string;
+    from_payment_domain_revision?: string;
+    to_payment_domain_revision?: string;
 }
