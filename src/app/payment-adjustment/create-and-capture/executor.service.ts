@@ -13,6 +13,12 @@ export interface ExecResult {
     container: ExecContainer;
 }
 
+export interface ExecContainer {
+    fn: (...args: any[]) => Observable<any>;
+    context: any;
+    params: object;
+}
+
 export interface ExecSuccessResult extends ExecResult {
     data: any;
 }
@@ -21,31 +27,25 @@ export interface ExecErrorResult extends ExecResult {
     exception: any;
 }
 
-export interface ExecContainer {
-    name: string;
-    fn: (...args: any[]) => Observable<any>;
-    context: any;
-    args: any[];
-}
-
 @Injectable()
 export class ExecutorService {
 
     progress$: Subject<number> = new Subject();
 
     exec(containers: ExecContainer[], execCount = 4): Observable<ExecResult[]> {
-        const queue = containers.slice();
+        const containerQueue = containers.slice();
         this.updateProgress(containers.length, 0);
         const executor = (results: ExecResult[] = []) => {
-            const execContainer = queue.pop();
-            this.updateProgress(containers.length, containers.length - queue.length - execCount);
-            if (execContainer) {
-                const {fn, context, args} = execContainer;
+            const container = containerQueue.pop();
+            this.updateProgress(containers.length, containers.length - containerQueue.length - execCount);
+            if (container) {
+                const {fn, context, params} = container;
+                const args = Object.entries(params).map((e) => e.length > 0 ? e[1] : null);
                 return fn.apply(context, args).pipe(
-                    catchError((ex) => of({
+                    catchError((exception) => of({
                         type: ExecResultType.error,
-                        container: execContainer,
-                        exception: ex
+                        container,
+                        exception
                     })),
                     switchMap((nextRes: any) => {
                         if (nextRes && nextRes.type === ExecResultType.error) {
@@ -53,7 +53,7 @@ export class ExecutorService {
                         }
                         return executor([...results, {
                             type: ExecResultType.success,
-                            container: execContainer,
+                            container,
                             data: nextRes
                         } as ExecSuccessResult]);
                     })
