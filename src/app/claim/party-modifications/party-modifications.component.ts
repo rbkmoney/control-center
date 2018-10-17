@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
-import { PartyModificationUnit, UnitContainerType } from '../model';
-import { ModificationUnitContainerService } from '../modification-unit-container.service';
+import { PartyModificationUnit, ModificationGroupType } from '../model';
+import { PersistentContainerService } from '../persistent-container.service';
+import { convert } from '../party-modification-group-converter';
 
 @Component({
     selector: 'cc-party-modifications',
@@ -16,45 +17,28 @@ export class PartyModificationsComponent implements OnInit {
     contractUnits: PartyModificationUnit[] = [];
 
     constructor(private claimService: ClaimService,
-                private modificationUnitContainerService: ModificationUnitContainerService,
+                private modificationUnitContainerService: PersistentContainerService,
                 private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
-        this.modificationUnitContainerService.containers$.subscribe((unitContainers) => {
-            // const unitContainers = container.partyModificationUnitContainers;
-            for (const unitContainer of unitContainers) {
-                switch (unitContainer.type) {
-                    case UnitContainerType.ShopUnitContainer:
-                        this.shopUnits = unitContainer.units;
+        this.modificationUnitContainerService.containers$.subscribe((persistentContainers) => {
+            const modificationGroups = convert(persistentContainers);
+            this.shopUnits = [];
+            this.contractUnits = [];
+            for (const modificationGroup of modificationGroups) {
+                switch (modificationGroup.type) {
+                    case ModificationGroupType.ShopUnitContainer:
+                        this.shopUnits = this.shopUnits.concat(modificationGroup.units);
                         break;
-                    case UnitContainerType.ContractUnitContainer:
-                        this.contractUnits = unitContainer.units;
+                    case ModificationGroupType.ContractUnitContainer:
+                        this.contractUnits = this.contractUnits.concat(modificationGroup.units);
                         break;
-                    case UnitContainerType.unknown:
+                    case ModificationGroupType.unknown:
                         this.snackBar.open('Detected unknown party modification unit', 'OK');
                         break;
                 }
             }
         });
-        // this.claimService.claimInfoContainer$.subscribe((container) => {
-        //     if (!container) {
-        //         return;
-        //     }
-        //     const unitContainers = container.partyModificationUnitContainers;
-        //     for (const unitContainer of unitContainers) {
-        //         switch (unitContainer.type) {
-        //             case UnitContainerType.ShopUnitContainer:
-        //                 this.shopUnits = unitContainer.units;
-        //                 break;
-        //             case UnitContainerType.ContractUnitContainer:
-        //                 this.contractUnits = unitContainer.units;
-        //                 break;
-        //             case UnitContainerType.unknown:
-        //                 this.snackBar.open('Detected unknown party modification unit', 'OK');
-        //                 break;
-        //         }
-        //     }
-        // });
     }
 }

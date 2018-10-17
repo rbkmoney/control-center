@@ -1,4 +1,4 @@
-export enum UnitContainerType {
+export enum ModificationGroupType {
     ShopUnitContainer = 'ShopUnitContainer',
     ContractUnitContainer = 'ContractUnitContainer',
     unknown = 'unknown'

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { PartyModificationContainer, UnitContainerType } from '../model';
-import { ModificationUnitContainer } from '../model/modification-unit-container';
+import { PartyModificationContainer, ModificationGroupType, ModificationUnitContainer } from '../model';
+import { PersistentContainerService } from '../persistent-container.service';
 
 @Component({
     selector: 'cc-party-modification-container',
@@ -13,9 +13,12 @@ export class PartyModificationContainerComponent implements OnInit {
     container: PartyModificationContainer;
 
     @Input()
-    type: UnitContainerType;
+    type: ModificationGroupType;
 
     modifications: ModificationUnitContainer[];
+
+    constructor(private persistentContainerService: PersistentContainerService) {
+    }
 
     ngOnInit() {
         this.modifications = this.container.unitContainers
@@ -23,7 +26,7 @@ export class PartyModificationContainerComponent implements OnInit {
             .reverse();
     }
 
-    remove(unit: ModificationUnitContainer) {
-        console.log('remove candidat', unit);
+    remove(typeHash: string) {
+        this.persistentContainerService.removeContainer(typeHash);
     }
 }

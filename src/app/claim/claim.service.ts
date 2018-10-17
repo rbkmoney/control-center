@@ -7,10 +7,8 @@ import toNumber from 'lodash-es/toNumber';
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { PartyModification } from '../damsel';
-import { ClaimInfoContainer, DomainModificationInfo } from './model';
-import { convert, toModificationUnitContainer } from './party-modification-container-converter';
-import { ModificationUnitContainer } from './model/modification-unit-container';
-import { ModificationUnitContainerService } from './modification-unit-container.service';
+import { ClaimInfoContainer, DomainModificationInfo, ModificationUnitContainer } from './model';
+import { PersistentContainerService } from './persistent-container.service';
 
 @Injectable()
 export class ClaimService {
@@ -24,7 +22,7 @@ export class ClaimService {
     private containers: ModificationUnitContainer[];
 
     constructor(private papiClaimService: ClaimPapi,
-                private modificationUnitContainerService: ModificationUnitContainerService) {
+                private persistentContainerService: PersistentContainerService) {
     }
 
     resolveClaimInfo(partyID: string, claimID: string): Observable<void> {
@@ -32,7 +30,7 @@ export class ClaimService {
             .pipe(
                 tap((claimInfo) => {
                     claimInfo.modifications.modifications.forEach((modification) =>
-                        this.modificationUnitContainerService.addContainer(toModificationUnitContainer(modification)));
+                        this.persistentContainerService.addContainer(modification));
                     this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
                     const domainModificationInfo = this.toDomainModificationInfo(claimInfo);
                     this.domainModificationInfo$.next(domainModificationInfo);
@@ -43,10 +41,7 @@ export class ClaimService {
     }
 
     addChange(modification: PartyModification) {
-        console.log(modification);
-        // console.log(convert([modification]));
-        // console.log(this.claimInfoContainer);
-        // this.createChange(modification).subscribe();
+        this.persistentContainerService.addContainer(modification, false);
     }
 
     createChange(modification: PartyModification): Observable<void> {

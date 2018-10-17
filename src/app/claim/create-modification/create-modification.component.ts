@@ -4,11 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
-import { DomainModificationInfo, UnitContainerType } from '../model';
+import { DomainModificationInfo, ModificationGroupType } from '../model';
 import { PartyModification } from '../../damsel/payment-processing';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
 import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
+import { PersistentContainerService } from '../persistent-container.service';
 
 @Component({
     templateUrl: 'create-modification.component.html'
@@ -33,7 +34,8 @@ export class CreateModificationComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
         private snackBar: MatSnackBar,
         private claimService: ClaimService,
-        private domainTypedManager: DomainTypedManager) {
+        private domainTypedManager: DomainTypedManager,
+        private persistentContainerService: PersistentContainerService) {
     }
 
     ngOnInit() {
@@ -83,9 +85,9 @@ export class CreateModificationComponent implements OnInit {
     getContainerType(type: ActionType): string {
         switch (type) {
             case ActionType.shopAction:
-                return UnitContainerType.ShopUnitContainer;
+                return ModificationGroupType.ShopUnitContainer;
             case ActionType.contractAction:
-                return UnitContainerType.ContractUnitContainer;
+                return ModificationGroupType.ContractUnitContainer;
             case ActionType.domainAction:
                 return 'Domain modification';
         }
@@ -107,8 +109,8 @@ export class CreateModificationComponent implements OnInit {
     }
 
     private addChange() {
-        this.isLoading = true;
-        this.claimService.addChange(this.values as PartyModification);
+        this.persistentContainerService.addContainer(this.values as PartyModification, false);
+        this.dialogRef.close();
     }
 
     private createTerminal() {
