@@ -26,7 +26,7 @@ export class PersistentContainerService {
     }
 
     removeContainer(typeHash: string) {
-        remove(this.containers, (container: PersistentContainer) => container.typeHash === typeHash);
+        remove(this.containers, (container: PersistentContainer) => container.typeHash === typeHash && !container.saved);
         this.containers$.next(this.containers);
     }
 
