@@ -29,6 +29,10 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { PapiModule } from '../papi/papi.module';
 import { ThriftModule } from '../thrift/thrift.module';
+import { ActionItemComponent } from './create-and-capture/action-item/action-item.component';
+import { CreateActionsComponent } from './create-and-capture/create-actions/create-actions.component';
+import { CancelActionsComponent } from './create-and-capture/cancel-actions/cancel-actions.component';
+import { CaptureActionsComponent } from './create-and-capture/capture-actions/capture-actions.component';
 
 @NgModule({
     imports: [
@@ -59,12 +63,14 @@ import { ThriftModule } from '../thrift/thrift.module';
         PaymentAdjustmentComponent,
         CreateAndCaptureComponent,
         TableComponent,
-        SearchFormComponent
+        SearchFormComponent,
+        ActionItemComponent,
+        CreateActionsComponent,
+        CancelActionsComponent,
+        CaptureActionsComponent
     ],
     entryComponents: [
-        CreateAndCaptureComponent,
-        TableComponent,
-        SearchFormComponent
+        CreateAndCaptureComponent
     ],
     providers: [
         PaymentAdjustmentService

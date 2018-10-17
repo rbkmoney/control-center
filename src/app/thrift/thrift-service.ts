@@ -29,7 +29,7 @@ export class ThriftService {
                     observer.complete();
                 }
             });
-        }).pipe(timeout(5000))) as any;
+        }).pipe(timeout(10000))) as any;
     }
 
     private createThriftClient(endpoint: string, thriftService: any) {

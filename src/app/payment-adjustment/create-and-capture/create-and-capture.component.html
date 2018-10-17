@@ -11,67 +11,15 @@
                 </mat-form-field>
             </form>
             <div>
-                <button mat-raised-button color="primary" (click)="create()" [disabled]="isLoading || !form.valid">
+                <button mat-raised-button color="primary" (click)="create()" [disabled]="createStarted || !form.valid">
                     CREATE
                 </button>
             </div>
         </div>
         <div fxLayout="column" fxLayoutGap="20px">
-            <div *ngIf="creationResult.length > 0" fxLayoutAlign="end">
-                <div fxFlex>Create payment adjustment success: {{creationResult.length}} adjustments created</div>
-                <div fxFlex>
-                    <button [disabled]="isLoading" (click)="capture()" mat-stroked-button>
-                        CAPTURE
-                    </button>
-                </div>
-            </div>
-            <div *ngIf="failedPending.length > 0" fxLayout fxLayoutAlign="end">
-                <label class="mat-subheading-2" fxFlex="80">Create adjustment failed: {{failedPending.length}} payment(s) has pending adjustment</label>
-                <div fxFlex="20">
-                    <button mat-button [disabled]="isLoading" (click)="cancelPending()">
-                        CANCEL PENDING
-                    </button>
-                </div>
-                <mat-divider></mat-divider>
-            </div>
-            <div *ngIf="internalError.length > 0" fxLayout fxLayoutAlign="space-between">
-                <div fxFlex>Create payment adjustment failed: {{internalError.length}} requests failed with 5xx</div>
-                <div fxFlex>
-                    <button [disabled]="isLoading" (click)="retryFailedInternal()" mat-stroked-button>
-                        RETRY
-                    </button>
-                </div>
-            </div>
-            <div *ngIf="cancelledAdjustmentParams.length > 0" fxLayoutAlign="space-between">
-                <div fxFlex>Cancel payment adjustment success: {{cancelledAdjustmentParams.length}} adjustment
-                    cancelled
-                </div>
-                <div fxFlex>
-                    <button [disabled]="isLoading" (click)="recreateCancelled()" mat-stroked-button>
-                        RECREATE PAYMENT ADJUSTMENT
-                    </button>
-                </div>
-            </div>
-            <div *ngIf="cancelPaymentAdjustmentInternalError.length > 0" fxLayoutAlign="space-between">
-                <div fxFlex>Cancel payment adjustment failed: {{cancelPaymentAdjustmentInternalError.length}} requests
-                    failed with 5xx
-                </div>
-                <div fxFlex>
-                    <button [disabled]="isLoading" (click)="retryCancelFailedWithInternalError()" mat-stroked-button>
-                        RETRY
-                    </button>
-                </div>
-            </div>
-            <div *ngIf="capturePaymentAdjustmentInternalError.length > 0" fxLayoutAlign="space-between">
-                <div fxFlex>Capture payment adjustment failed: {{capturePaymentAdjustmentInternalError.length}} requests
-                    failed with 5xx
-                </div>
-                <div fxFlex>
-                    <button [disabled]="isLoading" (click)="retryCaptureFailedWithInternalError()" mat-stroked-button>
-                        RETRY
-                    </button>
-                </div>
-            </div>
+            <cc-create-actions (inProcess)="toggleIsLoading($event)"></cc-create-actions>
+            <cc-cancel-actions [adjustmentParams]="adjustmentParams" (inProcess)="toggleIsLoading($event)"></cc-cancel-actions>
+            <cc-capture-actions (captured)="captured($event)" (inProcess)="toggleIsLoading($event)"></cc-capture-actions>
         </div>
     </div>
 </mat-dialog-content>

@@ -2,22 +2,15 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import groupBy from 'lodash-es/groupBy';
 import { KeycloakService } from 'keycloak-angular';
 
-import { UserInfo } from '../../gen-damsel/payment_processing';
+import { InvoicePaymentAdjustmentParams, UserInfo } from '../../gen-damsel/payment_processing';
 import { StatPayment } from '../../gen-damsel/merch_stat';
 import { ExecutorService } from './executor.service';
 import {
     CreateAdjustmentService,
     CancelAdjustmentService,
     CaptureAdjustmentService,
-    AdjustmentOperationEvent,
-    EventType,
-    OperationFailedPayload,
-    PaymentAdjustmentCancelParams,
-    PaymentAdjustmentCaptureParams,
-    PaymentAdjustmentCreationScope,
     BatchPaymentAdjustmentService
 } from './adjustment-operations';
 
@@ -42,14 +35,9 @@ export class CreateAndCaptureComponent implements OnInit {
 
     progress$: Subject<number>;
 
-    creationResult: PaymentAdjustmentCreationScope[] = [];
-    failedPending: OperationFailedPayload<string, PaymentAdjustmentCreationScope>[] = [];
-    internalError: OperationFailedPayload<string, PaymentAdjustmentCreationScope>[] = [];
+    createStarted = false;
 
-    cancelledAdjustmentParams: PaymentAdjustmentCancelParams[] = [];
-    cancelPaymentAdjustmentInternalError: OperationFailedPayload<string, PaymentAdjustmentCancelParams>[] = [];
-
-    capturePaymentAdjustmentInternalError: OperationFailedPayload<string, PaymentAdjustmentCaptureParams>[] = [];
+    adjustmentParams: InvoicePaymentAdjustmentParams;
 
     constructor(private dialogRef: MatDialogRef<CreateAndCaptureComponent>,
                 private dialog: MatDialog,
@@ -67,129 +55,33 @@ export class CreateAndCaptureComponent implements OnInit {
             reason: ['', Validators.required]
         });
         this.progress$ = this.batchAdjustmentService.progress$;
-        this.batchAdjustmentService.events$.subscribe((event) => {
-            switch (event.type) {
-                case EventType.PaymentAdjustmentsCreated:
-                    this.creationResult = this.creationResult.concat((event as AdjustmentOperationEvent<PaymentAdjustmentCreationScope>).payload);
-                    break;
-                case EventType.CreatePaymentAdjustmentFailed:
-                    const infoGroup = groupBy<any>(event.payload, 'code');
-                    const pending = infoGroup['InvoicePaymentAdjustmentPending'];
-                    if (pending) {
-                        this.failedPending = this.failedPending.concat(pending);
-                    }
-                    const internal = infoGroup['InternalServer'];
-                    if (internal) {
-                        this.internalError = this.internalError.concat(internal);
-                    }
-                    break;
-                case EventType.PaymentAdjustmentsCancelled:
-                    this.cancelledAdjustmentParams = this.cancelledAdjustmentParams
-                        .concat((event as AdjustmentOperationEvent<PaymentAdjustmentCancelParams>).payload);
-                    break;
-                case EventType.CancelPaymentAdjustmentFailed:
-                    const cancelPaymentAdjustmentFailedGroup = groupBy<any>(event.payload, 'code');
-                    const cancelPaymentAdjustmentInternalError = cancelPaymentAdjustmentFailedGroup['InternalServer'];
-                    if (cancelPaymentAdjustmentInternalError) {
-                        this.cancelPaymentAdjustmentInternalError = this.cancelPaymentAdjustmentInternalError.concat(cancelPaymentAdjustmentInternalError);
-                    }
-                    break;
-                case EventType.CapturePaymentAdjustmentFailed:
-                    const capturePaymentAdjustmentFailedGroup = groupBy<any>(event.payload, 'code');
-                    const capturePaymentAdjustmentInternalError = capturePaymentAdjustmentFailedGroup['InternalServer'];
-                    if (capturePaymentAdjustmentInternalError) {
-                        this.capturePaymentAdjustmentInternalError = this.capturePaymentAdjustmentInternalError.concat(capturePaymentAdjustmentInternalError);
-                    }
-                    break;
-            }
-        });
+    }
+
+    toggleIsLoading(inProcess) {
+        this.isLoading = inProcess;
     }
 
     create() {
         const {value: {revision, reason}} = this.form;
-        const params = {domainRevision: revision, reason};
-        this.isLoading = true;
-        const user = this.getUser();
+        this.adjustmentParams = {domainRevision: revision, reason};
+        this.createStarted = true;
+        this.form.disable();
         const createParams = this.payments.map(({invoiceId, id}) => ({
-            user,
+            user: this.getUser(),
             invoiceId,
             paymentId: id,
-            params
+            params: this.adjustmentParams
         }));
-        this.batchAdjustmentService.create(createParams).subscribe(() => {
-            this.isLoading = false;
+        this.batchAdjustmentService.create(createParams).subscribe(null, () => {
+            this.form.enable();
+            this.createStarted = false;
+            this.snackBar.open('An error occurred while adjustments creating');
         });
     }
 
-    recreateCancelled() {
-        const {value: {revision, reason}} = this.form;
-        const params = {domainRevision: revision, reason};
-        this.isLoading = true;
-        const createParams = this.cancelledAdjustmentParams.map(({user, invoiceId, paymentId}) => ({
-            user,
-            invoiceId,
-            paymentId,
-            params
-        }));
-        this.cancelledAdjustmentParams = [];
-        this.batchAdjustmentService.create(createParams).subscribe(() => {
-            this.isLoading = false;
-        });
-    }
-
-    cancelPending() {
-        this.isLoading = true;
-        const cancelParams = this.failedPending.map(({operationScope: {creationParams, adjustmentId}}) => ({
-            user: creationParams.user,
-            invoiceId: creationParams.invoiceId,
-            paymentId: creationParams.paymentId,
-            adjustmentId
-        }));
-        this.failedPending = [];
-        this.batchAdjustmentService.cancel(cancelParams).subscribe(() => {
-            this.isLoading = false;
-        });
-    }
-
-    retryFailedInternal() {
-        this.isLoading = true;
-        const createParams = this.internalError.map((item) => item.operationScope.creationParams);
-        this.internalError = [];
-        this.batchAdjustmentService.create(createParams).subscribe(() => {
-            this.isLoading = false;
-        });
-    }
-
-    retryCancelFailedWithInternalError() {
-        this.isLoading = true;
-        const cancelParams = this.cancelPaymentAdjustmentInternalError.map(({operationScope}) => operationScope);
-        this.cancelPaymentAdjustmentInternalError = [];
-        this.batchAdjustmentService.cancel(cancelParams).subscribe(() => {
-            this.isLoading = false;
-        });
-    }
-
-    capture() {
-        const captureParams = this.creationResult.map(({adjustmentId, creationParams}) => ({
-            user: creationParams.user,
-            invoiceId: creationParams.invoiceId,
-            paymentId: creationParams.paymentId,
-            adjustmentId
-        }));
-        this.isLoading = true;
-        this.creationResult = [];
-        this.batchAdjustmentService.capture(captureParams).subscribe(() => {
-            this.isLoading = false;
-        });
-    }
-
-    retryCaptureFailedWithInternalError() {
-        this.isLoading = true;
-        const captureParams = this.capturePaymentAdjustmentInternalError.map(({operationScope}) => operationScope);
-        this.capturePaymentAdjustmentInternalError = [];
-        this.batchAdjustmentService.capture(captureParams).subscribe(() => {
-            this.isLoading = false;
-        });
+    captured(count) {
+        this.snackBar.open(`${count} payment(s) successfully captured`, 'OK', {duration: 3000});
+        this.dialogRef.close();
     }
 
     private getUser(): UserInfo {

@@ -1,0 +1,36 @@
+<cc-action-item
+        *ngIf="cancelResult.length > 0"
+        description="Cancel adjustment success: {{cancelResult.length}} adjustment(s) cancelled"
+        hasAction="true"
+        actionButtonLabel="recreate"
+        [actionDisabled]="inProcess | async"
+        (action)="recreate()">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedInternal.length > 0"
+        description="Cancel adjustment failed: {{failedInternal.length}} operations(s) failed with 5xx"
+        hasAction="true"
+        actionButtonLabel="retry"
+        [actionDisabled]="inProcess | async"
+        (action)="retry()">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedInvalidStatus.length > 0"
+        description="Cancel adjustment failed: {{failedInvalidStatus.length}} payment(s) has invalid payment adjustment status">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedAdjustmentNotFound.length > 0"
+        description="Cancel adjustment failed: for {{failedAdjustmentNotFound.length}} payment(s) adjustment not found">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedInvoiceNotFound.length > 0"
+        description="Cancel adjustment failed: for {{failedInvoiceNotFound.length}} payment(s) invoice not found">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedInvalidUser.length > 0"
+        description="Cancel adjustment failed: for {{failedInvalidUser.length}} payment(s) invalid user">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedInvoicePaymentNotFound.length > 0"
+        description="Cancel adjustment failed: for {{failedInvoicePaymentNotFound.length}} payment(s) invoice payment not found">
+</cc-action-item>
