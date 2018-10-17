@@ -2,13 +2,9 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import remove from 'lodash-es/remove';
 
-import { ModificationGroupType, PersistentContainer } from './model';
+import { PersistentContainer } from './model';
 import { PartyModification } from '../damsel/payment-processing';
-import {
-    getModificationGroupType, getmodificationType,
-    toContractModificationName,
-    toShopModificationName
-} from './party-modification-group-converter';
+import { getmodificationType, toContractModificationName, toShopModificationName } from './party-modification-group-converter';
 import { UnitName } from '../party-modification-creation/unit-name';
 
 @Injectable()

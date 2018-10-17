@@ -7,7 +7,7 @@ import toNumber from 'lodash-es/toNumber';
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { PartyModification } from '../damsel';
-import { ClaimInfoContainer, DomainModificationInfo, ModificationUnitContainer } from './model';
+import { ClaimInfoContainer, DomainModificationInfo } from './model';
 import { PersistentContainerService } from './persistent-container.service';
 
 @Injectable()
@@ -18,8 +18,6 @@ export class ClaimService {
     domainModificationInfo$: Subject<DomainModificationInfo> = new BehaviorSubject(null);
 
     private claimInfoContainer: ClaimInfoContainer;
-
-    private containers: ModificationUnitContainer[];
 
     constructor(private papiClaimService: ClaimPapi,
                 private persistentContainerService: PersistentContainerService) {
