@@ -57,19 +57,6 @@ export class CreateModificationComponent implements OnInit {
         this.valid.next(status === 'VALID');
     }
 
-    create() {
-        switch (this.action.type) {
-            case ActionType.shopAction:
-            case ActionType.contractAction:
-                this.createChange();
-                break;
-            case ActionType.domainAction:
-                this.createTerminal();
-                break;
-        }
-
-    }
-
     add() {
         switch (this.action.type) {
             case ActionType.shopAction:
@@ -100,12 +87,6 @@ export class CreateModificationComponent implements OnInit {
             case ActionType.contractAction:
                 return PartyTarget.contract;
         }
-    }
-
-    private createChange() {
-        this.isLoading = true;
-        this.claimService.createChange(this.values as PartyModification)
-            .subscribe(() => this.success(), (e) => this.failed(e));
     }
 
     private addChange() {

@@ -31,11 +31,6 @@
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
     <div>
-        <!--<button mat-button-->
-                <!--[disabled]="isLoading || !(valid | async)"-->
-                <!--color="primary"-->
-                <!--(click)="create()">CREATE-->
-        <!--</button>-->
         <button mat-button
                 [disabled]="isLoading || !(valid | async)"
                 color="primary"
@@ -43,5 +38,4 @@
         </button>
         <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
     </div>
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 </mat-dialog-actions>

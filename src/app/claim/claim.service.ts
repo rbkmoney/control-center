@@ -38,18 +38,14 @@ export class ClaimService {
             );
     }
 
-    addChange(modification: PartyModification) {
-        this.persistentContainerService.addContainer(modification, false);
-    }
-
-    createChange(modification: PartyModification): Observable<void> {
+    createChange(modifications: PartyModification[]): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
-        const unit = this.toModificationUnit(modification);
+        const units = this.toModificationUnits(modifications);
         return this.papiClaimService.getClaim(partyId, claimId)
             .pipe(
                 switchMap((claimInfo) =>
                     this.papiClaimService
-                        .updateClaim(partyId, claimId, claimInfo.revision, unit)
+                        .updateClaim(partyId, claimId, claimInfo.revision, units)
                         .pipe(map(() => claimInfo.revision))),
                 switchMap((revision) =>
                     this.pollClaimChange(revision))
@@ -82,19 +78,17 @@ export class ClaimService {
             );
     }
 
-    private toModificationUnit(modification: PartyModification): PartyModificationUnit {
+    private toModificationUnits(modifications: PartyModification[]): PartyModificationUnit {
         const result = {
             modifications: []
         };
-        result.modifications.push(modification);
+        result.modifications = result.modifications.concat(modifications);
         return result;
     }
 
     private toClaimInfoContainer(claimInfo: ClaimInfo): ClaimInfoContainer {
         const modifications = claimInfo.modifications.modifications;
         const {claimId, partyId, revision, status, reason, createdAt, updatedAt} = claimInfo;
-        // const partyModificationUnitContainers = convert(modifications);
-        // console.log(partyModificationUnitContainers);
         const extractedIds = this.extractIds(modifications);
         return {
             claimId,
@@ -104,7 +98,6 @@ export class ClaimService {
             reason,
             createdAt,
             updatedAt,
-            // partyModificationUnitContainers,
             extractedIds
         };
     }
@@ -155,6 +148,8 @@ export class ClaimService {
                     if (!isEqual(newPair, currentPair)) {
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
                         this.claimInfoContainer$.next(this.claimInfoContainer);
+                        claimInfo.modifications.modifications.forEach((modification) =>
+                        this.persistentContainerService.addContainer(modification));
                         observer.next();
                         observer.complete();
                     }

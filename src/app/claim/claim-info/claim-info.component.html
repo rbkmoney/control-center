@@ -11,6 +11,10 @@
                     [disabled]="claimInfoContainer?.status !== 'pending'"
                     (click)="createChange()">CREATE MODIFICATION
             </button>
+            <button mat-button
+                    [disabled]="isUnsavedContainersExist()"
+                    (click)="saveModifications()">SAVE MODIFICATIONS
+            </button>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
             <button mat-button
@@ -25,4 +29,7 @@
             </button>
         </div>
     </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
 </mat-card>
