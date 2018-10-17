@@ -19,7 +19,7 @@ type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCapturePara
 export class CaptureActionsComponent implements OnInit {
 
     @Output()
-    captured: EventEmitter<number> = new EventEmitter<number>();
+    captured: EventEmitter<void> = new EventEmitter<void>();
 
     @Output()
     inProcess: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -39,7 +39,7 @@ export class CaptureActionsComponent implements OnInit {
         this.batchAdjustmentService.events$.subscribe((event) => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCaptured:
-                    this.captured.emit(event.payload.length);
+                    this.captured.emit();
                     break;
                 case EventType.CapturePaymentAdjustmentFailed:
                     const infoGroup = groupBy<any>(event.payload, 'code');

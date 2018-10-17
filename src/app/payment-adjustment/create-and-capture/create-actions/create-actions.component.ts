@@ -4,10 +4,10 @@ import groupBy from 'lodash-es/groupBy';
 import forEach from 'lodash-es/forEach';
 
 import {
-    AdjustmentOperationEvent,
-    BatchPaymentAdjustmentService,
     EventType,
     OperationFailedPayload,
+    AdjustmentOperationEvent,
+    BatchPaymentAdjustmentService,
     PaymentAdjustmentCreationScope
 } from '../adjustment-operations';
 import { CreatePaymentAdjustmentErrorCodes } from '../adjustment-operations';

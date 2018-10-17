@@ -4,7 +4,6 @@
   "scripts": {
     "ng": "./node_modules/.bin/ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 7000",
-    "postinstall": "npm run thrift-ts",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

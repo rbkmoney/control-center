@@ -79,8 +79,8 @@ export class CreateAndCaptureComponent implements OnInit {
         });
     }
 
-    captured(count) {
-        this.snackBar.open(`${count} payment(s) successfully captured`, 'OK', {duration: 3000});
+    captured() {
+        this.snackBar.open(`${this.payments.length} payment(s) successfully captured`, 'OK', {duration: 3000});
         this.dialogRef.close();
     }
 

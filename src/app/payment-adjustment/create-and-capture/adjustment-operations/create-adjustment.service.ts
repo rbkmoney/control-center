@@ -40,7 +40,7 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
 
     private toSuccessPayload(result: ExecSuccessResult[]): PaymentAdjustmentCreationScope[] {
         return result.map(({data, container: {params}}) => ({
-            adjustment: data && data.id,
+            adjustmentId: data && data.id,
             creationParams: params
         } as PaymentAdjustmentCreationScope));
     }
