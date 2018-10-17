@@ -5,7 +5,8 @@ import { PersistentContainerService } from '../persistent-container.service';
 
 @Component({
     selector: 'cc-party-modification-container',
-    templateUrl: 'party-modification-container.component.html'
+    templateUrl: 'party-modification-container.component.html',
+    styleUrls: ['./party-modification-container.component.css']
 })
 export class PartyModificationContainerComponent implements OnInit {
 

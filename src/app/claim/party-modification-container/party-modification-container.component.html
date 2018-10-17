@@ -2,8 +2,10 @@
     <mat-card-subtitle>{{container.name | ccContainerName:type }}</mat-card-subtitle>
     <mat-card-content>
         <mat-tab-group>
-            <mat-tab *ngFor="let unit of modifications; let index = index"
-                     [label]="'unit ' + (index + 1)  + (unit.saved ? '' : '*')">
+            <mat-tab *ngFor="let unit of modifications; let index = index">
+                <ng-template mat-tab-label>
+                    {{'unit ' + (index + 1)}} <span>{{unit.saved ? '' : '*'}}</span>
+                </ng-template>
                 <cc-thrift-json [object]="unit.modificationUnit"></cc-thrift-json>
                 <button *ngIf="!unit.saved" mat-button (click)="remove(unit.typeHash)">REMOVE</button>
             </mat-tab>

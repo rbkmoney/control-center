@@ -98,20 +98,18 @@ const toContainer = (persistentContainers: PersistentContainer[]): PartyModifica
     }));
 };
 
-const toShopPartyModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentContainers, (item) => item.modification.shopModification.id);
+const toModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
+    const grouped = groupBy(persistentContainers, (item) => item.modification[getmodificationType(item.modification)].id);
     return map(grouped, (containers: PersistentContainer[], unitID) => ({
         unitID,
+        saved: !isHasUnsaved(containers, unitID),
         containers: toContainer(containers)
     }));
 };
 
-const toContractPartyModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentContainers, (item) => item.modification.contractModification.id);
-    return map(grouped, (containers: PersistentContainer[], unitID) => ({
-        unitID,
-        containers: toContainer(containers)
-    }));
+const isHasUnsaved = (containers: PersistentContainer[], unitID: string): boolean => {
+    return containers.filter((container) =>
+        !container.saved && container.modification[getmodificationType(container.modification)].id === unitID).length > 0;
 };
 
 export const getmodificationType = (modification: PartyModification): UnitName => {
@@ -138,14 +136,10 @@ export const convert = (persistentContainers: PersistentContainer[]): Modificati
     return map(grouped, (containers, type) => {
         switch (type) {
             case ModificationGroupType.ShopUnitContainer:
-                return {
-                    type: ModificationGroupType.ShopUnitContainer,
-                    units: toShopPartyModificationUnit(containers)
-                };
             case ModificationGroupType.ContractUnitContainer:
                 return {
-                    type: ModificationGroupType.ContractUnitContainer,
-                    units: toContractPartyModificationUnit(containers)
+                    type,
+                    units: toModificationUnit(containers)
                 };
             case ModificationGroupType.unknown:
                 return {
