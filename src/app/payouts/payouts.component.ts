@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import * as moment from 'moment';
+import { Observable } from 'rxjs';
 
-import { Payout, PayoutsResponse } from '../papi/model';
+import { Payout } from '../papi/model';
 import { PayoutsService } from './payouts.service';
 import { SearchFormService } from './search-form/search-form.service';
 import { PayoutSearchParams } from '../papi/params';
@@ -18,21 +18,18 @@ import { PayoutSearchParams } from '../papi/params';
 export class PayoutsComponent implements OnInit {
 
     isLoading: boolean;
-    payouts: Payout[];
+    payouts$: Observable<Payout[]>;
     selectedPayouts: Payout[] = [];
 
     constructor(private payoutsService: PayoutsService,
                 private snackBar: MatSnackBar,
-                private cdRef: ChangeDetectorRef) {
+                private cdRef: ChangeDetectorRef,
+                private searchFormService: SearchFormService) {
     }
 
     ngOnInit() {
-        this.getPayouts({
-            fromTime: moment().subtract(1, 'weeks').utc().format(),
-            toTime: moment().add(1, 'days').utc().format(),
-            minAmount: 0,
-            maxAmount: 1000
-        });
+        this.payouts$ = this.payoutsService.payouts$;
+        this.getPayouts(this.searchFormService.initSearchParams);
     }
 
     tableOnChange(selectedPayouts: Payout[]) {
@@ -42,9 +39,8 @@ export class PayoutsComponent implements OnInit {
 
     getPayouts(params: PayoutSearchParams) {
         this.isLoading = true;
-        return this.payoutsService.get(params).subscribe((response: PayoutsResponse) => {
+        return this.payoutsService.get(params).subscribe(() => {
             this.isLoading = false;
-            this.payouts = response.payouts;
         }, (e) => {
             this.isLoading = false;
             const message = e.message;
