@@ -84,14 +84,21 @@ export const toShopModificationName = (modification: ShopModification): ShopModi
 
 const toUnitContainers = (persistentContainers: PersistentContainer[]): ModificationUnitContainer[] =>
     map(persistentContainers, (persistentContainer) => ({
-        modificationUnit: persistentContainer.modification[getmodificationType(persistentContainer.modification)],
+        modificationUnit: persistentContainer.modification[getModificationType(persistentContainer.modification)],
         saved: persistentContainer.saved,
         typeHash: persistentContainer.typeHash
     }));
 
 const toContainer = (persistentContainers: PersistentContainer[]): PartyModificationContainer[] => {
-    const grouped = groupBy(persistentContainers, (item: PersistentContainer) =>
-        toShopModificationName(item.modification[getmodificationType(item.modification) as string].modification));
+    const grouped = groupBy(persistentContainers, (item: PersistentContainer) => {
+            switch (getModificationType(item.modification)) {
+                case UnitName.shopModification:
+                    return toShopModificationName(item.modification[getModificationType(item.modification) as string].modification);
+                case UnitName.contractModification:
+                    return toContractModificationName(item.modification[getModificationType(item.modification) as string].modification);
+            }
+        }
+    );
     return map(grouped, (modifications, name: ShopModificationName | ContractModificationName) => ({
         name,
         unitContainers: toUnitContainers(modifications)
@@ -99,7 +106,7 @@ const toContainer = (persistentContainers: PersistentContainer[]): PartyModifica
 };
 
 const toModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentContainers, (item) => item.modification[getmodificationType(item.modification)].id);
+    const grouped = groupBy(persistentContainers, (item) => item.modification[getModificationType(item.modification)].id);
     return map(grouped, (containers: PersistentContainer[], unitID) => ({
         unitID,
         saved: !isHasUnsaved(containers, unitID),
@@ -109,10 +116,10 @@ const toModificationUnit = (persistentContainers: PersistentContainer[]): PartyM
 
 const isHasUnsaved = (containers: PersistentContainer[], unitID: string): boolean => {
     return containers.filter((container) =>
-        !container.saved && container.modification[getmodificationType(container.modification)].id === unitID).length > 0;
+        !container.saved && container.modification[getModificationType(container.modification)].id === unitID).length > 0;
 };
 
-export const getmodificationType = (modification: PartyModification): UnitName => {
+export const getModificationType = (modification: PartyModification): UnitName => {
     const {contractModification, shopModification} = modification;
     if (contractModification) {
         return UnitName.contractModification;

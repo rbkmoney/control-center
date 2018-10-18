@@ -5,7 +5,7 @@ import remove from 'lodash-es/remove';
 import { PersistentContainer } from './model';
 import { PartyModification } from '../damsel/payment-processing';
 import {
-    getmodificationType,
+    getModificationType,
     toContractModificationName,
     toShopModificationName
 } from './party-modification-group-converter';
@@ -40,7 +40,7 @@ export class PersistentContainerService {
     }
 
     private makeTypeHash(modification: PartyModification): string {
-        switch (getmodificationType(modification)) {
+        switch (getModificationType(modification)) {
             case UnitName.shopModification:
                 return modification.shopModification.id + toShopModificationName(modification.shopModification.modification);
             case UnitName.contractModification:

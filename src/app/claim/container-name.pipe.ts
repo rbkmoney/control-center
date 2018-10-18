@@ -47,7 +47,6 @@ export class ContainerNamePipe implements PipeTransform {
     }
 
     private transformContractModificationName(value: ContractModificationName): string {
-        console.log(value)
         switch (value) {
             case ContractModificationName.creation:
                 return 'Contract creation';
