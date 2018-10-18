@@ -27,6 +27,7 @@ export class ClaimService {
         return this.papiClaimService.getClaim(partyID, toNumber(claimID))
             .pipe(
                 tap((claimInfo) => {
+                    this.persistentContainerService.clearContainers();
                     claimInfo.modifications.modifications.forEach((modification) =>
                         this.persistentContainerService.addContainer(modification));
                     this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
