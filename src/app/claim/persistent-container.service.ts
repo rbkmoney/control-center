@@ -1,32 +1,36 @@
-import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import remove from 'lodash-es/remove';
 
 import { PersistentContainer } from './model';
 import { PartyModification } from '../damsel/payment-processing';
-import {
-    getModificationType,
-    toContractModificationName,
-    toShopModificationName
-} from './party-modification-group-converter';
-import { UnitName } from '../party-modification-creation/unit-name';
 
 @Injectable()
 export class PersistentContainerService {
     containers$: Subject<PersistentContainer[]> = new Subject();
     private containers: PersistentContainer[] = [];
 
-    addContainer(modification: PartyModification, saved = true) {
+    init(persisted: PartyModification[]) {
+        this.containers = persisted.map((modification) => ({
+            modification, saved: true
+        }));
+        this.containers$.next(this.containers);
+    }
+
+    addContainer(modification: PartyModification) {
         const typeHash = this.makeTypeHash(modification);
-        if (this.containers.find((container: PersistentContainer) => container.typeHash === typeHash)) {
-            this.removeContainer(typeHash);
-        }
-        this.containers.push({
+        const item = {
             modification,
-            saved,
-            typeHash
-        });
-        this.containers$.next(this.containers.sort(this.sort));
+            typeHash,
+            saved: false,
+        };
+        const index = this.containers.findIndex((i) => i.typeHash === typeHash);
+        if (index !== -1) {
+            this.containers[index] = item;
+        } else {
+            this.containers.push(item);
+        }
+        this.containers$.next(this.containers.sort(this.sort)); // sort?
     }
 
     removeContainer(typeHash: string) {
@@ -34,19 +38,17 @@ export class PersistentContainerService {
         this.containers$.next(this.containers.sort(this.sort));
     }
 
-    clearContainers() {
-        this.containers = [];
-        this.containers$.next(this.containers);
-    }
-
     private makeTypeHash(modification: PartyModification): string {
-        switch (getModificationType(modification)) {
-            case UnitName.shopModification:
-                return modification.shopModification.id + toShopModificationName(modification.shopModification.modification);
-            case UnitName.contractModification:
-                return modification.contractModification.id + toContractModificationName(modification.contractModification.modification);
-
+        const modificationKeys = Object.keys(modification);
+        if (modificationKeys.length !== 1) {
+            return null;
         }
+        const modificationUnit = modification[modificationKeys[0]];
+        const modificationNames = Object.keys(modificationUnit.modification);
+        if (modificationNames.length !== 1) {
+            return null;
+        }
+        return modificationUnit.id + modificationNames[0];
     }
 
     private sort(a: PersistentContainer, b: PersistentContainer): number {

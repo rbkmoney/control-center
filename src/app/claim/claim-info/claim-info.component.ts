@@ -40,7 +40,7 @@ export class ClaimInfoComponent implements OnInit {
 
     saveModifications() {
         this.isLoading = true;
-        this.claimService.createChange(this.containers
+        this.claimService.saveChanges(this.containers
             .filter((container) => !container.saved)
             .map((container) => container.modification)).subscribe(() => this.success(), (e) => this.failed(e));
     }

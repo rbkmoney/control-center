@@ -14,7 +14,7 @@ import {
 } from './model';
 import { UnitName } from '../party-modification-creation/unit-name';
 
-export const toContractModificationName = (modification: ContractModification): ContractModificationName => {
+const toContractModificationName = (modification: ContractModification): ContractModificationName => {
     const {
         creation,
         termination,
@@ -44,7 +44,7 @@ export const toContractModificationName = (modification: ContractModification): 
     return ContractModificationName.unknown;
 };
 
-export const toShopModificationName = (modification: ShopModification): ShopModificationName => {
+const toShopModificationName = (modification: ShopModification): ShopModificationName => {
     const {
         creation,
         categoryModification,
@@ -119,7 +119,7 @@ const isHasUnsaved = (containers: PersistentContainer[], unitID: string): boolea
         !container.saved && container.modification[getModificationType(container.modification)].id === unitID).length > 0;
 };
 
-export const getModificationType = (modification: PartyModification): UnitName => {
+const getModificationType = (modification: PartyModification): UnitName => {
     const {contractModification, shopModification} = modification;
     if (contractModification) {
         return UnitName.contractModification;

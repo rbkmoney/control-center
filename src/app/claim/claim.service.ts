@@ -27,9 +27,7 @@ export class ClaimService {
         return this.papiClaimService.getClaim(partyID, toNumber(claimID))
             .pipe(
                 tap((claimInfo) => {
-                    this.persistentContainerService.clearContainers();
-                    claimInfo.modifications.modifications.forEach((modification) =>
-                        this.persistentContainerService.addContainer(modification));
+                    this.persistentContainerService.init(claimInfo.modifications.modifications);
                     this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
                     const domainModificationInfo = this.toDomainModificationInfo(claimInfo);
                     this.domainModificationInfo$.next(domainModificationInfo);
@@ -39,7 +37,15 @@ export class ClaimService {
             );
     }
 
-    createChange(modifications: PartyModification[]): Observable<void> {
+    addChange() {
+
+    }
+
+    removeChange() {
+
+    }
+
+    saveChanges(modifications: PartyModification[]): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
         const units = this.toModificationUnits(modifications);
         return this.papiClaimService.getClaim(partyId, claimId)
@@ -149,9 +155,7 @@ export class ClaimService {
                     if (!isEqual(newPair, currentPair)) {
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
                         this.claimInfoContainer$.next(this.claimInfoContainer);
-                        this.persistentContainerService.clearContainers();
-                        claimInfo.modifications.modifications.forEach((modification) =>
-                        this.persistentContainerService.addContainer(modification));
+                        this.persistentContainerService.init(claimInfo.modifications.modifications);
                         observer.next();
                         observer.complete();
                     }
