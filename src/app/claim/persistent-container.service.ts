@@ -4,7 +4,11 @@ import remove from 'lodash-es/remove';
 
 import { PersistentContainer } from './model';
 import { PartyModification } from '../damsel/payment-processing';
-import { getmodificationType, toContractModificationName, toShopModificationName } from './party-modification-group-converter';
+import {
+    getmodificationType,
+    toContractModificationName,
+    toShopModificationName
+} from './party-modification-group-converter';
 import { UnitName } from '../party-modification-creation/unit-name';
 
 @Injectable()
@@ -28,6 +32,11 @@ export class PersistentContainerService {
     removeContainer(typeHash: string) {
         remove(this.containers, (container: PersistentContainer) => container.typeHash === typeHash && !container.saved);
         this.containers$.next(this.containers.sort(this.sort));
+    }
+
+    clearContainers() {
+        this.containers = [];
+        this.containers$.next(this.containers);
     }
 
     private makeTypeHash(modification: PartyModification): string {

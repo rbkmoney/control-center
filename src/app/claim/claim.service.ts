@@ -148,6 +148,7 @@ export class ClaimService {
                     if (!isEqual(newPair, currentPair)) {
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
                         this.claimInfoContainer$.next(this.claimInfoContainer);
+                        this.persistentContainerService.clearContainers();
                         claimInfo.modifications.modifications.forEach((modification) =>
                         this.persistentContainerService.addContainer(modification));
                         observer.next();

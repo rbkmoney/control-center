@@ -4,10 +4,10 @@
         <mat-tab-group>
             <mat-tab *ngFor="let unit of modifications; let index = index">
                 <ng-template mat-tab-label>
-                    {{'unit ' + (index + 1)}} <span>{{unit.saved ? '' : '*'}}</span>
+                    {{'unit ' + (index + 1)}} <span>{{unit.saved ? '' : ' *'}}</span>
                 </ng-template>
                 <cc-thrift-json [object]="unit.modificationUnit"></cc-thrift-json>
-                <button *ngIf="!unit.saved" mat-button (click)="remove(unit.typeHash)">REMOVE</button>
+                <button *ngIf="!unit.saved" mat-button color="warn" (click)="remove(unit.typeHash)">REMOVE</button>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>
