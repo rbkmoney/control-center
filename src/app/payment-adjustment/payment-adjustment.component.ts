@@ -5,6 +5,7 @@ import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
 import { StatPayment } from '../gen-damsel/merch_stat';
 import { SearchFormParams } from './search-form/search-form-params';
+import { filter } from 'rxjs/internal/operators';
 
 @Component({
     selector: 'cc-payment-adjustment',
@@ -39,11 +40,14 @@ export class PaymentAdjustmentComponent {
     }
 
     createAndCapturePaymentAdjustment() {
-        this.dialogRef.open(CreateAndCaptureComponent, {
+        const ref = this.dialogRef.open(CreateAndCaptureComponent, {
             width: '800px',
             disableClose: true,
             data: this.selectedPayments
         });
+        ref.afterClosed()
+            .pipe(filter((captured) => captured))
+            .subscribe(() => this.search());
     }
 
     changeSelected(e) {

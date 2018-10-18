@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import groupBy from 'lodash-es/groupBy';
 import forEach from 'lodash-es/forEach';
@@ -20,10 +20,9 @@ type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCreationSco
 })
 export class CreateActionsComponent implements OnInit {
 
-    @Output()
-    inProcess: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+    @Input()
     isLoading = false;
+
     createResult: PaymentAdjustmentCreationScope[] = [];
     failedPending: FailedPayload[] = [];
     failedInternal: FailedPayload[] = [];
@@ -76,11 +75,8 @@ export class CreateActionsComponent implements OnInit {
             adjustmentId
         }));
         this.createResult = [];
-        this.inProcess.emit(true);
         this.batchAdjustmentService.capture(captureParams).subscribe(() => {
-            this.inProcess.emit(false);
         }, () => {
-            this.isLoading = false;
             this.snackBar.open('An error occurred while adjustments capture');
         });
     }
@@ -93,11 +89,7 @@ export class CreateActionsComponent implements OnInit {
             adjustmentId
         }));
         this.failedPending = [];
-        this.inProcess.emit(true);
-        this.batchAdjustmentService.cancel(cancelParams).subscribe(() => {
-            this.inProcess.emit(false);
-        }, () => {
-            this.inProcess.emit(false);
+        this.batchAdjustmentService.cancel(cancelParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments cancel');
         });
     }
@@ -105,11 +97,7 @@ export class CreateActionsComponent implements OnInit {
     retryFailedInternal() {
         const createParams = this.failedInternal.map((item) => item.operationScope.creationParams);
         this.failedInternal = [];
-        this.inProcess.emit(true);
-        this.batchAdjustmentService.create(createParams).subscribe(() => {
-            this.inProcess.emit(false);
-        }, () => {
-            this.inProcess.emit(false);
+        this.batchAdjustmentService.create(createParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments create');
         });
     }

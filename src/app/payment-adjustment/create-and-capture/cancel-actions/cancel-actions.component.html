@@ -3,7 +3,7 @@
         description="Cancel adjustment success: {{cancelResult.length}} adjustment(s) cancelled"
         hasAction="true"
         actionButtonLabel="recreate"
-        [actionDisabled]="inProcess | async"
+        [actionDisabled]="isLoading"
         (action)="recreate()">
 </cc-action-item>
 <cc-action-item
@@ -11,7 +11,7 @@
         description="Cancel adjustment failed: {{failedInternal.length}} operations(s) failed with 5xx"
         hasAction="true"
         actionButtonLabel="retry"
-        [actionDisabled]="inProcess | async"
+        [actionDisabled]="isLoading"
         (action)="retry()">
 </cc-action-item>
 <cc-action-item

@@ -3,7 +3,7 @@
         description="Create adjustment success: {{createResult.length}} adjustments created"
         hasAction="true"
         actionButtonLabel="capture"
-        [actionDisabled]="inProcess | async"
+        [actionDisabled]="isLoading"
         (action)="capture()">
 </cc-action-item>
 <cc-action-item
@@ -11,7 +11,7 @@
         description="Create adjustment failed: {{failedPending.length}} payment(s) has pending adjustment"
         hasAction="true"
         actionButtonLabel="cancel pending"
-        [actionDisabled]="inProcess | async"
+        [actionDisabled]="isLoading"
         (action)="cancelPending()">
 </cc-action-item>
 <cc-action-item
@@ -19,7 +19,7 @@
         description="Create adjustment failed: {{failedInternal.length}} operations(s) failed with 5xx"
         hasAction="true"
         actionButtonLabel="retry"
-        [actionDisabled]="inProcess | async"
+        [actionDisabled]="isLoading"
         (action)="retryFailedInternal()">
 </cc-action-item>
 <cc-action-item

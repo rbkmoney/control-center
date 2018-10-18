@@ -17,9 +17,9 @@
             </div>
         </div>
         <div fxLayout="column" fxLayoutGap="20px">
-            <cc-create-actions (inProcess)="toggleIsLoading($event)"></cc-create-actions>
-            <cc-cancel-actions [adjustmentParams]="adjustmentParams" (inProcess)="toggleIsLoading($event)"></cc-cancel-actions>
-            <cc-capture-actions (captured)="captured()" (inProcess)="toggleIsLoading($event)"></cc-capture-actions>
+            <cc-create-actions [isLoading]="isLoading"></cc-create-actions>
+            <cc-cancel-actions [isLoading]="isLoading" [adjustmentParams]="adjustmentParams"></cc-cancel-actions>
+            <cc-capture-actions [isLoading]="isLoading" (captured)="captured()"></cc-capture-actions>
         </div>
     </div>
 </mat-dialog-content>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import {
     BatchPaymentAdjustmentService,
@@ -18,11 +18,11 @@ type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCapturePara
 })
 export class CaptureActionsComponent implements OnInit {
 
-    @Output()
-    captured: EventEmitter<void> = new EventEmitter<void>();
+    @Input()
+    isLoading = false;
 
     @Output()
-    inProcess: EventEmitter<boolean> = new EventEmitter<boolean>();
+    captured: EventEmitter<void> = new EventEmitter<void>();
 
     failedInvalidUser: FailedPayload[] = [];
     failedInvoiceNotFound: FailedPayload[] = [];
@@ -73,12 +73,8 @@ export class CaptureActionsComponent implements OnInit {
 
     retry() {
         const captureParams = this.failedInternal.map(({operationScope}) => operationScope);
-        this.inProcess.emit(true);
         this.failedInternal = [];
-        this.batchAdjustmentService.capture(captureParams).subscribe(() => {
-            this.inProcess.emit(false);
-        }, () => {
-            this.inProcess.emit(false);
+        this.batchAdjustmentService.capture(captureParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments capture');
         });
     }

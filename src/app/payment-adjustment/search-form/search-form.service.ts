@@ -33,8 +33,8 @@ export class SearchFormService {
             toTime: defaultDate,
             partyId: '',
             invoicesIds: '',
-            fromRevision: [0, Validators.required],
-            toRevision: [10, Validators.required],
+            fromRevision: ['', Validators.required],
+            toRevision: ['', Validators.required],
             status: 'captured'
         });
     }

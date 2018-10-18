@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/internal/operators';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/internal/operators';
 import groupBy from 'lodash-es/groupBy';
 
 import { ExecutorService } from '../executor.service';
 import { PaymentProcessingTypedManager } from '../../../thrift/payment-processing-typed-manager';
-import { AdjustmentOperationEvent } from './adjustment-event';
+import { AdjustmentOperationEvent, EventType } from './adjustment-event';
 import { ExecResultGroup } from './exec-result-group';
 
 @Injectable()
@@ -22,11 +22,18 @@ export abstract class AdjustmentOperationService {
     }
 
     batch(params: any[]): Observable<void> {
-        return this.executorService.exec(this.toExecParams(params))
+        const execParams = this.toExecParams(params);
+        this.events$.next({type: EventType.BatchOperationStarted});
+        return this.executorService.exec(execParams)
             .pipe(
                 map((res) => groupBy(res, 'type')),
                 tap(this.handleExecResult.bind(this)),
-                map(() => null)
+                tap(() => this.events$.next({type: EventType.BatchOperationFinished})),
+                map(() => null),
+                catchError((err) => {
+                    this.events$.next({type: EventType.BatchOperationFailed});
+                    return throwError(err);
+                })
             );
     }
 

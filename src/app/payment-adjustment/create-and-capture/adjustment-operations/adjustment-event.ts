@@ -1,6 +1,9 @@
 import { ExecResultType } from '../executor.service';
 
 export enum EventType {
+    BatchOperationStarted = 'BatchOperationStarted',
+    BatchOperationFinished = 'BatchOperationFinished',
+    BatchOperationFailed = 'BatchOperationFailed',
     PaymentAdjustmentsCreated = 'PaymentAdjustmentsCreated',
     PaymentAdjustmentsCancelled = 'PaymentAdjustmentsCancelled',
     PaymentAdjustmentsCaptured = 'PaymentAdjustmentsCaptured',
@@ -13,7 +16,7 @@ export type OperationType = ExecResultType;
 
 export interface AdjustmentOperationEvent<T = {}> {
     type: EventType;
-    operationType: OperationType;
+    operationType?: OperationType;
     payload?: T[];
 }
 

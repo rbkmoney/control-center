@@ -11,7 +11,8 @@ import {
     CreateAdjustmentService,
     CancelAdjustmentService,
     CaptureAdjustmentService,
-    BatchPaymentAdjustmentService
+    BatchPaymentAdjustmentService,
+    EventType
 } from './adjustment-operations';
 
 @Component({
@@ -55,10 +56,17 @@ export class CreateAndCaptureComponent implements OnInit {
             reason: ['', Validators.required]
         });
         this.progress$ = this.batchAdjustmentService.progress$;
-    }
-
-    toggleIsLoading(inProcess) {
-        this.isLoading = inProcess;
+        this.batchAdjustmentService.events$.subscribe((event) => {
+            switch (event.type) {
+                case EventType.BatchOperationStarted:
+                    this.isLoading = true;
+                    break;
+                case EventType.BatchOperationFailed:
+                case EventType.BatchOperationFinished:
+                    this.isLoading = false;
+                    break;
+            }
+        });
     }
 
     create() {
@@ -81,7 +89,7 @@ export class CreateAndCaptureComponent implements OnInit {
 
     captured() {
         this.snackBar.open(`${this.payments.length} payment(s) successfully captured`, 'OK', {duration: 3000});
-        this.dialogRef.close();
+        this.dialogRef.close(true);
     }
 
     private getUser(): UserInfo {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import forEach from 'lodash-es/forEach';
 import groupBy from 'lodash-es/groupBy';
@@ -24,8 +24,8 @@ export class CancelActionsComponent implements OnInit {
     @Input()
     adjustmentParams: InvoicePaymentAdjustmentParams;
 
-    @Output()
-    inProcess: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input()
+    isLoading = false;
 
     cancelResult: PaymentAdjustmentCancelParams[] = [];
     failedInvalidStatus: FailedPayload[] = [];
@@ -83,22 +83,16 @@ export class CancelActionsComponent implements OnInit {
             params: this.adjustmentParams
         }));
         this.cancelResult = [];
-        this.inProcess.emit(true);
-        this.batchAdjustmentService.create(createParams).subscribe(() => {
-            this.inProcess.emit(false);
-        }, () => {
+        this.batchAdjustmentService.create(createParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments create');
-            this.inProcess.emit(false);
         });
     }
 
     retry() {
         const cancelParams = this.failedInternal.map(({operationScope}) => operationScope);
         this.failedInternal = [];
-        this.inProcess.emit(true);
-        this.batchAdjustmentService.cancel(cancelParams).subscribe(() => {
+        this.batchAdjustmentService.cancel(cancelParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments cancel');
-            this.inProcess.emit(false);
         });
     }
 }
