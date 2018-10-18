@@ -93,9 +93,9 @@ const toContainer = (persistentContainers: PersistentContainer[]): PartyModifica
     const grouped = groupBy(persistentContainers, (item: PersistentContainer) => {
             switch (getModificationType(item.modification)) {
                 case UnitName.shopModification:
-                    return toShopModificationName(item.modification[getModificationType(item.modification) as string].modification);
+                    return toShopModificationName(item.modification.shopModification.modification);
                 case UnitName.contractModification:
-                    return toContractModificationName(item.modification[getModificationType(item.modification) as string].modification);
+                    return toContractModificationName(item.modification.contractModification.modification);
             }
         }
     );
