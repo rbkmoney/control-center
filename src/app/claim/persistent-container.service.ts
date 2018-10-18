@@ -4,6 +4,7 @@ import remove from 'lodash-es/remove';
 
 import { PersistentContainer } from './model';
 import { PartyModification } from '../damsel/payment-processing';
+import { getModificationName } from './get-modification-name';
 
 @Injectable()
 export class PersistentContainerService {
@@ -44,11 +45,7 @@ export class PersistentContainerService {
             return null;
         }
         const modificationUnit = modification[modificationKeys[0]];
-        const modificationNames = Object.keys(modificationUnit.modification);
-        if (modificationNames.length !== 1) {
-            return null;
-        }
-        return modificationUnit.id + modificationNames[0];
+        return modificationUnit.id + getModificationName(modification);
     }
 
     private sort(a: PersistentContainer, b: PersistentContainer): number {

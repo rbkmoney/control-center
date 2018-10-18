@@ -1,7 +1,5 @@
 import groupBy from 'lodash-es/groupBy';
 import map from 'lodash-es/map';
-
-import { ContractModification, PartyModification, ShopModification } from '../damsel';
 import {
     ContractModificationName,
     ModificationGroup,
@@ -13,120 +11,59 @@ import {
     ShopModificationName
 } from './model';
 import { UnitName } from '../party-modification-creation/unit-name';
+import { getModificationName } from './get-modification-name';
 
-const toContractModificationName = (modification: ContractModification): ContractModificationName => {
-    const {
-        creation,
-        termination,
-        adjustmentModification,
-        payoutToolModification,
-        legalAgreementBinding,
-        reportPreferencesModification
-    } = modification;
-    if (creation) {
-        return ContractModificationName.creation;
-    }
-    if (termination) {
-        return ContractModificationName.termination;
-    }
-    if (adjustmentModification) {
-        return ContractModificationName.adjustmentModification;
-    }
-    if (payoutToolModification) {
-        return ContractModificationName.payoutToolModification;
-    }
-    if (legalAgreementBinding) {
-        return ContractModificationName.legalAgreementBinding;
-    }
-    if (reportPreferencesModification) {
-        return ContractModificationName.reportPreferencesModification;
-    }
-    return ContractModificationName.unknown;
-};
-
-const toShopModificationName = (modification: ShopModification): ShopModificationName => {
-    const {
-        creation,
-        categoryModification,
-        detailsModification,
-        contractModification,
-        payoutToolModification,
-        locationModification,
-        shopAccountCreation,
-        payoutScheduleModification
-    } = modification;
-    if (creation) {
-        return ShopModificationName.creation;
-    }
-    if (categoryModification) {
-        return ShopModificationName.categoryModification;
-    }
-    if (detailsModification) {
-        return ShopModificationName.detailsModification;
-    }
-    if (contractModification) {
-        return ShopModificationName.contractModification;
-    }
-    if (payoutToolModification) {
-        return ShopModificationName.payoutToolModification;
-    }
-    if (locationModification) {
-        return ShopModificationName.locationModification;
-    }
-    if (shopAccountCreation) {
-        return ShopModificationName.shopAccountCreation;
-    }
-    if (payoutScheduleModification) {
-        return ShopModificationName.payoutScheduleModification;
-    }
-    return ShopModificationName.unknown;
-};
-
-const toUnitContainers = (persistentContainers: PersistentContainer[]): ModificationUnitContainer[] =>
+const toContractUnitContainers = (persistentContainers: PersistentContainer[]): ModificationUnitContainer[] =>
     map(persistentContainers, (persistentContainer) => ({
-        modificationUnit: persistentContainer.modification[getModificationType(persistentContainer.modification)],
+        modificationUnit: persistentContainer.modification.contractModification,
         saved: persistentContainer.saved,
         typeHash: persistentContainer.typeHash
     }));
 
-const toContainer = (persistentContainers: PersistentContainer[]): PartyModificationContainer[] => {
-    const grouped = groupBy(persistentContainers, (item: PersistentContainer) => {
-            switch (getModificationType(item.modification)) {
-                case UnitName.shopModification:
-                    return toShopModificationName(item.modification.shopModification.modification);
-                case UnitName.contractModification:
-                    return toContractModificationName(item.modification.contractModification.modification);
-            }
-        }
-    );
+const toShopUnitContainers = (persistentContainers: PersistentContainer[]): ModificationUnitContainer[] =>
+    map(persistentContainers, (persistentContainer) => ({
+        modificationUnit: persistentContainer.modification.shopModification,
+        saved: persistentContainer.saved,
+        typeHash: persistentContainer.typeHash
+    }));
+
+const toContractContainer = (persistentContainers: PersistentContainer[]): PartyModificationContainer[] => {
+    const grouped = groupBy(persistentContainers, (item: PersistentContainer) => getModificationName(item.modification));
     return map(grouped, (modifications, name: ShopModificationName | ContractModificationName) => ({
         name,
-        unitContainers: toUnitContainers(modifications)
+        unitContainers: toContractUnitContainers(modifications)
     }));
 };
 
-const toModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentContainers, (item) => item.modification[getModificationType(item.modification)].id);
+const toShopContainer = (persistentContainers: PersistentContainer[]): PartyModificationContainer[] => {
+    const grouped = groupBy(persistentContainers, (item: PersistentContainer) => getModificationName(item.modification));
+    return map(grouped, (modifications, name: ShopModificationName | ContractModificationName) => ({
+        name,
+        unitContainers: toShopUnitContainers(modifications)
+    }));
+};
+
+const toContractModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
+    const grouped = groupBy(persistentContainers, (item) => item.modification.contractModification.id);
     return map(grouped, (containers: PersistentContainer[], unitID) => ({
         unitID,
-        saved: !isHasUnsaved(containers, unitID),
-        containers: toContainer(containers)
+        saved: !isHasUnsaved(containers, unitID, UnitName.contractModification),
+        containers: toContractContainer(containers)
     }));
 };
 
-const isHasUnsaved = (containers: PersistentContainer[], unitID: string): boolean => {
-    return containers.filter((container) =>
-        !container.saved && container.modification[getModificationType(container.modification)].id === unitID).length > 0;
+const toShopModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
+    const grouped = groupBy(persistentContainers, (item) => item.modification.shopModification.id);
+    return map(grouped, (containers: PersistentContainer[], unitID) => ({
+        unitID,
+        saved: !isHasUnsaved(containers, unitID, UnitName.shopModification),
+        containers: toShopContainer(containers)
+    }));
 };
 
-const getModificationType = (modification: PartyModification): UnitName => {
-    const {contractModification, shopModification} = modification;
-    if (contractModification) {
-        return UnitName.contractModification;
-    }
-    if (shopModification) {
-        return UnitName.shopModification;
-    }
+const isHasUnsaved = (containers: PersistentContainer[], unitID: string, unitName: UnitName): boolean => {
+    return containers.filter((container) =>
+        !container.saved && container.modification[unitName].id === unitID).length > 0;
 };
 
 export const convert = (persistentContainers: PersistentContainer[]): ModificationGroup[] => {
@@ -143,10 +80,14 @@ export const convert = (persistentContainers: PersistentContainer[]): Modificati
     return map(grouped, (containers, type) => {
         switch (type) {
             case ModificationGroupType.ShopUnitContainer:
+                return {
+                    type,
+                    units: toShopModificationUnit(containers)
+                };
             case ModificationGroupType.ContractUnitContainer:
                 return {
                     type,
-                    units: toModificationUnit(containers)
+                    units: toContractModificationUnit(containers)
                 };
             case ModificationGroupType.unknown:
                 return {
