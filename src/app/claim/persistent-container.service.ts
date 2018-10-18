@@ -22,12 +22,12 @@ export class PersistentContainerService {
             saved,
             typeHash
         });
-        this.containers$.next(this.containers);
+        this.containers$.next(this.containers.sort(this.sort));
     }
 
     removeContainer(typeHash: string) {
         remove(this.containers, (container: PersistentContainer) => container.typeHash === typeHash && !container.saved);
-        this.containers$.next(this.containers);
+        this.containers$.next(this.containers.sort(this.sort));
     }
 
     private makeTypeHash(modification: PartyModification): string {
@@ -38,5 +38,15 @@ export class PersistentContainerService {
                 return modification.contractModification.id + toContractModificationName(modification.contractModification.modification);
 
         }
+    }
+
+    private sort(a: PersistentContainer, b: PersistentContainer): number {
+        if (a.saved) {
+            return 1;
+        }
+        if (b.saved) {
+            return -1;
+        }
+        return 0;
     }
 }
