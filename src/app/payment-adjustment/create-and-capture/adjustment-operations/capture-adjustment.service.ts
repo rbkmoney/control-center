@@ -1,6 +1,7 @@
 import { AdjustmentOperationService } from './adjustment-operation.service';
 import { ExecErrorResult, ExecResultType } from '../executor.service';
 import {
+    AdjustmentOperationEvent,
     EventType,
     OperationError,
     OperationFailedPayload
@@ -24,8 +25,9 @@ export class CaptureAdjustmentService extends AdjustmentOperationService {
         if (success) {
             this.events$.next({
                 type: EventType.PaymentAdjustmentsCaptured,
-                operationType: ExecResultType.success
-            });
+                operationType: ExecResultType.success,
+                payload: success.map(({container: {params}}) => params)
+            } as AdjustmentOperationEvent<PaymentAdjustmentCaptureParams>);
         }
         if (error) {
             this.events$.next({

@@ -87,11 +87,6 @@ export class CreateAndCaptureComponent implements OnInit {
         });
     }
 
-    captured() {
-        this.snackBar.open(`${this.payments.length} payment(s) successfully captured`, 'OK', {duration: 3000});
-        this.dialogRef.close(true);
-    }
-
     private getUser(): UserInfo {
         return {
             id: this.keycloakService.getUsername(),
