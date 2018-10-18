@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
 import { PartyModificationUnit, ModificationGroupType } from '../model';
-import { PersistentContainerService } from '../persistent-container.service';
 import { convert } from '../party-modification-group-converter';
 
 @Component({
@@ -17,22 +16,20 @@ export class PartyModificationsComponent implements OnInit {
     contractUnits: PartyModificationUnit[] = [];
 
     constructor(private claimService: ClaimService,
-                private modificationUnitContainerService: PersistentContainerService,
                 private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
-        this.modificationUnitContainerService.containers$.subscribe((persistentContainers) => {
-            const modificationGroups = convert(persistentContainers);
+        this.claimService.modificationGroups$.subscribe((groups) => {
             this.shopUnits = [];
             this.contractUnits = [];
-            for (const modificationGroup of modificationGroups) {
-                switch (modificationGroup.type) {
+            for (const group of groups) {
+                switch (group.type) {
                     case ModificationGroupType.ShopUnitContainer:
-                        this.shopUnits = this.shopUnits.concat(modificationGroup.units);
+                        this.shopUnits = this.shopUnits.concat(group.units);
                         break;
                     case ModificationGroupType.ContractUnitContainer:
-                        this.contractUnits = this.contractUnits.concat(modificationGroup.units);
+                        this.contractUnits = this.contractUnits.concat(group.units);
                         break;
                     case ModificationGroupType.unknown:
                         this.snackBar.open('Detected unknown party modification unit', 'OK');

@@ -9,7 +9,6 @@ import { PartyModification } from '../../damsel/payment-processing';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
 import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
-import { PersistentContainerService } from '../persistent-container.service';
 
 @Component({
     templateUrl: 'create-modification.component.html'
@@ -34,8 +33,7 @@ export class CreateModificationComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
         private snackBar: MatSnackBar,
         private claimService: ClaimService,
-        private domainTypedManager: DomainTypedManager,
-        private persistentContainerService: PersistentContainerService) {
+        private domainTypedManager: DomainTypedManager) {
     }
 
     ngOnInit() {
@@ -90,7 +88,7 @@ export class CreateModificationComponent implements OnInit {
     }
 
     private addChange() {
-        this.persistentContainerService.addContainer(this.values as PartyModification, false);
+        this.claimService.addChange(this.values as PartyModification);
         this.dialogRef.close();
     }
 

@@ -7,8 +7,9 @@ import toNumber from 'lodash-es/toNumber';
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { PartyModification } from '../damsel';
-import { ClaimInfoContainer, DomainModificationInfo } from './model';
+import { ClaimInfoContainer, DomainModificationInfo, ModificationGroup, PersistentContainer } from './model';
 import { PersistentContainerService } from './persistent-container.service';
+import { convert } from './party-modification-group-converter';
 
 @Injectable()
 export class ClaimService {
@@ -17,10 +18,15 @@ export class ClaimService {
 
     domainModificationInfo$: Subject<DomainModificationInfo> = new BehaviorSubject(null);
 
+    modificationGroups$: Subject<ModificationGroup[]> = new Subject();
+
     private claimInfoContainer: ClaimInfoContainer;
 
     constructor(private papiClaimService: ClaimPapi,
                 private persistentContainerService: PersistentContainerService) {
+        this.persistentContainerService.containers$.subscribe((containers) => {
+            this.modificationGroups$.next(convert(containers));
+        });
     }
 
     resolveClaimInfo(partyID: string, claimID: string): Observable<void> {
@@ -37,12 +43,12 @@ export class ClaimService {
             );
     }
 
-    addChange() {
-
+    addChange(modification: PartyModification) {
+        this.persistentContainerService.addContainer(modification);
     }
 
-    removeChange() {
-
+    removeChange(typeHash: string) {
+        this.persistentContainerService.removeContainer(typeHash);
     }
 
     saveChanges(modifications: PartyModification[]): Observable<void> {

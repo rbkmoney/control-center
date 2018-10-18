@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { PartyModificationContainer, ModificationGroupType, ModificationUnitContainer } from '../model';
-import { PersistentContainerService } from '../persistent-container.service';
+import { ClaimService } from '../claim.service';
 
 @Component({
     selector: 'cc-party-modification-container',
@@ -18,7 +18,7 @@ export class PartyModificationContainerComponent implements OnInit {
 
     modifications: ModificationUnitContainer[];
 
-    constructor(private persistentContainerService: PersistentContainerService) {
+    constructor(private claimService: ClaimService) {
     }
 
     ngOnInit() {
@@ -27,6 +27,6 @@ export class PartyModificationContainerComponent implements OnInit {
     }
 
     remove(typeHash: string) {
-        this.persistentContainerService.removeContainer(typeHash);
+        this.claimService.removeChange(typeHash);
     }
 }
