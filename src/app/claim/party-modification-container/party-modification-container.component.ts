@@ -23,8 +23,7 @@ export class PartyModificationContainerComponent implements OnInit {
 
     ngOnInit() {
         this.modifications = this.container.unitContainers
-            .slice()
-            .reverse();
+            .slice();
     }
 
     remove(typeHash: string) {
