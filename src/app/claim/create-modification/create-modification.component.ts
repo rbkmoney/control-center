@@ -88,7 +88,7 @@ export class CreateModificationComponent implements OnInit {
     }
 
     private addChange() {
-        this.claimService.addChange(this.values as PartyModification);
+        this.claimService.addModification(this.values as PartyModification);
         this.dialogRef.close();
     }
 

@@ -7,7 +7,12 @@ import toNumber from 'lodash-es/toNumber';
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { PartyModification } from '../damsel';
-import { ClaimInfoContainer, DomainModificationInfo, ModificationGroup, PersistentContainer } from './model';
+import {
+    ClaimInfoContainer,
+    DomainModificationInfo,
+    ModificationGroup,
+    PersistentContainer
+} from './model';
 import { PersistentContainerService } from './persistent-container.service';
 import { convert } from './party-modification-group-converter';
 
@@ -22,9 +27,12 @@ export class ClaimService {
 
     private claimInfoContainer: ClaimInfoContainer;
 
+    private containers: PersistentContainer[];
+
     constructor(private papiClaimService: ClaimPapi,
                 private persistentContainerService: PersistentContainerService) {
         this.persistentContainerService.containers$.subscribe((containers) => {
+            this.containers = containers;
             this.modificationGroups$.next(convert(containers));
         });
     }
@@ -43,17 +51,17 @@ export class ClaimService {
             );
     }
 
-    addChange(modification: PartyModification) {
-        this.persistentContainerService.addContainer(modification);
+    addModification(modification: PartyModification) {
+        this.persistentContainerService.add(modification);
     }
 
-    removeChange(typeHash: string) {
-        this.persistentContainerService.removeContainer(typeHash);
+    removeModification(typeHash: string) {
+        this.persistentContainerService.remove(typeHash);
     }
 
-    saveChanges(modifications: PartyModification[]): Observable<void> {
+    saveChanges(): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
-        const units = this.toModificationUnits(modifications);
+        const units = this.toModificationUnits(this.containers);
         return this.papiClaimService.getClaim(partyId, claimId)
             .pipe(
                 switchMap((claimInfo) =>
@@ -91,12 +99,16 @@ export class ClaimService {
             );
     }
 
-    private toModificationUnits(modifications: PartyModification[]): PartyModificationUnit {
-        const result = {
-            modifications: []
+    hasUnsavedChanges(): boolean {
+        return this.containers.filter((i) => !i.saved).length > 0;
+    }
+
+    private toModificationUnits(containers: PersistentContainer[]): PartyModificationUnit {
+        return {
+            modifications: containers.reduce((acc, {saved, modification}) =>
+                saved ? acc : acc.concat(modification), []
+            )
         };
-        result.modifications = result.modifications.concat(modifications);
-        return result;
     }
 
     private toClaimInfoContainer(claimInfo: ClaimInfo): ClaimInfoContainer {

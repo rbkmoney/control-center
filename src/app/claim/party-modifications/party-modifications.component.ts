@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
 import { PartyModificationUnit, ModificationGroupType } from '../model';
-import { convert } from '../party-modification-group-converter';
 
 @Component({
     selector: 'cc-party-modifications',

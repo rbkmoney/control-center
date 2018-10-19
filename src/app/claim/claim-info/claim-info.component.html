@@ -9,22 +9,22 @@
         <div fxLayout="row" fxLayout.xs="column">
             <button mat-button
                     [disabled]="claimInfoContainer?.status !== 'pending' || isLoading"
-                    (click)="createChange()">CREATE MODIFICATION
+                    (click)="createChange()">ADD MODIFICATION
             </button>
             <button mat-button
-                    [disabled]="isUnsavedContainersExist() || isLoading"
+                    [disabled]="!hasUnsavedChanges() || isLoading"
                     (click)="saveModifications()">SAVE MODIFICATIONS
             </button>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
             <button mat-button
                     color="primary"
-                    [disabled]="!isUnsavedContainersExist() || claimInfoContainer?.status !== 'pending'"
+                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending'"
                     (click)="accept()">ACCEPT CLAIM
             </button>
             <button mat-button
                     color="warn"
-                    [disabled]="!isUnsavedContainersExist() || claimInfoContainer?.status !== 'pending'"
+                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending'"
                     (click)="deny()">DENY CLAIM
             </button>
         </div>

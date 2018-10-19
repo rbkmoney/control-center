@@ -27,6 +27,6 @@ export class PartyModificationContainerComponent implements OnInit {
     }
 
     remove(typeHash: string) {
-        this.claimService.removeChange(typeHash);
+        this.claimService.removeModification(typeHash);
     }
 }

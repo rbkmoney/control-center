@@ -1,73 +1,68 @@
 import groupBy from 'lodash-es/groupBy';
 import map from 'lodash-es/map';
 import {
-    ContractModificationName,
     ModificationGroup,
     ModificationGroupType,
-    ModificationUnitContainer,
-    PartyModificationContainer,
     PartyModificationUnit,
-    PersistentContainer,
-    ShopModificationName
+    PersistentContainer
 } from './model';
-import { UnitName } from '../party-modification-creation/unit-name';
-import { getModificationName } from './get-modification-name';
+import { ContractModificationUnit, ShopModificationUnit } from '../damsel/payment-processing';
 
-const toContractUnitContainers = (persistentContainers: PersistentContainer[]): ModificationUnitContainer[] =>
-    map(persistentContainers, (persistentContainer) => ({
-        modificationUnit: persistentContainer.modification.contractModification,
-        saved: persistentContainer.saved,
-        typeHash: persistentContainer.typeHash
-    }));
+interface PersistentUnit {
+    modificationUnit: ShopModificationUnit | ContractModificationUnit;
+    saved: boolean;
+    typeHash: string;
+}
 
-const toShopUnitContainers = (persistentContainers: PersistentContainer[]): ModificationUnitContainer[] =>
-    map(persistentContainers, (persistentContainer) => ({
-        modificationUnit: persistentContainer.modification.shopModification,
-        saved: persistentContainer.saved,
-        typeHash: persistentContainer.typeHash
-    }));
+enum GroupName {
+    shopModification = 'shopModification',
+    contractModification = 'contractModification'
+}
 
-const toContractContainer = (persistentContainers: PersistentContainer[]): PartyModificationContainer[] => {
-    const grouped = groupBy(persistentContainers, (item: PersistentContainer) => getModificationName(item.modification));
-    return map(grouped, (modifications, name: ShopModificationName | ContractModificationName) => ({
+const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
+    const grouped = groupBy(persistentUnits, (item) => {
+        const modificationNames = Object.keys(item.modificationUnit.modification);
+        if (modificationNames.length !== 1) {
+            return 'unknown';
+        }
+        return modificationNames[0];
+    });
+    return map(grouped, (units, name) => ({
         name,
-        unitContainers: toContractUnitContainers(modifications)
+        unitContainers: units.map(({modificationUnit, saved, typeHash}) => ({
+            modificationUnit,
+            saved,
+            typeHash
+        }))
     }));
 };
 
-const toShopContainer = (persistentContainers: PersistentContainer[]): PartyModificationContainer[] => {
-    const grouped = groupBy(persistentContainers, (item: PersistentContainer) => getModificationName(item.modification));
-    return map(grouped, (modifications, name: ShopModificationName | ContractModificationName) => ({
-        name,
-        unitContainers: toShopUnitContainers(modifications)
-    }));
-};
-
-const toContractModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentContainers, (item) => item.modification.contractModification.id);
-    return map(grouped, (containers: PersistentContainer[], unitID) => ({
+const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => {
+    const grouped = groupBy(persistentUnits, (item) => item.modificationUnit.id);
+    return map(grouped, (units, unitID) => ({
         unitID,
-        saved: !isHasUnsaved(containers, unitID, UnitName.contractModification),
-        containers: toContractContainer(containers)
+        saved: !isHasUnsaved(units, unitID),
+        containers: toContainers(units)
     }));
 };
 
-const toShopModificationUnit = (persistentContainers: PersistentContainer[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentContainers, (item) => item.modification.shopModification.id);
-    return map(grouped, (containers: PersistentContainer[], unitID) => ({
-        unitID,
-        saved: !isHasUnsaved(containers, unitID, UnitName.shopModification),
-        containers: toShopContainer(containers)
+const isHasUnsaved = (units: PersistentUnit[], unitID: string): boolean =>
+    units.filter((i) => !i.saved && i.modificationUnit.id === unitID).length > 0;
+
+const toGroup = (name: GroupName, type: ModificationGroupType, containers: PersistentContainer[]): ModificationGroup => {
+    const persistent = containers.map(({modification, saved, typeHash}) => ({
+        modificationUnit: modification[name],
+        typeHash,
+        saved
     }));
+    return {
+        type,
+        units: toUnits(persistent)
+    };
 };
 
-const isHasUnsaved = (containers: PersistentContainer[], unitID: string, unitName: UnitName): boolean => {
-    return containers.filter((container) =>
-        !container.saved && container.modification[unitName].id === unitID).length > 0;
-};
-
-export const convert = (persistentContainers: PersistentContainer[]): ModificationGroup[] => {
-    const grouped = groupBy(persistentContainers, (item: PersistentContainer) => {
+export const convert = (containers: PersistentContainer[]): ModificationGroup[] => {
+    const grouped = groupBy(containers, (item) => {
         const {shopModification, contractModification} = item.modification;
         if (shopModification) {
             return ModificationGroupType.ShopUnitContainer;
@@ -80,19 +75,11 @@ export const convert = (persistentContainers: PersistentContainer[]): Modificati
     return map(grouped, (containers, type) => {
         switch (type) {
             case ModificationGroupType.ShopUnitContainer:
-                return {
-                    type,
-                    units: toShopModificationUnit(containers)
-                };
+                return toGroup(GroupName.shopModification, type, containers);
             case ModificationGroupType.ContractUnitContainer:
-                return {
-                    type,
-                    units: toContractModificationUnit(containers)
-                };
+                return toGroup(GroupName.contractModification, type, containers);
             case ModificationGroupType.unknown:
-                return {
-                    type: ModificationGroupType.unknown
-                };
+                return {type: ModificationGroupType.unknown};
         }
     });
 };

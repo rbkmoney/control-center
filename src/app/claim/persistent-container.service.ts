@@ -4,7 +4,6 @@ import remove from 'lodash-es/remove';
 
 import { PersistentContainer } from './model';
 import { PartyModification } from '../damsel/payment-processing';
-import { getModificationName } from './get-modification-name';
 
 @Injectable()
 export class PersistentContainerService {
@@ -13,12 +12,13 @@ export class PersistentContainerService {
 
     init(persisted: PartyModification[]) {
         this.containers = persisted.map((modification) => ({
-            modification, saved: true
+            modification,
+            saved: true
         }));
         this.containers$.next(this.containers);
     }
 
-    addContainer(modification: PartyModification) {
+    add(modification: PartyModification) {
         const typeHash = this.makeTypeHash(modification);
         const item = {
             modification,
@@ -34,8 +34,8 @@ export class PersistentContainerService {
         this.containers$.next(this.containers.sort(this.sort)); // sort?
     }
 
-    removeContainer(typeHash: string) {
-        remove(this.containers, (container: PersistentContainer) => container.typeHash === typeHash && !container.saved);
+    remove(typeHash: string) {
+        remove(this.containers, (i) => i.typeHash === typeHash);
         this.containers$.next(this.containers.sort(this.sort));
     }
 
@@ -45,8 +45,22 @@ export class PersistentContainerService {
             return null;
         }
         const modificationUnit = modification[modificationKeys[0]];
-        return modificationUnit.id + getModificationName(modification);
+        return modificationUnit.id + this.getModificationName(modification);
     }
+
+    private getModificationName(modification: PartyModification): string {
+        const modificationKeys = Object.keys(modification);
+        if (modificationKeys.length !== 1) {
+            return 'unknown';
+        }
+        const modificationUnit = modification[modificationKeys[0]];
+        const modificationNames = Object.keys(modificationUnit.modification);
+        if (modificationNames.length !== 1) {
+            return 'unknown';
+        }
+        return Object.keys(modificationUnit.modification)[0];
+    }
+
 
     private sort(a: PersistentContainer, b: PersistentContainer): number {
         if (a.saved) {
