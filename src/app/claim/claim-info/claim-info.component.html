@@ -19,12 +19,12 @@
         <div fxLayout="row" fxLayout.xs="column">
             <button mat-button
                     color="primary"
-                    [disabled]="isUnsavedContainersExist() || claimInfoContainer?.status !== 'pending'"
+                    [disabled]="!isUnsavedContainersExist() || claimInfoContainer?.status !== 'pending'"
                     (click)="accept()">ACCEPT CLAIM
             </button>
             <button mat-button
                     color="warn"
-                    [disabled]="isUnsavedContainersExist() || claimInfoContainer?.status !== 'pending'"
+                    [disabled]="!isUnsavedContainersExist() || claimInfoContainer?.status !== 'pending'"
                     (click)="deny()">DENY CLAIM
             </button>
         </div>
