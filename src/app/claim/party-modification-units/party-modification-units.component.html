@@ -5,7 +5,7 @@
     <mat-tab-group>
         <mat-tab *ngFor="let unit of units">
             <ng-template mat-tab-label>
-                    {{unit.unitID}} <span>{{unit.saved ? '' : '*'}}</span>
+                    {{unit.unitID}} <span>{{!unit.hasUnsaved ? '' : '*'}}</span>
                 </ng-template>
             <div class="tab-container" fxLayout="column" fxLayoutGap="20px">
                 <cc-party-modification-container

@@ -41,7 +41,7 @@ const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => 
     const grouped = groupBy(persistentUnits, (item) => item.modificationUnit.id);
     return map(grouped, (units, unitID) => ({
         unitID,
-        saved: !isHasUnsaved(units, unitID),
+        hasUnsaved: isHasUnsaved(units, unitID),
         containers: toContainers(units)
     }));
 };
@@ -72,12 +72,12 @@ export const convert = (containers: PersistentContainer[]): ModificationGroup[] 
         }
         return ModificationGroupType.unknown;
     });
-    return map(grouped, (containers, type) => {
+    return map(grouped, (persistentContainer, type) => {
         switch (type) {
             case ModificationGroupType.ShopUnitContainer:
-                return toGroup(GroupName.shopModification, type, containers);
+                return toGroup(GroupName.shopModification, type, persistentContainer);
             case ModificationGroupType.ContractUnitContainer:
-                return toGroup(GroupName.contractModification, type, containers);
+                return toGroup(GroupName.contractModification, type, persistentContainer);
             case ModificationGroupType.unknown:
                 return {type: ModificationGroupType.unknown};
         }
