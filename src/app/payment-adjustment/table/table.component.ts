@@ -26,6 +26,7 @@ export class TableComponent implements OnInit, OnChanges {
 
     cols = [
         'select',
+        'revision',
         'invoiceId',
         'id',
         'createdAt',
@@ -55,5 +56,4 @@ export class TableComponent implements OnInit, OnChanges {
     isAllSelected() {
         return this.selection.selected.length === this.payments.length;
     }
-
 }

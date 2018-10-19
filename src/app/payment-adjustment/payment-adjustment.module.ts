@@ -33,10 +33,12 @@ import { ActionItemComponent } from './create-and-capture/action-item/action-ite
 import { CreateActionsComponent } from './create-and-capture/create-actions/create-actions.component';
 import { CancelActionsComponent } from './create-and-capture/cancel-actions/cancel-actions.component';
 import { CaptureActionsComponent } from './create-and-capture/capture-actions/capture-actions.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
         CommonModule,
+        SharedModule,
         PaymentAdjustmentRoutingModule,
         FlexLayoutModule,
         ReactiveFormsModule,
