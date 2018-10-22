@@ -11,8 +11,10 @@ export class ThriftInt64Pipe implements PipeTransform {
 
     private toNumber(buffer: object, offset: number, allowImprecise = false) {
         const b = buffer, o = offset;
+        /* tslint:disable:no-bitwise */
         // Running sum of octets, doing a 2's complement
-        let negate = b[o] & 0x80, x = 0, carry = 1;
+        const negate = b[o] & 0x80;
+        let x = 0, carry = 1;
         for (let i = 7, m = 1; i >= 0; i--, m *= 256) {
             let v = b[o + i];
             // 2's complement for negative numbers
@@ -23,6 +25,7 @@ export class ThriftInt64Pipe implements PipeTransform {
             }
             x += v * m;
         }
+        /* tslint:enable:no-bitwise */
         // Return Infinity if we've lost integer precision
         const MAX_INT = Math.pow(2, 53);
         if (!allowImprecise && x >= MAX_INT) {

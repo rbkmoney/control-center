@@ -6,7 +6,7 @@ import {
     PartyModificationUnit,
     PersistentContainer
 } from './model';
-import { ContractModificationUnit, ShopModificationUnit } from '../damsel/payment-processing';
+import { ContractModificationUnit, ShopModificationUnit } from '../gen-damsel/payment_processing';
 
 interface PersistentUnit {
     modificationUnit: ShopModificationUnit | ContractModificationUnit;

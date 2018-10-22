@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import remove from 'lodash-es/remove';
 
 import { PersistentContainer } from './model';
-import { PartyModification } from '../damsel/payment-processing';
+import { PartyModification } from '../gen-damsel/payment_processing';
 
 @Injectable()
 export class PersistentContainerService {
