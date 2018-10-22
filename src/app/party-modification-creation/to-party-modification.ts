@@ -1,10 +1,6 @@
 import { ActionType, ModificationAction } from '../claim/modification-action';
 import { ContractModificationName, ShopModificationName } from '../claim/model';
-
-enum UnitName {
-    shopModification = 'shopModification',
-    contractModification = 'contractModification'
-}
+import { UnitName } from './unit-name';
 
 const toModification = (
     unitID: string,

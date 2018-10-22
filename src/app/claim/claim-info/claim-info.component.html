@@ -8,21 +8,28 @@
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between stretch">
         <div fxLayout="row" fxLayout.xs="column">
             <button mat-button
-                    [disabled]="claimInfoContainer?.status !== 'pending'"
-                    (click)="createChange()">CREATE MODIFICATION
+                    [disabled]="claimInfoContainer?.status !== 'pending' || isLoading"
+                    (click)="createChange()">ADD MODIFICATION
+            </button>
+            <button mat-button
+                    [disabled]="!hasUnsavedChanges() || isLoading"
+                    (click)="saveModifications()">SAVE MODIFICATIONS
             </button>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
             <button mat-button
                     color="primary"
-                    [disabled]="claimInfoContainer?.status !== 'pending'"
+                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending'"
                     (click)="accept()">ACCEPT CLAIM
             </button>
             <button mat-button
                     color="warn"
-                    [disabled]="claimInfoContainer?.status !== 'pending'"
+                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending'"
                     (click)="deny()">DENY CLAIM
             </button>
         </div>
     </mat-card-actions>
+    <mat-card-footer *ngIf="isLoading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
 </mat-card>

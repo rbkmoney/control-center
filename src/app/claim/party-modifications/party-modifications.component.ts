@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
-import { PartyModificationUnit, UnitContainerType } from '../model';
+import { PartyModificationUnit, ModificationGroupType } from '../model';
 
 @Component({
     selector: 'cc-party-modifications',
@@ -19,20 +19,18 @@ export class PartyModificationsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.claimService.claimInfoContainer$.subscribe((container) => {
-            if (!container) {
-                return;
-            }
-            const unitContainers = container.partyModificationUnitContainers;
-            for (const unitContainer of unitContainers) {
-                switch (unitContainer.type) {
-                    case UnitContainerType.ShopUnitContainer:
-                        this.shopUnits = unitContainer.units;
+        this.claimService.modificationGroups$.subscribe((groups) => {
+            this.shopUnits = [];
+            this.contractUnits = [];
+            for (const group of groups) {
+                switch (group.type) {
+                    case ModificationGroupType.ShopUnitContainer:
+                        this.shopUnits = this.shopUnits.concat(group.units);
                         break;
-                    case UnitContainerType.ContractUnitContainer:
-                        this.contractUnits = unitContainer.units;
+                    case ModificationGroupType.ContractUnitContainer:
+                        this.contractUnits = this.contractUnits.concat(group.units);
                         break;
-                    case UnitContainerType.unknown:
+                    case ModificationGroupType.unknown:
                         this.snackBar.open('Detected unknown party modification unit', 'OK');
                         break;
                 }

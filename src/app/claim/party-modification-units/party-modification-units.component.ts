@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { PartyModificationUnit, UnitContainerType } from '../model';
+import { PartyModificationUnit, ModificationGroupType } from '../model';
 
 @Component({
     selector: 'cc-party-modification-units',
@@ -13,7 +13,7 @@ export class PartyModificationUnitsComponent {
     unitsName: string;
 
     @Input()
-    type: UnitContainerType;
+    type: ModificationGroupType;
 
     @Input()
     units: PartyModificationUnit[];

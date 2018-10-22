@@ -41,6 +41,7 @@ import { PartyModificationCreationModule } from '../party-modification-creation'
 import { CreateModificationComponent } from './create-modification/create-modification.component';
 import { PartyModificationTargetModule } from '../party-modification-target';
 import { TerminalObjectComponent } from './terminal-object/terminal-object.component';
+import { PersistentContainerService } from './persistent-container.service';
 
 @NgModule({
     imports: [
@@ -94,7 +95,8 @@ import { TerminalObjectComponent } from './terminal-object/terminal-object.compo
         CreateModificationComponent
     ],
     providers: [
-        ClaimService
+        ClaimService,
+        PersistentContainerService
     ]
 })
 export class ClaimModule {
