@@ -4,11 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
-import { DomainModificationInfo, UnitContainerType } from '../model';
-import { PartyModification } from '../../gen-damsel/payment_processing';
+import { DomainModificationInfo, ModificationGroupType } from '../model';
+import { PartyModification } from '../../damsel/payment-processing';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
-import { CreateTerminalParams, DomainTypedManager } from '../domain-typed-manager';
+import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
 
 @Component({
     templateUrl: 'create-modification.component.html'
@@ -55,25 +55,24 @@ export class CreateModificationComponent implements OnInit {
         this.valid.next(status === 'VALID');
     }
 
-    create() {
+    add() {
         switch (this.action.type) {
             case ActionType.shopAction:
             case ActionType.contractAction:
-                this.createChange();
+                this.addChange();
                 break;
             case ActionType.domainAction:
                 this.createTerminal();
                 break;
         }
-
     }
 
     getContainerType(type: ActionType): string {
         switch (type) {
             case ActionType.shopAction:
-                return UnitContainerType.ShopUnitContainer;
+                return ModificationGroupType.ShopUnitContainer;
             case ActionType.contractAction:
-                return UnitContainerType.ContractUnitContainer;
+                return ModificationGroupType.ContractUnitContainer;
             case ActionType.domainAction:
                 return 'Domain modification';
         }
@@ -88,10 +87,9 @@ export class CreateModificationComponent implements OnInit {
         }
     }
 
-    private createChange() {
-        this.isLoading = true;
-        this.claimService.createChange(this.values as PartyModification)
-            .subscribe(() => this.success(), (e) => this.failed(e));
+    private addChange() {
+        this.claimService.addModification(this.values as PartyModification);
+        this.dialogRef.close();
     }
 
     private createTerminal() {

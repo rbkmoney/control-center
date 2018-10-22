@@ -34,9 +34,8 @@
         <button mat-button
                 [disabled]="isLoading || !(valid | async)"
                 color="primary"
-                (click)="create()">CREATE
+                (click)="add()">ADD
         </button>
         <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
     </div>
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 </mat-dialog-actions>
