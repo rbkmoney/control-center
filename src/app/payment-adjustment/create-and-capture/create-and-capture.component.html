@@ -23,9 +23,7 @@
         </div>
     </div>
 </mat-dialog-content>
-<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
-    <div fxLayout="row" fxLayoutAlign="end none">
-        <button mat-button [disabled]="isLoading" [mat-dialog-close]="false">CLOSE</button>
-    </div>
+<mat-dialog-actions>
+    <button mat-button [disabled]="isLoading" [mat-dialog-close]="false">CLOSE</button>
     <mat-progress-bar *ngIf="isLoading" mode="determinate" [value]="progress$ | async"></mat-progress-bar>
 </mat-dialog-actions>

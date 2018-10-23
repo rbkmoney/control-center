@@ -1,11 +1,12 @@
-import { PayoutSearchParams } from '../../papi/params';
-import reduce from 'lodash-es/reduce';
 import * as moment from 'moment';
+import reduce from 'lodash-es/reduce';
 import toNumber from 'lodash-es/toNumber';
 import toString from 'lodash-es/toString';
 import isString from 'lodash-es/isString';
 
-export const formValueToSearchParams = (formValues: object): PayoutSearchParams => {
+import { PayoutSearchParams } from '../../papi/params';
+
+export const formValueToSearchParams = (formValues: any): PayoutSearchParams => {
     return reduce(formValues, (acc, value, key) => {
         if (key === 'fromTime') {
             return value ? {...acc, [key]: moment(value).startOf('day').utc().format()} : acc;

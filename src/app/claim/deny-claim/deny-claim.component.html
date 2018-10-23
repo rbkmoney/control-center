@@ -10,14 +10,12 @@
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
-    <div>
-        <button mat-button
-                [disabled]="isLoading"
-                color="primary"
-                (click)="deny()">CONFIRM
-        </button>
-        <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
-    </div>
+<mat-dialog-actions>
+    <button mat-button
+            [disabled]="isLoading"
+            color="primary"
+            (click)="deny()">CONFIRM
+    </button>
+    <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
     <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 </mat-dialog-actions>

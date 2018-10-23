@@ -35,7 +35,7 @@ export class TableComponent implements OnInit, OnChanges {
     ];
 
     ngOnInit() {
-        this.selection.onChange.subscribe((e) => this.changeSelected.emit(e.source.selected));
+        this.selection.changed.subscribe((e) => this.changeSelected.emit(e.source.selected));
     }
 
     ngOnChanges(changes: SimpleChanges) {
