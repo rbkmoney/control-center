@@ -1,0 +1,34 @@
+<form [formGroup]="form">
+    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px" fxLayoutGap.sm="0px">
+        <mat-form-field fxFlex="15">
+            <input matInput formControlName="fromTime" [matDatepicker]="fromTimePicker" placeholder="From time" required>
+            <mat-datepicker-toggle matSuffix [for]="fromTimePicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromTimePicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex="15">
+            <input matInput formControlName="toTime" [matDatepicker]="toTimePicker" placeholder="To time" required>
+            <mat-datepicker-toggle matSuffix [for]="toTimePicker"></mat-datepicker-toggle>
+            <mat-datepicker #toTimePicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex="20">
+            <input matInput formControlName="partyId" placeholder="Party ID">
+        </mat-form-field>
+        <mat-form-field fxFlex="50">
+            <input matInput formControlName="invoicesIds" placeholder="Invoices IDs (comma separated)">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px" fxLayoutGap.sm="0px">
+        <mat-form-field fxFlex="15">
+            <input matInput formControlName="fromRevision" placeholder="From domain revision" required>
+        </mat-form-field>
+        <mat-form-field fxFlex="15">
+            <input matInput formControlName="toRevision" placeholder="To domain revision" required>
+        </mat-form-field>
+        <mat-form-field fxFlex="20">
+            <mat-select placeholder="Status" formControlName="status">
+                <mat-option [value]="null">any</mat-option>
+                <mat-option *ngFor="let status of statuses" [value]="status">{{status}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</form>

@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="payouts" class="mat-elevation-z2">
+<table mat-table [dataSource]="payouts">
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox (change)="$event ? masterToggle() : null"

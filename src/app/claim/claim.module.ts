@@ -23,7 +23,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { PapiModule } from '../papi/papi.module';
-import { DomainModule } from '../domain/domain.module';
+import { ThriftModule } from '../thrift/thrift.module';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ClaimInfoComponent } from './claim-info/claim-info.component';
@@ -46,7 +46,7 @@ import { PersistentContainerService } from './persistent-container.service';
 @NgModule({
     imports: [
         PapiModule,
-        DomainModule,
+        ThriftModule,
         CommonModule,
         SharedModule,
         ReactiveFormsModule,

@@ -6,7 +6,6 @@ import toNumber from 'lodash-es/toNumber';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
-import { PartyModification } from '../damsel';
 import {
     ClaimInfoContainer,
     DomainModificationInfo,
@@ -15,6 +14,7 @@ import {
 } from './model';
 import { PersistentContainerService } from './persistent-container.service';
 import { convert } from './party-modification-group-converter';
+import { PartyModification } from '../gen-damsel/payment_processing';
 
 @Injectable()
 export class ClaimService {

@@ -1,4 +1,4 @@
-import { PartyModification } from '../../damsel/payment-processing';
+import { PartyModification } from '../../gen-damsel/payment_processing';
 
 export class PersistentContainer {
     modification: PartyModification;

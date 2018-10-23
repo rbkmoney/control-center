@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { BusinessScheduleObject } from '../../../damsel/domain';
-import { DomainTypedManager } from '../../../domain/domain-typed-manager';
+import { DomainTypedManager } from '../../../claim/domain-typed-manager';
 
 @Component({
     selector: 'cc-schedule-ref',

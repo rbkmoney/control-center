@@ -1,4 +1,4 @@
-import { ContractModificationUnit, ShopModificationUnit } from '../../damsel';
+import { ContractModificationUnit, ShopModificationUnit } from '../../gen-damsel/payment_processing';
 
 export class ModificationUnitContainer {
     saved: boolean;

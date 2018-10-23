@@ -5,6 +5,7 @@ import { ClaimService } from './claim.service';
 import { CategoryService } from './category.service';
 import { ContractService } from './contract.service';
 import { PayoutsService } from './payouts.service';
+import { ReportService } from './report.service';
 import { PartyService } from './party.service';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { PartyService } from './party.service';
         CategoryService,
         ContractService,
         PayoutsService,
+        ReportService,
         PartyService
     ]
 })

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TerminalOption } from '../../domain/domain-typed-manager';
+import { TerminalOption } from '../domain-typed-manager';
 import { getOptions, prepareTerminalName } from './form-default-values';
 import { DomainModificationInfo } from '../model';
 

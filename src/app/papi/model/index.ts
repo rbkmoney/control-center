@@ -5,3 +5,5 @@ export * from './contract-template';
 export * from './payout';
 export * from './payouts-response';
 export * from './payout-statuses';
+export * from './payment';
+export * from './invoice';

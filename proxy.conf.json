@@ -4,5 +4,11 @@
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
+    },
+    "/stat": {
+        "target": "http://iddqd.rbk.test:8080",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }

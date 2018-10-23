@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { DomainTypedManager } from '../../../domain/domain-typed-manager';
+import { DomainTypedManager } from '../../../claim/domain-typed-manager';
 import { BusinessScheduleObject } from '../../../damsel/domain';
 
 @Component({

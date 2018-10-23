@@ -16,6 +16,7 @@ import { ClaimsModule } from './claims/claims.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ClaimModule } from './claim/claim.module';
 import { PayoutsModule } from './payouts/payouts.module';
+import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { PayoutsModule } from './payouts/payouts.module';
         MatListModule,
         ClaimsModule,
         ClaimModule,
-        PayoutsModule
+        PayoutsModule,
+        PaymentAdjustmentModule
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -2,8 +2,8 @@ import { getVtbTemplateOptions } from './get-vtb-template-options';
 import { getTcsTemplateOptions } from './get-tcs-template-options';
 import { getRietTemplateOptions } from './get-riet-template-options';
 import { getSngbTemplateOptions } from './get-sngb-template-options';
-import { TerminalOption } from '../../../domain/domain-typed-manager/index';
-import { DomainModificationInfo } from '../../model/index';
+import { DomainModificationInfo } from '../../model';
+import { TerminalOption } from '../../domain-typed-manager';
 
 export const getOptions = (option: string, params: DomainModificationInfo): TerminalOption[] => {
     const {shopUrl, partyId} = params;

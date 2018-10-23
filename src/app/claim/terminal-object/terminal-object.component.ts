@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
 import { ProviderObject } from '../../damsel/domain';
-import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
+import { CreateTerminalParams, DomainTypedManager } from '../domain-typed-manager';
 
 @Component({
     selector: 'cc-terminal-object',

@@ -38,18 +38,28 @@ submodules: $(SUBTARGETS)
 init:
 	npm install
 
-build: lint src/gen-nodejs src/gen-json
+build: lint compile-thrift
 	npm run build
 
 clean:
-	rm -rf dist src/app/domain/gen-* src/assets/gen-*
+	rm -rf dist src/app/thrift/gen-* src/assets/gen-* src/app/gen-damsel
 
-# utils
-src/gen-nodejs: node_modules/damsel/proto/domain_config.thrift
-	thrift -r -gen js:node,runtime_package=woody_js/src/client/gen -o ./src/app/domain ./node_modules/damsel/proto/domain_config.thrift
+compile-thrift: thrift-to-js/domain-config thrift-to-json/domain-config thrift-to-js/payment-processing thrift-to-js/merch-stat thrift-to-ts
 
-src/gen-json: node_modules/damsel/proto/domain_config.thrift
+thrift-to-js/domain-config:
+	thrift -r -gen js:node,runtime_package=woody_js/src/client/gen -o ./src/app/thrift ./node_modules/damsel/proto/domain_config.thrift
+
+thrift-to-json/domain-config:
 	thrift -r -gen json -o ./src/assets ./node_modules/damsel/proto/domain_config.thrift
+
+thrift-to-js/payment-processing:
+	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/payment_processing.thrift
+
+thrift-to-js/merch-stat:
+	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/merch_stat.thrift
+
+thrift-to-ts:
+	npm run thrift-ts
 
 lint:
 	npm run lint

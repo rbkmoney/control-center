@@ -5,10 +5,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
 import { DomainModificationInfo, ModificationGroupType } from '../model';
-import { PartyModification } from '../../damsel/payment-processing';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
-import { CreateTerminalParams, DomainTypedManager } from '../../domain/domain-typed-manager';
+import { CreateTerminalParams } from '../domain-typed-manager';
+import { DomainTypedManager } from '../../thrift/domain-typed-manager';
+import { PartyModification } from '../../gen-damsel/payment_processing';
 
 @Component({
     templateUrl: 'create-modification.component.html'

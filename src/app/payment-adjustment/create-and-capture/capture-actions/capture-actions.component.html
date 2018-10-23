@@ -1,0 +1,28 @@
+<cc-action-item
+        *ngIf="failedInternal.length > 0"
+        description="Capture adjustment failed: {{failedInternal.length}} operations(s) failed with 5xx"
+        hasAction="true"
+        actionButtonLabel="retry"
+        [actionDisabled]="isLoading"
+        (action)="retry()">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedInvalidUser.length > 0"
+        description="Capture adjustment failed: for {{failedInvalidUser.length}} operations(s) invalid user">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedInvoiceNotFound.length > 0"
+        description="Capture adjustment failed: for {{failedInvoiceNotFound.length}} payment(s) invoice not found">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedPaymentNotFound.length > 0"
+        description="Capture adjustment failed: for {{failedInvoiceNotFound.length}} adjustment(s) payment not found">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedAdjustmentNotFound.length > 0"
+        description="Capture adjustment failed: for {{failedAdjustmentNotFound.length}} payments(s) adjustment not found">
+</cc-action-item>
+<cc-action-item
+        *ngIf="failedAdjustmentStatus.length > 0"
+        description="Capture adjustment failed: {{failedAdjustmentNotFound.length}} adjustment(s) has wrong status">
+</cc-action-item>
