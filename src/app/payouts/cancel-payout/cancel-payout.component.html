@@ -6,10 +6,8 @@
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions fxLayout="column" fxLayoutGap="10px">
-    <div>
-        <button mat-button color="warn" (click)="submit()" [disabled]="isLoading || !this.form.valid">CONFIRM</button>
-        <button mat-dialog-close mat-button color="default" (click)="close()">CANCEL</button>
-    </div>
+<mat-dialog-actions>
+    <button mat-button color="warn" (click)="submit()" [disabled]="isLoading || !this.form.valid">CONFIRM</button>
+    <button mat-dialog-close mat-button color="default" (click)="close()">CANCEL</button>
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </mat-dialog-actions>
