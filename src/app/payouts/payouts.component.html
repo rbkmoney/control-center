@@ -21,7 +21,7 @@
             </mat-card-content>
         </mat-card>
         <div class="mat-elevation-z2">
-            <cc-payouts-table [payouts]="payouts" (valueChanges)="tableOnChange($event)"></cc-payouts-table>
+            <cc-payouts-table [payouts]="payouts$ | async" (valueChanges)="tableOnChange($event)"></cc-payouts-table>
         </div>
     </div>
 </div>
