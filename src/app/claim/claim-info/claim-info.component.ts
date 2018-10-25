@@ -7,6 +7,8 @@ import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 import { PersistentContainerService } from '../persistent-container.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ClaimStatus } from '../../papi/model/claim-statuses';
 
 @Component({
     selector: 'cc-claim-info',
@@ -16,9 +18,12 @@ export class ClaimInfoComponent implements OnInit {
 
     claimInfoContainer: ClaimInfoContainer;
     isLoading = false;
+    private claimId: string;
     private containers: PersistentContainer[];
 
-    constructor(private claimService: ClaimService,
+    constructor(private route: ActivatedRoute,
+                private router: Router,
+                private claimService: ClaimService,
                 private persistentContainerService: PersistentContainerService,
                 private bottomSheet: MatBottomSheet,
                 private snackBar: MatSnackBar,
@@ -32,6 +37,13 @@ export class ClaimInfoComponent implements OnInit {
         this.persistentContainerService.containers$.subscribe((containers) => {
             this.containers = containers;
         });
+        this.route.params.subscribe((params) => {
+            const {claimId, partyId} = params;
+            this.claimId = claimId;
+            if (claimId === 'create') {
+                this.claimService.mockClaimInfoContainer({partyId});
+            }
+        });
     }
 
     createChange() {
@@ -40,13 +52,27 @@ export class ClaimInfoComponent implements OnInit {
 
     saveModifications() {
         this.isLoading = true;
-        this.claimService.saveChanges(this.containers
-            .filter((container) => !container.saved)
-            .map((container) => container.modification)).subscribe(() => this.success(), (e) => this.failed(e));
+        if (this.claimId === 'create') {
+            this.claimService.createClaim(this.containers
+                .map((container) => container.modification))
+                .subscribe((claimInfo) => {
+                    this.router.navigate([`/claims/${claimInfo.partyId}/${claimInfo.claimId}`]);
+                    this.success();
+                }, (e) => this.failed(e));
+        } else {
+            this.claimService.saveChanges(this.containers
+                .filter((container) => !container.saved)
+                .map((container) => container.modification))
+                .subscribe(() => this.success(), (e) => this.failed(e));
+        }
     }
 
     isUnsavedContainersExist() {
-        return this.containers.filter((container) => !container.saved).length <= 0;
+        return this.containers ? this.containers.filter((container) => !container.saved).length <= 0 : true;
+    }
+
+    isCanCreateModifications() {
+        return !this.isLoading && (!this.claimInfoContainer.status || this.claimInfoContainer.status !== ClaimStatus.pending);
     }
 
     accept() {

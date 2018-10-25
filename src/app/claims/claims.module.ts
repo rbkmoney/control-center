@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -21,6 +22,8 @@ import { ClaimsRoutingModule } from './claims-routing.module';
 import { PapiModule } from '../papi/papi.module';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
+import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
+import { CreateClaimComponent } from './create-claim/create-claim.component';
 
 @NgModule({
     imports: [
@@ -39,12 +42,18 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
-        CdkTableModule
+        CdkTableModule,
+        MatDialogModule
     ],
     declarations: [
         ClaimsComponent,
         SearchFormComponent,
-        ClaimsTableComponent
+        ClaimsTableComponent,
+        ClaimActionsComponent,
+        CreateClaimComponent
+    ],
+    entryComponents: [
+        CreateClaimComponent
     ]
 })
 export class ClaimsModule {

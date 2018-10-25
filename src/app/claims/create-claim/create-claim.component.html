@@ -1,0 +1,12 @@
+<h4 class="mat-dialog-title">Create claim</h4>
+<mat-dialog-content>
+    <form *ngIf="form" [formGroup]="form" fxLayout="column">
+        <mat-form-field>
+            <input matInput placeholder="Party ID" formControlName="partyId">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutGap="10px">
+    <button mat-button color="default" (click)="submit()" [disabled]="isLoading || !form.valid">CREATE</button>
+    <button mat-dialog-close mat-button color="default" (click)="close()">CANCEL</button>
+</mat-dialog-actions>

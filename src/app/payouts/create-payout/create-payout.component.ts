@@ -26,9 +26,8 @@ export class CreatePayoutComponent implements OnInit {
 
     submit() {
         if (this.form.valid) {
-            const formValues = this.form.value;
             this.isLoading = true;
-            this.payoutService.create(this.createPayoutService.makeParams(formValues)).subscribe(() => {
+            this.payoutService.create(this.form.value).subscribe(() => {
                 this.dialogRef.close();
                 this.isLoading = false;
                 this.snackBar.open('Successfully created', 'OK', {duration: 3000});

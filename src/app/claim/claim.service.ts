@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { delay, map, repeatWhen, switchMap, takeWhile, tap } from 'rxjs/internal/operators';
+import {
+    delay,
+    map,
+    repeatWhen,
+    retryWhen,
+    switchMap,
+    takeWhile,
+    tap
+} from 'rxjs/internal/operators';
 import isEqual from 'lodash-es/isEqual';
 import toNumber from 'lodash-es/toNumber';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { PartyModification } from '../damsel';
-import { ClaimInfoContainer, DomainModificationInfo, ModificationGroup, PersistentContainer } from './model';
+import { ClaimInfoContainer, DomainModificationInfo, ModificationGroup } from './model';
 import { PersistentContainerService } from './persistent-container.service';
 import { convert } from './party-modification-group-converter';
 
@@ -27,6 +35,11 @@ export class ClaimService {
         this.persistentContainerService.containers$.subscribe((containers) => {
             this.modificationGroups$.next(convert(containers));
         });
+    }
+
+    mockClaimInfoContainer(claimInfoContainer: ClaimInfoContainer): void {
+        this.claimInfoContainer = claimInfoContainer;
+        this.claimInfoContainer$.next(claimInfoContainer);
     }
 
     resolveClaimInfo(partyID: string, claimID: string): Observable<void> {
@@ -53,15 +66,23 @@ export class ClaimService {
 
     saveChanges(modifications: PartyModification[]): Observable<void> {
         const {partyId, claimId} = this.claimInfoContainer;
-        const units = this.toModificationUnits(modifications);
+        const unit = this.toModificationUnits(modifications);
         return this.papiClaimService.getClaim(partyId, claimId)
             .pipe(
                 switchMap((claimInfo) =>
                     this.papiClaimService
-                        .updateClaim(partyId, claimId, claimInfo.revision, units)
+                        .updateClaim(partyId, claimId, claimInfo.revision, unit)
                         .pipe(map(() => claimInfo.revision))),
                 switchMap((revision) =>
                     this.pollClaimChange(revision))
+            );
+    }
+
+    createClaim(modifications: PartyModification[]): Observable<ClaimInfo> {
+        const unit = this.toModificationUnits(modifications);
+        return this.papiClaimService.createClaim(this.claimInfoContainer.partyId, unit)
+            .pipe(
+                switchMap((createdClaim) => this.pollClaimCreated(this.claimInfoContainer.partyId, createdClaim.claimId))
             );
     }
 
@@ -165,6 +186,23 @@ export class ClaimService {
                         observer.next();
                         observer.complete();
                     }
+                });
+        });
+    }
+
+    private pollClaimCreated(partyId: string, claimId: number, delayMs = 2000, retryCount = 15): Observable<ClaimInfo> {
+        return Observable.create((observer) => {
+            this.papiClaimService.getClaim(partyId, claimId)
+                .pipe(
+                    retryWhen((err) => err.pipe(
+                        delay(delayMs),
+                        takeWhile((error, retries) => error.status === 404 && retries <= retryCount)
+                        )
+                    )
+                )
+                .subscribe((claimInfo) => {
+                    observer.next(claimInfo);
+                    observer.complete();
                 });
         });
     }

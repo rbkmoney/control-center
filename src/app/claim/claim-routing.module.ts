@@ -11,6 +11,11 @@ import { ClaimAuthGuardService } from './claim-auth-guard.service';
                 path: 'claims/:partyId/:claimId',
                 component: ClaimComponent,
                 canActivate: [ClaimAuthGuardService]
+            },
+            {
+                path: 'claims/:partyId/create',
+                component: ClaimComponent,
+                canActivate: [ClaimAuthGuardService]
             }
         ])
     ],

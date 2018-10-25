@@ -29,7 +29,7 @@ const toShopUnitContainers = (persistentContainers: PersistentContainer[]): Modi
 
 const toContractContainer = (persistentContainers: PersistentContainer[]): PartyModificationContainer[] => {
     const grouped = groupBy(persistentContainers, (item: PersistentContainer) => getModificationName(item.modification));
-    return map(grouped, (modifications, name: ShopModificationName | ContractModificationName) => ({
+    return map(grouped, (modifications, name: ContractModificationName) => ({
         name,
         unitContainers: toContractUnitContainers(modifications)
     }));
@@ -37,7 +37,7 @@ const toContractContainer = (persistentContainers: PersistentContainer[]): Party
 
 const toShopContainer = (persistentContainers: PersistentContainer[]): PartyModificationContainer[] => {
     const grouped = groupBy(persistentContainers, (item: PersistentContainer) => getModificationName(item.modification));
-    return map(grouped, (modifications, name: ShopModificationName | ContractModificationName) => ({
+    return map(grouped, (modifications, name: ShopModificationName) => ({
         name,
         unitContainers: toShopUnitContainers(modifications)
     }));
