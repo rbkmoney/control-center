@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { delay, map, repeatWhen, switchMap, takeWhile, tap } from 'rxjs/internal/operators';
+import { delay, map, repeatWhen, retryWhen, switchMap, takeWhile, tap } from 'rxjs/internal/operators';
 import isEqual from 'lodash-es/isEqual';
 import toNumber from 'lodash-es/toNumber';
 
@@ -35,6 +35,11 @@ export class ClaimService {
             this.containers = containers;
             this.modificationGroups$.next(convert(containers));
         });
+    }
+
+    mockClaimInfoContainer(claimInfoContainer: ClaimInfoContainer): void {
+        this.claimInfoContainer = claimInfoContainer;
+        this.claimInfoContainer$.next(claimInfoContainer);
     }
 
     resolveClaimInfo(partyID: string, claimID: string): Observable<void> {
@@ -73,6 +78,14 @@ export class ClaimService {
             );
     }
 
+    createClaim(): Observable<ClaimInfo> {
+        const units = this.toModificationUnits(this.containers);
+        return this.papiClaimService.createClaim(this.claimInfoContainer.partyId, units)
+            .pipe(
+                switchMap((createdClaim) => this.pollClaimCreated(this.claimInfoContainer.partyId, createdClaim.claimId))
+            );
+    }
+
     acceptClaim(): Observable<void> {
         const {claimId, partyId} = this.claimInfoContainer;
         return this.papiClaimService.getClaim(partyId, claimId)
@@ -100,7 +113,7 @@ export class ClaimService {
     }
 
     hasUnsavedChanges(): boolean {
-        return this.containers.filter((i) => !i.saved).length > 0;
+        return this.containers ? this.containers.filter((i) => !i.saved).length > 0 : false;
     }
 
     private toModificationUnits(containers: PersistentContainer[]): PartyModificationUnit {
@@ -177,6 +190,23 @@ export class ClaimService {
                         observer.next();
                         observer.complete();
                     }
+                });
+        });
+    }
+
+    private pollClaimCreated(partyId: string, claimId: number, delayMs = 2000, retryCount = 15): Observable<ClaimInfo> {
+        return Observable.create((observer) => {
+            this.papiClaimService.getClaim(partyId, claimId)
+                .pipe(
+                    retryWhen((err) => err.pipe(
+                        delay(delayMs),
+                        takeWhile((error, retries) => error.status === 404 && retries <= retryCount)
+                        )
+                    )
+                )
+                .subscribe((claimInfo) => {
+                    observer.next(claimInfo);
+                    observer.complete();
                 });
         });
     }

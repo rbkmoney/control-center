@@ -23,7 +23,7 @@ export class PersistentContainerService {
         const item = {
             modification,
             typeHash,
-            saved: false,
+            saved: false
         };
         const index = this.containers.findIndex((i) => i.typeHash === typeHash);
         if (index !== -1) {
@@ -60,7 +60,6 @@ export class PersistentContainerService {
         }
         return Object.keys(modificationUnit.modification)[0];
     }
-
 
     private sort(a: PersistentContainer, b: PersistentContainer): number {
         if (a.saved) {
