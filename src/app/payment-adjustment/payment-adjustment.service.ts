@@ -13,31 +13,12 @@ export class PaymentAdjustmentService {
 
     searchPaymentChanges$: Subject<StatPayment[]> = new Subject<StatPayment[]>();
 
-    paused = false;
-
-    continuationToken: string;
-
     constructor(private reportService: ReportService,
                 private merchantStatisticsService: MerchantStatisticsService) {
     }
 
     fetchPayments(params: SearchFormParams): Observable<StatPayment[]> {
         return this.getAllPayments(params);
-    }
-
-    search(params: SearchFormParams): Observable<StatPayment[]> {
-        return this.getAllPayments(params);
-    }
-
-    pause() {
-        this.paused = true;
-    }
-
-    resume() {
-        this.paused = false;
-    }
-
-    stop() {
     }
 
     private getAllPayments(params: SearchFormParams, continuationToken?: string, payments: StatPayment[] = []): Observable<StatPayment[]> {
