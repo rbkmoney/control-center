@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
 import { StatPayment } from '../gen-damsel/merch_stat';
 import { SearchFormParams } from './search-form/search-form-params';
-import { filter } from 'rxjs/internal/operators';
 
 @Component({
     selector: 'cc-payment-adjustment',
     templateUrl: './payment-adjustment.component.html',
     styleUrls: ['../shared/container.css']
 })
-export class PaymentAdjustmentComponent {
+export class PaymentAdjustmentComponent implements OnInit {
 
     isLoading = false;
 
@@ -31,6 +30,12 @@ export class PaymentAdjustmentComponent {
     ) {
     }
 
+    ngOnInit() {
+        this.paymentAdjustmentService.searchPaymentChanges$.subscribe((payments) => {
+            this.payments = payments;
+        });
+    }
+
     formValueChanges(params: SearchFormParams) {
         this.searchParams = params;
     }
@@ -39,15 +44,12 @@ export class PaymentAdjustmentComponent {
         this.formValid = status === 'VALID';
     }
 
-    createAndCapturePaymentAdjustment() {
-        const ref = this.dialogRef.open(CreateAndCaptureComponent, {
+    create() {
+        this.dialogRef.open(CreateAndCaptureComponent, {
             width: '800px',
             disableClose: true,
             data: this.selectedPayments
         });
-        ref.afterClosed()
-            .pipe(filter((captured) => captured))
-            .subscribe(() => this.search());
     }
 
     changeSelected(e) {
@@ -55,16 +57,16 @@ export class PaymentAdjustmentComponent {
     }
 
     search() {
+        this.payments = [];
+        this.selectedPayments = [];
         this.isLoading = true;
-        this.paymentAdjustmentService.fetchPayments(this.searchParams).subscribe((payments) => {
-            this.payments = payments || [];
-        }, (e) => {
-            this.payments = [];
-            this.snackBar.open(`${e.message || 'Error'}`, 'OK');
-            console.error(e);
-        }, () => {
+        this.paymentAdjustmentService.fetchPayments(this.searchParams).subscribe(() => {
             this.selectedPayments = [];
             this.isLoading = false;
+        }, (e) => {
+            this.snackBar.open(`${e.message || 'Error'}`, 'OK');
+            this.isLoading = false;
+            console.error(e);
         });
     }
 }

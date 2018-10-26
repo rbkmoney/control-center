@@ -1,12 +1,7 @@
 <div class="container">
     <div class="card-container" fxLayout="column" fxLayoutGap="20px">
         <mat-card>
-            <mat-card-subtitle fxLayout="row" fxLayoutAlign="space-between none">
-                <div>Search payments</div>
-                <div *ngIf="payments.length">
-                    Found: <b>{{payments.length}}</b>
-                </div>
-            </mat-card-subtitle>
+            <mat-card-subtitle>Search payments params</mat-card-subtitle>
             <mat-card-content>
                 <cc-payment-adjustment-search-form
                         (valueChanges)="formValueChanges($event)"
@@ -14,7 +9,10 @@
                 </cc-payment-adjustment-search-form>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button color="primary" [disabled]="!formValid || isLoading" (click)="search()">
+                <button mat-button
+                        color="primary"
+                        [disabled]="!formValid || isLoading"
+                        (click)="search()">
                     SEARCH
                 </button>
             </mat-card-actions>
@@ -23,27 +21,24 @@
             </mat-card-footer>
         </mat-card>
         <mat-card>
-            <mat-card-subtitle fxLayout="row" fxLayoutAlign="space-between none">
-                <div>Payment adjustment actions</div>
-                <div *ngIf="selectedPayments.length">
-                    Selected: <b>{{selectedPayments.length}}</b>
-                </div>
-                <div *ngIf="payments.length && !selectedPayments.length">
-                    Not selected
-                </div>
-            </mat-card-subtitle>
             <mat-card-content>
-                <span matTooltip="You must select at least one 'payment'"
-                      [matTooltipDisabled]="!!selectedPayments.length">
-                    <button mat-raised-button color="primary" (click)="createAndCapturePaymentAdjustment()"
+                <div fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <div>
+                        Found: {{payments.length}}
+                    </div>
+                    <div>
+                        Selected: {{selectedPayments.length}}
+                    </div>
+                    <button mat-button
+                            color="primary"
+                            (click)="create()"
                             [disabled]="!selectedPayments.length">CREATE
                     </button>
-                </span>
+                </div>
+                <cc-payment-adjustment-table [payments]="payments"
+                                             (changeSelected)="changeSelected($event)">
+                </cc-payment-adjustment-table>
             </mat-card-content>
         </mat-card>
-        <div class="mat-elevation-z2">
-            <cc-payment-adjustment-table [payments]="payments"
-                                         (changeSelected)="changeSelected($event)"></cc-payment-adjustment-table>
-        </div>
     </div>
 </div>
