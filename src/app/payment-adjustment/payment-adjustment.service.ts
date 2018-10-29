@@ -23,11 +23,11 @@ export class PaymentAdjustmentService {
 
     private getAllPayments(params: SearchFormParams, continuationToken?: string, payments: StatPayment[] = []): Observable<StatPayment[]> {
         return this.getPayments(params, continuationToken)
-            .pipe(mergeMap(({continuationToken, data}) => {
-                const mergedPayments = [...payments, ...data.payments];
+            .pipe(mergeMap((res) => {
+                const mergedPayments = [...payments, ...res.data.payments];
                 this.searchPaymentChanges$.next(mergedPayments);
-                return continuationToken
-                    ? this.getAllPayments(params, continuationToken, mergedPayments)
+                return res.continuationToken
+                    ? this.getAllPayments(params, res.continuationToken, mergedPayments)
                     : of(mergedPayments);
             }));
     }
