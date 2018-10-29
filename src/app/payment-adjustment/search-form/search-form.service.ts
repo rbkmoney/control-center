@@ -32,11 +32,11 @@ export class SearchFormService {
         return this.fb.group({
             fromTime: defaultDate,
             toTime: defaultDate,
-            partyId: '24b0768d-fa41-427a-b034-8a8d6be8f397',
+            partyId: '',
             shopId: '',
             invoicesIds: '',
-            fromRevision: ['0', Validators.required],
-            toRevision: ['9999', Validators.required],
+            fromRevision: ['', Validators.required],
+            toRevision: ['', Validators.required],
             status: 'captured',
             invoiceId: ''
         });
