@@ -35,7 +35,7 @@
     "rxjs": "^6.3.3",
     "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#6be548bef8b70c6cc0a66ce08ffaccb1263c982c",
     "uuid": "^3.3.2",
-    "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#dfe1ec26573de991f59952aa64b409280fec6c58",
+    "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#8d2b8c44419ba5dd7979d67c25497e69e37dad8f",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

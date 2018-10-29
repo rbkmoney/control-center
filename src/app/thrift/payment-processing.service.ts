@@ -12,11 +12,11 @@ export class PaymentProcessingService extends ThriftService {
     }
 
     createPaymentAdjustment: (user: any, id: string, paymentId: string, params: any) => Observable<any>
-        = this.toObservableAction(this.client.CreatePaymentAdjustment.bind(this.client));
+        = this.toObservableAction('CreatePaymentAdjustment');
 
     capturePaymentAdjustment: (user: any, id: string, paymentId: string, adjustmentId: string) => Observable<any>
-        = this.toObservableAction(this.client.CapturePaymentAdjustment.bind(this.client));
+        = this.toObservableAction('CapturePaymentAdjustment');
 
     cancelPaymentAdjustment: (user: any, id: string, paymentId: string, adjustmentId: string) => Observable<any>
-        = this.toObservableAction(this.client.CancelPaymentAdjustment.bind(this.client));
+        = this.toObservableAction('CancelPaymentAdjustment');
 }
