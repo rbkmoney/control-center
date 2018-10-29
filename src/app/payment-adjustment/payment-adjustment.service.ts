@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 import { ReportService } from '../papi/report.service';
 import { SearchFormParams } from './search-form/search-form-params';
@@ -11,42 +11,45 @@ import { QueryDSL } from '../query-dsl';
 @Injectable()
 export class PaymentAdjustmentService {
 
-    constructor(private reportService: ReportService, private merchantStatisticsService: MerchantStatisticsService) {
+    searchPaymentChanges$: Subject<StatPayment[]> = new Subject<StatPayment[]>();
+
+    constructor(private reportService: ReportService,
+                private merchantStatisticsService: MerchantStatisticsService) {
     }
 
     fetchPayments(params: SearchFormParams): Observable<StatPayment[]> {
-        return this.getAllPayments(params).pipe(map((payments) => this.getFilteredPayments(payments, params.invoicesIds)));
+        return this.getAllPayments(params);
     }
 
-    private getFilteredPayments(payments: StatPayment[], invoicesIds?: string[]): StatPayment[] {
-        return invoicesIds && invoicesIds.length
-            ? payments.filter((payment) => invoicesIds.find((id) => id === payment.invoiceId))
-            : payments;
+    private getAllPayments(params: SearchFormParams, continuationToken?: string, payments: StatPayment[] = []): Observable<StatPayment[]> {
+        return this.getPayments(params, continuationToken)
+            .pipe(mergeMap((res) => {
+                const mergedPayments = [...payments, ...res.data.payments];
+                this.searchPaymentChanges$.next(mergedPayments);
+                return res.continuationToken
+                    ? this.getAllPayments(params, res.continuationToken, mergedPayments)
+                    : of(mergedPayments);
+            }));
     }
 
     private getPayments(params: SearchFormParams, continuationToken?: string): Observable<StatResponse> {
-        const {fromRevision, toRevision, partyId, fromTime, toTime, status} = params;
+        const {fromRevision, toRevision, partyId, fromTime, toTime, status, shopId, invoiceId} = params;
         return this.merchantStatisticsService.getPayments({
             dsl: JSON.stringify({
                 query: {
                     payments: {
                         ...(partyId ? {merchant_id: partyId} : {}),
+                        ...(shopId ? {shop_id: shopId} : {}),
                         from_time: fromTime,
                         to_time: toTime,
                         from_payment_domain_revision: fromRevision,
                         to_payment_domain_revision: toRevision,
-                        ...(status ? {payment_status: status} : {})
+                        ...(status ? {payment_status: status} : {}),
+                        ...(invoiceId ? {invoice_id: invoiceId} : {})
                     }
                 }
             } as QueryDSL),
             ...(continuationToken ? {continuationToken} : {})
         });
-    }
-
-    private getAllPayments(params: SearchFormParams, continuationToken?: string, payments: StatPayment[] = []): Observable<StatPayment[]> {
-        return this.getPayments(params, continuationToken).pipe(mergeMap((response) => {
-            const mergedPayments = [...payments, ...response.data.payments];
-            return response.continuationToken ? this.getAllPayments(params, response.continuationToken) : of(mergedPayments);
-        }));
     }
 }

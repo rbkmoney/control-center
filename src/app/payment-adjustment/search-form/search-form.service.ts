@@ -14,15 +14,16 @@ export class SearchFormService {
     }
 
     formValueToSearchParams(value: any): SearchFormParams {
-        const {fromTime, toTime, partyId, invoicesIds, fromRevision, toRevision, status} = value;
+        const {fromTime, toTime, partyId, fromRevision, toRevision, status, shopId, invoiceId} = value;
         return {
             fromTime: moment(fromTime).startOf('day').utc().format(),
             toTime: moment(toTime).endOf('day').utc().format(),
             partyId,
-            invoicesIds: invoicesIds ? invoicesIds.split(',').map((part) => part.trim()) : null,
             fromRevision,
             toRevision,
-            status
+            status,
+            shopId,
+            invoiceId
         };
     }
 
@@ -32,10 +33,12 @@ export class SearchFormService {
             fromTime: defaultDate,
             toTime: defaultDate,
             partyId: '',
+            shopId: '',
             invoicesIds: '',
             fromRevision: ['', Validators.required],
             toRevision: ['', Validators.required],
-            status: 'captured'
+            status: 'captured',
+            invoiceId: ''
         });
     }
 }
