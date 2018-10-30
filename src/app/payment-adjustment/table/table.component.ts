@@ -18,7 +18,7 @@ export class TableComponent implements OnInit, OnChanges {
     @Output()
     changeSelected: EventEmitter<StatPayment[]> = new EventEmitter();
 
-    dataSource: MatTableDataSource<StatPayment>;
+    dataSource: MatTableDataSource<StatPayment> = new MatTableDataSource();
 
     selection = new SelectionModel<StatPayment>(true, []);
 
@@ -34,16 +34,6 @@ export class TableComponent implements OnInit, OnChanges {
         'shopId'
     ];
 
-    ngOnInit() {
-        this.selection.changed.subscribe((e) => this.changeSelected.emit(e.source.selected));
-        this.dataSource = new MatTableDataSource(this.payments);
-        this.dataSource.filterPredicate = ({domainRevision}: any, filter: string) => {
-            const number = i64ToNumber(domainRevision.buffer, domainRevision.offset);
-            return filter === number.toString();
-        };
-        this.dataSource.paginator = this.paginator;
-    }
-
     ngOnChanges(changes: SimpleChanges) {
         const {payments} = changes;
         if (payments && payments.currentValue) {
@@ -51,6 +41,15 @@ export class TableComponent implements OnInit, OnChanges {
             this.changeSelected.emit([]);
             this.dataSource.data = payments.currentValue;
         }
+    }
+
+    ngOnInit() {
+        this.selection.changed.subscribe((e) => this.changeSelected.emit(e.source.selected));
+        this.dataSource.filterPredicate = ({domainRevision}: any, filter: string) => {
+            const number = i64ToNumber(domainRevision.buffer, domainRevision.offset);
+            return filter === number.toString();
+        };
+        this.dataSource.paginator = this.paginator;
     }
 
     applyFilter(filterValue: string) {

@@ -4,7 +4,7 @@ import { catchError, map, tap } from 'rxjs/internal/operators';
 import groupBy from 'lodash-es/groupBy';
 
 import { ExecutorService } from '../executor.service';
-import { PaymentProcessingTypedManager } from '../../../thrift/payment-processing-typed-manager';
+import { PaymentProcessingService } from '../../../thrift/payment-processing.service';
 import { AdjustmentOperationEvent, EventType } from './adjustment-event';
 import { ExecResultGroup } from './exec-result-group';
 
@@ -17,7 +17,7 @@ export abstract class AdjustmentOperationService {
 
     constructor(
         protected executorService: ExecutorService,
-        protected manager: PaymentProcessingTypedManager) {
+        protected manager: PaymentProcessingService) {
         this.progress$ = this.executorService.progress$;
     }
 

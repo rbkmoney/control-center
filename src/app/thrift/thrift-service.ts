@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
-import connectClient from 'woody_js/dist/connect-client';
+import connectClient from 'woody_js';
 
 type Exception<N = string, T = {}> = {
     name: N;
@@ -10,30 +10,38 @@ type Exception<N = string, T = {}> = {
 
 export class ThriftService {
 
-    protected client: any;
+    protected endpoint: string;
+    protected service: any;
 
     constructor(private zone: NgZone, endpoint: string, thriftService: any) {
-        this.client = this.createThriftClient(endpoint, thriftService);
+        this.endpoint = endpoint;
+        this.service = thriftService;
     }
 
-    protected toObservableAction<T extends (...A: any[]) => Observable<any>>(func: Function): T {
-        return ((...args) => Observable.create((observer) => {
-            this.zone.run(() => {
-                try {
-                    func(...args, (ex: Exception, result) => {
-                        ex ? observer.error(ex) : observer.next(result);
+    protected toObservableAction<T extends (...A: any[]) => Observable<any>>(name: string): T {
+        return (
+            (...args) => Observable.create((observer) => {
+                this.zone.run(() => {
+                    try {
+                        this.createClient((msg) => {
+                            observer.error(msg);
+                            observer.complete();
+                        })[name](...args, (ex: Exception, result) => {
+                            ex ? observer.error(ex) : observer.next(result);
+                            observer.complete();
+                        });
+                    } catch (e) {
+                        observer.error(e);
                         observer.complete();
-                    });
-                } catch (e) {
-                    observer.error(e);
-                    observer.complete();
-                }
-            });
-        }).pipe(timeout(10000))) as any;
+                    }
+                });
+            }).pipe(
+                timeout(60000)
+            )
+        ) as any;
     }
 
-    private createThriftClient(endpoint: string, thriftService: any) {
-        const {hostname, port} = location;
-        return connectClient(hostname, port, endpoint, thriftService);
+    private createClient(errorCb: Function) {
+        return connectClient(location.hostname, location.port, this.endpoint, this.service, errorCb);
     }
 }

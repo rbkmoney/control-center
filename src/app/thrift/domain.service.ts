@@ -11,10 +11,7 @@ export class DomainService extends ThriftService {
         super(zone, '/v1/domain/repository', Repository);
     }
 
-    checkout: (reference: any) =>
-        Observable<any> = this.toObservableAction(this.client.Checkout.bind(this.client));
+    checkout: (reference: any) => Observable<any> = this.toObservableAction('Checkout');
 
-    commit: (version: any, commit: any) =>
-        Observable<any> = this.toObservableAction(this.client.Commit.bind(this.client));
-
+    commit: (version: any, commit: any) => Observable<any> = this.toObservableAction('Commit');
 }
