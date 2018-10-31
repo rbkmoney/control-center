@@ -25,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ClaimModule } from './claim/claim.module';
 import { PayoutsModule } from './payouts/payouts.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
+import { DomainModule } from './domain/domain.module';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment
         ClaimsModule,
         ClaimModule,
         PayoutsModule,
-        PaymentAdjustmentModule
+        PaymentAdjustmentModule,
+        DomainModule
     ],
     providers: [
         {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},

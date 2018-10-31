@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
     private getMenuItems() {
         const menuItems = [
-            // {name: 'Domain config', route: '/domain', activateRole: 'dmt:checkout'},
+            {name: 'Domain config', route: '/domain', activateRole: 'dmt:checkout'},
             {name: 'Payouts', route: '/payouts', activateRole: 'payout:read'},
             {name: 'Claims', route: '/claims', activateRole: 'claim:get'},
             {name: 'Payment adjustment', route: '/payment-adjustment', activateRole: 'adjustment:create'}
