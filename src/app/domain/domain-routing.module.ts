@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { DomainAuthGuardService } from './domain-auth-guard.service';
+import { AppAuthGuardService } from '../app-auth-guard.service';
 import { DomainComponent } from './domain.component';
 
 @NgModule({
@@ -10,19 +10,12 @@ import { DomainComponent } from './domain.component';
             {
                 path: 'domain',
                 component: DomainComponent,
-                canActivate: [DomainAuthGuardService],
+                canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['dmt:checkout', 'dmt:commit', 'dmt:pull']
                 }
             }
         ])
-    ],
-    exports: [
-        RouterModule
-    ],
-    providers: [
-        DomainAuthGuardService
     ]
 })
-export class DomainRoutingModule {
-}
+export class DomainRoutingModule {}

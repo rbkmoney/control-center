@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
-
-const routes: Routes = [{
-    path: 'payment-adjustment',
-    component: PaymentAdjustmentComponent
-}];
+import { AppAuthGuardService } from '../app-auth-guard.service';
 
 @NgModule({
   imports: [
-      RouterModule.forChild(routes)
-  ],
-  exports: [
-      RouterModule
+      RouterModule.forChild([{
+          path: 'payment-adjustment',
+          component: PaymentAdjustmentComponent,
+          canActivate: [AppAuthGuardService],
+          data: {
+              roles: ['adjustment:create']
+          }
+      }])
   ]
 })
 export class PaymentAdjustmentRoutingModule { }

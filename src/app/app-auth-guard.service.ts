@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
 @Injectable()
-export class DomainAuthGuardService extends KeycloakAuthGuard {
+export class AppAuthGuardService extends KeycloakAuthGuard {
     constructor(protected router: Router, protected keycloakAngular: KeycloakService) {
         super(router, keycloakAngular);
     }
