@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import * as _ from 'lodash';
 
 @Injectable()
 export class MetadataConfigService {
@@ -18,7 +17,7 @@ export class MetadataConfigService {
             this.concatConfigs(),
             this.loadEnumCrutch()
         ]).then((data: any) => {
-            this.config = _.reduce(data, (config: any, crutch: any) => {
+            this.config = data.reduce((config: any, crutch: any) => {
                 config.enumCrutch = crutch;
                 return config;
             });
@@ -31,19 +30,19 @@ export class MetadataConfigService {
             this.loadBase(),
             this.loadDomain()
         ]).then((data: any) => {
-            return _.reduce(data, (base: any, domain: any) => {
+            return data.reduce((base: any, domain: any) => {
                 this.setNamespace(base.structs, 'base');
                 this.setNamespace(domain.structs, 'domain');
                 return {
-                    enums: _.concat(base.enums, domain.enums),
-                    structs: _.concat(base.structs, domain.structs) || []
+                    enums: base.enums.concat(domain.enums),
+                    structs: base.structs.concat(domain.structs) || []
                 };
             });
         });
     }
 
     private setNamespace(structs: any[], namespace: string) {
-        _.forEach(structs, (struct) => struct.namespace = namespace);
+        structs.forEach((struct) => struct.namespace = namespace);
     }
 
     private loadBase(): Promise<any> {

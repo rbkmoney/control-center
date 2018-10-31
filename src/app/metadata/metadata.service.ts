@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import * as _ from 'lodash';
+import endsWith from 'lodash-es/endsWith';
+import isString from 'lodash-es/isString';
+import startsWith from 'lodash-es/startsWith';
 
 import { MetadataConfigService } from './metadata-config.service';
 import { MetadataObject } from './model/metadata-object.class';
@@ -29,17 +31,15 @@ export class MetadataService {
     }
 
     public getMetadata(structName: string): MetadataObject {
-        return _.find(this.structs, (struct: any) => struct.name === structName);
+        return this.structs.find((struct: any) => struct.name === structName);
     }
 
     public getEnumMetadata(enumName: string): MetadataEnum {
-        return _.find(this.enums, (enumItem) => enumItem.name === enumName);
+        return this.enums.find((enumItem) => enumItem.name === enumName);
     }
 
     private typingStructs(structs: any): MetadataObject[] {
-        const result: MetadataObject[] = [];
-        _.forEach(structs, (struct) => result.push(this.typingStruct(struct)));
-        return result;
+        return structs.map((struct) => this.typingStruct(struct));
     }
 
     private typingStruct(struct: any): MetadataObject {
@@ -48,7 +48,7 @@ export class MetadataService {
         if (struct.name) {
             result.name = struct.name;
             enumCrutch = this.searchEnumCrutch('struct', struct.name);
-            result.isRef = _.endsWith(struct.name, 'Ref');
+            result.isRef = endsWith(struct.name, 'Ref');
         }
         if (struct.doc) {
             result.doc = struct.doc;
@@ -69,15 +69,7 @@ export class MetadataService {
     }
 
     private typingFields(fields: any, enumCrutch: any): MetadataField[] {
-        const result: MetadataField[] = [];
-        _.forEach(fields, (field) => {
-            let enumCrutchField;
-            if (enumCrutch) {
-                enumCrutchField = this.searchEnumCrutch('field', field.name);
-            }
-            result.push(this.typingField(field, enumCrutchField));
-        });
-        return result;
+        return fields.map((field) => this.typingField(field, enumCrutch ? this.searchEnumCrutch('field', field.name) : undefined));
     }
 
     private typingField(field: any, enumCrutch: any): MetadataField {
@@ -109,27 +101,18 @@ export class MetadataService {
     }
 
     private typingMetadataType(type: any): MetadataType {
-        let result: any;
         switch (type.typeId) {
             case 'struct':
-                result = this.createMetadataReferenceType(type);
-                break;
+                return this.createMetadataReferenceType(type);
             case 'union':
-                result = this.createMetadataReferenceType(type);
-                break;
+                return this.createMetadataReferenceType(type);
             case 'set':
-                result = this.createMetadataIterableType(type);
-                break;
+                return this.createMetadataIterableType(type);
             case 'list':
-                result = this.createMetadataIterableType(type);
-                break;
+                return this.createMetadataIterableType(type);
             case 'map':
-                result = this.createMetadataMapType(type);
-                break;
-            default:
-                break;
+                return this.createMetadataMapType(type);
         }
-        return result;
     }
 
     private createMetadataReferenceType(type: any): MetadataReferenceType {
@@ -147,7 +130,7 @@ export class MetadataService {
         if (type.elemTypeId) {
             result.elemTypeId = this.typingTypeName(type.elemTypeId);
         }
-        if (type.elemType)   {
+        if (type.elemType) {
             result.elemType = this.typingMetadataType(type.elemType);
         }
         return result;
@@ -173,16 +156,16 @@ export class MetadataService {
 
     private filterClassName(className: string): string {
         let result = className;
-        _.forEach(MetadataNamespace, (namespace) => {
-            if (_.isString(namespace) && _.startsWith(className, namespace)) {
-                result = _.replace(className, `${namespace}.`, '');
+        MetadataNamespace.forEach((namespace) => {
+            if (isString(namespace) && startsWith(className, namespace)) {
+                result = className.replace(`${namespace}.`, '');
             }
         });
         return result;
     }
 
     private searchEnumCrutch(crutchField, value) {
-        return _.find(this.metadata.enumCrutch, (crutch: any) => crutch[crutchField] === value);
+        return this.metadata.enumCrutch.find((crutch: any) => crutch[crutchField] === value);
     }
 
     private typingTypeName(value: string): TypeName {

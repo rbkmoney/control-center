@@ -1,14 +1,11 @@
-import * as _ from 'lodash';
+import isNumber from 'lodash-es/isNumber';
 
 import { MetadataEnum } from './model/metadata-enum.class';
 import { MetadataEnumMember } from './model/metadata-enum-member.class';
 
 export class EnumTypingService {
-
     public static typingEnums(enums: any[]): MetadataEnum[] {
-        const result: MetadataEnum[] = [];
-        _.forEach(enums, (enumItem) => result.push(this.typingEnum(enumItem)));
-        return result;
+        return enums.map((enumItem) => this.typingEnum(enumItem));
     }
 
     private static typingEnum(enumItem: any): MetadataEnum {
@@ -17,14 +14,8 @@ export class EnumTypingService {
             result.name = enumItem.name;
         }
         if (enumItem.members) {
-            result.members = this.typingEnumMembers(enumItem.members);
+            result.members = enumItem.members.map((member) => this.typingEnumMember(member));
         }
-        return result;
-    }
-
-    private static typingEnumMembers(enumMembers: any[]): MetadataEnumMember[] {
-        const result: MetadataEnumMember[] = [];
-        _.forEach(enumMembers, (enumMember) => result.push(this.typingEnumMember(enumMember)));
         return result;
     }
 
@@ -33,7 +24,7 @@ export class EnumTypingService {
         if (enumMember.name) {
             result.name = enumMember.name;
         }
-        if (_.isNumber(enumMember.value)) {
+        if (isNumber(enumMember.value)) {
             result.value = enumMember.value;
         }
         if (enumMember.doc) {
