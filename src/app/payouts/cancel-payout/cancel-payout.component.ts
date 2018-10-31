@@ -37,8 +37,4 @@ export class CancelPayoutComponent implements OnInit {
             console.error(error);
         });
     }
-
-    close() {
-        this.dialogRef.close();
-    }
 }

@@ -1,6 +1,8 @@
 import { ClaimStatus } from '../../papi/model/claim-statuses';
+import { ClaimActionType } from '../claim-action-type';
 
 export class ClaimInfoContainer {
+    type: ClaimActionType;
     status?: ClaimStatus;
     partyId?: string;
     claimId?: number;

@@ -1,34 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
-import { CreateClaimService } from './create-claim.service';
+
+import { ClaimActionType } from '../../claim/claim-action-type';
 
 @Component({
-    templateUrl: 'create-claim.component.html',
-    providers: [CreateClaimService]
+    templateUrl: 'create-claim.component.html'
 })
 export class CreateClaimComponent implements OnInit {
+
     form: FormGroup;
-    isLoading: boolean;
 
     constructor(private dialogRef: MatDialogRef<CreateClaimComponent>,
-                private createPayoutService: CreateClaimService,
-                private router: Router) {
+                private router: Router,
+                private fb: FormBuilder) {
     }
 
     ngOnInit() {
-        this.form = this.createPayoutService.createClaimGroup;
+        this.form = this.fb.group({
+            partyId: ['', Validators.required]
+        });
     }
 
     submit() {
-        if (this.form.valid) {
-            this.close();
-            this.router.navigate([`/claims/${this.form.value.partyId}/create`]);
-        }
-    }
-
-    close() {
+        const partyId = this.form.value.partyId.trim();
         this.dialogRef.close();
+        this.router.navigate([`/claims/${partyId}/${ClaimActionType.create}`]);
     }
 }

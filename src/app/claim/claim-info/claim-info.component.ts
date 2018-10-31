@@ -8,6 +8,7 @@ import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 import { ClaimStatus } from '../../papi/model/claim-statuses';
+import { ClaimActionType } from '../claim-action-type';
 
 @Component({
     selector: 'cc-claim-info',
@@ -17,7 +18,6 @@ export class ClaimInfoComponent implements OnInit {
 
     claimInfoContainer: ClaimInfoContainer;
     isLoading = false;
-    private claimId: string;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -31,39 +31,42 @@ export class ClaimInfoComponent implements OnInit {
         this.claimService.claimInfoContainer$.subscribe((container) => {
             this.claimInfoContainer = container;
         });
-        this.route.params.subscribe((params) => {
-            const {claimId, partyId} = params;
-            this.claimId = claimId;
-            if (claimId === 'create') {
-                this.claimService.mockClaimInfoContainer({partyId});
-            }
-        });
     }
 
-    createChange() {
-        this.bottomSheet.open(UnitActionsComponent);
-    }
-
-    saveModifications() {
-        this.isLoading = true;
-        if (this.claimId === 'create') {
-            this.claimService.createClaim()
-                .subscribe((claimInfo) => {
-                    this.router.navigate([`/claims/${claimInfo.partyId}/${claimInfo.claimId}`]);
-                    this.success();
-                }, (e) => this.failed(e));
-        } else {
-            this.claimService.saveChanges()
-                .subscribe(() => this.success(), (e) => this.failed(e));
+    addAvailable() {
+        switch (this.claimInfoContainer.type) {
+            case ClaimActionType.edit:
+                return this.claimInfoContainer.status === ClaimStatus.pending;
+            case ClaimActionType.create:
+                return true;
         }
+        return false;
     }
 
     hasUnsavedChanges() {
         return this.claimService.hasUnsavedChanges();
     }
 
-    isCanCreateModifications() {
-        return (!this.isLoading && this.claimInfoContainer.status === ClaimStatus.pending) || (!this.isLoading && !this.claimInfoContainer.status);
+    add() {
+        this.bottomSheet.open(UnitActionsComponent);
+    }
+
+    save() {
+        this.isLoading = true;
+        switch (this.claimInfoContainer.type) {
+            case ClaimActionType.edit:
+                this.claimService.saveChanges()
+                    .subscribe(() => this.success(), (e) => this.failed(e));
+                break;
+            case ClaimActionType.create:
+                this.claimService.createClaim()
+                    .subscribe((claimInfo) => {
+                        const editEndpoint = `/claims/${claimInfo.partyId}/${ClaimActionType.edit}/${claimInfo.claimId}`;
+                        this.router.navigate([editEndpoint])
+                            .then(() => this.success());
+                    }, (e) => this.failed(e));
+                break;
+        }
     }
 
     accept() {
@@ -87,6 +90,6 @@ export class ClaimInfoComponent implements OnInit {
     private failed(error) {
         console.error(error);
         this.isLoading = false;
-        this.snackBar.open(`An error occurred while creating ${name}`, 'OK');
+        this.snackBar.open('An error occurred', 'OK');
     }
 }

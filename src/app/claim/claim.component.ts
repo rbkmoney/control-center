@@ -14,15 +14,12 @@ export class ClaimComponent {
                 private claimService: ClaimService,
                 private snackBar: MatSnackBar) {
         this.route.params.subscribe((params) => {
-            const {partyId, claimId} = params;
-            if (claimId !== 'create') {
-                this.claimService.resolveClaimInfo(partyId, claimId)
-                    .subscribe(null, (error) => {
-                        console.error(error);
-                        this.snackBar.open('An error occurred while claim resolving', 'OK');
-                    });
-            }
+            const {action, partyId, claimId} = params;
+            this.claimService.resolveClaimInfo(action, partyId, claimId)
+                .subscribe(null, (error) => {
+                    console.error(error);
+                    this.snackBar.open('An error occurred while claim resolving', 'OK');
+                });
         });
-
     }
 }
