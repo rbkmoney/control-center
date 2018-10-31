@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 import { ConfigService } from './config.service';
+import { MetadataConfigService } from '../metadata/metadata-config.service';
 
-const initializer = (keycloak: KeycloakService, configService: ConfigService) =>
+const initializer = (keycloak: KeycloakService, configService: ConfigService, metadataConfigService: MetadataConfigService) =>
     () => Promise.all([
         configService.load(),
         keycloak.init({
@@ -18,7 +19,8 @@ const initializer = (keycloak: KeycloakService, configService: ConfigService) =>
                 '/assets'
             ],
             bearerPrefix: 'Bearer'
-        })
+        }),
+        metadataConfigService.load()
     ]);
 
 @NgModule({
@@ -32,7 +34,7 @@ const initializer = (keycloak: KeycloakService, configService: ConfigService) =>
             provide: APP_INITIALIZER,
             useFactory: initializer,
             multi: true,
-            deps: [KeycloakService, ConfigService]
+            deps: [KeycloakService, ConfigService, MetadataConfigService]
         }
     ]
 })
