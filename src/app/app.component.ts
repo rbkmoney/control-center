@@ -23,7 +23,8 @@ export class AppComponent implements OnInit {
         this.keycloakService.logout();
     }
 
-    private getMenuItems() {
+    private getMenuItems(): {name: string, route: string}[] {
+        // TODO: reuse some-routing.module.ts: data/roles
         const menuItems = [
             {name: 'Domain config', route: '/domain', activateRole: 'dmt:checkout'},
             {name: 'Payouts', route: '/payouts', activateRole: 'payout:read'},
@@ -31,6 +32,6 @@ export class AppComponent implements OnInit {
             {name: 'Payment adjustment', route: '/payment-adjustment', activateRole: 'adjustment:create'}
         ];
         const roles = this.keycloakService.getUserRoles();
-        return menuItems.filter((item) => roles.includes(item.activateRole));
+        return menuItems.filter((item) => roles.includes(item.activateRole)) as {name: string, route: string}[];
     }
 }
