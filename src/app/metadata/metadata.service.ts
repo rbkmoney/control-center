@@ -12,7 +12,6 @@ import { MetadataReferenceType } from './model/metadata-reference-type.class';
 import { MetadataIterableType } from './model/metadata-iterable-type.class';
 import { MetadataMapType } from './model/metadata-map-type.class';
 import { MetadataEnum } from './model/metadata-enum.class';
-import { EnumTypingService } from './enum-typing.service';
 import { MetadataNamespace } from './model/metadata-namespace.enum';
 import { MetadataEnumType } from './model/metadata-enum-type.class';
 import { MetadataType } from './model/metadata-type.class';
@@ -27,11 +26,11 @@ export class MetadataService {
     constructor(private metadataConfigService: MetadataConfigService) {
         this.metadata = this.metadataConfigService.getMetadataConfig();
         this.structs = this.typingStructs(this.metadata.structs);
-        this.enums = EnumTypingService.typingEnums(this.metadata.enums);
+        this.enums = this.metadata.enums;
     }
 
     public getMetadata(structName: string): MetadataObject {
-        return this.structs.find((struct: any) => struct.name === structName);
+        return this.structs.find((struct) => struct.name === structName);
     }
 
     public getEnumMetadata(enumName: string): MetadataEnum {
