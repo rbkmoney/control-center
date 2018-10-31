@@ -156,11 +156,11 @@ export class MetadataService {
 
     private filterClassName(className: string): string {
         let result = className;
-        MetadataNamespace.forEach((namespace) => {
+        for (const namespace in MetadataNamespace) {
             if (isString(namespace) && startsWith(className, namespace)) {
                 result = className.replace(`${namespace}.`, '');
             }
-        });
+        }
         return result;
     }
 
