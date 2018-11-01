@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+
 import { PayoutsService } from '../payouts.service';
 
 @Component({
@@ -26,9 +27,5 @@ export class ConfirmPayoutsComponent {
             this.snackBar.open('An error occurred while confirming payouts', 'OK');
             console.error(error);
         });
-    }
-
-    close() {
-        this.dialogRef.close();
     }
 }

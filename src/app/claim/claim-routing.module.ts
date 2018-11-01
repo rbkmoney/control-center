@@ -8,7 +8,11 @@ import { ClaimAuthGuardService } from './claim-auth-guard.service';
     imports: [
         RouterModule.forChild([
             {
-                path: 'claims/:partyId/:claimId',
+                path: 'claims/:partyId/:action/:claimId',
+                component: ClaimComponent,
+                canActivate: [ClaimAuthGuardService]
+            }, {
+                path: 'claims/:partyId/:action',
                 component: ClaimComponent,
                 canActivate: [ClaimAuthGuardService]
             }

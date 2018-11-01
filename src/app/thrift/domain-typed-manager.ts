@@ -10,7 +10,7 @@ import {
     PaymentInstitutionObject
 } from '../damsel/domain';
 import { Version } from '../damsel';
-import { CreateTerminalParams } from '../claim/domain-typed-manager/create-terminal-params';
+import { CreateTerminalParams } from '../claim/domain-typed-manager';
 import { findDomainObject, findDomainObjects } from '../claim/domain-typed-manager/utils';
 import { createShopTerminal } from '../claim/domain-typed-manager/create-shop-terminal';
 import { toGenReference } from './converters';

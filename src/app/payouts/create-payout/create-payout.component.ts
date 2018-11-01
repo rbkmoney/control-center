@@ -40,8 +40,4 @@ export class CreatePayoutComponent implements OnInit {
             });
         }
     }
-
-    close() {
-        this.dialogRef.close();
-    }
 }

@@ -1,9 +1,10 @@
 import { PartyModificationUnit } from './party-modification-unit';
+import { ClaimStatus } from './claim-statuses';
 
 export class ClaimInfo {
     partyId: string;
     claimId: number;
-    status: string;
+    status: ClaimStatus;
     assignedUserId: string;
     description: string;
     reason: string;

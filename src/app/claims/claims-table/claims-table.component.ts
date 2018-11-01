@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ClaimInfo } from '../../papi/model';
+import { ClaimActionType } from '../../claim/claim-action-type';
 
 @Component({
     selector: 'cc-claims-table',
@@ -26,6 +27,6 @@ export class ClaimsTableComponent {
     constructor(private router: Router) {}
 
     navigateToClaim(claim: ClaimInfo) {
-        this.router.navigate([`/claims/${claim.partyId}/${claim.claimId}`]);
+        this.router.navigate([`/claims/${claim.partyId}/${ClaimActionType.edit}/${claim.claimId}`]);
     }
 }

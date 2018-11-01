@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { delay, map, repeatWhen, switchMap, takeWhile, tap } from 'rxjs/internal/operators';
+import { BehaviorSubject, Observable, of, Subject, throwError } from 'rxjs';
+import { delay, map, repeatWhen, retryWhen, switchMap, takeWhile, tap } from 'rxjs/internal/operators';
 import isEqual from 'lodash-es/isEqual';
 import toNumber from 'lodash-es/toNumber';
 
@@ -15,11 +15,12 @@ import {
 import { PersistentContainerService } from './persistent-container.service';
 import { convert } from './party-modification-group-converter';
 import { PartyModification } from '../gen-damsel/payment_processing';
+import { ClaimActionType } from './claim-action-type';
 
 @Injectable()
 export class ClaimService {
 
-    claimInfoContainer$: Subject<ClaimInfoContainer> = new Subject();
+    claimInfoContainer$: Subject<ClaimInfoContainer> = new BehaviorSubject(null);
 
     domainModificationInfo$: Subject<DomainModificationInfo> = new BehaviorSubject(null);
 
@@ -37,18 +38,27 @@ export class ClaimService {
         });
     }
 
-    resolveClaimInfo(partyID: string, claimID: string): Observable<void> {
-        return this.papiClaimService.getClaim(partyID, toNumber(claimID))
-            .pipe(
-                tap((claimInfo) => {
-                    this.persistentContainerService.init(claimInfo.modifications.modifications);
-                    this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
-                    const domainModificationInfo = this.toDomainModificationInfo(claimInfo);
-                    this.domainModificationInfo$.next(domainModificationInfo);
-                    this.claimInfoContainer$.next(this.claimInfoContainer);
-                }),
-                map(() => null)
-            );
+    resolveClaimInfo(type: ClaimActionType, partyId: string, claimId?: string): Observable<void> {
+        switch (type) {
+            case ClaimActionType.create:
+                this.persistentContainerService.init([]);
+                this.claimInfoContainer = {type, partyId};
+                this.claimInfoContainer$.next(this.claimInfoContainer);
+                return of();
+            case ClaimActionType.edit:
+                return this.papiClaimService.getClaim(partyId, toNumber(claimId))
+                    .pipe(
+                        tap((claimInfo) => {
+                            this.persistentContainerService.init(claimInfo.modifications.modifications);
+                            this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
+                            const domainModificationInfo = this.toDomainModificationInfo(claimInfo);
+                            this.domainModificationInfo$.next(domainModificationInfo);
+                            this.claimInfoContainer$.next(this.claimInfoContainer);
+                        }),
+                        map(() => null)
+                    );
+        }
+        return throwError('Unsupported claim action type');
     }
 
     addModification(modification: PartyModification) {
@@ -70,6 +80,14 @@ export class ClaimService {
                         .pipe(map(() => claimInfo.revision))),
                 switchMap((revision) =>
                     this.pollClaimChange(revision))
+            );
+    }
+
+    createClaim(): Observable<ClaimInfo> {
+        const units = this.toModificationUnits(this.containers);
+        return this.papiClaimService.createClaim(this.claimInfoContainer.partyId, units)
+            .pipe(
+                switchMap((createdClaim) => this.pollClaimCreated(this.claimInfoContainer.partyId, createdClaim.claimId))
             );
     }
 
@@ -100,7 +118,7 @@ export class ClaimService {
     }
 
     hasUnsavedChanges(): boolean {
-        return this.containers.filter((i) => !i.saved).length > 0;
+        return this.containers ? this.containers.filter((i) => !i.saved).length > 0 : false;
     }
 
     private toModificationUnits(containers: PersistentContainer[]): PartyModificationUnit {
@@ -116,6 +134,7 @@ export class ClaimService {
         const {claimId, partyId, revision, status, reason, createdAt, updatedAt} = claimInfo;
         const extractedIds = this.extractIds(modifications);
         return {
+            type: ClaimActionType.edit,
             claimId,
             partyId,
             revision,
@@ -177,6 +196,23 @@ export class ClaimService {
                         observer.next();
                         observer.complete();
                     }
+                });
+        });
+    }
+
+    private pollClaimCreated(partyId: string, claimId: number, delayMs = 2000, retryCount = 15): Observable<ClaimInfo> {
+        return Observable.create((observer) => {
+            this.papiClaimService.getClaim(partyId, claimId)
+                .pipe(
+                    retryWhen((err) => err.pipe(
+                        delay(delayMs),
+                        takeWhile((error, retries) => error.status === 404 && retries <= retryCount)
+                        )
+                    )
+                )
+                .subscribe((claimInfo) => {
+                    observer.next(claimInfo);
+                    observer.complete();
                 });
         });
     }
