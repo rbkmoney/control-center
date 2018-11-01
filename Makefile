@@ -44,19 +44,19 @@ build: lint compile-thrift
 clean:
 	rm -rf dist src/app/thrift/gen-* src/assets/gen-* src/app/gen-damsel
 
-compile-thrift: thrift-to-js/domain-config thrift-to-json/domain-config thrift-to-js/payment-processing thrift-to-js/merch-stat thrift-to-ts
+compile-thrift: thrift-to-js/domain-config thrift-to-js/payment-processing thrift-to-js/merch-stat thrift-to-json thrift-to-ts
 
 thrift-to-js/domain-config:
 	thrift -r -gen js:node,runtime_package=woody_js/src/client/gen -o ./src/app/thrift ./node_modules/damsel/proto/domain_config.thrift
-
-thrift-to-json/domain-config:
-	thrift -r -gen json -o ./src/assets ./node_modules/damsel/proto/domain_config.thrift
 
 thrift-to-js/payment-processing:
 	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/payment_processing.thrift
 
 thrift-to-js/merch-stat:
 	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/merch_stat.thrift
+
+thrift-to-json:
+	npm run thrift2json
 
 thrift-to-ts:
 	npm run thrift-ts

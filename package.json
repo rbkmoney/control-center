@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "thrift-ts": "thrift-ts node_modules/damsel/proto -o src/app/gen-damsel -d false -c true"
+    "thrift-ts": "thrift-ts node_modules/damsel/proto -o src/app/gen-damsel --definition false --camelCase",
+    "thrift2json": "thrift-ts node_modules/damsel/proto -o src/assets/gen-json.json --json --pack --prettify"
   },
   "private": true,
   "dependencies": {
@@ -34,7 +35,7 @@
     "lodash-es": "^4.17.10",
     "moment": "^2.22.2",
     "rxjs": "^6.3.3",
-    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#6be548bef8b70c6cc0a66ce08ffaccb1263c982c",
+    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#2435577e4a78bec2296a7b339f54b24a47412ed2",
     "uuid": "^3.3.2",
     "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#d2c90a54861593fa794afe3b09c4febb9d6e37d0",
     "zone.js": "~0.8.26"
