@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 import { ConfigService } from './config.service';
-import { MetadataConfigService } from '../metadata/metadata-config.service';
+import { MetadataService } from '../metadata/metadata.service';
 
-const initializer = (keycloak: KeycloakService, configService: ConfigService, metadataConfigService: MetadataConfigService) =>
+const initializer = (keycloak: KeycloakService, configService: ConfigService, metadataService: MetadataService) =>
     () => Promise.all([
         configService.load(),
         keycloak.init({
@@ -20,7 +20,7 @@ const initializer = (keycloak: KeycloakService, configService: ConfigService, me
             ],
             bearerPrefix: 'Bearer'
         }),
-        metadataConfigService.load()
+        metadataService.init('/assets/gen-json.json')
     ]);
 
 @NgModule({
@@ -34,7 +34,7 @@ const initializer = (keycloak: KeycloakService, configService: ConfigService, me
             provide: APP_INITIALIZER,
             useFactory: initializer,
             multi: true,
-            deps: [KeycloakService, ConfigService, MetadataConfigService]
+            deps: [KeycloakService, ConfigService, MetadataService]
         }
     ]
 })
