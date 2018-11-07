@@ -31,7 +31,9 @@ export class ClaimsComponent implements OnInit {
             this.claims = claims.reverse();
         }, (error: HttpErrorResponse) => {
             this.isLoading = false;
-            this.snackBar.open(`${error.status}: ${error.message}`, 'OK');
+            this.snackBar.open(`${error.status}: ${error.message}`, 'OK', {
+                duration: 1500
+            });
         });
     }
 }

@@ -63,7 +63,10 @@ export class TerminalObjectService {
             shopID: ['', Validators.required],
             partyID: [param.partyId, Validators.required],
             shopUrl: '',
-            providerID: ['', Validators.required],
+            providerID: [{
+                value: '',
+                disabled: true
+            }, Validators.required],
             terminalName: [prepareTerminalName(defaultOption, param.shopUrl), Validators.required],
             terminalDescription: 'No',
             riskCoverage: [100, Validators.required],
