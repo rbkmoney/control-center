@@ -8,8 +8,10 @@ import {
     MatIconModule,
     MatInputModule,
     MatNativeDateModule,
+    MatProgressBarModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -34,9 +36,9 @@ import { ShopLocationComponent } from './shop/location-modification/shop-locatio
 import { ShopAccountCreationComponent } from './shop/shop-account-creation/shop-account-creation.component';
 import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-schedule-modification/shop-payout-schedule-modification.component';
 import { AdjustmentModificationComponent } from './contract/adjustment-modification/adjustment-modification.component';
-import { BusinessScheduleRefComponent } from './contract/business-schedule-ref/business-schedule-ref.component';
+import { BusinessScheduleRefComponent } from './business-schedule-ref/business-schedule-ref.component';
+import { BusinessScheduleSelectorComponent } from './business-schedule-ref/business-schedule-selector/business-schedule-selector.component';
 import { RepresentativeComponent } from './contract/representative/representative.component';
-import { ScheduleRefComponent } from './shop/schedule-ref/schedule-ref.component';
 import { AdjustmentParamsComponent } from './contract/adjustment-params/adjustment-params.component';
 import { RepresentativeDocumentComponent } from './contract/representative-document/representative-document.component';
 import { ContractTemplateRefComponent } from './contract/contract-template-ref/contract-template-ref.component';
@@ -67,7 +69,9 @@ import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
         MatRadioModule,
         MatCheckboxModule,
         MatIconModule,
-        MatDividerModule
+        MatDividerModule,
+        MatSnackBarModule,
+        MatProgressBarModule
     ],
     declarations: [
         PartyModificationCreationComponent,
@@ -90,7 +94,6 @@ import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
         AdjustmentModificationComponent,
         BusinessScheduleRefComponent,
         RepresentativeComponent,
-        ScheduleRefComponent,
         AdjustmentParamsComponent,
         RepresentativeDocumentComponent,
         ContractTemplateRefComponent,
@@ -106,7 +109,8 @@ import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
         RussianLegalEntityComponent,
         InternationalLegalEntityComponent,
         NestedFormWrapperComponent,
-        FormWrapperComponent
+        FormWrapperComponent,
+        BusinessScheduleSelectorComponent
     ],
     exports: [
         PartyModificationCreationComponent

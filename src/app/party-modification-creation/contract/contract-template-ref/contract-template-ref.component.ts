@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { tap, map } from 'rxjs/internal/operators';
 import sortBy from 'lodash-es/sortBy';
 
 import { ContractTemplate } from '../../../papi/model';
@@ -21,14 +22,29 @@ export class ContractTemplateRefComponent implements OnInit {
 
     contracts$: Observable<ContractTemplate[]>;
 
+    isLoading = true;
+
     constructor(private fb: FormBuilder,
-                private contractService: ContractService) {
+                private contractService: ContractService,
+                private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
-        this.form.registerControl('id', this.fb.control('', this.required ? Validators.required : null));
+        this.form.registerControl('id', this.fb.control({
+            value: '',
+            disabled: true
+        }, this.required ? Validators.required : null));
         this.contracts$ = this.contractService
             .getContractTemplates()
-            .pipe(map((contracts) => sortBy(contracts, 'id')));
+            .pipe(
+                map((contracts) => sortBy(contracts, 'id')),
+                tap(() => {
+                    this.form.controls.id.enable();
+                    this.isLoading = false;
+                }, () => {
+                    this.isLoading = false;
+                    this.snackBar.open('An error occurred while contract template receiving', 'OK');
+                })
+            );
     }
 }

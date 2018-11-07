@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 
 import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
 import { ProviderObject } from '../../damsel/domain';
 import { CreateTerminalParams, DomainTypedManager } from '../domain-typed-manager';
+import { tap } from 'rxjs/internal/operators';
 
 @Component({
     selector: 'cc-terminal-object',
@@ -33,14 +35,26 @@ export class TerminalObjectComponent implements OnInit {
 
     riskCoverages: Array<{ name: string, value: number }>;
 
+    isLoading = true;
+
     constructor(private fb: FormBuilder,
                 private terminalObjectService: TerminalObjectService,
-                private domainTypedManager: DomainTypedManager) {
+                private domainTypedManager: DomainTypedManager,
+                private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
         this.form = this.terminalObjectService.initForm(this.domainModificationInfo);
-        this.providerObjects$ = this.domainTypedManager.getProviderObjectsWithSelector('decisions');
+        this.providerObjects$ = this.domainTypedManager
+            .getProviderObjectsWithSelector('decisions')
+            .pipe(
+                tap(() => {
+                    this.isLoading = false;
+                    this.form.controls.providerID.enable();
+                }, () => {
+                    this.snackBar.open('An error occurred while provider object receiving', 'OK');
+                })
+            );
         this.optionTemplates = this.terminalObjectService.optionTemplates;
         this.riskCoverages = this.terminalObjectService.riskCoverages;
         this.form.statusChanges.subscribe((status) => {

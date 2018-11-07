@@ -22,7 +22,7 @@
                    required>
         </mat-form-field>
     </div>
-    <div fxLayout>
+    <div fxLayout="column">
         <mat-form-field fxFlex>
             <mat-select placeholder="Provider name" formControlName="providerID" required>
                 <mat-option *ngFor="let provider of providerObjects$ | async" [value]="provider.ref.id">
@@ -30,6 +30,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
     </div>
     <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
         <label fxFlex="25">Bank options template:</label>
