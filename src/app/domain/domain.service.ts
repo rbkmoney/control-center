@@ -1,32 +1,19 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { MetadataService } from '../metadata/metadata.service';
 
-class DomainBaseNode {
-    label: string;
-    type: string;
-}
-
-export class DomainLeafNode extends DomainBaseNode {
-    control: FormControl;
-}
-
-export class DomainNode extends DomainBaseNode {
-    children: Array<DomainNode | DomainLeafNode>;
-}
-
 @Injectable()
 export class DomainService {
-    dataChange = new BehaviorSubject<DomainNode[]>([]);
+    dataChange = new BehaviorSubject<any>([]);
+    form: FormGroup;
 
     constructor(private domainService: ThriftDomainService, private metadataService: MetadataService, private fb: FormBuilder) {
-        this.initialize();
     }
 
-    get data(): DomainNode[] {
+    get data() {
         return this.dataChange.value;
     }
 
@@ -34,36 +21,22 @@ export class DomainService {
         this.domainService.checkout({head: {}}).subscribe((snapshot) => {
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
-            const domainObject = this.metadataService.get('DomainObject', 'domain');
+            console.dir(this.metadataService.metadata);
+            const domainObject: any = this.metadataService.get('DomainObject', 'domain');
             console.dir(domainObject);
-            console.dir(this.metadataService.get('ProviderObject', 'domain'));
+            this.dataChange.next(domainObject);
         });
     }
 
-    initialize() {
-        const data: DomainNode[] = [
-            {
-                label: 'Documents',
-                type: 'struct',
-                children: [{
-                    label: 'Documents',
-                    type: 'struct',
-                    children: [{
-                        label: 'Hello',
-                        type: 'struct',
-                        control: this.fb.control('hello')
-                    }, {
-                        label: 'Documents',
-                        type: 'struct',
-                        children: [{
-                            label: 'Hello',
-                            type: 'struct',
-                            control: this.fb.control('hello')
-                        }]
-                    }]
-                }]
-            }
-        ];
-        this.dataChange.next(data);
+    buildForm(obj: any) {
+        if (obj.structure === 'union') {
+            return this.fb.group(obj.fields.reduce((acc, x) => {
+                return {
+                    ...acc,
+                    [x.name]: this.fb.control('')
+                };
+            }, {}));
+        }
+        return this.fb.control('');
     }
 }

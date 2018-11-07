@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 
-import { DomainService, DomainNode, DomainLeafNode } from './domain.service';
+import { DomainService } from './domain.service';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material';
 
@@ -11,16 +10,33 @@ import { MatTreeNestedDataSource } from '@angular/material';
 })
 export class DomainComponent implements OnInit {
     form: any;
-    treeControl: NestedTreeControl<DomainNode | DomainLeafNode> = new NestedTreeControl((node: DomainNode) => node.children);
-    dataSource: MatTreeNestedDataSource<DomainNode> = new MatTreeNestedDataSource();
+    treeControl: NestedTreeControl<any>;
+    dataSource: MatTreeNestedDataSource<any>;
 
-    constructor(private domainService: DomainService, private fb: FormBuilder) {
-        domainService.dataChange.subscribe(data => this.dataSource.data = data);
+    constructor(private domainService: DomainService) {
+        this.treeControl = new NestedTreeControl(this.getChildren);
+        this.dataSource = new MatTreeNestedDataSource();
+        domainService.dataChange.subscribe(data => {
+            this.dataSource.data = [data];
+            this.form = domainService.buildForm(data);
+        });
     }
 
     ngOnInit() {
         this.domainService.checkout();
     }
 
-    hasNestedChild = (_: number, nodeData: DomainNode) => !!nodeData.children;
+    getChildren(node: any) {
+        if (node.fields) {
+            return node.fields;
+        }
+        if (node.type && node.type.fields) {
+            return node.type.fields;
+        }
+        return node.fields;
+    }
+
+    hasNestedChild = (_: number, node: any) => {
+        return !!this.getChildren(node);
+    }
 }

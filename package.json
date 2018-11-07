@@ -35,7 +35,7 @@
     "lodash-es": "^4.17.10",
     "moment": "^2.22.2",
     "rxjs": "^6.3.3",
-    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#6c204fc2663dc4c8acdadec50f8f155641f866bf",
+    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#4b2eff96bb6dd3bd11dd3fd24abb9fcb764857f3",
     "uuid": "^3.3.2",
     "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#d2c90a54861593fa794afe3b09c4febb9d6e37d0",
     "zone.js": "~0.8.26"
