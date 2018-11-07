@@ -10,7 +10,6 @@ export type Type2 = Type0 | Simple | Set | List | Map;
 
 export type Field2 = Pick<Field, Exclude<keyof Field, 'type'>> & { type: Type2; parent: Type2 };
 
-
 export interface Metadata {
     structure: ThriftType | SimpleStructures | ComplexStructures;
     name: ThriftType | SimpleStructures | string;
@@ -99,12 +98,6 @@ export interface MetadataFile {
     ast: JsonAST;
 }
 
-export interface MetadataObject<T extends keyof JsonAST = keyof JsonAST> {
-    structure: T;
-    ast: JsonAST[T][''];
-    type: Type2;
-}
-
 const simpleTypes = ['int', 'bool', 'i8', 'i16', 'i32', 'i64', 'string', 'double', 'binary'];
 
 @Injectable()
@@ -117,7 +110,7 @@ export class MetadataService {
         simple.structure = item as any;
         return {
             ...acc,
-            simple
+            [item]: simple
         };
     }, {}) as any;
 
