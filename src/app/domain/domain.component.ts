@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material';
+import { FormGroup } from '@angular/forms';
 
-import { DomainService } from './domain.service';
+import { DomainService, Node } from './domain.service';
 
 @Component({
     templateUrl: 'domain.component.html',
     styleUrls: ['../shared/container.css', 'domain.component.css']
 })
 export class DomainComponent implements OnInit {
-    form: any;
-    treeControl: NestedTreeControl<any>;
-    dataSource: MatTreeNestedDataSource<any>;
-    dataSourceNotModified: any;
+    form: FormGroup;
+    treeControl: NestedTreeControl<Node>;
+    dataSource: MatTreeNestedDataSource<Node>;
+    dataSourceNotModified: Node[];
 
     constructor(private domainService: DomainService) {
         this.treeControl = new NestedTreeControl(this.getChildren);

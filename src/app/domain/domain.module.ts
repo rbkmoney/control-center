@@ -1,6 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatTreeModule } from '@angular/material';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatTreeModule
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -22,7 +31,8 @@ import { MetadataModule } from '../metadata/metadata.module';
         CommonModule,
         MatIconModule,
         MatButtonModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSlideToggleModule
     ],
     declarations: [
         DomainComponent

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Field, JsonAST, ThriftType, ValueType } from 'thrift-ts/src/thrift-parser';
+import { Field, JsonAST, ThriftType, ValueType, Enum as ASTEnum, MapType } from 'thrift-ts/src/thrift-parser';
 
 export type SimpleStructures = 'map' | 'list' | 'set';
 export type ComplexStructures = 'namespace' | 'typedef' | 'include' | 'const' | 'enum' | 'struct' | 'union' | 'exception' | 'service';
@@ -36,7 +36,7 @@ export class Const extends ComplexStructure {
 
 export class Enum extends ComplexStructure {
     structure: ComplexStructures = 'enum';
-    items: Enum[];
+    items: ASTEnum[];
 }
 
 export class Struct extends ComplexStructure {
@@ -204,7 +204,7 @@ export class MetadataService {
                 });
                 Object.defineProperty(map, 'keyType', {
                     get: () => {
-                        return this.get(valueType.keyType, parent);
+                        return this.get((valueType as MapType).keyType, parent);
                     }
                 });
                 return map;

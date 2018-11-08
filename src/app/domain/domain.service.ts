@@ -3,13 +3,24 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
-import { Field2, MetadataService, Type2 } from '../metadata/metadata.service';
+import { Enum, Field2, List, Map, MetadataService, Set, Struct, Type2, TypeDef, Union } from '../metadata/metadata.service';
 
-interface Node {
+export interface Node {
     label: string;
+    structure?: string;
+    children?: Node[];
+    changeable?: {
+        options: string[];
+        selected: Node;
+        selectionChange({value}): any;
+    };
     control?: FormControl;
-    children?: Node;
-    isExpanded?: boolean;
+    toggle?: boolean;
+    select?:  {
+        options: string[];
+        selected: string;
+        selectionChange({value}): any;
+    };
 }
 
 @Injectable()
@@ -30,7 +41,7 @@ export class DomainService {
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
             console.dir(this.metadataService.metadata);
-            const domainObject: any = this.metadataService.get('DomainObject', 'domain');
+            const domainObject: any = this.metadataService.get('Test', 'domain');
             console.dir(domainObject);
             const domainNode = this.buildViewModel(domainObject);
             console.dir(domainNode);
@@ -38,36 +49,51 @@ export class DomainService {
         });
     }
 
-    buildViewModel(obj: Type2, f?: Field2): Node {
-        const result = {
-            label: f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name
+    buildViewModel(obj: Type2, f?: Field2, structure?: string): Node {
+        const result: Node = {
+            label: f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name,
+            structure
         };
         switch (obj.structure) {
             case 'typedef':
-                return this.buildViewModel(obj.type, f);
+                return this.buildViewModel((obj as TypeDef).type, f);
             case 'const':
                 return {
                     ...result
                 };
             case 'enum':
                 return {
-                    ...result
+                    ...result,
+                    control: this.fb.control(''),
+                    select: {
+                        options: (obj as Enum).items.map((item) => item.name),
+                        selectionChange: () => {
+                        }
+                    }
                 };
             case 'struct':
                 return {
                     ...result,
-                    children: obj.fields.map((field) => this.buildViewModel(field.type, field))
+                    children: (obj as Struct).fields.map((field) => this.buildViewModel(field.type, field))
                 };
             case 'union':
-                const res = {
+                const res: Node = {
                     ...result,
-                    values: obj.fields.map(({name}) => name)
+                    children: [],
+                    changeable: {
+                        options: (obj as Union).fields.map(({name}) => name)
+                    }
                 };
-                res.selectionChange = ({value}) => {
-                    res.selected = value;
-                    const field = obj.fields.find(({name}) => name === value);
-                    const r = this.buildViewModel(field.type, field);
-                    res.children = r.children;
+                res.changeable.selectionChange = ({value}) => {
+                    console.log(value);
+                    res.changeable.selected = value;
+                    const field: Field2 = (obj as Union).fields.find(({name}) => name === value);
+                    if (field) {
+                        const r = this.buildViewModel(field.type, field);
+                        res.children = r.children;
+                    } else {
+                        res.children = [];
+                    }
                     this.updateData();
                 };
                 return res;
@@ -75,9 +101,43 @@ export class DomainService {
                 return {
                     ...result
                 };
+            case 'list':
+                return {
+                    ...result,
+                    children: [
+                        this.buildViewModel((obj as List).valueType, {name: 'value', option: 'required'} as Field2, 'list-item')
+                    ]
+                };
+            case 'set':
+                return {
+                    ...result,
+                    children: [
+                        this.buildViewModel((obj as Set).valueType, {name: 'value', option: 'required'} as Field2, 'list-item')
+                    ]
+                };
+            case 'map':
+                return {
+                    ...result,
+                    children: [
+                        {
+                            label: '1',
+                            children: [
+                                this.buildViewModel((obj as Map).keyType, {name: 'key', option: 'required'} as Field2),
+                                this.buildViewModel((obj as Map).valueType, {name: 'value', option: 'required'} as Field2)
+                            ]
+                        }
+                    ]
+                };
+            case 'bool':
+                return {
+                    ...result,
+                    control: this.fb.control(''),
+                    toggle: true
+                };
             default:
                 return {
-                    ...result
+                    ...result,
+                    control: this.fb.control('')
                 };
         }
     }
