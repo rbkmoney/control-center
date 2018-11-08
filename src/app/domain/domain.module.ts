@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+    MatBadgeModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -32,7 +33,8 @@ import { MetadataModule } from '../metadata/metadata.module';
         MatIconModule,
         MatButtonModule,
         MatSelectModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatBadgeModule
     ],
     declarations: [
         DomainComponent

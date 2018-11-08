@@ -41,7 +41,7 @@ export class DomainService {
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
             console.dir(this.metadataService.metadata);
-            const domainObject: any = this.metadataService.get('Test', 'domain');
+            const domainObject: any = this.metadataService.get('Domain', 'domain');
             console.dir(domainObject);
             const domainNode = this.buildViewModel(domainObject);
             console.dir(domainNode);
@@ -85,7 +85,6 @@ export class DomainService {
                     }
                 };
                 res.changeable.selectionChange = ({value}) => {
-                    console.log(value);
                     res.changeable.selected = value;
                     const field: Field2 = (obj as Union).fields.find(({name}) => name === value);
                     if (field) {
@@ -119,13 +118,8 @@ export class DomainService {
                 return {
                     ...result,
                     children: [
-                        {
-                            label: '1',
-                            children: [
-                                this.buildViewModel((obj as Map).keyType, {name: 'key', option: 'required'} as Field2),
-                                this.buildViewModel((obj as Map).valueType, {name: 'value', option: 'required'} as Field2)
-                            ]
-                        }
+                        this.buildViewModel((obj as Map).keyType, {name: 'key', option: 'required'} as Field2, 'map-key'),
+                        this.buildViewModel((obj as Map).valueType, {name: 'value', option: 'required'} as Field2, 'map-value')
                     ]
                 };
             case 'bool':

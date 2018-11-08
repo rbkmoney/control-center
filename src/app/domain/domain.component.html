@@ -8,7 +8,7 @@
                             <mat-icon class="mat-icon-rtl-mirror" *ngIf="node.structure === 'list-item'"
                                       style="background: gray;
                                           color: #fff;
-                                          border-radius: 100%;"></mat-icon>
+                                          border-radius: 100%;">remove</mat-icon>
                         </button>
                         <mat-form-field *ngIf="node.changeable" class="field">
                             <mat-select [placeholder]="node.label"
@@ -47,14 +47,12 @@
                                     [attr.aria-label]="'toggle ' + node.label"
                                     class="icon-button"
                                     [disabled]="!getChildren(node).length">
-                                <mat-icon class="mat-icon-rtl-mirror" *ngIf="node.structure !== 'list-item'">
+                                <mat-icon class="mat-icon-rtl-mirror" *ngIf="node.structure !== 'list-item' && node.structure !== 'map-key'">
                                     {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                                 </mat-icon>
-                                <mat-icon class="mat-icon-rtl-mirror" *ngIf="node.structure === 'list-item'"
-                                          style="background: gray;
-                                          color: #fff;
-                                          border-radius: 100%;">
-                                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                <mat-icon class="mat-icon-rtl-mirror" *ngIf="node.structure === 'list-item' || node.structure === 'map-key'"
+                                          style="background: gray;color: #fff;border-radius: 100%;">
+                                    {{getChildren(node).length ? (treeControl.isExpanded(node) && getChildren(node).length ? 'expand_more' : 'chevron_right') : 'remove'}}
                                 </mat-icon>
                             </button>
                             <mat-form-field *ngIf="node.changeable" class="field">
