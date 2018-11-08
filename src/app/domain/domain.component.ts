@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-import { DomainService } from './domain.service';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material';
+
+import { DomainService } from './domain.service';
 
 @Component({
     templateUrl: 'domain.component.html',
@@ -12,13 +12,33 @@ export class DomainComponent implements OnInit {
     form: any;
     treeControl: NestedTreeControl<any>;
     dataSource: MatTreeNestedDataSource<any>;
+    dataSourceNotModified: any;
 
     constructor(private domainService: DomainService) {
         this.treeControl = new NestedTreeControl(this.getChildren);
         this.dataSource = new MatTreeNestedDataSource();
         domainService.dataChange.subscribe(data => {
-            this.dataSource.data = [data];
-            this.form = domainService.buildForm(data);
+            /**
+             * TODO когда нода без детей становится с детьми - автоматически разворачивается
+             * решено только на верхней ноде
+             */
+            const expanded = this.dataSourceNotModified === data
+                ? data.map((item, idx) =>
+                    Object.keys(item).reduce((a, i) => a && this.dataSource.data[idx][i] === item[i], true)
+                    && Object.keys(this.dataSource.data[idx]).reduce((a, i) => a && this.dataSource.data[idx][i] === item[i], true)
+                    && this.getChildren(this.dataSource.data[idx])
+                    && this.treeControl.isExpanded(this.dataSource.data[idx]))
+                : null;
+            this.dataSource.data = data.map((item) => ({...item}));
+            // this.form = domainService.buildForm(data);
+            if (expanded) {
+                expanded.forEach((isExpanded, idx) => {
+                    if (isExpanded) {
+                        this.treeControl.expand(this.dataSource.data[idx]);
+                    }
+                });
+            }
+            this.dataSourceNotModified = data;
         });
     }
 
@@ -27,13 +47,7 @@ export class DomainComponent implements OnInit {
     }
 
     getChildren(node: any) {
-        if (node.fields) {
-            return node.fields;
-        }
-        if (node.type && node.type.fields) {
-            return node.type.fields;
-        }
-        return node.fields;
+        return node.children;
     }
 
     hasNestedChild = (_: number, node: any) => {

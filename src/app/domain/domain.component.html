@@ -5,35 +5,45 @@
                 <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
                     <li class="mat-tree-node">
                         <button mat-icon-button disabled class="icon-button"></button>
-                        {{node.name + (node.option === 'required' ? '*' : '')}}
+                        <mat-form-field *ngIf="node.values">
+                            <mat-select [placeholder]="node.label" (selectionChange)="node.selectionChange($event)"
+                                        [(value)]="node.selected">
+                                <mat-option *ngFor="let value of node.values" [value]="value">
+                                    {{value}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <span *ngIf="!node.values">{{node.label}}</span>
                         <!--<ng-container [ngSwitch]="node.ast.type">-->
-                            <!--<mat-form-field *ngSwitchCase="'string'" class="field">-->
-                                <!--<mat-label>{{node.ast.name}}</mat-label>-->
-                                <!--<input matInput [formControl]="node.control">-->
-                            <!--</mat-form-field>-->
-                            <!--<mat-form-field *ngSwitchCase="'int'" class="field">-->
-                                <!--<mat-label>{{node.ast.name}}</mat-label>-->
-                                <!--<input matInput [formControl]="node.control">-->
-                            <!--</mat-form-field>-->
+                        <!--<mat-form-field *ngSwitchCase="'string'" class="field">-->
+                        <!--<mat-label>{{node.ast.name}}</mat-label>-->
+                        <!--<input matInput [formControl]="node.control">-->
+                        <!--</mat-form-field>-->
+                        <!--<mat-form-field *ngSwitchCase="'int'" class="field">-->
+                        <!--<mat-label>{{node.ast.name}}</mat-label>-->
+                        <!--<input matInput [formControl]="node.control">-->
+                        <!--</mat-form-field>-->
                         <!--</ng-container>-->
                     </li>
                 </mat-tree-node>
                 <mat-nested-tree-node *matTreeNodeDef="let node; when: hasNestedChild">
                     <li>
                         <div class="mat-tree-node">
-                            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name"
+                            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.label"
                                     class="icon-button">
                                 <mat-icon class="mat-icon-rtl-mirror">
                                     {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                                 </mat-icon>
                             </button>
-                            <mat-form-field *ngIf="node.structure === 'union'">
-                                <mat-select placeholder="Favorite food">
-                                    <mat-option>111</mat-option>
-                                    <mat-option>222</mat-option>
+                            <mat-form-field *ngIf="node.values">
+                                <mat-select [placeholder]="node.label" (selectionChange)="node.selectionChange($event)"
+                                            [(value)]="node.selected">
+                                    <mat-option *ngFor="let value of node.values" [value]="value">
+                                        {{value}}
+                                    </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <span *ngIf="node.structure !== 'union'">{{node.name + (node.option === 'required' ? '*' : '')}}</span>
+                            <span *ngIf="!node.values">{{node.label}}</span>
                         </div>
                         <ul [class.tree-invisible]="!treeControl.isExpanded(node)">
                             <ng-container matTreeNodeOutlet></ng-container>
