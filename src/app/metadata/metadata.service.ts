@@ -131,6 +131,9 @@ export class MetadataService {
                     switch (structureName) {
                         case 'typedef':
                             result = new TypeDef();
+                            toCookList.push(() => {
+                                result.type = get(item.type, name);
+                            });
                             break;
                         case 'const':
                             result = new Const();
