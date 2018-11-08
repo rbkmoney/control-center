@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
-import { MetadataService } from '../metadata/metadata.service';
+import { Field2, MetadataService, Type2 } from '../metadata/metadata.service';
 
 interface Node {
     label: string;
@@ -34,51 +34,57 @@ export class DomainService {
             console.dir(domainObject);
             const domainNode = this.buildViewModel(domainObject);
             console.dir(domainNode);
-            this.nodes = [domainNode];
-            this.dataChange.next(this.nodes);
+            this.updateData([domainNode]);
         });
     }
 
-    buildViewModel(obj: any /*Type2*/): Node {
+    buildViewModel(obj: Type2, f?: Field2): Node {
+        const result = {
+            label: f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name
+        };
         switch (obj.structure) {
             case 'typedef':
-                return {
-                    label: obj.name
-                };
+                return this.buildViewModel(obj.type, f);
             case 'const':
                 return {
-                    label: obj.name
+                    ...result
                 };
             case 'enum':
                 return {
-                    label: obj.name
+                    ...result
                 };
             case 'struct':
                 return {
-                    label: obj.name,
-                    children: obj.fields.map((field) => this.buildViewModel(field.type))
+                    ...result,
+                    children: obj.fields.map((field) => this.buildViewModel(field.type, field))
                 };
             case 'union':
                 const res = {
-                    label: obj.name,
+                    ...result,
                     values: obj.fields.map(({name}) => name)
                 };
                 res.selectionChange = ({value}) => {
                     res.selected = value;
-                    const r = this.buildViewModel(obj.fields.find(({name}) => name === value).type);
+                    const field = obj.fields.find(({name}) => name === value);
+                    const r = this.buildViewModel(field.type, field);
                     res.children = r.children;
-                    this.dataChange.next(this.nodes);
+                    this.updateData();
                 };
                 return res;
             case 'exception':
                 return {
-                    label: obj.name
+                    ...result
                 };
             default:
                 return {
-                    label: obj.name
+                    ...result
                 };
         }
+    }
+
+    updateData(nextData = this.nodes) {
+        this.nodes = nextData;
+        this.dataChange.next(nextData);
     }
 
     buildForm(obj: any) {

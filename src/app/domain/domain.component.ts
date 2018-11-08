@@ -19,7 +19,7 @@ export class DomainComponent implements OnInit {
         this.dataSource = new MatTreeNestedDataSource();
         domainService.dataChange.subscribe(data => {
             /**
-             * TODO когда нода без детей становится с детьми - автоматически разворачивается
+             * TODO когда нода без детей становится с детьми - автоматически разворачивается (иногда нет)
              * решено только на верхней ноде
              */
             const expanded = this.dataSourceNotModified === data
