@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { Enum, Field2, List, Map, MetadataService, Set, Struct, Type2, TypeDef, Union } from '../metadata/metadata.service';
-import { Types, Node } from './tree/node';
+import { Node, Structure } from './tree/node';
 
 @Injectable()
 export class DomainService {
@@ -32,14 +32,14 @@ export class DomainService {
         });
     }
 
-    buildViewModel(obj: Type2, f?: Field2, structure?: Types): Node {
+    buildViewModel(obj: Type2, {f, structure}: { f?: Field2, structure?: Structure } = {}): Node {
         const result: Node = {
             label: f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name,
-            type: structure
+            structure: structure
         };
         switch (obj.structure) {
             case 'typedef':
-                return this.buildViewModel((obj as TypeDef).type, f);
+                return this.buildViewModel((obj as TypeDef).type, {f});
             case 'const':
                 return {
                     ...result
@@ -58,7 +58,7 @@ export class DomainService {
             case 'struct':
                 return {
                     ...result,
-                    children: (obj as Struct).fields.map((field) => this.buildViewModel(field.type, field))
+                    children: (obj as Struct).fields.map((field) => this.buildViewModel(field.type, {f: field}))
                 };
             case 'union':
                 const res: Node = {
@@ -74,7 +74,7 @@ export class DomainService {
                     res.select.selected = value;
                     const field: Field2 = (obj as Union).fields.find(({name}) => name === value);
                     if (field) {
-                        const r = this.buildViewModel(field.type, field);
+                        const r = this.buildViewModel(field.type, {f: field});
                         res.children = r.children;
                     } else {
                         res.children = [];
@@ -90,34 +90,35 @@ export class DomainService {
                 return {
                     ...result,
                     children: [
-                        this.buildViewModel((obj as List).valueType, {name: 'value', option: 'required'} as Field2, 'list-item')
+                        this.buildViewModel((obj as List).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'list-item'})
                     ]
                 };
             case 'set':
                 return {
                     ...result,
                     children: [
-                        this.buildViewModel((obj as Set).valueType, {name: 'value', option: 'required'} as Field2, 'list-item')
+                        this.buildViewModel((obj as Set).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'list-item'})
                     ]
                 };
             case 'map':
                 return {
                     ...result,
                     children: [
-                        this.buildViewModel((obj as Map).keyType, {name: 'key', option: 'required'} as Field2, 'map-key'),
-                        this.buildViewModel((obj as Map).valueType, {name: 'value', option: 'required'} as Field2, 'map-value')
+                        this.buildViewModel((obj as Map).keyType, {f: {name: 'key', option: 'required'} as Field2, structure: 'map-key'}),
+                        this.buildViewModel((obj as Map).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'map-value'})
                     ]
                 };
             case 'bool':
                 return {
                     ...result,
                     control: this.fb.control(''),
-                    type: 'bool'
+                    type: 'toggle'
                 };
             default:
                 return {
                     ...result,
-                    control: this.fb.control('')
+                    control: this.fb.control(''),
+                    type: 'field'
                 };
         }
     }

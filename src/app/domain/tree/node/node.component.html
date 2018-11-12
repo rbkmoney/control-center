@@ -1,29 +1,39 @@
-<li class="mat-tree-node">
-    <button mat-icon-button disabled class="icon-button">
-        <mat-icon class="mat-icon-rtl-mirror" *ngIf="node.type === 'list-item'"
-                  style="background: gray;
-                                          color: #fff;
-                                          border-radius: 100%;">remove
-        </mat-icon>
-    </button>
-    <ng-container [ngSwitch]="node.type">
-        <mat-slide-toggle *ngSwitchCase="'bool'">{{node.label}}</mat-slide-toggle>
-        <mat-form-field *ngSwitchCase="'select'" class="field">
-            <mat-select [placeholder]="node.label"
-                        (selectionChange)="node.select.selectionChange($event)"
-                        [(value)]="node.select.selected">
-                <mat-option>
-                    <mat-icon inline style="vertical-align: top">cancel</mat-icon>
-                    None
-                </mat-option>
-                <mat-option *ngFor="let value of node.select.options" [value]="value">
-                    {{value}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field *ngSwitchDefault class="field">
-            <mat-label>{{node.label}}</mat-label>
-            <input matInput [formControl]="node.control">
-        </mat-form-field>
-    </ng-container>
-</li>
+<button mat-icon-button
+        matTreeNodeToggle
+        [attr.aria-label]="'toggle ' + node.label"
+        class="icon-button"
+        [disabled]="!hasChildren">
+
+    <mat-icon [ngClass]="{'mat-icon-rtl-mirror': true, 'list-item': isListKey}">{{
+        hasChildren
+        ? expanded ? 'expand_more' : 'chevron_right'
+        : isListKey ? 'remove' : ''
+    }}</mat-icon>
+
+</button>
+<ng-container [ngSwitch]="node.type">
+
+    <mat-form-field *ngSwitchCase="'select'" class="field">
+        <mat-select [placeholder]="node.label"
+                    (selectionChange)="node.select.selectionChange($event)"
+                    [(value)]="node.select.selected">
+            <mat-option>
+                <mat-icon inline style="vertical-align: top">cancel</mat-icon>
+                None
+            </mat-option>
+            <mat-option *ngFor="let value of node.select.options" [value]="value">
+                {{value}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'field'" class="field">
+        <mat-label>{{node.label}}</mat-label>
+        <input matInput [formControl]="node.control">
+    </mat-form-field>
+
+    <mat-slide-toggle *ngSwitchCase="'toggle'">{{node.label}}</mat-slide-toggle>
+
+    <span *ngSwitchDefault>{{node.label}}</span>
+
+</ng-container>

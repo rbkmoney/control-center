@@ -9,10 +9,18 @@ import { Node } from '../node';
 })
 export class NodeComponent {
     @Input()
-    nested: boolean;
-    @Input()
     node: Node;
+    @Input()
+    expanded = false;
 
     constructor() {
+    }
+
+    get hasChildren () {
+        return Boolean(Array.isArray(this.node.children) && this.node.children.length);
+    }
+
+    get isListKey () {
+        return ['list-item', 'map-key'].includes(this.node.structure);
     }
 }
