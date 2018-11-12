@@ -3,3 +3,11 @@
     color: #fff;
     border-radius: 100%;
 }
+
+.icon-button {
+    margin-right: 5px;
+}
+
+.field {
+    width: 100%;
+}

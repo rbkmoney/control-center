@@ -9,10 +9,6 @@
     list-style-type: none;
 }
 
-.icon-button {
-    margin-right: 5px;
-}
-
-.field {
+cc-node {
     width: 100%;
 }
