@@ -18,6 +18,7 @@ import { DomainRoutingModule } from './domain-routing.module';
 import { DomainComponent } from './domain.component';
 import { DomainService } from './domain.service';
 import { MetadataModule } from '../metadata/metadata.module';
+import { TreeComponent } from './tree/tree.component';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { MetadataModule } from '../metadata/metadata.module';
         MatBadgeModule
     ],
     declarations: [
-        DomainComponent
+        DomainComponent,
+        TreeComponent
     ],
     providers: [
         DomainService

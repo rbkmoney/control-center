@@ -21,7 +21,7 @@ export interface Node {
 
 @Injectable()
 export class DomainService {
-    dataChange = new BehaviorSubject<any>([]);
+    dataChange = new BehaviorSubject<Node[]>([]);
     form: FormGroup;
     nodes: any;
 
@@ -136,7 +136,7 @@ export class DomainService {
     }
 
     updateData(nextData = this.nodes) {
-        this.nodes = nextData;
+        this.nodes = nextData.slice();
         this.dataChange.next(nextData);
     }
 
