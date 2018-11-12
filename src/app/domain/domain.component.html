@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card-container" fxLayout="column" fxLayoutGap="20px">
         <mat-card>
-            <cc-tree [data]="data$ | async"></cc-tree>
+            <cc-tree [data]="data$ | async" [metadata]="metadata$ | async"></cc-tree>
         </mat-card>
     </div>
 </div>

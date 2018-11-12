@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 
 import { TreeComponent } from './tree.component';
 import { NodeComponent } from './node/node.component';
+import { TreeService } from './tree.service';
 
 @NgModule({
     imports: [
@@ -37,7 +38,9 @@ import { NodeComponent } from './node/node.component';
     exports: [
         TreeComponent
     ],
-    providers: []
+    providers: [
+        TreeService
+    ]
 })
 export class TreeModule {
 }

@@ -5,6 +5,8 @@ import { FormGroup } from '@angular/forms';
 import union from 'lodash-es/union';
 
 import { Node } from './node';
+import { Type2 } from '../../metadata/metadata.service';
+import { TreeService } from './tree.service';
 
 @Component({
     selector: 'cc-tree',
@@ -13,19 +15,32 @@ import { Node } from './node';
 })
 export class TreeComponent implements OnChanges {
     @Input()
-    data: Node[];
+    data: any;
+    @Input()
+    metadata: Type2;
 
     form: FormGroup;
     treeControl: NestedTreeControl<Node>;
     dataSource: MatTreeNestedDataSource<Node>;
 
-    constructor() {
+    constructor(private treeService: TreeService) {
         this.treeControl = new NestedTreeControl(this.getChildren);
         this.dataSource = new MatTreeNestedDataSource();
+        this.treeService.dataChanges.subscribe((data) => {
+            this.updateData(data);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        this.updateData(changes.data.currentValue);
+        if (changes.data.previousValue !== changes.data.currentValue || changes.metadata.previousValue !== changes.metadata.currentValue) {
+            const data = changes.data.currentValue;
+            const metadata = changes.metadata.currentValue;
+            console.time('buildViewModel');
+            const viewModel = this.treeService.buildViewModel(metadata, {val: data});
+            console.timeEnd('buildViewModel');
+            console.dir(viewModel);
+            this.treeService.updateData([viewModel]);
+        }
     }
 
     updateData(data: Node[]) {
