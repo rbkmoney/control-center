@@ -1,23 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { Enum, Field2, List, Map, MetadataService, Set, Struct, Type2, TypeDef, Union } from '../metadata/metadata.service';
-
-type Types = 'list-item' | 'map-key' | 'map-value' | 'select' | 'bool';
-
-export interface Node {
-    label: string;
-    type?: Types;
-    control?: FormControl;
-    children?: Node[];
-    select?:  {
-        options: string[];
-        selected?: string;
-        selectionChange({value}): any;
-    };
-}
+import { Types, Node } from './tree/node';
 
 @Injectable()
 export class DomainService {

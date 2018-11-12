@@ -1,16 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-    MatBadgeModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatTreeModule
-} from '@angular/material';
+import { MatCardModule, MatFormFieldModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -18,7 +8,7 @@ import { DomainRoutingModule } from './domain-routing.module';
 import { DomainComponent } from './domain.component';
 import { DomainService } from './domain.service';
 import { MetadataModule } from '../metadata/metadata.module';
-import { TreeComponent } from './tree/tree.component';
+import { TreeModule } from './tree/tree.module';
 
 @NgModule({
     imports: [
@@ -27,19 +17,12 @@ import { TreeComponent } from './tree/tree.component';
         MetadataModule,
         MatFormFieldModule,
         ReactiveFormsModule,
-        MatInputModule,
         FlexLayoutModule,
-        MatTreeModule,
         CommonModule,
-        MatIconModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatSlideToggleModule,
-        MatBadgeModule
+        TreeModule
     ],
     declarations: [
-        DomainComponent,
-        TreeComponent
+        DomainComponent
     ],
     providers: [
         DomainService

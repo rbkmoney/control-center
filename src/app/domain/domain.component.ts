@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DomainService, Node } from './domain.service';
+import { DomainService } from './domain.service';
+import { Node } from './tree/node';
 
 @Component({
     templateUrl: 'domain.component.html',

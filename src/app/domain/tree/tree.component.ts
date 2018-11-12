@@ -4,7 +4,7 @@ import { MatTreeNestedDataSource } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import union from 'lodash-es/union';
 
-import { Node } from '../domain.service';
+import { Node } from './node';
 
 @Component({
     selector: 'cc-tree',
