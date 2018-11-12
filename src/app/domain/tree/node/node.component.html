@@ -1,11 +1,10 @@
 <div fxLayout="row" fxLayoutAlign=" center">
     <button mat-icon-button
-            matTreeNodeToggle
             [attr.aria-label]="'toggle ' + node.label"
             class="icon-button"
             [disabled]="!hasChildren">
 
-        <mat-icon [ngClass]="{'mat-icon-rtl-mirror': true, 'list-item': isListKey}">{{
+        <mat-icon [ngClass]="{'mat-icon-rtl-mirror': true, 'icon__key': isListKey}">{{
             hasChildren
             ? expanded ? 'expand_more' : 'chevron_right'
             : isListKey ? 'remove' : ''
@@ -40,3 +39,8 @@
 
     </ng-container>
 </div>
+<ul *ngIf="node.children" class="list">
+    <li *ngFor="let child of node.children; index as i" class="item">
+        <cc-node [node]="child"></cc-node>
+    </li>
+</ul>

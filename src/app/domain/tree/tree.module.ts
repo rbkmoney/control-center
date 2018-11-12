@@ -1,14 +1,5 @@
 import { NgModule } from '@angular/core';
-import {
-    MatBadgeModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatTreeModule
-} from '@angular/material';
+import { MatBadgeModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
@@ -28,8 +19,7 @@ import { TreeService } from './tree.service';
         MatButtonModule,
         MatSelectModule,
         MatSlideToggleModule,
-        MatBadgeModule,
-        MatTreeModule
+        MatBadgeModule
     ],
     declarations: [
         TreeComponent,

@@ -12,6 +12,8 @@ export class NodeComponent {
     node: Node;
     @Input()
     expanded = false;
+    @Input()
+    root = false;
 
     constructor() {
     }

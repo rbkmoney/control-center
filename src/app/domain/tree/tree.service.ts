@@ -7,8 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class TreeService {
-    dataChanges = new BehaviorSubject<Node[]>([]);
-    nodes: Node[];
+    dataChanges = new BehaviorSubject<Node>(undefined);
+    nodes: Node;
 
     constructor(private metadataService: MetadataService, private fb: FormBuilder) {
     }
@@ -123,7 +123,7 @@ export class TreeService {
     }
 
     updateData(nextData = this.nodes) {
-        this.nodes = nextData.slice();
+        this.nodes = nextData;
         this.dataChanges.next(this.nodes);
     }
 }

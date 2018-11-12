@@ -1,4 +1,13 @@
-.list-item {
+.list {
+    list-style-type: none;
+}
+
+.list,
+.item {
+    margin: 0;
+}
+
+.icon__key {
     background: gray;
     color: #fff;
     border-radius: 100%;
