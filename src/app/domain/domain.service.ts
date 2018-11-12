@@ -5,20 +5,16 @@ import { BehaviorSubject } from 'rxjs';
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { Enum, Field2, List, Map, MetadataService, Set, Struct, Type2, TypeDef, Union } from '../metadata/metadata.service';
 
+type Types = 'list-item' | 'map-key' | 'map-value' | 'select' | 'bool';
+
 export interface Node {
     label: string;
-    structure?: string;
-    children?: Node[];
-    changeable?: {
-        options: string[];
-        selected: Node;
-        selectionChange({value}): any;
-    };
+    type?: Types;
     control?: FormControl;
-    toggle?: boolean;
+    children?: Node[];
     select?:  {
         options: string[];
-        selected: string;
+        selected?: string;
         selectionChange({value}): any;
     };
 }
@@ -49,10 +45,10 @@ export class DomainService {
         });
     }
 
-    buildViewModel(obj: Type2, f?: Field2, structure?: string): Node {
+    buildViewModel(obj: Type2, f?: Field2, structure?: Types): Node {
         const result: Node = {
             label: f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name,
-            structure
+            type: structure
         };
         switch (obj.structure) {
             case 'typedef':
@@ -65,6 +61,7 @@ export class DomainService {
                 return {
                     ...result,
                     control: this.fb.control(''),
+                    type: 'select',
                     select: {
                         options: (obj as Enum).items.map((item) => item.name),
                         selectionChange: () => {
@@ -80,12 +77,14 @@ export class DomainService {
                 const res: Node = {
                     ...result,
                     children: [],
-                    changeable: {
-                        options: (obj as Union).fields.map(({name}) => name)
+                    type: 'select',
+                    select: {
+                        options: (obj as Union).fields.map(({name}) => name),
+                        selectionChange: undefined
                     }
                 };
-                res.changeable.selectionChange = ({value}) => {
-                    res.changeable.selected = value;
+                res.select.selectionChange = ({value}) => {
+                    res.select.selected = value;
                     const field: Field2 = (obj as Union).fields.find(({name}) => name === value);
                     if (field) {
                         const r = this.buildViewModel(field.type, field);
@@ -126,7 +125,7 @@ export class DomainService {
                 return {
                     ...result,
                     control: this.fb.control(''),
-                    toggle: true
+                    type: 'bool'
                 };
             default:
                 return {
@@ -142,7 +141,7 @@ export class DomainService {
     }
 
     buildForm(obj: any) {
-        if (obj.structure === 'union') {
+        if (obj.type === 'union') {
             return this.fb.group(obj.fields.reduce((acc, x) => {
                 return {
                     ...acc,
