@@ -26,10 +26,16 @@ export class TreeComponent implements OnChanges {
         if (changes.data.previousValue !== changes.data.currentValue || changes.metadata.previousValue !== changes.metadata.currentValue) {
             const data = changes.data.currentValue;
             const metadata = changes.metadata.currentValue;
-            console.time('buildViewModel');
+
+            console.time('view model');
             this.model = Node.fromType(metadata, {value: data, parent: undefined});
-            console.timeEnd('buildViewModel');
             console.dir(this.model);
+            console.timeEnd('view model');
+
+            console.time('view model serialize');
+            console.dir(this.model.extractData());
+            console.timeEnd('view model serialize');
+            console.dir(data);
         }
     }
 }

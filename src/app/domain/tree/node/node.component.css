@@ -12,10 +12,11 @@
     margin: 0;
 }
 
+.item {
+    min-height: 65.5px;
+}
+
 .icon__key {
-    background: gray;
-    color: #fff;
-    border-radius: 100%;
 }
 
 .icon-button {

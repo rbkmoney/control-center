@@ -1,10 +1,14 @@
 <div fxLayout="row" fxLayoutAlign=" center">
     <button mat-icon-button
-            [attr.aria-label]="'toggle ' + node.label"
+            [attr.aria-label]="'Toggle ' + node.label"
             class="icon-button"
-            [disabled]="!hasChildren" (click)="toggle(node)">
+            [disabled]="!hasChildren"
+            (click)="toggle(node)">
 
-        <mat-icon [ngClass]="{'mat-icon-rtl-mirror': true, 'icon__key': isListKey}">
+        <mat-icon [matBadge]="isListKey ? 'k' : this.node.structure === 'map-value' ? 'v' : undefined"
+                  matBadgePosition="after below"
+                  [matBadgeColor]="isListKey ? 'primary' : this.node.structure === 'map-value' ? 'accent' : undefined"
+                  [ngClass]="{'mat-icon-rtl-mirror': true, icon__key: isListKey}">
             {{
             hasChildren
             ? node.isExpanded ? 'expand_more' : 'chevron_right'
@@ -23,8 +27,8 @@
                     <mat-icon inline style="vertical-align: top">cancel</mat-icon>
                     None
                 </mat-option>
-                <mat-option *ngFor="let value of node.select.options" [value]="value">
-                    {{value}}
+                <mat-option *ngFor="let option of node.select.options" [value]="option.value">
+                    {{option.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
