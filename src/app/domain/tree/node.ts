@@ -16,7 +16,7 @@ export class Node {
     control?: FormControl;
     children?: Node[];
     select?: {
-        options: {name: string, value: string | number | boolean}[];
+        options: { name: string, value: string | number | boolean }[];
         selected?: string;
         selectionChange({value}): any;
     };
@@ -167,7 +167,9 @@ export class Node {
                 break;
             case 'union':
                 result = this.select.options.reduce((union, option) => {
-                    union[option] = option.value === this.select.selected && this.children && this.children[0] ? this.children[0].extractData() : undefined;
+                    union[option.name] = option.value === this.select.selected && this.children && this.children[0]
+                        ? this.children[0].extractData()
+                        : undefined;
                     return union;
                 }, {});
                 break;

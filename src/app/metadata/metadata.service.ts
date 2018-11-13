@@ -103,9 +103,9 @@ const simpleTypes = ['int', 'bool', 'i8', 'i16', 'i32', 'i64', 'string', 'double
 @Injectable()
 export class MetadataService {
 
-    public files: MetadataFile[];
-    public metadata: { [name: string]: { [name: string]: ComplexType } };
-    public simple: { [name in ThriftType]: Simple } = simpleTypes.reduce((acc, item) => {
+    files: MetadataFile[];
+    metadata: { [name: string]: { [name: string]: ComplexType } };
+    simple: { [name in ThriftType]: Simple } = simpleTypes.reduce((acc, item) => {
         const simple = new Simple();
         simple.structure = item as any;
         return {
@@ -118,7 +118,7 @@ export class MetadataService {
     }
 
     // TODO to Metadata like Node
-    public async init(url: string): Promise<void> {
+    async init(url: string): Promise<void> {
         this.files = await this.http.get<any>(url).toPromise();
         const get = this.get.bind(this);
         const toCookList = [];
@@ -141,7 +141,7 @@ export class MetadataService {
                             break;
                         case 'enum':
                             result = new Enum();
-                            result.items = item.items;
+                            result.items = item.items.map((elem, idx) => ({name: elem.name, value: elem.value === undefined ? idx : elem.value}));
                             break;
                         case 'struct':
                             result = new Struct();
@@ -187,7 +187,7 @@ export class MetadataService {
         toCookList.forEach((fc) => fc());
     }
 
-    public get<T extends keyof JsonAST>(valueType: ValueType, parent: string): Type {
+    get<T extends keyof JsonAST>(valueType: ValueType, parent: string): Type {
         if (typeof valueType === 'string') {
             if (this.simple[valueType]) {
                 return this.simple[valueType];
