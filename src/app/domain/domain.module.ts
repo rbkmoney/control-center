@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule, MatFormFieldModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule, MatProgressBarModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -19,7 +19,8 @@ import { TreeModule } from './tree/tree.module';
         ReactiveFormsModule,
         FlexLayoutModule,
         CommonModule,
-        TreeModule
+        TreeModule,
+        MatProgressBarModule
     ],
     declarations: [
         DomainComponent
