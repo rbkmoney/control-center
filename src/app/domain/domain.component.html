@@ -1,8 +1,39 @@
 <div class="container">
-    <div class="card-container" fxLayout="column" fxLayoutGap="20px">
-        <mat-card>
-            <cc-tree *ngIf="data$ | async" [data]="data$ | async" [metadata]="metadata$ | async"></cc-tree>
-            <mat-progress-bar *ngIf="!(data$ | async)" mode="indeterminate"></mat-progress-bar>
-        </mat-card>
-    </div>
+    <mat-sidenav-container>
+        <mat-sidenav-content>
+            <div class="card-container" fxLayout="column" fxLayoutGap="20px">
+                <mat-card>
+                    <cc-tree *ngIf="data$ | async"
+                             [data]="data$ | async"
+                             [metadata]="metadata$ | async"
+                             (foundNode)="foundNode($event)">
+                    </cc-tree>
+                    <mat-progress-bar *ngIf="!(data$ | async)" mode="indeterminate"></mat-progress-bar>
+                </mat-card>
+            </div>
+        </mat-sidenav-content>
+        <mat-sidenav
+                mode="side"
+                [opened]="!!tabsModels.length"
+                position="end"
+                fixedInViewport="true"
+                fixedTopGap="64"
+                style="width: 50%">
+            <mat-tab-group>
+                <ng-container *ngFor="let model of tabsModels; index as i">
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            {{model.label}}
+                            <button mat-icon-button (click)="closeTab(model)">
+                                <mat-icon class="mat-icon-rtl-mirror">close</mat-icon>
+                            </button>
+                        </ng-template>
+                        <div style="padding: 20px">
+                            <cc-tree [model]="model" (foundNode)="foundNode($event)"></cc-tree>
+                        </div>
+                    </mat-tab>
+                </ng-container>
+            </mat-tab-group>
+        </mat-sidenav>
+    </mat-sidenav-container>
 </div>

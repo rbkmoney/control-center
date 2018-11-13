@@ -14,6 +14,8 @@ export class NodeComponent {
     expanded = false;
     @Input()
     root = false;
+    @Input()
+    findNode: (node: Node) => void;
 
     constructor() {
     }

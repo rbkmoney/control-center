@@ -24,6 +24,10 @@ export class Node {
     constructor() {
     }
 
+    get isRef() {
+        return this.metadata.name.slice(-3) === 'Ref';
+    }
+
     static fromType(type: Type, {field, structure, value, parent}: { field?: Field, structure?: Structure, value?: any, parent: Node }) {
         if (!type) {
             return undefined;
@@ -143,6 +147,21 @@ export class Node {
                 break;
         }
         return node;
+    }
+
+    findNode(refNode: Node): Node {
+        if (refNode.metadata.name === this.metadata.name && this.parent && this.parent.children && this.parent.children.length >= 2) {
+            return this.parent;
+        }
+        let resultNode;
+        if (this.children) {
+            for (const child of this.children) {
+                if (resultNode = child.findNode(refNode)) {
+                    return resultNode;
+                }
+            }
+        }
+        return undefined;
     }
 
     set(obj: Partial<Node>) {

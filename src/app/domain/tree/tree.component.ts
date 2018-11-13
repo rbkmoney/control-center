@@ -1,9 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
-import { Node } from './node';
 import { Type } from '../../metadata/metadata.service';
-import { TreeService } from './tree.service';
+import { Node } from './node';
 
 @Component({
     selector: 'cc-tree',
@@ -12,30 +10,49 @@ import { TreeService } from './tree.service';
 })
 export class TreeComponent implements OnChanges {
     @Input()
-    data: any;
+    data?: any;
     @Input()
-    metadata: Type;
+    metadata?: Type;
+    @Input()
+    model?: Node;
 
-    form: FormGroup;
-    model: Node;
+    @Output()
+    foundNode: EventEmitter<Node> = new EventEmitter();
 
-    constructor(private treeService: TreeService) {
+    constructor() {
+        this.findNode = this.findNode.bind(this);
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.data.previousValue !== changes.data.currentValue || changes.metadata.previousValue !== changes.metadata.currentValue) {
-            const data = changes.data.currentValue;
-            const metadata = changes.metadata.currentValue;
+        if (changes.data && changes.metadata
+            && (changes.data.previousValue !== changes.data.currentValue
+                || changes.metadata.previousValue !== changes.metadata.currentValue)) {
+            this.buildModel(changes.metadata.currentValue, changes.data.currentValue);
+        }
+        if (changes.model && changes.model.previousValue !== changes.model.currentValue) {
+            this.updateModel(changes.model.currentValue);
+        }
+    }
 
-            console.time('view model');
-            this.model = Node.fromType(metadata, {value: data, parent: undefined});
-            console.dir(this.model);
-            console.timeEnd('view model');
+    buildModel(metadata: Type, data: any) {
+        console.time('view model');
+        this.model = Node.fromType(metadata, {value: data, parent: undefined});
+        console.dir(this.model);
+        console.timeEnd('view model');
 
-            console.time('view model serialize');
-            console.dir(this.model.extractData());
-            console.timeEnd('view model serialize');
-            console.dir(data);
+        console.time('view model serialize');
+        console.dir(this.model.extractData());
+        console.timeEnd('view model serialize');
+        console.dir(data);
+    }
+
+    updateModel(model: Node) {
+        this.model = model;
+    }
+
+    findNode(refNode: Node) {
+        if (this.foundNode) {
+            this.foundNode.emit(this.model ? this.model.findNode(refNode) : undefined);
         }
     }
 }
