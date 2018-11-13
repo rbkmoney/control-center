@@ -3,7 +3,7 @@ import { switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 import { DomainService } from './domain.service';
-import { Type2 } from '../metadata/metadata.service';
+import { Type } from '../metadata/metadata.service';
 import { Domain } from '../gen-damsel/domain';
 
 @Component({
@@ -11,7 +11,7 @@ import { Domain } from '../gen-damsel/domain';
     styleUrls: ['../shared/container.css', 'domain.component.css']
 })
 export class DomainComponent {
-    metadata$: Observable<Type2>;
+    metadata$: Observable<Type>;
     data$: Observable<Domain>;
 
     constructor(private domainService: DomainService) {

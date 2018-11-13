@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Node } from './node';
-import { Type2 } from '../../metadata/metadata.service';
+import { Type } from '../../metadata/metadata.service';
 import { TreeService } from './tree.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class TreeComponent implements OnChanges {
     @Input()
     data: any;
     @Input()
-    metadata: Type2;
+    metadata: Type;
 
     form: FormGroup;
     model: Node;

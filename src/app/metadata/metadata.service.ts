@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Field, JsonAST, ThriftType, ValueType, Enum as ASTEnum, MapType } from 'thrift-ts/src/thrift-parser';
+import { Field as ASTField, JsonAST, ThriftType, ValueType, Enum as ASTEnum, MapType } from 'thrift-ts/src/thrift-parser';
 
 export type SimpleStructures = 'map' | 'list' | 'set';
 export type ComplexStructures = 'namespace' | 'typedef' | 'include' | 'const' | 'enum' | 'struct' | 'union' | 'exception' | 'service';
 
-export type Type0 = TypeDef | Const | Enum | Struct | Union | Exception;
-export type Type2 = Type0 | Simple | Set | List | Map;
+export type ComplexType = TypeDef | Const | Enum | Struct | Union | Exception;
+export type Type = ComplexType | Simple | Set | List | Map;
 
-export type Field2 = Pick<Field, Exclude<keyof Field, 'type'>> & { type: Type2; parent: Type2 };
+export type Field = Pick<ASTField, Exclude<keyof ASTField, 'type'>> & { type: Type; parent: Type };
 
 export interface Metadata {
     structure: ThriftType | SimpleStructures | ComplexStructures;
@@ -26,7 +26,7 @@ abstract class ComplexStructure implements Metadata {
 
 export class TypeDef extends ComplexStructure {
     structure: ComplexStructures = 'typedef';
-    type: Type2;
+    type: Type;
 }
 
 export class Const extends ComplexStructure {
@@ -41,17 +41,17 @@ export class Enum extends ComplexStructure {
 
 export class Struct extends ComplexStructure {
     structure: ComplexStructures = 'struct';
-    fields: Field2[];
+    fields: Field[];
 }
 
 export class Union extends ComplexStructure {
     structure: ComplexStructures = 'union';
-    fields: Field2[];
+    fields: Field[];
 }
 
 export class Exception extends ComplexStructure {
     structure: ComplexStructures = 'exception';
-    fields: Field2[];
+    fields: Field[];
 }
 
 /**
@@ -76,7 +76,7 @@ export class Simple extends SimpleStructure {
 
 abstract class SimpleComplexStructure extends SimpleStructure {
     structure: SimpleStructures;
-    valueType: Type2;
+    valueType: Type;
 }
 
 export class Set extends SimpleComplexStructure {
@@ -89,7 +89,7 @@ export class List extends SimpleComplexStructure {
 
 export class Map extends SimpleComplexStructure {
     structure: SimpleStructures = 'map';
-    keyType: Type2;
+    keyType: Type;
 }
 
 export interface MetadataFile {
@@ -104,7 +104,7 @@ const simpleTypes = ['int', 'bool', 'i8', 'i16', 'i32', 'i64', 'string', 'double
 export class MetadataService {
 
     public files: MetadataFile[];
-    public metadata: { [name: string]: { [name: string]: Type0 } };
+    public metadata: { [name: string]: { [name: string]: ComplexType } };
     public simple: { [name in ThriftType]: Simple } = simpleTypes.reduce((acc, item) => {
         const simple = new Simple();
         simple.structure = item as any;
@@ -186,7 +186,7 @@ export class MetadataService {
         toCookList.forEach((fc) => fc());
     }
 
-    public get<T extends keyof JsonAST>(valueType: ValueType, parent: string): Type2 {
+    public get<T extends keyof JsonAST>(valueType: ValueType, parent: string): Type {
         if (typeof valueType === 'string') {
             if (this.simple[valueType]) {
                 return this.simple[valueType];

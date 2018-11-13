@@ -1,12 +1,12 @@
 import { FormControl } from '@angular/forms';
 
-import { Enum, Field2, List, Map, Set, Struct, Type2, TypeDef, Union } from '../../metadata/metadata.service';
+import { Enum, Field, List, Map, Set, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
 
 export type Types = 'select' | 'toggle' | 'field';
 export type Structure = 'list-item' | 'map-key' | 'map-value';
 
 export class Node {
-    obj: Type2;
+    metadata: Type;
     label: string;
     isExpanded: boolean;
     type?: Types;
@@ -22,7 +22,7 @@ export class Node {
     constructor() {
     }
 
-    static fromType(obj: Type2, {f, structure, val}: { f?: Field2, structure?: Structure, val?: any } = {}) {
+    static fromType(obj: Type, {f, structure, val}: { f?: Field, structure?: Structure, val?: any } = {}) {
         if (!obj) {
             return undefined;
         }
@@ -30,7 +30,7 @@ export class Node {
         node.label = (f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name) + ` [${obj.structure}]`;
         node.structure = structure;
         node.isExpanded = false;
-        node.obj = obj;
+        node.metadata = obj;
         switch (obj.structure) {
             case 'typedef':
                 node = Node.fromType((obj as TypeDef).type, {f, val});
@@ -64,7 +64,7 @@ export class Node {
                 });
                 const selectUnionChildren = (fieldName: string) => {
                     node.select.selected = fieldName;
-                    const field: Field2 = (obj as Union).fields.find(({name}) => name === fieldName);
+                    const field: Field = (obj as Union).fields.find(({name}) => name === fieldName);
                     if (field) {
                         const r = Node.fromType(field.type, {f: field, val: val[fieldName]});
                         node.children = r.children;
@@ -82,22 +82,22 @@ export class Node {
                 node.set({
                     ...node,
                     children: [
-                        Node.fromType((obj as List).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'list-item'})
+                        Node.fromType((obj as List).valueType, {f: {name: 'value', option: 'required'} as Field, structure: 'list-item'})
                     ]
                 });
                 break;
             case 'set':
                 node.set({
                     children: [
-                        Node.fromType((obj as Set).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'list-item'})
+                        Node.fromType((obj as Set).valueType, {f: {name: 'value', option: 'required'} as Field, structure: 'list-item'})
                     ]
                 });
                 break;
             case 'map':
                 const buildMapItem = (v = []) => {
                     return [
-                        Node.fromType((obj as Map).keyType, {f: {name: 'key', option: 'required'} as Field2, structure: 'map-key', val: v[0]}),
-                        Node.fromType((obj as Map).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'map-value', val: v[1]})
+                        Node.fromType((obj as Map).keyType, {f: {name: 'key', option: 'required'} as Field, structure: 'map-key', val: v[0]}),
+                        Node.fromType((obj as Map).valueType, {f: {name: 'value', option: 'required'} as Field, structure: 'map-value', val: v[1]})
                     ];
                 };
                 const children: Node[] = [];
@@ -133,6 +133,32 @@ export class Node {
     }
 
     serialize() {
-
+        let result;
+        switch (this.metadata.structure) {
+            case 'const':
+                // TODO
+                break;
+            case 'enum':
+                break;
+            case 'struct':
+                break;
+            case 'union':
+                break;
+            case 'exception':
+                // not used
+                break;
+            case 'list':
+                break;
+            case 'set':
+                break;
+            case 'map':
+                break;
+            case 'bool':
+                break;
+            default:
+                result = this.control.value;
+                break;
+        }
+        return result;
     }
 }
