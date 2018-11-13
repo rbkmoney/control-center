@@ -1,15 +1,16 @@
 import { FormControl } from '@angular/forms';
 
-import { Enum, Field, List, Map, Set, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
+import { Enum, Field, MetaList, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
 
-export type Types = 'select' | 'toggle' | 'field';
+export type ListType = 'select' | 'toggle' | 'field';
 export type Structure = 'list-item' | 'map-key' | 'map-value';
 
 export class Node {
     metadata: Type;
+    parent: Node;
     label: string;
     isExpanded: boolean;
-    type?: Types;
+    list?: ListType;
     structure?: Structure;
     control?: FormControl;
     children?: Node[];
@@ -22,7 +23,7 @@ export class Node {
     constructor() {
     }
 
-    static fromType(obj: Type, {f, structure, val}: { f?: Field, structure?: Structure, val?: any } = {}) {
+    static fromType(obj: Type, {f, structure, val, parent}: { f?: Field, structure?: Structure, val?: any, parent: Node }) {
         if (!obj) {
             return undefined;
         }
@@ -31,9 +32,10 @@ export class Node {
         node.structure = structure;
         node.isExpanded = false;
         node.metadata = obj;
+        node.parent = parent;
         switch (obj.structure) {
             case 'typedef':
-                node = Node.fromType((obj as TypeDef).type, {f, val});
+                node = Node.fromType((obj as TypeDef).type, {f, val, parent});
                 break;
             case 'const':
                 // TODO
@@ -41,7 +43,7 @@ export class Node {
             case 'enum':
                 node.set({
                     control: new FormControl(''),
-                    type: 'select',
+                    list: 'select',
                     select: {
                         options: (obj as Enum).items.map((item) => item.name),
                         selectionChange: () => {
@@ -51,12 +53,12 @@ export class Node {
                 break;
             case 'struct':
                 node.set({
-                    children: (obj as Struct).fields.map((field) => Node.fromType(field.type, {f: field, val: val ? val[field.name] : undefined}))
+                    children: (obj as Struct).fields.map((field) => Node.fromType(field.type, {f: field, val: val ? val[field.name] : undefined, parent: node}))
                 });
                 break;
             case 'union':
                 node.set({
-                    type: 'select',
+                    list: 'select',
                     select: {
                         options: (obj as Union).fields.map(({name}) => name),
                         selectionChange: undefined,
@@ -66,7 +68,7 @@ export class Node {
                     node.select.selected = fieldName;
                     const field: Field = (obj as Union).fields.find(({name}) => name === fieldName);
                     if (field) {
-                        const r = Node.fromType(field.type, {f: field, val: val[fieldName]});
+                        const r = Node.fromType(field.type, {f: field, val: val[fieldName], parent: node});
                         node.children = r.children;
                     } else {
                         node.children = [];
@@ -82,22 +84,27 @@ export class Node {
                 node.set({
                     ...node,
                     children: [
-                        Node.fromType((obj as List).valueType, {f: {name: 'value', option: 'required'} as Field, structure: 'list-item'})
+                        Node.fromType((obj as MetaList).valueType, {f: {name: 'value', option: 'required'} as Field, structure: 'list-item', parent: node})
                     ]
                 });
                 break;
             case 'set':
                 node.set({
                     children: [
-                        Node.fromType((obj as Set).valueType, {f: {name: 'value', option: 'required'} as Field, structure: 'list-item'})
+                        Node.fromType((obj as MetaSet).valueType, {f: {name: 'value', option: 'required'} as Field, structure: 'list-item', parent: node})
                     ]
                 });
                 break;
             case 'map':
                 const buildMapItem = (v = []) => {
                     return [
-                        Node.fromType((obj as Map).keyType, {f: {name: 'key', option: 'required'} as Field, structure: 'map-key', val: v[0]}),
-                        Node.fromType((obj as Map).valueType, {f: {name: 'value', option: 'required'} as Field, structure: 'map-value', val: v[1]})
+                        Node.fromType((obj as MetaMap).keyType, {f: {name: 'key', option: 'required'} as Field, structure: 'map-key', val: v[0], parent: node}),
+                        Node.fromType((obj as MetaMap).valueType, {
+                            f: {name: 'value', option: 'required'} as Field,
+                            structure: 'map-value',
+                            val: v[1],
+                            parent: node
+                        })
                     ];
                 };
                 const children: Node[] = [];
@@ -113,13 +120,13 @@ export class Node {
             case 'bool':
                 node.set({
                     control: new FormControl(val),
-                    type: 'toggle'
+                    list: 'toggle'
                 });
                 break;
             default:
                 node.set({
                     control: new FormControl(val),
-                    type: 'field'
+                    list: 'field'
                 });
                 break;
         }

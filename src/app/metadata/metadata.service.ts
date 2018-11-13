@@ -6,7 +6,7 @@ export type SimpleStructures = 'map' | 'list' | 'set';
 export type ComplexStructures = 'namespace' | 'typedef' | 'include' | 'const' | 'enum' | 'struct' | 'union' | 'exception' | 'service';
 
 export type ComplexType = TypeDef | Const | Enum | Struct | Union | Exception;
-export type Type = ComplexType | Simple | Set | List | Map;
+export type Type = ComplexType | Simple | MetaSet | MetaList | MetaMap;
 
 export type Field = Pick<ASTField, Exclude<keyof ASTField, 'type'>> & { type: Type; parent: Type };
 
@@ -79,15 +79,15 @@ abstract class SimpleComplexStructure extends SimpleStructure {
     valueType: Type;
 }
 
-export class Set extends SimpleComplexStructure {
+export class MetaSet extends SimpleComplexStructure {
     structure: SimpleStructures = 'set';
 }
 
-export class List extends SimpleComplexStructure {
+export class MetaList extends SimpleComplexStructure {
     structure: SimpleStructures = 'list';
 }
 
-export class Map extends SimpleComplexStructure {
+export class MetaMap extends SimpleComplexStructure {
     structure: SimpleStructures = 'map';
     keyType: Type;
 }
@@ -117,6 +117,7 @@ export class MetadataService {
     constructor(private http: HttpClient) {
     }
 
+    // TODO to Metadata like Node
     public async init(url: string): Promise<void> {
         this.files = await this.http.get<any>(url).toPromise();
         const get = this.get.bind(this);
@@ -196,7 +197,7 @@ export class MetadataService {
         }
         switch (valueType.name) {
             case 'map':
-                const map = new Map();
+                const map = new MetaMap();
                 Object.defineProperty(map, 'valueType', {
                     get: () => {
                         return this.get(valueType.valueType, parent);
@@ -209,7 +210,7 @@ export class MetadataService {
                 });
                 return map;
             case 'list':
-                const list = new List();
+                const list = new MetaList();
                 Object.defineProperty(list, 'valueType', {
                     get: () => {
                         return this.get(valueType.valueType, parent);
@@ -217,7 +218,7 @@ export class MetadataService {
                 });
                 return list;
             case 'set':
-                const set = new Set();
+                const set = new MetaSet();
                 Object.defineProperty(set, 'valueType', {
                     get: () => {
                         return this.get(valueType.valueType, parent);

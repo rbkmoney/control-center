@@ -13,7 +13,7 @@
         </mat-icon>
 
     </button>
-    <ng-container [ngSwitch]="node.type">
+    <ng-container [ngSwitch]="node.list">
 
         <mat-form-field *ngSwitchCase="'select'" class="field">
             <mat-select [placeholder]="node.label"
