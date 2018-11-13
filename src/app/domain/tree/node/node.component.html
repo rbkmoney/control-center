@@ -32,9 +32,7 @@
         <mat-form-field *ngSwitchCase="'field'" class="field">
             <mat-label>{{node.label}}</mat-label>
             <input matInput [formControl]="node.control">
-            <mat-hint>
-                <button mat-button style="width: 100%">Add one</button>
-            </mat-hint>
+            <mat-hint></mat-hint>
         </mat-form-field>
 
         <mat-slide-toggle *ngSwitchCase="'toggle'">{{node.label}}</mat-slide-toggle>
