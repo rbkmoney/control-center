@@ -4,11 +4,13 @@
             class="icon-button"
             [disabled]="!hasChildren" (click)="toggle(node)">
 
-        <mat-icon [ngClass]="{'mat-icon-rtl-mirror': true, 'icon__key': isListKey}">{{
+        <mat-icon [ngClass]="{'mat-icon-rtl-mirror': true, 'icon__key': isListKey}">
+            {{
             hasChildren
             ? node.isExpanded ? 'expand_more' : 'chevron_right'
             : isListKey ? 'remove' : ''
-        }}</mat-icon>
+            }}
+        </mat-icon>
 
     </button>
     <ng-container [ngSwitch]="node.type">
@@ -30,6 +32,9 @@
         <mat-form-field *ngSwitchCase="'field'" class="field">
             <mat-label>{{node.label}}</mat-label>
             <input matInput [formControl]="node.control">
+            <mat-hint>
+                <button mat-button style="width: 100%">Add one</button>
+            </mat-hint>
         </mat-form-field>
 
         <mat-slide-toggle *ngSwitchCase="'toggle'">{{node.label}}</mat-slide-toggle>

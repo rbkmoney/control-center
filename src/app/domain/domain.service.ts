@@ -23,6 +23,7 @@ export class DomainService {
             console.dir(this.metadataService.files);
             console.dir(this.metadataService.metadata);
             const metadata = this.metadataService.get('Domain', 'domain');
+            console.dir(metadata);
             this.metadata$.next(metadata);
         });
     }

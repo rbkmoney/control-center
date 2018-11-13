@@ -14,7 +14,7 @@ export class TreeService {
             return undefined;
         }
         const result: Node = {
-            label: f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name,
+            label: (f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name) + ` [${obj.structure}]`,
             structure: structure,
             isExpanded: false
         };
@@ -39,32 +39,29 @@ export class TreeService {
             case 'struct':
                 return {
                     ...result,
-                    children: (obj as Struct).fields.map((field) => this.buildViewModel(field.type, {f: field}))
+                    children: (obj as Struct).fields.map((field) => this.buildViewModel(field.type, {f: field, val: val ? val[field.name] : undefined}))
                 };
             case 'union':
-                const selected = val ? Object.keys(val).find((v) => !!val[v]) : undefined;
-                const getUnionChildren = (fieldName: string) => {
-                    const field: Field2 = (obj as Union).fields.find(({name}) => name === fieldName);
-                    if (field) {
-                        const r = this.buildViewModel(field.type, {f: field});
-                        return r.children;
-                    }
-                    return [];
-                };
                 const res: Node = {
                     ...result,
-                    children: getUnionChildren(selected),
                     type: 'select',
                     select: {
                         options: (obj as Union).fields.map(({name}) => name),
                         selectionChange: undefined,
-                        selected,
                     }
                 };
-                res.select.selectionChange = ({value}) => {
-                    res.select.selected = value;
-                    res.children = getUnionChildren(value);
+                const selectUnionChildren = (fieldName: string) => {
+                    res.select.selected = fieldName;
+                    const field: Field2 = (obj as Union).fields.find(({name}) => name === fieldName);
+                    if (field) {
+                        const r = this.buildViewModel(field.type, {f: field, val: val[fieldName]});
+                        res.children = r.children;
+                    } else {
+                        res.children = [];
+                    }
                 };
+                selectUnionChildren(val ? Object.keys(val).find((v) => !!val[v]) : undefined);
+                res.select.selectionChange = ({value}) => selectUnionChildren(value);
                 return res;
             case 'exception':
                 return {
@@ -104,13 +101,13 @@ export class TreeService {
             case 'bool':
                 return {
                     ...result,
-                    control: this.fb.control(''),
+                    control: this.fb.control(val),
                     type: 'toggle'
                 };
             default:
                 return {
                     ...result,
-                    control: this.fb.control(''),
+                    control: this.fb.control(val),
                     type: 'field'
                 };
         }
