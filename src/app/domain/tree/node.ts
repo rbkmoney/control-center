@@ -5,6 +5,7 @@ export type Structure = 'list-item' | 'map-key' | 'map-value';
 
 export interface Node {
     label: string;
+    isExpanded: boolean;
     type?: Types;
     structure?: Structure;
     control?: FormControl;

@@ -18,11 +18,15 @@ export class NodeComponent {
     constructor() {
     }
 
-    get hasChildren () {
+    get hasChildren() {
         return Boolean(Array.isArray(this.node.children) && this.node.children.length);
     }
 
-    get isListKey () {
+    get isListKey() {
         return ['list-item', 'map-key'].includes(this.node.structure);
+    }
+
+    toggle(node: Node) {
+        node.isExpanded = !node.isExpanded;
     }
 }

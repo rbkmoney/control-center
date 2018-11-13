@@ -1,5 +1,10 @@
 .list {
     list-style-type: none;
+    display: none;
+}
+
+.list__expanded {
+    display: block;
 }
 
 .list,
@@ -20,3 +25,4 @@
 .field {
     width: 100%;
 }
+

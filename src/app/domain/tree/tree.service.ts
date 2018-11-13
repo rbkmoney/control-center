@@ -3,13 +3,9 @@ import { FormBuilder } from '@angular/forms';
 
 import { Enum, Field2, List, Map, MetadataService, Set, Struct, Type2, TypeDef, Union } from '../../metadata/metadata.service';
 import { Node, Structure } from './node';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class TreeService {
-    dataChanges = new BehaviorSubject<Node>(undefined);
-    nodes: Node;
-
     constructor(private metadataService: MetadataService, private fb: FormBuilder) {
     }
 
@@ -19,10 +15,9 @@ export class TreeService {
         }
         const result: Node = {
             label: f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name,
-            structure: structure
+            structure: structure,
+            isExpanded: false
         };
-        // console.log(obj.structure);
-        // console.log(val);
         switch (obj.structure) {
             case 'typedef':
                 return this.buildViewModel((obj as TypeDef).type, {f, val});
@@ -69,7 +64,6 @@ export class TreeService {
                 res.select.selectionChange = ({value}) => {
                     res.select.selected = value;
                     res.children = getUnionChildren(value);
-                    this.updateData();
                 };
                 return res;
             case 'exception':
@@ -97,9 +91,9 @@ export class TreeService {
                         this.buildViewModel((obj as Map).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'map-value', val: v[1]})
                     ];
                 };
-                const children = [];
+                const children: Node[] = [];
                 if (val) {
-                    for (const item of Array.from(val)) {
+                    for (const item of Array.from(val) as any[][]) {
                         children.push(...buildMapItem(item));
                     }
                 }
@@ -120,10 +114,5 @@ export class TreeService {
                     type: 'field'
                 };
         }
-    }
-
-    updateData(nextData = this.nodes) {
-        this.nodes = nextData;
-        this.dataChanges.next(this.nodes);
     }
 }

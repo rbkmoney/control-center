@@ -17,12 +17,9 @@ export class TreeComponent implements OnChanges {
     metadata: Type2;
 
     form: FormGroup;
-    dataSource: Node;
+    model: Node;
 
     constructor(private treeService: TreeService) {
-        this.treeService.dataChanges.subscribe((data) => {
-            this.updateData(data);
-        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -30,13 +27,9 @@ export class TreeComponent implements OnChanges {
             const data = changes.data.currentValue;
             const metadata = changes.metadata.currentValue;
             console.time('buildViewModel');
-            this.dataSource = this.treeService.buildViewModel(metadata, {val: data});
+            this.model = this.treeService.buildViewModel(metadata, {val: data});
             console.timeEnd('buildViewModel');
-            console.dir(this.dataSource);
+            console.dir(this.model);
         }
-    }
-
-    updateData(data: Node) {
-        this.dataSource = data;
     }
 }

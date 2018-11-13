@@ -2,14 +2,13 @@
     <button mat-icon-button
             [attr.aria-label]="'toggle ' + node.label"
             class="icon-button"
-            [disabled]="!hasChildren">
+            [disabled]="!hasChildren" (click)="toggle(node)">
 
         <mat-icon [ngClass]="{'mat-icon-rtl-mirror': true, 'icon__key': isListKey}">{{
             hasChildren
-            ? expanded ? 'expand_more' : 'chevron_right'
+            ? node.isExpanded ? 'expand_more' : 'chevron_right'
             : isListKey ? 'remove' : ''
-            }}
-        </mat-icon>
+        }}</mat-icon>
 
     </button>
     <ng-container [ngSwitch]="node.type">
@@ -39,7 +38,7 @@
 
     </ng-container>
 </div>
-<ul *ngIf="node.children" class="list">
+<ul *ngIf="node.children" class="list" [class.list__expanded]="node.isExpanded">
     <li *ngFor="let child of node.children; index as i" class="item">
         <cc-node [node]="child"></cc-node>
     </li>
