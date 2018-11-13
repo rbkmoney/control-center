@@ -27,7 +27,7 @@ export class TreeComponent implements OnChanges {
             const data = changes.data.currentValue;
             const metadata = changes.metadata.currentValue;
             console.time('buildViewModel');
-            this.model = Node.fromType(metadata, {val: data, parent: undefined});
+            this.model = Node.fromType(metadata, {value: data, parent: undefined});
             console.timeEnd('buildViewModel');
             console.dir(this.model);
         }

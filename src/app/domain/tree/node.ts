@@ -23,7 +23,7 @@ export class Node {
     constructor() {
     }
 
-    static fromType(obj: Type, {field, structure, val, parent}: { field?: Field, structure?: Structure, val?: any, parent: Node }) {
+    static fromType(obj: Type, {field, structure, value, parent}: { field?: Field, structure?: Structure, value?: any, parent: Node }) {
         if (!obj) {
             return undefined;
         }
@@ -35,7 +35,7 @@ export class Node {
         node.parent = parent;
         switch (obj.structure) {
             case 'typedef':
-                node = Node.fromType((obj as TypeDef).type, {field, val, parent});
+                node = Node.fromType((obj as TypeDef).type, {field, value, parent});
                 break;
             case 'const':
                 // TODO
@@ -55,7 +55,7 @@ export class Node {
                 node.set({
                     children: (obj as Struct).fields.map((childField) => Node.fromType(childField.type, {
                         field: childField,
-                        val: val ? val[childField.name] : undefined,
+                        value: value ? value[childField.name] : undefined,
                         parent: node
                     }))
                 });
@@ -72,14 +72,14 @@ export class Node {
                     node.select.selected = fieldName;
                     const childField: Field = (obj as Union).fields.find(({name}) => name === fieldName);
                     if (childField) {
-                        const r = Node.fromType(childField.type, {field: childField, val: val[fieldName], parent: node});
+                        const r = Node.fromType(childField.type, {field: childField, value: value[fieldName], parent: node});
                         node.children = r.children;
                     } else {
                         node.children = [];
                     }
                 };
-                selectUnionChildren(val ? Object.keys(val).find((v) => !!val[v]) : undefined);
-                node.select.selectionChange = ({value}) => selectUnionChildren(value);
+                selectUnionChildren(value ? Object.keys(value).find((v) => !!value[v]) : undefined);
+                node.select.selectionChange = ({value: v}) => selectUnionChildren(v);
                 break;
             case 'exception':
                 // not used
@@ -105,36 +105,36 @@ export class Node {
                         Node.fromType((obj as MetaMap).keyType, {
                             field: {name: 'key', option: 'required'} as Field,
                             structure: 'map-key',
-                            val: v[0],
+                            value: v[0],
                             parent: node
                         }),
                         Node.fromType((obj as MetaMap).valueType, {
                             field: {name: 'value', option: 'required'} as Field,
                             structure: 'map-value',
-                            val: v[1],
+                            value: v[1],
                             parent: node
                         })
                     ];
                 };
                 const children: Node[] = [];
-                if (val) {
-                    for (const item of Array.from(val) as any[][]) {
+                if (value) {
+                    for (const item of Array.from(value) as any[][]) {
                         children.push(...buildMapItem(item));
                     }
                 }
                 node.set({
-                    children: val ? children : buildMapItem()
+                    children: value ? children : buildMapItem()
                 });
                 break;
             case 'bool':
                 node.set({
-                    control: new FormControl(val),
+                    control: new FormControl(value),
                     list: 'toggle'
                 });
                 break;
             default:
                 node.set({
-                    control: new FormControl(val),
+                    control: new FormControl(value),
                     list: 'field'
                 });
                 break;
