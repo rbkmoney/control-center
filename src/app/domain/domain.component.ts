@@ -15,6 +15,7 @@ export class DomainComponent {
     metadata$: Observable<Type>;
     data$: Observable<Domain>;
     tabsModels: Node[] = [];
+    selectedModel: number;
 
     constructor(private domainService: DomainService) {
         this.metadata$ = this.domainService.metadata$;
@@ -22,7 +23,13 @@ export class DomainComponent {
     }
 
     foundNode(node: Node) {
-        this.tabsModels.push(node);
+        const idx = this.tabsModels.findIndex((tabModel) => node === tabModel);
+        if (idx >= 0) {
+            this.selectedModel = idx;
+        } else {
+            this.tabsModels.push(node);
+            this.selectedModel = this.tabsModels.length - 1;
+        }
     }
 
     closeTab(model: Node) {
