@@ -13,21 +13,20 @@ export class TreeService {
         if (!obj) {
             return undefined;
         }
-        const result: Node = {
-            label: (f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name) + ` [${obj.structure}]`,
-            structure: structure,
-            isExpanded: false
-        };
+        let node = new Node();
+        node.label = (f ? f.name + (f.option === 'required' ? '*' : '') + ' (' + obj.name + ')' : obj.name) + ` [${obj.structure}]`;
+        node.structure = structure;
+        node.isExpanded = false;
+        node.obj = obj;
         switch (obj.structure) {
             case 'typedef':
-                return this.buildViewModel((obj as TypeDef).type, {f, val});
+                node = this.buildViewModel((obj as TypeDef).type, {f, val});
+                break;
             case 'const':
-                return {
-                    ...result
-                };
+                // TODO
+                break;
             case 'enum':
-                return {
-                    ...result,
+                node.set({
                     control: this.fb.control(''),
                     type: 'select',
                     select: {
@@ -35,52 +34,52 @@ export class TreeService {
                         selectionChange: () => {
                         }
                     }
-                };
+                });
+                break;
             case 'struct':
-                return {
-                    ...result,
+                node.set({
                     children: (obj as Struct).fields.map((field) => this.buildViewModel(field.type, {f: field, val: val ? val[field.name] : undefined}))
-                };
+                });
+                break;
             case 'union':
-                const res: Node = {
-                    ...result,
+                node.set({
                     type: 'select',
                     select: {
                         options: (obj as Union).fields.map(({name}) => name),
                         selectionChange: undefined,
                     }
-                };
+                });
                 const selectUnionChildren = (fieldName: string) => {
-                    res.select.selected = fieldName;
+                    node.select.selected = fieldName;
                     const field: Field2 = (obj as Union).fields.find(({name}) => name === fieldName);
                     if (field) {
                         const r = this.buildViewModel(field.type, {f: field, val: val[fieldName]});
-                        res.children = r.children;
+                        node.children = r.children;
                     } else {
-                        res.children = [];
+                        node.children = [];
                     }
                 };
                 selectUnionChildren(val ? Object.keys(val).find((v) => !!val[v]) : undefined);
-                res.select.selectionChange = ({value}) => selectUnionChildren(value);
-                return res;
+                node.select.selectionChange = ({value}) => selectUnionChildren(value);
+                break;
             case 'exception':
-                return {
-                    ...result
-                };
+                // not used
+                break;
             case 'list':
-                return {
-                    ...result,
+                node.set({
+                    ...node,
                     children: [
                         this.buildViewModel((obj as List).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'list-item'})
                     ]
-                };
+                });
+                break;
             case 'set':
-                return {
-                    ...result,
+                node.set({
                     children: [
                         this.buildViewModel((obj as Set).valueType, {f: {name: 'value', option: 'required'} as Field2, structure: 'list-item'})
                     ]
-                };
+                });
+                break;
             case 'map':
                 const buildMapItem = (v = []) => {
                     return [
@@ -94,22 +93,23 @@ export class TreeService {
                         children.push(...buildMapItem(item));
                     }
                 }
-                return {
-                    ...result,
+                node.set({
                     children: val ? children : buildMapItem()
-                };
+                });
+                break;
             case 'bool':
-                return {
-                    ...result,
+                node.set({
                     control: this.fb.control(val),
                     type: 'toggle'
-                };
+                });
+                break;
             default:
-                return {
-                    ...result,
+                node.set({
                     control: this.fb.control(val),
                     type: 'field'
-                };
+                });
+                break;
         }
+        return node;
     }
 }
