@@ -68,15 +68,15 @@ abstract class SimpleStructure implements Metadata {
 
 export class Simple extends SimpleStructure {
     structure: ThriftType;
-
-    get name() {
-        return this.structure;
-    }
 }
 
 abstract class SimpleComplexStructure extends SimpleStructure {
     structure: SimpleStructures;
     valueType: Type;
+
+    get name() {
+        return `${this.structure}<${this.valueType.name}>`;
+    }
 }
 
 export class MetaSet extends SimpleComplexStructure {
@@ -90,6 +90,10 @@ export class MetaList extends SimpleComplexStructure {
 export class MetaMap extends SimpleComplexStructure {
     structure: SimpleStructures = 'map';
     keyType: Type;
+
+    get name() {
+        return `${this.structure}<${this.keyType.name}, ${this.valueType.name}>`;
+    }
 }
 
 export interface MetadataFile {

@@ -9,7 +9,6 @@ export class Node {
     metadata: Type;
     field: Field;
     parent: Node;
-    label: string;
     list?: ListType;
     structure?: Structure;
     control?: FormControl;
@@ -23,6 +22,11 @@ export class Node {
     constructor() {
     }
 
+    get label() {
+        return (this.field ? this.field.name + (this.field.option === 'required' ? '*' : '') +
+            ' (' + this.metadata.structure + ' ' + this.metadata.name + ')' : this.metadata.name);
+    }
+
     get isRef() {
         return this.metadata.name.slice(-3) === 'Ref';
     }
@@ -32,7 +36,6 @@ export class Node {
             return undefined;
         }
         let node = new Node();
-        node.label = (field ? field.name + (field.option === 'required' ? '*' : '') + ' (' + type.name + ')' : type.name) + ` [${type.structure}]`;
         node.structure = structure;
         node.metadata = type;
         node.parent = parent;
