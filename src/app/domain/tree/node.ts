@@ -13,6 +13,7 @@ export class Node {
     structure?: Structure;
     control?: FormControl;
     children?: Node[];
+    initData?: any;
     select?: {
         options: { name: string, value: string | number | boolean }[];
         selected?: string;
@@ -47,6 +48,7 @@ export class Node {
         node.metadata = type;
         node.parent = parent;
         node.field = field;
+        node.initData = value;
         switch (type.structure) {
             case 'typedef':
                 node = Node.fromType((type as TypeDef).type, {field, value, parent});
@@ -158,7 +160,7 @@ export class Node {
     }
 
     findNode(refNode: Node): Node {
-        if (refNode.metadata.name === this.metadata.name && this.parent && this.parent.children && this.parent.children.length >= 2) {
+        if (this.parent && Array.isArray(this.parent.children) && this.parent.children.length >= 2 && this.eq(refNode)) {
             return this.parent;
         }
         let resultNode;
@@ -170,6 +172,10 @@ export class Node {
             }
         }
         return undefined;
+    }
+
+    eq(node: Node): boolean {
+        return this.metadata === node.metadata && JSON.stringify(this.initData) === JSON.stringify(node.initData);
     }
 
     set(obj: Partial<Node>) {

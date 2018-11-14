@@ -55,8 +55,11 @@ export class TreeComponent implements OnChanges {
     }
 
     findNode(refNode: Node) {
-        if (this.foundNode) {
-            this.foundNode.emit(this.model ? this.model.findNode(refNode) : undefined);
+        if (this.foundNode && this.model) {
+            const foundNode = this.model.findNode(refNode);
+            if (foundNode) {
+                this.foundNode.emit(foundNode);
+            }
         }
     }
 
