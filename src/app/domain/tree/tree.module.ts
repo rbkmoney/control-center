@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 import { TreeComponent } from './tree.component';
 import { NodeComponent } from './node/node.component';
+import { LabelComponent } from './node/label/label.component';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { NodeComponent } from './node/node.component';
     ],
     declarations: [
         TreeComponent,
-        NodeComponent
+        NodeComponent,
+        LabelComponent
     ],
     exports: [
         TreeComponent

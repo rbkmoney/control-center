@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign=" center">
     <button mat-icon-button
-            [attr.aria-label]="'Toggle ' + node.label"
+            [attr.aria-label]="'toggle'"
             class="icon-button"
             [disabled]="!hasChildren"
             (click)="toggle(node)">
@@ -11,7 +11,7 @@
                   [ngClass]="{'mat-icon-rtl-mirror': true, icon__key: isListKey}">
             {{
             hasChildren
-            ? node.isExpanded ? 'expand_more' : 'chevron_right'
+            ? expanded(node) ? 'expand_more' : 'chevron_right'
             : isListKey ? 'remove' : ''
             }}
         </mat-icon>
@@ -20,9 +20,8 @@
     <ng-container [ngSwitch]="node.list">
 
         <mat-form-field *ngSwitchCase="'select'" class="field">
-            <mat-select [placeholder]="node.label"
-                        (selectionChange)="node.select.selectionChange($event)"
-                        [(value)]="node.select.selected">
+            <mat-label><cc-label [node]="node"></cc-label></mat-label>
+            <mat-select (selectionChange)="node.select.selectionChange($event)" [(value)]="node.select.selected">
                 <mat-option>
                     <mat-icon inline style="vertical-align: top">cancel</mat-icon>
                     None
@@ -31,24 +30,26 @@
                     {{option.name}}
                 </mat-option>
             </mat-select>
+            <mat-hint></mat-hint>
         </mat-form-field>
 
         <mat-form-field *ngSwitchCase="'field'" class="field">
-            <mat-label>{{node.label}}</mat-label>
+            <mat-label><cc-label [node]="node"></cc-label></mat-label>
             <input matInput [formControl]="node.control">
             <mat-hint></mat-hint>
         </mat-form-field>
 
-        <mat-slide-toggle *ngSwitchCase="'toggle'">{{node.label}}</mat-slide-toggle>
+        <mat-slide-toggle *ngSwitchCase="'toggle'"><cc-label [node]="node"></cc-label></mat-slide-toggle>
 
-        <div *ngSwitchDefault>{{node.label}}</div>
+        <div *ngSwitchDefault><cc-label [node]="node"></cc-label></div>
 
     </ng-container>
     <button mat-icon-button
             *ngIf="node.isRef"
-            [attr.aria-label]="'Toggle ' + node.label"
+            [attr.aria-label]="'open in tab'"
             class="icon-button"
-            (click)="findNode(node)">
+            (click)="findNode(node)"
+            style="margin-left:5px">
         <mat-icon class="mat-icon-rtl-mirror">tab</mat-icon>
     </button>
 </div>

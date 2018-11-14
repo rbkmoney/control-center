@@ -58,7 +58,7 @@ export class Exception extends ComplexStructure {
  * Basic structures
  */
 
-abstract class SimpleStructure implements Metadata {
+export abstract class SimpleStructure implements Metadata {
     structure: SimpleStructures | ThriftType;
 
     get name() {
@@ -75,7 +75,7 @@ abstract class SimpleComplexStructure extends SimpleStructure {
     valueType: Type;
 
     get name() {
-        return `${this.structure}<${this.valueType.name}>`;
+        return `<${this.valueType.name}>`;
     }
 }
 
@@ -92,7 +92,7 @@ export class MetaMap extends SimpleComplexStructure {
     keyType: Type;
 
     get name() {
-        return `${this.structure}<${this.keyType.name}, ${this.valueType.name}>`;
+        return `<${this.keyType.name}, ${this.valueType.name}>`;
     }
 }
 

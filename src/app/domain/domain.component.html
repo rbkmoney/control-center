@@ -23,13 +23,15 @@
                 <ng-container *ngFor="let model of tabsModels; index as i">
                     <mat-tab>
                         <ng-template mat-tab-label>
-                            {{model.label}}
+                            <span>{{model.metadata.name}}</span>
                             <button mat-icon-button (click)="closeTab(model)">
                                 <mat-icon class="mat-icon-rtl-mirror">close</mat-icon>
                             </button>
                         </ng-template>
                         <div style="padding: 20px">
-                            <cc-tree [model]="model" (foundNode)="foundNode($event)"></cc-tree>
+                            <div *ngFor="let child of model.children; index as i" class="item">
+                                <cc-tree [model]="child" (foundNode)="foundNode($event)"></cc-tree>
+                            </div>
                         </div>
                     </mat-tab>
                 </ng-container>

@@ -23,8 +23,15 @@ export class Node {
     }
 
     get label() {
-        return (this.field ? this.field.name + (this.field.option === 'required' ? '*' : '') +
-            ' (' + this.metadata.structure + ' ' + this.metadata.name + ')' : this.metadata.name);
+        return this.field ? `${this.fieldLabel} (${this.typeLabel})` : this.typeLabel;
+    }
+
+    get fieldLabel() {
+        return this.field ? `${this.field.name}${this.field.option === 'required' ? '*' : ''}` : '';
+    }
+
+    get typeLabel() {
+        return `${this.metadata.structure} ${this.metadata.name}`;
     }
 
     get isRef() {
