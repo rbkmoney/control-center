@@ -20,7 +20,8 @@ export class Node {
         selectionChange({value}): any;
     };
 
-    constructor() {
+    constructor(obj: Partial<Node> = {}) {
+        this.set(obj);
     }
 
     get label() {
@@ -43,12 +44,13 @@ export class Node {
         if (!type) {
             return undefined;
         }
-        let node = new Node();
-        node.structure = structure;
-        node.metadata = type;
-        node.parent = parent;
-        node.field = field;
-        node.initData = value;
+        let node = new Node({
+            structure,
+            metadata: type,
+            parent: parent,
+            field: field,
+            initData: value
+        });
         switch (type.structure) {
             case 'typedef':
                 node = Node.fromType((type as TypeDef).type, {field, value, parent});
@@ -118,7 +120,14 @@ export class Node {
                 break;
             case 'map':
                 const buildMapItem = (v = []) => {
-                    return [
+                    const item = new Node();
+                    item.set({
+                        structure: 'list-item',
+                        metadata: type,
+                        parent: node,
+                        initData: v
+                    });
+                    item.children = [
                         Node.fromType((type as MetaMap).keyType, {
                             field: {name: 'key', option: 'required'} as Field,
                             structure: 'map-key',
@@ -132,15 +141,16 @@ export class Node {
                             parent: node
                         })
                     ];
+                    return item;
                 };
                 const children: Node[] = [];
                 if (value) {
                     for (const item of Array.from(value) as any[][]) {
-                        children.push(...buildMapItem(item));
+                        children.push(buildMapItem(item));
                     }
                 }
                 node.set({
-                    children: value ? children : buildMapItem()
+                    children: value ? children : [buildMapItem()]
                 });
                 break;
             case 'bool':
@@ -214,9 +224,10 @@ export class Node {
             case 'set':
                 break;
             case 'map':
-                result = new Map();
-                for (let i = 0; i < this.children.length; i += 2) {
-                    result.set(this.children[i].extractData(), this.children[i + 1].extractData());
+                if (this.structure === 'list-item') {
+                    result = this.children.map((child) => child.extractData());
+                } else {
+                    result = new Map(this.children.map((child) => child.extractData()));
                 }
                 break;
             case 'bool':

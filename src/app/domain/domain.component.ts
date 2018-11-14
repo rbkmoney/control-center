@@ -13,13 +13,24 @@ import { Node } from './tree/node';
 })
 export class DomainComponent {
     metadata$: Observable<Type>;
+    metadata: Type;
     data$: Observable<Domain>;
+    data: any;
+    node: Node;
     tabsModels: Node[] = [];
     selectedModel: number;
 
     constructor(private domainService: DomainService) {
         this.metadata$ = this.domainService.metadata$;
         this.data$ = this.domainService.snapshot$.pipe(switchMap((snapshot) => of(snapshot ? snapshot.domain : undefined)));
+        this.metadata$.subscribe((metadata) => this.updateNode(metadata, this.data));
+        this.data$.subscribe((data) => this.updateNode(this.metadata, data));
+    }
+
+    updateNode(metadata: Type, data: any) {
+        this.metadata = metadata;
+        this.data = data;
+        this.node = Node.fromType(metadata, {value: data, parent: undefined});
     }
 
     foundNode(node: Node) {

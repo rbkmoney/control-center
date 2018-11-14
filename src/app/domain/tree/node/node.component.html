@@ -5,14 +5,15 @@
             [disabled]="!hasChildren"
             (click)="toggle(node)">
 
-        <mat-icon [matBadge]="isListKey ? 'k' : this.node.structure === 'map-value' ? 'v' : undefined"
-                  matBadgePosition="after below"
-                  [matBadgeColor]="isListKey ? 'primary' : this.node.structure === 'map-value' ? 'accent' : undefined"
-                  [ngClass]="{'mat-icon-rtl-mirror': true, icon__key: isListKey}">
+        <mat-icon
+                [matBadge]="this.node.structure === 'map-key' ? 'k' : this.node.structure === 'map-value' ? 'v' : undefined"
+                matBadgePosition="after below"
+                [matBadgeColor]="this.node.structure === 'map-key' ? 'primary' : this.node.structure === 'map-value' ? 'accent' : undefined"
+                [ngClass]="{'mat-icon-rtl-mirror': true, icon__key: this.node.structure === 'map-key' || this.node.structure === 'map-value' || this.node.structure === 'list-item'}">
             {{
             hasChildren
             ? expanded(node) ? 'expand_more' : 'chevron_right'
-            : isListKey ? 'remove' : ''
+            : this.node.structure === 'list-item' ? 'remove' : ''
             }}
         </mat-icon>
 
@@ -20,7 +21,9 @@
     <ng-container [ngSwitch]="node.list">
 
         <mat-form-field *ngSwitchCase="'select'" class="field">
-            <mat-label><cc-label [node]="node"></cc-label></mat-label>
+            <mat-label>
+                <cc-label [node]="node"></cc-label>
+            </mat-label>
             <mat-select (selectionChange)="node.select.selectionChange($event)" [(value)]="node.select.selected">
                 <mat-option>
                     <mat-icon inline style="vertical-align: top">cancel</mat-icon>
@@ -34,14 +37,20 @@
         </mat-form-field>
 
         <mat-form-field *ngSwitchCase="'field'" class="field">
-            <mat-label><cc-label [node]="node"></cc-label></mat-label>
+            <mat-label>
+                <cc-label [node]="node"></cc-label>
+            </mat-label>
             <input matInput [formControl]="node.control">
             <mat-hint></mat-hint>
         </mat-form-field>
 
-        <mat-slide-toggle *ngSwitchCase="'toggle'"><cc-label [node]="node"></cc-label></mat-slide-toggle>
+        <mat-slide-toggle *ngSwitchCase="'toggle'">
+            <cc-label [node]="node"></cc-label>
+        </mat-slide-toggle>
 
-        <div *ngSwitchDefault><cc-label [node]="node"></cc-label></div>
+        <div *ngSwitchDefault>
+            <cc-label [node]="node"></cc-label>
+        </div>
 
     </ng-container>
     <button mat-icon-button

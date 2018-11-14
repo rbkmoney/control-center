@@ -25,8 +25,4 @@ export class NodeComponent {
     get hasChildren() {
         return Boolean(Array.isArray(this.node.children) && this.node.children.length);
     }
-
-    get isListKey() {
-        return ['list-item', 'map-key'].includes(this.node.structure);
-    }
 }

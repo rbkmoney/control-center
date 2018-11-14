@@ -2,13 +2,13 @@
     <mat-sidenav-container>
         <mat-sidenav-content>
             <div class="card-container" fxLayout="column" fxLayoutGap="20px">
-                <mat-card>
-                    <cc-tree *ngIf="data$ | async"
-                             [data]="data$ | async"
-                             [metadata]="metadata$ | async"
-                             (foundNode)="foundNode($event)">
-                    </cc-tree>
-                    <mat-progress-bar *ngIf="!(data$ | async)" mode="indeterminate"></mat-progress-bar>
+                <ng-container *ngIf="node">
+                    <mat-card *ngFor="let child of node.children; index as i">
+                        <cc-tree [model]="child" (foundNode)="foundNode($event)"></cc-tree>
+                    </mat-card>
+                </ng-container>
+                <mat-card *ngIf="!node">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
                 </mat-card>
             </div>
         </mat-sidenav-content>
@@ -29,7 +29,7 @@
                             </button>
                         </ng-template>
                         <div style="padding: 20px">
-                            <div *ngFor="let child of model.children; index as i" class="item">
+                            <div *ngFor="let child of model.children; index as i">
                                 <cc-tree [model]="child" (foundNode)="foundNode($event)"></cc-tree>
                             </div>
                         </div>
