@@ -52,8 +52,8 @@
         <mat-icon class="mat-icon-rtl-mirror">tab</mat-icon>
     </button>
 </div>
-<ul *ngIf="node.children" class="list" [class.list__expanded]="node.isExpanded">
+<ul *ngIf="node.children && expanded(node)" class="list" [class.list__expanded]="expanded(node)">
     <li *ngFor="let child of node.children; index as i" class="item">
-        <cc-node [node]="child" [findNode]="findNode"></cc-node>
+        <cc-node [node]="child" [findNode]="findNode" [expanded]="expanded" [toggle]="toggle"></cc-node>
     </li>
 </ul>

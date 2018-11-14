@@ -19,8 +19,12 @@ export class TreeComponent implements OnChanges {
     @Output()
     foundNode: EventEmitter<Node> = new EventEmitter();
 
+    expandedNodes: Map<Node, boolean> = new Map();
+
     constructor() {
         this.findNode = this.findNode.bind(this);
+        this.toggle = this.toggle.bind(this);
+        this.expanded = this.expanded.bind(this);
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -54,5 +58,17 @@ export class TreeComponent implements OnChanges {
         if (this.foundNode) {
             this.foundNode.emit(this.model ? this.model.findNode(refNode) : undefined);
         }
+    }
+
+    toggle(node: Node) {
+        if (this.expandedNodes.get(node)) {
+            this.expandedNodes.delete(node);
+        } else {
+            this.expandedNodes.set(node, true);
+        }
+    }
+
+    expanded(node: Node) {
+        return this.expandedNodes.get(node);
     }
 }

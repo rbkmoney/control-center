@@ -11,11 +11,13 @@ export class NodeComponent {
     @Input()
     node: Node;
     @Input()
-    expanded = false;
-    @Input()
     root = false;
     @Input()
+    expanded: (node: Node) => boolean;
+    @Input()
     findNode: (node: Node) => void;
+    @Input()
+    toggle: (node: Node) => void;
 
     constructor() {
     }
@@ -26,9 +28,5 @@ export class NodeComponent {
 
     get isListKey() {
         return ['list-item', 'map-key'].includes(this.node.structure);
-    }
-
-    toggle(node: Node) {
-        node.isExpanded = !node.isExpanded;
     }
 }

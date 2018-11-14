@@ -10,7 +10,6 @@ export class Node {
     field: Field;
     parent: Node;
     label: string;
-    isExpanded: boolean;
     list?: ListType;
     structure?: Structure;
     control?: FormControl;
@@ -35,7 +34,6 @@ export class Node {
         let node = new Node();
         node.label = (field ? field.name + (field.option === 'required' ? '*' : '') + ' (' + type.name + ')' : type.name) + ` [${type.structure}]`;
         node.structure = structure;
-        node.isExpanded = false;
         node.metadata = type;
         node.parent = parent;
         node.field = field;
