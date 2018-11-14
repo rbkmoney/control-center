@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Enum, Field, MetaList, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
 
 export type ListType = 'select' | 'toggle' | 'field';
-export type Structure = 'list-item' | 'map-key' | 'map-value';
+export type Structure = 'list-item' | 'map-item' | 'map-key' | 'map-value';
 
 export class Node {
     metadata: Type;
@@ -122,7 +122,7 @@ export class Node {
                 const buildMapItem = (v = []) => {
                     const item = new Node();
                     item.set({
-                        structure: 'list-item',
+                        structure: 'map-item',
                         metadata: type,
                         parent: node,
                         initData: v
@@ -224,7 +224,7 @@ export class Node {
             case 'set':
                 break;
             case 'map':
-                if (this.structure === 'list-item') {
+                if (this.structure === 'map-item') {
                     result = this.children.map((child) => child.extractData());
                 } else {
                     result = new Map(this.children.map((child) => child.extractData()));

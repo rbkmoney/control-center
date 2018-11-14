@@ -5,18 +5,17 @@
             [disabled]="!hasChildren"
             (click)="toggle(node)">
 
-        <mat-icon
-                [matBadge]="this.node.structure === 'map-key' ? 'k' : this.node.structure === 'map-value' ? 'v' : undefined"
-                matBadgePosition="after below"
-                [matBadgeColor]="this.node.structure === 'map-key' ? 'primary' : this.node.structure === 'map-value' ? 'accent' : undefined"
-                [ngClass]="{'mat-icon-rtl-mirror': true, icon__key: this.node.structure === 'map-key' || this.node.structure === 'map-value' || this.node.structure === 'list-item'}">
+        <mat-icon class="mat-icon-rtl-mirror">
             {{
             hasChildren
             ? expanded(node) ? 'expand_more' : 'chevron_right'
             : this.node.structure === 'list-item' ? 'remove' : ''
             }}
         </mat-icon>
-
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'list-item'" color="primary">lens</mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-value'" color="primary">stop</mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-key'" color="accent">vpn_key</mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-item'" color="primary">view_stream</mat-icon>
     </button>
     <ng-container [ngSwitch]="node.list">
 
