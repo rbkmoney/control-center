@@ -1,6 +1,15 @@
 import { NgModule } from '@angular/core';
-import { MatBadgeModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import {
+    MatBadgeModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSlideToggleModule
+} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 
@@ -19,7 +28,9 @@ import { LabelComponent } from './node/label/label.component';
         MatButtonModule,
         MatSelectModule,
         MatSlideToggleModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatCheckboxModule,
+        FormsModule
     ],
     declarations: [
         TreeComponent,

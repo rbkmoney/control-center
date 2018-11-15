@@ -20,9 +20,14 @@ export class Node {
         selected?: string;
         selectionChange({value}): any;
     };
+    isNotNull: boolean;
 
     constructor(obj: Partial<Node> = {}) {
         this.set(obj);
+    }
+
+    get disabledIsNotNull() {
+        return (this.field ? this.field.option === 'required' : true) || this.structure === 'map-item';
     }
 
     get label() {
@@ -52,6 +57,7 @@ export class Node {
             field: field,
             initData: value
         });
+        node.isNotNull = value !== null;
         switch (type.structure) {
             case 'typedef':
                 node = Node.fromType((type as TypeDef).type, {field, value, parent});
@@ -98,7 +104,7 @@ export class Node {
                         node.children = [];
                     }
                 };
-                selectUnionChildren(value ? Object.keys(value).find((v) =>  value[v] !== null) : undefined);
+                selectUnionChildren(value ? Object.keys(value).find((v) => value[v] !== null) : undefined);
                 node.select.selectionChange = ({value: v}) => selectUnionChildren(v);
                 break;
             case 'exception':
@@ -128,27 +134,26 @@ export class Node {
                 break;
             case 'map':
                 const buildMapItem = (v = []) => {
-                    const item = new Node();
-                    item.set({
+                    const item = new Node({
                         structure: 'map-item',
                         metadata: type,
                         parent: node,
-                        initData: v
+                        initData: v,
+                        children: [
+                            Node.fromType((type as MetaMap).keyType, {
+                                field: {name: 'key', option: 'required'} as Field,
+                                structure: 'map-key',
+                                value: v[0],
+                                parent: node
+                            }),
+                            Node.fromType((type as MetaMap).valueType, {
+                                field: {name: 'value', option: 'required'} as Field,
+                                structure: 'map-value',
+                                value: v[1],
+                                parent: node
+                            })
+                        ]
                     });
-                    item.children = [
-                        Node.fromType((type as MetaMap).keyType, {
-                            field: {name: 'key', option: 'required'} as Field,
-                            structure: 'map-key',
-                            value: v[0],
-                            parent: node
-                        }),
-                        Node.fromType((type as MetaMap).valueType, {
-                            field: {name: 'value', option: 'required'} as Field,
-                            structure: 'map-value',
-                            value: v[1],
-                            parent: node
-                        })
-                    ];
                     return item;
                 };
                 const children: Node[] = [];
@@ -204,47 +209,49 @@ export class Node {
 
     extractData() {
         let result: any;
+        const isNotNull = this.field ? (this.field.option === 'required' || this.isNotNull) : true;
         switch (this.metadata.structure) {
             case 'const':
                 // TODO
                 break;
             case 'enum':
-                result = this.select.selected;
+                result = isNotNull ? this.select.selected : null;
                 break;
             case 'struct':
-                result = this.children.reduce((struct, child) => {
+                result = isNotNull ? this.children.reduce((struct, child) => {
                     struct[child.field.name] = child.extractData();
                     return struct;
-                }, {});
+                }, {}) : null;
                 break;
             case 'union':
-                result = this.select.options.reduce((union, option) => {
+                result = isNotNull ? this.select.options.reduce((union, option) => {
                     union[option.name] = option.value === this.select.selected && this.children && this.children[0]
                         ? this.children[0].extractData()
                         : null;
                     return union;
-                }, {});
+                }, {}) : null;
                 break;
             case 'exception':
                 // not used
                 break;
             case 'list':
-                result = this.children.map((child) => child.extractData());
+                result = isNotNull ? this.children.map((child) => child.extractData()) : null;
                 break;
             case 'set':
-                result = this.children.map((child) => child.extractData());
+                result = isNotNull ? this.children.map((child) => child.extractData()) : null;
                 break;
             case 'map':
                 if (this.structure === 'map-item') {
                     result = this.children.map((child) => child.extractData());
                 } else {
-                    result = new Map(this.children.map((child) => child.extractData()));
+                    result = isNotNull ? new Map(this.children.map((child) => child.extractData())) : null;
                 }
                 break;
             case 'bool':
+                result = isNotNull ? this.control.value : null;
                 break;
             default:
-                result = this.control.value;
+                result = isNotNull ? this.control.value : null;
                 break;
         }
         return result;

@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign=" center" class="item">
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item">
     <button mat-icon-button
             [attr.aria-label]="'toggle'"
             class="icon-button"
@@ -12,12 +12,17 @@
             : this.node.structure === 'list-item' ? 'remove' : ''
             }}
         </mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'list-item'" color="primary">lens</mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-value'" color="primary">stop</mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-key'" color="accent">vpn_key</mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-item'" color="primary">view_stream</mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'list-item'" color="primary">lens
+        </mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-value'" color="primary">stop
+        </mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-key'" color="accent">vpn_key
+        </mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-item'" color="primary">
+            view_stream
+        </mat-icon>
     </button>
-    <ng-container [ngSwitch]="node.list">
+    <div [ngSwitch]="node.list" fxFlex="grow">
 
         <mat-form-field *ngSwitchCase="'select'" class="field">
             <mat-label>
@@ -51,15 +56,15 @@
             <cc-label [node]="node"></cc-label>
         </div>
 
-    </ng-container>
+    </div>
     <button mat-icon-button
             *ngIf="node.isRef"
             [attr.aria-label]="'open in tab'"
-            class="icon-button"
             (click)="findNode(node)"
             style="margin-left:5px">
-        <mat-icon class="mat-icon-rtl-mirror">tab</mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror">link</mat-icon>
     </button>
+    <mat-checkbox *ngIf="!node.disabledIsNotNull" [(ngModel)]="node.isNotNull"></mat-checkbox>
 </div>
 <ul *ngIf="node.children && expanded(node)" class="list" [class.list__expanded]="expanded(node)">
     <li *ngFor="let child of node.children; index as i" class="list__item">
