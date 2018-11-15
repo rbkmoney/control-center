@@ -27,7 +27,7 @@ export class Node {
     }
 
     get disabledIsNotNull() {
-        return (this.field ? this.field.option === 'required' : true) || this.structure === 'map-item';
+        return (this.field ? this.field.option !== 'optional' : true) || this.structure === 'map-item';
     }
 
     get label() {
@@ -141,13 +141,11 @@ export class Node {
                         initData: v,
                         children: [
                             Node.fromType((type as MetaMap).keyType, {
-                                field: {name: 'key', option: 'required'} as Field,
                                 structure: 'map-key',
                                 value: v[0],
                                 parent: node
                             }),
                             Node.fromType((type as MetaMap).valueType, {
-                                field: {name: 'value', option: 'required'} as Field,
                                 structure: 'map-value',
                                 value: v[1],
                                 parent: node
@@ -209,7 +207,7 @@ export class Node {
 
     extractData() {
         let result: any;
-        const isNotNull = this.field ? (this.field.option === 'required' || this.isNotNull) : true;
+        const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
         switch (this.metadata.structure) {
             case 'const':
                 // TODO
