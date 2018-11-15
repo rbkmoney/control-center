@@ -6,6 +6,7 @@ import { DomainService } from './domain.service';
 import { Type } from '../metadata/metadata.service';
 import { Domain } from '../gen-damsel/domain';
 import { Node } from './tree/node';
+import { stringify } from '../shared/stringify';
 
 @Component({
     templateUrl: 'domain.component.html',
@@ -31,6 +32,29 @@ export class DomainComponent {
         this.metadata = metadata;
         this.data = data;
         this.node = Node.fromType(metadata, {value: data, parent: undefined});
+        // realtime test Node class
+        if (data && this.node) {
+            const aa = Array.from(data);
+            const bb = Array.from(this.node.extractData());
+            for (let i = 0; i < data.size; ++i) {
+                console.log(i);
+                const a = stringify(aa[i], 2).split('\n');
+                console.log(aa[i]);
+                const b = stringify(bb[i], 2).split('\n');
+                console.log(bb[i]);
+                for (let j = 0, res = ''; j < a.length; ++j) {
+                    res += '\n' + j + '. ' + a[j];
+                    if (a[j] !== b[j]) {
+                        console.log(res);
+                        console.error(j + '. ' + b[j]);
+                        break;
+                    }
+                    if (j === a.length - 1) {
+                        console.log('ok');
+                    }
+                }
+            }
+        }
     }
 
     foundNode(node: Node) {

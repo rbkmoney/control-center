@@ -93,12 +93,12 @@ export class Node {
                     node.select.selected = fieldName;
                     const childField: Field = (type as Union).fields.find(({name}) => name === fieldName);
                     if (childField) {
-                        node.children = [Node.fromType(childField.type, {field: childField, value: value[fieldName], parent: node})];
+                        node.children = [Node.fromType(childField.type, {field: childField, value: value ? value[fieldName] : undefined, parent: node})];
                     } else {
                         node.children = [];
                     }
                 };
-                selectUnionChildren(value ? Object.keys(value).find((v) => !!value[v]) : undefined);
+                selectUnionChildren(value ? Object.keys(value).find((v) =>  value[v] !== null) : undefined);
                 node.select.selectionChange = ({value: v}) => selectUnionChildren(v);
                 break;
             case 'exception':
@@ -106,17 +106,24 @@ export class Node {
                 break;
             case 'list':
                 node.set({
-                    ...node,
-                    children: [
-                        Node.fromType((type as MetaList).valueType, {field: {name: 'value', option: 'required'} as Field, structure: 'list-item', parent: node})
-                    ]
+                    children: (value || []).map((v) => {
+                        return Node.fromType((type as MetaList).valueType, {
+                            structure: 'list-item',
+                            parent: node,
+                            value: v
+                        });
+                    })
                 });
                 break;
             case 'set':
                 node.set({
-                    children: [
-                        Node.fromType((type as MetaSet).valueType, {field: {name: 'value', option: 'required'} as Field, structure: 'list-item', parent: node})
-                    ]
+                    children: (value || []).map((v) => {
+                        return Node.fromType((type as MetaSet).valueType, {
+                            structure: 'list-item',
+                            parent: node,
+                            value: v
+                        });
+                    })
                 });
                 break;
             case 'map':
@@ -151,7 +158,7 @@ export class Node {
                     }
                 }
                 node.set({
-                    children: value ? children : [buildMapItem()]
+                    children
                 });
                 break;
             case 'bool':
@@ -202,6 +209,7 @@ export class Node {
                 // TODO
                 break;
             case 'enum':
+                result = this.select.selected;
                 break;
             case 'struct':
                 result = this.children.reduce((struct, child) => {
@@ -213,7 +221,7 @@ export class Node {
                 result = this.select.options.reduce((union, option) => {
                     union[option.name] = option.value === this.select.selected && this.children && this.children[0]
                         ? this.children[0].extractData()
-                        : undefined;
+                        : null;
                     return union;
                 }, {});
                 break;
@@ -221,8 +229,10 @@ export class Node {
                 // not used
                 break;
             case 'list':
+                result = this.children.map((child) => child.extractData());
                 break;
             case 'set':
+                result = this.children.map((child) => child.extractData());
                 break;
             case 'map':
                 if (this.structure === 'map-item') {
