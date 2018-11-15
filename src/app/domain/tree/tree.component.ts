@@ -39,15 +39,7 @@ export class TreeComponent implements OnChanges {
     }
 
     buildModel(metadata: Type, data: any) {
-        console.time('view model');
         this.model = Node.fromType(metadata, {value: data, parent: undefined});
-        console.dir(this.model);
-        console.timeEnd('view model');
-
-        console.time('view model serialize');
-        console.dir(this.model.extractData());
-        console.timeEnd('view model serialize');
-        console.dir(data);
     }
 
     updateModel(model: Node) {

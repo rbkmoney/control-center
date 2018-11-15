@@ -1,6 +1,7 @@
 import { FormControl } from '@angular/forms';
 
 import { Enum, Field, MetaList, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
+import { stringify } from '../../shared/stringify';
 
 export type ListType = 'select' | 'toggle' | 'field';
 export type Structure = 'list-item' | 'map-item' | 'map-key' | 'map-value';
@@ -185,7 +186,7 @@ export class Node {
     }
 
     eq(node: Node): boolean {
-        return this.metadata === node.metadata && JSON.stringify(this.initData) === JSON.stringify(node.initData);
+        return this.metadata === node.metadata && stringify(this.initData) === stringify(node.initData);
     }
 
     set(obj: Partial<Node>) {

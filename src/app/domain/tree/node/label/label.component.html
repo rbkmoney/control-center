@@ -2,5 +2,5 @@
 {{node.field.name}}<span style="color:darkred">{{node.field.option === 'required' ? '*' : ''}}</span>
 </span>
 <span style="color:gray">
-{{node.field ? ' (' : ''}}{{typeName}}{{node.field ? ')' : ''}}
+{{node.field ? ' (' : ''}}{{node.structure === 'map-item' ? typeName.replace('map', '') : typeName}}{{node.field ? ')' : ''}}
 </span>

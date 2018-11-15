@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign=" center">
+<div fxLayout="row" fxLayoutAlign=" center" class="item">
     <button mat-icon-button
             [attr.aria-label]="'toggle'"
             class="icon-button"
@@ -62,7 +62,7 @@
     </button>
 </div>
 <ul *ngIf="node.children && expanded(node)" class="list" [class.list__expanded]="expanded(node)">
-    <li *ngFor="let child of node.children; index as i" class="item">
+    <li *ngFor="let child of node.children; index as i" class="list__item">
         <cc-node [node]="child" [findNode]="findNode" [expanded]="expanded" [toggle]="toggle"></cc-node>
     </li>
 </ul>
