@@ -2,16 +2,13 @@
     <button mat-icon-button
             [attr.aria-label]="'toggle'"
             class="icon-button"
-            [disabled]="!hasChildren"
+            [disabled]="disabled"
             (click)="toggle(node)">
 
         <mat-icon class="mat-icon-rtl-mirror">
-            {{
-            hasChildren
-            ? expanded(node) ? 'expand_more' : 'chevron_right'
-            : this.node.structure === 'list-item' ? 'remove' : ''
-            }}
+            {{node.hasChildren ? expanded(node) ? 'expand_more' : 'chevron_right' : ''}}
         </mat-icon>
+
         <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'list-item'" color="primary">lens
         </mat-icon>
         <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-value'" color="primary">stop
@@ -64,9 +61,9 @@
             style="margin-left:5px">
         <mat-icon class="mat-icon-rtl-mirror">link</mat-icon>
     </button>
-    <mat-checkbox *ngIf="!node.disabledIsNotNull" [(ngModel)]="node.isNotNull"></mat-checkbox>
+    <mat-checkbox *ngIf="!node.isNullable" [(ngModel)]="node.isNotNull"></mat-checkbox>
 </div>
-<ul *ngIf="node.children && expanded(node)" class="list" [class.list__expanded]="expanded(node)">
+<ul *ngIf="expanded(node)" class="list" [class.list__expanded]="expanded(node)">
     <li *ngFor="let child of node.children; index as i" class="list__item">
         <cc-node [node]="child" [findNode]="findNode" [expanded]="expanded" [toggle]="toggle"></cc-node>
     </li>

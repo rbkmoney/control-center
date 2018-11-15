@@ -22,7 +22,7 @@ export class NodeComponent {
     constructor() {
     }
 
-    get hasChildren() {
-        return Boolean(Array.isArray(this.node.children) && this.node.children.length);
+    get disabled() {
+        return !this.node.hasChildren || (!this.node.isNullable && !this.node.isNotNull);
     }
 }

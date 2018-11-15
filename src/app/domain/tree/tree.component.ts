@@ -64,6 +64,6 @@ export class TreeComponent implements OnChanges {
     }
 
     expanded(node: Node) {
-        return this.expandedNodes.get(node);
+        return (node.isNullable || node.isNotNull) && node.hasChildren && this.expandedNodes.get(node);
     }
 }

@@ -26,7 +26,7 @@ export class Node {
         this.set(obj);
     }
 
-    get disabledIsNotNull() {
+    get isNullable() {
         return (this.field ? this.field.option !== 'optional' : true) || this.structure === 'map-item';
     }
 
@@ -44,6 +44,10 @@ export class Node {
 
     get isRef() {
         return this.metadata.name.slice(-3) === 'Ref';
+    }
+
+    get hasChildren() {
+        return Boolean(Array.isArray(this.children) && this.children.length);
     }
 
     static fromType(type: Type, {field, structure, value, parent}: { field?: Field, structure?: Structure, value?: any, parent: Node }) {
