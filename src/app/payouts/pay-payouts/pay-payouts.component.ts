@@ -9,7 +9,7 @@ import { PayoutsService } from '../payouts.service';
 export class PayPayoutsComponent {
     isLoading: boolean;
 
-    constructor(private dialogRef: MatDialogRef<PayPayoutsComponent>,
+    constructor(private dialogRef: MatDialogRef<PayPayoutsComponent, 'success'>,
                 private payoutsService: PayoutsService,
                 private snackBar: MatSnackBar,
                 @Inject(MAT_DIALOG_DATA)
@@ -20,11 +20,11 @@ export class PayPayoutsComponent {
         this.isLoading = true;
         this.payoutsService.pay(this.payoutsIds).subscribe(() => {
             this.isLoading = false;
-            this.dialogRef.close();
+            this.dialogRef.close('success');
             this.snackBar.open('Successfully payed', 'OK', {duration: 3000});
         }, (error) => {
             this.isLoading = false;
-            this.snackBar.open('An error occured', 'OK');
+            this.snackBar.open('An error occurred while payout pay', 'OK');
             console.error(error);
         });
     }

@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="payouts">
+<table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -61,3 +61,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let payout; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="[10, 20, 50, 100, 250, 500]" showFirstLastButtons></mat-paginator>

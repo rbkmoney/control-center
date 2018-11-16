@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { filter } from 'rxjs/internal/operators';
+import { KeycloakService } from 'keycloak-angular';
 
 import { PayPayoutsComponent } from '../pay-payouts/pay-payouts.component';
 import { ConfirmPayoutsComponent } from '../confirm-payouts/confirm-payouts.component';
@@ -12,8 +13,12 @@ import { Payout, PayoutStatus } from '../../papi/model';
     templateUrl: 'payouts-actions.component.html'
 })
 export class PayoutsActionsComponent implements OnInit {
+
     @Input()
     selectedPayouts: Payout[];
+
+    @Output()
+    doAction: EventEmitter<void> = new EventEmitter();
 
     roles: string[];
 
@@ -26,18 +31,28 @@ export class PayoutsActionsComponent implements OnInit {
     }
 
     pay() {
-        this.dialogRef.open(PayPayoutsComponent, {data: this.getIds(this.selectedPayouts)});
+        this.dialogRef.open(PayPayoutsComponent, {
+            data: this.getIds(this.selectedPayouts)
+        }).afterClosed()
+            .pipe(filter((result) => result === 'success'))
+            .subscribe(() => this.doAction.emit());
     }
 
     confirmPayouts() {
-        this.dialogRef.open(ConfirmPayoutsComponent, {data: this.getIds(this.selectedPayouts)});
+        this.dialogRef.open(ConfirmPayoutsComponent, {
+            data: this.getIds(this.selectedPayouts)
+        }).afterClosed()
+            .pipe(filter((result) => result === 'success'))
+            .subscribe(() => this.doAction.emit());
     }
 
     createPayout() {
         this.dialogRef.open(CreatePayoutComponent, {
             width: '720px',
             disableClose: true
-        });
+        }).afterClosed()
+            .pipe(filter((result) => result === 'success'))
+            .subscribe(() => this.doAction.emit());
     }
 
     hasRole(role: string): boolean {
@@ -45,16 +60,16 @@ export class PayoutsActionsComponent implements OnInit {
     }
 
     isCanPay(): boolean {
-        const unpaid = this.selectedPayouts.filter((payout) => payout.status === PayoutStatus.unpaid);
+        const unpaid = this.selectedPayouts.filter((p) => p.status === PayoutStatus.unpaid);
         return this.selectedPayouts.length === unpaid.length && unpaid.length > 0;
     }
 
     isCanConfirm(): boolean {
-        const paid = this.selectedPayouts.filter((payout) => payout.status === PayoutStatus.paid);
+        const paid = this.selectedPayouts.filter((p) => p.status === PayoutStatus.paid);
         return this.selectedPayouts.length === paid.length && paid.length > 0;
     }
 
     private getIds(payouts: Payout[]): string[] {
-        return payouts.reduce((acc, current) => acc.concat(current.id), []);
+        return payouts.map((p) => p.id);
     }
 }

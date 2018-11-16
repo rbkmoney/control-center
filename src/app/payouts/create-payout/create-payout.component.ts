@@ -14,7 +14,7 @@ export class CreatePayoutComponent implements OnInit {
     form: FormGroup;
     isLoading: boolean;
 
-    constructor(private dialogRef: MatDialogRef<CreatePayoutComponent>,
+    constructor(private dialogRef: MatDialogRef<CreatePayoutComponent, 'success'>,
                 private createPayoutService: CreatePayoutService,
                 private payoutService: PayoutsService,
                 private snackBar: MatSnackBar) {
@@ -29,7 +29,7 @@ export class CreatePayoutComponent implements OnInit {
             const formValues = this.form.value;
             this.isLoading = true;
             this.payoutService.create(this.createPayoutService.makeParams(formValues)).subscribe(() => {
-                this.dialogRef.close();
+                this.dialogRef.close('success');
                 this.isLoading = false;
                 this.snackBar.open('Successfully created', 'OK', {duration: 3000});
             }, (error) => {

@@ -11,6 +11,7 @@ import {
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatSelectModule,
@@ -60,7 +61,8 @@ import { PayoutsActionsComponent } from './payouts-actions/payouts-actions.compo
         MatProgressSpinnerModule,
         MatBadgeModule,
         MatMenuModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatPaginatorModule
     ],
     declarations: [
         PayoutsComponent,

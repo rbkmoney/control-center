@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Observable } from 'rxjs';
 
 import { Payout } from '../papi/model';
 import { PayoutsService } from './payouts.service';
@@ -15,37 +14,40 @@ import { PayoutSearchParams } from '../papi/params';
     ],
     providers: [SearchFormService]
 })
-export class PayoutsComponent implements OnInit {
+export class PayoutsComponent {
 
     isLoading: boolean;
-    payouts$: Observable<Payout[]>;
+    payouts: Payout[];
     selectedPayouts: Payout[] = [];
+    formValid: boolean;
+    searchParams: PayoutSearchParams;
 
     constructor(private payoutsService: PayoutsService,
                 private snackBar: MatSnackBar,
-                private cdRef: ChangeDetectorRef,
-                private searchFormService: SearchFormService) {
+                private cdRef: ChangeDetectorRef) {
     }
 
-    ngOnInit() {
-        this.payouts$ = this.payoutsService.payouts$;
-        this.getPayouts(this.searchFormService.initSearchParams);
+    formValueChanges(params: PayoutSearchParams) {
+        this.searchParams = params;
+    }
+
+    formStatusChanges(status: string) {
+        this.formValid = status === 'VALID';
     }
 
     tableOnChange(selectedPayouts: Payout[]) {
         this.selectedPayouts = selectedPayouts;
-        this.cdRef.detectChanges();
+        // this.cdRef.detectChanges();
     }
 
-    getPayouts(params: PayoutSearchParams) {
+    search() {
         this.isLoading = true;
-        return this.payoutsService.get(params).subscribe(() => {
+        this.payoutsService.get(this.searchParams).subscribe((payouts) => {
             this.isLoading = false;
-        }, (e) => {
+            this.payouts = payouts;
+        }, () => {
             this.isLoading = false;
-            const message = e.message;
-            this.snackBar.open(`${message ? message : 'Error'}`, 'OK', {duration: 3000});
-            console.error(e);
+            this.snackBar.open('An error occurred while search payouts', 'OK');
         });
     }
 }
