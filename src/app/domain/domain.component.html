@@ -5,6 +5,9 @@
                 <ng-container *ngIf="node">
                     <mat-card *ngFor="let child of node.children; index as i">
                         <cc-tree [model]="child" (foundNode)="foundNode($event)"></cc-tree>
+                        <button mat-icon-button style="float:right" [disabled]="false" (click)="save(child)">
+                            <mat-icon class="mat-icon-rtl-mirror">save</mat-icon>
+                        </button>
                     </mat-card>
                 </ng-container>
                 <mat-card *ngIf="!node">

@@ -1,7 +1,9 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 import { Enum, Field, MetaList, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
 import { stringify } from '../../shared/stringify';
+
+const Int64 = require('node-int64');
 
 export type ListType = 'select' | 'toggle' | 'field';
 export type Structure = 'list-item' | 'map-item' | 'map-key' | 'map-value';
@@ -57,8 +59,8 @@ export class Node {
         let node = new Node({
             structure,
             metadata: type,
-            parent: parent,
-            field: field,
+            parent,
+            field,
             initData: value
         });
         node.isNotNull = value !== null;
@@ -71,7 +73,6 @@ export class Node {
                 break;
             case 'enum':
                 node.set({
-                    control: new FormControl(''),
                     list: 'select',
                     select: {
                         options: (type as Enum).items.map((item) => ({name: item.name || String(item.value), value: item.value})),
@@ -174,12 +175,65 @@ export class Node {
                     list: 'toggle'
                 });
                 break;
-            default:
+            case 'int':
+            case 'i8':
+            case 'i16':
+            case 'i32':
+            case 'i64': {
+                const validators = [];
+                if (field && field.option === 'required') {
+                    validators.push(Validators.required);
+                }
                 node.set({
-                    control: new FormControl(value),
+                    control: new FormControl(value ? String(value) : '', {validators}),
                     list: 'field'
                 });
                 break;
+            }
+            case 'double': {
+                const validators = [];
+                if (field && field.option === 'required') {
+                    validators.push(Validators.required);
+                }
+                node.set({
+                    control: new FormControl(value ? String(value) : '', {validators}),
+                    list: 'field'
+                });
+                break;
+            }
+            case 'string': {
+                const validators = [];
+                if (field && field.option === 'required') {
+                    validators.push(Validators.required);
+                }
+                node.set({
+                    control: new FormControl(value ? String(value) : '', {validators}),
+                    list: 'field'
+                });
+                break;
+            }
+            case 'binary': {
+                const validators = [];
+                if (field && field.option === 'required') {
+                    validators.push(Validators.required);
+                }
+                node.set({
+                    control: new FormControl(value ? String(value) : '', {validators}),
+                    list: 'field'
+                });
+                break;
+            }
+            default: {
+                const validators = [];
+                if (field && field.option === 'required') {
+                    validators.push(Validators.required);
+                }
+                node.set({
+                    control: new FormControl(value ? String(value) : '', {validators}),
+                    list: 'field'
+                });
+                break;
+            }
         }
         return node;
     }
@@ -250,9 +304,29 @@ export class Node {
                 }
                 break;
             case 'bool':
+                // TODO
+                result = isNotNull ? this.control.value : null;
+                break;
+            case 'int':
+            case 'i8':
+            case 'i16':
+            case 'i32':
+                result = isNotNull && Number(this.control.value) === Number(this.control.value) ? Number(this.control.value) : null;
+                break;
+            case 'i64':
+                result = isNotNull ? new Int64(Number(this.control.value)) : null;
+                break;
+            case 'double':
+                result = isNotNull && Number(this.control.value) === Number(this.control.value) ? Number(this.control.value) : null;
+                break;
+            case 'string':
+                result = isNotNull ? this.control.value : null;
+                break;
+            case 'binary':
                 result = isNotNull ? this.control.value : null;
                 break;
             default:
+                console.error('WTF?');
                 result = isNotNull ? this.control.value : null;
                 break;
         }
