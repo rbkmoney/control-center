@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 import { KeycloakService } from 'keycloak-angular';
 
 import { Payout } from '../../papi/model';
@@ -19,10 +19,12 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     @Input()
     payouts: Payout[];
 
+    dataSource: MatTableDataSource<Payout> = new MatTableDataSource();
     roles: string[];
-    initialSelection = [];
-    allowMultiSelect = true;
-    selection = new SelectionModel<Payout>(this.allowMultiSelect, this.initialSelection);
+    selection = new SelectionModel<Payout>(true, []);
+
+    @ViewChild(MatPaginator)
+    paginator: MatPaginator;
 
     displayedColumns = [
         'select',
@@ -40,27 +42,28 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
                 private keycloakService: KeycloakService) {
     }
 
+    ngOnChanges(changes: SimpleChanges) {
+        const {payouts} = changes;
+        if (payouts && payouts.currentValue) {
+            this.selection.clear();
+            this.dataSource.data = payouts.currentValue;
+        }
+    }
+
     ngOnInit() {
         this.roles = this.keycloakService.getUserRoles();
-        this.selection.changed.subscribe((e) => {
-            this.valueChanges.emit(e.source.selected);
-        });
+        this.selection.changed.subscribe((e) => this.valueChanges.emit(e.source.selected));
+        this.dataSource.paginator = this.paginator;
     }
 
     isAllSelected() {
-        const numSelected = this.selection.selected.length;
-        const numRows = this.payouts.length;
-        return numSelected === numRows;
+        return this.selection.selected.length === this.payouts.length;
     }
 
     masterToggle() {
         this.isAllSelected() ?
             this.selection.clear() :
-            this.payouts.forEach((row) => this.selection.select(row));
-    }
-
-    ngOnChanges() {
-        this.selection.clear();
+            this.selection.select(...this.payouts);
     }
 
     cancelPayout(id: string) {

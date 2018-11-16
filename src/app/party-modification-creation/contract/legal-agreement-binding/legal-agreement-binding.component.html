@@ -9,8 +9,6 @@
     </mat-form-field>
     <mat-form-field fxFlex="50">
         <input matInput
-               (dateInput)="formatDate('input', $event)"
-               (dateChange)="formatDate('change', $event)"
                [matDatepicker]="signedAtDatepicker"
                placeholder="Signed at"
                formControlName="signedAt"
@@ -20,8 +18,6 @@
     </mat-form-field>
     <mat-form-field fxFlex="50">
         <input matInput
-               (dateInput)="formatDate('input', $event)"
-               (dateChange)="formatDate('change', $event)"
                [matDatepicker]="validUntilDatepicker"
                placeholder="Valid until"
                formControlName="validUntil">

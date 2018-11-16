@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
         <mat-form-field fxFlex="10">
             <input matInput formControlName="fromTime" [matDatepicker]="fromTimePicker" placeholder="From time" required>
             <mat-datepicker-toggle matSuffix [for]="fromTimePicker"></mat-datepicker-toggle>
@@ -20,7 +20,7 @@
             <input matInput formControlName="shopId" placeholder="Shop ID (Filled party ID required)">
         </mat-form-field>
     </div>
-    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
         <mat-form-field fxFlex="10">
             <input matInput formControlName="fromRevision" placeholder="From domain revision" required>
         </mat-form-field>

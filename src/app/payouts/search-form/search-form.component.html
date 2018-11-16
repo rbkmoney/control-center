@@ -1,36 +1,29 @@
-<form fxLayout="column" fxLayoutGap="20px" [formGroup]="form">
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
-        <mat-form-field fxFlex="30" fxFlex.sm="50">
-            <input matInput formControlName="payoutIds" placeholder="Payout IDs (comma separated)">
-        </mat-form-field>
-        <mat-form-field fxFlex="30" fxFlex.sm="50">
-            <mat-select placeholder="Payout status" formControlName="status">
-                <mat-option [value]="null">any</mat-option>
-                <mat-option *ngFor="let status of payoutStatuses" [value]="status">{{status}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
-        <mat-form-field fxFlex="30" fxFlex.sm="50">
-            <input matInput formControlName="fromTime" [matDatepicker]="fromTimePicker" placeholder="From time">
-            <mat-datepicker-toggle matSuffix [for]="fromTimePicker"></mat-datepicker-toggle>
-            <mat-datepicker #fromTimePicker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field fxFlex="30" fxFlex.sm="50">
-            <input matInput formControlName="toTime" [matDatepicker]="toTimePicker" placeholder="To time">
-            <mat-datepicker-toggle matSuffix [for]="toTimePicker"></mat-datepicker-toggle>
-            <mat-datepicker #toTimePicker></mat-datepicker>
-        </mat-form-field>
-    </div>
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
-        <mat-form-field fxFlex="30" fxFlex.sm="32">
-            <input matInput type="number" formControlName="minAmount" placeholder="Min. amount" required>
-        </mat-form-field>
-        <mat-form-field fxFlex="30" fxFlex.sm="32">
-            <input matInput type="number" formControlName="maxAmount" placeholder="Max. amount" required>
-        </mat-form-field>
-        <mat-form-field fxFlex="30" fxFlex.sm="32">
-            <input matInput formControlName="currencyCode" placeholder="Currency code">
-        </mat-form-field>
-    </div>
+<form fxLayout fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px" [formGroup]="form">
+    <mat-form-field fxFlex="10">
+        <input matInput formControlName="fromTime" [matDatepicker]="fromTimePicker" placeholder="From time" required>
+        <mat-datepicker-toggle matSuffix [for]="fromTimePicker"></mat-datepicker-toggle>
+        <mat-datepicker #fromTimePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field fxFlex="10">
+        <input matInput formControlName="toTime" [matDatepicker]="toTimePicker" placeholder="To time" required>
+        <mat-datepicker-toggle matSuffix [for]="toTimePicker"></mat-datepicker-toggle>
+        <mat-datepicker #toTimePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field fxFlex="10">
+        <input matInput type="number" formControlName="minAmount" placeholder="Min. amount" required>
+    </mat-form-field>
+    <mat-form-field fxFlex="10">
+        <input matInput type="number" formControlName="maxAmount" placeholder="Max. amount" required>
+    </mat-form-field>
+    <mat-form-field fxFlex="10">
+        <mat-select placeholder="Payout status" formControlName="status">
+            <mat-option *ngFor="let status of payoutStatuses" [value]="status">{{status}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="10">
+        <input matInput formControlName="currencyCode" placeholder="Currency code">
+    </mat-form-field>
+    <mat-form-field fxFlex="40">
+        <input matInput formControlName="payoutIds" placeholder="Payout IDs (comma separated)">
+    </mat-form-field>
 </form>

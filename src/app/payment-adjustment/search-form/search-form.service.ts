@@ -14,24 +14,18 @@ export class SearchFormService {
     }
 
     formValueToSearchParams(value: any): SearchFormParams {
-        const {fromTime, toTime, partyId, fromRevision, toRevision, status, shopId, invoiceId} = value;
+        const {fromTime, toTime} = value;
         return {
-            fromTime: moment(fromTime).startOf('day').utc().format(),
-            toTime: moment(toTime).endOf('day').utc().format(),
-            partyId,
-            fromRevision,
-            toRevision,
-            status,
-            shopId,
-            invoiceId
+            ...value,
+            fromTime: fromTime.startOf('day').toISOString(),
+            toTime: toTime.endOf('day').toISOString()
         };
     }
 
     private prepareForm(): FormGroup {
-        const defaultDate = [moment().utc().format(), Validators.required];
         return this.fb.group({
-            fromTime: defaultDate,
-            toTime: defaultDate,
+            fromTime: [moment(), Validators.required],
+            toTime: [moment(), Validators.required],
             partyId: '',
             shopId: '',
             invoicesIds: '',

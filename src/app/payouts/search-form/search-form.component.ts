@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { formValueToSearchParams } from './to-search-params';
@@ -14,10 +13,10 @@ import { PayoutSearchParams } from '../../papi/params';
 export class SearchFormComponent implements OnInit {
 
     @Output()
-    valueChanges: EventEmitter<PayoutSearchParams> = new EventEmitter<PayoutSearchParams>();
+    valueChanges: EventEmitter<PayoutSearchParams> = new EventEmitter();
 
-    @Input()
-    debounceTime = 0;
+    @Output()
+    statusChanges: EventEmitter<string> = new EventEmitter();
 
     form: FormGroup;
 
@@ -30,12 +29,17 @@ export class SearchFormComponent implements OnInit {
         const {payoutStatuses, form} = this.searchFormService;
         this.form = form;
         this.payoutStatuses = payoutStatuses;
-        this.form.statusChanges
-            .pipe(debounceTime(this.debounceTime))
-            .subscribe((status) => {
-                if (status === 'VALID') {
-                    this.valueChanges.emit(formValueToSearchParams(this.form.value));
-                }
-            });
+        this.form.valueChanges.subscribe((value) => this.emitValue(value));
+        this.form.statusChanges.subscribe((status) => this.emitStatus(status));
+        this.emitValue(this.form.value);
+        this.emitStatus(this.form.status);
+    }
+
+    private emitValue(formValue: any) {
+        this.valueChanges.emit(formValueToSearchParams(formValue));
+    }
+
+    private emitStatus(status: string) {
+        this.statusChanges.emit(status);
     }
 }
