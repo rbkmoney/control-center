@@ -6,6 +6,8 @@ import { ThriftService } from './thrift-service';
 import { Snapshot, Reference, Version, Commit, Limit } from '../gen-damsel/domain_config';
 import * as DomainConfigTypes from './gen-nodejs/domain_config_types';
 
+const Int64 = require('node-int64');
+
 @Injectable()
 export class DomainService extends ThriftService {
 
@@ -13,7 +15,8 @@ export class DomainService extends ThriftService {
         super(zone, '/v1/domain/repository', Repository);
     }
 
-    commit: (version: Version, commit: Commit) => Observable<Version> = this.toObservableAction('Commit');
+    commit = (version: Version, commit: Commit): Observable<Version> =>
+        this.toObservableAction('Commit')(new Int64(version), new  DomainConfigTypes.Commit(commit));
 
     pullRange: (after: Version, limit: Limit) => Observable<History> = this.toObservableAction('PullRange');
 

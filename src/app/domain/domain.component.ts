@@ -1,44 +1,41 @@
 import { Component } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
 
 import { DomainService } from './domain.service';
 import { Type } from '../metadata/metadata.service';
-import { Domain } from '../gen-damsel/domain';
 import { Node } from './tree/node';
 import { stringify } from '../shared/stringify';
 import { DomainObject } from '../thrift/gen-nodejs/domain_types';
+import { Snapshot } from '../gen-damsel/domain_config';
 
 @Component({
     templateUrl: 'domain.component.html',
     styleUrls: ['../shared/container.css', 'domain.component.css']
 })
 export class DomainComponent {
-    metadata$: Observable<Type>;
     metadata: Type;
-    data$: Observable<Domain>;
-    data: any;
+    version: number;
+    snapshot: Snapshot;
     node: Node;
     tabsModels: Node[] = [];
     selectedModel: number;
 
     constructor(private domainService: DomainService) {
-        this.metadata$ = this.domainService.metadata$;
-        this.data$ = this.domainService.snapshot$.pipe(switchMap((snapshot) => of(snapshot ? snapshot.domain : undefined)));
-        this.metadata$.subscribe((metadata) => this.updateNode(metadata, this.data));
-        this.data$.subscribe((data) => this.updateNode(this.metadata, data));
+        this.domainService.metadata$.subscribe((metadata) => this.updateNode(metadata, this.snapshot));
+        this.domainService.snapshot$.subscribe((snapshot) => this.updateNode(this.metadata, snapshot));
     }
 
-    updateNode(metadata: Type, data: any) {
+    updateNode(metadata: Type, snapshot: Snapshot) {
         this.metadata = metadata;
-        this.data = data;
-        this.node = Node.fromType(metadata, {value: data, parent: undefined});
-        if (data && this.node) {
-            for (let i = 0; i < data.size; ++i) {
-                console.log(i);
-                const aa = Array.from(data);
-                const bb = Array.from(this.node.extractData());
-                this.test(aa[i], bb[i]);
+        this.snapshot = snapshot;
+        if (snapshot) {
+            this.node = Node.fromType(metadata, {value: this.snapshot.domain, parent: undefined});
+            if (this.snapshot.domain && this.node) {
+                for (let i = 0; i < this.snapshot.domain.size; ++i) {
+                    console.log(i);
+                    const aa = Array.from(this.snapshot.domain);
+                    const bb = Array.from(this.node.extractData());
+                    this.test(aa[i], bb[i]);
+                }
             }
         }
     }
@@ -74,6 +71,10 @@ export class DomainComponent {
     }
 
     save(node: Node) {
+        console.log(this.test(node.children[1].initData, new DomainObject(node.children[1].extractData())));
+    }
+
+    delete(node: Node) {
         console.log(this.test(node.children[1].initData, new DomainObject(node.children[1].extractData())));
     }
 

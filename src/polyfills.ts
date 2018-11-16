@@ -79,4 +79,4 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  */
 import 'hammerjs';
 
-window.Buffer = require('buffer').Buffer;
+(window as any).Buffer = require('buffer').Buffer;
