@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { Payout } from '../papi/model';
@@ -23,8 +23,7 @@ export class PayoutsComponent {
     searchParams: PayoutSearchParams;
 
     constructor(private payoutsService: PayoutsService,
-                private snackBar: MatSnackBar,
-                private cdRef: ChangeDetectorRef) {
+                private snackBar: MatSnackBar) {
     }
 
     formValueChanges(params: PayoutSearchParams) {
@@ -37,7 +36,6 @@ export class PayoutsComponent {
 
     tableOnChange(selectedPayouts: Payout[]) {
         this.selectedPayouts = selectedPayouts;
-        // this.cdRef.detectChanges();
     }
 
     search() {
