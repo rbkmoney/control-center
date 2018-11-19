@@ -326,7 +326,7 @@ export class Node {
                 result = isNotNull ? this.control.value : null;
                 break;
             default:
-                console.error('WTF?');
+                console.error('Not mapped type');
                 result = isNotNull ? this.control.value : null;
                 break;
         }

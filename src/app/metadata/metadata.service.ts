@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Field as ASTField, JsonAST, ThriftType, ValueType, Enum as ASTEnum, MapType } from 'thrift-ts/src/thrift-parser';
+import { Enum as ASTEnum, Field as ASTField, JsonAST, MapType, ThriftType, ValueType } from 'thrift-ts/src/thrift-parser';
 
 export type SimpleStructures = 'map' | 'list' | 'set';
 export type ComplexStructures = 'namespace' | 'typedef' | 'include' | 'const' | 'enum' | 'struct' | 'union' | 'exception' | 'service';
@@ -58,19 +58,15 @@ export class Exception extends ComplexStructure {
  * Basic structures
  */
 
-export abstract class SimpleStructure implements Metadata {
-    structure: SimpleStructures | ThriftType;
+export class Simple implements Metadata {
+    structure: ThriftType;
 
     get name() {
         return this.structure;
     }
 }
 
-export class Simple extends SimpleStructure {
-    structure: ThriftType;
-}
-
-abstract class SimpleComplexStructure extends SimpleStructure {
+export abstract class SimpleComplexStructure implements Metadata {
     structure: SimpleStructures;
     valueType: Type;
 
@@ -191,13 +187,21 @@ export class MetadataService {
         toCookList.forEach((fc) => fc());
     }
 
+    getType(stringValueType: string, parent: string): {parent?: string, type: string, isSimple: boolean} {
+        if (simpleTypes.includes(stringValueType)) {
+            return {type: stringValueType, isSimple: true};
+        }
+        const typeParts = stringValueType.split('.');
+        return typeParts[1] ? {parent: typeParts[0], type: typeParts[1], isSimple: false} : {parent, type: stringValueType, isSimple: false};
+    }
+
     get<T extends keyof JsonAST>(valueType: ValueType, parent: string): Type {
         if (typeof valueType === 'string') {
-            if (this.simple[valueType]) {
+            const typeParts = this.getType(valueType, parent);
+            if (typeParts.isSimple) {
                 return this.simple[valueType];
             }
-            const typeParts = valueType.split('.');
-            return typeParts[1] ? this.metadata[typeParts[0]][typeParts[1]] : this.metadata[parent][valueType];
+            return this.metadata[typeParts.parent][typeParts.type];
         }
         switch (valueType.name) {
             case 'map':
