@@ -5,7 +5,6 @@ import { DomainService } from './domain.service';
 import { Type } from '../metadata/metadata.service';
 import { Node } from './tree/node';
 import { stringify } from '../shared/stringify';
-import { DomainObject } from '../thrift/gen-nodejs/domain_types';
 import { Snapshot } from '../gen-damsel/domain_config';
 import { Exception } from '../thrift/exception';
 
@@ -87,7 +86,7 @@ export class DomainComponent {
 
     update(node: Node) {
         this.isLoading = true;
-        this.domainService.update(node.children[1].initData, new DomainObject(node.children[1].extractData())).subscribe((result) => {
+        this.domainService.update(node.children[1].initData, node.children[1].extractData()).subscribe((result) => {
             this.isLoading = false;
             this.snackBar.open('DomainObject updated', 'OK');
             this.domainService.updateSnapshot();
@@ -96,7 +95,7 @@ export class DomainComponent {
 
     insert(node: Node) {
         this.isLoading = true;
-        this.domainService.insert(new DomainObject(node.children[1].extractData())).subscribe((result) => {
+        this.domainService.insert(node.children[1].extractData()).subscribe((result) => {
             this.isLoading = false;
             this.snackBar.open('DomainObject inserted', 'OK');
             this.domainService.updateSnapshot();
