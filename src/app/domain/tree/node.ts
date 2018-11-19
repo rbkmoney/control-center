@@ -274,21 +274,31 @@ export class Node {
                 result = isNotNull ? this.select.selected : null;
                 break;
             case 'struct':
-                result = isNotNull ? this.children.reduce((struct, child) => {
-                    struct[child.field.name] = child.extractData();
-                    return struct;
-                }, {}) : null;
+                if (isNotNull) {
+                    const model = this.metadata.model();
+                    for (const child of this.children) {
+                        model[child.field.name] = child.extractData();
+                    }
+                    result = model;
+                } else {
+                    result = null;
+                }
                 break;
             case 'union':
-                result = isNotNull ? this.select.options.reduce((union, option) => {
-                    union[option.name] = option.value === this.select.selected && this.children && this.children[0]
-                        ? this.children[0].extractData()
-                        : null;
-                    return union;
-                }, {}) : null;
+                if (isNotNull) {
+                    const model = this.metadata.model();
+                    for (const option of this.select.options) {
+                        model[option.name] = option.value === this.select.selected && this.children && this.children[0]
+                            ? this.children[0].extractData()
+                            : null;
+                    }
+                    result = model;
+                } else {
+                    result = null;
+                }
                 break;
             case 'exception':
-                // not used
+                // TODO, but not used
                 break;
             case 'list':
                 result = isNotNull ? this.children.map((child) => child.extractData()) : null;

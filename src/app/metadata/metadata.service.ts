@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Enum as ASTEnum, Field as ASTField, JsonAST, MapType, ThriftType, ValueType } from 'thrift-ts/src/thrift-parser';
 
+import { model } from '../thrift/model';
+
 export type SimpleStructures = 'map' | 'list' | 'set';
 export type ComplexStructures = 'namespace' | 'typedef' | 'include' | 'const' | 'enum' | 'struct' | 'union' | 'exception' | 'service';
 
@@ -10,16 +12,17 @@ export type Type = ComplexType | Simple | MetaSet | MetaList | MetaMap;
 
 export type Field = Pick<ASTField, Exclude<keyof ASTField, 'type'>> & { type: Type; parent: Type };
 
-export interface Metadata {
+export class Metadata {
     structure: ThriftType | SimpleStructures | ComplexStructures;
     name: ThriftType | SimpleStructures | string;
+    model: (...args: any[]) => any;
 }
 
 /**
  * Thrift parser structures
  */
 
-abstract class ComplexStructure implements Metadata {
+abstract class ComplexStructure extends Metadata {
     structure: ComplexStructures;
     name: string;
 }
@@ -58,7 +61,7 @@ export class Exception extends ComplexStructure {
  * Basic structures
  */
 
-export class Simple implements Metadata {
+export class Simple extends Metadata {
     structure: ThriftType;
 
     get name() {
@@ -66,7 +69,7 @@ export class Simple implements Metadata {
     }
 }
 
-export abstract class SimpleComplexStructure implements Metadata {
+export abstract class SimpleComplexStructure extends Metadata {
     structure: SimpleStructures;
     valueType: Type;
 
@@ -177,6 +180,7 @@ export class MetadataService {
                             return objs;
                     }
                     result.name = itemName;
+                    result.model = model[name] && model[name][itemName] ? (...args) => new model[name][itemName](...args) : undefined;
                     return {
                         ...objs,
                         [itemName]: result
@@ -187,7 +191,7 @@ export class MetadataService {
         toCookList.forEach((fc) => fc());
     }
 
-    getType(stringValueType: string, parent: string): {parent?: string, type: string, isSimple: boolean} {
+    getType(stringValueType: string, parent: string): { parent?: string, type: string, isSimple: boolean } {
         if (simpleTypes.includes(stringValueType)) {
             return {type: stringValueType, isSimple: true};
         }
