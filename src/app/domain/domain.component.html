@@ -2,6 +2,10 @@
     <mat-sidenav-container>
         <mat-sidenav-content>
             <div class="card-container" fxLayout="column" fxLayoutGap="20px">
+                <mat-card>
+                    <ng-container *ngIf="snapshot">{{node.children.length}} DomainObjects, {{snapshot.version}} version</ng-container>
+                    <mat-progress-bar mode="indeterminate" *ngIf="!snapshot"></mat-progress-bar>
+                </mat-card>
                 <ng-container *ngIf="node">
                     <mat-card *ngFor="let child of node.children; index as i">
                         <cc-tree [model]="child" (foundNode)="foundNode($event)"></cc-tree>
@@ -13,9 +17,6 @@
                         </button>
                     </mat-card>
                 </ng-container>
-                <mat-card *ngIf="!node">
-                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                </mat-card>
             </div>
         </mat-sidenav-content>
         <mat-sidenav

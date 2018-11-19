@@ -27,4 +27,8 @@ export class DomainService {
             this.metadata$.next(metadata);
         });
     }
+
+    delete(ver: any, commit: any) {
+        return this.domainService.commit(ver, commit);
+    }
 }

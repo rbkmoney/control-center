@@ -6,6 +6,8 @@ import { Node } from './tree/node';
 import { stringify } from '../shared/stringify';
 import { DomainObject } from '../thrift/gen-nodejs/domain_types';
 import { Snapshot } from '../gen-damsel/domain_config';
+import * as DomainConfigTypes from '../thrift/gen-nodejs/domain_config_types';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     templateUrl: 'domain.component.html',
@@ -19,7 +21,7 @@ export class DomainComponent {
     tabsModels: Node[] = [];
     selectedModel: number;
 
-    constructor(private domainService: DomainService) {
+    constructor(private domainService: DomainService, private snackBar: MatSnackBar) {
         this.domainService.metadata$.subscribe((metadata) => this.updateNode(metadata, this.snapshot));
         this.domainService.snapshot$.subscribe((snapshot) => this.updateNode(this.metadata, snapshot));
     }
@@ -75,7 +77,23 @@ export class DomainComponent {
     }
 
     delete(node: Node) {
-        console.log(this.test(node.children[1].initData, new DomainObject(node.children[1].extractData())));
+        const version = this.snapshot.version;
+        const commit = new DomainConfigTypes.Commit({
+            ops: [
+                new DomainConfigTypes.Operation({
+                    insert: null,
+                    update: null,
+                    remove: {
+                        object: node.children[1].initData
+                    }
+                })
+            ]
+        });
+        this.domainService.delete(version, commit).subscribe((result) => {
+            this.snackBar.open('DomainObject removed', 'OK');
+        }, (error) => {
+            this.snackBar.open(error.message || error.name, 'OK');
+        });
     }
 
     closeTab(model: Node) {
