@@ -6,7 +6,6 @@ import { Node } from './tree/node';
 import { stringify } from '../shared/stringify';
 import { DomainObject } from '../thrift/gen-nodejs/domain_types';
 import { Snapshot } from '../gen-damsel/domain_config';
-import * as DomainConfigTypes from '../thrift/gen-nodejs/domain_config_types';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -72,28 +71,27 @@ export class DomainComponent {
         }
     }
 
-    save(node: Node) {
-        console.log(this.test(node.children[1].initData, new DomainObject(node.children[1].extractData())));
+    delete(node: Node) {
+        this.domainService.delete(node.children[1].initData).subscribe((result) => {
+            this.snackBar.open('DomainObject removed', 'OK');
+        }, this.commitErrorHandler);
     }
 
-    delete(node: Node) {
-        const version = this.snapshot.version;
-        const commit = new DomainConfigTypes.Commit({
-            ops: [
-                new DomainConfigTypes.Operation({
-                    insert: null,
-                    update: null,
-                    remove: {
-                        object: node.children[1].initData
-                    }
-                })
-            ]
-        });
-        this.domainService.delete(version, commit).subscribe((result) => {
-            this.snackBar.open('DomainObject removed', 'OK');
-        }, (error) => {
-            this.snackBar.open(error.message || error.name, 'OK');
-        });
+
+    update(node: Node) {
+        this.domainService.update(node.children[1].initData, node.children[1].extractData()).subscribe((result) => {
+            this.snackBar.open('DomainObject updated', 'OK');
+        }, this.commitErrorHandler);
+    }
+
+    insert(node: Node) {
+        this.domainService.insert(node.children[1].extractData()).subscribe((result) => {
+            this.snackBar.open('DomainObject inserted', 'OK');
+        }, this.commitErrorHandler);
+    }
+
+    commitErrorHandler(error) {
+        this.snackBar.open(error.message || error.name, 'OK');
     }
 
     closeTab(model: Node) {
