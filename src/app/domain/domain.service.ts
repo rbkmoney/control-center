@@ -14,22 +14,30 @@ export class DomainService {
     snapshot: Snapshot;
     snapshot$ = new BehaviorSubject<Snapshot>(null);
     metadata$ = new BehaviorSubject<Type>(null);
+    isLoading$ = new BehaviorSubject<boolean>(false);
 
     constructor(private domainService: ThriftDomainService, private metadataService: MetadataService, private fb: FormBuilder) {
         this.updateSnapshot();
+        this.initMetadata();
     }
 
     updateSnapshot() {
+        this.isLoading$.next(true);
+        this.snapshot$.next(null);
         return this.domainService.checkout({head: {}}).subscribe((snapshot) => {
             this.snapshot = snapshot;
             this.snapshot$.next(snapshot);
+            this.isLoading$.next(false);
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
-            console.dir(this.metadataService.metadata);
-            const metadata = this.metadataService.get('Domain', 'domain');
-            console.dir(metadata);
-            this.metadata$.next(metadata);
         });
+    }
+
+    initMetadata() {
+        const metadata = this.metadataService.get('Domain', 'domain');
+        this.metadata$.next(metadata);
+        console.dir(this.metadataService.metadata);
+        console.dir(metadata);
     }
 
     commit(operation: Operation) {
@@ -54,11 +62,11 @@ export class DomainService {
         return this.commit({
             insert: null,
             update: {
-                oldObject,
-                newObject
+                old_object: oldObject,
+                new_object: newObject
             },
             remove: null
-        });
+        } as any);
     }
 
     insert(object: DomainObject) {

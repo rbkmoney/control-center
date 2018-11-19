@@ -3,16 +3,20 @@
         <mat-sidenav-content>
             <div class="card-container" fxLayout="column" fxLayoutGap="20px">
                 <mat-card>
-                    <ng-container *ngIf="snapshot">{{node.children.length}} DomainObjects, {{snapshot.version}} version</ng-container>
-                    <mat-progress-bar mode="indeterminate" *ngIf="!snapshot"></mat-progress-bar>
+                    <ng-container *ngIf="snapshot && !isDomainLoading && !isLoading">
+                        DomainObjects: {{node.children.length}}, Version: {{snapshot.version}}
+                    </ng-container>
+                    <mat-progress-bar mode="indeterminate" *ngIf="isDomainLoading || isLoading"></mat-progress-bar>
                 </mat-card>
                 <ng-container *ngIf="node">
                     <mat-card *ngFor="let child of node.children; index as i">
                         <cc-tree [model]="child" (foundNode)="foundNode($event)"></cc-tree>
-                        <button mat-icon-button style="float:right" [disabled]="false" (click)="update(child)" color="primary">
+                        <button mat-icon-button style="float:right" [disabled]="isDomainLoading || isLoading"
+                                (click)="update(child)" color="primary">
                             <mat-icon class="mat-icon-rtl-mirror">save</mat-icon>
                         </button>
-                        <button mat-icon-button style="float:right" [disabled]="false" (click)="delete(child)" color="warn">
+                        <button mat-icon-button style="float:right" [disabled]="isDomainLoading || isLoading"
+                                (click)="delete(child)" color="warn">
                             <mat-icon class="mat-icon-rtl-mirror">delete</mat-icon>
                         </button>
                     </mat-card>

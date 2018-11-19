@@ -3,10 +3,7 @@ import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 import connectClient from 'woody_js';
 
-type Exception<N = string, T = {}> = {
-    name: N;
-    message: string;
-} & T;
+import { Exception } from './exception';
 
 export class ThriftService {
 
