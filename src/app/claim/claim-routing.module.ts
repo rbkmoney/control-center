@@ -10,7 +10,10 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
             {
                 path: 'claims/:partyId/:action/:claimId',
                 component: ClaimComponent,
-                canActivate: [ClaimAuthGuardService]
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['claim:get']
+                }
             }, {
                 path: 'claims/:partyId/:action',
                 component: ClaimComponent,
