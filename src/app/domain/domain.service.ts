@@ -40,42 +40,35 @@ export class DomainService {
         console.dir(metadata);
     }
 
-    commit(operation: Operation) {
-        return this.domainService.commit(this.snapshot.version, new DomainConfigTypes.Commit({
-            ops: [
-                new DomainConfigTypes.Operation(operation)
-            ]
-        }));
+    commit(operations: Partial<Operation>) {
+        const operation = new DomainConfigTypes.Operation();
+        for (const name in operations) {
+            if (operations.hasOwnProperty(name)) {
+                operation[name] = operations[name];
+            }
+        }
+        const commit = new DomainConfigTypes.Commit();
+        commit.ops = [operation];
+        console.log(commit);
+        return this.domainService.commit(this.snapshot.version, commit);
     }
 
     delete(object: DomainObject) {
-        return this.commit({
-            insert: null,
-            update: null,
-            remove: {
-                object
-            }
-        });
+        const op = new DomainConfigTypes.RemoveOp();
+        op.object = object;
+        return this.commit({remove: op});
     }
 
     update(oldObject: DomainObject, newObject: DomainObject) {
-        return this.commit({
-            insert: null,
-            update: {
-                old_object: oldObject,
-                new_object: newObject
-            },
-            remove: null
-        } as any);
+        const op = new DomainConfigTypes.UpdateOp();
+        op.old_object = oldObject;
+        op.new_object = newObject;
+        return this.commit({update: op});
     }
 
     insert(object: DomainObject) {
-        return this.commit({
-            insert: {
-                object
-            },
-            update: null,
-            remove: null
-        });
+        const op = new DomainConfigTypes.InsertOp();
+        op.object = object;
+        return this.commit({insert: op});
     }
 }
