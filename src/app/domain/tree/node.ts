@@ -1,5 +1,4 @@
 import { FormControl, Validators } from '@angular/forms';
-import Int64 from 'thrift-ts/lib/int64';
 
 import { Enum, Field, MetaList, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
 import { stringify } from '../../shared/stringify';
@@ -273,28 +272,18 @@ export class Node {
                 result = isNotNull ? this.select.selected : null;
                 break;
             case 'struct':
-                if (isNotNull) {
-                    const model = this.metadata.model();
-                    for (const child of this.children) {
-                        model[child.field.name] = child.extractData();
-                    }
-                    result = model;
-                } else {
-                    result = null;
-                }
+                result = isNotNull ? this.metadata.toThrift(this.children.reduce((obj, child) => {
+                    obj[child.field.name] = child.extractData();
+                    return obj;
+                }, {})) : null;
                 break;
             case 'union':
-                if (isNotNull) {
-                    const model = this.metadata.model();
-                    for (const option of this.select.options) {
-                        model[option.name] = option.value === this.select.selected && this.children && this.children[0]
-                            ? this.children[0].extractData()
-                            : null;
-                    }
-                    result = model;
-                } else {
-                    result = null;
-                }
+                result = isNotNull ? this.metadata.toThrift(this.select.options.reduce((obj, option) => {
+                    obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
+                        ? this.children[0].extractData()
+                        : null;
+                    return obj;
+                }, {})) : null;
                 break;
             case 'exception':
                 // TODO, but not used
@@ -323,7 +312,7 @@ export class Node {
                 result = isNotNull && Number(this.control.value) === Number(this.control.value) ? Number(this.control.value) : null;
                 break;
             case 'i64':
-                result = isNotNull ? new Int64(Number(this.control.value)) : null;
+                result = isNotNull ? this.metadata.toThrift(Number(this.control.value)) : null;
                 break;
             case 'double':
                 result = isNotNull && Number(this.control.value) === Number(this.control.value) ? Number(this.control.value) : null;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Enum as ASTEnum, Field as ASTField, JsonAST, MapType, ThriftType, ValueType } from 'thrift-ts/src/thrift-parser';
+import { Enum as ASTEnum, Field as ASTField, JsonAST, MapType, ThriftType, ValueType } from 'thrift-ts/lib/thrift-parser';
+import Int64 from 'thrift-ts/lib/int64';
 
 import { model } from '../thrift/model';
 
@@ -15,7 +16,11 @@ export type Field = Pick<ASTField, Exclude<keyof ASTField, 'type'>> & { type: Ty
 export class Metadata {
     structure: ThriftType | SimpleStructures | ComplexStructures;
     name: ThriftType | SimpleStructures | string;
-    model: (...args: any[]) => any;
+    createThrift: (...args: any[]) => any;
+
+    toThrift(data: any) {
+        return data;
+    }
 }
 
 /**
@@ -45,16 +50,55 @@ export class Enum extends ComplexStructure {
 export class Struct extends ComplexStructure {
     structure: ComplexStructures = 'struct';
     fields: Field[];
+
+    toThrift(data) {
+        if (data === null) {
+            return null;
+        }
+        const struct = this.createThrift();
+        for (const param in data) {
+            if (data.hasOwnProperty(param)) {
+                struct[param] = data[param];
+            }
+        }
+        return struct;
+    }
 }
 
 export class Union extends ComplexStructure {
     structure: ComplexStructures = 'union';
     fields: Field[];
+
+    toThrift(data) {
+        if (data === null) {
+            return null;
+        }
+        const struct = this.createThrift();
+        for (const param in data) {
+            if (data.hasOwnProperty(param)) {
+                struct[param] = data[param];
+            }
+        }
+        return struct;
+    }
 }
 
 export class Exception extends ComplexStructure {
     structure: ComplexStructures = 'exception';
     fields: Field[];
+
+    toThrift(data) {
+        if (data === null) {
+            return null;
+        }
+        const struct = this.createThrift();
+        for (const param in data) {
+            if (data.hasOwnProperty(param)) {
+                struct[param] = data[param];
+            }
+        }
+        return struct;
+    }
 }
 
 /**
@@ -66,6 +110,16 @@ export class Simple extends Metadata {
 
     get name() {
         return this.structure;
+    }
+
+    toThrift(data) {
+        if (this.structure === 'i64') {
+            if (data === null) {
+                return null;
+            }
+            return new Int64(data);
+        }
+        return super.toThrift(data);
     }
 }
 
@@ -180,7 +234,7 @@ export class MetadataService {
                             return objs;
                     }
                     result.name = itemName;
-                    result.model = model[name] && model[name][itemName] ? (...args) => new model[name][itemName](...args) : undefined;
+                    result.createThrift = model[name] && model[name][itemName] ? (...args) => new model[name][itemName](...args) : undefined;
                     return {
                         ...objs,
                         [itemName]: result
