@@ -27,7 +27,6 @@
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/router": "^7.0.0",
     "angular2-prettyjson": "3.0.1",
-    "buffer": "5.2.1",
     "core-js": "^2.5.4",
     "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#5711f534bdae4a28055297f879805128dcc5412b",
     "hammerjs": "^2.0.8",
@@ -35,9 +34,8 @@
     "keycloak-js": "4.5.0",
     "lodash-es": "^4.17.10",
     "moment": "^2.22.2",
-    "node-int64": "0.4.0",
     "rxjs": "^6.3.3",
-    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#4b2eff96bb6dd3bd11dd3fd24abb9fcb764857f3",
+    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#f74188b61d2b370783c96a6ce70a73d19398b6c7",
     "uuid": "^3.3.2",
     "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#d2c90a54861593fa794afe3b09c4febb9d6e37d0",
     "zone.js": "~0.8.26"

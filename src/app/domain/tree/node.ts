@@ -1,9 +1,8 @@
 import { FormControl, Validators } from '@angular/forms';
+import Int64 from 'thrift-ts/lib/int64';
 
 import { Enum, Field, MetaList, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
 import { stringify } from '../../shared/stringify';
-
-const Int64 = require('node-int64');
 
 export type ListType = 'select' | 'toggle' | 'field';
 export type Structure = 'list-item' | 'map-item' | 'map-key' | 'map-value';
