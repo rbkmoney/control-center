@@ -305,72 +305,45 @@ export class Node {
     }
 
     extractData() {
-        let result: any;
         const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
         switch (this.metadata.structure) {
-            case 'const':
-                // TODO
-                break;
-            case 'enum':
-                result = isNotNull ? this.select.selected : null;
-                break;
+            case 'exception':
             case 'struct':
-                result = isNotNull ? this.metadata.toThrift(this.children.reduce((obj, child) => {
+                return isNotNull ? this.metadata.toThrift(this.children.reduce((obj, child) => {
                     obj[child.field.name] = child.extractData();
                     return obj;
                 }, {})) : null;
-                break;
             case 'union':
-                result = isNotNull ? this.metadata.toThrift(this.select.options.reduce((obj, option) => {
+                return isNotNull ? this.metadata.toThrift(this.select.options.reduce((obj, option) => {
                     obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
                         ? this.children[0].extractData()
                         : null;
                     return obj;
                 }, {})) : null;
-                break;
-            case 'exception':
-                // TODO, but not used
-                break;
             case 'list':
-                result = isNotNull ? this.children.map((child) => child.extractData()) : null;
-                break;
             case 'set':
-                result = isNotNull ? this.children.map((child) => child.extractData()) : null;
-                break;
+                return isNotNull ? this.children.map((child) => child.extractData()) : null;
             case 'map':
                 if (this.structure === 'map-item') {
-                    result = this.children.map((child) => child.extractData());
+                    return this.children.map((child) => child.extractData());
                 } else {
-                    result = isNotNull ? new Map(this.children.map((child) => child.extractData())) : null;
+                    return isNotNull ? new Map(this.children.map((child) => child.extractData())) : null;
                 }
-                break;
+            case 'enum':
+                return isNotNull ? this.metadata.toThrift(this.select.selected) : null;
+            case 'const':
             case 'bool':
-                // TODO
-                result = isNotNull ? this.control.value : null;
-                break;
             case 'int':
             case 'i8':
             case 'i16':
             case 'i32':
-                result = isNotNull && Number(this.control.value) === Number(this.control.value) ? Number(this.control.value) : null;
-                break;
             case 'i64':
-                result = isNotNull ? this.metadata.toThrift(Number(this.control.value)) : null;
-                break;
             case 'double':
-                result = isNotNull && Number(this.control.value) === Number(this.control.value) ? Number(this.control.value) : null;
-                break;
             case 'string':
-                result = isNotNull ? this.control.value : null;
-                break;
             case 'binary':
-                result = isNotNull ? this.control.value : null;
-                break;
-            default:
-                console.error('Not mapped type');
-                result = isNotNull ? this.control.value : null;
-                break;
+                return isNotNull ? this.metadata.toThrift(this.control.value) : null;
         }
-        return result;
+        console.error('Not mapped type');
+        return isNotNull ? this.control.value : null;
     }
 }

@@ -113,11 +113,18 @@ export class Simple extends Metadata {
     }
 
     toThrift(data) {
-        if (this.structure === 'i64') {
-            if (data === null) {
-                return null;
-            }
-            return new Int64(data);
+        if (data === null) {
+            return null;
+        }
+        switch (this.structure) {
+            case 'i64':
+                return new Int64(Number(data));
+            case 'int':
+            case 'double':
+            case 'i8':
+            case 'i16':
+            case 'i32':
+                return Number(data);
         }
         return super.toThrift(data);
     }
@@ -155,7 +162,19 @@ export interface MetadataFile {
     ast: JsonAST;
 }
 
-const simpleTypes = ['int', 'bool', 'i8', 'i16', 'i32', 'i64', 'string', 'double', 'binary'];
+enum SimpleTypes {
+    int = 'int',
+    bool = 'bool',
+    i8 = 'i8',
+    i16 = 'i16',
+    i32 = 'i32',
+    i64 = 'i64',
+    string = 'string',
+    double = 'double',
+    binary = 'binary'
+}
+
+const simpleTypes = Object.keys(SimpleTypes);
 
 @Injectable()
 export class MetadataService {
