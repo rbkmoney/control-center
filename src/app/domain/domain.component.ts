@@ -32,7 +32,7 @@ export class DomainComponent {
         this.metadata = metadata;
         this.snapshot = snapshot;
         if (snapshot) {
-            this.node = Node.fromType(metadata, {value: this.snapshot.domain, parent: undefined});
+            this.node = new Node(metadata, {value: this.snapshot.domain});
             if (this.snapshot.domain && this.node) {
                 for (let i = 0; i < this.snapshot.domain.size; ++i) {
                     console.log(i);
