@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Node } from '../../node';
-import { SimpleComplexStructure } from '../../../../metadata/metadata.service';
+import { ListStructure } from '../../../../metadata/metadata.service';
 
 @Component({
     selector: 'cc-label',
@@ -15,7 +15,7 @@ export class LabelComponent {
     }
 
     get typeName() {
-        if (this.node.metadata instanceof SimpleComplexStructure) {
+        if (this.node.metadata instanceof ListStructure) {
             switch (this.node.metadata.structure) {
                 case 'map':
                 case 'list':

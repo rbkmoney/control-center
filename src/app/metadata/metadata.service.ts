@@ -5,7 +5,7 @@ import Int64 from 'thrift-ts/lib/int64';
 
 import { model } from '../thrift/model';
 
-export type SimpleStructures = 'map' | 'list' | 'set';
+export type ListStructures = 'map' | 'list' | 'set';
 export type ComplexStructures = 'namespace' | 'typedef' | 'include' | 'const' | 'enum' | 'struct' | 'union' | 'exception' | 'service';
 
 export type ComplexType = TypeDef | Const | Enum | Struct | Union | Exception;
@@ -13,9 +13,9 @@ export type Type = ComplexType | Simple | MetaSet | MetaList | MetaMap;
 
 export type Field = Pick<ASTField, Exclude<keyof ASTField, 'type'>> & { type: Type; parent: Type };
 
-export class Metadata {
-    structure: ThriftType | SimpleStructures | ComplexStructures;
-    name: ThriftType | SimpleStructures | string;
+export class Structure {
+    structure: ThriftType | ListStructures | ComplexStructures;
+    name: ThriftType | ListStructures | string;
     createThrift: (...args: any[]) => any;
 
     toThrift(data: any) {
@@ -24,10 +24,10 @@ export class Metadata {
 }
 
 /**
- * Thrift parser structures
+ * Complex structures
  */
 
-abstract class ComplexStructure extends Metadata {
+abstract class ComplexStructure extends Structure {
     structure: ComplexStructures;
     name: string;
 }
@@ -102,10 +102,10 @@ export class Exception extends ComplexStructure {
 }
 
 /**
- * Basic structures
+ * Simple structure
  */
 
-export class Simple extends Metadata {
+export class Simple extends Structure {
     structure: ThriftType;
 
     get name() {
@@ -130,8 +130,12 @@ export class Simple extends Metadata {
     }
 }
 
-export abstract class SimpleComplexStructure extends Metadata {
-    structure: SimpleStructures;
+/**
+ * List structures
+ */
+
+export abstract class ListStructure extends Structure {
+    structure: ListStructures;
     valueType: Type;
 
     get name() {
@@ -139,16 +143,16 @@ export abstract class SimpleComplexStructure extends Metadata {
     }
 }
 
-export class MetaSet extends SimpleComplexStructure {
-    structure: SimpleStructures = 'set';
+export class MetaSet extends ListStructure {
+    structure: ListStructures = 'set';
 }
 
-export class MetaList extends SimpleComplexStructure {
-    structure: SimpleStructures = 'list';
+export class MetaList extends ListStructure {
+    structure: ListStructures = 'list';
 }
 
-export class MetaMap extends SimpleComplexStructure {
-    structure: SimpleStructures = 'map';
+export class MetaMap extends ListStructure {
+    structure: ListStructures = 'map';
     keyType: Type;
 
     get name() {
