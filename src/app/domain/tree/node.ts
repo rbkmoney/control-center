@@ -6,6 +6,56 @@ import { stringify } from '../../shared/stringify';
 export type ListType = 'select' | 'toggle' | 'field';
 export type Structure = 'list-item' | 'map-item' | 'map-key' | 'map-value';
 
+interface Params {
+    field?: Field;
+    structure?: Structure;
+    value?: any;
+    parent?: Node;
+}
+
+export function createNode(metadata?: Type, params: Params = {}) {
+    if (!metadata) {
+        return new Node();
+    }
+    switch (metadata.structure) {
+        case 'typedef':
+            return createNode((metadata as TypeDef).type, params);
+        case 'const':
+            return new Node(metadata, params);
+        case 'enum':
+            return new Node(metadata, params);
+        case 'struct':
+            return new Node(metadata, params);
+        case 'union':
+            return new Node(metadata, params);
+        case 'exception':
+            return new Node(metadata, params);
+        case 'list':
+            return new Node(metadata, params);
+        case 'set':
+            return new Node(metadata, params);
+        case 'map':
+            return new Node(metadata, params);
+        case 'bool':
+            return new Node(metadata, params);
+        case 'int':
+        case 'i8':
+        case 'i16':
+        case 'i32':
+        case 'i64':
+            return new Node(metadata, params);
+        case 'double':
+            return new Node(metadata, params);
+        case 'string':
+            return new Node(metadata, params);
+        case 'binary':
+            return new Node(metadata, params);
+        default: {
+            return new Node(metadata, params);
+        }
+    }
+}
+
 export class Node {
     metadata: Type;
     field: Field;
@@ -22,7 +72,7 @@ export class Node {
     };
     isNotNull: boolean;
 
-    constructor(metadata?: Type, {field, structure, value, parent}: { field?: Field, structure?: Structure, value?: any, parent?: Node } = {}) {
+    constructor(metadata?: Type, {field, structure, value, parent}: Params = {}) {
         if (!metadata) {
             return;
         }
@@ -35,9 +85,6 @@ export class Node {
         });
         this.isNotNull = value !== null;
         switch (metadata.structure) {
-            case 'typedef':
-                this.set(new Node((metadata as TypeDef).type, {field, value, parent}));
-                break;
             case 'const':
                 // TODO
                 break;
@@ -55,7 +102,7 @@ export class Node {
                 break;
             case 'struct':
                 this.set({
-                    children: (metadata as Struct).fields.map((childField) => new Node(childField.type, {
+                    children: (metadata as Struct).fields.map((childField) => createNode(childField.type, {
                         field: childField,
                         value: value ? value[childField.name] : undefined,
                         parent: this
@@ -74,7 +121,7 @@ export class Node {
                     this.select.selected = fieldName;
                     const childField: Field = (metadata as Union).fields.find(({name}) => name === fieldName);
                     if (childField) {
-                        this.children = [new Node(childField.type, {field: childField, value: value ? value[fieldName] : undefined, parent: this})];
+                        this.children = [createNode(childField.type, {field: childField, value: value ? value[fieldName] : undefined, parent: this})];
                     } else {
                         this.children = [];
                     }
@@ -88,7 +135,7 @@ export class Node {
             case 'list':
                 this.set({
                     children: (value || []).map((v) => {
-                        return new Node((metadata as MetaList).valueType, {
+                        return createNode((metadata as MetaList).valueType, {
                             structure: 'list-item',
                             parent: this,
                             value: v
@@ -99,7 +146,7 @@ export class Node {
             case 'set':
                 this.set({
                     children: (value || []).map((v) => {
-                        return new Node((metadata as MetaSet).valueType, {
+                        return createNode((metadata as MetaSet).valueType, {
                             structure: 'list-item',
                             parent: this,
                             value: v
@@ -109,19 +156,19 @@ export class Node {
                 break;
             case 'map':
                 const buildMapItem = (v = []) => {
-                    const item = new Node();
+                    const item = createNode();
                     item.set({
                         structure: 'map-item',
                         metadata: metadata,
                         parent: this,
                         initData: v,
                         children: [
-                            new Node((metadata as MetaMap).keyType, {
+                            createNode((metadata as MetaMap).keyType, {
                                 structure: 'map-key',
                                 value: v[0],
                                 parent: item
                             }),
-                            new Node((metadata as MetaMap).valueType, {
+                            createNode((metadata as MetaMap).valueType, {
                                 structure: 'map-value',
                                 value: v[1],
                                 parent: item

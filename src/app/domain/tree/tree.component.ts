@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { Type } from '../../metadata/metadata.service';
-import { Node } from './node';
+import { Node, createNode } from './node';
 
 @Component({
     selector: 'cc-tree',
@@ -39,7 +39,7 @@ export class TreeComponent implements OnChanges {
     }
 
     buildModel(metadata: Type, data: any) {
-        this.model = new Node(metadata, {value: data});
+        this.model = createNode(metadata, {value: data});
     }
 
     updateModel(model: Node) {

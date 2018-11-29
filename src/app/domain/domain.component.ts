@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material';
 
 import { DomainService } from './domain.service';
 import { Type } from '../metadata/metadata.service';
-import { Node } from './tree/node';
+import { createNode, Node } from './tree/node';
 import { stringify } from '../shared/stringify';
 import { Snapshot } from '../gen-damsel/domain_config';
 import { Exception } from '../thrift/exception';
@@ -32,7 +32,7 @@ export class DomainComponent {
         this.metadata = metadata;
         this.snapshot = snapshot;
         if (snapshot) {
-            this.node = new Node(metadata, {value: this.snapshot.domain});
+            this.node = createNode(metadata, {value: this.snapshot.domain});
             if (this.snapshot.domain && this.node) {
                 for (let i = 0; i < this.snapshot.domain.size; ++i) {
                     console.log(i);
