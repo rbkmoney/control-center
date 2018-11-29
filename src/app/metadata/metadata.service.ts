@@ -195,12 +195,12 @@ export class MetadataService {
     }, {}) as any;
 
     constructor(private http: HttpClient) {
+        this.get = this.get.bind(this);
     }
 
     // TODO to Metadata like Node
     async init(url: string): Promise<void> {
         this.files = await this.http.get<any>(url).toPromise();
-        const get = this.get.bind(this);
         const toCookList = [];
         this.metadata = this.files.reduce((metadata, {name, ast}) => ({
             ...metadata,
@@ -208,56 +208,8 @@ export class MetadataService {
                 ...acc,
                 ...Object.keys(ast[structureName]).reduce((objs, itemName) => {
                     const item = ast[structureName][itemName];
-                    let result;
-                    switch (structureName) {
-                        case 'typedef':
-                            result = new TypeDef();
-                            toCookList.push(() => {
-                                result.type = get(item.type, name);
-                            });
-                            break;
-                        case 'const':
-                            result = new Const();
-                            break;
-                        case 'enum':
-                            result = new Enum();
-                            result.items = item.items.map((elem, idx) => ({name: elem.name, value: elem.value === undefined ? idx : elem.value}));
-                            break;
-                        case 'struct':
-                            result = new Struct();
-                            toCookList.push(() => {
-                                result.fields = item.map(field => ({
-                                    ...field,
-                                    type: get(field.type, name),
-                                    parent: result
-                                }));
-                            });
-                            break;
-                        case 'union':
-                            result = new Union();
-                            toCookList.push(() => {
-                                result.fields = item.map(field => ({
-                                    ...field,
-                                    type: get(field.type, name),
-                                    parent: result
-                                }));
-                            });
-                            break;
-                        case 'exception':
-                            result = new Exception();
-                            toCookList.push(() => {
-                                result.fields = item.map(field => ({
-                                    ...field,
-                                    type: get(field.type, name),
-                                    parent: result
-                                }));
-                            });
-                            break;
-                        default:
-                            return objs;
-                    }
-                    result.name = itemName;
-                    result.createThrift = model[name] && model[name][itemName] ? (...args) => new model[name][itemName](...args) : undefined;
+                    const {result, toCookList: toCookListPart} = this.create(objs, itemName, item, structureName, name);
+                    toCookList.push(...toCookListPart);
                     return {
                         ...objs,
                         [itemName]: result
@@ -266,6 +218,61 @@ export class MetadataService {
             }), {})
         }), {});
         toCookList.forEach((fc) => fc());
+    }
+
+    create(objs, itemName, item, structureName, name) {
+        const toCookList = [];
+        let result;
+        switch (structureName) {
+            case 'typedef':
+                result = new TypeDef();
+                toCookList.push(() => {
+                    result.type = this.get(item.type, name);
+                });
+                break;
+            case 'const':
+                result = new Const();
+                break;
+            case 'enum':
+                result = new Enum();
+                result.items = item.items.map((elem, idx) => ({name: elem.name, value: elem.value === undefined ? idx : elem.value}));
+                break;
+            case 'struct':
+                result = new Struct();
+                toCookList.push(() => {
+                    result.fields = item.map(field => ({
+                        ...field,
+                        type: this.get(field.type, name),
+                        parent: result
+                    }));
+                });
+                break;
+            case 'union':
+                result = new Union();
+                toCookList.push(() => {
+                    result.fields = item.map(field => ({
+                        ...field,
+                        type: this.get(field.type, name),
+                        parent: result
+                    }));
+                });
+                break;
+            case 'exception':
+                result = new Exception();
+                toCookList.push(() => {
+                    result.fields = item.map(field => ({
+                        ...field,
+                        type: this.get(field.type, name),
+                        parent: result
+                    }));
+                });
+                break;
+            default:
+                return objs;
+        }
+        result.name = itemName;
+        result.createThrift = model[name] && model[name][itemName] ? (...args) => new (model[name][itemName] as any)(...args) : undefined;
+        return {result, toCookList};
     }
 
     getType(stringValueType: string, parent: string): { parent?: string, type: string, isSimple: boolean } {
