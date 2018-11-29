@@ -138,6 +138,11 @@ export abstract class ListStructure extends Structure {
     structure: ListStructures;
     valueType: Type;
 
+    constructor(valueType: Type) {
+        super();
+        this.valueType = valueType;
+    }
+
     get name() {
         return `<${this.valueType.name}>`;
     }
@@ -154,6 +159,11 @@ export class MetaList extends ListStructure {
 export class MetaMap extends ListStructure {
     structure: ListStructures = 'map';
     keyType: Type;
+
+    constructor(keyType: Type, valueType: Type) {
+        super(valueType);
+        this.keyType = keyType;
+    }
 
     get name() {
         return `<${this.keyType.name}, ${this.valueType.name}>`;
@@ -217,7 +227,9 @@ export class MetadataService {
                 }, {})
             }), {})
         }), {});
-        toCookList.forEach((fc) => fc());
+        while (toCookList.length) {
+            toCookList.pop()();
+        }
     }
 
     create(objs, itemName, item, structureName, name) {
@@ -293,34 +305,11 @@ export class MetadataService {
         }
         switch (valueType.name) {
             case 'map':
-                const map = new MetaMap();
-                Object.defineProperty(map, 'valueType', {
-                    get: () => {
-                        return this.get(valueType.valueType, parent);
-                    }
-                });
-                Object.defineProperty(map, 'keyType', {
-                    get: () => {
-                        return this.get((valueType as MapType).keyType, parent);
-                    }
-                });
-                return map;
+                return new MetaMap(this.get((valueType as MapType).keyType, parent), this.get(valueType.valueType, parent));
             case 'list':
-                const list = new MetaList();
-                Object.defineProperty(list, 'valueType', {
-                    get: () => {
-                        return this.get(valueType.valueType, parent);
-                    }
-                });
-                return list;
+                return new MetaList(this.get(valueType.valueType, parent));
             case 'set':
-                const set = new MetaSet();
-                Object.defineProperty(set, 'valueType', {
-                    get: () => {
-                        return this.get(valueType.valueType, parent);
-                    }
-                });
-                return set;
+                return new MetaSet(this.get(valueType.valueType, parent));
         }
     }
 }
