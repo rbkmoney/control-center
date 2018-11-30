@@ -35,6 +35,10 @@ abstract class ComplexStructure extends Structure {
 export class TypeDef extends ComplexStructure {
     structure: ComplexStructures = 'typedef';
     type: Type;
+
+    toThrift(data) {
+        return this.type.toThrift(data);
+    }
 }
 
 export class Const extends ComplexStructure {
@@ -58,7 +62,8 @@ export class Struct extends ComplexStructure {
         const struct = this.createThrift();
         for (const param in data) {
             if (data.hasOwnProperty(param)) {
-                struct[param] = data[param];
+                const field: Field = this.fields.find(({name}) => name === param);
+                struct[param] = field ? field.type.toThrift(data[param]) : data[param];
             }
         }
         return struct;
@@ -76,7 +81,8 @@ export class Union extends ComplexStructure {
         const struct = this.createThrift();
         for (const param in data) {
             if (data.hasOwnProperty(param)) {
-                struct[param] = data[param];
+                const field: Field = this.fields.find(({name}) => name === param);
+                struct[param] = field ? field.type.toThrift(data[param]) : data[param];
             }
         }
         return struct;
@@ -94,7 +100,8 @@ export class Exception extends ComplexStructure {
         const struct = this.createThrift();
         for (const param in data) {
             if (data.hasOwnProperty(param)) {
-                struct[param] = data[param];
+                const field: Field = this.fields.find(({name}) => name === param);
+                struct[param] = field ? field.type.toThrift(data[param]) : data[param];
             }
         }
         return struct;
@@ -126,7 +133,7 @@ export class Simple extends Structure {
             case 'i32':
                 return Number(data);
         }
-        return super.toThrift(data);
+        return data;
     }
 }
 
@@ -145,6 +152,13 @@ export abstract class ListStructure extends Structure {
 
     get name() {
         return `<${this.valueType.name}>`;
+    }
+
+    toThrift(data) {
+        if (data === null || !Array.isArray(data)) {
+            return null;
+        }
+        return data.map((item) => this.valueType.toThrift(item));
     }
 }
 
@@ -167,6 +181,17 @@ export class MetaMap extends ListStructure {
 
     get name() {
         return `<${this.keyType.name}, ${this.valueType.name}>`;
+    }
+
+    toThrift(data) {
+        if (data === null || !(data instanceof Map || Array.isArray(data))) {
+            return null;
+        }
+        const map = new Map();
+        for (const [key, value] of Array.from(data)) {
+            map.set(this.keyType.toThrift(key), this.valueType.toThrift(value));
+        }
+        return map;
     }
 }
 

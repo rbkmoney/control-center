@@ -304,33 +304,33 @@ export class Node {
         }
     }
 
-    extractData() {
+    get value() {
         const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
         switch (this.metadata.structure) {
             case 'exception':
             case 'struct':
-                return isNotNull ? this.metadata.toThrift(this.children.reduce((obj, child) => {
-                    obj[child.field.name] = child.extractData();
+                return isNotNull ? this.children.reduce((obj, child) => {
+                    obj[child.field.name] = child.value;
                     return obj;
-                }, {})) : null;
+                }, {}) : null;
             case 'union':
-                return isNotNull ? this.metadata.toThrift(this.select.options.reduce((obj, option) => {
+                return isNotNull ? this.select.options.reduce((obj, option) => {
                     obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
-                        ? this.children[0].extractData()
+                        ? this.children[0].value
                         : null;
                     return obj;
-                }, {})) : null;
+                }, {}) : null;
             case 'list':
             case 'set':
-                return isNotNull ? this.children.map((child) => child.extractData()) : null;
+                return isNotNull ? this.children.map((child) => child.value) : null;
             case 'map':
                 if (this.structure === 'map-item') {
-                    return this.children.map((child) => child.extractData());
+                    return this.children.map((child) => child.value);
                 } else {
-                    return isNotNull ? new Map(this.children.map((child) => child.extractData())) : null;
+                    return isNotNull ? new Map(this.children.map((child) => child.value)) : null;
                 }
             case 'enum':
-                return isNotNull ? this.metadata.toThrift(this.select.selected) : null;
+                return isNotNull ? this.select.selected : null;
             case 'const':
             case 'bool':
             case 'int':
@@ -341,9 +341,13 @@ export class Node {
             case 'double':
             case 'string':
             case 'binary':
-                return isNotNull ? this.metadata.toThrift(this.control.value) : null;
+                return isNotNull ? this.control.value : null;
         }
         console.error('Not mapped type');
         return isNotNull ? this.control.value : null;
+    }
+
+    extractData() {
+        return this.metadata.toThrift(this.value);
     }
 }
