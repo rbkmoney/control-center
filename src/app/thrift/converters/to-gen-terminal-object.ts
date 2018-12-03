@@ -16,6 +16,9 @@ const toGenTerminal = (data: Terminal) => {
     return terminal;
 };
 
+/**
+ * @deprecated use metadata.service for create model
+ */
 export const toGenTerminalObject = (terminal: TerminalObject) => {
     const terminalObjectGen = new DomainTypes.TerminalObject();
     terminalObjectGen.ref = toGenTerminalRef(terminal.ref);

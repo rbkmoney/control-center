@@ -27,6 +27,9 @@ const toGenOperation = (operation: Operation) => {
 const toGenCommitOps = (operations: Operation[]) =>
     operations.map((operation) => toGenOperation(operation));
 
+/**
+ * @deprecated use metadata.service for create model
+ */
 export const toGenCommit = (commit: Commit) => {
     const genCommit = new DomainConfigTypes.Commit();
     genCommit.ops = toGenCommitOps(commit.ops);

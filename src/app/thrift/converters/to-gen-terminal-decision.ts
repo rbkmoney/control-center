@@ -53,6 +53,9 @@ const toTerminalSelectorGen = (selector: TerminalSelector) => {
 
 };
 
+/**
+ * @deprecated use metadata.service for create model
+ */
 export const toGenTerminalDecision = (terminalDecision: TerminalDecision) => {
     const terminalDecisionGen = new DomainTypes.TerminalDecision();
     terminalDecisionGen.if_ = toPredicateGen(terminalDecision.if_);

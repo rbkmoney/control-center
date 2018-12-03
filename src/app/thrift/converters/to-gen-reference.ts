@@ -13,6 +13,9 @@ const toGenVersion = (version: Version) => {
     return reference;
 };
 
+/**
+ * @deprecated use metadata.service for create model
+ */
 export const toGenReference = (reference: Reference = {head: {}}) => {
     let result;
     if (reference.head) {
