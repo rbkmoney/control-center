@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { Type } from '../../metadata/metadata.service';
-import { Node, createNode } from './node';
+import { createNode, Node } from './node';
 
 @Component({
     selector: 'cc-tree',
@@ -15,6 +15,8 @@ export class TreeComponent implements OnChanges {
     metadata?: Type;
     @Input()
     model?: Node;
+    @Input()
+    expanded?: boolean;
 
     @Output()
     foundNode: EventEmitter<Node> = new EventEmitter();
@@ -24,7 +26,7 @@ export class TreeComponent implements OnChanges {
     constructor() {
         this.findNode = this.findNode.bind(this);
         this.toggle = this.toggle.bind(this);
-        this.expanded = this.expanded.bind(this);
+        this.expandedByNode = this.expandedByNode.bind(this);
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -63,7 +65,9 @@ export class TreeComponent implements OnChanges {
         }
     }
 
-    expanded(node: Node) {
-        return (node.isNullable || node.isNotNull) && node.hasChildren && this.expandedNodes.get(node);
+    expandedByNode(node: Node) {
+        return node === this.model && this.expanded !== undefined
+            ? this.expanded
+            : (node.isNullable || node.isNotNull) && node.hasChildren && this.expandedNodes.get(node);
     }
 }

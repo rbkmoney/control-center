@@ -9,17 +9,30 @@
                     <mat-progress-bar mode="indeterminate" *ngIf="isDomainLoading || isLoading"></mat-progress-bar>
                 </mat-card>
                 <ng-container *ngIf="node">
-                    <mat-card *ngFor="let child of node.children; index as i">
-                        <cc-tree [model]="child" (foundNode)="foundNode($event)"></cc-tree>
-                        <button mat-icon-button style="float:right" [disabled]="isDomainLoading || isLoading"
-                                (click)="update(child)" color="primary">
-                            <mat-icon class="mat-icon-rtl-mirror">save</mat-icon>
-                        </button>
-                        <button mat-icon-button style="float:right" [disabled]="isDomainLoading || isLoading"
-                                (click)="delete(child)" color="warn">
-                            <mat-icon class="mat-icon-rtl-mirror">delete</mat-icon>
-                        </button>
+
+                    <mat-card *ngFor="let group of groups; index as i" style="overflow:scroll">
+                        <table style="width: 100%">
+
+                            <tr>
+                                <th *ngFor="let column of group.displayedColumns">{{column}}</th>
+                                <th></th>
+                            </tr>
+                            <ng-container *ngFor="let element of group.elements">
+                                <tr (click)="toggleNode(element)" style="cursor:pointer;white-space: nowrap;">
+                                    <td *ngFor="let column of group.displayedColumns">{{element[column]}}</td>
+                                    <td>actions...</td>
+                                </tr>
+                                <tr *ngIf="element.__displayed">
+                                    <td [attr.colspan]="group.displayedColumns.length + 1">
+                                        <cc-tree *ngFor="let node of element.node.children"
+                                                 [model]="node" (foundNode)="foundNode($event)"></cc-tree>
+                                    </td>
+                                </tr>
+                            </ng-container>
+
+                        </table>
                     </mat-card>
+
                 </ng-container>
             </div>
         </mat-sidenav-content>

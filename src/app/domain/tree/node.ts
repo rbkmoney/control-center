@@ -304,6 +304,33 @@ export class Node {
         }
     }
 
+    toString(value = this.value, level = 0) {
+        if (value === null) {
+            return 'null';
+        }
+        if (typeof value === 'object') {
+            if (value instanceof Map) {
+                if (level > 0) {
+                    return '[...]';
+                }
+                return '[' + Array.from(value).map(([k, v]) => '[' + this.toString(k, level + 1) + ', ' + this.toString(v, level + 1) + ']').join(', ') + ']';
+            } else if (Array.isArray(value)) {
+                if (level > 0) {
+                    return '[...]';
+                }
+                return '[' + value.map((v) => this.toString(v, level + 1)).join(', ') + ']';
+            } else {
+                if (level > 0) {
+                    return '{...}';
+                }
+                return '{' + Object.keys(value).map((key) => {
+                    return key + ': ' + this.toString(value[key], level + 1);
+                }).join(', ') + '}';
+            }
+        }
+        return value.toString();
+    }
+
     get value() {
         const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
         switch (this.metadata.structure) {
