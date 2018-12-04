@@ -54,9 +54,11 @@ export class DomainComponent {
                     res.__key = stringify(n.children[0].children[0].initData);
                     return res;
                 });
+                const displayedColumns = elements[0] ? Object.keys(elements[0] || {}) : [];
+                displayedColumns.splice(displayedColumns.findIndex((c) => c === '__key'), 1);
                 return {
                     elements,
-                    displayedColumns: Object.keys(elements[0] || {}).slice(0, elements.length - 1),
+                    displayedColumns,
                     name,
                     description: `${nodes.length}`
                 };
@@ -138,7 +140,6 @@ export class DomainComponent {
     }
 
     routeToObject(objectName: string, key: string) {
-        console.log(key);
         this.router.navigateByUrl(`/domain/object/${objectName}/${key}`);
     }
 }

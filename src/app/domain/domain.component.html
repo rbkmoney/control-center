@@ -1,13 +1,15 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <div>{{node ? node.children.length : '?'}} domain objects. {{snapshot ? snapshot.version : '?'}} version</div>
+        <div style="flex: 1 1 auto"></div>
+        <div></div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="isDomainLoading || isLoading"></mat-progress-bar>
 <div class="container">
     <mat-sidenav-container>
         <mat-sidenav-content>
             <div class="card-container" fxLayout="column" fxLayoutGap="20px">
-                <mat-card>
-                    <ng-container *ngIf="snapshot && !isDomainLoading && !isLoading">
-                        DomainObjects: {{node.children.length}}, Version: {{snapshot.version}}
-                    </ng-container>
-                    <mat-progress-bar mode="indeterminate" *ngIf="isDomainLoading || isLoading"></mat-progress-bar>
-                </mat-card>
                 <ng-container *ngIf="node">
 
                     <mat-accordion>

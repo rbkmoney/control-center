@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
-    MatCardModule, MatExpansionModule,
+    MatCardModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatProgressBarModule,
     MatSidenavModule,
-    MatSnackBarModule, MatTableModule,
-    MatTabsModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -37,7 +40,8 @@ import { ObjectComponent } from './object/object.component';
         MatButtonModule,
         MatSnackBarModule,
         MatTableModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatToolbarModule
     ],
     declarations: [
         DomainComponent,
