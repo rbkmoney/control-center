@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 import { DomainService } from './domain.service';
 import { Type } from '../metadata/metadata.service';
-import { createNode, Node } from './tree/node';
+import { Node } from './tree/node';
 import { stringify } from '../shared/stringify';
 import { Snapshot } from '../gen-damsel/domain_config';
 import { Exception } from '../thrift/exception';
@@ -28,40 +29,39 @@ export class DomainComponent {
         this.snackBar.open(error.message || error.name, 'OK');
     };
 
-    constructor(private domainService: DomainService, private snackBar: MatSnackBar) {
-        this.domainService.metadata$.subscribe((metadata) => this.updateNode(metadata, this.snapshot));
-        this.domainService.snapshot$.subscribe((snapshot) => this.updateNode(this.metadata, snapshot));
+    constructor(private domainService: DomainService, private snackBar: MatSnackBar, private router: Router) {
+        this.domainService.metadata$.subscribe((metadata) => this.updateNode(metadata, this.snapshot, this.node));
+        this.domainService.snapshot$.subscribe((snapshot) => this.updateNode(this.metadata, snapshot, this.node));
+        this.domainService.node$.subscribe((node) => this.updateNode(this.metadata, this.snapshot, node));
         this.domainService.isLoading$.subscribe((isLoading) => this.isDomainLoading = isLoading);
     }
 
-    updateNode(metadata: Type, snapshot: Snapshot) {
+    updateNode(metadata: Type, snapshot: Snapshot, node: Node) {
         this.metadata = metadata;
         this.snapshot = snapshot;
-        if (snapshot) {
-            this.node = createNode(metadata, {value: this.snapshot.domain});
-            console.log((this.metadata as any).type.valueType.fields);
-            console.log('--');
+        this.node = node;
+        if (node) {
             this.groups = (this.metadata as any).type.valueType.fields.map((field) => {
                 const {name} = field;
                 const nodes = this.node.children.filter((child) => child.children[1].select.selected === name);
-                const elements = nodes.map((node) => {
+                const elements = nodes.map((n) => {
                     const res = {} as any;
-                    for (const child of node.children[1].children[0].children) {
+                    for (const child of n.children[1].children[0].children) {
                         for (const c of child.children) {
                             res[child.field.name + '.' + c.field.name] = c;
                         }
                     }
+                    res.__key = stringify(n.children[0].children[0].initData);
                     return res;
                 });
                 return {
                     elements,
-                    displayedColumns: Object.keys(elements[0] || {}),
+                    displayedColumns: Object.keys(elements[0] || {}).slice(0, elements.length - 1),
                     name,
                     description: `${nodes.length}`
                 };
             });
-            console.log(this.groups);
-            this.testAll();
+            // this.testAll();
         }
     }
 
@@ -135,5 +135,10 @@ export class DomainComponent {
 
     closeTab(model: Node) {
         this.tabsModels.splice(this.tabsModels.findIndex((tabModel) => model === tabModel), 1);
+    }
+
+    routeToObject(objectName: string, key: string) {
+        console.log(key);
+        this.router.navigateByUrl(`/domain/object/${objectName}/${key}`);
     }
 }

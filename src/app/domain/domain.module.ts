@@ -18,6 +18,7 @@ import { DomainComponent } from './domain.component';
 import { DomainService } from './domain.service';
 import { MetadataModule } from '../metadata/metadata.module';
 import { TreeModule } from './tree/tree.module';
+import { ObjectComponent } from './object/object.component';
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import { TreeModule } from './tree/tree.module';
         MatExpansionModule
     ],
     declarations: [
-        DomainComponent
+        DomainComponent,
+        ObjectComponent
     ],
     providers: [
         DomainService
