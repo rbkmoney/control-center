@@ -10,3 +10,7 @@ body {
     pointer-events: none;
     user-select: none;
 }
+
+.expansion-panel__without-body-padding .mat-expansion-panel-body {
+    padding: 0;
+}

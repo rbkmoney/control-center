@@ -22,6 +22,11 @@ export class DomainComponent {
     isLoading = false;
     isDomainLoading = false;
     groups: any[] = [];
+    commitErrorHandler = (error: Exception) => {
+        this.isLoading = false;
+        console.error(error);
+        this.snackBar.open(error.message || error.name, 'OK');
+    };
 
     constructor(private domainService: DomainService, private snackBar: MatSnackBar) {
         this.domainService.metadata$.subscribe((metadata) => this.updateNode(metadata, this.snapshot));
@@ -34,32 +39,25 @@ export class DomainComponent {
         this.snapshot = snapshot;
         if (snapshot) {
             this.node = createNode(metadata, {value: this.snapshot.domain});
-            const groupsNames = this.node.children.reduce((g, child) => {
-                if (!g.find((name) => name === child.children[1].select.selected)) {
-                    g.push(child.children[1].select.selected);
-                }
-                return g;
-            }, []);
-            console.log(groupsNames);
-            this.groups = groupsNames.map((group) => {
-                const nodes = this.node.children.filter((child) => child.children[1].select.selected === group);
-                const displayedColumns = nodes[0].children[1].children[0].children.reduce((cols, child) => {
-                    return cols.concat(child.children.map((c) => c.field.name));
-                }, []);
+            console.log((this.metadata as any).type.valueType.fields);
+            console.log('--');
+            this.groups = (this.metadata as any).type.valueType.fields.map((field) => {
+                const {name} = field;
+                const nodes = this.node.children.filter((child) => child.children[1].select.selected === name);
                 const elements = nodes.map((node) => {
                     const res = {} as any;
                     for (const child of node.children[1].children[0].children) {
                         for (const c of child.children) {
-                            res[c.field.name] = c;
+                            res[child.field.name + '.' + c.field.name] = c;
                         }
                     }
-                    res.node = node;
                     return res;
                 });
                 return {
                     elements,
-                    displayedColumns,
-                    displayedNodes: []
+                    displayedColumns: Object.keys(elements[0] || {}),
+                    name,
+                    description: `${nodes.length}`
                 };
             });
             console.log(this.groups);
@@ -98,10 +96,6 @@ export class DomainComponent {
         }
     }
 
-    toggleNode(element) {
-        element.__displayed = !element.__displayed;
-    }
-
     foundNode(node: Node) {
         const idx = this.tabsModels.findIndex((tabModel) => node === tabModel);
         if (idx >= 0) {
@@ -137,12 +131,6 @@ export class DomainComponent {
             this.snackBar.open('DomainObject inserted', 'OK');
             this.domainService.updateSnapshot();
         }, this.commitErrorHandler);
-    }
-
-    commitErrorHandler = (error: Exception) => {
-        this.isLoading = false;
-        console.error(error);
-        this.snackBar.open(error.message || error.name, 'OK');
     }
 
     closeTab(model: Node) {
