@@ -43,3 +43,7 @@
 .pair > * {
     flex: 0 0 50%;
 }
+
+.list__root {
+    padding-inline-start: 0;
+}

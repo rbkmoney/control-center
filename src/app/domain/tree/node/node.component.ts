@@ -13,6 +13,8 @@ export class NodeComponent {
     @Input()
     root = false;
     @Input()
+    withoutRoot = false;
+    @Input()
     expanded: (node: Node) => boolean;
     @Input()
     findNode: (node: Node) => void;
@@ -24,5 +26,9 @@ export class NodeComponent {
 
     get disabled() {
         return !this.node.hasChildren || (!this.node.isNullable && !this.node.isNotNull);
+    }
+
+    get isRoot(): boolean {
+        return this.root || !this.node.parent;
     }
 }

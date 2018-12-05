@@ -17,6 +17,8 @@ export class TreeComponent implements OnChanges {
     model?: Node;
     @Input()
     expanded?: boolean;
+    @Input()
+    withoutRoot = false;
 
     @Output()
     foundNode: EventEmitter<Node> = new EventEmitter();
@@ -84,8 +86,14 @@ export class TreeComponent implements OnChanges {
     }
 
     expandedByNode(node: Node) {
-        return node === this.model && this.expanded !== undefined
-            ? this.expanded
-            : (node.isNullable || node.isNotNull) && node.hasChildren && this.expandedNodes.get(node);
+        if (node === this.model) {
+            if (this.withoutRoot) {
+                return true;
+            }
+            if (this.expanded !== undefined) {
+                return this.expanded;
+            }
+        }
+        return (node.isNullable || node.isNotNull) && node.hasChildren && this.expandedNodes.get(node);
     }
 }

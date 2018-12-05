@@ -72,6 +72,7 @@ export class Node {
     };
     isNotNull: boolean;
     pair = false;
+    add: (value?: any) => any;
 
     constructor(metadata?: Type, {field, structure, value, parent}: Params = {}) {
         if (!metadata) {
@@ -133,30 +134,36 @@ export class Node {
             case 'exception':
                 // not used
                 break;
-            case 'list':
+            case 'list': {
+                const create = (v: any) => {
+                    return createNode((metadata as MetaSet).valueType, {
+                        structure: 'list-item',
+                        parent: this,
+                        value: v
+                    });
+                };
                 this.set({
-                    children: (value || []).map((v) => {
-                        return createNode((metadata as MetaList).valueType, {
-                            structure: 'list-item',
-                            parent: this,
-                            value: v
-                        });
-                    })
+                    children: (value || []).map(create),
+                    add: (v) => this.children.push(create(v))
                 });
                 break;
-            case 'set':
+            }
+            case 'set': {
+                const create = (v: any) => {
+                    return createNode((metadata as MetaSet).valueType, {
+                        structure: 'list-item',
+                        parent: this,
+                        value: v
+                    });
+                };
                 this.set({
-                    children: (value || []).map((v) => {
-                        return createNode((metadata as MetaSet).valueType, {
-                            structure: 'list-item',
-                            parent: this,
-                            value: v
-                        });
-                    })
+                    children: (value || []).map(create),
+                    add: (v) => this.children.push(create(v))
                 });
                 break;
-            case 'map':
-                const buildMapItem = (v = []) => {
+            }
+            case 'map': {
+                const create = (v = []) => {
                     const item = createNode();
                     item.set({
                         pair: true,
@@ -182,13 +189,15 @@ export class Node {
                 const children: Node[] = [];
                 if (value) {
                     for (const item of Array.from(value) as any[][]) {
-                        children.push(buildMapItem(item));
+                        children.push(create(item));
                     }
                 }
                 this.set({
-                    children
+                    children,
+                    add: (v) => this.children.push(create(v))
                 });
                 break;
+            }
             case 'bool':
                 this.set({
                     control: new FormControl(value),
@@ -281,6 +290,49 @@ export class Node {
         return Boolean(Array.isArray(this.children) && this.children.length);
     }
 
+    get value() {
+        const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
+        switch (this.metadata.structure) {
+            case 'exception':
+            case 'struct':
+                return isNotNull ? this.children.reduce((obj, child) => {
+                    obj[child.field.name] = child.value;
+                    return obj;
+                }, {}) : null;
+            case 'union':
+                return isNotNull ? this.select.options.reduce((obj, option) => {
+                    obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
+                        ? this.children[0].value
+                        : null;
+                    return obj;
+                }, {}) : null;
+            case 'list':
+            case 'set':
+                return isNotNull ? this.children.map((child) => child.value) : null;
+            case 'map':
+                if (this.structure === 'map-item') {
+                    return this.children.map((child) => child.value);
+                } else {
+                    return isNotNull ? new Map(this.children.map((child) => child.value)) : null;
+                }
+            case 'enum':
+                return isNotNull ? this.select.selected : null;
+            case 'const':
+            case 'bool':
+            case 'int':
+            case 'i8':
+            case 'i16':
+            case 'i32':
+            case 'i64':
+            case 'double':
+            case 'string':
+            case 'binary':
+                return isNotNull ? this.control.value : null;
+        }
+        console.error('Not mapped type');
+        return isNotNull ? this.control.value : null;
+    }
+
     findNode(refNode: Node): Node {
         if (this.parent && Array.isArray(this.parent.children) && this.parent.children.length >= 2 && this.eq(refNode)) {
             return this.parent;
@@ -331,49 +383,6 @@ export class Node {
             }
         }
         return value.toString();
-    }
-
-    get value() {
-        const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
-        switch (this.metadata.structure) {
-            case 'exception':
-            case 'struct':
-                return isNotNull ? this.children.reduce((obj, child) => {
-                    obj[child.field.name] = child.value;
-                    return obj;
-                }, {}) : null;
-            case 'union':
-                return isNotNull ? this.select.options.reduce((obj, option) => {
-                    obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
-                        ? this.children[0].value
-                        : null;
-                    return obj;
-                }, {}) : null;
-            case 'list':
-            case 'set':
-                return isNotNull ? this.children.map((child) => child.value) : null;
-            case 'map':
-                if (this.structure === 'map-item') {
-                    return this.children.map((child) => child.value);
-                } else {
-                    return isNotNull ? new Map(this.children.map((child) => child.value)) : null;
-                }
-            case 'enum':
-                return isNotNull ? this.select.selected : null;
-            case 'const':
-            case 'bool':
-            case 'int':
-            case 'i8':
-            case 'i16':
-            case 'i32':
-            case 'i64':
-            case 'double':
-            case 'string':
-            case 'binary':
-                return isNotNull ? this.control.value : null;
-        }
-        console.error('Not mapped type');
-        return isNotNull ? this.control.value : null;
     }
 
     extractData() {
