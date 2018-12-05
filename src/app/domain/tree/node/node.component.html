@@ -1,11 +1,11 @@
-<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item" *ngIf="isRenderRoot">
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item" *ngIf="isRenderRoot"
+     [class.changed]="node.isChanged">
     <div style="position: relative;white-space: nowrap">
         <button mat-icon-button
                 [attr.aria-label]="'toggle'"
                 class="icon-button"
                 [disabled]="disabled"
-                (click)="toggle(node, true)"
-                [style]="!isRoot ? 'position: absolute;left:-100%' : ''">
+                (click)="toggle(node, true)">
             <mat-icon class="mat-icon-rtl-mirror" style="color: #ccc">
                 {{node.hasChildren ? expanded(node) ? 'arrow_upward' : 'arrow_downward' : ''}}
             </mat-icon>

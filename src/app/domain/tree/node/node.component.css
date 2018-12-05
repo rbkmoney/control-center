@@ -1,6 +1,12 @@
-.list {
+ul.list {
     list-style-type: none;
-    display: none;
+    padding-inline-start: 0;
+    border-left: 40px solid white;
+}
+
+ul.list__root {
+    border-left: none;
+    /*padding-inline-start: 0;*/
 }
 
 .list__expanded {
@@ -12,8 +18,13 @@
     margin: 0;
 }
 
-.item {
+.item > * {
     min-height: 65.5px;
+    line-height: 65.5px;
+}
+
+.changed {
+    background: rgb(190, 227, 203);
 }
 
 .icon-button {
@@ -42,8 +53,4 @@
 
 .pair > * {
     flex: 0 0 50%;
-}
-
-.list__root {
-    padding-inline-start: 0;
 }

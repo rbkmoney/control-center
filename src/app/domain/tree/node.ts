@@ -1,6 +1,6 @@
 import { FormControl, Validators } from '@angular/forms';
 
-import { Enum, Field, MetaList, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
+import { Enum, Field, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../../metadata/metadata.service';
 import { stringify } from '../../shared/stringify';
 
 export type ListType = 'select' | 'toggle' | 'field';
@@ -331,6 +331,83 @@ export class Node {
         }
         console.error('Not mapped type');
         return isNotNull ? this.control.value : null;
+    }
+
+    get localValue() {
+        const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
+        switch (this.metadata.structure) {
+            case 'exception':
+            case 'struct':
+                return isNotNull ? 'struct' : null;
+            case 'union':
+                return isNotNull ? 'union' : null;
+            case 'list':
+            case 'set':
+                return isNotNull ? 'list' : null;
+            case 'map':
+                if (this.structure === 'map-item') {
+                    return 'map-item';
+                } else {
+                    return isNotNull ? 'map' : null;
+                }
+            case 'enum':
+                return isNotNull ? this.select.selected : null;
+            case 'const':
+            case 'bool':
+            case 'int':
+            case 'i8':
+            case 'i16':
+            case 'i32':
+            case 'i64':
+            case 'double':
+            case 'string':
+            case 'binary':
+                return isNotNull ? this.control.value : null;
+        }
+        console.error('Not mapped type');
+        return isNotNull ? this.control.value : null;
+    }
+
+    get initLocalValue() {
+        const isNotNull = this.initData !== null;
+        if (this.initData === undefined) {
+            return undefined;
+        }
+        switch (this.metadata.structure) {
+            case 'exception':
+            case 'struct':
+                return isNotNull ? 'struct' : null;
+            case 'union':
+                return isNotNull ? 'union' : null;
+            case 'list':
+            case 'set':
+                return isNotNull ? 'list' : null;
+            case 'map':
+                if (this.structure === 'map-item') {
+                    return 'map-item';
+                } else {
+                    return isNotNull ? 'map' : null;
+                }
+            case 'enum':
+                return isNotNull ? String(this.initData) : null;
+            case 'const':
+            case 'bool':
+            case 'int':
+            case 'i8':
+            case 'i16':
+            case 'i32':
+            case 'i64':
+            case 'double':
+            case 'string':
+            case 'binary':
+                return isNotNull ? String(this.initData) : null;
+        }
+        console.error('Not mapped type');
+        return isNotNull ? String(this.initData) : null;
+    }
+
+    get isChanged() {
+        return this.initLocalValue !== this.localValue;
     }
 
     findNode(refNode: Node): Node {
