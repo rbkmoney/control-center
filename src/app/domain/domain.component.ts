@@ -59,6 +59,7 @@ export class DomainComponent {
                 return {
                     elements,
                     displayedColumns,
+                    allColumns: [...displayedColumns, 'actions'],
                     name,
                     description: `${nodes.length}`
                 };

@@ -13,4 +13,5 @@ body {
 
 .expansion-panel__without-body-padding .mat-expansion-panel-body {
     padding: 0;
+    overflow: auto;
 }
