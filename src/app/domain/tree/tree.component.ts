@@ -57,11 +57,29 @@ export class TreeComponent implements OnChanges {
         }
     }
 
-    toggle(node: Node) {
-        if (this.expandedNodes.get(node)) {
-            this.expandedNodes.delete(node);
+    toggle(node: Node, all?: boolean) {
+        if (this.expandedByNode(node)) {
+            this.expand(node, all);
         } else {
-            this.expandedNodes.set(node, true);
+            this.rollUp(node, all);
+        }
+    }
+
+    rollUp(node: Node, all?: boolean) {
+        this.expandedNodes.set(node, true);
+        if (all && node.children) {
+            for (const child of node.children) {
+                this.rollUp(child, true);
+            }
+        }
+    }
+
+    expand(node: Node, all?: boolean) {
+        this.expandedNodes.delete(node);
+        if (all && node.children) {
+            for (const child of node.children) {
+                this.expand(child, true);
+            }
         }
     }
 

@@ -1,24 +1,36 @@
 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item">
-    <button mat-icon-button
-            [attr.aria-label]="'toggle'"
-            class="icon-button"
-            [disabled]="disabled"
-            (click)="toggle(node)">
+    <div style="position: relative;white-space: nowrap">
+        <button mat-icon-button
+                [attr.aria-label]="'toggle'"
+                class="icon-button"
+                [disabled]="disabled"
+                (click)="toggle(node, true)"
+                [style]="root ? '' : 'position: absolute;left:-100%'">
+            <mat-icon class="mat-icon-rtl-mirror" style="color: #ccc">
+                {{node.hasChildren ? expanded(node) ? 'arrow_upward' : 'arrow_downward' : ''}}
+            </mat-icon>
+        </button>
+        <button mat-icon-button
+                [attr.aria-label]="'toggle'"
+                class="icon-button"
+                [disabled]="disabled"
+                (click)="toggle(node)">
 
-        <mat-icon class="mat-icon-rtl-mirror">
-            {{node.hasChildren ? expanded(node) ? 'expand_more' : 'chevron_right' : ''}}
-        </mat-icon>
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{node.hasChildren ? expanded(node) ? 'expand_more' : 'chevron_right' : ''}}
+            </mat-icon>
 
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'list-item'" color="primary">lens
-        </mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-value'" color="primary">stop
-        </mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-key'" color="accent">vpn_key
-        </mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-item'" color="primary">
-            view_stream
-        </mat-icon>
-    </button>
+            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'list-item'" color="primary">lens
+            </mat-icon>
+            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-value'" color="primary">stop
+            </mat-icon>
+            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-key'" color="accent">vpn_key
+            </mat-icon>
+            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="this.node.structure === 'map-item'" color="primary">
+                view_stream
+            </mat-icon>
+        </button>
+    </div>
     <div [ngSwitch]="node.list" fxFlex="grow">
 
         <mat-form-field *ngSwitchCase="'select'" class="field">

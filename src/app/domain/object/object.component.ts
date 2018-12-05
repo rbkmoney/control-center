@@ -17,7 +17,8 @@ export class ObjectComponent implements OnInit {
 
     ngOnInit() {
         combineLatest(this.route.paramMap, this.domainService.node$).subscribe(([params]) => {
-            this.node = this.domainService.getNode(params.get('id'), params.get('ref'));
+            const node = this.domainService.getNode(params.get('id'), params.get('ref'));
+            this.node = node ? node.children[1] : null;
         });
     }
 }
