@@ -71,6 +71,7 @@ export class Node {
         selectionChange({value}): any;
     };
     isNotNull: boolean;
+    pair = false;
 
     constructor(metadata?: Type, {field, structure, value, parent}: Params = {}) {
         if (!metadata) {
@@ -158,6 +159,7 @@ export class Node {
                 const buildMapItem = (v = []) => {
                     const item = createNode();
                     item.set({
+                        pair: true,
                         structure: 'map-item',
                         metadata: metadata,
                         parent: this,

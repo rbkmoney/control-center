@@ -36,3 +36,10 @@
     right: 0;
 }
 
+.pair {
+    display: flex;
+}
+
+.pair > * {
+    flex: 0 0 50%;
+}

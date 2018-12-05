@@ -63,7 +63,7 @@
     </button>
     <mat-checkbox *ngIf="!node.isNullable" [(ngModel)]="node.isNotNull"></mat-checkbox>
 </div>
-<ul *ngIf="expanded(node)" class="list" [class.list__expanded]="expanded(node)">
+<ul *ngIf="expanded(node)" class="list" [class.list__expanded]="expanded(node)" [class.pair]="node.pair">
     <li *ngFor="let child of node.children; index as i" class="list__item">
         <cc-node [node]="child" [findNode]="findNode" [expanded]="expanded" [toggle]="toggle"></cc-node>
     </li>
