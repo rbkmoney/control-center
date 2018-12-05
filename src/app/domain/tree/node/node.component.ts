@@ -31,4 +31,8 @@ export class NodeComponent {
     get isRoot(): boolean {
         return this.root || !this.node.parent;
     }
+
+    get isRenderRoot() {
+        return (!this.isRoot || (this.isRoot && !this.withoutRoot)) && this.node.metadata.structure !== 'map';
+    }
 }

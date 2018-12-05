@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item" *ngIf="!isRoot || (isRoot && !withoutRoot)">
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item" *ngIf="isRenderRoot">
     <div style="position: relative;white-space: nowrap">
         <button mat-icon-button
                 [attr.aria-label]="'toggle'"
@@ -75,8 +75,8 @@
     </button>
     <mat-checkbox *ngIf="!node.isNullable" [(ngModel)]="node.isNotNull"></mat-checkbox>
 </div>
-<ul *ngIf="expanded(node)" class="list" [class.list__expanded]="expanded(node)"
-    [class.list__root]="isRoot && withoutRoot"
+<ul *ngIf="expanded(node) || !isRenderRoot" class="list" [class.list__expanded]="expanded(node)"
+    [class.list__root]="!isRenderRoot"
     [class.pair]="node.pair">
     <li *ngFor="let child of node.children; index as i" class="list__item">
         <cc-node [node]="child" [findNode]="findNode" [expanded]="expanded" [toggle]="toggle"></cc-node>
@@ -105,7 +105,8 @@
                               *ngIf="node.metadata.structure === 'list' || node.metadata.structure === 'set'"
                               color="primary">lens
                     </mat-icon>
-                    <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.metadata.structure === 'map'" color="primary">
+                    <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.metadata.structure === 'map'"
+                              color="primary">
                         view_stream
                     </mat-icon>
                 </button>
