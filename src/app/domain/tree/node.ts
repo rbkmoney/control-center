@@ -13,47 +13,49 @@ interface Params {
     parent?: Node;
 }
 
-export function createNode(metadata?: Type, params: Params = {}) {
-    if (!metadata) {
-        return new Node();
-    }
+export function createNode(metadata: Type, params: Params = {}) {
     switch (metadata.structure) {
         case 'typedef':
             return createNode((metadata as TypeDef).type, params);
         case 'const':
+            // TODO
+            console.warn('TODO: ConstNode is not implemented');
             return new Node(metadata, params);
         case 'enum':
-            return new Node(metadata, params);
+            return new EnumNode(metadata, params);
         case 'struct':
-            return new Node(metadata, params);
+            return new StructNode(metadata, params);
         case 'union':
-            return new Node(metadata, params);
+            return new UnionNode(metadata, params);
         case 'exception':
+            // TODO
+            console.warn('TODO: ExceptionNode is not implemented');
             return new Node(metadata, params);
         case 'list':
-            return new Node(metadata, params);
+            return new ListNode(metadata, params);
         case 'set':
-            return new Node(metadata, params);
+            return new SetNode(metadata, params);
         case 'map':
-            return new Node(metadata, params);
+            return new MapNode(metadata, params);
         case 'bool':
-            return new Node(metadata, params);
+            return new BoolNode(metadata, params);
         case 'int':
         case 'i8':
         case 'i16':
         case 'i32':
         case 'i64':
-            return new Node(metadata, params);
+            return new IntNode(metadata, params);
         case 'double':
-            return new Node(metadata, params);
+            return new DoubleNode(metadata, params);
         case 'string':
-            return new Node(metadata, params);
+            return new StringNode(metadata, params);
         case 'binary':
+            // TODO
+            console.warn('TODO: BinaryNode is not implemented');
             return new Node(metadata, params);
-        default: {
-            return new Node(metadata, params);
-        }
     }
+    console.error('Unknown structure');
+    return new Node(metadata, params);
 }
 
 export class Node {
@@ -74,7 +76,7 @@ export class Node {
     pair = false;
     add: (value?: any) => any;
 
-    constructor(metadata?: Type, {field, structure, value, parent}: Params = {}) {
+    constructor(metadata: Type, {field, structure, value, parent}: Params = {}) {
         if (!metadata) {
             return;
         }
@@ -86,184 +88,6 @@ export class Node {
             initData: value
         });
         this.isNotNull = value !== null;
-        switch (metadata.structure) {
-            case 'const':
-                // TODO
-                break;
-            case 'enum':
-                this.set({
-                    list: 'select',
-                    select: {
-                        options: (metadata as Enum).items.map((item) => ({name: item.name || String(item.value), value: item.value})),
-                        selectionChange: ({value: v}) => {
-                            this.select.selected = v;
-                        },
-                        selected: value
-                    }
-                });
-                break;
-            case 'struct':
-                this.set({
-                    children: (metadata as Struct).fields.map((childField) => createNode(childField.type, {
-                        field: childField,
-                        value: value ? value[childField.name] : undefined,
-                        parent: this
-                    }))
-                });
-                break;
-            case 'union':
-                this.set({
-                    list: 'select',
-                    select: {
-                        options: (metadata as Union).fields.map(({name}) => ({name, value: name})),
-                        selectionChange: undefined,
-                    }
-                });
-                const selectUnionChildren = (fieldName: string) => {
-                    this.select.selected = fieldName;
-                    const childField: Field = (metadata as Union).fields.find(({name}) => name === fieldName);
-                    if (childField) {
-                        this.children = [createNode(childField.type, {field: childField, value: value ? value[fieldName] : undefined, parent: this})];
-                    } else {
-                        this.children = [];
-                    }
-                };
-                selectUnionChildren(value ? Object.keys(value).find((v) => value[v] !== null) : undefined);
-                this.select.selectionChange = ({value: v}) => selectUnionChildren(v);
-                break;
-            case 'exception':
-                // not used
-                break;
-            case 'list': {
-                const create = (v: any) => {
-                    return createNode((metadata as MetaSet).valueType, {
-                        structure: 'list-item',
-                        parent: this,
-                        value: v
-                    });
-                };
-                this.set({
-                    children: (value || []).map(create),
-                    add: (v) => this.children.push(create(v))
-                });
-                break;
-            }
-            case 'set': {
-                const create = (v: any) => {
-                    return createNode((metadata as MetaSet).valueType, {
-                        structure: 'list-item',
-                        parent: this,
-                        value: v
-                    });
-                };
-                this.set({
-                    children: (value || []).map(create),
-                    add: (v) => this.children.push(create(v))
-                });
-                break;
-            }
-            case 'map': {
-                const create = (v = []) => {
-                    const item = createNode();
-                    item.set({
-                        pair: true,
-                        structure: 'map-item',
-                        metadata: metadata,
-                        parent: this,
-                        initData: v,
-                        children: [
-                            createNode((metadata as MetaMap).keyType, {
-                                structure: 'map-key',
-                                value: v[0],
-                                parent: item
-                            }),
-                            createNode((metadata as MetaMap).valueType, {
-                                structure: 'map-value',
-                                value: v[1],
-                                parent: item
-                            })
-                        ]
-                    });
-                    return item;
-                };
-                const children: Node[] = [];
-                if (value) {
-                    for (const item of Array.from(value) as any[][]) {
-                        children.push(create(item));
-                    }
-                }
-                this.set({
-                    children,
-                    add: (v) => this.children.push(create(v))
-                });
-                break;
-            }
-            case 'bool':
-                this.set({
-                    control: new FormControl(value),
-                    list: 'toggle'
-                });
-                break;
-            case 'int':
-            case 'i8':
-            case 'i16':
-            case 'i32':
-            case 'i64': {
-                const validators = [];
-                if (field && field.option === 'required') {
-                    validators.push(Validators.required);
-                }
-                this.set({
-                    control: new FormControl(value ? String(value) : '', {validators}),
-                    list: 'field'
-                });
-                break;
-            }
-            case 'double': {
-                const validators = [];
-                if (field && field.option === 'required') {
-                    validators.push(Validators.required);
-                }
-                this.set({
-                    control: new FormControl(value ? String(value) : '', {validators}),
-                    list: 'field'
-                });
-                break;
-            }
-            case 'string': {
-                const validators = [];
-                if (field && field.option === 'required') {
-                    validators.push(Validators.required);
-                }
-                this.set({
-                    control: new FormControl(value ? String(value) : '', {validators}),
-                    list: 'field'
-                });
-                break;
-            }
-            case 'binary': {
-                const validators = [];
-                if (field && field.option === 'required') {
-                    validators.push(Validators.required);
-                }
-                this.set({
-                    control: new FormControl(value ? String(value) : '', {validators}),
-                    list: 'field'
-                });
-                break;
-            }
-            default: {
-                const validators = [];
-                if (field && field.option === 'required') {
-                    validators.push(Validators.required);
-                }
-                this.set({
-                    control: new FormControl(value ? String(value) : '', {validators}),
-                    list: 'field'
-                });
-                break;
-            }
-        }
     }
 
     get isNullable() {
@@ -490,3 +314,176 @@ export class Node {
         return this.metadata.toThrift(this.value);
     }
 }
+
+export class EnumNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value} = params;
+        this.set({
+            list: 'select',
+            select: {
+                options: (metadata as Enum).items.map((item) => ({name: item.name || String(item.value), value: item.value})),
+                selectionChange: ({value: v}) => {
+                    this.select.selected = v;
+                },
+                selected: value
+            }
+        });
+    }
+}
+
+export class StructNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value} = params;
+        this.set({
+            children: (metadata as Struct).fields.map((childField) => createNode(childField.type, {
+                field: childField,
+                value: value ? value[childField.name] : undefined,
+                parent: this
+            }))
+        });
+    }
+}
+
+export class UnionNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value} = params;
+        this.set({
+            list: 'select',
+            select: {
+                options: (metadata as Union).fields.map(({name}) => ({name, value: name})),
+                selectionChange: undefined,
+            }
+        });
+        const selectUnionChildren = (fieldName: string) => {
+            this.select.selected = fieldName;
+            const childField: Field = (metadata as Union).fields.find(({name}) => name === fieldName);
+            if (childField) {
+                this.children = [createNode(childField.type, {field: childField, value: value ? value[fieldName] : undefined, parent: this})];
+            } else {
+                this.children = [];
+            }
+        };
+        selectUnionChildren(value ? Object.keys(value).find((v) => value[v] !== null) : undefined);
+        this.select.selectionChange = ({value: v}) => selectUnionChildren(v);
+    }
+}
+
+export class ListNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value} = params;
+        const create = (v: any) => {
+            return createNode((metadata as MetaSet).valueType, {
+                structure: 'list-item',
+                parent: this,
+                value: v
+            });
+        };
+        this.set({
+            children: (value || []).map(create),
+            add: (v) => this.children.push(create(v))
+        });
+    }
+}
+
+export class SetNode extends ListNode {
+}
+
+export class MapNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value} = params;
+        const create = (v = []) => {
+            const item = createNode(metadata);
+            item.set({
+                pair: true,
+                structure: 'map-item',
+                parent: this,
+                initData: v,
+                children: [
+                    createNode((metadata as MetaMap).keyType, {
+                        structure: 'map-key',
+                        value: v[0],
+                        parent: item
+                    }),
+                    createNode((metadata as MetaMap).valueType, {
+                        structure: 'map-value',
+                        value: v[1],
+                        parent: item
+                    })
+                ]
+            });
+            return item;
+        };
+        const children: Node[] = [];
+        if (value) {
+            for (const item of Array.from(value) as any[][]) {
+                children.push(create(item));
+            }
+        }
+        this.set({
+            children,
+            add: (v) => this.children.push(create(v))
+        });
+    }
+}
+
+export class BoolNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value} = params;
+        this.set({
+            control: new FormControl(value),
+            list: 'toggle'
+        });
+    }
+}
+
+export class IntNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value, field} = params;
+        const validators = [];
+        if (field && field.option === 'required') {
+            validators.push(Validators.required);
+        }
+        this.set({
+            control: new FormControl(value ? String(value) : '', {validators}),
+            list: 'field'
+        });
+    }
+}
+
+export class DoubleNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value, field} = params;
+        const validators = [];
+        if (field && field.option === 'required') {
+            validators.push(Validators.required);
+        }
+        this.set({
+            control: new FormControl(value ? String(value) : '', {validators}),
+            list: 'field'
+        });
+    }
+}
+
+export class StringNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        const {value, field} = params;
+        const validators = [];
+        if (field && field.option === 'required') {
+            validators.push(Validators.required);
+        }
+        this.set({
+            control: new FormControl(value ? String(value) : '', {validators}),
+            list: 'field'
+        });
+    }
+}
+
