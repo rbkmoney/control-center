@@ -18,7 +18,7 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-progress-bar mode="indeterminate" *ngIf="!node"></mat-progress-bar>
-<div class="card-container" fxLayout="column" fxLayoutGap="20px">
+<div class="card-container" fxLayout="column" fxLayoutGap="20px" *ngIf="node">
     <mat-card style="overflow: auto">
         <cc-tree [model]="node" [withoutRoot]="true"></cc-tree>
     </mat-card>

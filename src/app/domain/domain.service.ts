@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { MetadataService, Type } from '../metadata/metadata.service';
@@ -33,7 +33,7 @@ export class DomainService {
             this.snapshot = snapshot;
             this.snapshot$.next(snapshot);
             this.isLoading$.next(false);
-            this.node$.next(createNode(this.metadata, {initValue: this.snapshot.domain}));
+            this.node$.next(createNode({metadata: this.metadata, initValue: this.snapshot.domain}));
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
         });

@@ -20,14 +20,8 @@
                 {{node.hasChildren ? expanded(node) ? 'expand_more' : 'chevron_right' : ''}}
             </mat-icon>
 
-            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.structure === 'list-item'" color="primary">lens
-            </mat-icon>
-            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.structure === 'map-value'" color="primary">stop
-            </mat-icon>
-            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.structure === 'map-key'" color="accent">vpn_key
-            </mat-icon>
-            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.structure === 'map-item'" color="primary">
-                view_stream
+            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.icon" [color]="node.icon.color || 'primary'">
+                {{node.icon.name}}
             </mat-icon>
         </button>
     </div>

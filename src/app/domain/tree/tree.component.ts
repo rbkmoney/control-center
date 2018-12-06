@@ -43,7 +43,7 @@ export class TreeComponent implements OnChanges {
     }
 
     buildModel(metadata: Type, data: any) {
-        this.model = createNode(metadata, {initValue: data});
+        this.model = createNode({metadata, initValue: data});
     }
 
     updateModel(model: Node) {

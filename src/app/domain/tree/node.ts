@@ -4,59 +4,57 @@ import { Enum, Field, MetaMap, MetaSet, Struct, Type, TypeDef, Union } from '../
 import { stringify } from '../../shared/stringify';
 
 export type ListType = 'select' | 'toggle' | 'field';
-export type Structure = 'list-item' | 'map-item' | 'map-key' | 'map-value';
 
 interface Params {
+    metadata?: Type;
     field?: Field;
-    structure?: Structure;
     initValue?: any;
     parent?: Node;
 }
 
-export function createNode(metadata: Type, params: Params = {}) {
-    switch (metadata.structure) {
+export function createNode(params: Params = {}) {
+    const structure = params.metadata ? params.metadata.structure : params.parent.metadata.structure;
+    switch (structure) {
         case 'typedef':
-            return createNode((metadata as TypeDef).type, params);
+            return createNode({...params, metadata: (params.metadata as TypeDef).type});
         case 'const':
-            return new ConstNode(metadata, params);
+            return new ConstNode(params);
         case 'enum':
-            return new EnumNode(metadata, params);
+            return new EnumNode(params);
         case 'struct':
-            return new StructNode(metadata, params);
+            return new StructNode(params);
         case 'union':
-            return new UnionNode(metadata, params);
+            return new UnionNode(params);
         case 'exception':
-            return new ExceptionNode(metadata, params);
+            return new ExceptionNode(params);
         case 'list':
-            return new ListNode(metadata, params);
+            return new ListNode(params);
         case 'set':
-            return new SetNode(metadata, params);
+            return new SetNode(params);
         case 'map':
-            return new MapNode(metadata, params);
+            return new MapNode(params);
         case 'bool':
-            return new BoolNode(metadata, params);
+            return new BoolNode(params);
         case 'int':
         case 'i8':
         case 'i16':
         case 'i32':
         case 'i64':
-            return new IntNode(metadata, params);
+            return new IntNode(params);
         case 'double':
-            return new DoubleNode(metadata, params);
+            return new DoubleNode(params);
         case 'string':
-            return new StringNode(metadata, params);
+            return new StringNode(params);
         case 'binary':
-            return new BinaryNode(metadata, params);
+            return new BinaryNode(params);
     }
     throw new Error('Unknown structure');
 }
 
 export abstract class Node {
-    metadata: Type;
-    field: Field;
-    parent: Node;
+    field?: Field;
+    parent?: Node;
     list?: ListType;
-    structure?: Structure;
     control?: FormControl;
     children?: Node[];
     select?: {
@@ -66,26 +64,34 @@ export abstract class Node {
     };
     pair = false;
     add: (value?: any) => any;
-
     initValue?: any;
     isNull: boolean;
+    icon?: { name: string; color?: string };
 
-    constructor(metadata: Type, {field, structure, initValue, parent}: Params = {}) {
-        if (!metadata) {
-            return;
-        }
-        this.set({
-            metadata,
-            field,
-            structure,
-            initValue,
-            parent
-        });
+    protected constructor({metadata, field, initValue, parent}: Params = {}) {
+        this._metadata = metadata;
+        this.field = field;
+        this.initValue = initValue;
+        this.parent = parent || null;
         this.isNull = this.isNullable && initValue === null;
+    }
+
+    private _metadata?: Type;
+
+    get metadata() {
+        return this._metadata || this.parent.metadata;
+    }
+
+    set metadata(metadata: Type) {
+        this._metadata = metadata;
     }
 
     get isNullable() {
         return this.field && this.field.option === 'optional';
+    }
+
+    get isFake() {
+        return !this._metadata;
     }
 
     get label() {
@@ -124,11 +130,10 @@ export abstract class Node {
             case 'set':
                 return 'list';
             case 'map':
-                if (this.structure === 'map-item') {
+                if (this.isFake) {
                     return 'map-item';
-                } else {
-                    return 'map';
                 }
+                return 'map';
             case 'enum':
                 return String(this.select.selected);
             case 'const':
@@ -164,13 +169,12 @@ export abstract class Node {
             case 'set':
                 return 'list';
             case 'map':
-                if (this.structure === 'map-item') {
+                if (this.isFake) {
                     return 'map-item';
-                } else {
-                    return 'map';
                 }
+                return 'map';
             case 'enum':
-                return  String(this.initValue);
+                return String(this.initValue);
             case 'const':
             case 'bool':
             case 'int':
@@ -273,9 +277,9 @@ export abstract class Node {
 }
 
 export class EnumNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
-        const {initValue} = params;
+    constructor(params: Params) {
+        super(params);
+        const {metadata, initValue} = params;
         this.set({
             list: 'select',
             select: {
@@ -297,11 +301,12 @@ export class EnumNode extends Node {
 }
 
 export class StructNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
-        const {initValue} = params;
+    constructor(params: Params) {
+        super(params);
+        const {metadata, initValue} = params;
         this.set({
-            children: (metadata as Struct).fields.map((childField) => createNode(childField.type, {
+            children: (metadata as Struct).fields.map((childField) => createNode({
+                metadata: childField.type,
                 field: childField,
                 initValue: initValue ? initValue[childField.name] : undefined,
                 parent: this
@@ -322,16 +327,16 @@ export class StructNode extends Node {
 
 // TODO
 export class ExceptionNode extends StructNode {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
+    constructor(params: Params) {
+        super(params);
         console.warn('TODO: ExceptionNode is not tested');
     }
 }
 
 export class UnionNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
-        const {initValue} = params;
+    constructor(params: Params) {
+        super(params);
+        const {metadata, initValue} = params;
         this.set({
             list: 'select',
             select: {
@@ -343,7 +348,12 @@ export class UnionNode extends Node {
             this.select.selected = fieldName;
             const childField: Field = (metadata as Union).fields.find(({name}) => name === fieldName);
             if (childField) {
-                this.children = [createNode(childField.type, {field: childField, initValue: initValue ? initValue[fieldName] : undefined, parent: this})];
+                this.children = [createNode({
+                    metadata: childField.type,
+                    field: childField,
+                    initValue: initValue ? initValue[fieldName] : undefined,
+                    parent: this
+                })];
             } else {
                 this.children = [];
             }
@@ -367,20 +377,21 @@ export class UnionNode extends Node {
 }
 
 export class ListNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
-        const {initValue} = params;
-        const create = (v: any) => {
-            return createNode((metadata as MetaSet).valueType, {
-                structure: 'list-item',
-                parent: this,
-                initValue: v
-            });
-        };
-        this.set({
-            children: (initValue || []).map(create),
-            add: (v) => this.children.push(create(v))
+    createChild = (v: any) => {
+        const child = createNode({
+            metadata: (this.metadata as MetaSet).valueType,
+            parent: this,
+            initValue: v
         });
+        child.icon = {name: 'lens'};
+        return child;
+    };
+
+    constructor(params: Params) {
+        super(params);
+        const {initValue} = params;
+        this.children = (initValue || []).map(this.createChild);
+        this.add = (v) => this.children.push(this.createChild(v));
     }
 
     get value() {
@@ -395,58 +406,49 @@ export class SetNode extends ListNode {
 }
 
 export class MapNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
+    metadata: MetaMap;
+    createChild = (v = []) => {
+        const item = createNode({parent: this, initValue: v});
+        item.pair = true;
+        item.children = [
+            createNode({metadata: this.metadata.keyType, initValue: v[0], parent: item}),
+            createNode({metadata: this.metadata.valueType, initValue: v[1], parent: item})
+        ];
+        item.children[0].icon = this.icon = {name: 'key'};
+        item.children[1].icon = this.icon = {name: 'stop', color: 'accent'};
+        return item;
+    };
+
+    constructor(params: Params) {
+        super(params);
         const {initValue} = params;
-        const create = (v = []) => {
-            const item = createNode(metadata);
-            item.set({
-                pair: true,
-                structure: 'map-item',
-                parent: this,
-                initValue: v,
-                children: [
-                    createNode((metadata as MetaMap).keyType, {
-                        structure: 'map-key',
-                        initValue: v[0],
-                        parent: item
-                    }),
-                    createNode((metadata as MetaMap).valueType, {
-                        structure: 'map-value',
-                        initValue: v[1],
-                        parent: item
-                    })
-                ]
-            });
-            return item;
-        };
         const children: Node[] = [];
-        if (initValue) {
+        if (initValue && !this.isFake) {
             for (const item of Array.from(initValue) as any[][]) {
-                children.push(create(item));
+                children.push(this.createChild(item));
             }
         }
-        this.set({
-            children,
-            add: (v) => this.children.push(create(v))
-        });
+        this.children = children;
+        this.add = (v) => this.children.push(this.createChild(v));
+        if (this.isFake) {
+            this.icon = {name: 'view_stream'};
+        }
     }
 
     get value() {
         if (this.isNull) {
             return null;
         }
-        if (this.structure === 'map-item') {
+        if (this.isFake) {
             return this.children.map((child) => child.value);
-        } else {
-            return new Map(this.children.map((child) => child.value));
         }
+        return new Map(this.children.map((child) => child.value));
     }
 }
 
 export class BoolNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
+    constructor(params: Params) {
+        super(params);
         const {initValue} = params;
         this.set({
             control: new FormControl(initValue),
@@ -463,8 +465,8 @@ export class BoolNode extends Node {
 }
 
 export class IntNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
+    constructor(params: Params) {
+        super(params);
         const {initValue, field} = params;
         const validators = [];
         if (field && field.option === 'required') {
@@ -485,8 +487,8 @@ export class IntNode extends Node {
 }
 
 export class DoubleNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
+    constructor(params: Params) {
+        super(params);
         const {initValue, field} = params;
         const validators = [];
         if (field && field.option === 'required') {
@@ -507,8 +509,8 @@ export class DoubleNode extends Node {
 }
 
 export class StringNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
+    constructor(params: Params) {
+        super(params);
         const {initValue, field} = params;
         const validators = [];
         if (field && field.option === 'required') {
@@ -530,11 +532,10 @@ export class StringNode extends Node {
 
 // TODO
 export class BinaryNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
+    constructor(params: Params) {
+        super(params);
         console.warn('TODO: BinaryNode is not implemented');
     }
-
 
     get value() {
         if (this.isNull) {
@@ -547,11 +548,10 @@ export class BinaryNode extends Node {
 
 // TODO
 export class ConstNode extends Node {
-    constructor(metadata: Type, params: Params) {
-        super(metadata, params);
+    constructor(params: Params) {
+        super(params);
         console.warn('TODO: ConstNode is not implemented');
     }
-
 
     get value() {
         if (this.isNull) {
