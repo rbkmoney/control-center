@@ -67,6 +67,22 @@
             style="margin-left:5px">
         <mat-icon class="mat-icon-rtl-mirror">link</mat-icon>
     </button>
+    <button mat-icon-button
+            class="icon-button"
+            (click)="node.add()" *ngIf="node.add">
+        <mat-icon class="mat-icon-rtl-mirror">
+            add
+        </mat-icon>
+
+        <mat-icon class="mat-icon-rtl-mirror badge"
+                  *ngIf="node.metadata.structure === 'list' || node.metadata.structure === 'set'"
+                  color="primary">lens
+        </mat-icon>
+        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.metadata.structure === 'map'"
+                  color="primary">
+            view_stream
+        </mat-icon>
+    </button>
     <mat-checkbox [ngModel]="!node.isNull" (ngModelChange)="node.isNull = !$event"
                   [disabled]="!node.isNullable"></mat-checkbox>
 </div>
@@ -79,14 +95,8 @@
     <li *ngIf="node.add" class="list__item">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item">
             <div style="position: relative;white-space: nowrap">
+                <button mat-icon-button class="icon-button"><mat-icon class="mat-icon-rtl-mirror"></mat-icon></button>
                 <button mat-icon-button
-                        [attr.aria-label]="'toggle'"
-                        class="icon-button">
-                    <mat-icon class="mat-icon-rtl-mirror">
-                    </mat-icon>
-                </button>
-                <button mat-icon-button
-                        [attr.aria-label]="'toggle'"
                         class="icon-button"
                         (click)="node.add()">
                     <mat-icon class="mat-icon-rtl-mirror">

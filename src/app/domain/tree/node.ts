@@ -66,7 +66,6 @@ export abstract class Node<T extends Structure = Type> {
     add: (value?: any) => any;
     initValue?: any;
     isNull: boolean;
-    icon?: { name: string; color?: string };
 
     protected constructor({metadata, field, initValue, parent}: Params<T> = {}) {
         this.metadata = metadata;
@@ -112,6 +111,10 @@ export abstract class Node<T extends Structure = Type> {
 
     get hasChildren() {
         return Boolean(Array.isArray(this.children) && this.children.length);
+    }
+
+    get icon() {
+        return this.parent ? this.parent.getChildIcon(this as Node) : undefined;
     }
 
     abstract get value(): any;
@@ -217,6 +220,10 @@ export abstract class Node<T extends Structure = Type> {
             }
         }
         return true;
+    }
+
+    getChildIcon(node: Node): { name: string; color?: string } {
+        return undefined;
     }
 
     findNode(refNode: Node): Node {
@@ -371,7 +378,6 @@ export class ListNode extends Node<MetaList> {
             parent: this,
             initValue: v
         });
-        child.icon = {name: 'lens'};
         return child;
     };
 
@@ -388,6 +394,10 @@ export class ListNode extends Node<MetaList> {
         }
         return this.children.map((child) => child.value);
     }
+
+    getChildIcon() {
+        return {name: 'lens'};
+    }
 }
 
 export class SetNode extends ListNode {
@@ -401,8 +411,6 @@ export class MapNode extends Node<MetaMap> {
             createNode({metadata: this.metadata.keyType, initValue: v[0], parent: item}),
             createNode({metadata: this.metadata.valueType, initValue: v[1], parent: item})
         ];
-        item.children[0].icon = this.icon = {name: 'key'};
-        item.children[1].icon = this.icon = {name: 'stop', color: 'accent'};
         return item;
     };
 
@@ -414,12 +422,9 @@ export class MapNode extends Node<MetaMap> {
             for (const item of Array.from(initValue) as any[][]) {
                 children.push(this.createChild(item));
             }
+            this.add = (v) => this.children.push(this.createChild(v));
         }
         this.children = children;
-        this.add = (v) => this.children.push(this.createChild(v));
-        if (this.isFake) {
-            this.icon = {name: 'view_stream'};
-        }
     }
 
     get value() {
@@ -430,6 +435,16 @@ export class MapNode extends Node<MetaMap> {
             return this.children.map((child) => child.value);
         }
         return new Map(this.children.map((child) => child.value));
+    }
+
+    getChildIcon(node) {
+        if (node.isFake) {
+            return {name: 'view_stream'};
+        }
+        if (this.children[0] === node) {
+            return {name: 'vpn_key', color: 'accent'};
+        }
+        return {name: 'stop'};
     }
 }
 

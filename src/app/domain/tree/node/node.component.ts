@@ -33,6 +33,6 @@ export class NodeComponent {
     }
 
     get isRenderRoot() {
-        return (!this.isRoot || (this.isRoot && !this.withoutRoot)) && this.node.metadata.structure !== 'map';
+        return !this.isRoot || (this.isRoot && !this.withoutRoot);
     }
 }
