@@ -51,7 +51,7 @@ export class DomainComponent {
                             res[child.field.name + '.' + c.field.name] = c;
                         }
                     }
-                    res.__key = stringify(n.children[0].children[0].initData);
+                    res.__key = stringify(n.children[0].children[0].initValue);
                     return res;
                 });
                 const displayedColumns = elements[0] ? Object.keys(elements[0] || {}) : [];
@@ -111,7 +111,7 @@ export class DomainComponent {
 
     delete(node: Node) {
         this.isLoading = true;
-        this.domainService.delete(node.children[1].initData).subscribe((result) => {
+        this.domainService.delete(node.children[1].initValue).subscribe((result) => {
             this.isLoading = false;
             this.snackBar.open('DomainObject removed', 'OK');
             this.domainService.updateSnapshot();
@@ -120,7 +120,7 @@ export class DomainComponent {
 
     update(node: Node) {
         this.isLoading = true;
-        this.domainService.update(node.children[1].initData, node.children[1].extractData()).subscribe((result) => {
+        this.domainService.update(node.children[1].initValue, node.children[1].extractData()).subscribe((result) => {
             this.isLoading = false;
             this.snackBar.open('DomainObject updated', 'OK');
             this.domainService.updateSnapshot();

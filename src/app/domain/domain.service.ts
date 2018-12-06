@@ -33,7 +33,7 @@ export class DomainService {
             this.snapshot = snapshot;
             this.snapshot$.next(snapshot);
             this.isLoading$.next(false);
-            this.node$.next(createNode(this.metadata, {value: this.snapshot.domain}));
+            this.node$.next(createNode(this.metadata, {initValue: this.snapshot.domain}));
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
         });
@@ -80,7 +80,7 @@ export class DomainService {
 
     getNode(objectName: string, key: string): Node {
         return this.node$.getValue() ? this.node$.getValue().children.find((child) => {
-            return child.children[1].select.selected === objectName && key === stringify(child.children[0].children[0].initData);
+            return child.children[1].select.selected === objectName && key === stringify(child.children[0].children[0].initValue);
         }) : null;
     }
 }
