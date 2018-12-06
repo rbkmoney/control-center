@@ -18,9 +18,7 @@ export function createNode(metadata: Type, params: Params = {}) {
         case 'typedef':
             return createNode((metadata as TypeDef).type, params);
         case 'const':
-            // TODO
-            console.warn('TODO: ConstNode is not implemented');
-            return new Node(metadata, params);
+            return new ConstNode(metadata, params);
         case 'enum':
             return new EnumNode(metadata, params);
         case 'struct':
@@ -28,9 +26,7 @@ export function createNode(metadata: Type, params: Params = {}) {
         case 'union':
             return new UnionNode(metadata, params);
         case 'exception':
-            // TODO
-            console.warn('TODO: ExceptionNode is not implemented');
-            return new Node(metadata, params);
+            return new ExceptionNode(metadata, params);
         case 'list':
             return new ListNode(metadata, params);
         case 'set':
@@ -50,15 +46,12 @@ export function createNode(metadata: Type, params: Params = {}) {
         case 'string':
             return new StringNode(metadata, params);
         case 'binary':
-            // TODO
-            console.warn('TODO: BinaryNode is not implemented');
-            return new Node(metadata, params);
+            return new BinaryNode(metadata, params);
     }
-    console.error('Unknown structure');
-    return new Node(metadata, params);
+    throw new Error('Unknown structure');
 }
 
-export class Node {
+export abstract class Node {
     metadata: Type;
     field: Field;
     parent: Node;
@@ -74,6 +67,7 @@ export class Node {
     };
     pair = false;
     add: (value?: any) => any;
+    isNotNullInitData: boolean;
 
     constructor(metadata: Type, {field, structure, value, parent}: Params = {}) {
         if (!metadata) {
@@ -88,8 +82,6 @@ export class Node {
         });
         this.isNotNullInitData = value !== null;
     }
-
-    isNotNullInitData: boolean;
 
     get isNotNull() {
         return this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
@@ -119,9 +111,7 @@ export class Node {
         return Boolean(Array.isArray(this.children) && this.children.length);
     }
 
-    get value(): any {
-        return undefined;
-    }
+    abstract get value(): any;
 
     get localValue() {
         const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNullInitData) : true;
@@ -324,6 +314,14 @@ export class StructNode extends Node {
     }
 }
 
+// TODO
+export class ExceptionNode extends StructNode {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        console.warn('TODO: ExceptionNode is not tested');
+    }
+}
+
 export class UnionNode extends Node {
     constructor(metadata: Type, params: Params) {
         super(metadata, params);
@@ -503,3 +501,29 @@ export class StringNode extends Node {
     }
 }
 
+// TODO
+export class BinaryNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        console.warn('TODO: BinaryNode is not implemented');
+    }
+
+
+    get value() {
+        return this.isNotNull ? this.control.value : null;
+    }
+}
+
+
+// TODO
+export class ConstNode extends Node {
+    constructor(metadata: Type, params: Params) {
+        super(metadata, params);
+        console.warn('TODO: ConstNode is not implemented');
+    }
+
+
+    get value() {
+        return this.isNotNull ? this.control.value : null;
+    }
+}
