@@ -66,9 +66,9 @@ export abstract class Node {
     };
     pair = false;
     add: (value?: any) => any;
-    isNotNullInitData: boolean;
 
     initValue?: any;
+    isNull: boolean;
 
     constructor(metadata: Type, {field, structure, initValue, parent}: Params = {}) {
         if (!metadata) {
@@ -81,15 +81,11 @@ export abstract class Node {
             initValue,
             parent
         });
-        this.isNotNullInitData = initValue !== null;
-    }
-
-    get isNotNull() {
-        return this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
+        this.isNull = this.isNullable && initValue === null;
     }
 
     get isNullable() {
-        return (this.field ? this.field.option !== 'optional' : true) || this.structure === 'map-item';
+        return this.field && this.field.option === 'optional';
     }
 
     get label() {
@@ -115,24 +111,26 @@ export abstract class Node {
     abstract get value(): any;
 
     get localValue() {
-        const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNullInitData) : true;
+        if (this.isNull) {
+            return null;
+        }
         switch (this.metadata.structure) {
             case 'exception':
             case 'struct':
-                return isNotNull ? 'struct' : null;
+                return 'struct';
             case 'union':
-                return isNotNull ? 'union' : null;
+                return 'union';
             case 'list':
             case 'set':
-                return isNotNull ? 'list' : null;
+                return 'list';
             case 'map':
                 if (this.structure === 'map-item') {
                     return 'map-item';
                 } else {
-                    return isNotNull ? 'map' : null;
+                    return 'map';
                 }
             case 'enum':
-                return isNotNull ? String(this.select.selected) : null;
+                return String(this.select.selected);
             case 'const':
             case 'bool':
             case 'int':
@@ -143,34 +141,36 @@ export abstract class Node {
             case 'double':
             case 'string':
             case 'binary':
-                return isNotNull ? this.control.value : null;
+                return this.control.value;
         }
         console.error('Not mapped type');
-        return isNotNull ? this.control.value : null;
+        return this.control.value;
     }
 
     get initLocalValue() {
-        const isNotNull = this.initValue !== null;
+        if (this.initValue === null) {
+            return null;
+        }
         if (this.initValue === undefined) {
             return undefined;
         }
         switch (this.metadata.structure) {
             case 'exception':
             case 'struct':
-                return isNotNull ? 'struct' : null;
+                return 'struct';
             case 'union':
-                return isNotNull ? 'union' : null;
+                return 'union';
             case 'list':
             case 'set':
-                return isNotNull ? 'list' : null;
+                return 'list';
             case 'map':
                 if (this.structure === 'map-item') {
                     return 'map-item';
                 } else {
-                    return isNotNull ? 'map' : null;
+                    return 'map';
                 }
             case 'enum':
-                return isNotNull ? String(this.initValue) : null;
+                return  String(this.initValue);
             case 'const':
             case 'bool':
             case 'int':
@@ -181,10 +181,10 @@ export abstract class Node {
             case 'double':
             case 'string':
             case 'binary':
-                return isNotNull ? String(this.initValue) : null;
+                return String(this.initValue);
         }
         console.error('Not mapped type');
-        return isNotNull ? String(this.initValue) : null;
+        return String(this.initValue);
     }
 
     get isChanged() {
@@ -289,8 +289,10 @@ export class EnumNode extends Node {
     }
 
     get value() {
-        return this.isNotNull ? this.select.selected : null;
-
+        if (this.isNull) {
+            return null;
+        }
+        return this.select.selected;
     }
 }
 
@@ -308,10 +310,13 @@ export class StructNode extends Node {
     }
 
     get value() {
-        return this.isNotNull ? this.children.reduce((obj, child) => {
+        if (this.isNull) {
+            return null;
+        }
+        return this.children.reduce((obj, child) => {
             obj[child.field.name] = child.value;
             return obj;
-        }, {}) : null;
+        }, {});
     }
 }
 
@@ -348,12 +353,15 @@ export class UnionNode extends Node {
     }
 
     get value() {
-        return this.isNotNull ? this.select.options.reduce((obj, option) => {
+        if (this.isNull) {
+            return null;
+        }
+        return this.select.options.reduce((obj, option) => {
             obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
                 ? this.children[0].value
                 : null;
             return obj;
-        }, {}) : null;
+        }, {});
 
     }
 }
@@ -376,7 +384,10 @@ export class ListNode extends Node {
     }
 
     get value() {
-        return this.isNotNull ? this.children.map((child) => child.value) : null;
+        if (this.isNull) {
+            return null;
+        }
+        return this.children.map((child) => child.value);
     }
 }
 
@@ -422,10 +433,13 @@ export class MapNode extends Node {
     }
 
     get value() {
+        if (this.isNull) {
+            return null;
+        }
         if (this.structure === 'map-item') {
             return this.children.map((child) => child.value);
         } else {
-            return this.isNotNull ? new Map(this.children.map((child) => child.value)) : null;
+            return new Map(this.children.map((child) => child.value));
         }
     }
 }
@@ -441,7 +455,10 @@ export class BoolNode extends Node {
     }
 
     get value() {
-        return this.isNotNull ? this.control.value : null;
+        if (this.isNull) {
+            return null;
+        }
+        return this.control.value;
     }
 }
 
@@ -460,7 +477,10 @@ export class IntNode extends Node {
     }
 
     get value() {
-        return this.isNotNull ? this.control.value : null;
+        if (this.isNull) {
+            return null;
+        }
+        return this.control.value;
     }
 }
 
@@ -479,7 +499,10 @@ export class DoubleNode extends Node {
     }
 
     get value() {
-        return this.isNotNull ? this.control.value : null;
+        if (this.isNull) {
+            return null;
+        }
+        return this.control.value;
     }
 }
 
@@ -498,7 +521,10 @@ export class StringNode extends Node {
     }
 
     get value() {
-        return this.isNotNull ? this.control.value : null;
+        if (this.isNull) {
+            return null;
+        }
+        return this.control.value;
     }
 }
 
@@ -511,7 +537,10 @@ export class BinaryNode extends Node {
 
 
     get value() {
-        return this.isNotNull ? this.control.value : null;
+        if (this.isNull) {
+            return null;
+        }
+        return this.control.value;
     }
 }
 
@@ -525,6 +554,9 @@ export class ConstNode extends Node {
 
 
     get value() {
-        return this.isNotNull ? this.control.value : null;
+        if (this.isNull) {
+            return null;
+        }
+        return this.control.value;
     }
 }

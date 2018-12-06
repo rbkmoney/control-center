@@ -25,7 +25,7 @@ export class NodeComponent {
     }
 
     get disabled() {
-        return !this.node.hasChildren || (!this.node.isNullable && !this.node.isNotNullInitData);
+        return !this.node.hasChildren || this.node.isNull;
     }
 
     get isRoot(): boolean {
