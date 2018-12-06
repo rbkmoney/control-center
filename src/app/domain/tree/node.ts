@@ -72,7 +72,6 @@ export class Node {
         selected?: string;
         selectionChange({value}): any;
     };
-    isNotNull: boolean;
     pair = false;
     add: (value?: any) => any;
 
@@ -87,7 +86,13 @@ export class Node {
             field,
             initData: value
         });
-        this.isNotNull = value !== null;
+        this.isNotNullInitData = value !== null;
+    }
+
+    isNotNullInitData: boolean;
+
+    get isNotNull() {
+        return this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
     }
 
     get isNullable() {
@@ -114,51 +119,12 @@ export class Node {
         return Boolean(Array.isArray(this.children) && this.children.length);
     }
 
-    get value() {
-        const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
-        switch (this.metadata.structure) {
-            case 'exception':
-            case 'struct':
-                return isNotNull ? this.children.reduce((obj, child) => {
-                    obj[child.field.name] = child.value;
-                    return obj;
-                }, {}) : null;
-            case 'union':
-                return isNotNull ? this.select.options.reduce((obj, option) => {
-                    obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
-                        ? this.children[0].value
-                        : null;
-                    return obj;
-                }, {}) : null;
-            case 'list':
-            case 'set':
-                return isNotNull ? this.children.map((child) => child.value) : null;
-            case 'map':
-                if (this.structure === 'map-item') {
-                    return this.children.map((child) => child.value);
-                } else {
-                    return isNotNull ? new Map(this.children.map((child) => child.value)) : null;
-                }
-            case 'enum':
-                return isNotNull ? this.select.selected : null;
-            case 'const':
-            case 'bool':
-            case 'int':
-            case 'i8':
-            case 'i16':
-            case 'i32':
-            case 'i64':
-            case 'double':
-            case 'string':
-            case 'binary':
-                return isNotNull ? this.control.value : null;
-        }
-        console.error('Not mapped type');
-        return isNotNull ? this.control.value : null;
+    get value(): any {
+        return undefined;
     }
 
     get localValue() {
-        const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNull) : true;
+        const isNotNull = this.field ? (this.field.option !== 'optional' || this.isNotNullInitData) : true;
         switch (this.metadata.structure) {
             case 'exception':
             case 'struct':
@@ -307,7 +273,7 @@ export class Node {
                 }).join(', ') + '}';
             }
         }
-        return value.toString();
+        return String(value);
     }
 
     extractData() {
@@ -330,6 +296,11 @@ export class EnumNode extends Node {
             }
         });
     }
+
+    get value() {
+        return this.isNotNull ? this.select.selected : null;
+
+    }
 }
 
 export class StructNode extends Node {
@@ -343,6 +314,13 @@ export class StructNode extends Node {
                 parent: this
             }))
         });
+    }
+
+    get value() {
+        return this.isNotNull ? this.children.reduce((obj, child) => {
+            obj[child.field.name] = child.value;
+            return obj;
+        }, {}) : null;
     }
 }
 
@@ -369,6 +347,16 @@ export class UnionNode extends Node {
         selectUnionChildren(value ? Object.keys(value).find((v) => value[v] !== null) : undefined);
         this.select.selectionChange = ({value: v}) => selectUnionChildren(v);
     }
+
+    get value() {
+        return this.isNotNull ? this.select.options.reduce((obj, option) => {
+            obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
+                ? this.children[0].value
+                : null;
+            return obj;
+        }, {}) : null;
+
+    }
 }
 
 export class ListNode extends Node {
@@ -386,6 +374,10 @@ export class ListNode extends Node {
             children: (value || []).map(create),
             add: (v) => this.children.push(create(v))
         });
+    }
+
+    get value() {
+        return this.isNotNull ? this.children.map((child) => child.value) : null;
     }
 }
 
@@ -429,6 +421,14 @@ export class MapNode extends Node {
             add: (v) => this.children.push(create(v))
         });
     }
+
+    get value() {
+        if (this.structure === 'map-item') {
+            return this.children.map((child) => child.value);
+        } else {
+            return this.isNotNull ? new Map(this.children.map((child) => child.value)) : null;
+        }
+    }
 }
 
 export class BoolNode extends Node {
@@ -439,6 +439,10 @@ export class BoolNode extends Node {
             control: new FormControl(value),
             list: 'toggle'
         });
+    }
+
+    get value() {
+        return this.isNotNull ? this.control.value : null;
     }
 }
 
@@ -455,6 +459,10 @@ export class IntNode extends Node {
             list: 'field'
         });
     }
+
+    get value() {
+        return this.isNotNull ? this.control.value : null;
+    }
 }
 
 export class DoubleNode extends Node {
@@ -470,6 +478,10 @@ export class DoubleNode extends Node {
             list: 'field'
         });
     }
+
+    get value() {
+        return this.isNotNull ? this.control.value : null;
+    }
 }
 
 export class StringNode extends Node {
@@ -484,6 +496,10 @@ export class StringNode extends Node {
             control: new FormControl(value ? String(value) : '', {validators}),
             list: 'field'
         });
+    }
+
+    get value() {
+        return this.isNotNull ? this.control.value : null;
     }
 }
 

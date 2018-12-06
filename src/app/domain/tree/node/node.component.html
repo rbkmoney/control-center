@@ -73,7 +73,7 @@
             style="margin-left:5px">
         <mat-icon class="mat-icon-rtl-mirror">link</mat-icon>
     </button>
-    <mat-checkbox *ngIf="!node.isNullable" [(ngModel)]="node.isNotNull"></mat-checkbox>
+    <mat-checkbox *ngIf="!node.isNullable" [(ngModel)]="node.isNotNullInitData"></mat-checkbox>
 </div>
 <ul *ngIf="expanded(node) || !isRenderRoot" class="list" [class.list__expanded]="expanded(node)"
     [class.list__root]="!isRenderRoot"
