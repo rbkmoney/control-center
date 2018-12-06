@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+    MatBadgeModule,
     MatButtonModule,
     MatCardModule,
     MatExpansionModule,
@@ -41,7 +42,8 @@ import { ObjectComponent } from './object/object.component';
         MatSnackBarModule,
         MatTableModule,
         MatExpansionModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatBadgeModule
     ],
     declarations: [
         DomainComponent,

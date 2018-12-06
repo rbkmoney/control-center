@@ -1,3 +1,23 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <div>DomainObject/{{group}}</div>
+        <div style="flex: 1 1 auto"></div>
+        <div *ngIf="node">
+            <button mat-icon-button *ngIf="!node.valid">
+                <mat-icon color="warn">error</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" [matBadge]="node.changesCount"
+                    matBadgePosition="after" [disabled]="!node.valid || !node.changesCount"
+                    [matBadgeHidden]="!node.changesCount" [matBadgeDisabled]="!node.valid || !node.changesCount">
+                <mat-icon>save</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="!node"></mat-progress-bar>
 <div class="card-container" fxLayout="column" fxLayoutGap="20px">
     <mat-card style="overflow: auto">
         <cc-tree [model]="node" [withoutRoot]="true"></cc-tree>

@@ -351,7 +351,7 @@ export class Node {
                     return isNotNull ? 'map' : null;
                 }
             case 'enum':
-                return isNotNull ? this.select.selected : null;
+                return isNotNull ? String(this.select.selected) : null;
             case 'const':
             case 'bool':
             case 'int':
@@ -408,6 +408,30 @@ export class Node {
 
     get isChanged() {
         return this.initLocalValue !== this.localValue;
+    }
+
+    get changesCount(): number {
+        let count = +this.isChanged;
+        if (!count && Array.isArray(this.children)) {
+            for (const child of this.children) {
+                count += child.changesCount;
+            }
+        }
+        return count;
+    }
+
+    get valid(): boolean {
+        if (this.control && this.control.invalid) {
+            return false;
+        }
+        if (Array.isArray(this.children)) {
+            for (const child of this.children) {
+                if (!child.valid) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     findNode(refNode: Node): Node {

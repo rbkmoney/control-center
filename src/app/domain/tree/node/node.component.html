@@ -81,21 +81,18 @@
     <li *ngFor="let child of node.children; index as i" class="list__item">
         <cc-node [node]="child" [findNode]="findNode" [expanded]="expanded" [toggle]="toggle"></cc-node>
     </li>
-    <li *ngIf="node.add"
-        class="list__item">
+    <li *ngIf="node.add" class="list__item">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item">
             <div style="position: relative;white-space: nowrap">
                 <button mat-icon-button
                         [attr.aria-label]="'toggle'"
-                        class="icon-button"
-                        [disabled]="disabled">
+                        class="icon-button">
                     <mat-icon class="mat-icon-rtl-mirror">
                     </mat-icon>
                 </button>
                 <button mat-icon-button
                         [attr.aria-label]="'toggle'"
                         class="icon-button"
-                        [disabled]="disabled"
                         (click)="node.add()">
                     <mat-icon class="mat-icon-rtl-mirror">
                         add

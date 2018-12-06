@@ -1,6 +1,8 @@
 <mat-toolbar>
     <mat-toolbar-row>
-        <div>{{node ? node.children.length : '?'}} domain objects. {{snapshot ? snapshot.version : '?'}} version</div>
+        <div *ngIf="node">{{node ? node.children.length : '?'}} domain objects. {{snapshot ? snapshot.version : '?'}}
+            version
+        </div>
         <div style="flex: 1 1 auto"></div>
         <div></div>
     </mat-toolbar-row>
@@ -28,14 +30,17 @@
                                        *ngIf="group.displayedColumns.length">
                                     <ng-container [matColumnDef]="column" *ngFor="let column of group.displayedColumns">
                                         <th mat-header-cell *matHeaderCellDef>{{column.split('.')[1]}}</th>
-                                        <td mat-cell *matCellDef="let element" style="white-space: nowrap">{{element[column]}}</td>
+                                        <td mat-cell *matCellDef="let element" style="white-space: nowrap">
+                                            {{element[column]}}
+                                        </td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="actions" stickyEnd>
                                         <th mat-header-cell *matHeaderCellDef></th>
                                         <td mat-cell *matCellDef="let element" style="width:1px">
                                             <button mat-icon-button>
-                                                <mat-icon (click)="routeToObject(group.name, element.__key)">edit</mat-icon>
+                                                <mat-icon (click)="routeToObject(group.name, element.__key)">edit
+                                                </mat-icon>
                                             </button>
                                         </td>
                                     </ng-container>
