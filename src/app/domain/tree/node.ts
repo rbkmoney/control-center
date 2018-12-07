@@ -133,7 +133,7 @@ export abstract class Node<T extends Structure = Type> {
                 return 'list';
             case 'map':
                 if (this.isFake) {
-                    return 'map-item';
+                    return JSON.stringify(this.children.map((child) => child.localValue));
                 }
                 return 'map';
             case 'enum':
@@ -172,7 +172,7 @@ export abstract class Node<T extends Structure = Type> {
                 return 'list';
             case 'map':
                 if (this.isFake) {
-                    return 'map-item';
+                    return JSON.stringify(this.children.map((child) => child.initLocalValue));
                 }
                 return 'map';
             case 'enum':
