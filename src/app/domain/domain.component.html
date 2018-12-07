@@ -37,8 +37,12 @@
 
                                     <ng-container matColumnDef="actions" stickyEnd>
                                         <th mat-header-cell *matHeaderCellDef></th>
-                                        <td mat-cell *matCellDef="let element" style="width:1px">
-                                            <button mat-icon-button (click)="routeToObject(group.name, element.__key)">
+                                        <td mat-cell *matCellDef="let element" style="width:1px; white-space: nowrap">
+                                            <button mat-icon-button
+                                                    (click)="openTab(element.__node.children[1].children[0], true)">
+                                                <mat-icon>visibility</mat-icon>
+                                            </button>
+                                            <button mat-icon-button (click)="routeToObject(element.__node)">
                                                 <mat-icon>edit</mat-icon>
                                             </button>
                                         </td>
@@ -66,15 +70,14 @@
                 <ng-container *ngFor="let model of tabsModels; index as i">
                     <mat-tab>
                         <ng-template mat-tab-label>
-                            <span>{{model.metadata.name}}</span>
+                            <span>{{model.node.metadata.name}}</span>
                             <button mat-icon-button (click)="closeTab(model)" style="margin-left:5px">
                                 <mat-icon class="mat-icon-rtl-mirror">close</mat-icon>
                             </button>
                         </ng-template>
                         <div style="padding: 20px">
-                            <div *ngFor="let child of model.children; index as i">
-                                <cc-tree [model]="child" (foundNode)="foundNode($event)"></cc-tree>
-                            </div>
+                            <cc-tree *ngIf="!model.isJSON" [model]="model.node" (foundNode)="openTab($event)"></cc-tree>
+                            <cc-thrift-json *ngIf="model.isJSON" [object]="model.node.value"></cc-thrift-json>
                         </div>
                     </mat-tab>
                 </ng-container>

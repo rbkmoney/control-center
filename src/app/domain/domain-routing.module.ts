@@ -17,7 +17,7 @@ import { ObjectComponent } from './object/object.component';
                 }
             },
             {
-                path: 'domain/object/:id/:ref',
+                path: 'domain/object/:ref',
                 component: ObjectComponent,
                 canActivate: [AppAuthGuardService],
                 data: {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { MetadataService, Type } from '../metadata/metadata.service';
@@ -20,7 +21,7 @@ export class DomainService {
     node$ = new BehaviorSubject<Node>(null);
     isLoading$ = new BehaviorSubject<boolean>(false);
 
-    constructor(private domainService: ThriftDomainService, private metadataService: MetadataService, private fb: FormBuilder) {
+    constructor(private domainService: ThriftDomainService, private metadataService: MetadataService, private fb: FormBuilder, private router: Router) {
         this.updateSnapshot();
         this.initMetadata();
     }
@@ -78,9 +79,13 @@ export class DomainService {
         return this.commit({insert: op});
     }
 
-    getNode(objectName: string, key: string): Node {
+    getKey(node: Node) {
+        return stringify(node.children[0].children[0].initValue);
+    }
+
+    getNode(key: string): Node {
         return this.node$.getValue() ? this.node$.getValue().children.find((child) => {
-            return child.children[1].select.selected === objectName && key === stringify(child.children[0].children[0].initValue);
+            return key === this.getKey(child);
         }) : null;
     }
 }

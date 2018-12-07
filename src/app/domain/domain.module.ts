@@ -24,6 +24,7 @@ import { DomainService } from './domain.service';
 import { MetadataModule } from '../metadata/metadata.module';
 import { TreeModule } from './tree/tree.module';
 import { ObjectComponent } from './object/object.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import { ObjectComponent } from './object/object.component';
         MatExpansionModule,
         MatToolbarModule,
         MatBadgeModule,
-        RouterModule
+        RouterModule,
+        SharedModule
     ],
     declarations: [
         DomainComponent,

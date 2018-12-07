@@ -18,7 +18,7 @@ export class DomainComponent {
     version: number;
     snapshot: Snapshot;
     node: Node;
-    tabsModels: Node[] = [];
+    tabsModels: Array<{ node?: Node, isJSON?: boolean }> = [];
     selectedModel: number;
     isLoading = false;
     isDomainLoading = false;
@@ -41,6 +41,7 @@ export class DomainComponent {
         this.snapshot = snapshot;
         this.node = node;
         if (node) {
+            const FAKE_COLUMN = '__node';
             this.groups = (this.metadata as any).type.valueType.fields.map((field) => {
                 const {name} = field;
                 const nodes = this.node.children.filter((child) => child.children[1].select.selected === name);
@@ -51,11 +52,11 @@ export class DomainComponent {
                             res[child.field.name + '.' + c.field.name] = c;
                         }
                     }
-                    res.__key = stringify(n.children[0].children[0].initValue);
+                    res[FAKE_COLUMN] = n;
                     return res;
                 });
                 const displayedColumns = elements[0] ? Object.keys(elements[0] || {}) : [];
-                displayedColumns.splice(displayedColumns.findIndex((c) => c === '__key'), 1);
+                displayedColumns.splice(displayedColumns.findIndex((c) => c === FAKE_COLUMN), 1);
                 return {
                     elements,
                     displayedColumns,
@@ -99,12 +100,13 @@ export class DomainComponent {
         }
     }
 
-    foundNode(node: Node) {
-        const idx = this.tabsModels.findIndex((tabModel) => node === tabModel);
+    openTab(node: Node, isJSON = false) {
+        const idx = this.tabsModels.findIndex((tabModel) => node === tabModel.node);
         if (idx >= 0) {
             this.selectedModel = idx;
+            this.tabsModels[idx].isJSON = isJSON;
         } else {
-            this.tabsModels.push(node);
+            this.tabsModels.push({node, isJSON});
             this.selectedModel = this.tabsModels.length - 1;
         }
     }
@@ -136,11 +138,11 @@ export class DomainComponent {
         }, this.commitErrorHandler);
     }
 
-    closeTab(model: Node) {
+    closeTab(model) {
         this.tabsModels.splice(this.tabsModels.findIndex((tabModel) => model === tabModel), 1);
     }
 
-    routeToObject(objectName: string, key: string) {
-        this.router.navigateByUrl(`/domain/object/${objectName}/${key}`);
+    routeToObject(node: Node) {
+        this.router.navigateByUrl(`/domain/object/${this.domainService.getKey(node)}`);
     }
 }
