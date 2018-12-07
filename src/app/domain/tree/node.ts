@@ -62,7 +62,7 @@ export abstract class Node<T extends Structure = Type> {
         selected?: string;
         selectionChange({value}): any;
     };
-    add: (value?: any) => any;
+    add?: (value?: any) => any;
     initValue?: any;
     isNull: boolean;
 
@@ -273,6 +273,17 @@ export abstract class Node<T extends Structure = Type> {
 
     extractData() {
         return this.metadata.toThrift(this.value);
+    }
+
+    get isRemovable() {
+        return Boolean(this.parent && this.parent.add);
+    }
+
+    remove() {
+        if (this.parent) {
+            const idx = this.parent.children.findIndex((c) => c === this);
+            return this.parent.children.splice(idx, 1);
+        }
     }
 }
 

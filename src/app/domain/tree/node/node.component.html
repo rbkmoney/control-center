@@ -53,6 +53,9 @@
                 style="margin-left:5px">
             <mat-icon>link</mat-icon>
         </button>
+        <button *ngIf="node.isRemovable" mat-icon-button class="icon-button" (click)="node.remove()" color="warn">
+            <mat-icon>remove</mat-icon>
+        </button>
         <button *ngIf="node.add" mat-icon-button class="icon-button" (click)="node.add()">
             <mat-icon>add</mat-icon>
             <mat-icon class="badge" *ngIf="node.getChildIcon" [color]="node.getChildIcon().color">
