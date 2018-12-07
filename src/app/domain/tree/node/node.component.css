@@ -28,6 +28,11 @@ ul.list__root {
     background: rgb(190, 227, 203);
 }
 
+.invalid {
+    background: rgb(255, 217, 204);
+}
+
+
 .icon-button {
 }
 

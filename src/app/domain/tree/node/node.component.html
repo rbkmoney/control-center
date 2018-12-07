@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item" *ngIf="isRenderRoot"
-     [class.changed]="node.isChanged">
+     [class.changed]="node.isChanged" [class.invalid]="!node.valid">
     <div style="position: relative;white-space: nowrap">
         <button mat-icon-button class="icon-button" [disabled]="expandButtonDisabled" (click)="toggle(node, true)">
             <mat-icon style="color: #ccc">{{expandAllIcon}}</mat-icon>
@@ -45,7 +45,7 @@
         </div>
 
     </div>
-    <div>
+    <div style="white-space: nowrap;">
         <button mat-icon-button
                 *ngIf="node.isRef"
                 [attr.aria-label]="'open in tab'"
@@ -56,7 +56,8 @@
         <button *ngIf="node.isRemovable" mat-icon-button class="icon-button" (click)="node.remove()" color="warn">
             <mat-icon>remove</mat-icon>
         </button>
-        <button *ngIf="node.add" mat-icon-button class="icon-button" (click)="node.add()">
+        <button *ngIf="node.add && !node.isNull" mat-icon-button class="icon-button" (click)="node.add()"
+                [matBadge]="node.children ? node.children.length : 0">
             <mat-icon>add</mat-icon>
             <mat-icon class="badge" *ngIf="node.getChildIcon" [color]="node.getChildIcon().color">
                 {{node.getChildIcon().name}}
