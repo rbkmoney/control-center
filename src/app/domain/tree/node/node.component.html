@@ -1,28 +1,12 @@
 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item" *ngIf="isRenderRoot"
      [class.changed]="node.isChanged">
     <div style="position: relative;white-space: nowrap">
-        <button mat-icon-button
-                [attr.aria-label]="'toggle'"
-                class="icon-button"
-                [disabled]="disabled"
-                (click)="toggle(node, true)">
-            <mat-icon class="mat-icon-rtl-mirror" style="color: #ccc">
-                {{node.hasChildren ? expanded(node) ? 'arrow_upward' : 'arrow_downward' : ''}}
-            </mat-icon>
+        <button mat-icon-button class="icon-button" [disabled]="expandButtonDisabled" (click)="toggle(node, true)">
+            <mat-icon style="color: #ccc">{{expandAllIcon}}</mat-icon>
         </button>
-        <button mat-icon-button
-                [attr.aria-label]="'toggle'"
-                class="icon-button"
-                [disabled]="disabled"
-                (click)="toggle(node)">
-
-            <mat-icon class="mat-icon-rtl-mirror">
-                {{node.hasChildren ? expanded(node) ? 'expand_more' : 'chevron_right' : ''}}
-            </mat-icon>
-
-            <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.icon" [color]="node.icon.color || 'primary'">
-                {{node.icon.name}}
-            </mat-icon>
+        <button mat-icon-button class="icon-button" [disabled]="expandButtonDisabled" (click)="toggle(node)">
+            <mat-icon [color]="expandIcon.color">{{expandIcon.name}}</mat-icon>
+            <mat-icon *ngIf="badgeIcon" [color]="badgeIcon.color" class="badge">{{badgeIcon.name}}</mat-icon>
         </button>
     </div>
     <div [ngSwitch]="node.list" fxFlex="grow">
@@ -65,20 +49,20 @@
             [attr.aria-label]="'open in tab'"
             (click)="findNode(node)"
             style="margin-left:5px">
-        <mat-icon class="mat-icon-rtl-mirror">link</mat-icon>
+        <mat-icon>link</mat-icon>
     </button>
     <button mat-icon-button
             class="icon-button"
             (click)="node.add()" *ngIf="node.add">
-        <mat-icon class="mat-icon-rtl-mirror">
+        <mat-icon>
             add
         </mat-icon>
 
-        <mat-icon class="mat-icon-rtl-mirror badge"
+        <mat-icon class="badge"
                   *ngIf="node.metadata.structure === 'list' || node.metadata.structure === 'set'"
                   color="primary">lens
         </mat-icon>
-        <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.metadata.structure === 'map'"
+        <mat-icon class="badge" *ngIf="node.metadata.structure === 'map'"
                   color="primary">
             view_stream
         </mat-icon>
@@ -86,28 +70,32 @@
     <mat-checkbox [ngModel]="!node.isNull" (ngModelChange)="node.isNull = !$event"
                   [disabled]="!node.isNullable"></mat-checkbox>
 </div>
-<ul *ngIf="expanded(node) || !isRenderRoot" class="list" [class.list__expanded]="expanded(node)"
+<ul *ngIf="expanded(node) || !isRenderRoot"
+    class="list"
+    [class.list__expanded]="expanded(node)"
     [class.list__root]="!isRenderRoot"
-    [class.pair]="node.pair">
+    [class.pair]="false">
     <li *ngFor="let child of node.children; index as i" class="list__item">
         <cc-node [node]="child" [findNode]="findNode" [expanded]="expanded" [toggle]="toggle"></cc-node>
     </li>
     <li *ngIf="node.add" class="list__item">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item">
             <div style="position: relative;white-space: nowrap">
-                <button mat-icon-button class="icon-button"><mat-icon class="mat-icon-rtl-mirror"></mat-icon></button>
+                <button mat-icon-button class="icon-button">
+                    <mat-icon></mat-icon>
+                </button>
                 <button mat-icon-button
                         class="icon-button"
                         (click)="node.add()">
-                    <mat-icon class="mat-icon-rtl-mirror">
+                    <mat-icon>
                         add
                     </mat-icon>
 
-                    <mat-icon class="mat-icon-rtl-mirror badge"
+                    <mat-icon class="badge"
                               *ngIf="node.metadata.structure === 'list' || node.metadata.structure === 'set'"
                               color="primary">lens
                     </mat-icon>
-                    <mat-icon class="mat-icon-rtl-mirror badge" *ngIf="node.metadata.structure === 'map'"
+                    <mat-icon class="badge" *ngIf="node.metadata.structure === 'map'"
                               color="primary">
                         view_stream
                     </mat-icon>

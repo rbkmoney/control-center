@@ -24,7 +24,7 @@ export class NodeComponent {
     constructor() {
     }
 
-    get disabled() {
+    get expandButtonDisabled() {
         return !this.node.hasChildren || this.node.isNull;
     }
 
@@ -34,5 +34,27 @@ export class NodeComponent {
 
     get isRenderRoot() {
         return !this.isRoot || (this.isRoot && !this.withoutRoot);
+    }
+
+    get expandIcon() {
+        if (this.node.hasChildren) {
+            return {name: this.expanded(this.node) ? 'expand_more' : 'chevron_right'};
+        } else if (this.node.icon) {
+            return this.node.icon;
+        }
+        return {name: ''};
+    }
+
+    get badgeIcon() {
+        if (this.node.icon && this.expandIcon && this.expandIcon.name !== this.node.icon.name) {
+            return this.node.icon;
+        }
+    }
+
+    get expandAllIcon() {
+        if (this.node.hasChildren) {
+            return this.expanded(this.node) ? 'arrow_upward' : 'arrow_downward';
+        }
+        return '';
     }
 }

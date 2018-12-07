@@ -62,7 +62,6 @@ export abstract class Node<T extends Structure = Type> {
         selected?: string;
         selectionChange({value}): any;
     };
-    pair = false;
     add: (value?: any) => any;
     initValue?: any;
     isNull: boolean;
@@ -396,7 +395,7 @@ export class ListNode extends Node<MetaList> {
     }
 
     getChildIcon() {
-        return {name: 'lens'};
+        return {name: 'lens', color: 'primary'};
     }
 }
 
@@ -406,7 +405,6 @@ export class SetNode extends ListNode {
 export class MapNode extends Node<MetaMap> {
     createChild = (v = []) => {
         const item = createNode({parent: this, initValue: v});
-        item.pair = true;
         item.children = [
             createNode({metadata: this.metadata.keyType, initValue: v[0], parent: item}),
             createNode({metadata: this.metadata.valueType, initValue: v[1], parent: item})
@@ -439,12 +437,12 @@ export class MapNode extends Node<MetaMap> {
 
     getChildIcon(node) {
         if (node.isFake) {
-            return {name: 'view_stream'};
+            return {name: 'view_stream', color: 'primary'};
         }
         if (this.children[0] === node) {
             return {name: 'vpn_key', color: 'accent'};
         }
-        return {name: 'stop'};
+        return {name: 'stop', color: 'primary'};
     }
 }
 
