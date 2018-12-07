@@ -3,15 +3,22 @@
         <div>DomainObject/{{group}}</div>
         <div style="flex: 1 1 auto"></div>
         <div *ngIf="node">
-            <button mat-icon-button *ngIf="!node.valid">
+            <button mat-icon-button
+                    *ngIf="!node.valid"
+                    matBadgePosition="after"
+                    [matBadge]="node.errorsCount">
                 <mat-icon color="warn">notification_important</mat-icon>
             </button>
             <button mat-icon-button color="warn">
                 <mat-icon>delete</mat-icon>
             </button>
-            <button mat-icon-button color="primary" [matBadge]="node.changesCount"
-                    matBadgePosition="after" [disabled]="!node.valid || !node.changesCount"
-                    [matBadgeHidden]="!node.changesCount" [matBadgeDisabled]="!node.valid || !node.changesCount">
+            <button mat-icon-button
+                    color="primary"
+                    [disabled]="!node.valid || !node.changesCount"
+                    matBadgePosition="after"
+                    [matBadge]="node.changesCount"
+                    [matBadgeHidden]="!node.changesCount"
+                    [matBadgeDisabled]="!node.valid || !node.changesCount">
                 <mat-icon>save</mat-icon>
             </button>
         </div>

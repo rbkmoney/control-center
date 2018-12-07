@@ -207,6 +207,16 @@ export abstract class Node<T extends Structure = Type> {
         return count;
     }
 
+    get errorsCount(): number {
+        let count = this.control ? +this.control.invalid : 0;
+        if (!count && Array.isArray(this.children)) {
+            for (const child of this.children) {
+                count += child.errorsCount;
+            }
+        }
+        return count;
+    }
+
     get valid(): boolean {
         if (this.control && this.control.invalid) {
             return false;
