@@ -9,6 +9,9 @@
                     [matBadge]="node.errorsCount">
                 <mat-icon color="warn">notification_important</mat-icon>
             </button>
+            <button mat-icon-button (click)="preview = !preview">
+                <mat-icon>{{preview ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
             <button mat-icon-button color="warn">
                 <mat-icon>delete</mat-icon>
             </button>
@@ -27,6 +30,6 @@
 <mat-progress-bar mode="indeterminate" *ngIf="!node"></mat-progress-bar>
 <div class="card-container" fxLayout="column" fxLayoutGap="20px" *ngIf="node">
     <mat-card style="overflow: auto">
-        <cc-tree [model]="node" [withoutRoot]="true"></cc-tree>
+        <cc-tree [model]="node" [withoutRoot]="true" [preview]="preview"></cc-tree>
     </mat-card>
 </div>

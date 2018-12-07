@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { TreeComponent } from './tree.component';
 import { NodeComponent } from './node/node.component';
 import { LabelComponent } from './node/label/label.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -30,7 +31,8 @@ import { LabelComponent } from './node/label/label.component';
         MatSlideToggleModule,
         MatBadgeModule,
         MatCheckboxModule,
-        FormsModule
+        FormsModule,
+        SharedModule
     ],
     declarations: [
         TreeComponent,

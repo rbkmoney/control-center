@@ -448,7 +448,7 @@ export class MapNode extends Node<MetaMap> {
         if (this.isFake) {
             return this.children.map((child) => child.value);
         }
-        return new Map(this.children.map((child) => child.value));
+        return this.children.map((child) => child.value);
     }
 
     getChildIcon(node) {

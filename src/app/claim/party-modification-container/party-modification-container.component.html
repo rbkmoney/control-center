@@ -6,7 +6,7 @@
                 <ng-template mat-tab-label>
                     {{'unit ' + (index + 1)}} <span>{{unit.saved ? '' : '*'}}</span>
                 </ng-template>
-                <cc-thrift-json [object]="unit.modificationUnit"></cc-thrift-json>
+                <cc-thrift-json [object]="unit.modificationUnit | ccThriftEncode"></cc-thrift-json>
                 <button *ngIf="!unit.saved" mat-button color="warn" (click)="remove(unit.typeHash)">REMOVE</button>
             </mat-tab>
         </mat-tab-group>

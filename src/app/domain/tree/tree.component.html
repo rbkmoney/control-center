@@ -1,2 +1,3 @@
-<cc-node *ngIf="model" [node]="model" [findNode]="findNode" [expanded]="expandedByNode" [toggle]="toggle"
+<cc-node *ngIf="model && !preview" [node]="model" [findNode]="findNode" [expanded]="expandedByNode" [toggle]="toggle"
          [root]="true" [withoutRoot]="withoutRoot"></cc-node>
+<cc-thrift-json *ngIf="model && preview" [object]="model.value"></cc-thrift-json>

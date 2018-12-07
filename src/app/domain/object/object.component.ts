@@ -11,6 +11,7 @@ import { Node } from '../tree/node';
 })
 export class ObjectComponent implements OnInit {
     node: Node;
+    preview = false;
 
     constructor(private domainService: DomainService, private route: ActivatedRoute, private router: Router) {
     }

@@ -76,8 +76,8 @@
                             </button>
                         </ng-template>
                         <div style="padding: 20px">
-                            <cc-tree *ngIf="!model.isJSON" [model]="model.node" (foundNode)="openTab($event)"></cc-tree>
-                            <cc-thrift-json *ngIf="model.isJSON" [object]="model.node.value"></cc-thrift-json>
+                            <cc-tree [model]="model.node" (foundNode)="openTab($event)"
+                                     [preview]="model.isJSON"></cc-tree>
                         </div>
                     </mat-tab>
                 </ng-container>

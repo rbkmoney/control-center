@@ -19,6 +19,8 @@ export class TreeComponent implements OnChanges {
     expanded?: boolean;
     @Input()
     withoutRoot = false;
+    @Input()
+    preview = false;
 
     @Output()
     foundNode: EventEmitter<Node> = new EventEmitter();
