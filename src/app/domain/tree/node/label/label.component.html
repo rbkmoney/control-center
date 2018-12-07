@@ -1,6 +1,6 @@
 <span *ngIf="node.field">
-{{node.field.name}}<span style="color:darkred">{{node.field.option === 'required' ? '*' : ''}}</span>
+{{node.field.name}}<span style="color:darkred">{{node.field.option !== 'optional' ? '*' : ''}}</span>
 </span>
-<span style="color:gray">
-{{node.field ? ' (' : ''}}{{node.structure === 'map-item' ? typeName.replace('map', '') : typeName}}{{node.field ? ')' : ''}}
+<span style="color:gray" *ngIf="node.typeLabel">
+{{node.typeLabel}}
 </span>

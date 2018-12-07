@@ -57,4 +57,8 @@ export class NodeComponent {
         }
         return '';
     }
+
+    get isRenderChildren() {
+        return this.expanded(this.node) || !this.isRenderRoot;
+    }
 }

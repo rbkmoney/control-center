@@ -9,7 +9,7 @@
             <mat-icon *ngIf="badgeIcon" [color]="badgeIcon.color" class="badge">{{badgeIcon.name}}</mat-icon>
         </button>
     </div>
-    <div [ngSwitch]="node.list" fxFlex="grow">
+    <div [ngSwitch]="node.list" fxFlex="grow" style="overflow: hidden;">
 
         <mat-form-field *ngSwitchCase="'select'" class="field">
             <mat-label>
@@ -39,8 +39,9 @@
             <cc-label [node]="node"></cc-label>
         </mat-slide-toggle>
 
-        <div *ngSwitchDefault>
+        <div *ngSwitchDefault style="white-space: nowrap">
             <cc-label [node]="node"></cc-label>
+            <span style="color:lightgray" *ngIf="!isRenderChildren && node.typeLabel">{{node}}</span>
         </div>
 
     </div>
@@ -62,7 +63,7 @@
     <mat-checkbox [ngModel]="!node.isNull" (ngModelChange)="node.isNull = !$event"
                   [disabled]="!node.isNullable"></mat-checkbox>
 </div>
-<ul *ngIf="expanded(node) || !isRenderRoot"
+<ul *ngIf="isRenderChildren"
     class="list"
     [class.list__expanded]="expanded(node)"
     [class.list__root]="!isRenderRoot"
