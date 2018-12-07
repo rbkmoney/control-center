@@ -208,27 +208,26 @@ export abstract class Node<T extends Structure = Type> {
     }
 
     get errorsCount(): number {
-        let count = this.control ? +this.control.invalid : 0;
-        if (!count && Array.isArray(this.children)) {
-            for (const child of this.children) {
-                count += child.errorsCount;
+        let count = 0;
+        if (!this.isNull) {
+            if (this.control) {
+                count += Number(this.control.invalid);
+            }
+            if (!count && Array.isArray(this.children)) {
+                for (const child of this.children) {
+                    count += child.errorsCount;
+                }
             }
         }
         return count;
     }
 
     get valid(): boolean {
-        if (this.control && this.control.invalid) {
-            return false;
-        }
-        if (Array.isArray(this.children)) {
-            for (const child of this.children) {
-                if (!child.valid) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return !this.errorsCount;
+    }
+
+    get isRemovable() {
+        return Boolean(this.parent && this.parent.add);
     }
 
     getChildIcon(node?: Node): { name: string; color?: string } {
@@ -283,10 +282,6 @@ export abstract class Node<T extends Structure = Type> {
 
     extractData() {
         return this.metadata.toThrift(this.value);
-    }
-
-    get isRemovable() {
-        return Boolean(this.parent && this.parent.add);
     }
 
     remove() {

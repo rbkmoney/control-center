@@ -16,6 +16,7 @@ import {
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
 
 import { DomainRoutingModule } from './domain-routing.module';
 import { DomainComponent } from './domain.component';
@@ -43,7 +44,8 @@ import { ObjectComponent } from './object/object.component';
         MatTableModule,
         MatExpansionModule,
         MatToolbarModule,
-        MatBadgeModule
+        MatBadgeModule,
+        RouterModule
     ],
     declarations: [
         DomainComponent,
