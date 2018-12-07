@@ -44,29 +44,21 @@
         </div>
 
     </div>
-    <button mat-icon-button
-            *ngIf="node.isRef"
-            [attr.aria-label]="'open in tab'"
-            (click)="findNode(node)"
-            style="margin-left:5px">
-        <mat-icon>link</mat-icon>
-    </button>
-    <button mat-icon-button
-            class="icon-button"
-            (click)="node.add()" *ngIf="node.add">
-        <mat-icon>
-            add
-        </mat-icon>
-
-        <mat-icon class="badge"
-                  *ngIf="node.metadata.structure === 'list' || node.metadata.structure === 'set'"
-                  color="primary">lens
-        </mat-icon>
-        <mat-icon class="badge" *ngIf="node.metadata.structure === 'map'"
-                  color="primary">
-            view_stream
-        </mat-icon>
-    </button>
+    <div>
+        <button mat-icon-button
+                *ngIf="node.isRef"
+                [attr.aria-label]="'open in tab'"
+                (click)="findNode(node)"
+                style="margin-left:5px">
+            <mat-icon>link</mat-icon>
+        </button>
+        <button *ngIf="node.add" mat-icon-button class="icon-button" (click)="node.add()">
+            <mat-icon>add</mat-icon>
+            <mat-icon class="badge" *ngIf="node.getChildIcon" [color]="node.getChildIcon().color">
+                {{node.getChildIcon().name}}
+            </mat-icon>
+        </button>
+    </div>
     <mat-checkbox [ngModel]="!node.isNull" (ngModelChange)="node.isNull = !$event"
                   [disabled]="!node.isNullable"></mat-checkbox>
 </div>
@@ -84,20 +76,10 @@
                 <button mat-icon-button class="icon-button">
                     <mat-icon></mat-icon>
                 </button>
-                <button mat-icon-button
-                        class="icon-button"
-                        (click)="node.add()">
-                    <mat-icon>
-                        add
-                    </mat-icon>
-
-                    <mat-icon class="badge"
-                              *ngIf="node.metadata.structure === 'list' || node.metadata.structure === 'set'"
-                              color="primary">lens
-                    </mat-icon>
-                    <mat-icon class="badge" *ngIf="node.metadata.structure === 'map'"
-                              color="primary">
-                        view_stream
+                <button mat-icon-button class="icon-button" (click)="node.add()">
+                    <mat-icon>add</mat-icon>
+                    <mat-icon class="badge" *ngIf="node.getChildIcon" [color]="node.getChildIcon().color">
+                        {{node.getChildIcon().name}}
                     </mat-icon>
                 </button>
             </div>

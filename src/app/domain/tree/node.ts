@@ -221,7 +221,7 @@ export abstract class Node<T extends Structure = Type> {
         return true;
     }
 
-    getChildIcon(node: Node): { name: string; color?: string } {
+    getChildIcon(node?: Node): { name: string; color?: string } {
         return undefined;
     }
 
@@ -436,13 +436,13 @@ export class MapNode extends Node<MetaMap> {
     }
 
     getChildIcon(node) {
-        if (node.isFake) {
-            return {name: 'view_stream', color: 'primary'};
-        }
-        if (this.children[0] === node) {
+        if (node && !node.isFake) {
+            if (this.children[0] === node) {
+                return {name: 'stop', color: 'primary'};
+            }
             return {name: 'vpn_key', color: 'accent'};
         }
-        return {name: 'stop', color: 'primary'};
+        return {name: 'view_stream', color: 'primary'};
     }
 }
 
