@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { Type } from '../../metadata/metadata.service';
-import { createNode, Node } from './node';
+import { createNode, Node } from './model';
 
 @Component({
     selector: 'cc-tree',

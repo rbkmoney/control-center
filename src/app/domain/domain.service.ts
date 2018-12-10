@@ -8,7 +8,7 @@ import { MetadataService, Type } from '../metadata/metadata.service';
 import { Operation, Snapshot } from '../gen-damsel/domain_config';
 import { DomainObject } from '../gen-damsel/domain';
 import * as DomainConfigTypes from '../thrift/gen-nodejs/domain_config_types';
-import { createNode, Node } from './tree/node';
+import { createNode, Node } from './tree/model';
 import { stringify } from '../shared/stringify';
 
 @Injectable()

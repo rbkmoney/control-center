@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Node } from '../node';
+import { Node } from '../model';
 
 @Component({
     selector: 'cc-node',

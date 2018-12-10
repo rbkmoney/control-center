@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { DomainService } from './domain.service';
 import { Type } from '../metadata/metadata.service';
-import { Node } from './tree/node';
+import { Node } from './tree/model';
 import { stringify } from '../shared/stringify';
 import { Snapshot } from '../gen-damsel/domain_config';
 import { Exception } from '../thrift/exception';

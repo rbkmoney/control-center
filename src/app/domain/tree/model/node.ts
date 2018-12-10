@@ -1,7 +1,7 @@
 import { FormControl, Validators } from '@angular/forms';
 
-import { Const, Enum, Exception, Field, MetaList, MetaMap, MetaSet, Simple, Struct, Structure, Type, TypeDef, Union } from '../../metadata/metadata.service';
-import { stringify } from '../../shared/stringify';
+import { Const, Enum, Exception, Field, MetaList, MetaMap, MetaSet, Simple, Struct, Structure, Type, TypeDef, Union } from '../../../metadata/metadata.service';
+import { stringify } from '../../../shared/stringify';
 
 export type ListType = 'select' | 'toggle' | 'field';
 

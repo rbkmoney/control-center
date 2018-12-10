@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 
 import { DomainService } from '../domain.service';
-import { Node } from '../tree/node';
+import { Node } from '../tree/model';
 
 @Component({
     templateUrl: 'object.component.html',
