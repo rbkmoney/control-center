@@ -73,11 +73,7 @@ export enum CONTROL_TYPE {
 export class TypedControl extends FormControl {
     static TYPE: CONTROL_TYPE;
     type: CONTROL_TYPE;
-
-    select?: {
-        options: { name: string, value: string | number | boolean }[];
-        selectionChange?({value}): any;
-    };
+    options?: { name: string, value: string | number | boolean }[];
 
     static fromType(type: CONTROL_TYPE) {
         const formControl = new TypedControl();
@@ -250,12 +246,7 @@ export class EnumNode extends Node<Enum> {
         const {metadata, initValue} = params;
         this.control = TypedControl.fromType(CONTROL_TYPE.SELECT);
         this.control.setValue(initValue);
-        this.control.select = {
-            options: metadata.items.map((item) => ({name: item.name || String(item.value), value: item.value})),
-            selectionChange: ({value: v}) => {
-                this.control.setValue(v);
-            }
-        };
+        this.control.options = metadata.items.map((item) => ({name: item.name || String(item.value), value: item.value}));
     }
 
     get value() {
@@ -302,32 +293,28 @@ export class UnionNode extends Node<Union> {
         super(params);
         const {metadata, initValue} = params;
         this.control = TypedControl.fromType(CONTROL_TYPE.SELECT);
-        this.control.select = {
-            options: (metadata as Union).fields.map(({name}) => ({name, value: name}))
-        };
-        const selectUnionChildren = (fieldName: string) => {
-            this.control.setValue(fieldName);
-            const childField: Field = (metadata as Union).fields.find(({name}) => name === fieldName);
+        this.control.options = (metadata as Union).fields.map(({name}) => ({name, value: name}));
+        this.control.valueChanges.subscribe((value) => {
+            const childField: Field = (metadata as Union).fields.find(({name}) => name === value);
             if (childField) {
                 this.children = [createNode({
                     metadata: childField.type,
                     field: childField,
-                    initValue: initValue ? initValue[fieldName] : undefined,
+                    initValue: initValue ? initValue[value] : undefined,
                     parent: this
                 })];
             } else {
                 this.children = [];
             }
-        };
-        selectUnionChildren(initValue ? Object.keys(initValue).find((v) => initValue[v] !== null) : undefined);
-        this.control.select.selectionChange = ({value: v}) => selectUnionChildren(v);
+        });
+        this.control.setValue(initValue ? Object.keys(initValue).find((v) => initValue[v] !== null) : undefined);
     }
 
     get value() {
         if (this.isNull) {
             return null;
         }
-        return this.control.select.options.reduce((obj, option) => {
+        return this.control.options.reduce((obj, option) => {
             obj[option.name] = option.value === this.control.value && this.children && this.children[0]
                 ? this.children[0].value
                 : null;
@@ -338,14 +325,11 @@ export class UnionNode extends Node<Union> {
 }
 
 export class ListNode extends Node<MetaList> {
-    createChild = (v: any) => {
-        const child = createNode({
-            metadata: this.metadata.valueType,
-            parent: this,
-            initValue: v
-        });
-        return child;
-    };
+    createChild = (v: any) => createNode({
+        metadata: this.metadata.valueType,
+        parent: this,
+        initValue: v
+    });
 
     constructor(params: Params<MetaList>) {
         super(params);

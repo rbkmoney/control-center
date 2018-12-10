@@ -16,13 +16,12 @@
                 <mat-label>
                     <cc-label [node]="node"></cc-label>
                 </mat-label>
-                <mat-select (selectionChange)="node.control.select.selectionChange($event)"
-                            [formControl]="node.control">
+                <mat-select [formControl]="node.control">
                     <mat-option>
                         <mat-icon inline style="vertical-align: top">cancel</mat-icon>
                         None
                     </mat-option>
-                    <mat-option *ngFor="let option of node.control.select.options" [value]="option.value">
+                    <mat-option *ngFor="let option of node.control.options" [value]="option.value">
                         {{option.name}}
                     </mat-option>
                 </mat-select>
