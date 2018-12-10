@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Enum as ASTEnum, Field as ASTField, JsonAST, MapType, ThriftType, ValueType } from 'thrift-ts/lib/thrift-parser';
 import Int64 from 'thrift-ts/lib/int64';
+import isNil from 'lodash-es/isNil';
 
 import { model } from '../thrift/model';
 
@@ -231,6 +232,36 @@ export class MetadataService {
 
     constructor(private http: HttpClient) {
         this.get = this.get.bind(this);
+    }
+
+    static isEqualValue(valueA: any, valueB: any) {
+        if (valueA === valueB) {
+            return true;
+        }
+        if (isNil(valueA) || isNil(valueB)) {
+            return false;
+        }
+        if (typeof valueA === 'object' && typeof valueB === 'object') {
+            if (!valueA as any instanceof valueB.constructor) {
+                return false;
+            }
+            if (valueA instanceof Map) {
+                valueA = Array.from(valueA);
+                valueB = Array.from(valueB);
+            }
+            const keysA = Object.keys(valueA);
+            const keysB = Object.keys(valueB);
+            if (keysA.length !== keysB.length) {
+                return false;
+            }
+            for (const key of keysA) {
+                if (!keysB.includes(key) || !MetadataService.isEqualValue(valueA[key], valueB[key])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     // TODO to Metadata like Node

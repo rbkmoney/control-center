@@ -9,19 +9,16 @@
                     [matBadge]="node.errorsCount">
                 <mat-icon color="warn">notification_important</mat-icon>
             </button>
+            <button mat-icon-button (click)="console.log('TODO: reload')">
+                <mat-icon>refresh</mat-icon>
+            </button>
             <button mat-icon-button (click)="preview = !preview">
                 <mat-icon>{{preview ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <button mat-icon-button color="warn">
                 <mat-icon>delete</mat-icon>
             </button>
-            <button mat-icon-button
-                    color="primary"
-                    [disabled]="!node.valid || !node.changesCount"
-                    matBadgePosition="after"
-                    [matBadge]="node.changesCount"
-                    [matBadgeHidden]="!node.changesCount"
-                    [matBadgeDisabled]="!node.valid || !node.changesCount">
+            <button mat-icon-button color="primary" [disabled]="!node.valid || !node.isChanged">
                 <mat-icon>save</mat-icon>
             </button>
         </div>

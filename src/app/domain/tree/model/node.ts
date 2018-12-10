@@ -1,6 +1,21 @@
 import { FormControl, Validators } from '@angular/forms';
 
-import { Const, Enum, Exception, Field, MetaList, MetaMap, MetaSet, Simple, Struct, Structure, Type, TypeDef, Union } from '../../../metadata/metadata.service';
+import {
+    Const,
+    Enum,
+    Exception,
+    Field,
+    MetadataService,
+    MetaList,
+    MetaMap,
+    MetaSet,
+    Simple,
+    Struct,
+    Structure,
+    Type,
+    TypeDef,
+    Union
+} from '../../../metadata/metadata.service';
 import { stringify } from '../../../shared/stringify';
 
 interface Params<T extends Structure = Type> {
@@ -133,17 +148,15 @@ export abstract class Node<T extends Structure = Type> {
     abstract get value(): any;
 
     get isChanged(): boolean {
-        return Boolean(this.hasChanges());
-    }
-
-    get changesCount(): number {
-        let count = +this.isChanged;
-        if (!count && Array.isArray(this.children)) {
+        if (this.isFake) {
             for (const child of this.children) {
-                count += child.changesCount;
+                if (child.isChanged) {
+                    return true;
+                }
             }
+            return false;
         }
-        return count;
+        return !MetadataService.isEqualValue(this.extractData(), this.initValue);
     }
 
     get errorsCount(): number {
@@ -228,19 +241,6 @@ export abstract class Node<T extends Structure = Type> {
             const idx = this.parent.children.findIndex((c) => c === this);
             return this.parent.children.splice(idx, 1);
         }
-    }
-
-    protected hasChanges(): boolean | null {
-        switch (this.initValue) {
-            case undefined:
-                return true;
-            case null:
-                return !this.isNull;
-        }
-        if (this.control) {
-            return this.control.value !== this.initValue.toString();
-        }
-        return null;
     }
 }
 
@@ -400,23 +400,6 @@ export class MapNode extends Node<MetaMap> {
             return this.children.map((child) => child.value);
         }
         return this.children.map((child) => child.value);
-    }
-
-    get isChanged() {
-        const hasChanges = super.hasChanges();
-        if (hasChanges !== null) {
-            return hasChanges;
-        }
-        if (this.isFake) {
-            for (const child of this.children) {
-                if (child.isChanged) {
-                    return true;
-                }
-            }
-        } else if (this.children.length !== (this.initValue as Map<any, any>).size) {
-            return true;
-        }
-        return false;
     }
 
     getChildIcon(node) {

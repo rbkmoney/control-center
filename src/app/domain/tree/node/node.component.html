@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item" *ngIf="isRenderRoot"
-     [class.changed]="!!node.changesCount" [class.invalid]="!node.valid">
+     [class.changed]="node.isChanged" [class.invalid]="!node.valid">
     <div style="position: relative;white-space: nowrap">
         <button mat-icon-button class="icon-button" [disabled]="expandButtonDisabled" (click)="toggle(node, true)">
             <mat-icon style="color: #ccc">{{expandAllIcon}}</mat-icon>
