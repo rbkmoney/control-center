@@ -1,18 +1,23 @@
-<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item" *ngIf="isRenderRoot"
-     [class.changed]="node.isChanged" [class.invalid]="!node.valid">
-    <div style="position: relative;white-space: nowrap">
-        <button mat-icon-button class="icon-button" [disabled]="expandButtonDisabled" (click)="toggle(node, true)">
-            <mat-icon style="color: #ccc">{{expandAllIcon}}</mat-icon>
+<div *ngIf="isRenderRoot"
+     fxLayout="row"
+     fxLayoutGap="10px"
+     fxLayoutAlign=" center"
+     class="node"
+     [class.node_changed]="node.isChanged"
+     [class.node_invalid]="!node.valid">
+    <div class="expand">
+        <button mat-icon-button [disabled]="expandButtonDisabled" (click)="toggle(node, true)" class="expand__all">
+            <mat-icon class="expand__icon">{{expandAllIcon}}</mat-icon>
         </button>
-        <button mat-icon-button class="icon-button" [disabled]="expandButtonDisabled" (click)="toggle(node)">
+        <button mat-icon-button [disabled]="expandButtonDisabled" (click)="toggle(node)">
             <mat-icon [color]="expandIcon.color">{{expandIcon.name}}</mat-icon>
-            <mat-icon *ngIf="badgeIcon" [color]="badgeIcon.color" class="badge">{{badgeIcon.name}}</mat-icon>
+            <mat-icon *ngIf="badgeIcon" [color]="badgeIcon.color" class="icon-badge">{{badgeIcon.name}}</mat-icon>
         </button>
     </div>
-    <div fxFlex="grow" style="overflow: hidden;">
+    <div fxFlex="grow" class="control">
         <ng-container *ngIf="node.control" [ngSwitch]="node.control.type">
 
-            <mat-form-field *ngSwitchCase="controlTypes.SELECT" class="field">
+            <mat-form-field *ngSwitchCase="controlTypes.SELECT" class="control__field">
                 <mat-label>
                     <cc-label [node]="node"></cc-label>
                 </mat-label>
@@ -27,7 +32,7 @@
                 <mat-hint></mat-hint>
             </mat-form-field>
 
-            <mat-form-field *ngSwitchCase="controlTypes.INPUT" class="field">
+            <mat-form-field *ngSwitchCase="controlTypes.INPUT" class="control__field">
                 <mat-label>
                     <cc-label [node]="node"></cc-label>
                 </mat-label>
@@ -41,51 +46,52 @@
 
         </ng-container>
 
-        <div *ngIf="!node.control" style="white-space: nowrap">
+        <div *ngIf="!node.control" class="control__parent">
             <cc-label [node]="node"></cc-label>
-            <span style="color:lightgray" *ngIf="!isRenderChildren && node.typeLabel">{{node.isNull ? 'null' : node}}</span>
+            <span class="control__value"
+                  *ngIf="!isRenderChildren && node.typeLabel">{{node.isNull ? 'null' : node}}</span>
         </div>
 
     </div>
-    <div style="white-space: nowrap;">
-        <button mat-icon-button
-                *ngIf="node.isRef"
-                [attr.aria-label]="'open in tab'"
-                (click)="findNode(node)"
-                style="margin-left:5px">
-            <mat-icon>link</mat-icon>
-        </button>
-        <button *ngIf="node.isRemovable" mat-icon-button class="icon-button" (click)="node.remove()" color="warn">
-            <mat-icon>remove</mat-icon>
-        </button>
-        <button *ngIf="node.add && !node.isNull" mat-icon-button class="icon-button" (click)="node.add()"
-                [matBadge]="node.children ? node.children.length : 0">
-            <mat-icon>add</mat-icon>
-            <mat-icon class="badge" *ngIf="node.getChildIcon" [color]="node.getChildIcon().color">
-                {{node.getChildIcon().name}}
-            </mat-icon>
-        </button>
+    <div class="actions" fxLayout="row" fxLayoutGap="10px">
+        <div>
+            <button *ngIf="node.isRef" mat-icon-button (click)="findNode(node)">
+                <mat-icon>link</mat-icon>
+            </button>
+        </div>
+        <div>
+            <button *ngIf="node.isRemovable" mat-icon-button (click)="node.remove()" color="warn">
+                <mat-icon>remove</mat-icon>
+            </button>
+        </div>
+        <div>
+            <button *ngIf="node.add && !node.isNull" mat-icon-button (click)="node.add()"
+                    [matBadge]="node.children ? node.children.length : 0">
+                <mat-icon>add</mat-icon>
+                <mat-icon class="icon-badge" *ngIf="node.getChildIcon" [color]="node.getChildIcon().color">
+                    {{node.getChildIcon().name}}
+                </mat-icon>
+            </button>
+        </div>
+        <mat-checkbox [ngModel]="!node.isNull" (ngModelChange)="node.isNull = !$event" [disabled]="!node.isNullable">
+        </mat-checkbox>
     </div>
-    <mat-checkbox [ngModel]="!node.isNull" (ngModelChange)="node.isNull = !$event"
-                  [disabled]="!node.isNullable"></mat-checkbox>
 </div>
 <ul *ngIf="isRenderChildren"
     class="list"
-    [class.list__expanded]="expanded(node)"
-    [class.list__root]="!isRenderRoot"
-    [class.pair]="false">
+    [class.list_expanded]="expanded(node)"
+    [class.list_root]="!isRenderRoot"
+    [class.list_pair]="false">
     <li *ngFor="let child of node.children; index as i" class="list__item">
         <cc-node [node]="child" [findNode]="findNode" [expanded]="expanded" [toggle]="toggle"></cc-node>
     </li>
     <li *ngIf="node.add" class="list__item">
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="item">
-            <div style="position: relative;white-space: nowrap">
-                <button mat-icon-button class="icon-button">
-                    <mat-icon></mat-icon>
-                </button>
-                <button mat-icon-button class="icon-button" (click)="node.add()">
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center" class="node">
+            <div class="expand">
+                <button mat-icon-button></button>
+                <button mat-icon-button (click)="node.add()">
                     <mat-icon>add</mat-icon>
-                    <mat-icon class="badge" *ngIf="node.getChildIcon" [color]="node.getChildIcon().color">
+                    <mat-icon *ngIf="node.getChildIcon" class="icon-badge" [color]="node.getChildIcon().color">
                         {{node.getChildIcon().name}}
                     </mat-icon>
                 </button>

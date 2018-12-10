@@ -1,46 +1,82 @@
+.list,
+.node {
+    margin: 0;
+    width: 700px;
+}
+
 ul.list {
     list-style-type: none;
     padding-inline-start: 0;
     border-left: 40px solid white;
 }
 
-ul.list__root {
+ul.list_root {
     border-left: none;
-    /*padding-inline-start: 0;*/
 }
 
-.list__expanded {
+.list_expanded {
     display: block;
 }
 
-.list,
-.item {
-    margin: 0;
-    width: 700px;
+.list_pair {
+    display: flex;
 }
 
-.item > * {
+.list_pair > * {
+    flex: 0 0 50%;
+}
+
+.node > * {
     min-height: 65.5px;
     line-height: 65.5px;
 }
 
-.changed {
-    background: rgb(190, 227, 203);
+.node_changed {
+    background: rgb(232, 255, 232);
 }
 
-.invalid {
-    background: rgb(255, 217, 204);
+.node_invalid {
+    background: rgb(255, 238, 238);
 }
 
-
-.icon-button {
+.expand {
+    position: relative;
+    white-space: nowrap
 }
 
-.field {
+.expand__all:hover .expand__icon {
+    color: #333;
+}
+
+.expand__all[disabled] .expand__icon {
+    display: none;
+}
+
+.expand__icon {
+    color: #ddd;
+}
+
+.control {
+    overflow: hidden;
+}
+
+.control__field {
     width: 100%;
 }
 
-.badge {
+.control__parent {
+    white-space: nowrap;
+}
+
+.control__value {
+    color: #ccc;
+}
+
+.actions {
+    white-space: nowrap;
+}
+
+.icon-badge {
     border-radius: 100%;
     padding: 3px;
     width: 14px;
@@ -51,12 +87,4 @@ ul.list__root {
     position: absolute;
     bottom: 0;
     right: 0;
-}
-
-.pair {
-    display: flex;
-}
-
-.pair > * {
-    flex: 0 0 50%;
 }
