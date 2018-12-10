@@ -118,83 +118,8 @@ export abstract class Node<T extends Structure = Type> {
 
     abstract get value(): any;
 
-    get localValue() {
-        if (this.isNull) {
-            return null;
-        }
-        switch (this.metadata.structure) {
-            case 'exception':
-            case 'struct':
-                return 'struct';
-            case 'union':
-                return 'union';
-            case 'list':
-            case 'set':
-                return 'list';
-            case 'map':
-                if (this.isFake) {
-                    return JSON.stringify(this.children.map((child) => child.localValue));
-                }
-                return 'map';
-            case 'enum':
-                return String(this.select.selected);
-            case 'const':
-            case 'bool':
-            case 'int':
-            case 'i8':
-            case 'i16':
-            case 'i32':
-            case 'i64':
-            case 'double':
-            case 'string':
-            case 'binary':
-                return this.control.value;
-        }
-        console.error('Not mapped type');
-        return this.control.value;
-    }
-
-    get initLocalValue() {
-        if (this.initValue === null) {
-            return null;
-        }
-        if (this.initValue === undefined) {
-            return undefined;
-        }
-        switch (this.metadata.structure) {
-            case 'exception':
-            case 'struct':
-                return 'struct';
-            case 'union':
-                return 'union';
-            case 'list':
-            case 'set':
-                return 'list';
-            case 'map':
-                if (this.isFake) {
-                    return JSON.stringify(this.children.map((child) => child.initLocalValue));
-                }
-                return 'map';
-            case 'enum':
-                return String(this.initValue);
-            case 'const':
-            case 'bool':
-            case 'int':
-            case 'i8':
-            case 'i16':
-            case 'i32':
-            case 'i64':
-            case 'double':
-            case 'string':
-            case 'binary':
-                return String(this.initValue);
-        }
-        console.error('Not mapped type');
-        return String(this.initValue);
-    }
-
-    get isChanged() {
-        return this.initLocalValue !== this.localValue;
+    get isChanged(): boolean {
+        return Boolean(this.hasChanges());
     }
 
     get changesCount(): number {
@@ -289,6 +214,22 @@ export abstract class Node<T extends Structure = Type> {
             const idx = this.parent.children.findIndex((c) => c === this);
             return this.parent.children.splice(idx, 1);
         }
+    }
+
+    protected hasChanges(): boolean | null {
+        switch (this.initValue) {
+            case undefined:
+                return true;
+            case null:
+                return !this.isNull;
+        }
+        if (this.control) {
+            return this.control.value !== this.initValue.toString();
+        }
+        if (this.select) {
+            return this.select.selected !== this.initValue;
+        }
+        return null;
     }
 }
 
@@ -449,6 +390,23 @@ export class MapNode extends Node<MetaMap> {
             return this.children.map((child) => child.value);
         }
         return this.children.map((child) => child.value);
+    }
+
+    get isChanged() {
+        const hasChanges = super.hasChanges();
+        if (hasChanges !== null) {
+            return hasChanges;
+        }
+        if (this.isFake) {
+            for (const child of this.children) {
+                if (child.isChanged) {
+                    return true;
+                }
+            }
+        } else if (this.children.length !== (this.initValue as Map<any, any>).size) {
+            return true;
+        }
+        return false;
     }
 
     getChildIcon(node) {
