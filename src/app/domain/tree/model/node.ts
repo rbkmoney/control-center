@@ -82,25 +82,34 @@ export abstract class Node<T extends Structure = Type> {
     add?: (value?: any) => any;
     control?: NodeControl;
     initValue?: any;
-    isNull: boolean;
 
     protected constructor({metadata, field, initValue, parent}: Params<T> = {}) {
         this.metadata = metadata;
         this.field = field;
         this.initValue = initValue;
         this.parent = parent || null;
-        this.isNull = this.isNullable && initValue === null;
+        this.isNull = this.isNullable && (initValue === null || initValue === undefined);
+    }
+
+    private _isNull: boolean;
+
+    get isNull() {
+        return this._isNull;
+    }
+
+    set isNull(isNull: boolean) {
+        if (this.isNullable) {
+            this._isNull = isNull;
+            if (this.control && this.control.value !== null) {
+                this.control.setValue(null);
+            }
+        }
     }
 
     private _metadata?: T;
 
     get metadata(): T {
         return this._metadata || this.parent.metadata as T;
-    }
-
-    initControl(type: NODE_CONTROL_TYPE) {
-        this.control = new NodeControl();
-        this.control.type = type;
     }
 
     set metadata(metadata: T) {
@@ -174,6 +183,16 @@ export abstract class Node<T extends Structure = Type> {
 
     get isRemovable() {
         return Boolean(this.parent && this.parent.add);
+    }
+
+    initControl(type: NODE_CONTROL_TYPE) {
+        this.control = new NodeControl();
+        this.control.type = type;
+        this.control.valueChanges.subscribe((value) => {
+            if (value === null) {
+                this.isNull = true;
+            }
+        });
     }
 
     getChildIcon(node?: Node): { name: string; color?: string } {

@@ -17,9 +17,8 @@
                     <cc-label [node]="node"></cc-label>
                 </mat-label>
                 <mat-select [formControl]="node.control">
-                    <mat-option>
-                        <mat-icon inline style="vertical-align: top">cancel</mat-icon>
-                        None
+                    <mat-option *ngIf="node.isNullable">
+                        <span><mat-icon inline style="vertical-align: top">cancel</mat-icon>null</span>
                     </mat-option>
                     <mat-option *ngFor="let option of node.control.options" [value]="option.value">
                         {{option.name}}
@@ -44,7 +43,7 @@
 
         <div *ngIf="!node.control" style="white-space: nowrap">
             <cc-label [node]="node"></cc-label>
-            <span style="color:lightgray" *ngIf="!isRenderChildren && node.typeLabel">{{node}}</span>
+            <span style="color:lightgray" *ngIf="!isRenderChildren && node.typeLabel">{{node.isNull ? 'null' : node}}</span>
         </div>
 
     </div>
