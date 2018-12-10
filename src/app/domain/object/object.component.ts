@@ -12,8 +12,10 @@ import { Node } from '../tree/model';
 export class ObjectComponent implements OnInit {
     node: Node;
     preview = false;
+    reload: () => void;
 
     constructor(private domainService: DomainService, private route: ActivatedRoute, private router: Router) {
+        this.reload = domainService.updateSnapshot;
     }
 
     ngOnInit() {

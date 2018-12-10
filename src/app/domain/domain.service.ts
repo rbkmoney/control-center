@@ -21,12 +21,7 @@ export class DomainService {
     node$ = new BehaviorSubject<Node>(null);
     isLoading$ = new BehaviorSubject<boolean>(false);
 
-    constructor(private domainService: ThriftDomainService, private metadataService: MetadataService, private fb: FormBuilder, private router: Router) {
-        this.updateSnapshot();
-        this.initMetadata();
-    }
-
-    updateSnapshot() {
+    updateSnapshot = () => {
         this.isLoading$.next(true);
         this.snapshot$.next(null);
         this.node$.next(null);
@@ -38,6 +33,11 @@ export class DomainService {
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
         });
+    };
+
+    constructor(private domainService: ThriftDomainService, private metadataService: MetadataService, private fb: FormBuilder, private router: Router) {
+        this.updateSnapshot();
+        this.initMetadata();
     }
 
     initMetadata() {
