@@ -9,37 +9,41 @@
             <mat-icon *ngIf="badgeIcon" [color]="badgeIcon.color" class="badge">{{badgeIcon.name}}</mat-icon>
         </button>
     </div>
-    <div [ngSwitch]="node.list" fxFlex="grow" style="overflow: hidden;">
+    <div fxFlex="grow" style="overflow: hidden;">
+        <ng-container *ngIf="node.control" [ngSwitch]="node.control.type">
 
-        <mat-form-field *ngSwitchCase="'select'" class="field">
-            <mat-label>
+            <mat-form-field *ngSwitchCase="controlTypes.SELECT" class="field">
+                <mat-label>
+                    <cc-label [node]="node"></cc-label>
+                </mat-label>
+                <mat-select (selectionChange)="node.control.select.selectionChange($event)"
+                            [formControl]="node.control">
+                    <mat-option>
+                        <mat-icon inline style="vertical-align: top">cancel</mat-icon>
+                        None
+                    </mat-option>
+                    <mat-option *ngFor="let option of node.control.select.options" [value]="option.value">
+                        {{option.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint></mat-hint>
+            </mat-form-field>
+
+            <mat-form-field *ngSwitchCase="controlTypes.INPUT" class="field">
+                <mat-label>
+                    <cc-label [node]="node"></cc-label>
+                </mat-label>
+                <input matInput [formControl]="node.control">
+                <mat-hint></mat-hint>
+            </mat-form-field>
+
+            <mat-slide-toggle *ngSwitchCase="controlTypes.TOGGLE">
                 <cc-label [node]="node"></cc-label>
-            </mat-label>
-            <mat-select (selectionChange)="node.select.selectionChange($event)" [(value)]="node.select.selected">
-                <mat-option>
-                    <mat-icon inline style="vertical-align: top">cancel</mat-icon>
-                    None
-                </mat-option>
-                <mat-option *ngFor="let option of node.select.options" [value]="option.value">
-                    {{option.name}}
-                </mat-option>
-            </mat-select>
-            <mat-hint></mat-hint>
-        </mat-form-field>
+            </mat-slide-toggle>
 
-        <mat-form-field *ngSwitchCase="'field'" class="field">
-            <mat-label>
-                <cc-label [node]="node"></cc-label>
-            </mat-label>
-            <input matInput [formControl]="node.control">
-            <mat-hint></mat-hint>
-        </mat-form-field>
+        </ng-container>
 
-        <mat-slide-toggle *ngSwitchCase="'toggle'">
-            <cc-label [node]="node"></cc-label>
-        </mat-slide-toggle>
-
-        <div *ngSwitchDefault style="white-space: nowrap">
+        <div *ngIf="!node.control" style="white-space: nowrap">
             <cc-label [node]="node"></cc-label>
             <span style="color:lightgray" *ngIf="!isRenderChildren && node.typeLabel">{{node}}</span>
         </div>

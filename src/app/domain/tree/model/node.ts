@@ -3,8 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { Const, Enum, Exception, Field, MetaList, MetaMap, MetaSet, Simple, Struct, Structure, Type, TypeDef, Union } from '../../../metadata/metadata.service';
 import { stringify } from '../../../shared/stringify';
 
-export type ListType = 'select' | 'toggle' | 'field';
-
 interface Params<T extends Structure = Type> {
     metadata?: T;
     field?: Field;
@@ -51,18 +49,34 @@ export function createNode(params: Params<Type> = {}) {
     throw new Error('Unknown structure');
 }
 
+export enum CONTROL_TYPE {
+    INPUT = 'input',
+    SELECT = 'select',
+    TOGGLE = 'toggle'
+}
+
+export class TypedControl extends FormControl {
+    static TYPE: CONTROL_TYPE;
+    type: CONTROL_TYPE;
+
+    select?: {
+        options: { name: string, value: string | number | boolean }[];
+        selectionChange?({value}): any;
+    };
+
+    static fromType(type: CONTROL_TYPE) {
+        const formControl = new TypedControl();
+        formControl.type = type;
+        return formControl;
+    }
+}
+
 export abstract class Node<T extends Structure = Type> {
     field?: Field;
     parent?: Node;
-    list?: ListType;
-    control?: FormControl;
     children?: Node[];
-    select?: {
-        options: { name: string, value: string | number | boolean }[];
-        selected?: string;
-        selectionChange({value}): any;
-    };
     add?: (value?: any) => any;
+    control?: TypedControl;
     initValue?: any;
     isNull: boolean;
 
@@ -226,9 +240,6 @@ export abstract class Node<T extends Structure = Type> {
         if (this.control) {
             return this.control.value !== this.initValue.toString();
         }
-        if (this.select) {
-            return this.select.selected !== this.initValue;
-        }
         return null;
     }
 }
@@ -237,13 +248,13 @@ export class EnumNode extends Node<Enum> {
     constructor(params: Params<Enum>) {
         super(params);
         const {metadata, initValue} = params;
-        this.list = 'select';
-        this.select = {
+        this.control = TypedControl.fromType(CONTROL_TYPE.SELECT);
+        this.control.setValue(initValue);
+        this.control.select = {
             options: metadata.items.map((item) => ({name: item.name || String(item.value), value: item.value})),
             selectionChange: ({value: v}) => {
-                this.select.selected = v;
-            },
-            selected: initValue
+                this.control.setValue(v);
+            }
         };
     }
 
@@ -251,7 +262,7 @@ export class EnumNode extends Node<Enum> {
         if (this.isNull) {
             return null;
         }
-        return this.select.selected;
+        return this.control.value;
     }
 }
 
@@ -290,13 +301,12 @@ export class UnionNode extends Node<Union> {
     constructor(params: Params<Union>) {
         super(params);
         const {metadata, initValue} = params;
-        this.list = 'select';
-        this.select = {
-            options: (metadata as Union).fields.map(({name}) => ({name, value: name})),
-            selectionChange: undefined,
+        this.control = TypedControl.fromType(CONTROL_TYPE.SELECT);
+        this.control.select = {
+            options: (metadata as Union).fields.map(({name}) => ({name, value: name}))
         };
         const selectUnionChildren = (fieldName: string) => {
-            this.select.selected = fieldName;
+            this.control.setValue(fieldName);
             const childField: Field = (metadata as Union).fields.find(({name}) => name === fieldName);
             if (childField) {
                 this.children = [createNode({
@@ -310,15 +320,15 @@ export class UnionNode extends Node<Union> {
             }
         };
         selectUnionChildren(initValue ? Object.keys(initValue).find((v) => initValue[v] !== null) : undefined);
-        this.select.selectionChange = ({value: v}) => selectUnionChildren(v);
+        this.control.select.selectionChange = ({value: v}) => selectUnionChildren(v);
     }
 
     get value() {
         if (this.isNull) {
             return null;
         }
-        return this.select.options.reduce((obj, option) => {
-            obj[option.name] = option.value === this.select.selected && this.children && this.children[0]
+        return this.control.select.options.reduce((obj, option) => {
+            obj[option.name] = option.value === this.control.value && this.children && this.children[0]
                 ? this.children[0].value
                 : null;
             return obj;
@@ -423,9 +433,8 @@ export class MapNode extends Node<MetaMap> {
 export class BoolNode extends Node<Simple> {
     constructor(params: Params<Simple>) {
         super(params);
-        const {initValue} = params;
-        this.control = new FormControl(initValue);
-        this.list = 'toggle';
+        this.control = TypedControl.fromType(CONTROL_TYPE.TOGGLE);
+        this.control.setValue(params.initValue);
     }
 
     get value() {
@@ -444,8 +453,9 @@ export class IntNode extends Node<Simple> {
         if (field && field.option === 'required') {
             validators.push(Validators.required);
         }
-        this.control = new FormControl(initValue ? String(initValue) : '', {validators});
-        this.list = 'field';
+        this.control = TypedControl.fromType(CONTROL_TYPE.INPUT);
+        this.control.setValue(initValue ? String(initValue) : '');
+        this.control.setValidators(validators);
     }
 
     get value() {
@@ -464,8 +474,9 @@ export class DoubleNode extends Node<Simple> {
         if (field && field.option === 'required') {
             validators.push(Validators.required);
         }
-        this.control = new FormControl(initValue ? String(initValue) : '', {validators});
-        this.list = 'field';
+        this.control = TypedControl.fromType(CONTROL_TYPE.INPUT);
+        this.control.setValue(initValue ? String(initValue) : '');
+        this.control.setValidators(validators);
     }
 
     get value() {
@@ -484,8 +495,9 @@ export class StringNode extends Node<Simple> {
         if (field && field.option === 'required') {
             validators.push(Validators.required);
         }
-        this.control = new FormControl(initValue ? String(initValue) : '', {validators});
-        this.list = 'field';
+        this.control = TypedControl.fromType(CONTROL_TYPE.INPUT);
+        this.control.setValue(initValue ? String(initValue) : '');
+        this.control.setValidators(validators);
     }
 
     get value() {

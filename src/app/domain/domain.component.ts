@@ -44,7 +44,7 @@ export class DomainComponent {
             const FAKE_COLUMN = '__node';
             this.groups = (this.metadata as any).type.valueType.fields.map((field) => {
                 const {name} = field;
-                const nodes = this.node.children.filter((child) => child.children[1].select.selected === name);
+                const nodes = this.node.children.filter((child) => child.children[1].control.value === name);
                 const elements = nodes.map((n) => {
                     const res = {} as any;
                     for (const child of n.children[1].children[0].children) {
