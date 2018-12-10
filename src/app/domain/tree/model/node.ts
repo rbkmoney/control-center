@@ -64,22 +64,15 @@ export function createNode(params: Params<Type> = {}) {
     throw new Error('Unknown structure');
 }
 
-export enum CONTROL_TYPE {
+export enum NODE_CONTROL_TYPE {
     INPUT = 'input',
     SELECT = 'select',
     TOGGLE = 'toggle'
 }
 
-export class TypedControl extends FormControl {
-    static TYPE: CONTROL_TYPE;
-    type: CONTROL_TYPE;
+export class NodeControl extends FormControl {
+    type: NODE_CONTROL_TYPE;
     options?: { name: string, value: string | number | boolean }[];
-
-    static fromType(type: CONTROL_TYPE) {
-        const formControl = new TypedControl();
-        formControl.type = type;
-        return formControl;
-    }
 }
 
 export abstract class Node<T extends Structure = Type> {
@@ -87,7 +80,7 @@ export abstract class Node<T extends Structure = Type> {
     parent?: Node;
     children?: Node[];
     add?: (value?: any) => any;
-    control?: TypedControl;
+    control?: NodeControl;
     initValue?: any;
     isNull: boolean;
 
@@ -103,6 +96,11 @@ export abstract class Node<T extends Structure = Type> {
 
     get metadata(): T {
         return this._metadata || this.parent.metadata as T;
+    }
+
+    initControl(type: NODE_CONTROL_TYPE) {
+        this.control = new NodeControl();
+        this.control.type = type;
     }
 
     set metadata(metadata: T) {
@@ -244,7 +242,7 @@ export class EnumNode extends Node<Enum> {
     constructor(params: Params<Enum>) {
         super(params);
         const {metadata, initValue} = params;
-        this.control = TypedControl.fromType(CONTROL_TYPE.SELECT);
+        this.initControl(NODE_CONTROL_TYPE.SELECT);
         this.control.setValue(initValue);
         this.control.options = metadata.items.map((item) => ({name: item.name || String(item.value), value: item.value}));
     }
@@ -292,7 +290,7 @@ export class UnionNode extends Node<Union> {
     constructor(params: Params<Union>) {
         super(params);
         const {metadata, initValue} = params;
-        this.control = TypedControl.fromType(CONTROL_TYPE.SELECT);
+        this.initControl(NODE_CONTROL_TYPE.SELECT);
         this.control.options = (metadata as Union).fields.map(({name}) => ({name, value: name}));
         this.control.valueChanges.subscribe((value) => {
             const childField: Field = (metadata as Union).fields.find(({name}) => name === value);
@@ -400,7 +398,7 @@ export class MapNode extends Node<MetaMap> {
 export class BoolNode extends Node<Simple> {
     constructor(params: Params<Simple>) {
         super(params);
-        this.control = TypedControl.fromType(CONTROL_TYPE.TOGGLE);
+        this.initControl(NODE_CONTROL_TYPE.TOGGLE);
         this.control.setValue(params.initValue);
     }
 
@@ -420,7 +418,7 @@ export class IntNode extends Node<Simple> {
         if (field && field.option === 'required') {
             validators.push(Validators.required);
         }
-        this.control = TypedControl.fromType(CONTROL_TYPE.INPUT);
+        this.initControl(NODE_CONTROL_TYPE.INPUT);
         this.control.setValue(initValue ? String(initValue) : '');
         this.control.setValidators(validators);
     }
@@ -441,7 +439,7 @@ export class DoubleNode extends Node<Simple> {
         if (field && field.option === 'required') {
             validators.push(Validators.required);
         }
-        this.control = TypedControl.fromType(CONTROL_TYPE.INPUT);
+        this.initControl(NODE_CONTROL_TYPE.INPUT);
         this.control.setValue(initValue ? String(initValue) : '');
         this.control.setValidators(validators);
     }
@@ -462,7 +460,7 @@ export class StringNode extends Node<Simple> {
         if (field && field.option === 'required') {
             validators.push(Validators.required);
         }
-        this.control = TypedControl.fromType(CONTROL_TYPE.INPUT);
+        this.initControl(NODE_CONTROL_TYPE.INPUT);
         this.control.setValue(initValue ? String(initValue) : '');
         this.control.setValidators(validators);
     }

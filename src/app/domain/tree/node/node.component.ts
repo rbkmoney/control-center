@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { CONTROL_TYPE, Node } from '../model';
+import { NODE_CONTROL_TYPE, Node } from '../model';
 
 @Component({
     selector: 'cc-node',
@@ -20,7 +20,7 @@ export class NodeComponent {
     findNode: (node: Node) => void;
     @Input()
     toggle: (node: Node) => void;
-    controlTypes = CONTROL_TYPE;
+    controlTypes = NODE_CONTROL_TYPE;
 
     constructor() {
     }
