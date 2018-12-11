@@ -2,26 +2,26 @@
     <mat-toolbar>
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <div><a routerLink="/domain">DomainObject</a><span *ngIf="node">/{{node.metadata.name}}</span></div>
-            <div *ngIf="node">
+            <div *ngIf="node && !isLoading">
                 <button mat-icon-button *ngIf="!node.valid" matBadgePosition="after" [matBadge]="node.errorsCount">
                     <mat-icon color="warn">notification_important</mat-icon>
                 </button>
                 <button mat-icon-button (click)="reload()">
                     <mat-icon>refresh</mat-icon>
                 </button>
-                <button mat-icon-button (click)="preview = !preview">
+                <button mat-icon-button (click)="toggleView()">
                     <mat-icon>{{preview ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <button mat-icon-button color="warn">
+                <button mat-icon-button color="warn" (click)="delete()">
                     <mat-icon>delete</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" [disabled]="!node.valid || !node.isChanged">
+                <button mat-icon-button color="primary" [disabled]="!node.valid || !node.isChanged" (click)="save()">
                     <mat-icon>save</mat-icon>
                 </button>
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
-    <mat-progress-bar mode="indeterminate" *ngIf="!node"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
     <mat-card class="card" *ngIf="node" fxFlex>
         <cc-tree [model]="node" [withoutRoot]="true" [preview]="preview"></cc-tree>
     </mat-card>

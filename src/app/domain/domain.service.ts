@@ -28,10 +28,12 @@ export class DomainService {
         return this.domainService.checkout({head: {}}).subscribe((snapshot) => {
             this.snapshot = snapshot;
             this.snapshot$.next(snapshot);
-            this.isLoading$.next(false);
             this.node$.next(createNode({metadata: this.metadata, initValue: this.snapshot.domain}));
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
+        }, () => {
+        }, () => {
+            this.isLoading$.next(false);
         });
     };
 
@@ -48,6 +50,7 @@ export class DomainService {
     }
 
     commit(operations: Partial<Operation>) {
+        this.isLoading$.next(true);
         const operation = new DomainConfigTypes.Operation();
         for (const name in operations) {
             if (operations.hasOwnProperty(name)) {
@@ -57,7 +60,12 @@ export class DomainService {
         const commit = new DomainConfigTypes.Commit();
         commit.ops = [operation];
         console.log(commit);
-        return this.domainService.commit(this.snapshot.version, commit);
+        return this.domainService.commit(this.snapshot.version, commit).subscribe((version) => {
+            this.updateSnapshot();
+        }, () => {
+        }, () => {
+            this.isLoading$.next(false);
+        });
     }
 
     delete(object: DomainObject) {

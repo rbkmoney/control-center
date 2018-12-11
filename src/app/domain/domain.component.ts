@@ -24,7 +24,6 @@ export class DomainComponent {
     isDomainLoading = false;
     groups: any[] = [];
     commitErrorHandler = (error: Exception) => {
-        this.isLoading = false;
         console.error(error);
         this.snackBar.open(error.message || error.name, 'OK');
     };
@@ -109,33 +108,6 @@ export class DomainComponent {
             this.tabsModels.push({node, isJSON});
             this.selectedModel = this.tabsModels.length - 1;
         }
-    }
-
-    delete(node: Node) {
-        this.isLoading = true;
-        this.domainService.delete(node.children[1].initValue).subscribe((result) => {
-            this.isLoading = false;
-            this.snackBar.open('DomainObject removed', 'OK');
-            this.domainService.updateSnapshot();
-        }, this.commitErrorHandler);
-    }
-
-    update(node: Node) {
-        this.isLoading = true;
-        this.domainService.update(node.children[1].initValue, node.children[1].extractData()).subscribe((result) => {
-            this.isLoading = false;
-            this.snackBar.open('DomainObject updated', 'OK');
-            this.domainService.updateSnapshot();
-        }, this.commitErrorHandler);
-    }
-
-    insert(node: Node) {
-        this.isLoading = true;
-        this.domainService.insert(node.children[1].extractData()).subscribe((result) => {
-            this.isLoading = false;
-            this.snackBar.open('DomainObject inserted', 'OK');
-            this.domainService.updateSnapshot();
-        }, this.commitErrorHandler);
     }
 
     closeTab(model) {
