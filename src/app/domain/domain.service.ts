@@ -21,6 +21,10 @@ export class DomainService {
     metadata$ = new BehaviorSubject<Type>(null);
     node$ = new BehaviorSubject<Node>(null);
     isLoading$ = new BehaviorSubject<boolean>(false);
+    tabs: {
+        models: Array<{ node?: Node, isJSON?: boolean }>;
+        selected?: number;
+    } = {models: []};
 
     commitErrorHandler = (error: Exception) => {
         console.error(error);
@@ -102,5 +106,20 @@ export class DomainService {
         return this.node$.getValue() ? this.node$.getValue().children.find((child) => {
             return key === this.getKey(child);
         }) : null;
+    }
+
+    openTab(node: Node, isJSON = false) {
+        const idx = this.tabs.models.findIndex((tabModel) => node === tabModel.node);
+        if (idx >= 0) {
+            this.tabs.selected = idx;
+            this.tabs.models[idx].isJSON = isJSON;
+        } else {
+            this.tabs.models.push({node, isJSON});
+            this.tabs.selected = this.tabs.models.length - 1;
+        }
+    }
+
+    closeTab(model) {
+        this.tabs.models.splice(this.tabs.models.findIndex((tabModel) => model === tabModel), 1);
     }
 }

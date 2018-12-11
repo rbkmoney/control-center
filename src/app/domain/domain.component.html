@@ -45,13 +45,13 @@
         </mat-card>
     </mat-sidenav-content>
     <mat-sidenav mode="side"
-                 [opened]="!!tabsModels.length"
+                 [opened]="!!tabs.models.length"
                  position="end"
                  fixedInViewport="true"
                  fixedTopGap="64"
                  style="width: 50%">
-        <mat-tab-group [(selectedIndex)]="selectedModel">
-            <ng-container *ngFor="let model of tabsModels; index as i">
+        <mat-tab-group [(selectedIndex)]="tabs.selected">
+            <ng-container *ngFor="let model of tabs.models; index as i">
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <span>{{model.node.metadata.name}}</span>
