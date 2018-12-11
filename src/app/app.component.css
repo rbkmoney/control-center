@@ -11,10 +11,10 @@
     z-index: 2;
 }
 
-.sidenav-container, .content {
-    height: 100%;
+.sidenav-container {
+    padding-top: 64px;
 }
 
-.content {
-    margin-top: 64px;
+.sidenav-container, .content {
+    height: 100%;
 }
