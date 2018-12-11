@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 
 import { DomainService } from './domain.service';
 import { Node } from './tree/model';
@@ -11,17 +11,25 @@ import { Snapshot } from '../gen-damsel/domain_config';
     templateUrl: 'domain.component.html',
     styleUrls: ['../shared/container.css', 'domain.component.css']
 })
-export class DomainComponent {
+export class DomainComponent implements OnInit {
     snapshot$: BehaviorSubject<Snapshot>;
     node$: BehaviorSubject<Node>;
     isLoading$: BehaviorSubject<boolean>;
     tabsModels: Array<{ node?: Node, isJSON?: boolean }> = [];
     selectedModel: number;
+    model: Node;
 
-    constructor(private domainService: DomainService, private snackBar: MatSnackBar, private router: Router) {
+    constructor(private domainService: DomainService, private snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
         this.isLoading$ = this.domainService.isLoading$;
         this.node$ = this.domainService.node$;
         this.snapshot$ = this.domainService.snapshot$;
+    }
+
+    ngOnInit() {
+        combineLatest(this.route.paramMap, this.domainService.node$).subscribe(([params]) => {
+            const node = this.domainService.getNode(params.get('ref'));
+            this.model = node ? node.children[1] : null;
+        });
     }
 
     openTab(node: Node, isJSON = false) {

@@ -1,40 +1,42 @@
-<mat-toolbar>
-    <mat-toolbar-row>
-        <div *ngIf="node$ | async">{{(node$ | async).children.length}} DomainObjects v.{{(snapshot$ | async).version}}
-        </div>
-    </mat-toolbar-row>
-</mat-toolbar>
-<mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
-<div class="container">
-    <mat-sidenav-container>
-        <mat-sidenav-content>
+<mat-sidenav-container style="height: 100%">
+    <mat-sidenav-content>
+        <div *ngIf="(node$ | async) && !model">
+            <mat-toolbar>
+                <mat-toolbar-row>
+                    <div *ngIf="node$ | async">{{(node$ | async).children.length}} DomainObjects v.{{(snapshot$ |
+                        async).version}}
+                    </div>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
             <div class="card-container">
-                <cc-objects-list *ngIf="node$ | async" (selectNode)="openTab($event.node, $event.isJSON)">
+                <cc-objects-list (selectNode)="openTab($event.node, $event.isJSON)">
                 </cc-objects-list>
             </div>
-        </mat-sidenav-content>
-        <mat-sidenav mode="side"
-                     [opened]="!!tabsModels.length"
-                     position="end"
-                     fixedInViewport="true"
-                     fixedTopGap="64"
-                     style="width: 50%">
-            <mat-tab-group [(selectedIndex)]="selectedModel">
-                <ng-container *ngFor="let model of tabsModels; index as i">
-                    <mat-tab>
-                        <ng-template mat-tab-label>
-                            <span>{{model.node.metadata.name}}</span>
-                            <button mat-icon-button (click)="closeTab(model)" style="margin-left:5px">
-                                <mat-icon class="mat-icon-rtl-mirror">close</mat-icon>
-                            </button>
-                        </ng-template>
-                        <div style="padding: 20px">
-                            <cc-tree [model]="model.node" (foundNode)="openTab($event)" [preview]="model.isJSON">
-                            </cc-tree>
-                        </div>
-                    </mat-tab>
-                </ng-container>
-            </mat-tab-group>
-        </mat-sidenav>
-    </mat-sidenav-container>
-</div>
+        </div>
+        <cc-objects *ngIf="model" [model]="model"></cc-objects>
+    </mat-sidenav-content>
+    <mat-sidenav mode="side"
+                 [opened]="!!tabsModels.length"
+                 position="end"
+                 fixedInViewport="true"
+                 fixedTopGap="64"
+                 style="width: 50%">
+        <mat-tab-group [(selectedIndex)]="selectedModel">
+            <ng-container *ngFor="let model of tabsModels; index as i">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <span>{{model.node.metadata.name}}</span>
+                        <button mat-icon-button (click)="closeTab(model)" style="margin-left:5px">
+                            <mat-icon class="mat-icon-rtl-mirror">close</mat-icon>
+                        </button>
+                    </ng-template>
+                    <div style="padding: 20px">
+                        <cc-tree [model]="model.node" (foundNode)="openTab($event)" [preview]="model.isJSON">
+                        </cc-tree>
+                    </div>
+                </mat-tab>
+            </ng-container>
+        </mat-tab-group>
+    </mat-sidenav>
+</mat-sidenav-container>

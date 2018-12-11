@@ -2,7 +2,7 @@
     <mat-toolbar>
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <div><a routerLink="/domain">DomainObject</a><span *ngIf="node">/{{node.metadata.name}}</span></div>
-            <div *ngIf="node && !isLoading">
+            <div *ngIf="node && !(isLoading$ | async)">
                 <button mat-icon-button *ngIf="!node.valid" matBadgePosition="after" [matBadge]="node.errorsCount">
                     <mat-icon color="warn">notification_important</mat-icon>
                 </button>
@@ -21,7 +21,7 @@
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
-    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
     <mat-card class="card" *ngIf="node" fxFlex>
         <cc-tree [model]="node" [withoutRoot]="true" [preview]="preview"></cc-tree>
     </mat-card>
