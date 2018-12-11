@@ -4,6 +4,7 @@ import {
     MatBadgeModule,
     MatButtonModule,
     MatCardModule,
+    MatChipsModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
@@ -23,7 +24,6 @@ import { DomainComponent } from './domain.component';
 import { DomainService } from './domain.service';
 import { MetadataModule } from '../metadata/metadata.module';
 import { TreeModule } from './tree/tree.module';
-import { ObjectComponent } from './object/object.component';
 import { SharedModule } from '../shared/shared.module';
 import { ObjectsListComponent } from './objects-list/objects-list.component';
 
@@ -48,11 +48,11 @@ import { ObjectsListComponent } from './objects-list/objects-list.component';
         MatToolbarModule,
         MatBadgeModule,
         RouterModule,
-        SharedModule
+        SharedModule,
+        MatChipsModule
     ],
     declarations: [
         DomainComponent,
-        ObjectComponent,
         ObjectsListComponent
     ],
     providers: [

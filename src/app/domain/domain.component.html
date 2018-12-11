@@ -1,20 +1,48 @@
 <mat-sidenav-container style="height: 100%">
-    <mat-sidenav-content>
-        <div *ngIf="(node$ | async) && !model">
-            <mat-toolbar>
-                <mat-toolbar-row>
-                    <div *ngIf="node$ | async">{{(node$ | async).children.length}} DomainObjects v.{{(snapshot$ |
-                        async).version}}
-                    </div>
-                </mat-toolbar-row>
-            </mat-toolbar>
-            <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
-            <div class="card-container">
-                <cc-objects-list (selectNode)="openTab($event.node, $event.isJSON)">
-                </cc-objects-list>
-            </div>
+    <mat-sidenav-content fxLayout="column">
+        <mat-toolbar>
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <mat-chip-list>
+                        <mat-chip routerLink="/domain">
+                            {{(node$ | async) ? (node$ | async).children.length + ' ' : ''}}DomainObjects
+                            {{(snapshot$ | async) ? 'ver.' + (snapshot$ | async).version : ''}}
+                        </mat-chip>
+                        <mat-chip *ngIf="model">{{model.children[0].metadata.name}}</mat-chip>
+                    </mat-chip-list>
+                </div>
+                <div *ngIf="model && !(isLoading$ | async)">
+                    <button mat-icon-button *ngIf="!model.valid" matBadgePosition="after"
+                            [matBadge]="model.errorsCount">
+                        <mat-icon color="warn">notification_important</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="reload()">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="toggleView()">
+                        <mat-icon>{{preview ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="delete()">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" [disabled]="!model.valid || !model.isChanged"
+                            (click)="save()">
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+
+        <div class="card-container" *ngIf="(node$ | async) && !model">
+            <cc-objects-list (selectNode)="openTab($event.node, $event.isJSON)">
+            </cc-objects-list>
         </div>
-        <cc-objects *ngIf="model" [model]="model"></cc-objects>
+
+        <mat-card *ngIf="model" class="card" fxFlex>
+            <cc-tree [model]="model.children[0]" [withoutRoot]="true" [preview]="preview"
+                     (foundNode)="openTab($event, false)"></cc-tree>
+        </mat-card>
     </mat-sidenav-content>
     <mat-sidenav mode="side"
                  [opened]="!!tabsModels.length"

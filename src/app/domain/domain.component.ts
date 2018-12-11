@@ -18,11 +18,18 @@ export class DomainComponent implements OnInit {
     tabsModels: Array<{ node?: Node, isJSON?: boolean }> = [];
     selectedModel: number;
     model: Node;
+    preview = false;
+    reload: () => void;
+    delete: () => void;
+    save: () => void;
 
     constructor(private domainService: DomainService, private snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
         this.isLoading$ = this.domainService.isLoading$;
         this.node$ = this.domainService.node$;
         this.snapshot$ = this.domainService.snapshot$;
+        this.reload = domainService.updateSnapshot;
+        this.delete = () => domainService.delete(this.model.initValue);
+        this.save = () => domainService.update(this.model.initValue, this.model.extractData());
     }
 
     ngOnInit() {
@@ -45,5 +52,9 @@ export class DomainComponent implements OnInit {
 
     closeTab(model) {
         this.tabsModels.splice(this.tabsModels.findIndex((tabModel) => model === tabModel), 1);
+    }
+
+    toggleView() {
+        this.preview = !this.preview;
     }
 }
