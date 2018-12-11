@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { MetadataService, Type } from '../metadata/metadata.service';
@@ -10,6 +10,7 @@ import { DomainObject } from '../gen-damsel/domain';
 import * as DomainConfigTypes from '../thrift/gen-nodejs/domain_config_types';
 import { createNode, Node } from './tree/model';
 import { stringify } from '../shared/stringify';
+import { Exception } from '../thrift/exception';
 
 @Injectable()
 export class DomainService {
@@ -21,6 +22,11 @@ export class DomainService {
     node$ = new BehaviorSubject<Node>(null);
     isLoading$ = new BehaviorSubject<boolean>(false);
 
+    commitErrorHandler = (error: Exception) => {
+        console.error(error);
+        this.snackBar.open(error.message || error.name, 'OK');
+    };
+
     updateSnapshot = () => {
         this.isLoading$.next(true);
         this.snapshot$.next(null);
@@ -31,13 +37,14 @@ export class DomainService {
             this.node$.next(createNode({metadata: this.metadata, initValue: this.snapshot.domain}));
             console.dir(snapshot.domain);
             console.dir(this.metadataService.files);
-        }, () => {
+        }, (error) => {
+            this.commitErrorHandler(error);
         }, () => {
             this.isLoading$.next(false);
         });
     };
 
-    constructor(private domainService: ThriftDomainService, private metadataService: MetadataService, private fb: FormBuilder, private router: Router) {
+    constructor(private domainService: ThriftDomainService, private metadataService: MetadataService, private snackBar: MatSnackBar) {
         this.updateSnapshot();
         this.initMetadata();
     }

@@ -1,0 +1,39 @@
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let group of groups; index as i" class="expansion-panel__without-body-padding">
+        <mat-expansion-panel-header>
+            <mat-panel-title style="width: 50%;">
+                {{group.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{group.description}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <table mat-table [dataSource]="group.elements" style="width:100%"
+                   *ngIf="group.displayedColumns.length">
+                <ng-container [matColumnDef]="column" *ngFor="let column of group.displayedColumns">
+                    <th mat-header-cell *matHeaderCellDef>{{column.split('.')[1]}}</th>
+                    <td mat-cell *matCellDef="let element" style="white-space: nowrap">
+                        {{element[column]}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element" style="width:1px; white-space: nowrap">
+                        <button mat-icon-button
+                                (click)="selectNodeHandler({node: element.__node.children[1].children[0], isJSON: true})">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="routeToObject(element.__node)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="group.allColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: group.allColumns;"></tr>
+            </table>
+        </ng-template>
+    </mat-expansion-panel>
+</mat-accordion>

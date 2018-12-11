@@ -25,6 +25,7 @@ import { MetadataModule } from '../metadata/metadata.module';
 import { TreeModule } from './tree/tree.module';
 import { ObjectComponent } from './object/object.component';
 import { SharedModule } from '../shared/shared.module';
+import { ObjectsListComponent } from './objects-list/objects-list.component';
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import { SharedModule } from '../shared/shared.module';
     ],
     declarations: [
         DomainComponent,
-        ObjectComponent
+        ObjectComponent,
+        ObjectsListComponent
     ],
     providers: [
         DomainService
