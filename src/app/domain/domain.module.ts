@@ -8,9 +8,11 @@ import {
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
+    MatPaginatorModule,
     MatProgressBarModule,
     MatSidenavModule,
     MatSnackBarModule,
+    MatSortModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule
@@ -26,6 +28,7 @@ import { MetadataModule } from '../metadata/metadata.module';
 import { TreeModule } from './tree/tree.module';
 import { SharedModule } from '../shared/shared.module';
 import { ObjectsListComponent } from './objects-list/objects-list.component';
+import { ObjectsTableComponent } from './objects-list/objects-table/objects-table.component';
 
 @NgModule({
     imports: [
@@ -49,11 +52,14 @@ import { ObjectsListComponent } from './objects-list/objects-list.component';
         MatBadgeModule,
         RouterModule,
         SharedModule,
-        MatChipsModule
+        MatChipsModule,
+        MatPaginatorModule,
+        MatSortModule
     ],
     declarations: [
         DomainComponent,
-        ObjectsListComponent
+        ObjectsListComponent,
+        ObjectsTableComponent
     ],
     providers: [
         DomainService
