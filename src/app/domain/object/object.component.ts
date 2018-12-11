@@ -7,7 +7,7 @@ import { Node } from '../tree/model';
 
 @Component({
     templateUrl: 'object.component.html',
-    styleUrls: ['../../shared/container.css']
+    styleUrls: ['../../shared/container.css', 'object.component.css']
 })
 export class ObjectComponent implements OnInit {
     node: Node;

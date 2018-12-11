@@ -1,12 +1,8 @@
 <mat-toolbar>
-    <mat-toolbar-row>
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
         <div><a routerLink="/domain">DomainObject</a><span *ngIf="node">/{{node.metadata.name}}</span></div>
-        <div style="flex: 1 1 auto"></div>
         <div *ngIf="node">
-            <button mat-icon-button
-                    *ngIf="!node.valid"
-                    matBadgePosition="after"
-                    [matBadge]="node.errorsCount">
+            <button mat-icon-button *ngIf="!node.valid" matBadgePosition="after" [matBadge]="node.errorsCount">
                 <mat-icon color="warn">notification_important</mat-icon>
             </button>
             <button mat-icon-button (click)="reload()">
@@ -25,8 +21,8 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-progress-bar mode="indeterminate" *ngIf="!node"></mat-progress-bar>
-<div class="card-container" fxLayout="column" fxLayoutGap="20px" *ngIf="node">
-    <mat-card style="overflow: auto">
+<div *ngIf="node" class="card-container" fxLayout="column" fxLayoutGap="20px">
+    <mat-card class="card">
         <cc-tree [model]="node" [withoutRoot]="true" [preview]="preview"></cc-tree>
     </mat-card>
 </div>
