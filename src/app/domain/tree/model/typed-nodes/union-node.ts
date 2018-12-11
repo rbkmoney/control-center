@@ -7,9 +7,9 @@ export class UnionNode extends Node<Union> {
         super(params);
         const {metadata, initValue} = params;
         this.initControl(NODE_CONTROL_TYPE.SELECT);
-        this.control.options = (metadata as Union).fields.map(({name}) => ({name, value: name}));
+        this.control.options = metadata.fields.map(({name}) => ({name, value: name}));
         this.control.valueChanges.subscribe((value) => {
-            const childField: Field = (metadata as Union).fields.find(({name}) => name === value);
+            const childField: Field = metadata.fields.find(({name}) => name === value);
             if (childField) {
                 this.children = [createNode({
                     metadata: childField.type,
