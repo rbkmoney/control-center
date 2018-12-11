@@ -21,7 +21,7 @@ export class UnionNode extends Node<Union> {
                 this.children = [];
             }
         });
-        this.control.setValue(initValue ? Object.keys(initValue).find((v) => initValue[v] !== null) : undefined);
+        this.control.setValue(initValue ? Object.keys(initValue).find((v) => initValue[v] !== null) : null);
     }
 
     get value() {

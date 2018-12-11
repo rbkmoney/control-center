@@ -12,7 +12,7 @@ export class IntNode extends Node<Simple> {
             validators.push(Validators.required);
         }
         this.initControl(NODE_CONTROL_TYPE.INPUT);
-        this.control.setValue(initValue ? String(initValue) : '');
+        this.control.setValue(initValue);
         this.control.setValidators(validators);
     }
 
@@ -33,7 +33,7 @@ export class DoubleNode extends Node<Simple> {
             validators.push(Validators.required);
         }
         this.initControl(NODE_CONTROL_TYPE.INPUT);
-        this.control.setValue(initValue ? String(initValue) : '');
+        this.control.setValue(initValue);
         this.control.setValidators(validators);
     }
 
@@ -54,7 +54,7 @@ export class StringNode extends Node<Simple> {
             validators.push(Validators.required);
         }
         this.initControl(NODE_CONTROL_TYPE.INPUT);
-        this.control.setValue(initValue ? String(initValue) : '');
+        this.control.setValue(initValue);
         this.control.setValidators(validators);
     }
 
