@@ -40,14 +40,25 @@ export abstract class Node<T extends Structure = Type> {
     private _isNull: boolean;
 
     get isNull() {
+        if (this.control) {
+            return this.control.value === null;
+        }
         return this._isNull;
     }
 
     set isNull(isNull: boolean) {
-        if (this.isNullable) {
-            this._isNull = isNull;
-            if (this.control && this.control.value !== null) {
-                this.control.setValue(null);
+        if (isNull) {
+            if (this.isNullable) {
+                this._isNull = true;
+            }
+        } else {
+            this._isNull = false;
+        }
+        if (this.control) {
+            if (isNull) {
+                if (this.isNullable && this.control.value !== null) {
+                    this.control.setValue(null);
+                }
             }
         }
     }

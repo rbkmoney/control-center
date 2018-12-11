@@ -22,7 +22,7 @@
                     <cc-label [node]="node"></cc-label>
                 </mat-label>
                 <mat-select [formControl]="node.control">
-                    <mat-option *ngIf="node.isNullable">
+                    <mat-option *ngIf="node.isNullable" [value]="null">
                         <span><mat-icon inline style="vertical-align: top">cancel</mat-icon>null</span>
                     </mat-option>
                     <mat-option *ngFor="let option of node.control.options" [value]="option.value">
