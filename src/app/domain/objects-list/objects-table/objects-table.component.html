@@ -1,4 +1,9 @@
-<table mat-table [dataSource]="group.elements" style="width:100%" *ngIf="group.displayedColumns.length">
+<div style="padding: 0 24px;">
+    <mat-form-field style="width: 100%">
+        <input matInput (input)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+</div>
+<table mat-table [dataSource]="group.dataSource" style="width:100%" *ngIf="group.displayedColumns.length">
     <ng-container [matColumnDef]="column" *ngFor="let column of group.displayedColumns">
         <th mat-header-cell *matHeaderCellDef>{{column.split('.')[1]}}</th>
         <td mat-cell *matCellDef="let element" style="white-space: nowrap">

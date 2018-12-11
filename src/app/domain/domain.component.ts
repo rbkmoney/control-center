@@ -24,7 +24,7 @@ export class DomainComponent implements OnInit {
         models: Array<{ node?: Node, isJSON?: boolean }>;
         selected?: number;
     };
-    openTab: (node: Node, isJSON = false) => void;
+    openTab: (node: Node, isJSON: boolean) => void;
     closeTab: (node: Node) => void;
 
     constructor(private domainService: DomainService, private snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {

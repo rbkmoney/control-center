@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DomainService } from '../../domain.service';
 import { Type } from '../../../metadata/metadata.service';
 import { Node } from '../../tree/model';
+import { stringify } from '../../../shared/stringify';
 
 const FAKE_COLUMN = '__node';
 
@@ -26,6 +27,11 @@ export class ObjectsTableComponent implements OnInit {
 
     @ViewChild(MatPaginator)
     paginator: MatPaginator;
+
+    filterPredicate = (data: any, filter: string) => {
+        console.log(data);
+        return !filter || stringify(data[FAKE_COLUMN].value).toLowerCase().indexOf(filter) >= 0;
+    };
 
     constructor(private domainService: DomainService, private snackBar: MatSnackBar, private router: Router) {
     }
@@ -54,8 +60,9 @@ export class ObjectsTableComponent implements OnInit {
             displayedColumns.splice(displayedColumns.findIndex((c) => c === FAKE_COLUMN), 1);
             const dataSource = new MatTableDataSource(elements);
             dataSource.paginator = this.paginator;
+            dataSource.filterPredicate = this.filterPredicate;
             this.group = {
-                elements: dataSource,
+                dataSource,
                 displayedColumns,
                 allColumns: [...displayedColumns, 'actions'],
                 name: this.name,
@@ -70,5 +77,13 @@ export class ObjectsTableComponent implements OnInit {
 
     selectNodeHandler(data: { node: Node, isJSON?: boolean }) {
         this.selectNode.emit(data);
+    }
+
+    applyFilter(filterValue: string) {
+        this.group.dataSource.filter = filterValue.trim().toLowerCase();
+
+        if (this.group.dataSource.paginator) {
+            this.group.dataSource.paginator.firstPage();
+        }
     }
 }

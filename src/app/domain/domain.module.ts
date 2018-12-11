@@ -8,6 +8,7 @@ import {
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatSidenavModule,
@@ -54,7 +55,8 @@ import { ObjectsTableComponent } from './objects-list/objects-table/objects-tabl
         SharedModule,
         MatChipsModule,
         MatPaginatorModule,
-        MatSortModule
+        MatSortModule,
+        MatInputModule
     ],
     declarations: [
         DomainComponent,
