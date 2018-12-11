@@ -29,7 +29,6 @@ export class ObjectsTableComponent implements OnInit {
     paginator: MatPaginator;
 
     filterPredicate = (data: any, filter: string) => {
-        console.log(data);
         return !filter || stringify(data[FAKE_COLUMN].value).toLowerCase().indexOf(filter) >= 0;
     };
 
