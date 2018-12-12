@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
 
 import { DomainService } from '../domain.service';
-import { Type } from '../../metadata/metadata.service';
+import { Field, Type, TypeDef } from '../../metadata/metadata.service';
 import { Node } from '../tree/model';
 
 
@@ -15,25 +13,26 @@ import { Node } from '../tree/model';
 export class ObjectsListComponent {
     @Output()
     selectNode = new EventEmitter<{ node: Node, isJSON?: boolean }>();
-    metadata: Type;
     groups: { id: string, name: string, description: string }[] = [];
 
-    constructor(private domainService: DomainService, private snackBar: MatSnackBar, private router: Router) {
-        this.domainService.metadata$.subscribe((metadata) => this.updateNode(metadata));
+    constructor(private domainService: DomainService) {
+        this.domainService.metadata$.subscribe((metadata: TypeDef) => this.updateGroups(metadata));
     }
 
-    updateNode(metadata: Type) {
-        this.metadata = metadata;
+    updateGroups(metadata: Type) {
         if (metadata) {
-            this.groups = (this.metadata as any).type.valueType.fields.map((field) => {
+            console.log(metadata);
+            this.groups = (metadata as any).type.valueType.fields.map((field: Field) => {
                 const {name} = field;
                 const nodes = this.domainService.node$.getValue().children.filter((child) => child.children[1].control.value === name);
                 return {
-                    name,
                     id: name,
+                    name: field.type.name,
                     description: nodes.length
                 };
             });
+        } else {
+            this.groups = [];
         }
     }
 }
