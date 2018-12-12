@@ -5,7 +5,7 @@
      class="node"
      [class.node_changed]="node.isChanged"
      [class.node_invalid]="!node.valid">
-    <div class="expand">
+    <div class="expand" fxLayout="row" fxLayoutAlign=" center">
         <button mat-icon-button [disabled]="expandButtonDisabled" (click)="toggle(node, true)" class="expand__all">
             <mat-icon class="expand__icon">{{expandAllIcon}}</mat-icon>
         </button>
