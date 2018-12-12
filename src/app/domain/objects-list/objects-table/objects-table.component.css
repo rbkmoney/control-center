@@ -2,3 +2,27 @@
 .mat-table-sticky:last-child {
     border-left: 1px solid #e0e0e0;
 }
+
+.filter {
+    padding: 0 24px;;
+}
+
+.filter__field {
+    width: 100%;
+}
+
+.table-wrapper {
+    overflow: auto;
+}
+
+.table {
+    width: 100%;
+}
+
+.table__cell {
+    white-space: nowrap;
+}
+
+.table__cell_sticky {
+    width: 1px;
+}
