@@ -71,7 +71,7 @@ export class ObjectsTableComponent implements OnInit {
     }
 
     routeToObject(node: Node) {
-        this.router.navigateByUrl(`/domain/object/${this.domainService.getKey(node)}`);
+        this.router.navigateByUrl(`/domain/object/${this.domainService.getGroupId(node)}/${this.domainService.getKey(node)}`);
     }
 
     selectNodeHandler(data: { node: Node, isJSON?: boolean }) {

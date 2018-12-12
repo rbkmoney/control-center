@@ -102,9 +102,13 @@ export class DomainService {
         return stringify(node.children[0].children[0].initValue);
     }
 
-    getNode(key: string): Node {
+    getGroupId(node: Node) {
+        return node.children[1].control.value;
+    }
+
+    getNode(groupId: string, key: string): Node {
         return this.node$.getValue() ? this.node$.getValue().children.find((child) => {
-            return key === this.getKey(child);
+            return this.getGroupId(child) === groupId && key === this.getKey(child);
         }) : null;
     }
 

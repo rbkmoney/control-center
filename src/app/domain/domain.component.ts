@@ -41,7 +41,7 @@ export class DomainComponent implements OnInit {
 
     ngOnInit() {
         combineLatest(this.route.paramMap, this.domainService.node$).subscribe(([params]) => {
-            const node = this.domainService.getNode(params.get('ref'));
+            const node = this.domainService.getNode(params.get('group'), params.get('ref'));
             this.model = node ? node.children[1] : null;
         });
     }
