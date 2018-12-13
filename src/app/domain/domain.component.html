@@ -1,6 +1,6 @@
-<mat-sidenav-container style="height: 100%">
+<mat-sidenav-container class="sidenav-container">
     <mat-sidenav-content fxLayout="column">
-        <mat-toolbar>
+        <mat-toolbar class="toolbar">
             <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
                 <div>
                     <mat-chip-list>
@@ -31,8 +31,9 @@
                     </button>
                 </div>
             </mat-toolbar-row>
+
+            <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate" class="progress"></mat-progress-bar>
         </mat-toolbar>
-        <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
 
         <div class="card-container" *ngIf="(node$ | async) && !model">
             <cc-objects-list (selectNode)="openTab($event.node, $event.isJSON)">

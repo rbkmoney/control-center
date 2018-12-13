@@ -1,4 +1,19 @@
+.sidenav-container {
+    height: 100%;
+}
+
 .card {
     overflow: auto;
     border-radius: 0;
+}
+
+.toolbar {
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
