@@ -6,7 +6,7 @@ import { UnionNode } from './typed-nodes/union-node';
 import { ListNode, SetNode } from './typed-nodes/list-node';
 import { MapNode } from './typed-nodes/map-node';
 import { BoolNode } from './typed-nodes/bool-node';
-import { DoubleNode, IntNode, StringNode } from './typed-nodes/simple-node';
+import { DoubleNode, I64Node, IntNode, StringNode } from './typed-nodes/simple-node';
 import { ConstNode } from './typed-nodes/const-node';
 import { BinaryNode } from './typed-nodes/binary-node';
 
@@ -37,8 +37,9 @@ export function createNode(params: Params<Type> = {}) {
         case 'i8':
         case 'i16':
         case 'i32':
-        case 'i64':
             return new IntNode(params as Params<Simple>);
+        case 'i64':
+            return new I64Node(params as Params<Simple>);
         case 'double':
             return new DoubleNode(params as Params<Simple>);
         case 'string':

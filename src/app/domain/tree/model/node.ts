@@ -1,7 +1,6 @@
 import { FormControl } from '@angular/forms';
 
 import { Field, MetadataService, Structure, Type } from '../../../metadata/metadata.service';
-import { stringify } from '../../../shared/stringify';
 
 export interface Params<T extends Structure = Type> {
     metadata?: T;
@@ -116,7 +115,7 @@ export abstract class Node<T extends Structure = Type> {
             }
             return false;
         }
-        return !MetadataService.isEqualValue(this.extractData(), this.initValue);
+        return !MetadataService.isEqualValue(this.thrift, this.initValue);
     }
 
     get errorsCount(): number {
@@ -142,6 +141,10 @@ export abstract class Node<T extends Structure = Type> {
         return Boolean(this.parent && this.parent.add);
     }
 
+    get thrift() {
+        return this.metadata.toThrift(this.value);
+    }
+
     initControl(type: NODE_CONTROL_TYPE) {
         this.control = new NodeControl();
         this.control.type = type;
@@ -157,7 +160,7 @@ export abstract class Node<T extends Structure = Type> {
     }
 
     findNode(refNode: Node): Node {
-        if (this.parent && Array.isArray(this.parent.children) && this.parent.children.length >= 2 && this.eq(refNode)) {
+        if (this.parent && Array.isArray(this.parent.children) && this.parent.children.length >= 2 && this.equal(refNode)) {
             return this.parent;
         }
         let resultNode;
@@ -171,8 +174,8 @@ export abstract class Node<T extends Structure = Type> {
         return undefined;
     }
 
-    eq(node: Node): boolean {
-        return this.metadata === node.metadata && stringify(this.initValue) === stringify(node.initValue);
+    equal(node: Node): boolean {
+        return this.metadata === node.metadata && MetadataService.isEqualValue(this.initValue, node.initValue);
     }
 
     toString(value = this.value, level = 0) {
@@ -200,10 +203,6 @@ export abstract class Node<T extends Structure = Type> {
             }
         }
         return String(value);
-    }
-
-    extractData() {
-        return this.metadata.toThrift(this.value);
     }
 
     remove() {

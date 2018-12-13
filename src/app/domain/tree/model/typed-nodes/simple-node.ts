@@ -1,4 +1,5 @@
 import { Validators } from '@angular/forms';
+import { isNil } from 'lodash-es';
 
 import { Simple } from '../../../../metadata/metadata.service';
 import { Node, NODE_CONTROL_TYPE, Params } from '../node';
@@ -20,7 +21,31 @@ export class IntNode extends Node<Simple> {
         if (this.isNull) {
             return null;
         }
-        return this.control.value;
+        const value = parseInt(this.control.value, 10);
+        return isNaN(value) ? null : value;
+    }
+}
+
+export class I64Node extends Node<Simple> {
+    constructor(params: Params<Simple>) {
+        super(params);
+        const {initValue, field} = params;
+        const validators = [];
+        if (field && field.option === 'required') {
+            validators.push(Validators.required);
+        }
+        this.initControl(NODE_CONTROL_TYPE.INPUT);
+        const value = isNil(initValue) ? initValue : initValue.toNumber();
+        this.control.setValue(value);
+        this.control.setValidators(validators);
+    }
+
+    get value() {
+        if (this.isNull) {
+            return null;
+        }
+        const value = parseInt(this.control.value, 10);
+        return isNaN(value) ? null : value;
     }
 }
 
@@ -41,7 +66,8 @@ export class DoubleNode extends Node<Simple> {
         if (this.isNull) {
             return null;
         }
-        return this.control.value;
+        const value = parseFloat(this.control.value);
+        return isNaN(value) ? null : value;
     }
 }
 

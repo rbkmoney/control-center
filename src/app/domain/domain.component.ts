@@ -33,7 +33,7 @@ export class DomainComponent implements OnInit {
         this.snapshot$ = this.domainService.snapshot$;
         this.reload = domainService.updateSnapshot;
         this.delete = () => domainService.delete(this.model.initValue);
-        this.save = () => domainService.update(this.model.initValue, this.model.extractData());
+        this.save = () => domainService.update(this.model.initValue, this.model.thrift);
         this.tabs = domainService.tabs;
         this.openTab = domainService.openTab;
         this.closeTab = domainService.closeTab;
@@ -42,6 +42,7 @@ export class DomainComponent implements OnInit {
     ngOnInit() {
         combineLatest(this.route.paramMap, this.domainService.node$).subscribe(([params]) => {
             const node = this.domainService.getNode(params.get('group'), params.get('ref'));
+            console.log(node);
             this.model = node ? node.children[1] : null;
         });
     }
