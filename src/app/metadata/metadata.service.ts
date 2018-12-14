@@ -219,7 +219,7 @@ const simpleTypes = Object.keys(SimpleTypes);
 @Injectable()
 export class MetadataService {
 
-    files: MetadataFile[] = metadataFiles;
+    files: MetadataFile[] = metadataFiles as any;
     metadata: { [name: string]: { [name: string]: ComplexType } };
     simple: { [name in ThriftType]: Simple } = simpleTypes.reduce((acc, item) => {
         const simple = new Simple();
