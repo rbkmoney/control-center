@@ -3,7 +3,7 @@ import { Enum as ASTEnum, Field as ASTField, JsonAST, MapType, ThriftType, Value
 import Int64 from 'thrift-ts/lib/int64';
 import isNil from 'lodash-es/isNil';
 
-import * as metadataFiles from '../../assets/gen-json.json';
+import metadataFiles from '../../assets/gen-json.json';
 import { model } from '../thrift/model';
 
 export type ListStructures = 'map' | 'list' | 'set';
@@ -196,12 +196,6 @@ export class MetaMap extends ListStructure {
     }
 }
 
-export interface MetadataFile {
-    name: string;
-    path: string;
-    ast: JsonAST;
-}
-
 enum SimpleTypes {
     int = 'int',
     bool = 'bool',
@@ -219,7 +213,7 @@ const simpleTypes = Object.keys(SimpleTypes);
 @Injectable()
 export class MetadataService {
 
-    files: MetadataFile[] = metadataFiles as any;
+    files = metadataFiles;
     metadata: { [name: string]: { [name: string]: ComplexType } };
     simple: { [name in ThriftType]: Simple } = simpleTypes.reduce((acc, item) => {
         const simple = new Simple();
