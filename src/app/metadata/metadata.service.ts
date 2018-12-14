@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Enum as ASTEnum, Field as ASTField, JsonAST, MapType, ThriftType, ValueType } from 'thrift-ts/lib/thrift-parser';
 import Int64 from 'thrift-ts/lib/int64';
 import isNil from 'lodash-es/isNil';
 
+import * as metadataFiles from '../../assets/gen-json.json';
 import { model } from '../thrift/model';
 
 export type ListStructures = 'map' | 'list' | 'set';
@@ -219,7 +219,7 @@ const simpleTypes = Object.keys(SimpleTypes);
 @Injectable()
 export class MetadataService {
 
-    files: MetadataFile[];
+    files: MetadataFile[] = metadataFiles;
     metadata: { [name: string]: { [name: string]: ComplexType } };
     simple: { [name in ThriftType]: Simple } = simpleTypes.reduce((acc, item) => {
         const simple = new Simple();
@@ -230,8 +230,9 @@ export class MetadataService {
         };
     }, {}) as any;
 
-    constructor(private http: HttpClient) {
+    constructor() {
         this.get = this.get.bind(this);
+        this.init();
     }
 
     static isEqualValue(valueA: any, valueB: any) {
@@ -265,8 +266,7 @@ export class MetadataService {
     }
 
     // TODO to Metadata like Node
-    async init(url: string): Promise<void> {
-        this.files = await this.http.get<any>(url).toPromise();
+    init(): void {
         const toCookList = [];
         this.metadata = this.files.reduce((metadata, {name, ast}) => ({
             ...metadata,
