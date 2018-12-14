@@ -1,0 +1,5602 @@
+[
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "id": 4
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "ref": {
+          "id": 4
+        },
+        "data": {
+          "name": "Euroset Proxy",
+          "description": "Agent Proxy Euroset",
+          "url": "http://proxy-agent:8022/proxy/agent",
+          "options": []
+        }
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "id": {
+          "bank_card": null,
+          "payment_terminal": 0,
+          "digital_wallet": null,
+          "tokenized_bank_card": null
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "ref": {
+          "id": {
+            "bank_card": null,
+            "payment_terminal": 0,
+            "digital_wallet": null,
+            "tokenized_bank_card": null
+          }
+        },
+        "data": {
+          "name": "ÐÐ²ÑÐ¾ÑÐµÑÑ",
+          "description": "ÐÐ¿Ð»Ð°ÑÐ° ÑÐµÑÐµÐ· ÑÐµÑÐ¼Ð¸Ð½Ð°Ð»Ñ ÐÐ²ÑÐ¾ÑÐµÑÑ"
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "id": 100
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "ref": {
+          "id": 100
+        },
+        "data": {
+          "name": "Mocket Inspector Proxy",
+          "description": "Mocked inspector proxy for integration test purposes",
+          "url": "http://proxy-inspector:8022/proxy/mocket/inspector",
+          "options": [
+            [
+              "risk_score",
+              "high"
+            ]
+          ]
+        }
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": {
+        "id": 2
+      },
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": {
+        "ref": {
+          "id": 2
+        },
+        "data": {
+          "name": null,
+          "description": null,
+          "valid_since": null,
+          "valid_until": null,
+          "terms": {
+            "id": 2
+          }
+        }
+      },
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "id": 2
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "ref": {
+          "id": 2
+        },
+        "data": {
+          "name": "TCS Bank Proxy",
+          "description": "TCS Bank Proxy",
+          "url": "http://proxy-tinkoff:8022/proxy/tinkoff",
+          "options": []
+        }
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "id": {
+          "bank_card": null,
+          "payment_terminal": null,
+          "digital_wallet": 0,
+          "tokenized_bank_card": null
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "ref": {
+          "id": {
+            "bank_card": null,
+            "payment_terminal": null,
+            "digital_wallet": 0,
+            "tokenized_bank_card": null
+          }
+        },
+        "data": {
+          "name": "QIWI",
+          "description": "Visa QIWI Wallet"
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": {
+        "id": 1
+      },
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Basic test category",
+          "description": "Basic test category for mocketbank provider",
+          "type": 0
+        }
+      },
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": {
+        "id": 1
+      },
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": null,
+          "description": null,
+          "valid_since": null,
+          "valid_until": null,
+          "terms": {
+            "id": 1
+          }
+        }
+      },
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": {
+        "id": 3
+      },
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": {
+        "ref": {
+          "id": 3
+        },
+        "data": {
+          "name": "RBK Money (Direct Payments)",
+          "description": "International payment institution for serious strangers",
+          "calendar": null,
+          "system_account_set": {
+            "decisions": null,
+            "value": {
+              "id": 3
+            }
+          },
+          "default_contract_template": {
+            "decisions": null,
+            "value": {
+              "id": 3
+            }
+          },
+          "default_wallet_contract_template": null,
+          "providers": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 5
+              }
+            ]
+          },
+          "inspector": {
+            "decisions": null,
+            "value": {
+              "id": 1
+            }
+          },
+          "realm": 1,
+          "residences": [
+            194,
+            250,
+            165,
+            170,
+            187,
+            196
+          ]
+        }
+      },
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "id": 2
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "ref": {
+          "id": 2
+        },
+        "data": {
+          "name": "TCS Acquiring",
+          "description": "TCS Acquiring",
+          "options": null,
+          "risk_coverage": 100,
+          "terms": null
+        }
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "id": 2
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "ref": {
+          "id": 2
+        },
+        "data": {
+          "name": "Tinkoff Credit Systems",
+          "description": "Tinkoff Credit Systems",
+          "proxy": {
+            "ref": {
+              "id": 2
+            },
+            "additional": []
+          },
+          "terminal": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 2
+              }
+            ]
+          },
+          "abs_account": "1000000001",
+          "payment_terms": {
+            "currencies": {
+              "decisions": null,
+              "value": [
+                {
+                  "symbolic_code": "RUB"
+                }
+              ]
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 4
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": 1,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                },
+                {
+                  "id": {
+                    "bank_card": 0,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            },
+            "cash_limit": {
+              "decisions": null,
+              "value": {
+                "upper": {
+                  "inclusive": null,
+                  "exclusive": {
+                    "amount": 10000000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  }
+                },
+                "lower": {
+                  "inclusive": {
+                    "amount": 1000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  },
+                  "exclusive": null
+                }
+              }
+            },
+            "cash_flow": {
+              "decisions": [
+                {
+                  "if_": {
+                    "constant": null,
+                    "condition": {
+                      "category_is": null,
+                      "currency_is": null,
+                      "cost_in": null,
+                      "payment_tool": {
+                        "bank_card": {
+                          "definition": {
+                            "payment_system_is": 0,
+                            "issuer_bank_is": null,
+                            "payment_system": null,
+                            "issuer_country_is": null
+                          }
+                        },
+                        "payment_terminal": null,
+                        "digital_wallet": null
+                      },
+                      "shop_location_is": null,
+                      "party": null,
+                      "payout_method_is": null,
+                      "identification_level_is": null
+                    },
+                    "is_not": null,
+                    "all_of": null,
+                    "any_of": null
+                  },
+                  "then_": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": 0,
+                          "provider": null,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 1,
+                              "q": 1
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      },
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": null,
+                          "system": 0,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 14,
+                              "q": 1000
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      }
+                    ]
+                  }
+                },
+                {
+                  "if_": {
+                    "constant": null,
+                    "condition": {
+                      "category_is": null,
+                      "currency_is": null,
+                      "cost_in": null,
+                      "payment_tool": {
+                        "bank_card": {
+                          "definition": {
+                            "payment_system_is": 1,
+                            "issuer_bank_is": null,
+                            "payment_system": null,
+                            "issuer_country_is": null
+                          }
+                        },
+                        "payment_terminal": null,
+                        "digital_wallet": null
+                      },
+                      "shop_location_is": null,
+                      "party": null,
+                      "payout_method_is": null,
+                      "identification_level_is": null
+                    },
+                    "is_not": null,
+                    "all_of": null,
+                    "any_of": null
+                  },
+                  "then_": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": 0,
+                          "provider": null,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 1,
+                              "q": 1
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      },
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": null,
+                          "system": 0,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 17,
+                              "q": 1000
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      }
+                    ]
+                  }
+                }
+              ],
+              "value": null
+            },
+            "holds": null,
+            "refunds": null
+          },
+          "recurrent_paytool_terms": {
+            "cash_value": {
+              "decisions": null,
+              "value": {
+                "amount": 1000,
+                "currency": {
+                  "symbolic_code": "RUB"
+                }
+              }
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 4
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": 0,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            }
+          },
+          "accounts": [
+            [
+              {
+                "symbolic_code": "RUB"
+              },
+              {
+                "settlement": 5
+              }
+            ]
+          ]
+        }
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "id": {
+          "bank_card": 11,
+          "payment_terminal": null,
+          "digital_wallet": null,
+          "tokenized_bank_card": null
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "ref": {
+          "id": {
+            "bank_card": 11,
+            "payment_terminal": null,
+            "digital_wallet": null,
+            "tokenized_bank_card": null
+          }
+        },
+        "data": {
+          "name": "ÐÐ¡ÐÐ ÐÐ¸Ñ",
+          "description": "ÐÐ¡ÐÐ ÐÐ¸Ñ"
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "id": 4
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "ref": {
+          "id": 4
+        },
+        "data": {
+          "name": "Euroset",
+          "description": "Ð¢ÐµÑÐ¼Ð¸Ð½Ð°Ð» ÐÐ²ÑÐ¾ÑÐµÑÑ Ð´Ð»Ñ Ð¼Ð°Ð³Ð°Ð·Ð¸Ð½Ð¾Ð² Ñ Ð±Ð¾ÐµÐ²Ð¾Ð¹ ÐºÐ°ÑÐµÐ³Ð¾ÑÐ¸ÐµÐ¹",
+          "options": null,
+          "risk_coverage": 100,
+          "terms": null
+        }
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "id": {
+          "bank_card": 1,
+          "payment_terminal": null,
+          "digital_wallet": null,
+          "tokenized_bank_card": null
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "ref": {
+          "id": {
+            "bank_card": 1,
+            "payment_terminal": null,
+            "digital_wallet": null,
+            "tokenized_bank_card": null
+          }
+        },
+        "data": {
+          "name": "Mastercard",
+          "description": "Mastercard bank cards"
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": {
+        "id": 1
+      },
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Test calendar",
+          "description": null,
+          "timezone": "Europe/Moscow",
+          "holidays": [],
+          "first_day_of_week": null
+        }
+      },
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "id": {
+          "bank_card": 0,
+          "payment_terminal": null,
+          "digital_wallet": null,
+          "tokenized_bank_card": null
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "ref": {
+          "id": {
+            "bank_card": 0,
+            "payment_terminal": null,
+            "digital_wallet": null,
+            "tokenized_bank_card": null
+          }
+        },
+        "data": {
+          "name": "VISA",
+          "description": "VISA bank cards"
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": {
+        "id": 3
+      },
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": {
+        "ref": {
+          "id": 3
+        },
+        "data": {
+          "name": "Pastry VTB24",
+          "description": "Items of food consisting of sweet pastry with a cream, jam, or fruit filling (only VTB24 clients should enjoy it)",
+          "type": 1
+        }
+      },
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": {
+        "id": 2
+      },
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": {
+        "ref": {
+          "id": 2
+        },
+        "data": {
+          "name": "2nd Primary",
+          "description": "Secondary",
+          "accounts": [
+            [
+              {
+                "symbolic_code": "RUB"
+              },
+              {
+                "settlement": 8
+              }
+            ]
+          ]
+        }
+      },
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": {
+        "id": 3
+      },
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": {
+        "ref": {
+          "id": 3
+        },
+        "data": {
+          "name": null,
+          "description": null,
+          "parent_terms": null,
+          "term_sets": [
+            {
+              "action_time": {
+                "lower_bound": null,
+                "upper_bound": null
+              },
+              "terms": {
+                "payments": {
+                  "currencies": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "symbolic_code": "USD"
+                      }
+                    ]
+                  },
+                  "categories": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "id": 2
+                      }
+                    ]
+                  },
+                  "payment_methods": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "id": {
+                          "bank_card": 1,
+                          "payment_terminal": null,
+                          "digital_wallet": null,
+                          "tokenized_bank_card": null
+                        }
+                      },
+                      {
+                        "id": {
+                          "bank_card": 0,
+                          "payment_terminal": null,
+                          "digital_wallet": null,
+                          "tokenized_bank_card": null
+                        }
+                      }
+                    ]
+                  },
+                  "cash_limit": {
+                    "decisions": [
+                      {
+                        "if_": {
+                          "constant": null,
+                          "condition": {
+                            "category_is": null,
+                            "currency_is": {
+                              "symbolic_code": "USD"
+                            },
+                            "cost_in": null,
+                            "payment_tool": null,
+                            "shop_location_is": null,
+                            "party": null,
+                            "payout_method_is": null,
+                            "identification_level_is": null
+                          },
+                          "is_not": null,
+                          "all_of": null,
+                          "any_of": null
+                        },
+                        "then_": {
+                          "decisions": null,
+                          "value": {
+                            "upper": {
+                              "inclusive": null,
+                              "exclusive": {
+                                "amount": 4200000,
+                                "currency": {
+                                  "symbolic_code": "USD"
+                                }
+                              }
+                            },
+                            "lower": {
+                              "inclusive": {
+                                "amount": 1000,
+                                "currency": {
+                                  "symbolic_code": "USD"
+                                }
+                              },
+                              "exclusive": null
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "value": null
+                  },
+                  "fees": {
+                    "decisions": [
+                      {
+                        "if_": {
+                          "constant": null,
+                          "condition": {
+                            "category_is": null,
+                            "currency_is": {
+                              "symbolic_code": "USD"
+                            },
+                            "cost_in": null,
+                            "payment_tool": null,
+                            "shop_location_is": null,
+                            "party": null,
+                            "payout_method_is": null,
+                            "identification_level_is": null
+                          },
+                          "is_not": null,
+                          "all_of": null,
+                          "any_of": null
+                        },
+                        "then_": {
+                          "decisions": null,
+                          "value": [
+                            {
+                              "source": {
+                                "merchant": 0,
+                                "provider": null,
+                                "system": null,
+                                "external": null,
+                                "wallet": null
+                              },
+                              "destination": {
+                                "merchant": null,
+                                "provider": null,
+                                "system": 0,
+                                "external": null,
+                                "wallet": null
+                              },
+                              "volume": {
+                                "fixed": null,
+                                "share": {
+                                  "parts": {
+                                    "p": 45,
+                                    "q": 1000
+                                  },
+                                  "of": 1,
+                                  "rounding_method": null
+                                },
+                                "product": null
+                              },
+                              "details": null
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "value": null
+                  },
+                  "holds": {
+                    "payment_methods": {
+                      "decisions": null,
+                      "value": [
+                        {
+                          "id": {
+                            "bank_card": 1,
+                            "payment_terminal": null,
+                            "digital_wallet": null,
+                            "tokenized_bank_card": null
+                          }
+                        },
+                        {
+                          "id": {
+                            "bank_card": 0,
+                            "payment_terminal": null,
+                            "digital_wallet": null,
+                            "tokenized_bank_card": null
+                          }
+                        }
+                      ]
+                    },
+                    "lifetime": {
+                      "decisions": null,
+                      "value": {
+                        "seconds": 3
+                      }
+                    }
+                  },
+                  "refunds": {
+                    "payment_methods": {
+                      "decisions": null,
+                      "value": [
+                        {
+                          "id": {
+                            "bank_card": 1,
+                            "payment_terminal": null,
+                            "digital_wallet": null,
+                            "tokenized_bank_card": null
+                          }
+                        },
+                        {
+                          "id": {
+                            "bank_card": 0,
+                            "payment_terminal": null,
+                            "digital_wallet": null,
+                            "tokenized_bank_card": null
+                          }
+                        }
+                      ]
+                    },
+                    "fees": {
+                      "decisions": null,
+                      "value": []
+                    },
+                    "eligibility_time": {
+                      "decisions": null,
+                      "value": {
+                        "years": null,
+                        "months": null,
+                        "days": null,
+                        "hours": 1,
+                        "minutes": null,
+                        "seconds": null
+                      }
+                    },
+                    "partial_refunds": {
+                      "cash_limit": {
+                        "decisions": [
+                          {
+                            "if_": {
+                              "constant": null,
+                              "condition": {
+                                "category_is": null,
+                                "currency_is": {
+                                  "symbolic_code": "USD"
+                                },
+                                "cost_in": null,
+                                "payment_tool": null,
+                                "shop_location_is": null,
+                                "party": null,
+                                "payout_method_is": null,
+                                "identification_level_is": null
+                              },
+                              "is_not": null,
+                              "all_of": null,
+                              "any_of": null
+                            },
+                            "then_": {
+                              "decisions": null,
+                              "value": {
+                                "upper": {
+                                  "inclusive": null,
+                                  "exclusive": {
+                                    "amount": 4200000,
+                                    "currency": {
+                                      "symbolic_code": "USD"
+                                    }
+                                  }
+                                },
+                                "lower": {
+                                  "inclusive": {
+                                    "amount": 1000,
+                                    "currency": {
+                                      "symbolic_code": "USD"
+                                    }
+                                  },
+                                  "exclusive": null
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "value": null
+                      }
+                    }
+                  }
+                },
+                "recurrent_paytools": null,
+                "payouts": null,
+                "reports": null,
+                "wallets": null
+              }
+            }
+          ]
+        }
+      },
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": {
+        "id": 1
+      },
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Primary",
+          "description": "Primary",
+          "accounts": [
+            [
+              {
+                "symbolic_code": "RUB"
+              },
+              {
+                "settlement": 1
+              }
+            ]
+          ]
+        }
+      },
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": {
+        "id": 3
+      },
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": {
+        "ref": {
+          "id": 3
+        },
+        "data": {
+          "name": null,
+          "description": null,
+          "valid_since": null,
+          "valid_until": null,
+          "terms": {
+            "id": 3
+          }
+        }
+      },
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": {
+        "id": 3
+      },
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": {
+        "ref": {
+          "id": 3
+        },
+        "data": {
+          "name": "Primary USD",
+          "description": "Primary USD",
+          "accounts": [
+            [
+              {
+                "symbolic_code": "USD"
+              },
+              {
+                "settlement": 10
+              }
+            ]
+          ]
+        }
+      },
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "id": 3
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "ref": {
+          "id": 3
+        },
+        "data": {
+          "name": "VTB24",
+          "description": "VTB24",
+          "proxy": {
+            "ref": {
+              "id": 3
+            },
+            "additional": []
+          },
+          "terminal": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 3
+              }
+            ]
+          },
+          "abs_account": "1000000002",
+          "payment_terms": {
+            "currencies": {
+              "decisions": null,
+              "value": [
+                {
+                  "symbolic_code": "RUB"
+                }
+              ]
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 3
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": 11,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            },
+            "cash_limit": {
+              "decisions": null,
+              "value": {
+                "upper": {
+                  "inclusive": null,
+                  "exclusive": {
+                    "amount": 10000000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  }
+                },
+                "lower": {
+                  "inclusive": {
+                    "amount": 1000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  },
+                  "exclusive": null
+                }
+              }
+            },
+            "cash_flow": {
+              "decisions": null,
+              "value": [
+                {
+                  "source": {
+                    "merchant": null,
+                    "provider": 0,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "destination": {
+                    "merchant": 0,
+                    "provider": null,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "volume": {
+                    "fixed": null,
+                    "share": {
+                      "parts": {
+                        "p": 1,
+                        "q": 1
+                      },
+                      "of": 1,
+                      "rounding_method": null
+                    },
+                    "product": null
+                  },
+                  "details": null
+                },
+                {
+                  "source": {
+                    "merchant": null,
+                    "provider": null,
+                    "system": 0,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "destination": {
+                    "merchant": null,
+                    "provider": 0,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "volume": {
+                    "fixed": null,
+                    "share": {
+                      "parts": {
+                        "p": 23,
+                        "q": 1000
+                      },
+                      "of": 1,
+                      "rounding_method": null
+                    },
+                    "product": null
+                  },
+                  "details": null
+                }
+              ]
+            },
+            "holds": null,
+            "refunds": null
+          },
+          "recurrent_paytool_terms": null,
+          "accounts": [
+            [
+              {
+                "symbolic_code": "RUB"
+              },
+              {
+                "settlement": 6
+              }
+            ]
+          ]
+        }
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": {},
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": {
+        "ref": {},
+        "data": {
+          "external_account_set": {
+            "decisions": null,
+            "value": {
+              "id": 1
+            }
+          },
+          "payment_institutions": [
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            }
+          ],
+          "contract_payment_institution_defaults": {
+            "test": {
+              "id": 1
+            },
+            "live": {
+              "id": 2
+            }
+          }
+        }
+      },
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "id": 3
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "ref": {
+          "id": 3
+        },
+        "data": {
+          "name": "VTB24 Bank Proxy",
+          "description": "VTB24 Bank Proxy",
+          "url": "http://proxy-vtb:8022/proxy/vtb",
+          "options": []
+        }
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": {
+        "id": 1
+      },
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": null,
+          "description": null,
+          "parent_terms": null,
+          "term_sets": [
+            {
+              "action_time": {
+                "lower_bound": null,
+                "upper_bound": null
+              },
+              "terms": {
+                "payments": {
+                  "currencies": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "symbolic_code": "RUB"
+                      }
+                    ]
+                  },
+                  "categories": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "id": 1
+                      }
+                    ]
+                  },
+                  "payment_methods": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "id": {
+                          "bank_card": 1,
+                          "payment_terminal": null,
+                          "digital_wallet": null,
+                          "tokenized_bank_card": null
+                        }
+                      },
+                      {
+                        "id": {
+                          "bank_card": 11,
+                          "payment_terminal": null,
+                          "digital_wallet": null,
+                          "tokenized_bank_card": null
+                        }
+                      },
+                      {
+                        "id": {
+                          "bank_card": 0,
+                          "payment_terminal": null,
+                          "digital_wallet": null,
+                          "tokenized_bank_card": null
+                        }
+                      },
+                      {
+                        "id": {
+                          "bank_card": null,
+                          "payment_terminal": null,
+                          "digital_wallet": 0,
+                          "tokenized_bank_card": null
+                        }
+                      },
+                      {
+                        "id": {
+                          "bank_card": null,
+                          "payment_terminal": 0,
+                          "digital_wallet": null,
+                          "tokenized_bank_card": null
+                        }
+                      }
+                    ]
+                  },
+                  "cash_limit": {
+                    "decisions": [
+                      {
+                        "if_": {
+                          "constant": null,
+                          "condition": {
+                            "category_is": null,
+                            "currency_is": {
+                              "symbolic_code": "RUB"
+                            },
+                            "cost_in": null,
+                            "payment_tool": null,
+                            "shop_location_is": null,
+                            "party": null,
+                            "payout_method_is": null,
+                            "identification_level_is": null
+                          },
+                          "is_not": null,
+                          "all_of": null,
+                          "any_of": null
+                        },
+                        "then_": {
+                          "decisions": null,
+                          "value": {
+                            "upper": {
+                              "inclusive": null,
+                              "exclusive": {
+                                "amount": 4200000,
+                                "currency": {
+                                  "symbolic_code": "RUB"
+                                }
+                              }
+                            },
+                            "lower": {
+                              "inclusive": {
+                                "amount": 1000,
+                                "currency": {
+                                  "symbolic_code": "RUB"
+                                }
+                              },
+                              "exclusive": null
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "value": null
+                  },
+                  "fees": {
+                    "decisions": [
+                      {
+                        "if_": {
+                          "constant": null,
+                          "condition": {
+                            "category_is": null,
+                            "currency_is": {
+                              "symbolic_code": "RUB"
+                            },
+                            "cost_in": null,
+                            "payment_tool": null,
+                            "shop_location_is": null,
+                            "party": null,
+                            "payout_method_is": null,
+                            "identification_level_is": null
+                          },
+                          "is_not": null,
+                          "all_of": null,
+                          "any_of": null
+                        },
+                        "then_": {
+                          "decisions": null,
+                          "value": [
+                            {
+                              "source": {
+                                "merchant": 0,
+                                "provider": null,
+                                "system": null,
+                                "external": null,
+                                "wallet": null
+                              },
+                              "destination": {
+                                "merchant": null,
+                                "provider": null,
+                                "system": 0,
+                                "external": null,
+                                "wallet": null
+                              },
+                              "volume": {
+                                "fixed": null,
+                                "share": {
+                                  "parts": {
+                                    "p": 45,
+                                    "q": 1000
+                                  },
+                                  "of": 1,
+                                  "rounding_method": null
+                                },
+                                "product": null
+                              },
+                              "details": null
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "value": null
+                  },
+                  "holds": {
+                    "payment_methods": {
+                      "decisions": null,
+                      "value": [
+                        {
+                          "id": {
+                            "bank_card": 1,
+                            "payment_terminal": null,
+                            "digital_wallet": null,
+                            "tokenized_bank_card": null
+                          }
+                        },
+                        {
+                          "id": {
+                            "bank_card": 0,
+                            "payment_terminal": null,
+                            "digital_wallet": null,
+                            "tokenized_bank_card": null
+                          }
+                        }
+                      ]
+                    },
+                    "lifetime": {
+                      "decisions": null,
+                      "value": {
+                        "seconds": 3
+                      }
+                    }
+                  },
+                  "refunds": {
+                    "payment_methods": {
+                      "decisions": null,
+                      "value": [
+                        {
+                          "id": {
+                            "bank_card": 1,
+                            "payment_terminal": null,
+                            "digital_wallet": null,
+                            "tokenized_bank_card": null
+                          }
+                        },
+                        {
+                          "id": {
+                            "bank_card": 0,
+                            "payment_terminal": null,
+                            "digital_wallet": null,
+                            "tokenized_bank_card": null
+                          }
+                        }
+                      ]
+                    },
+                    "fees": {
+                      "decisions": null,
+                      "value": []
+                    },
+                    "eligibility_time": {
+                      "decisions": null,
+                      "value": {
+                        "years": null,
+                        "months": null,
+                        "days": null,
+                        "hours": 1,
+                        "minutes": null,
+                        "seconds": null
+                      }
+                    },
+                    "partial_refunds": {
+                      "cash_limit": {
+                        "decisions": [
+                          {
+                            "if_": {
+                              "constant": null,
+                              "condition": {
+                                "category_is": null,
+                                "currency_is": {
+                                  "symbolic_code": "RUB"
+                                },
+                                "cost_in": null,
+                                "payment_tool": null,
+                                "shop_location_is": null,
+                                "party": null,
+                                "payout_method_is": null,
+                                "identification_level_is": null
+                              },
+                              "is_not": null,
+                              "all_of": null,
+                              "any_of": null
+                            },
+                            "then_": {
+                              "decisions": null,
+                              "value": {
+                                "upper": {
+                                  "inclusive": null,
+                                  "exclusive": {
+                                    "amount": 4200000,
+                                    "currency": {
+                                      "symbolic_code": "RUB"
+                                    }
+                                  }
+                                },
+                                "lower": {
+                                  "inclusive": {
+                                    "amount": 1000,
+                                    "currency": {
+                                      "symbolic_code": "RUB"
+                                    }
+                                  },
+                                  "exclusive": null
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "value": null
+                      }
+                    }
+                  }
+                },
+                "recurrent_paytools": null,
+                "payouts": null,
+                "reports": null,
+                "wallets": null
+              }
+            }
+          ]
+        }
+      },
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "id": 4
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "ref": {
+          "id": 4
+        },
+        "data": {
+          "name": "Euroset",
+          "description": "Euroset",
+          "proxy": {
+            "ref": {
+              "id": 4
+            },
+            "additional": []
+          },
+          "terminal": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 4
+              }
+            ]
+          },
+          "abs_account": "1000000042",
+          "payment_terms": {
+            "currencies": {
+              "decisions": null,
+              "value": [
+                {
+                  "symbolic_code": "RUB"
+                }
+              ]
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 2
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": null,
+                    "payment_terminal": 0,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            },
+            "cash_limit": {
+              "decisions": null,
+              "value": {
+                "upper": {
+                  "inclusive": null,
+                  "exclusive": {
+                    "amount": 1000000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  }
+                },
+                "lower": {
+                  "inclusive": {
+                    "amount": 10000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  },
+                  "exclusive": null
+                }
+              }
+            },
+            "cash_flow": {
+              "decisions": null,
+              "value": [
+                {
+                  "source": {
+                    "merchant": null,
+                    "provider": 0,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "destination": {
+                    "merchant": 0,
+                    "provider": null,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "volume": {
+                    "fixed": null,
+                    "share": {
+                      "parts": {
+                        "p": 1,
+                        "q": 1
+                      },
+                      "of": 1,
+                      "rounding_method": null
+                    },
+                    "product": null
+                  },
+                  "details": null
+                },
+                {
+                  "source": {
+                    "merchant": null,
+                    "provider": null,
+                    "system": 0,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "destination": {
+                    "merchant": null,
+                    "provider": 0,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "volume": {
+                    "fixed": null,
+                    "share": {
+                      "parts": {
+                        "p": 23,
+                        "q": 1000
+                      },
+                      "of": 1,
+                      "rounding_method": null
+                    },
+                    "product": null
+                  },
+                  "details": null
+                }
+              ]
+            },
+            "holds": null,
+            "refunds": null
+          },
+          "recurrent_paytool_terms": null,
+          "accounts": [
+            [
+              {
+                "symbolic_code": "RUB"
+              },
+              {
+                "settlement": 7
+              }
+            ]
+          ]
+        }
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "id": 1
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Mocketbank",
+          "description": "Mocketbank",
+          "proxy": {
+            "ref": {
+              "id": 1
+            },
+            "additional": []
+          },
+          "terminal": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 1
+              }
+            ]
+          },
+          "abs_account": "0000000001",
+          "payment_terms": {
+            "currencies": {
+              "decisions": null,
+              "value": [
+                {
+                  "symbolic_code": "RUB"
+                }
+              ]
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 1
+                },
+                {
+                  "id": 2
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": 3,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                },
+                {
+                  "id": {
+                    "bank_card": 1,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                },
+                {
+                  "id": {
+                    "bank_card": 0,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            },
+            "cash_limit": {
+              "decisions": null,
+              "value": {
+                "upper": {
+                  "inclusive": null,
+                  "exclusive": {
+                    "amount": 10000000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  }
+                },
+                "lower": {
+                  "inclusive": {
+                    "amount": 1000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  },
+                  "exclusive": null
+                }
+              }
+            },
+            "cash_flow": {
+              "decisions": [
+                {
+                  "if_": {
+                    "constant": null,
+                    "condition": {
+                      "category_is": null,
+                      "currency_is": null,
+                      "cost_in": null,
+                      "payment_tool": {
+                        "bank_card": {
+                          "definition": {
+                            "payment_system_is": 0,
+                            "issuer_bank_is": null,
+                            "payment_system": null,
+                            "issuer_country_is": null
+                          }
+                        },
+                        "payment_terminal": null,
+                        "digital_wallet": null
+                      },
+                      "shop_location_is": null,
+                      "party": null,
+                      "payout_method_is": null,
+                      "identification_level_is": null
+                    },
+                    "is_not": null,
+                    "all_of": null,
+                    "any_of": null
+                  },
+                  "then_": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": 0,
+                          "provider": null,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 1,
+                              "q": 1
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      },
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": null,
+                          "system": 0,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 15,
+                              "q": 1000
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      }
+                    ]
+                  }
+                },
+                {
+                  "if_": {
+                    "constant": null,
+                    "condition": {
+                      "category_is": null,
+                      "currency_is": null,
+                      "cost_in": null,
+                      "payment_tool": {
+                        "bank_card": {
+                          "definition": {
+                            "payment_system_is": 1,
+                            "issuer_bank_is": null,
+                            "payment_system": null,
+                            "issuer_country_is": null
+                          }
+                        },
+                        "payment_terminal": null,
+                        "digital_wallet": null
+                      },
+                      "shop_location_is": null,
+                      "party": null,
+                      "payout_method_is": null,
+                      "identification_level_is": null
+                    },
+                    "is_not": null,
+                    "all_of": null,
+                    "any_of": null
+                  },
+                  "then_": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": 0,
+                          "provider": null,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 1,
+                              "q": 1
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      },
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": null,
+                          "system": 0,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 18,
+                              "q": 1000
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      }
+                    ]
+                  }
+                },
+                {
+                  "if_": {
+                    "constant": null,
+                    "condition": {
+                      "category_is": null,
+                      "currency_is": null,
+                      "cost_in": null,
+                      "payment_tool": {
+                        "bank_card": {
+                          "definition": {
+                            "payment_system_is": 3,
+                            "issuer_bank_is": null,
+                            "payment_system": null,
+                            "issuer_country_is": null
+                          }
+                        },
+                        "payment_terminal": null,
+                        "digital_wallet": null
+                      },
+                      "shop_location_is": null,
+                      "party": null,
+                      "payout_method_is": null,
+                      "identification_level_is": null
+                    },
+                    "is_not": null,
+                    "all_of": null,
+                    "any_of": null
+                  },
+                  "then_": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": 0,
+                          "provider": null,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 1,
+                              "q": 1
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      },
+                      {
+                        "source": {
+                          "merchant": null,
+                          "provider": null,
+                          "system": 0,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": null,
+                          "provider": 0,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 19,
+                              "q": 1000
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      }
+                    ]
+                  }
+                }
+              ],
+              "value": null
+            },
+            "holds": {
+              "lifetime": {
+                "decisions": null,
+                "value": {
+                  "seconds": 3600
+                }
+              }
+            },
+            "refunds": {
+              "cash_flow": {
+                "decisions": null,
+                "value": [
+                  {
+                    "source": {
+                      "merchant": 0,
+                      "provider": null,
+                      "system": null,
+                      "external": null,
+                      "wallet": null
+                    },
+                    "destination": {
+                      "merchant": null,
+                      "provider": 0,
+                      "system": null,
+                      "external": null,
+                      "wallet": null
+                    },
+                    "volume": {
+                      "fixed": null,
+                      "share": {
+                        "parts": {
+                          "p": 1,
+                          "q": 1
+                        },
+                        "of": 1,
+                        "rounding_method": null
+                      },
+                      "product": null
+                    },
+                    "details": null
+                  }
+                ]
+              },
+              "partial_refunds": {
+                "cash_limit": {
+                  "decisions": null,
+                  "value": {
+                    "upper": {
+                      "inclusive": null,
+                      "exclusive": {
+                        "amount": 10000000,
+                        "currency": {
+                          "symbolic_code": "RUB"
+                        }
+                      }
+                    },
+                    "lower": {
+                      "inclusive": {
+                        "amount": 1000,
+                        "currency": {
+                          "symbolic_code": "RUB"
+                        }
+                      },
+                      "exclusive": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "recurrent_paytool_terms": {
+            "cash_value": {
+              "decisions": null,
+              "value": {
+                "amount": 1000,
+                "currency": {
+                  "symbolic_code": "RUB"
+                }
+              }
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 1
+                },
+                {
+                  "id": 2
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": 0,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            }
+          },
+          "accounts": [
+            [
+              {
+                "symbolic_code": "RUB"
+              },
+              {
+                "settlement": 4
+              }
+            ]
+          ]
+        }
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "id": 10
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "ref": {
+          "id": 10
+        },
+        "data": {
+          "name": "QIWI",
+          "description": "QIWI",
+          "proxy": {
+            "ref": {
+              "id": 6
+            },
+            "additional": []
+          },
+          "terminal": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 10
+              }
+            ]
+          },
+          "abs_account": "1000000042",
+          "payment_terms": {
+            "currencies": {
+              "decisions": null,
+              "value": [
+                {
+                  "symbolic_code": "RUB"
+                }
+              ]
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 2
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": null,
+                    "payment_terminal": null,
+                    "digital_wallet": 0,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            },
+            "cash_limit": {
+              "decisions": null,
+              "value": {
+                "upper": {
+                  "inclusive": null,
+                  "exclusive": {
+                    "amount": 1000000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  }
+                },
+                "lower": {
+                  "inclusive": {
+                    "amount": 10000,
+                    "currency": {
+                      "symbolic_code": "RUB"
+                    }
+                  },
+                  "exclusive": null
+                }
+              }
+            },
+            "cash_flow": {
+              "decisions": null,
+              "value": [
+                {
+                  "source": {
+                    "merchant": null,
+                    "provider": 0,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "destination": {
+                    "merchant": 0,
+                    "provider": null,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "volume": {
+                    "fixed": null,
+                    "share": {
+                      "parts": {
+                        "p": 1,
+                        "q": 1
+                      },
+                      "of": 1,
+                      "rounding_method": null
+                    },
+                    "product": null
+                  },
+                  "details": null
+                },
+                {
+                  "source": {
+                    "merchant": null,
+                    "provider": null,
+                    "system": 0,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "destination": {
+                    "merchant": null,
+                    "provider": 0,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "volume": {
+                    "fixed": null,
+                    "share": {
+                      "parts": {
+                        "p": 6,
+                        "q": 100
+                      },
+                      "of": 1,
+                      "rounding_method": null
+                    },
+                    "product": null
+                  },
+                  "details": null
+                }
+              ]
+            },
+            "holds": null,
+            "refunds": null
+          },
+          "recurrent_paytool_terms": null,
+          "accounts": [
+            [
+              {
+                "symbolic_code": "RUB"
+              },
+              {
+                "settlement": 9
+              }
+            ]
+          ]
+        }
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": {
+        "id": 2
+      },
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": {
+        "ref": {
+          "id": 2
+        },
+        "data": {
+          "name": "Quasi-live test category",
+          "description": "Quasi-live test category for mocketbank provider",
+          "type": 1
+        }
+      },
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "id": 5
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": {
+        "ref": {
+          "id": 5
+        },
+        "data": {
+          "name": "Mocketbank USD",
+          "description": "Mocketbank for USD payments",
+          "proxy": {
+            "ref": {
+              "id": 1
+            },
+            "additional": []
+          },
+          "terminal": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 5
+              }
+            ]
+          },
+          "abs_account": "0000000001",
+          "payment_terms": {
+            "currencies": {
+              "decisions": null,
+              "value": [
+                {
+                  "symbolic_code": "USD"
+                }
+              ]
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 1
+                },
+                {
+                  "id": 2
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": 1,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                },
+                {
+                  "id": {
+                    "bank_card": 0,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            },
+            "cash_limit": {
+              "decisions": [
+                {
+                  "if_": {
+                    "constant": null,
+                    "condition": {
+                      "category_is": null,
+                      "currency_is": {
+                        "symbolic_code": "USD"
+                      },
+                      "cost_in": null,
+                      "payment_tool": null,
+                      "shop_location_is": null,
+                      "party": null,
+                      "payout_method_is": null,
+                      "identification_level_is": null
+                    },
+                    "is_not": null,
+                    "all_of": null,
+                    "any_of": null
+                  },
+                  "then_": {
+                    "decisions": null,
+                    "value": {
+                      "upper": {
+                        "inclusive": null,
+                        "exclusive": {
+                          "amount": 4200000,
+                          "currency": {
+                            "symbolic_code": "USD"
+                          }
+                        }
+                      },
+                      "lower": {
+                        "inclusive": {
+                          "amount": 1000,
+                          "currency": {
+                            "symbolic_code": "USD"
+                          }
+                        },
+                        "exclusive": null
+                      }
+                    }
+                  }
+                }
+              ],
+              "value": null
+            },
+            "cash_flow": {
+              "decisions": null,
+              "value": [
+                {
+                  "source": {
+                    "merchant": null,
+                    "provider": 0,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "destination": {
+                    "merchant": 0,
+                    "provider": null,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "volume": {
+                    "fixed": null,
+                    "share": {
+                      "parts": {
+                        "p": 1,
+                        "q": 1
+                      },
+                      "of": 1,
+                      "rounding_method": null
+                    },
+                    "product": null
+                  },
+                  "details": null
+                },
+                {
+                  "source": {
+                    "merchant": null,
+                    "provider": null,
+                    "system": 0,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "destination": {
+                    "merchant": null,
+                    "provider": 0,
+                    "system": null,
+                    "external": null,
+                    "wallet": null
+                  },
+                  "volume": {
+                    "fixed": null,
+                    "share": {
+                      "parts": {
+                        "p": 15,
+                        "q": 1000
+                      },
+                      "of": 1,
+                      "rounding_method": null
+                    },
+                    "product": null
+                  },
+                  "details": null
+                }
+              ]
+            },
+            "holds": {
+              "lifetime": {
+                "decisions": null,
+                "value": {
+                  "seconds": 3600
+                }
+              }
+            },
+            "refunds": {
+              "cash_flow": {
+                "decisions": null,
+                "value": [
+                  {
+                    "source": {
+                      "merchant": 0,
+                      "provider": null,
+                      "system": null,
+                      "external": null,
+                      "wallet": null
+                    },
+                    "destination": {
+                      "merchant": null,
+                      "provider": 0,
+                      "system": null,
+                      "external": null,
+                      "wallet": null
+                    },
+                    "volume": {
+                      "fixed": null,
+                      "share": {
+                        "parts": {
+                          "p": 1,
+                          "q": 1
+                        },
+                        "of": 1,
+                        "rounding_method": null
+                      },
+                      "product": null
+                    },
+                    "details": null
+                  }
+                ]
+              },
+              "partial_refunds": {
+                "cash_limit": {
+                  "decisions": [
+                    {
+                      "if_": {
+                        "constant": null,
+                        "condition": {
+                          "category_is": null,
+                          "currency_is": {
+                            "symbolic_code": "USD"
+                          },
+                          "cost_in": null,
+                          "payment_tool": null,
+                          "shop_location_is": null,
+                          "party": null,
+                          "payout_method_is": null,
+                          "identification_level_is": null
+                        },
+                        "is_not": null,
+                        "all_of": null,
+                        "any_of": null
+                      },
+                      "then_": {
+                        "decisions": null,
+                        "value": {
+                          "upper": {
+                            "inclusive": null,
+                            "exclusive": {
+                              "amount": 4200000,
+                              "currency": {
+                                "symbolic_code": "USD"
+                              }
+                            }
+                          },
+                          "lower": {
+                            "inclusive": {
+                              "amount": 1000,
+                              "currency": {
+                                "symbolic_code": "USD"
+                              }
+                            },
+                            "exclusive": null
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "value": null
+                }
+              }
+            }
+          },
+          "recurrent_paytool_terms": {
+            "cash_value": {
+              "decisions": [
+                {
+                  "if_": {
+                    "constant": null,
+                    "condition": {
+                      "category_is": null,
+                      "currency_is": {
+                        "symbolic_code": "USD"
+                      },
+                      "cost_in": null,
+                      "payment_tool": null,
+                      "shop_location_is": null,
+                      "party": null,
+                      "payout_method_is": null,
+                      "identification_level_is": null
+                    },
+                    "is_not": null,
+                    "all_of": null,
+                    "any_of": null
+                  },
+                  "then_": {
+                    "decisions": null,
+                    "value": {
+                      "amount": 100,
+                      "currency": {
+                        "symbolic_code": "USD"
+                      }
+                    }
+                  }
+                }
+              ],
+              "value": null
+            },
+            "categories": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": 1
+                },
+                {
+                  "id": 2
+                }
+              ]
+            },
+            "payment_methods": {
+              "decisions": null,
+              "value": [
+                {
+                  "id": {
+                    "bank_card": 0,
+                    "payment_terminal": null,
+                    "digital_wallet": null,
+                    "tokenized_bank_card": null
+                  }
+                }
+              ]
+            }
+          },
+          "accounts": [
+            [
+              {
+                "symbolic_code": "USD"
+              },
+              {
+                "settlement": 11
+              }
+            ]
+          ]
+        }
+      },
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "id": 1
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Mocketbank Test Acquiring",
+          "description": "Mocketbank Test Acquiring",
+          "options": null,
+          "risk_coverage": 100,
+          "terms": null
+        }
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "id": 3
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "ref": {
+          "id": 3
+        },
+        "data": {
+          "name": "VTB24 ÐÐ¡ÐÐ ÐÐ¸Ñ",
+          "description": "VTB24 ÐÐ¡ÐÐ ÐÐ¸Ñ",
+          "options": null,
+          "risk_coverage": 100,
+          "terms": null
+        }
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": {
+        "id": 1
+      },
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Test schedule",
+          "description": null,
+          "schedule": {
+            "year": {
+              "every": {
+                "nth": null
+              },
+              "on": null
+            },
+            "month": {
+              "every": {
+                "nth": null
+              },
+              "on": null
+            },
+            "day_of_month": {
+              "every": {
+                "nth": null
+              },
+              "on": null
+            },
+            "day_of_week": {
+              "every": {
+                "nth": null
+              },
+              "on": null
+            },
+            "hour": {
+              "every": {
+                "nth": null
+              },
+              "on": null
+            },
+            "minute": {
+              "every": {
+                "nth": null
+              },
+              "on": null
+            },
+            "second": {
+              "every": {
+                "nth": 1
+              },
+              "on": null
+            }
+          },
+          "delay": null,
+          "policy": null
+        }
+      },
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "id": 6
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "ref": {
+          "id": 6
+        },
+        "data": {
+          "name": "Mocketbase / EWallet",
+          "description": "BLAH",
+          "url": "http://mocket-base:8022/proxy/mocket/ewallet",
+          "options": [
+            [
+              "shop",
+              "pohs"
+            ]
+          ]
+        }
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": {
+        "id": 2
+      },
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": {
+        "ref": {
+          "id": 2
+        },
+        "data": {
+          "name": null,
+          "description": null,
+          "parent_terms": {
+            "id": 1
+          },
+          "term_sets": [
+            {
+              "action_time": {
+                "lower_bound": null,
+                "upper_bound": null
+              },
+              "terms": {
+                "payments": {
+                  "currencies": null,
+                  "categories": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "id": 2
+                      }
+                    ]
+                  },
+                  "payment_methods": null,
+                  "cash_limit": null,
+                  "fees": null,
+                  "holds": null,
+                  "refunds": null
+                },
+                "recurrent_paytools": {
+                  "payment_methods": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "id": {
+                          "bank_card": 0,
+                          "payment_terminal": null,
+                          "digital_wallet": null,
+                          "tokenized_bank_card": null
+                        }
+                      }
+                    ]
+                  }
+                },
+                "payouts": {
+                  "payout_schedules": null,
+                  "payout_methods": null,
+                  "cash_limit": null,
+                  "fees": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "source": {
+                          "merchant": 0,
+                          "provider": null,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": 2,
+                          "provider": null,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 955,
+                              "q": 1000
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      },
+                      {
+                        "source": {
+                          "merchant": 0,
+                          "provider": null,
+                          "system": null,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "destination": {
+                          "merchant": null,
+                          "provider": null,
+                          "system": 0,
+                          "external": null,
+                          "wallet": null
+                        },
+                        "volume": {
+                          "fixed": null,
+                          "share": {
+                            "parts": {
+                              "p": 45,
+                              "q": 1000
+                            },
+                            "of": 1,
+                            "rounding_method": null
+                          },
+                          "product": null
+                        },
+                        "details": null
+                      }
+                    ]
+                  }
+                },
+                "reports": null,
+                "wallets": null
+              }
+            }
+          ]
+        }
+      },
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": {
+        "id": 10
+      },
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": {
+        "ref": {
+          "id": 10
+        },
+        "data": {
+          "name": null,
+          "description": null,
+          "valid_since": null,
+          "valid_until": null,
+          "terms": {
+            "id": 10
+          }
+        }
+      },
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": {
+        "symbolic_code": "USD"
+      },
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": {
+        "ref": {
+          "symbolic_code": "USD"
+        },
+        "data": {
+          "name": "USA dolla",
+          "symbolic_code": "USD",
+          "numeric_code": 840,
+          "exponent": 2
+        }
+      },
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "id": 10
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "ref": {
+          "id": 10
+        },
+        "data": {
+          "name": "QIWI",
+          "description": "Ð¢ÐµÑÐ¼Ð¸Ð½Ð°Ð» QIWI Ð´Ð»Ñ Ð¼Ð°Ð³Ð°Ð·Ð¸Ð½Ð¾Ð² Ñ Ð±Ð¾ÐµÐ²Ð¾Ð¹ ÐºÐ°ÑÐµÐ³Ð¾ÑÐ¸ÐµÐ¹",
+          "options": null,
+          "risk_coverage": 100,
+          "terms": null
+        }
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": {
+        "id": 1
+      },
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Kovalsky",
+          "description": "World famous inspector Kovalsky at your service!",
+          "proxy": {
+            "ref": {
+              "id": 100
+            },
+            "additional": [
+              [
+                "risk_score",
+                "high"
+              ]
+            ]
+          },
+          "fallback_risk_score": null
+        }
+      },
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "id": 1
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Mocketbank Proxy",
+          "description": "Mocked bank proxy for integration test purposes",
+          "url": "http://proxy-mocketbank:8022/proxy/mocketbank",
+          "options": []
+        }
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "id": {
+          "bank_card": 3,
+          "payment_terminal": null,
+          "digital_wallet": null,
+          "tokenized_bank_card": null
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": {
+        "ref": {
+          "id": {
+            "bank_card": 3,
+            "payment_terminal": null,
+            "digital_wallet": null,
+            "tokenized_bank_card": null
+          }
+        },
+        "data": {
+          "name": "Maestro",
+          "description": "Maestro bank cards"
+        }
+      },
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "id": 1000
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": {
+        "ref": {
+          "id": 1000
+        },
+        "data": {
+          "name": "PIMP",
+          "description": "Common Merchant Proxy",
+          "url": "http://pimp:8022/hg",
+          "options": []
+        }
+      },
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "id": 5
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": {
+        "ref": {
+          "id": 5
+        },
+        "data": {
+          "name": "Mocketbank USD Test",
+          "description": "Mocketbank Test Acquiring for USD payments",
+          "options": null,
+          "risk_coverage": 100,
+          "terms": null
+        }
+      },
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": {
+        "symbolic_code": "RUB"
+      },
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": {
+        "ref": {
+          "symbolic_code": "RUB"
+        },
+        "data": {
+          "name": "Russian rubles",
+          "symbolic_code": "RUB",
+          "numeric_code": 643,
+          "exponent": 2
+        }
+      },
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": {
+        "id": 4
+      },
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": {
+        "ref": {
+          "id": 4
+        },
+        "data": {
+          "name": "Pastry TCS",
+          "description": "Items of food consisting of sweet pastry with a cream, jam, or fruit filling (only TCS clients should enjoy it)",
+          "type": 1
+        }
+      },
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": {
+        "id": 2
+      },
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": {
+        "ref": {
+          "id": 2
+        },
+        "data": {
+          "name": "RBK Money (Russian Department)",
+          "description": "Russian payment institution for serious russians",
+          "calendar": {
+            "id": 1
+          },
+          "system_account_set": {
+            "decisions": null,
+            "value": {
+              "id": 2
+            }
+          },
+          "default_contract_template": {
+            "decisions": null,
+            "value": {
+              "id": 2
+            }
+          },
+          "default_wallet_contract_template": null,
+          "providers": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 1
+              },
+              {
+                "id": 2
+              },
+              {
+                "id": 3
+              },
+              {
+                "id": 4
+              },
+              {
+                "id": 10
+              }
+            ]
+          },
+          "inspector": {
+            "decisions": null,
+            "value": {
+              "id": 1
+            }
+          },
+          "realm": 1,
+          "residences": [
+            170
+          ]
+        }
+      },
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": {
+        "id": 1
+      },
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Test Payment Institution",
+          "description": null,
+          "calendar": null,
+          "system_account_set": {
+            "decisions": null,
+            "value": {
+              "id": 1
+            }
+          },
+          "default_contract_template": {
+            "decisions": null,
+            "value": {
+              "id": 1
+            }
+          },
+          "default_wallet_contract_template": null,
+          "providers": {
+            "decisions": null,
+            "value": [
+              {
+                "id": 1
+              },
+              {
+                "id": 2
+              },
+              {
+                "id": 3
+              },
+              {
+                "id": 4
+              },
+              {
+                "id": 10
+              }
+            ]
+          },
+          "inspector": {
+            "decisions": null,
+            "value": {
+              "id": 1
+            }
+          },
+          "realm": 0,
+          "residences": [
+            1,
+            250,
+            170
+          ]
+        }
+      },
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": {
+        "id": 1
+      },
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": null,
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": {
+        "ref": {
+          "id": 1
+        },
+        "data": {
+          "name": "Primary",
+          "description": "Primary",
+          "accounts": [
+            [
+              {
+                "symbolic_code": "RUB"
+              },
+              {
+                "income": 2,
+                "outcome": 3
+              }
+            ]
+          ]
+        }
+      },
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ],
+  [
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": {
+        "id": 10
+      },
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    },
+    {
+      "category": null,
+      "currency": null,
+      "business_schedule": null,
+      "calendar": null,
+      "payment_method": null,
+      "payout_method": null,
+      "bank": null,
+      "contract_template": null,
+      "term_set_hierarchy": {
+        "ref": {
+          "id": 10
+        },
+        "data": {
+          "name": null,
+          "description": null,
+          "parent_terms": null,
+          "term_sets": [
+            {
+              "action_time": {
+                "lower_bound": null,
+                "upper_bound": null
+              },
+              "terms": {
+                "payments": null,
+                "recurrent_paytools": null,
+                "payouts": null,
+                "reports": null,
+                "wallets": {
+                  "currencies": {
+                    "decisions": null,
+                    "value": [
+                      {
+                        "symbolic_code": "RUB"
+                      }
+                    ]
+                  },
+                  "wallet_limit": {
+                    "decisions": [
+                      {
+                        "if_": {
+                          "constant": null,
+                          "condition": {
+                            "category_is": null,
+                            "currency_is": {
+                              "symbolic_code": "RUB"
+                            },
+                            "cost_in": null,
+                            "payment_tool": null,
+                            "shop_location_is": null,
+                            "party": null,
+                            "payout_method_is": null,
+                            "identification_level_is": null
+                          },
+                          "is_not": null,
+                          "all_of": null,
+                          "any_of": null
+                        },
+                        "then_": {
+                          "decisions": null,
+                          "value": {
+                            "upper": {
+                              "inclusive": null,
+                              "exclusive": {
+                                "amount": 100000000,
+                                "currency": {
+                                  "symbolic_code": "RUB"
+                                }
+                              }
+                            },
+                            "lower": {
+                              "inclusive": {
+                                "amount": 0,
+                                "currency": {
+                                  "symbolic_code": "RUB"
+                                }
+                              },
+                              "exclusive": null
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "value": null
+                  },
+                  "turnover_limit": null,
+                  "withdrawals": {
+                    "currencies": {
+                      "decisions": null,
+                      "value": [
+                        {
+                          "symbolic_code": "RUB"
+                        }
+                      ]
+                    },
+                    "cash_limit": {
+                      "decisions": [
+                        {
+                          "if_": {
+                            "constant": null,
+                            "condition": {
+                              "category_is": null,
+                              "currency_is": {
+                                "symbolic_code": "RUB"
+                              },
+                              "cost_in": null,
+                              "payment_tool": null,
+                              "shop_location_is": null,
+                              "party": null,
+                              "payout_method_is": null,
+                              "identification_level_is": null
+                            },
+                            "is_not": null,
+                            "all_of": null,
+                            "any_of": null
+                          },
+                          "then_": {
+                            "decisions": null,
+                            "value": {
+                              "upper": {
+                                "inclusive": null,
+                                "exclusive": {
+                                  "amount": 100000000,
+                                  "currency": {
+                                    "symbolic_code": "RUB"
+                                  }
+                                }
+                              },
+                              "lower": {
+                                "inclusive": {
+                                  "amount": 10,
+                                  "currency": {
+                                    "symbolic_code": "RUB"
+                                  }
+                                },
+                                "exclusive": null
+                              }
+                            }
+                          }
+                        }
+                      ],
+                      "value": null
+                    },
+                    "cash_flow": {
+                      "decisions": null,
+                      "value": [
+                        {
+                          "source": {
+                            "merchant": null,
+                            "provider": null,
+                            "system": null,
+                            "external": null,
+                            "wallet": 1
+                          },
+                          "destination": {
+                            "merchant": null,
+                            "provider": null,
+                            "system": null,
+                            "external": null,
+                            "wallet": 3
+                          },
+                          "volume": {
+                            "fixed": null,
+                            "share": {
+                              "parts": {
+                                "p": 1,
+                                "q": 1
+                              },
+                              "of": 1,
+                              "rounding_method": null
+                            },
+                            "product": null
+                          },
+                          "details": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "payment_institution": null,
+      "provider": null,
+      "terminal": null,
+      "inspector": null,
+      "system_account_set": null,
+      "external_account_set": null,
+      "proxy": null,
+      "globals": null,
+      "dummy": null,
+      "dummy_link": null,
+      "party_prototype": null
+    }
+  ]
+]
