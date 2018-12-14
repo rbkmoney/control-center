@@ -1,6 +1,6 @@
 import { createNode, Node } from '.';
 import { MetadataService, Type } from '../../../metadata/metadata.service';
-import domainTestData from './domain-test-data.json';
+import domainTestData from '../../../metadata/domain-test-data.json';
 
 describe('Node', () => {
     let metadataService: MetadataService;
