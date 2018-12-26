@@ -37,6 +37,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/src/assets/gen-json/
+/src/assets/meta-damsel.json
 /src/app/thrift/gen-nodejs/
 /src/app/gen-damsel/

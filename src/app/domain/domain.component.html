@@ -1,0 +1,24 @@
+<mat-sidenav-container>
+    <mat-sidenav position="end" mode="side" opened>Sidenav content</mat-sidenav>
+    <mat-sidenav-content>
+        <div class="container">
+            <div class="card-container" fxLayout="column" fxLayoutGap="20px">
+                <mat-card>
+                    <mat-card-content>
+                        <div fxLayout fxLayoutGap="20px">
+                            <div>Snapshot version: {{ version ? version : '--' }}</div>
+                            <div>Objects: {{ objectsCount ? objectsCount : '--' }}</div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-footer *ngIf="isLoading">
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    </mat-card-footer>
+                </mat-card>
+                <cc-domain-group
+                    [domainObjects]="domainObjects"
+                    [domainObjectDef]="domainObjectDef"
+                ></cc-domain-group>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
