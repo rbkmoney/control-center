@@ -1,0 +1,80 @@
+<mat-horizontal-stepper>
+    <mat-step>
+        <ng-template matStepLabel>Filter decisions with Shop ID:</ng-template>
+        <form fxLayout="column" fxLayoutGap="20px" [formGroup]="shopForm">
+            <mat-form-field fxFlex="70">
+                <mat-select placeholder="Select shop" formControlName="shopId">
+                    <mat-option *ngFor="let shop of getShops()" [value]="shop.id">
+                        {{shop.id}} ({{shop.details.name}} / {{shop.location.url}})
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div fxFlex="100" fxFlexAlign="end">
+                <button mat-button matStepperNext [disabled]="!shopForm.valid">Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Select source and destination:</ng-template>
+        <form fxLayout="column" fxLayoutGap="20px" [formGroup]="targetsForm">
+            <div fxFlex="100" fxLayout="row" fxLayoutGap="20px">
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Source" formControlName="source">
+                        <mat-option *ngFor="let source of sources" [value]="source.ref.id">
+                            {{source.data.name}} / {{source.data.description}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Destination" formControlName="destination">
+                        <mat-option *ngFor="let destination of destinations" [value]="destination.ref.id">
+                            {{destination.data.name}} / {{destination.data.description}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlexAlign="end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext [disabled]="!targetsForm.valid">Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Select decision:</ng-template>
+        <form fxLayout="column" fxLayoutGap="20px" [formGroup]="decisionForm">
+            <div fxFlex="100" fxLayout="column" fxLayoutGap="20px">
+                <mat-radio-group fxLayout="column" fxLayoutGap="20px"  formControlName="decision">
+                    <div fxLayout="row" fxLayoutGap="10px" *ngFor="let decision of decisions">
+                        <mat-radio-button [value]="decision"></mat-radio-button>
+                        <textarea readonly cols="70" rows="12">{{toString(decision)}}</textarea>
+                    </div>
+                </mat-radio-group>
+            </div>
+            <div fxFlex="100" fxFlexAlign="end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext [disabled]="!decisionForm.valid">Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Edit decision:</ng-template>
+        <form fxLayout="column" fxLayoutGap="20px" [formGroup]="decisionForm">
+            <div fxFlex="100" fxLayout="column" fxLayoutGap="20px">
+                <textarea cols="70" rows="12">{{toString(decision)}}</textarea>
+            </div>
+            <div fxFlex="100" fxFlexAlign="end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Commit changes:</ng-template>
+            <div fxFlex="100" fxLayout="column" fxLayoutGap="20px">
+                Transfer decision from {{source?.data?.name}} to {{destination?.data?.name}}?
+            </div>
+            <div fxFlex="100" fxFlexAlign="end">
+                <button mat-button>Commit</button>
+            </div>
+    </mat-step>
+</mat-horizontal-stepper>
