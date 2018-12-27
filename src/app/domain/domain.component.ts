@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import { filter } from 'rxjs/operators';
 
 import { DomainService } from './domain.service';
 import { DomainObject } from '../gen-damsel/domain';
 import { Metadata, MetadataLoader, AstDefenition } from './metadata-loader';
+import { DomainObjectDetailsService } from './domain-object-details/domain-object-details.service';
 
 @Component({
     templateUrl: './domain.component.html',
-    styleUrls: ['../shared/container.css']
+    styleUrls: ['../shared/container.css', './domain.component.scss']
 })
 export class DomainComponent implements OnInit {
     isLoading: boolean;
@@ -18,10 +20,14 @@ export class DomainComponent implements OnInit {
     metadata: Metadata[];
     domainObjectDef: AstDefenition[];
 
+    @ViewChild('domainObjDetailsContainer')
+    detailsContainer: MatSidenav;
+
     constructor(
         private domainService: DomainService,
         private metadataLoader: MetadataLoader,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private domainObjectDetailsService: DomainObjectDetailsService
     ) {}
 
     ngOnInit() {
@@ -35,12 +41,18 @@ export class DomainComponent implements OnInit {
             });
         this.metadataLoader.load().subscribe(
             m => {
-                this.domainObjectDef = m.find(
-                    i => i.name === 'domain'
-                ).ast.union.DomainObject;
+                this.domainObjectDef = m.find(i => i.name === 'domain').ast.union.DomainObject;
             },
             () => this.snackBar.open('Metadata load error', 'OK')
         );
+        this.domainObjectDetailsService.containerOpenedChange$.subscribe(opened => {
+            if (opened && this.detailsContainer.close) {
+                this.detailsContainer.open();
+            }
+            if (!opened && this.detailsContainer.opened) {
+                this.detailsContainer.close();
+            }
+        });
     }
 
     private checkout() {

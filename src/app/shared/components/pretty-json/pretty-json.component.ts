@@ -29,6 +29,10 @@ import { Component, Input } from '@angular/core';
                 color: #660e7a;
                 font-weight: bold;
             }
+
+            pre {
+                white-space: pre-wrap;
+            }
         `
     ]
 })

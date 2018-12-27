@@ -7,7 +7,7 @@ import { clearNullFields } from './thrift-utils';
 function resolveArray(arr: any[]): any[] {
     let result = [];
     for (const item of arr) {
-        result = result.slice(toJson(item));
+        result = result.concat(toJson(item));
     }
     return result;
 }

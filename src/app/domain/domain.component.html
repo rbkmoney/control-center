@@ -1,5 +1,13 @@
 <mat-sidenav-container>
-    <mat-sidenav position="end" mode="side" opened>Sidenav content</mat-sidenav>
+    <mat-sidenav
+        #domainObjDetailsContainer
+        position="end"
+        mode="side"
+        fixedInViewport="true"
+        fixedTopGap="64"
+    >
+        <cc-domain-object-details></cc-domain-object-details>
+    </mat-sidenav>
     <mat-sidenav-content>
         <div class="container">
             <div class="card-container" fxLayout="column" fxLayoutGap="20px">

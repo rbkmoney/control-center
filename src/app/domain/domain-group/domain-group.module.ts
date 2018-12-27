@@ -5,9 +5,11 @@ import {
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { DomainGroupComponent } from './domain-group.component';
 import { DomainGroupInfoComponent } from './domain-group-info/domain-group-info.component';
@@ -23,6 +25,8 @@ import { SharedModule } from '../../shared/shared.module';
         MatPaginatorModule,
         MatIconModule,
         MatButtonModule,
+        MatInputModule,
+        FlexLayoutModule,
         SharedModule
     ],
     exports: [DomainGroupComponent],

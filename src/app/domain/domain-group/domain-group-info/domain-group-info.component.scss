@@ -14,12 +14,14 @@ table {
     min-width: 100px;
 }
 
-// .mat-column-data {
-//     overflow: auto;
-//     white-space: nowrap;
-//     width: 25px;
-// }
+.mat-column-data {
+    white-space: nowrap;
+}
 
 .mat-column-details {
     width: 10px;
+}
+
+.mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
 }

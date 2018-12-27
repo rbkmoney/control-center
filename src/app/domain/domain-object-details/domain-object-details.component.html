@@ -1,0 +1,4 @@
+<div class="container" fxLayout="column" fxLayoutGap="20px">
+    <button mat-stroked-button (click)="close()">CLOSE</button>
+    <cc-pretty-json [object]="target$ | async"></cc-pretty-json>
+</div>
