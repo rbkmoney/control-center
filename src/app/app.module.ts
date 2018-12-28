@@ -28,9 +28,7 @@ import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment
 import { DamainModule } from './domain/domain.module';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -49,11 +47,10 @@ import { DamainModule } from './domain/domain.module';
         DamainModule
     ],
     providers: [
-        {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
-        {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-        {provide: MAT_DATE_LOCALE, useValue: 'ru'}
-
+        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_LOCALE, useValue: 'ru' }
     ],
     bootstrap: [AppComponent]
 })

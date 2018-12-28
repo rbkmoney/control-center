@@ -6,19 +6,30 @@ import {
     MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatSelectModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
+import { MatSortModule } from '@angular/material';
 
 import { DomainGroupComponent } from './domain-group.component';
 import { DomainGroupInfoComponent } from './domain-group-info/domain-group-info.component';
 import { SharedModule } from '../../shared/shared.module';
+import { DomainObjectsTypeSelectorComponent } from './domain-objects-type-selector/domain-objects-type-selector.component';
 
 @NgModule({
-    declarations: [DomainGroupComponent, DomainGroupInfoComponent],
+    declarations: [
+        DomainGroupComponent,
+        DomainGroupInfoComponent,
+        DomainObjectsTypeSelectorComponent
+    ],
     imports: [
         CommonModule,
+        FormsModule,
         MatExpansionModule,
         MatTableModule,
         CdkTableModule,
@@ -27,9 +38,12 @@ import { SharedModule } from '../../shared/shared.module';
         MatButtonModule,
         MatInputModule,
         FlexLayoutModule,
-        SharedModule
+        MatCardModule,
+        MatCheckboxModule,
+        MatSelectModule,
+        SharedModule,
+        MatSortModule
     ],
-    exports: [DomainGroupComponent],
-    providers: []
+    exports: [DomainGroupComponent]
 })
 export class DomainGroupModule {}

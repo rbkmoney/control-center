@@ -1,11 +1,6 @@
-<mat-accordion *ngIf="group" class="headers-align">
-    <mat-expansion-panel *ngFor="let groupItem of group">
-        <mat-expansion-panel-header>
-            <mat-panel-title>{{ groupItem.name }}</mat-panel-title>
-            <mat-panel-description>{{ groupItem.objects.length }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        <ng-template matExpansionPanelContent>
-            <cc-domain-group-info [objects]="groupItem.objects"></cc-domain-group-info>
-        </ng-template>
-    </mat-expansion-panel>
-</mat-accordion>
+<mat-card>
+    <mat-card-subtitle>Snapshot version: 6022 </mat-card-subtitle>
+    <mat-card-content>
+        <cc-domain-group-info [group]="group"></cc-domain-group-info>
+    </mat-card-content>
+</mat-card>
