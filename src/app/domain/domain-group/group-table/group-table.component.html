@@ -1,15 +1,8 @@
-<div fxLayout fxLayoutGap="20px">
-    <cc-domain-objects-type-selector
-        fxFlex="50"
-        [group]="group"
-        (typeSelectionChange)="typeSelectionChange($event)"
-    ></cc-domain-objects-type-selector>
-    <mat-form-field fxFlex="50">
-        <span matPrefix>/</span>
-        <input matInput placeholder="RegExp pattern" (keyup)="applyFilter($event.target.value)" />
-        <span matSuffix>/</span>
-    </mat-form-field>
-</div>
+<cc-group-control
+    [group]="group"
+    (typeSelectionChange)="setTableData($event)"
+    (regExpPatternChange)="applyFilter($event)"
+></cc-group-control>
 <div class="table-container">
     <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="name" sticky>

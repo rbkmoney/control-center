@@ -1,10 +1,18 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    OnChanges,
+    SimpleChanges,
+    ViewChild,
+    Output,
+    EventEmitter
+} from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 import { AbstractDomainObject, DomainGroup } from '../domain-group';
-import { DomainGroupInfoService } from './domain-group-info.service';
-import { DomainObjectDetailsService } from '../../domain-object-details/domain-object-details.service';
 import { toJson } from '../../../shared/thrift-json-converter';
+import { DomainDetailsService } from '../../domain-details.service';
 
 interface ViewDomainObject {
     ref: string;
@@ -31,13 +39,13 @@ interface TableDataSource {
 }
 
 @Component({
-    selector: 'cc-domain-group-info',
-    templateUrl: './domain-group-info.component.html',
-    styleUrls: ['./domain-group-info.component.scss'],
-    providers: [DomainGroupInfoService]
+    selector: 'cc-group-table',
+    templateUrl: './group-table.component.html',
+    styleUrls: ['./group-table.component.scss']
 })
-export class DomainGroupInfoComponent implements OnInit, OnChanges {
+export class GroupTableComponent implements OnInit, OnChanges {
     @Input() group: DomainGroup[];
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -45,7 +53,7 @@ export class DomainGroupInfoComponent implements OnInit, OnChanges {
     cols = ['name', 'ref', 'data', 'details'];
     private tableGroup: TableGroup[];
 
-    constructor(private domainObjectDetailsService: DomainObjectDetailsService) {}
+    constructor(private detailsService: DomainDetailsService) {}
 
     ngOnChanges(changes: SimpleChanges) {
         const { group } = changes;
@@ -97,14 +105,14 @@ export class DomainGroupInfoComponent implements OnInit, OnChanges {
     }
 
     openDetails(obj: AbstractDomainObject) {
-        this.domainObjectDetailsService.open(obj);
+        this.detailsService.emit(obj);
     }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim();
     }
 
-    typeSelectionChange(selectedTypes: string[]) {
+    setTableData(selectedTypes: string[]) {
         this.dataSource.data = this.tableGroup
             .filter(({ name }) => selectedTypes.includes(name))
             .reduce(

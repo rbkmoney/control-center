@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { MatSelectChange, SELECT_PANEL_MAX_HEIGHT } from '@angular/material';
+import { MatSelectChange } from '@angular/material';
 
 import { DomainGroup } from '../domain-group';
 

@@ -1,6 +1,6 @@
 <mat-card>
-    <mat-card-subtitle>Snapshot version: 6022 </mat-card-subtitle>
+    <mat-card-subtitle>Snapshot version: {{ version$ | async }} </mat-card-subtitle>
     <mat-card-content>
-        <cc-domain-group-info [group]="group"></cc-domain-group-info>
+        <cc-group-table [group]="group$ | async"></cc-group-table>
     </mat-card-content>
 </mat-card>

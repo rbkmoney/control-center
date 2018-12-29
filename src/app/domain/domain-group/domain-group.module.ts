@@ -17,15 +17,17 @@ import { FormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material';
 
 import { DomainGroupComponent } from './domain-group.component';
-import { DomainGroupInfoComponent } from './domain-group-info/domain-group-info.component';
 import { SharedModule } from '../../shared/shared.module';
-import { DomainObjectsTypeSelectorComponent } from './domain-objects-type-selector/domain-objects-type-selector.component';
+import { GroupControlComponent } from './group-control';
+import { DomainObjectsTypeSelectorComponent } from './domain-objects-type-selector';
+import { GroupTableComponent } from './group-table';
 
 @NgModule({
     declarations: [
         DomainGroupComponent,
-        DomainGroupInfoComponent,
-        DomainObjectsTypeSelectorComponent
+        DomainObjectsTypeSelectorComponent,
+        GroupControlComponent,
+        GroupTableComponent
     ],
     imports: [
         CommonModule,

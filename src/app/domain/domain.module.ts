@@ -6,7 +6,8 @@ import {
     MatSnackBarModule,
     MatSidenavModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
 } from '@angular/material';
 import { FlexModule } from '@angular/flex-layout';
 
@@ -16,12 +17,11 @@ import { DomainService } from './domain.service';
 import { ThriftModule } from '../thrift/thrift.module';
 import { DomainGroupModule } from './domain-group';
 import { MetadataLoader } from './metadata-loader';
-import { DomainObjectDetailsComponent } from './domain-object-details/domain-object-details.component';
 import { SharedModule } from '../shared/shared.module';
-import { DomainObjectDetailsService } from './domain-object-details/domain-object-details.service';
+import { DomainDetailsService } from './domain-details.service';
 
 @NgModule({
-    declarations: [DomainComponent, DomainObjectDetailsComponent],
+    declarations: [DomainComponent],
     imports: [
         CommonModule,
         DomainRoutingModule,
@@ -32,10 +32,11 @@ import { DomainObjectDetailsService } from './domain-object-details/domain-objec
         MatSidenavModule,
         MatButtonModule,
         MatInputModule,
+        MatProgressSpinnerModule,
         ThriftModule,
         DomainGroupModule,
         SharedModule
     ],
-    providers: [DomainService, MetadataLoader, DomainObjectDetailsService]
+    providers: [DomainService, MetadataLoader, DomainDetailsService]
 })
 export class DamainModule {}

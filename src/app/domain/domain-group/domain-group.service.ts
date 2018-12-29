@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Subject, BehaviorSubject } from 'rxjs';
 
-import { DomainObject } from '../../gen-damsel/domain';
-import { AstDefenition } from '../metadata-loader';
 import { group } from './group-domain-objects';
 import { DomainGroup } from './domain-group';
+import { Payload } from '../domain.service';
 
 export interface DomainObjectTypeDef {
     [field: string]: string;
@@ -11,26 +11,21 @@ export interface DomainObjectTypeDef {
 
 @Injectable()
 export class DomainGroupService {
-    private domainObjects: DomainObject[];
-    private groupByField: DomainObjectTypeDef;
+    group$: Subject<DomainGroup[]> = new BehaviorSubject(null);
+    varsion$: Subject<number> = new BehaviorSubject(null);
 
-    setDefenition(defenitions: AstDefenition[]) {
-        this.groupByField = defenitions.reduce((acc, def) => {
+    group({ shapshot: { version, domain }, metadata }: Payload) {
+        this.varsion$.next(version.toNumber());
+        this.group$.next(group([...domain.values()], this.getTypeDef(metadata)));
+    }
+
+    private getTypeDef(metadata: any[]): DomainObjectTypeDef {
+        const domainObjectMeta = metadata.find(i => i.name === 'domain').ast.union.DomainObject;
+        return domainObjectMeta.reduce((acc, def) => {
             return {
                 ...acc,
                 [def.name]: def.type
             };
         }, {});
-    }
-
-    setDomainObjects(domainObjects: DomainObject[]) {
-        this.domainObjects = domainObjects;
-    }
-
-    group(): DomainGroup[] {
-        if (!this.domainObjects || !this.groupByField) {
-            return;
-        }
-        return group(this.domainObjects, this.groupByField);
     }
 }
