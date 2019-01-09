@@ -1,4 +1,4 @@
-import { TableDataSource } from './group-table.component';
+import { TableDataSource } from './model';
 
 export function filterPredicate({ stringified }: TableDataSource, filter: string): boolean {
     let regexp;

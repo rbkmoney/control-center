@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
         RouterModule.forRoot([
             {
                 path: '',
-                redirectTo: '/claims',
+                redirectTo: '/payouts',
                 pathMatch: 'full'
             }
         ])
