@@ -9,7 +9,7 @@ import {
     MatButtonModule,
     MatProgressSpinnerModule
 } from '@angular/material';
-import { FlexModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { DomainComponent } from './domain.component';
 import { DomainRoutingModule } from './domain-routing.module';
@@ -25,7 +25,7 @@ import { DomainDetailsService } from './domain-details.service';
     imports: [
         CommonModule,
         DomainRoutingModule,
-        FlexModule,
+        FlexLayoutModule,
         MatCardModule,
         MatProgressBarModule,
         MatSnackBarModule,
