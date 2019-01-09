@@ -3,29 +3,22 @@ import { Subject, BehaviorSubject } from 'rxjs';
 
 import { group } from './group-domain-objects';
 import { DomainGroup } from './domain-group';
-import { Payload } from '../domain.service';
-
-export interface DomainObjectTypeDef {
-    [field: string]: string;
-}
+import { DomainService } from '../domain.service';
 
 @Injectable()
 export class DomainGroupService {
     group$: Subject<DomainGroup[]> = new BehaviorSubject(null);
     varsion$: Subject<number> = new BehaviorSubject(null);
 
-    group({ shapshot: { version, domain }, metadata }: Payload) {
-        this.varsion$.next(version.toNumber());
-        this.group$.next(group([...domain.values()], this.getTypeDef(metadata)));
-    }
-
-    private getTypeDef(metadata: any[]): DomainObjectTypeDef {
-        const domainObjectMeta = metadata.find(i => i.name === 'domain').ast.union.DomainObject;
-        return domainObjectMeta.reduce((acc, def) => {
-            return {
-                ...acc,
-                [def.name]: def.type
-            };
-        }, {});
+    constructor(private domainService: DomainService) {
+        this.domainService.payload$.subscribe(({ shapshot: { version, domain }, metadata }) => {
+            this.varsion$.next(version.toNumber());
+            this.group$.next(
+                group(
+                    [...domain.values()],
+                    metadata.find(({ name }) => name === 'domain').ast.union.DomainObject
+                )
+            );
+        });
     }
 }

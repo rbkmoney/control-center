@@ -1,6 +1,6 @@
 export interface AbstractDomainObject {
-    ref: object;
-    data: object;
+    ref: any;
+    data: any;
 }
 
 export interface DomainGroup {

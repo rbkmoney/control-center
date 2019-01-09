@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
+
 import { DomainGroup } from '../domain-group';
 
 @Component({

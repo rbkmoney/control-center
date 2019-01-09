@@ -9,11 +9,8 @@ import { DomainGroup } from '../domain-group';
     templateUrl: './domain-objects-type-selector.component.html'
 })
 export class DomainObjectsTypeSelectorComponent implements OnChanges {
-    @Input()
-    group: DomainGroup[];
-
-    @Output()
-    typeSelectionChange: EventEmitter<string[]> = new EventEmitter();
+    @Input() group: DomainGroup[];
+    @Output() typeSelectionChange: EventEmitter<string[]> = new EventEmitter();
 
     names: string[];
     selectedNames: string[];

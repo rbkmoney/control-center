@@ -6,13 +6,19 @@ export interface AstDefenition {
     type: string;
     name: string;
     id: number;
-    option: 'optional' | 'required';
+    option?: 'optional' | 'required';
+}
+
+export interface Ast {
+    union?: {
+        [key: string]: AstDefenition[];
+    };
 }
 
 export interface Metadata {
     path: string;
     name: string;
-    ast: any; // TODO fix it
+    ast: Ast;
 }
 
 @Injectable()
