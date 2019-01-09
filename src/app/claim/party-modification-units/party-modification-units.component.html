@@ -5,8 +5,13 @@
     <mat-tab-group>
         <mat-tab *ngFor="let unit of units">
             <ng-template mat-tab-label>
-                    {{unit.unitID}} <span>{{!unit.hasUnsaved ? '' : '*'}}</span>
-                </ng-template>
+                {{unit.unitID}} <span>{{!unit.hasUnsaved ? '' : '*'}}</span>
+            </ng-template>
+            <button mat-button
+                    [disabled]="!modificationService.addAvailable()"
+                    (click)="modificationService.add(unitsName, unit)">
+                ADD MODIFICATION
+            </button>
             <div class="tab-container" fxLayout="column" fxLayoutGap="20px">
                 <cc-party-modification-container
                         *ngFor="let container of unit.containers"

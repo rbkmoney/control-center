@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { PartyModificationUnit, ModificationGroupType } from '../model';
+import { ModificationService } from '../modification.service';
 
 @Component({
     selector: 'cc-party-modification-units',
@@ -8,6 +9,8 @@ import { PartyModificationUnit, ModificationGroupType } from '../model';
     styleUrls: ['./party-modification-units.component.css']
 })
 export class PartyModificationUnitsComponent {
+
+    constructor(private modificationService: ModificationService) {}
 
     @Input()
     unitsName: string;

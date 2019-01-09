@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatBottomSheetRef, MatDialog } from '@angular/material';
+import { Component, Inject } from '@angular/core';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog } from '@angular/material';
 
 import { ActionType, ModificationAction } from '../modification-action';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
@@ -11,7 +11,8 @@ import { ContractModificationName, ShopModificationName } from '../model';
 export class UnitActionsComponent {
 
     constructor(private bottomSheetRef: MatBottomSheetRef,
-                private dialog: MatDialog) {
+                private dialog: MatDialog,
+                @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) {
     }
 
     contractActions: ModificationAction[] = [
