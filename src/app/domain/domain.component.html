@@ -1,0 +1,24 @@
+<mat-sidenav-container>
+    <mat-sidenav
+        #domainObjDetails
+        position="end"
+        mode="side"
+        fixedInViewport="true"
+        fixedTopGap="64"
+    >
+        <div class="details-container" fxLayout="column" fxLayoutGap="20px">
+            <button mat-stroked-button (click)="closeDetails()">CLOSE</button>
+            <cc-pretty-json [object]="detailedDomainObj$ | async"></cc-pretty-json>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="container">
+            <div class="card-container" fxLayout="column" fxLayoutGap="20px">
+                <div *ngIf="isLoading" fxLayout fxLayoutAlign="center stretch">
+                    <mat-spinner></mat-spinner>
+                </div>
+                <cc-domain-group *ngIf="initialized"></cc-domain-group>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

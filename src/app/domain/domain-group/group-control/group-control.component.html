@@ -1,0 +1,12 @@
+<form fxLayout fxLayoutGap="20px">
+    <cc-domain-objects-type-selector
+        fxFlex="50"
+        [group]="group"
+        (typeSelectionChange)="selectionChange($event)"
+    ></cc-domain-objects-type-selector>
+    <mat-form-field fxFlex="50">
+        <span matPrefix>/</span>
+        <input matInput placeholder="RegExp pattern" (keyup)="patternChange($event.target.value)" />
+        <span matSuffix>/</span>
+    </mat-form-field>
+</form>

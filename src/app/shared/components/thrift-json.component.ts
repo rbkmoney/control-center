@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+/*
+* @deprecated Use PrettyJsonComponent instead
+*/
 @Component({
     selector: 'cc-thrift-json',
     templateUrl: 'thrift-json.component.html',

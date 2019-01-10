@@ -96,7 +96,7 @@ export class DomainTypedManager {
             this.dmtService.commit(version, createShopTerminal(terminalObjects, providerObject, params))));
     }
 
-    getLastVersion(): Observable<number> {
+    getLastVersion(): Observable<any> {
         return this.dmtService
             .checkout(toGenReference())
             .pipe(map((snapshot) => snapshot.version));
