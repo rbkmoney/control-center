@@ -18,10 +18,10 @@ export class ModificationService {
     constructor(
         private bottomSheet: MatBottomSheet,
         private claimService: ClaimService) {
-            this.claimService.claimInfoContainer$.subscribe((container) => {
-                this.claimInfoContainer = container;
-            });
-        }
+        this.claimService.claimInfoContainer$.subscribe((container) => {
+            this.claimInfoContainer = container;
+        });
+    }
 
     addAvailable() {
         switch (this.claimInfoContainer.type) {
@@ -34,15 +34,19 @@ export class ModificationService {
     }
 
     add(unitsName: string, unit: any) {
-        console.log(unitsName);
-        let actionType: string;
-        if (unitsName === 'Shop modification units') {
-            actionType = ActionType.shopAction;
-        } 
-        if (unitsName === 'Contract modification units') {
-            actionType = ActionType.contractAction;
-        } 
-        this.bottomSheet.open(UnitActionsComponent, { data: actionType });
+        if (unit) {
+            let actionType: string;
+            if (unitsName === 'Shop modification units') {
+                actionType = ActionType.shopAction;
+            }
+            if (unitsName === 'Contract modification units') {
+                actionType = ActionType.contractAction;
+            }
+            const unitID = unit.unitID;
+            this.bottomSheet.open(UnitActionsComponent, { data: { actionType, unitID } });
+        } else {
+            this.bottomSheet.open(UnitActionsComponent);
+        }
     }
 
 }

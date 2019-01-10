@@ -6,9 +6,8 @@ import { ClaimService } from '../claim.service';
 import { ClaimInfoContainer } from '../model';
 import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
-import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
-import { ClaimStatus } from '../../papi/model/claim-statuses';
 import { ClaimActionType } from '../claim-action-type';
+import { ModificationService } from '../modification.service';
 
 @Component({
     selector: 'cc-claim-info',
@@ -24,7 +23,8 @@ export class ClaimInfoComponent implements OnInit {
                 private claimService: ClaimService,
                 private bottomSheet: MatBottomSheet,
                 private snackBar: MatSnackBar,
-                private dialog: MatDialog) {
+                private dialog: MatDialog,
+                private modificationService: ModificationService) {
     }
 
     ngOnInit() {
@@ -33,22 +33,8 @@ export class ClaimInfoComponent implements OnInit {
         });
     }
 
-    addAvailable() {
-        switch (this.claimInfoContainer.type) {
-            case ClaimActionType.edit:
-                return this.claimInfoContainer.status === ClaimStatus.pending;
-            case ClaimActionType.create:
-                return true;
-        }
-        return false;
-    }
-
     hasUnsavedChanges() {
         return this.claimService.hasUnsavedChanges();
-    }
-
-    add() {
-        this.bottomSheet.open(UnitActionsComponent);
     }
 
     save() {

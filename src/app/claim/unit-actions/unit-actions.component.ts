@@ -11,8 +11,8 @@ import { ContractModificationName, ShopModificationName } from '../model';
 export class UnitActionsComponent {
 
     constructor(private bottomSheetRef: MatBottomSheetRef,
-                private dialog: MatDialog,
-                @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) {
+        private dialog: MatDialog,
+        @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) {
     }
 
     contractActions: ModificationAction[] = [
@@ -89,8 +89,20 @@ export class UnitActionsComponent {
 
     select(action: ModificationAction) {
         this.bottomSheetRef.dismiss();
+        const unitID = this.data ? this.data.unitID : null;
+        let data;
+        if (unitID) {
+            data = {
+                action,
+                unitID
+            }
+        } else {
+            data = {
+                action
+            }
+        }
         const config = {
-            data: action,
+            data,
             width: '800px',
             disableClose: true
         };

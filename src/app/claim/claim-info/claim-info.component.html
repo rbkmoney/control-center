@@ -8,8 +8,8 @@
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between stretch">
         <div fxLayout="row" fxLayout.xs="column">
             <button mat-button
-                    [disabled]="!addAvailable() || isLoading"
-                    (click)="add()">ADD MODIFICATION
+                    [disabled]="!modificationService.addAvailable() || isLoading"
+                    (click)="modificationService.add()">ADD MODIFICATION
             </button>
             <button mat-button
                     [disabled]="!hasUnsavedChanges() || isLoading"

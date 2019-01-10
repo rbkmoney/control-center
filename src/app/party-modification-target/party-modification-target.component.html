@@ -6,6 +6,7 @@
         </mat-radio-button>
     </mat-radio-group>
     <cc-fill-in-unit-id *ngIf="selectedTarget === t.fillIn"
+                        [unitID]="unitID"
                         (valueChanges)="unitIDChanges($event)">
     </cc-fill-in-unit-id>
     <cc-party-target *ngIf="selectedTarget === t.partyItem"

@@ -28,10 +28,14 @@ export class CreateModificationComponent implements OnInit {
 
     domainModificationInfo$: Observable<DomainModificationInfo>;
 
+    action: ModificationAction;
+
+    selectedIndex: string = '0';
+
     constructor(
         private route: ActivatedRoute,
         private dialogRef: MatDialogRef<CreateModificationComponent>,
-        @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
+        @Inject(MAT_DIALOG_DATA) public data: any,
         private snackBar: MatSnackBar,
         private claimService: ClaimService,
         private domainTypedManager: DomainTypedManager) {
@@ -42,6 +46,11 @@ export class CreateModificationComponent implements OnInit {
             this.partyId = params.partyId;
         });
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
+        if (this.data.unitID) {
+            this.unitIDChange(this.data.unitID);
+            this.selectedIndex = '1';
+        }
+        this.action = this.data.action;
     }
 
     valueChanges(e: any) {
@@ -57,7 +66,7 @@ export class CreateModificationComponent implements OnInit {
     }
 
     add() {
-        switch (this.action.type) {
+        switch (this.data.action.type) {
             case ActionType.shopAction:
             case ActionType.contractAction:
                 this.addChange();

@@ -14,17 +14,17 @@
 
 <mat-nav-list>
     <div *ngIf="data; else allActions">
-        <div *ngIf="data === 'contractAction'">
+        <div *ngIf="data.actionType === 'contractAction'">
             <a mat-list-item *ngFor="let contractAction of contractActions.slice(1, shopActions.length - 1)" (click)="select(contractAction)">
                 {{contractAction.name | ccContainerName:'ContractUnitContainer'}}
             </a>
         </div>
-        <div *ngIf="data === 'shopAction'">
+        <div *ngIf="data.actionType === 'shopAction'">
             <a mat-list-item *ngFor="let shopAction of shopActions.slice(1, shopActions.length - 1)" (click)="select(shopAction)">
                 {{shopAction.name | ccContainerName:'ShopUnitContainer'}}
             </a>
         </div>
-        <div *ngIf="data === 'domainAction'">
+        <div *ngIf="data.actionType === 'domainAction'">
             <a mat-list-item *ngFor="let domainAction of domainActions" (click)="select(domainAction)">
                 Domain config modification: Add terminal
             </a>
