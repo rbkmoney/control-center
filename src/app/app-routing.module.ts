@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { AppAuthGuardService } from './app-auth-guard.service';
+
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -10,6 +12,9 @@ import { RouterModule } from '@angular/router';
                 pathMatch: 'full'
             }
         ])
+    ],
+    providers: [
+        AppAuthGuardService
     ],
     exports: [
         RouterModule
