@@ -50,10 +50,22 @@ export class ClaimService {
     resolveClaimInfo(type: ClaimActionType, partyId: string, claimId?: string): Observable<void> {
         switch (type) {
             case ClaimActionType.create:
-                this.persistentContainerService.init([]);
-                this.claimInfoContainer = { type, partyId };
-                this.claimInfoContainer$.next(this.claimInfoContainer);
-                return of();
+                if (claimId) {
+                    return this.papiClaimService.getClaim(partyId, toNumber(claimId)).pipe(
+                        tap(claimInfo => {
+                            this.persistentContainerService.init(claimInfo.modifications.modifications, false);
+                            this.claimInfoContainer = { type, partyId };
+                            this.claimInfoContainer$.next(this.claimInfoContainer);
+                        }),
+                        map(() => null)
+                    );
+
+                } else {
+                    this.persistentContainerService.init([]);
+                    this.claimInfoContainer = { type, partyId };
+                    this.claimInfoContainer$.next(this.claimInfoContainer);
+                    return of();
+                }
             case ClaimActionType.edit:
                 return this.papiClaimService.getClaim(partyId, toNumber(claimId)).pipe(
                     tap(claimInfo => {

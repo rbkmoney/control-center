@@ -8,6 +8,7 @@ import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 import { ClaimActionType } from '../claim-action-type';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
+import { NewClaimComponent } from '../new-claim/new-claim.component';
 import { ClaimStatus } from '../../papi/model/claim-statuses';
 
 @Component({
@@ -17,6 +18,8 @@ import { ClaimStatus } from '../../papi/model/claim-statuses';
 export class ClaimInfoComponent implements OnInit {
     claimInfoContainer: ClaimInfoContainer;
     isLoading = false;
+    partyID: string;
+    claimID: number;
 
     constructor(
         private route: ActivatedRoute,
@@ -29,7 +32,11 @@ export class ClaimInfoComponent implements OnInit {
 
     ngOnInit() {
         this.claimService.claimInfoContainer$.subscribe(container => {
-            this.claimInfoContainer = container;
+            if (container) {
+                this.claimInfoContainer = container;
+                this.partyID = container.partyId;
+                this.claimID = container.claimId;
+            }
         });
     }
 
@@ -71,6 +78,13 @@ export class ClaimInfoComponent implements OnInit {
 
     add() {
         this.bottomSheet.open(UnitActionsComponent, { data: { type: 'allActions' } });
+    }
+
+    newClaim() {
+        this.dialog.open(NewClaimComponent, {
+            disableClose: true,
+            data: { partyID: this.partyID, claimID: this.claimID }
+        });
     }
 
     accept() {
