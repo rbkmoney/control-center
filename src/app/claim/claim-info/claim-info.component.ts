@@ -8,6 +8,7 @@ import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 import { ClaimActionType } from '../claim-action-type';
 import { ModificationService } from '../modification.service';
+import { NewClaimComponent } from '../new-claim/new-claim.component';
 
 @Component({
     selector: 'cc-claim-info',
@@ -53,6 +54,12 @@ export class ClaimInfoComponent implements OnInit {
                     }, (e) => this.failed(e));
                 break;
         }
+    }
+
+    newClaim() {
+        this.dialog.open(NewClaimComponent, {
+            disableClose: true
+        });
     }
 
     accept() {

@@ -43,6 +43,7 @@ import { PartyModificationTargetModule } from '../party-modification-target';
 import { TerminalObjectComponent } from './terminal-object/terminal-object.component';
 import { PersistentContainerService } from './persistent-container.service';
 import { ModificationService } from './modification.service';
+import { NewClaimComponent } from './new-claim/new-claim.component';
 
 @NgModule({
     imports: [
@@ -82,6 +83,7 @@ import { ModificationService } from './modification.service';
         PartyModificationsComponent,
         PartyModificationContainerComponent,
         UnitActionsComponent,
+        NewClaimComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
         PartyModificationUnitsComponent,
@@ -91,6 +93,7 @@ import { ModificationService } from './modification.service';
     ],
     entryComponents: [
         UnitActionsComponent,
+        NewClaimComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
         CreateModificationComponent

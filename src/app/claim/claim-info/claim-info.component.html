@@ -17,6 +17,11 @@
             </button>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
+                <button mat-button
+                color="primary"
+                [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading"
+                (click)="newClaim()">NEW CLAIM
+        </button>
             <button mat-button
                     color="primary"
                     [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading"
