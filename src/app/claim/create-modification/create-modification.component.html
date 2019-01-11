@@ -1,7 +1,7 @@
 <div class="mat-dialog-title">{{action.name | ccContainerName:getContainerType(action.type)}}</div>
 <mat-dialog-content>
     <mat-vertical-stepper 
-        *ngIf="action.type !== 'domainActions'"
+        *ngIf="action.type !== 'domainAction'"
         [selectedIndex]="currentStep">
         <mat-step>
             <ng-template matStepLabel>Prepare party modification target</ng-template>
@@ -26,7 +26,7 @@
         </mat-step>
     </mat-vertical-stepper>
     <cc-terminal-object
-            *ngIf="action.type === 'domainActions'"
+            *ngIf="action.type === 'domainAction'"
             [domainModificationInfo]="(domainModificationInfo$ | async)"
             (valueChanges)="valueChanges($event)"
             (statusChanges)="statusChanges($event)">
