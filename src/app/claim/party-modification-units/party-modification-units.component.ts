@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 import { PartyModificationUnit, ModificationGroupType } from '../model';
-import { ModificationService } from '../modification.service';
+import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
+import { MatBottomSheet } from '../../../../node_modules/@angular/material';
 
 @Component({
     selector: 'cc-party-modification-units',
@@ -10,14 +11,27 @@ import { ModificationService } from '../modification.service';
 })
 export class PartyModificationUnitsComponent {
 
-    constructor(private modificationService: ModificationService) {}
-
-    @Input()
-    unitsName: string;
+    constructor(private bottomSheet: MatBottomSheet) { }
 
     @Input()
     type: ModificationGroupType;
 
     @Input()
     units: PartyModificationUnit[];
+
+    add(unitID: string) {
+        let type: string;
+        switch (this.type) {
+            case ModificationGroupType.ContractUnitContainer:
+                type = 'contractActions';
+                break;
+            case ModificationGroupType.ShopUnitContainer:
+                type = 'shopActions';
+                break;
+            default:
+                type = 'allActions';
+                break;
+        }
+        this.bottomSheet.open(UnitActionsComponent, { data: { type, unitID } });
+    }
 }

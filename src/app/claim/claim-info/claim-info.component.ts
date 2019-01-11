@@ -7,7 +7,8 @@ import { ClaimInfoContainer } from '../model';
 import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 import { ClaimActionType } from '../claim-action-type';
-import { ModificationService } from '../modification.service';
+import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
+import { ClaimStatus } from '../../papi/model/claim-statuses';
 
 @Component({
     selector: 'cc-claim-info',
@@ -19,12 +20,11 @@ export class ClaimInfoComponent implements OnInit {
     isLoading = false;
 
     constructor(private route: ActivatedRoute,
-                private router: Router,
-                private claimService: ClaimService,
-                private bottomSheet: MatBottomSheet,
-                private snackBar: MatSnackBar,
-                private dialog: MatDialog,
-                private modificationService: ModificationService) {
+        private router: Router,
+        private claimService: ClaimService,
+        private bottomSheet: MatBottomSheet,
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -55,6 +55,20 @@ export class ClaimInfoComponent implements OnInit {
         }
     }
 
+    addAvailable() {
+        switch (this.claimInfoContainer.type) {
+            case ClaimActionType.edit:
+                return this.claimInfoContainer.status === ClaimStatus.pending;
+            case ClaimActionType.create:
+                return true;
+        }
+        return false;
+    }
+
+    add() {
+        this.bottomSheet.open(UnitActionsComponent, { data: { type: 'allActions' } });
+    }
+
     accept() {
         this.dialog.open(AcceptClaimComponent, {
             disableClose: true
@@ -70,7 +84,7 @@ export class ClaimInfoComponent implements OnInit {
 
     private success() {
         this.isLoading = false;
-        this.snackBar.open('Changes saved', 'OK', {duration: 3000});
+        this.snackBar.open('Changes saved', 'OK', { duration: 3000 });
     }
 
     private failed(error) {

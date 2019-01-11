@@ -11,6 +11,16 @@ import { CreateTerminalParams } from '../domain-typed-manager';
 import { DomainTypedManager } from '../../thrift/domain-typed-manager';
 import { PartyModification } from '../../gen-damsel/payment_processing';
 
+interface CreateModificationData {
+    action: ModificationAction;
+    unitID?: string;
+}
+
+enum Step {
+    prepareTarget = '0',
+    fillInModification = '1'
+}
+
 @Component({
     templateUrl: 'create-modification.component.html'
 })
@@ -30,12 +40,12 @@ export class CreateModificationComponent implements OnInit {
 
     action: ModificationAction;
 
-    selectedIndex = '0';
+    currentStep = Step.prepareTarget;
 
     constructor(
         private route: ActivatedRoute,
         private dialogRef: MatDialogRef<CreateModificationComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any,
+        @Inject(MAT_DIALOG_DATA) public data: CreateModificationData,
         private snackBar: MatSnackBar,
         private claimService: ClaimService,
         private domainTypedManager: DomainTypedManager) {
@@ -48,7 +58,7 @@ export class CreateModificationComponent implements OnInit {
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
         if (this.data.unitID) {
             this.unitIDChange(this.data.unitID);
-            this.selectedIndex = '1';
+            this.currentStep = Step.fillInModification;
         }
         this.action = this.data.action;
     }
