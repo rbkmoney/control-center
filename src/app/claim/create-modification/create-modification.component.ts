@@ -30,7 +30,7 @@ export class CreateModificationComponent implements OnInit {
 
     action: ModificationAction;
 
-    selectedIndex: string = '0';
+    selectedIndex = '0';
 
     constructor(
         private route: ActivatedRoute,

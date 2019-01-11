@@ -95,11 +95,11 @@ export class UnitActionsComponent {
             data = {
                 action,
                 unitID
-            }
+            };
         } else {
             data = {
                 action
-            }
+            };
         }
         const config = {
             data,
