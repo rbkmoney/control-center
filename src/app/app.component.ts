@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
             {name: 'Payouts', route: '/payouts', activateRole: 'payout:read'},
             {name: 'Claims', route: '/claims', activateRole: 'claim:get'},
             {name: 'Payment adjustment', route: '/payment-adjustment', activateRole: 'adjustment:create'},
-            {name: 'Parties', route: '/parties', activateRole: 'party:get'} //TODO: указать верную роль
+            {name: 'Parties', route: '/parties', activateRole: 'party:get'} // TODO: указать верную роль
         ];
         const roles = this.keycloakService.getUserRoles();
         return menuItems.filter((item) => roles.includes(item.activateRole));

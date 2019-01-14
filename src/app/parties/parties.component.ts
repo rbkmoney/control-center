@@ -23,6 +23,6 @@ export class PartiesComponent implements OnInit {
 
     goToParty() {
         const { partyId } = this.form.value;
-        this.router.navigate(['party', partyId.trim()])
+        this.router.navigate(['party', partyId.trim()]);
     }
 }
