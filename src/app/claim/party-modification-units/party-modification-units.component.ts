@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { MatBottomSheet } from '@angular/material';
 
 import { PartyModificationUnit, ModificationGroupType } from '../model';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
-import { MatBottomSheet } from '../../../../node_modules/@angular/material';
 
 @Component({
     selector: 'cc-party-modification-units',
