@@ -1,0 +1,41 @@
+table {
+    width: 100%;
+}
+
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-row {
+    width: 100%;
+}
+
+.mat-column-type {
+    padding-right: 8px
+}
+
+.mat-column-ref {
+    padding-left: 8px;
+    min-width: 100px;
+}
+
+.mat-column-data {
+    white-space: nowrap;
+}
+
+.mat-column-details {
+    padding-left: 8px;
+}
+
+.mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+}
+
+.table-container {
+    width: 100%;
+    overflow: auto;
+}

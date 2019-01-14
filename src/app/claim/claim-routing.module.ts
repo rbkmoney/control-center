@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { ClaimComponent } from './claim.component';
-import { ClaimAuthGuardService } from './claim-auth-guard.service';
+import { AppAuthGuardService } from '../app-auth-guard.service';
 
 @NgModule({
     imports: [
@@ -10,19 +10,21 @@ import { ClaimAuthGuardService } from './claim-auth-guard.service';
             {
                 path: 'claims/:partyId/:action/:claimId',
                 component: ClaimComponent,
-                canActivate: [ClaimAuthGuardService]
-            }, {
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['claim:get']
+                }
+            },
+            {
                 path: 'claims/:partyId/:action',
                 component: ClaimComponent,
-                canActivate: [ClaimAuthGuardService]
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['claim:get']
+                }
             }
         ])
     ],
-    exports: [
-        RouterModule
-    ],
-    providers: [
-        ClaimAuthGuardService
-    ]
+    exports: [RouterModule]
 })
 export class ClaimRoutingModule {}

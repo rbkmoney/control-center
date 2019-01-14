@@ -27,12 +27,10 @@ import { PayoutsModule } from './payouts/payouts.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PartiesModule } from './parties/parties.module';
 import { PartyModule } from './party/party.module';
-
+import { DamainModule } from './domain/domain.module';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -49,14 +47,14 @@ import { PartyModule } from './party/party.module';
         PayoutsModule,
         PaymentAdjustmentModule,
         PartiesModule,
-        PartyModule
+        PartyModule,
+        DamainModule
     ],
     providers: [
-        {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
-        {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-        {provide: MAT_DATE_LOCALE, useValue: 'ru'}
-
+        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_LOCALE, useValue: 'ru' }
     ],
     bootstrap: [AppComponent]
 })
