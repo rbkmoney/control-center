@@ -9,4 +9,7 @@ import { Party } from '../../damsel/domain';
 export class PartyDetailsComponent {
     @Input()
     party: Party;
+
+    @Input()
+    isLoading: boolean;
 }

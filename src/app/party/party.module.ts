@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatCardModule, MatRadioModule, MatSelectModule, MatStepperModule } from '@angular/material';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatStepperModule,
+    MatTableModule
+} from '@angular/material';
 import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { PartyComponent } from './party.component';
 import { PartyRoutingModule } from './party-routing.module';
-import { PartyActionsComponent } from './party-actions/party-actions.component';
 import { PartyDetailsComponent } from './party-details/party-details.component';
-import { TerminalDecisionsComponent } from './party-actions/domain/terminal-decisions/terminal-decisions.component';
+import { ShopsTableComponent } from './shops-table/shops-table.component';
 
 @NgModule({
     imports: [
@@ -20,16 +27,14 @@ import { TerminalDecisionsComponent } from './party-actions/domain/terminal-deci
         MatSelectModule,
         MatRadioModule,
         ReactiveFormsModule,
-        MatStepperModule
+        MatStepperModule,
+        MatTableModule,
+        MatProgressBarModule
     ],
     declarations: [
         PartyComponent,
-        PartyActionsComponent,
         PartyDetailsComponent,
-        TerminalDecisionsComponent
-    ],
-    entryComponents: [
-        TerminalDecisionsComponent
+        ShopsTableComponent
     ]
 })
 export class PartyModule {}

@@ -9,7 +9,7 @@
                     <mat-form-field fxFlex="30" fxFlex.sm="70">
                         <input matInput placeholder="Party ID" formControlName="partyId">
                     </mat-form-field>
-                    <button mat-raised-button color="primary" (click)="goToParty()">Go</button>
+                    <button mat-raised-button color="primary" (click)="goToParty()" [disabled]="!form.valid">Go</button>
                 </form>
             </mat-card-content>
         </mat-card>

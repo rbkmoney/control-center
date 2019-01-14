@@ -20,4 +20,7 @@
             </div>
         </div>
     </mat-card-content>
+    <mat-card-footer *ngIf="isLoading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
 </mat-card>

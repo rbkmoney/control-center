@@ -1,6 +1,6 @@
 <div class="container">
     <div class="card-container" fxLayout="column" fxLayoutGap="20px">
-        <cc-party-details [party]="party"></cc-party-details>
-        <cc-party-actions [party]="party"></cc-party-actions>
+        <cc-party-details [party]="party" [isLoading]="isLoading"></cc-party-details>
+        <cc-shops-table [partyId]="party?.id" [shops]="party?.shops" [isLoading]="isLoading"></cc-shops-table>
     </div>
 </div>
