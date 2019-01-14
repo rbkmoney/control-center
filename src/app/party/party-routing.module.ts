@@ -12,7 +12,7 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
                 component: PartyComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['claim:get']
+                    roles: ['party:get']
                 }
             }
         ])
