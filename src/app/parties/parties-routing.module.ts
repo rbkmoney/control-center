@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { PartiesComponent } from './parties.component';
-import { PartiesAuthGuardService } from './parties-auth-guard.service';
+import { AppAuthGuardService } from '../app-auth-guard.service';
 
 @NgModule({
     imports: [
@@ -10,15 +10,15 @@ import { PartiesAuthGuardService } from './parties-auth-guard.service';
             {
                 path: 'parties',
                 component: PartiesComponent,
-                canActivate: [PartiesAuthGuardService]
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['claim:get']
+                }
             }
         ])
     ],
     exports: [
         RouterModule
-    ],
-    providers: [
-        PartiesAuthGuardService
     ]
 })
 export class PartiesRoutingModule {}
