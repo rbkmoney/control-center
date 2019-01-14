@@ -26,6 +26,6 @@ export class MetadataLoader {
     constructor(private http: HttpClient) {}
 
     load(): Observable<Metadata[]> {
-        return this.http.get<Metadata[]>('assets/meta-damsel.json'); // TODO need to cache
+        return this.http.get<Metadata[]>('/assets/meta-damsel.json'); // TODO need to cache
     }
 }
