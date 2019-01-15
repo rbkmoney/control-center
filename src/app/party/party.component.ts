@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Party, Shop } from '../gen-damsel/domain';
 import { PartyService } from './party.service';
@@ -13,9 +13,11 @@ import { PartyService } from './party.service';
 })
 export class PartyComponent implements OnInit {
 
-    party$: Subject<Party> = new Subject();
-    shops$: Subject<Shop[]> = new Subject();
+    party$: Observable<Party>;
+    shops$: Observable<Shop[]>;
     isLoading = false;
+
+    party: Party;
 
     private partyId: string;
 

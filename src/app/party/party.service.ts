@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { Party, Shop } from '../gen-damsel/domain';
@@ -8,8 +8,8 @@ import { PartyService as PapiPartyService } from '../papi/party.service';
 @Injectable()
 export class PartyService {
 
-    party$: Subject<Party> = new Subject();
-    shops$: Subject<Shop[]> = new Subject();
+    party$: Subject<Party> = new BehaviorSubject(null);
+    shops$: Subject<Shop[]> = new BehaviorSubject(null);
 
     constructor(private papiPartyService: PapiPartyService) {
     }
