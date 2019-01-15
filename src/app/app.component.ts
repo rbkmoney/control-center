@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
             {name: 'Domain config', route: '/domain', activateRole: 'dmt:checkout'},
             {name: 'Payouts', route: '/payouts', activateRole: 'payout:read'},
             {name: 'Claims', route: '/claims', activateRole: 'claim:get'},
-            {name: 'Payment adjustment', route: '/payment-adjustment', activateRole: 'adjustment:create'}
+            {name: 'Payment adjustment', route: '/payment-adjustment', activateRole: 'adjustment:create'},
+            {name: 'Parties', route: '/parties', activateRole: 'party:get'}
         ];
         const roles = this.keycloakService.getUserRoles();
         return menuItems.filter((item) => roles.includes(item.activateRole));
