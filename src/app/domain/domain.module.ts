@@ -19,6 +19,7 @@ import { DomainGroupModule } from './domain-group';
 import { MetadataLoader } from './metadata-loader';
 import { SharedModule } from '../shared/shared.module';
 import { DomainDetailsService } from './domain-details.service';
+import { MonacoEditorModule } from '../monaco-editor/monaco-editor.module';
 
 @NgModule({
     declarations: [DomainComponent],
@@ -33,6 +34,7 @@ import { DomainDetailsService } from './domain-details.service';
         MatButtonModule,
         MatInputModule,
         MatProgressSpinnerModule,
+        MonacoEditorModule,
         ThriftModule,
         DomainGroupModule,
         SharedModule

@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar, MatSidenav } from '@angular/material';
-import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { DomainService } from './domain.service';
-import { AbstractDomainObject } from './domain-group/domain-group';
 import { DomainDetailsService } from './domain-details.service';
+import { MonacoFile, MonacoEditorOptions } from '../monaco-editor';
 
 @Component({
     templateUrl: './domain.component.html',
@@ -14,8 +13,12 @@ import { DomainDetailsService } from './domain-details.service';
 export class DomainComponent implements OnInit {
     initialized = false;
     isLoading: boolean;
-    detailedDomainObj$: Observable<AbstractDomainObject>;
     @ViewChild('domainObjDetails') detailsContainer: MatSidenav;
+
+    file: MonacoFile;
+    options: MonacoEditorOptions = {
+        readOnly: true
+    };
 
     constructor(
         private domainService: DomainService,
@@ -25,9 +28,18 @@ export class DomainComponent implements OnInit {
 
     ngOnInit() {
         this.initialize();
-        this.detailedDomainObj$ = this.detailsService.detailedObject$.pipe(
-            tap(() => this.detailsContainer.open())
-        );
+        this.detailsService.detailedObject$
+            .pipe(
+                tap(o => {
+                    this.file = {
+                        uri: 'index.json',
+                        language: 'json',
+                        content: JSON.stringify(o, null, 2)
+                    };
+                    this.detailsContainer.open();
+                })
+            )
+            .subscribe();
     }
 
     closeDetails() {
