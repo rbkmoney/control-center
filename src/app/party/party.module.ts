@@ -12,8 +12,8 @@ import {
     MatStepperModule,
     MatTableModule
 } from '@angular/material';
-import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { PartyComponent } from './party.component';
 import { PartyRoutingModule } from './party-routing.module';
@@ -25,7 +25,7 @@ import { ShopsTableComponent } from './shops-table/shops-table.component';
         CommonModule,
         PartyRoutingModule,
         MatCardModule,
-        FlexModule,
+        FlexLayoutModule,
         MatButtonModule,
         MatSelectModule,
         MatRadioModule,
