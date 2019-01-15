@@ -5,29 +5,31 @@ import { Component, Input } from '@angular/core';
     templateUrl: './pretty-json.component.html',
     styles: [
         `
+            :host /deep/ * {
+                font-family: Menlo, Monaco, 'Courier New', monospace;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 18px;
+                letter-spacing: 0px;
+            }
             :host /deep/ .string {
-                color: #008000;
-                font-weight: bold;
+                color: #0451a5;
             }
 
             :host /deep/ .number {
-                color: #0000ff;
-                font-weight: bold;
+                color: #09885a;
             }
 
             :host /deep/ .boolean {
-                color: #000080;
-                font-weight: bold;
+                color: #0451a5;
             }
 
             :host /deep/ .null {
-                color: magenta;
-                font-weight: bold;
+                color: #0451a5;
             }
 
             :host /deep/ .key {
-                color: #660e7a;
-                font-weight: bold;
+                color: #a31515;
             }
 
             pre {
