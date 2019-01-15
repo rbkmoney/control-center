@@ -26,7 +26,7 @@ export class ShopsTableComponent implements OnChanges {
 
     ngOnChanges() {
         this.dataSource.data = this.shops;
-        this.dataSource.filterPredicate = (shop: Shop, filter: string) => JSON.stringify(shop).toLowerCase().includes(filter);
+        this.dataSource.filterPredicate = (shop: Shop, filter: string) => JSON.stringify(shop).toLowerCase().includes(filter.toLowerCase());
         this.dataSource.paginator = this.paginator;
     }
 
