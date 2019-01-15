@@ -1,95 +1,84 @@
-import { Component } from '@angular/core';
-import { MatBottomSheetRef, MatDialog } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog } from '@angular/material';
 
 import { ActionType, ModificationAction } from '../modification-action';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
 import { ContractModificationName, ShopModificationName } from '../model';
 
+interface UnitActionData {
+    type: 'allActions' | 'contractActions' | 'shopActions';
+    unitID?: string;
+}
+
 @Component({
     templateUrl: 'unit-actions.component.html'
 })
-export class UnitActionsComponent {
+export class UnitActionsComponent implements OnInit {
 
     constructor(private bottomSheetRef: MatBottomSheetRef,
-                private dialog: MatDialog) {
+        private dialog: MatDialog,
+        @Inject(MAT_BOTTOM_SHEET_DATA) public data: UnitActionData) {
     }
 
-    contractActions: ModificationAction[] = [
-        {
-            type: ActionType.contractAction,
-            name: ContractModificationName.creation
-        },
-        {
-            type: ActionType.contractAction,
-            name: ContractModificationName.legalAgreementBinding
-        },
-        {
-            type: ActionType.contractAction,
-            name: ContractModificationName.reportPreferencesModification
-        },
-        {
-            type: ActionType.contractAction,
-            name: ContractModificationName.adjustmentModification
-        },
-        {
-            type: ActionType.contractAction,
-            name: ContractModificationName.payoutToolModification
-        },
-        {
-            type: ActionType.contractAction,
-            name: ContractModificationName.termination
-        },
-        // {
-        //     type: ActionType.contractAction,
-        //     name: ContractModificationName.contractorModification
-        // }
-    ];
+    contractActions = {
+        type: ActionType.contractAction,
+        visible: false,
+        names: [
+            ContractModificationName.legalAgreementBinding,
+            ContractModificationName.reportPreferencesModification,
+            ContractModificationName.adjustmentModification,
+            ContractModificationName.payoutToolModification,
+            ContractModificationName.termination,
+            // ContractModificationName.contractorModification
+        ]
+    };
 
-    shopActions: ModificationAction[] = [
-        {
-            type: ActionType.shopAction,
-            name: ShopModificationName.creation
-        },
-        {
-            type: ActionType.shopAction,
-            name: ShopModificationName.detailsModification
-        },
-        {
-            type: ActionType.shopAction,
-            name: ShopModificationName.locationModification
-        },
-        {
-            type: ActionType.shopAction,
-            name: ShopModificationName.categoryModification
-        },
-        {
-            type: ActionType.shopAction,
-            name: ShopModificationName.shopAccountCreation
-        },
-        {
-            type: ActionType.shopAction,
-            name: ShopModificationName.payoutScheduleModification
-        },
-        {
-            type: ActionType.shopAction,
-            name: ShopModificationName.payoutToolModification
-        },
-        {
-            type: ActionType.shopAction,
-            name: ShopModificationName.contractModification
+    shopActions = {
+        type: ActionType.shopAction,
+        visible: false,
+        names: [
+            ShopModificationName.detailsModification,
+            ShopModificationName.locationModification,
+            ShopModificationName.categoryModification,
+            ShopModificationName.shopAccountCreation,
+            ShopModificationName.payoutScheduleModification,
+            ShopModificationName.payoutToolModification,
+            ShopModificationName.contractModification
+        ]
+    };
+
+    domainActions = {
+        type: ActionType.domainAction,
+        visible: false
+    };
+
+    ngOnInit() {
+        switch (this.data.type) {
+            case 'allActions':
+                this.contractActions.visible = true;
+                this.shopActions.visible = true;
+                this.domainActions.visible = true;
+                this.contractActions.names = [ContractModificationName.creation, ...this.contractActions.names];
+                this.shopActions.names = [ShopModificationName.creation, ...this.shopActions.names];
+                break;
+            case 'contractActions':
+                this.contractActions.visible = true;
+                break;
+            case 'shopActions':
+                this.shopActions.visible = true;
         }
-    ];
+    }
 
-    domainActions: ModificationAction[] = [
-        {
-            type: ActionType.domainAction
-        }
-    ];
-
-    select(action: ModificationAction) {
+    select(type: ActionType, name: ContractModificationName | ShopModificationName) {
         this.bottomSheetRef.dismiss();
         const config = {
-            data: action,
+            data: {
+                action: {
+                    type,
+                    name
+                },
+                unitID: this.data.unitID
+            },
             width: '800px',
             disableClose: true
         };

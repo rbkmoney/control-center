@@ -11,6 +11,16 @@ import { CreateTerminalParams } from '../domain-typed-manager';
 import { DomainTypedManager } from '../../thrift/domain-typed-manager';
 import { PartyModification } from '../../gen-damsel/payment_processing';
 
+interface CreateModificationData {
+    action: ModificationAction;
+    unitID?: string;
+}
+
+enum Step {
+    prepareTarget = '0',
+    fillInModification = '1'
+}
+
 @Component({
     templateUrl: 'create-modification.component.html'
 })
@@ -28,10 +38,14 @@ export class CreateModificationComponent implements OnInit {
 
     domainModificationInfo$: Observable<DomainModificationInfo>;
 
+    action: ModificationAction;
+
+    currentStep = Step.prepareTarget;
+
     constructor(
         private route: ActivatedRoute,
         private dialogRef: MatDialogRef<CreateModificationComponent>,
-        @Inject(MAT_DIALOG_DATA) public action: ModificationAction,
+        @Inject(MAT_DIALOG_DATA) public data: CreateModificationData,
         private snackBar: MatSnackBar,
         private claimService: ClaimService,
         private domainTypedManager: DomainTypedManager) {
@@ -42,6 +56,11 @@ export class CreateModificationComponent implements OnInit {
             this.partyId = params.partyId;
         });
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
+        if (this.data.unitID) {
+            this.unitIDChange(this.data.unitID);
+            this.currentStep = Step.fillInModification;
+        }
+        this.action = this.data.action;
     }
 
     valueChanges(e: any) {
@@ -57,7 +76,7 @@ export class CreateModificationComponent implements OnInit {
     }
 
     add() {
-        switch (this.action.type) {
+        switch (this.data.action.type) {
             case ActionType.shopAction:
             case ActionType.contractAction:
                 this.addChange();
