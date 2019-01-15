@@ -28,6 +28,7 @@ export class ShopsTableComponent implements OnInit {
     ngOnInit() {
         this.shops.subscribe((shops) => {
             this.dataSource.data = shops;
+            this.dataSource.filterPredicate = (shop: Shop, filter: string) => JSON.stringify(shop).search(filter) !== -1;
         });
         this.dataSource.paginator = this.paginator;
     }

@@ -1,11 +1,10 @@
 <div fxLayout fxLayoutAlign="space-between">
-    <mat-form-field fxFlex="10">
+    <mat-form-field fxFlex="35">
         <input matInput
                type="text"
                (keyup)="applyFilter($event.target.value)"
-               placeholder="Filter by Shop ID">
+               placeholder="Filter">
     </mat-form-field>
-    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100, 250, 500]" showFirstLastButtons></mat-paginator>
 </div>
 <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="id">
@@ -23,3 +22,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let shop; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="[10, 20, 50, 100, 250, 500]" showFirstLastButtons></mat-paginator>

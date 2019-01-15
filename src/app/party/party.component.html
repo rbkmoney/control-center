@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card-container" fxLayout="column">
         <mat-spinner *ngIf="isLoading" fxFlexAlign="center"></mat-spinner>
-        <div [hidden]="!isLoading" fxLayout="column" fxLayoutGap="20px">
+        <div [class]="isLoading ? 'hidden' : ''" fxLayout="column" fxLayoutGap="20px">
             <mat-card>
                 <mat-card-subtitle>
                     Party details
