@@ -1,5 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { Shop } from '../../gen-damsel/domain';
@@ -9,10 +8,10 @@ import { Shop } from '../../gen-damsel/domain';
     templateUrl: 'shops-table.component.html',
     styleUrls: ['shops-table.component.css']
 })
-export class ShopsTableComponent implements OnInit {
+export class ShopsTableComponent implements OnChanges {
 
     @Input()
-    shops: Subject<Shop[]>;
+    shops: Shop[];
 
     dataSource: MatTableDataSource<Shop> = new MatTableDataSource();
 
@@ -25,11 +24,9 @@ export class ShopsTableComponent implements OnInit {
         'url'
     ];
 
-    ngOnInit() {
-        this.shops.subscribe((shops) => {
-            this.dataSource.data = shops;
-            this.dataSource.filterPredicate = (shop: Shop, filter: string) => JSON.stringify(shop).search(filter) !== -1;
-        });
+    ngOnChanges() {
+        this.dataSource.data = this.shops;
+        this.dataSource.filterPredicate = (shop: Shop, filter: string) => JSON.stringify(shop).search(filter) !== -1;
         this.dataSource.paginator = this.paginator;
     }
 
