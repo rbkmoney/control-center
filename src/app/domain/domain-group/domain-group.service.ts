@@ -8,11 +8,11 @@ import { DomainService } from '../domain.service';
 @Injectable()
 export class DomainGroupService {
     group$: Subject<DomainGroup[]> = new BehaviorSubject(null);
-    varsion$: Subject<number> = new BehaviorSubject(null);
+    version$: Subject<number> = new BehaviorSubject(null);
 
     constructor(private domainService: DomainService) {
         this.domainService.payload$.subscribe(({ shapshot: { version, domain }, metadata }) => {
-            this.varsion$.next(version.toNumber());
+            this.version$.next(version.toNumber());
             this.group$.next(
                 group(
                     [...domain.values()],

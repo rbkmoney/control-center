@@ -6,7 +6,7 @@ import { map } from 'rxjs/internal/operators';
 import { ConfigService } from '../core/config.service';
 import { ContractTemplate } from './model';
 import { decode } from '../shared/thrift-formatter';
-import { Party } from '../damsel/domain';
+import { Party } from '../gen-damsel/domain';
 
 @Injectable()
 export class PartyService {

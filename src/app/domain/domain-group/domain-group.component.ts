@@ -15,6 +15,6 @@ export class DomainGroupComponent {
 
     constructor(private groupService: DomainGroupService) {
         this.group$ = this.groupService.group$;
-        this.version$ = this.groupService.varsion$;
+        this.version$ = this.groupService.version$;
     }
 }

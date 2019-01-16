@@ -11,6 +11,9 @@ import { TargetType } from './targe-type';
 export class PartyModificationTargetComponent {
 
     @Input()
+    unitID: string;
+
+    @Input()
     partyID: string;
 
     @Input()

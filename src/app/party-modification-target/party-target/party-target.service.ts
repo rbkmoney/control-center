@@ -5,7 +5,7 @@ import { map } from 'rxjs/internal/operators';
 import { PartyService } from '../../papi/party.service';
 import { SelectableItem } from './selectable-item';
 import { PartyTarget } from '../party-target';
-import { Contractor, Shop, Contract, Party } from '../../damsel/domain';
+import { Contract, Contractor, Party, Shop } from '../../gen-damsel/domain';
 
 @Injectable()
 export class PartyTargetService {
@@ -29,8 +29,6 @@ export class PartyTargetService {
                 return party.contracts;
             case PartyTarget.shop:
                 return party.shops;
-            case PartyTarget.contractor:
-                return party.contractors;
         }
     }
 }
