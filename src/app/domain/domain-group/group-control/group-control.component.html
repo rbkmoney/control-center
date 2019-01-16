@@ -1,4 +1,11 @@
-<form fxLayout fxLayoutGap="20px">
+<form
+    fxLayout
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutGap="20px"
+    fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0"
+>
     <cc-domain-objects-type-selector
         fxFlex="50"
         [group]="group"
@@ -6,7 +13,15 @@
     ></cc-domain-objects-type-selector>
     <mat-form-field fxFlex="50">
         <span matPrefix>/</span>
-        <input matInput placeholder="RegExp pattern" (keyup)="patternChange($event.target.value)" />
+        <input
+            matInput
+            placeholder="RegExp pattern"
+            [value]="pattern"
+            (keyup)="patternChange($event.target.value)"
+        />
         <span matSuffix>/</span>
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearPattern()">
+            <mat-icon>close</mat-icon>
+        </button>
     </mat-form-field>
 </form>

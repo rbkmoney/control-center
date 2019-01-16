@@ -11,11 +11,19 @@ export class GroupControlComponent {
     @Output() typeSelectionChange: EventEmitter<string[]> = new EventEmitter();
     @Output() regExpPatternChange: EventEmitter<string> = new EventEmitter();
 
+    pattern = '';
+
     selectionChange(selectedTypes: string[]) {
         this.typeSelectionChange.emit(selectedTypes);
     }
 
     patternChange(pattern: string) {
-        this.regExpPatternChange.emit(pattern);
+        this.pattern = pattern;
+        this.regExpPatternChange.emit(this.pattern);
+    }
+
+    clearPattern() {
+        this.pattern = '';
+        this.regExpPatternChange.emit(this.pattern);
     }
 }
