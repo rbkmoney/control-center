@@ -34,6 +34,7 @@
     "keycloak-js": "4.5.0",
     "lodash-es": "^4.17.10",
     "moment": "^2.22.2",
+    "monaco-editor": "^0.15.6",
     "rxjs": "^6.3.3",
     "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#17cea6fc8a57f899a3042917ab67761f2314aff1",
     "uuid": "^3.3.2",

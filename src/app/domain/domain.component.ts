@@ -1,37 +1,35 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar, MatSidenav } from '@angular/material';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 import { DomainService } from './domain.service';
-import { AbstractDomainObject } from './domain-group/domain-group';
 import { DomainDetailsService } from './domain-details.service';
+import { DetailsContainerService } from './details-container.service';
 
 @Component({
     templateUrl: './domain.component.html',
-    styleUrls: ['../shared/container.css', './domain.component.scss']
+    styleUrls: ['../shared/container.css', './domain.component.scss'],
+    providers: [DomainDetailsService, DetailsContainerService]
 })
 export class DomainComponent implements OnInit {
     initialized = false;
     isLoading: boolean;
-    detailedDomainObj$: Observable<AbstractDomainObject>;
     @ViewChild('domainObjDetails') detailsContainer: MatSidenav;
 
     constructor(
         private domainService: DomainService,
         private snackBar: MatSnackBar,
-        private detailsService: DomainDetailsService
+        private detailsService: DomainDetailsService,
+        private detailsContainerService: DetailsContainerService
     ) {}
 
     ngOnInit() {
         this.initialize();
-        this.detailedDomainObj$ = this.detailsService.detailedObject$.pipe(
-            tap(() => this.detailsContainer.open())
-        );
+        this.detailsContainerService.container = this.detailsContainer;
+        this.detailsService.detailedObject$.subscribe(() => this.detailsContainerService.open());
     }
 
     closeDetails() {
-        this.detailsContainer.close();
+        this.detailsContainerService.close();
     }
 
     private initialize() {
