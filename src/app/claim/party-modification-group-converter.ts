@@ -20,7 +20,7 @@ enum GroupName {
 }
 
 const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
-    const grouped = groupBy(persistentUnits, (item) => {
+    const grouped = groupBy(persistentUnits, item => {
         const modificationNames = Object.keys(item.modificationUnit.modification);
         if (modificationNames.length !== 1) {
             return 'unknown';
@@ -29,7 +29,7 @@ const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
     });
     return map(grouped, (units, name) => ({
         name,
-        unitContainers: units.map(({modificationUnit, saved, typeHash}) => ({
+        unitContainers: units.map(({ modificationUnit, saved, typeHash }) => ({
             modificationUnit,
             saved,
             typeHash
@@ -38,7 +38,7 @@ const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
 };
 
 const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentUnits, (item) => item.modificationUnit.id);
+    const grouped = groupBy(persistentUnits, item => item.modificationUnit.id);
     return map(grouped, (units, unitID) => ({
         unitID,
         hasUnsaved: isHasUnsaved(units, unitID),
@@ -47,10 +47,14 @@ const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => 
 };
 
 const isHasUnsaved = (units: PersistentUnit[], unitID: string): boolean =>
-    units.filter((i) => !i.saved && i.modificationUnit.id === unitID).length > 0;
+    units.filter(i => !i.saved && i.modificationUnit.id === unitID).length > 0;
 
-const toGroup = (name: GroupName, type: ModificationGroupType, containers: PersistentContainer[]): ModificationGroup => {
-    const persistent = containers.map(({modification, saved, typeHash}) => ({
+const toGroup = (
+    name: GroupName,
+    type: ModificationGroupType,
+    containers: PersistentContainer[]
+): ModificationGroup => {
+    const persistent = containers.map(({ modification, saved, typeHash }) => ({
         modificationUnit: modification[name],
         typeHash,
         saved
@@ -62,8 +66,8 @@ const toGroup = (name: GroupName, type: ModificationGroupType, containers: Persi
 };
 
 export const convert = (containers: PersistentContainer[]): ModificationGroup[] => {
-    const grouped = groupBy(containers, (item) => {
-        const {shopModification, contractModification} = item.modification;
+    const grouped = groupBy(containers, item => {
+        const { shopModification, contractModification } = item.modification;
         if (shopModification) {
             return ModificationGroupType.ShopUnitContainer;
         }
@@ -79,7 +83,7 @@ export const convert = (containers: PersistentContainer[]): ModificationGroup[] 
             case ModificationGroupType.ContractUnitContainer:
                 return toGroup(GroupName.contractModification, type, persistentContainer);
             case ModificationGroupType.unknown:
-                return {type: ModificationGroupType.unknown};
+                return { type: ModificationGroupType.unknown };
         }
     });
 };

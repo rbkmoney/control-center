@@ -47,10 +47,7 @@ function decodeArray(arr: any[]): any[] | Map<any, any> | Set<any> {
 
 function decodeObject(obj: object): object {
     const result = {};
-    forIn(obj, (value, key) =>
-        result[camelCase(key)] = isObject(value)
-            ? decode(value)
-            : value);
+    forIn(obj, (value, key) => (result[camelCase(key)] = isObject(value) ? decode(value) : value));
     return result;
 }
 
@@ -65,7 +62,6 @@ export function decode(thrift: any): any {
 }
 
 export class ThriftFormatter {
-
     static encode(model): any | any[] {
         let result;
         if (isArray(model)) {

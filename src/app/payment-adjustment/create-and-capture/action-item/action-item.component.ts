@@ -5,7 +5,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     templateUrl: 'action-item.component.html'
 })
 export class ActionItemComponent {
-
     @Input()
     description: string;
 

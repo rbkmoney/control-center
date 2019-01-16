@@ -8,10 +8,8 @@ import { ClaimActionType } from '../../claim-action-type';
     templateUrl: 'claim-info-details.component.html'
 })
 export class ClaimInfoDetailsComponent {
-
     @Input()
     claimInfoContainer: ClaimInfoContainer;
 
     t = ClaimActionType;
-
 }

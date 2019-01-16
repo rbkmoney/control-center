@@ -10,7 +10,6 @@ import { ClaimActionType } from '../../claim/claim-action-type';
     styleUrls: ['./claims-table.component.css']
 })
 export class ClaimsTableComponent {
-
     @Input()
     claims: ClaimInfo[];
 

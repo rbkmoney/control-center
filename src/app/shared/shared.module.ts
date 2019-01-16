@@ -11,10 +11,7 @@ import { ThriftViewPipe } from './pipes/thrift-view.pipe';
 import { PrettyJsonComponent } from './components/pretty-json/pretty-json.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        PrettyJsonModule
-    ],
+    imports: [CommonModule, PrettyJsonModule],
     declarations: [
         CurrencyPipe,
         FormatAmountPipe,
@@ -32,6 +29,6 @@ import { PrettyJsonComponent } from './components/pretty-json/pretty-json.compon
         ThriftJsonComponent,
         ThriftViewPipe,
         PrettyJsonComponent
-    ],
+    ]
 })
 export class SharedModule {}

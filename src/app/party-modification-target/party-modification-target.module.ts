@@ -38,9 +38,6 @@ import { PartyItemNamePipe } from './party-item-name.pipe';
         PartyTargetComponent,
         PartyItemNamePipe
     ],
-    exports: [
-        PartyModificationTargetComponent
-    ]
+    exports: [PartyModificationTargetComponent]
 })
-export class PartyModificationTargetModule {
-}
+export class PartyModificationTargetModule {}

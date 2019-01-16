@@ -7,20 +7,17 @@ import { PartyService as PapiPartyService } from '../papi/party.service';
 
 @Injectable()
 export class PartyService {
-
     party$: Subject<Party> = new BehaviorSubject(null);
     shops$: Subject<Shop[]> = new BehaviorSubject(null);
 
-    constructor(private papiPartyService: PapiPartyService) {
-    }
+    constructor(private papiPartyService: PapiPartyService) {}
 
     initialize(partyID: string): Observable<Party> {
-        return this.papiPartyService.getParty(partyID)
-            .pipe(
-                tap((party) => {
-                    this.party$.next(party);
-                    this.shops$.next(Array.from(party.shops.values()));
-                })
-            );
+        return this.papiPartyService.getParty(partyID).pipe(
+            tap(party => {
+                this.party$.next(party);
+                this.shops$.next(Array.from(party.shops.values()));
+            })
+        );
     }
 }

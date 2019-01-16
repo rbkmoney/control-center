@@ -9,7 +9,6 @@ import { ClaimSearchParams } from '../../papi/params';
 
 @Injectable()
 export class SearchFormService {
-
     form: FormGroup;
 
     claimStatuses: string[];
@@ -20,7 +19,7 @@ export class SearchFormService {
     }
 
     formValueToSearchParams(formValue): ClaimSearchParams {
-        return mapValues(formValue, (value) => {
+        return mapValues(formValue, value => {
             let result = value;
             if (value === '') {
                 result = null;

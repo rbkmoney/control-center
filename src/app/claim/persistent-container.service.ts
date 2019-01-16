@@ -11,7 +11,7 @@ export class PersistentContainerService {
     private containers: PersistentContainer[] = [];
 
     init(persisted: PartyModification[]) {
-        this.containers = persisted.map((modification) => ({
+        this.containers = persisted.map(modification => ({
             modification,
             saved: true
         }));
@@ -25,7 +25,7 @@ export class PersistentContainerService {
             typeHash,
             saved: false
         };
-        const index = this.containers.findIndex((i) => i.typeHash === typeHash);
+        const index = this.containers.findIndex(i => i.typeHash === typeHash);
         if (index !== -1) {
             this.containers[index] = item;
         } else {
@@ -35,7 +35,7 @@ export class PersistentContainerService {
     }
 
     remove(typeHash: string) {
-        remove(this.containers, (i) => i.typeHash === typeHash);
+        remove(this.containers, i => i.typeHash === typeHash);
         this.containers$.next(this.containers.sort(this.sort));
     }
 

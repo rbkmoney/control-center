@@ -10,8 +10,7 @@ import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
     styleUrls: ['./party-modification-units.component.css']
 })
 export class PartyModificationUnitsComponent {
-
-    constructor(private bottomSheet: MatBottomSheet) { }
+    constructor(private bottomSheet: MatBottomSheet) {}
 
     @Input()
     type: ModificationGroupType;

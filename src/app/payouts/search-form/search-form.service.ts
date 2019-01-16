@@ -7,7 +7,6 @@ import { PayoutStatus } from '../../papi/model';
 
 @Injectable()
 export class SearchFormService {
-
     form: FormGroup;
 
     payoutStatuses: string[];

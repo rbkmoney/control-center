@@ -10,7 +10,6 @@ import { ClaimAcceptParams, ClaimDenyParams, ClaimSearchParams } from './params'
 
 @Injectable()
 export class ClaimService {
-
     private readonly papiEndpoint: string;
 
     constructor(private http: HttpClient, private configService: ConfigService) {
@@ -22,26 +21,36 @@ export class ClaimService {
     }
 
     getClaim(partyID: string, claimID: number): Observable<ClaimInfo> {
-        const params = new HttpParams()
-            .set('partyId', partyID)
-            .set('claimId', claimID.toString());
+        const params = new HttpParams().set('partyId', partyID).set('claimId', claimID.toString());
         return this.http
-            .get<ClaimInfo>(`${this.papiEndpoint}/walk/claim`, {params})
-            .pipe(map((claim) => decode(claim)));
+            .get<ClaimInfo>(`${this.papiEndpoint}/walk/claim`, { params })
+            .pipe(map(claim => decode(claim)));
     }
 
     createClaim(partyID: string, unit: PartyModificationUnit): Observable<ClaimCreated> {
-        const params = new HttpParams()
-            .set('partyId', partyID);
-        return this.http.post<ClaimCreated>(`${this.papiEndpoint}/walk/claim`, ThriftFormatter.encode(unit), {params});
+        const params = new HttpParams().set('partyId', partyID);
+        return this.http.post<ClaimCreated>(
+            `${this.papiEndpoint}/walk/claim`,
+            ThriftFormatter.encode(unit),
+            { params }
+        );
     }
 
-    updateClaim(partyID: string, claimID: number, revision: string, unit: PartyModificationUnit): Observable<void> {
+    updateClaim(
+        partyID: string,
+        claimID: number,
+        revision: string,
+        unit: PartyModificationUnit
+    ): Observable<void> {
         const params = new HttpParams()
             .set('partyId', partyID)
             .set('claimId', claimID.toString())
             .set('revision', revision);
-        return this.http.post<void>(`${this.papiEndpoint}/walk/claim/update`, ThriftFormatter.encode(unit), {params});
+        return this.http.post<void>(
+            `${this.papiEndpoint}/walk/claim/update`,
+            ThriftFormatter.encode(unit),
+            { params }
+        );
     }
 
     acceptClaim(params: ClaimAcceptParams): Observable<void> {

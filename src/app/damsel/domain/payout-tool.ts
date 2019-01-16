@@ -8,4 +8,3 @@ export class PayoutTool {
     currency: CurrencyRef;
     payoutToolInfo: PayoutToolInfo;
 }
-

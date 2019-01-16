@@ -7,12 +7,10 @@ import * as uuid from 'uuid/v4';
     templateUrl: 'adjustment-modification-unit.component.html'
 })
 export class AdjustmentModificationUnitComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.registerControl('adjustmentId', this.fb.control('', Validators.required));
@@ -20,6 +18,6 @@ export class AdjustmentModificationUnitComponent implements OnInit {
     }
 
     generate() {
-        this.form.patchValue({adjustmentId: uuid()});
+        this.form.patchValue({ adjustmentId: uuid() });
     }
 }

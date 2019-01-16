@@ -11,9 +11,8 @@ import { ExecResultGroup } from './exec-result-group';
 import { PaymentAdjustmentCreationScope } from './payment-adjustment-creation-scope';
 
 export class CreateAdjustmentService extends AdjustmentOperationService {
-
     protected toExecParams(creationParams: any[]): any[] {
-        return creationParams.map((params) => ({
+        return creationParams.map(params => ({
             fn: this.manager.createPaymentAdjustment,
             context: this.manager,
             params
@@ -21,7 +20,7 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
     }
 
     protected handleExecResult(group: ExecResultGroup): void {
-        const {success, error} = group;
+        const { success, error } = group;
         if (success) {
             this.events$.next({
                 type: EventType.PaymentAdjustmentsCreated,
@@ -39,15 +38,21 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
     }
 
     private toSuccessPayload(result: ExecSuccessResult[]): PaymentAdjustmentCreationScope[] {
-        return result.map(({data, container: {params}}) => ({
-            adjustmentId: data && data.id,
-            creationParams: params
-        } as PaymentAdjustmentCreationScope));
+        return result.map(
+            ({ data, container: { params } }) =>
+                ({
+                    adjustmentId: data && data.id,
+                    creationParams: params
+                } as PaymentAdjustmentCreationScope)
+        );
     }
 
     private toErrorPayload(result: ExecErrorResult[]): OperationFailedPayload[] {
-        return result.map((error) => {
-            const {exception, container: {params}} = error;
+        return result.map(error => {
+            const {
+                exception,
+                container: { params }
+            } = error;
             const errorCodes = [
                 'InvoicePaymentAdjustmentPending',
                 'InvalidPaymentStatus',
@@ -56,9 +61,7 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
                 'InvalidUser'
             ];
             return {
-                code: errorCodes.includes(exception.name)
-                    ? exception.name
-                    : 'InternalServer',
+                code: errorCodes.includes(exception.name) ? exception.name : 'InternalServer',
                 operationScope: {
                     creationParams: params,
                     adjustmentId: exception.id ? exception.id : null

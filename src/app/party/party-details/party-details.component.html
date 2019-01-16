@@ -2,15 +2,15 @@
     <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
         <div fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Party ID:</label>
-            <div>{{party?.id}}</div>
+            <div>{{ party?.id }}</div>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Created At:</label>
-            <div>{{party?.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}</div>
+            <div>{{ party?.createdAt | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Revision:</label>
-            <div>{{party?.revision}}</div>
+            <div>{{ party?.revision }}</div>
         </div>
     </div>
 </div>

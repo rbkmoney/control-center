@@ -12,7 +12,6 @@ import { PartyService } from './party.service';
     providers: [PartyService]
 })
 export class PartyComponent implements OnInit {
-
     party$: Observable<Party>;
     shops$: Observable<Shop[]>;
     isLoading = false;
@@ -21,10 +20,12 @@ export class PartyComponent implements OnInit {
 
     private partyId: string;
 
-    constructor(private partyService: PartyService,
-                private route: ActivatedRoute,
-                private snackBar: MatSnackBar) {
-        this.route.params.subscribe((params) => {
+    constructor(
+        private partyService: PartyService,
+        private route: ActivatedRoute,
+        private snackBar: MatSnackBar
+    ) {
+        this.route.params.subscribe(params => {
             this.partyId = params['partyId'];
         });
     }
@@ -37,14 +38,17 @@ export class PartyComponent implements OnInit {
 
     private initialize() {
         this.isLoading = true;
-        this.partyService.initialize(this.partyId).subscribe(() => {
-            this.isLoading = false;
-        }, (err) => {
-            this.isLoading = false;
-            this.snackBar
-                .open(`An error occurred while initializing: ${ err }`, 'RETRY')
-                .onAction()
-                .subscribe(() => this.initialize());
-        });
+        this.partyService.initialize(this.partyId).subscribe(
+            () => {
+                this.isLoading = false;
+            },
+            err => {
+                this.isLoading = false;
+                this.snackBar
+                    .open(`An error occurred while initializing: ${err}`, 'RETRY')
+                    .onAction()
+                    .subscribe(() => this.initialize());
+            }
+        );
     }
 }

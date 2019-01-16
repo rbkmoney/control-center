@@ -13,11 +13,7 @@ import { AppAuthGuardService } from './app-auth-guard.service';
             }
         ])
     ],
-    providers: [
-        AppAuthGuardService
-    ],
-    exports: [
-        RouterModule
-    ]
+    providers: [AppAuthGuardService],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {}

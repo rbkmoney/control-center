@@ -13,5 +13,4 @@ import { DomainTypedManager } from './domain-typed-manager';
         MerchantStatisticsService
     ]
 })
-export class ThriftModule {
-}
+export class ThriftModule {}

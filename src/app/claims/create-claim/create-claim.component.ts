@@ -9,13 +9,13 @@ import { ClaimActionType } from '../../claim/claim-action-type';
     templateUrl: 'create-claim.component.html'
 })
 export class CreateClaimComponent implements OnInit {
-
     form: FormGroup;
 
-    constructor(private dialogRef: MatDialogRef<CreateClaimComponent>,
-                private router: Router,
-                private fb: FormBuilder) {
-    }
+    constructor(
+        private dialogRef: MatDialogRef<CreateClaimComponent>,
+        private router: Router,
+        private fb: FormBuilder
+    ) {}
 
     ngOnInit() {
         this.form = this.fb.group({

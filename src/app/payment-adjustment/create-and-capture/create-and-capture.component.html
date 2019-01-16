@@ -1,29 +1,51 @@
-<h4 class="mat-dialog-title">Payment adjustment{{payments.length === 1 ? '' : 's'}} for {{payments.length}} payment{{payments.length === 1 ? '' : 's'}}</h4>
+<h4 class="mat-dialog-title">
+    Payment adjustment{{ payments.length === 1 ? '' : 's' }} for {{ payments.length }} payment{{
+        payments.length === 1 ? '' : 's'
+    }}
+</h4>
 <mat-dialog-content>
     <div fxLayout="column" fxLayoutGap="20px">
         <div>
             <form [formGroup]="form" fxLayout fxLayoutGap="10px">
                 <mat-form-field fxFlex="20">
-                    <input matInput placeholder="Domain revision" formControlName="revision" type="number" required>
+                    <input
+                        matInput
+                        placeholder="Domain revision"
+                        formControlName="revision"
+                        type="number"
+                        required
+                    />
                 </mat-form-field>
                 <mat-form-field fxFlex="90">
-                    <input matInput placeholder="Reason" formControlName="reason" required>
+                    <input matInput placeholder="Reason" formControlName="reason" required />
                 </mat-form-field>
             </form>
             <div>
-                <button mat-raised-button color="primary" (click)="create()" [disabled]="createStarted || !form.valid">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="create()"
+                    [disabled]="createStarted || !form.valid"
+                >
                     CREATE
                 </button>
             </div>
         </div>
         <div fxLayout="column" fxLayoutGap="20px">
             <cc-create-actions [isLoading]="isLoading"></cc-create-actions>
-            <cc-cancel-actions [isLoading]="isLoading" [adjustmentParams]="adjustmentParams"></cc-cancel-actions>
+            <cc-cancel-actions
+                [isLoading]="isLoading"
+                [adjustmentParams]="adjustmentParams"
+            ></cc-cancel-actions>
             <cc-capture-actions [isLoading]="isLoading"></cc-capture-actions>
         </div>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button [disabled]="isLoading" [mat-dialog-close]="false">CLOSE</button>
-    <mat-progress-bar *ngIf="isLoading" mode="determinate" [value]="progress$ | async"></mat-progress-bar>
+    <mat-progress-bar
+        *ngIf="isLoading"
+        mode="determinate"
+        [value]="progress$ | async"
+    ></mat-progress-bar>
 </mat-dialog-actions>

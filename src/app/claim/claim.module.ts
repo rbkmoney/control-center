@@ -94,10 +94,6 @@ import { PersistentContainerService } from './persistent-container.service';
         DenyClaimComponent,
         CreateModificationComponent
     ],
-    providers: [
-        ClaimService,
-        PersistentContainerService
-    ]
+    providers: [ClaimService, PersistentContainerService]
 })
-export class ClaimModule {
-}
+export class ClaimModule {}

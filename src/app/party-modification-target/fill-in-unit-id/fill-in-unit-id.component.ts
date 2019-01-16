@@ -7,7 +7,6 @@ import * as uuid from 'uuid/v4';
     templateUrl: 'fill-in-unit-id.component.html'
 })
 export class FillInUnitIdComponent implements OnInit {
-
     @Input()
     unitID: string;
 
@@ -16,17 +15,16 @@ export class FillInUnitIdComponent implements OnInit {
 
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form = this.fb.group({
             unitID: this.unitID
         });
-        this.form.valueChanges.subscribe((value) => this.valueChanges.emit(value.unitID));
+        this.form.valueChanges.subscribe(value => this.valueChanges.emit(value.unitID));
     }
 
     generate() {
-        this.form.patchValue({unitID: uuid()});
+        this.form.patchValue({ unitID: uuid() });
     }
 }

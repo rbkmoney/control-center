@@ -15,20 +15,20 @@ import { ClaimStatus } from '../../papi/model/claim-statuses';
     templateUrl: 'claim-info.component.html'
 })
 export class ClaimInfoComponent implements OnInit {
-
     claimInfoContainer: ClaimInfoContainer;
     isLoading = false;
 
-    constructor(private route: ActivatedRoute,
+    constructor(
+        private route: ActivatedRoute,
         private router: Router,
         private claimService: ClaimService,
         private bottomSheet: MatBottomSheet,
         private snackBar: MatSnackBar,
-        private dialog: MatDialog) {
-    }
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit() {
-        this.claimService.claimInfoContainer$.subscribe((container) => {
+        this.claimService.claimInfoContainer$.subscribe(container => {
             this.claimInfoContainer = container;
         });
     }
@@ -41,16 +41,20 @@ export class ClaimInfoComponent implements OnInit {
         this.isLoading = true;
         switch (this.claimInfoContainer.type) {
             case ClaimActionType.edit:
-                this.claimService.saveChanges()
-                    .subscribe(() => this.success(), (e) => this.failed(e));
+                this.claimService
+                    .saveChanges()
+                    .subscribe(() => this.success(), e => this.failed(e));
                 break;
             case ClaimActionType.create:
-                this.claimService.createClaim()
-                    .subscribe((claimInfo) => {
-                        const editEndpoint = `/claims/${claimInfo.partyId}/${ClaimActionType.edit}/${claimInfo.claimId}`;
-                        this.router.navigate([editEndpoint])
-                            .then(() => this.success());
-                    }, (e) => this.failed(e));
+                this.claimService.createClaim().subscribe(
+                    claimInfo => {
+                        const editEndpoint = `/claims/${claimInfo.partyId}/${
+                            ClaimActionType.edit
+                        }/${claimInfo.claimId}`;
+                        this.router.navigate([editEndpoint]).then(() => this.success());
+                    },
+                    e => this.failed(e)
+                );
                 break;
         }
     }

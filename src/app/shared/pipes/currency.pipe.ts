@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'ccCurrency'
 })
 export class CurrencyPipe implements PipeTransform {
-
     public transform(input: string): string {
         switch (input) {
             case 'RUB':

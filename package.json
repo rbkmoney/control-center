@@ -9,7 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "damsel-model": "thrift-ts node_modules/damsel/proto -o src/app/gen-damsel -d false -c true",
-    "damsel-meta": "thrift-ts node_modules/damsel/proto -o src/assets/meta-damsel.json --json --pack --prettify"
+    "damsel-meta": "thrift-ts node_modules/damsel/proto -o src/assets/meta-damsel.json --json --pack --prettify",
+    "prettier": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --write",
+    "check": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --list-different"
   },
   "private": true,
   "dependencies": {
@@ -59,6 +61,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "prettier": "^1.15.3",
     "protractor": "^5.4.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",

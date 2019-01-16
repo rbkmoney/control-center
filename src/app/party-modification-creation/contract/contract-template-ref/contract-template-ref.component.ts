@@ -13,7 +13,6 @@ import { ContractService } from '../../../papi/contract.service';
     templateUrl: 'contract-template-ref.component.html'
 })
 export class ContractTemplateRefComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
@@ -24,27 +23,35 @@ export class ContractTemplateRefComponent implements OnInit {
 
     isLoading = true;
 
-    constructor(private fb: FormBuilder,
-                private contractService: ContractService,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(
+        private fb: FormBuilder,
+        private contractService: ContractService,
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit() {
-        this.form.registerControl('id', this.fb.control({
-            value: '',
-            disabled: true
-        }, this.required ? Validators.required : null));
-        this.contracts$ = this.contractService
-            .getContractTemplates()
-            .pipe(
-                map((contracts) => sortBy(contracts, 'id')),
-                tap(() => {
+        this.form.registerControl(
+            'id',
+            this.fb.control(
+                {
+                    value: '',
+                    disabled: true
+                },
+                this.required ? Validators.required : null
+            )
+        );
+        this.contracts$ = this.contractService.getContractTemplates().pipe(
+            map(contracts => sortBy(contracts, 'id')),
+            tap(
+                () => {
                     this.form.controls.id.enable();
                     this.isLoading = false;
-                }, () => {
+                },
+                () => {
                     this.isLoading = false;
                     this.snackBar.open('An error occurred while contract template receiving', 'OK');
-                })
-            );
+                }
+            )
+        );
     }
 }

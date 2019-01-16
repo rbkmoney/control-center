@@ -1,10 +1,6 @@
 <form fxLayout="column" [formGroup]="form">
     <mat-form-field>
-        <input matInput
-               placeholder="Unit ID"
-               formControlName="unitID">
+        <input matInput placeholder="Unit ID" formControlName="unitID" />
     </mat-form-field>
-    <div>
-        <button (click)="generate()" mat-stroked-button>GENERATE NEW VALUE</button>
-    </div>
+    <div><button (click)="generate()" mat-stroked-button>GENERATE NEW VALUE</button></div>
 </form>

@@ -7,7 +7,6 @@ import { Reference, Snapshot, Version, Commit } from '../gen-damsel/domain_confi
 
 @Injectable()
 export class DomainService extends ThriftService {
-
     constructor(zone: NgZone) {
         super(zone, '/v1/domain/repository', Repository);
     }

@@ -6,12 +6,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     templateUrl: 'termination.component.html'
 })
 export class TerminationComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.registerControl('reason', this.fb.control(''));

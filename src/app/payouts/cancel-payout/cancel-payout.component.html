@@ -7,7 +7,9 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button color="warn" (click)="submit()" [disabled]="isLoading || !this.form.valid">CONFIRM</button>
+    <button mat-button color="warn" (click)="submit()" [disabled]="isLoading || !this.form.valid">
+        CONFIRM
+    </button>
     <button mat-dialog-close mat-button color="default" [mat-dialog-close]="false">CANCEL</button>
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </mat-dialog-actions>

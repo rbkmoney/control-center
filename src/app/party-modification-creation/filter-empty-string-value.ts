@@ -7,15 +7,19 @@ import * as moment from 'moment';
 type Filter = (value: any) => boolean;
 
 const filterObject = (object: object, filter: Filter): object =>
-    reduce(object, (result, value, key) => {
-        if (filter(value)) {
-            return {
-                ...result,
-                [key]: filterValues(value, filter)
-            };
-        }
-        return result;
-    }, {});
+    reduce(
+        object,
+        (result, value, key) => {
+            if (filter(value)) {
+                return {
+                    ...result,
+                    [key]: filterValues(value, filter)
+                };
+            }
+            return result;
+        },
+        {}
+    );
 
 export const filterValues = (value: any, filter: Filter): any => {
     if (isDate(value)) {
@@ -34,5 +38,4 @@ export const filterValues = (value: any, filter: Filter): any => {
     return value;
 };
 
-export const filterEmptyStringValues = (value: any) =>
-    filterValues(value, (v) => v !== '');
+export const filterEmptyStringValues = (value: any) => filterValues(value, v => v !== '');
