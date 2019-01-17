@@ -19,6 +19,7 @@ import { PartyComponent } from './party.component';
 import { PartyRoutingModule } from './party-routing.module';
 import { PartyDetailsComponent } from './party-details/party-details.component';
 import { ShopsTableComponent } from './shops-table/shops-table.component';
+import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
     imports: [
@@ -37,6 +38,11 @@ import { ShopsTableComponent } from './shops-table/shops-table.component';
         MatFormFieldModule,
         MatInputModule
     ],
-    declarations: [PartyComponent, PartyDetailsComponent, ShopsTableComponent]
+    declarations: [
+        PartyComponent,
+        PartyDetailsComponent,
+        ShopsTableComponent,
+        ShopComponent
+    ]
 })
 export class PartyModule {}

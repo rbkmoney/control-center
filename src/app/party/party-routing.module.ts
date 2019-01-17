@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { PartyComponent } from './party.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
+import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
     imports: [
@@ -13,7 +14,13 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['party:get']
-                }
+                },
+                children: [
+                    {
+                        path: 'shop/:shopId',
+                        component: ShopComponent
+                    }
+                ]
             }
         ])
     ],
