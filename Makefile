@@ -20,7 +20,7 @@ BUILD_IMAGE_TAG := 1862224e600e34a9bd04327db7b3186fa4d31ceb
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)'
 
-CALL_W_CONTAINER := init check lint compile-damsel build clean submodules
+CALL_W_CONTAINER := init build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
 
