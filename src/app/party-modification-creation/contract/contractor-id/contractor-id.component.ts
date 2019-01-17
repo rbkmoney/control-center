@@ -6,12 +6,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     templateUrl: 'contractor-id.component.html'
 })
 export class ContractorIdComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.setControl('modification', this.fb.control('', Validators.required));

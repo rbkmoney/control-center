@@ -25,7 +25,6 @@ enum Step {
     templateUrl: 'create-modification.component.html'
 })
 export class CreateModificationComponent implements OnInit {
-
     isLoading = false;
 
     valid = new BehaviorSubject(false);
@@ -48,11 +47,11 @@ export class CreateModificationComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: CreateModificationData,
         private snackBar: MatSnackBar,
         private claimService: ClaimService,
-        private domainTypedManager: DomainTypedManager) {
-    }
+        private domainTypedManager: DomainTypedManager
+    ) {}
 
     ngOnInit() {
-        this.route.firstChild.params.subscribe((params) => {
+        this.route.firstChild.params.subscribe(params => {
             this.partyId = params.partyId;
         });
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
@@ -116,13 +115,13 @@ export class CreateModificationComponent implements OnInit {
         this.isLoading = true;
         this.domainTypedManager
             .createTerminal(this.values as CreateTerminalParams)
-            .subscribe(() => this.success(), (e) => this.failed(e));
+            .subscribe(() => this.success(), e => this.failed(e));
     }
 
     private success() {
         this.isLoading = false;
         this.dialogRef.close();
-        this.snackBar.open(`${name} created`, 'OK', {duration: 3000});
+        this.snackBar.open(`${name} created`, 'OK', { duration: 3000 });
     }
 
     private failed(error) {

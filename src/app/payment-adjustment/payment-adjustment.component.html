@@ -4,15 +4,18 @@
             <mat-card-subtitle>Search payments params</mat-card-subtitle>
             <mat-card-content>
                 <cc-payment-adjustment-search-form
-                        (valueChanges)="formValueChanges($event)"
-                        (statusChanges)="formStatusChanges($event)">
+                    (valueChanges)="formValueChanges($event)"
+                    (statusChanges)="formStatusChanges($event)"
+                >
                 </cc-payment-adjustment-search-form>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button
-                        color="primary"
-                        [disabled]="!formValid || isLoading"
-                        (click)="search()">
+                <button
+                    mat-button
+                    color="primary"
+                    [disabled]="!formValid || isLoading"
+                    (click)="search()"
+                >
                     SEARCH
                 </button>
             </mat-card-actions>
@@ -23,20 +26,21 @@
         <mat-card>
             <mat-card-content>
                 <div fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <div>
-                        Found: {{payments.length}}
-                    </div>
-                    <div>
-                        Selected: {{selectedPayments.length}}
-                    </div>
-                    <button mat-button
-                            color="primary"
-                            (click)="create()"
-                            [disabled]="!selectedPayments.length">CREATE
+                    <div>Found: {{ payments.length }}</div>
+                    <div>Selected: {{ selectedPayments.length }}</div>
+                    <button
+                        mat-button
+                        color="primary"
+                        (click)="create()"
+                        [disabled]="!selectedPayments.length"
+                    >
+                        CREATE
                     </button>
                 </div>
-                <cc-payment-adjustment-table [payments]="payments"
-                                             (changeSelected)="changeSelected($event)">
+                <cc-payment-adjustment-table
+                    [payments]="payments"
+                    (changeSelected)="changeSelected($event)"
+                >
                 </cc-payment-adjustment-table>
             </mat-card-content>
         </mat-card>

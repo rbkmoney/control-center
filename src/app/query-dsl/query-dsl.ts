@@ -4,6 +4,6 @@ import { ModelParams } from './model-params';
 
 export interface QueryDSL {
     query: {
-        payments?: Payment & Params & ModelParams
+        payments?: Payment & Params & ModelParams;
     };
 }

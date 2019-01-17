@@ -9,7 +9,7 @@ import {
     CancelPaymentAdjustmentErrorCodes,
     EventType,
     OperationFailedPayload,
-    PaymentAdjustmentCancelParams,
+    PaymentAdjustmentCancelParams
 } from '../adjustment-operations';
 import { InvoicePaymentAdjustmentParams } from '../../../gen-damsel/payment_processing';
 
@@ -20,7 +20,6 @@ type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCancelParam
     templateUrl: 'cancel-actions.component.html'
 })
 export class CancelActionsComponent implements OnInit {
-
     @Input()
     adjustmentParams: InvoicePaymentAdjustmentParams;
 
@@ -35,15 +34,18 @@ export class CancelActionsComponent implements OnInit {
     failedInternal: FailedPayload[] = [];
     failedInvoicePaymentNotFound: FailedPayload[] = [];
 
-    constructor(private batchAdjustmentService: BatchPaymentAdjustmentService,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(
+        private batchAdjustmentService: BatchPaymentAdjustmentService,
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit() {
-        this.batchAdjustmentService.events$.subscribe((event) => {
+        this.batchAdjustmentService.events$.subscribe(event => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCancelled:
-                    this.cancelResult = this.cancelResult.concat((event as AdjustmentOperationEvent<PaymentAdjustmentCancelParams>).payload);
+                    this.cancelResult = this.cancelResult.concat(
+                        (event as AdjustmentOperationEvent<PaymentAdjustmentCancelParams>).payload
+                    );
                     break;
                 case EventType.CancelPaymentAdjustmentFailed:
                     const infoGroup = groupBy<any>(event.payload, 'code');
@@ -51,19 +53,27 @@ export class CancelActionsComponent implements OnInit {
                     forEach(infoGroup, (payloads, code) => {
                         switch (code) {
                             case Codes.InvalidPaymentAdjustmentStatus:
-                                this.failedInvalidStatus = this.failedInvalidStatus.concat(payloads);
+                                this.failedInvalidStatus = this.failedInvalidStatus.concat(
+                                    payloads
+                                );
                                 break;
                             case Codes.InvoicePaymentAdjustmentNotFound:
-                                this.failedAdjustmentNotFound = this.failedAdjustmentNotFound.concat(payloads);
+                                this.failedAdjustmentNotFound = this.failedAdjustmentNotFound.concat(
+                                    payloads
+                                );
                                 break;
                             case Codes.InvoiceNotFound:
-                                this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(payloads);
+                                this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(
+                                    payloads
+                                );
                                 break;
                             case Codes.InvalidUser:
                                 this.failedInvalidUser = this.failedInvalidUser.concat(payloads);
                                 break;
                             case Codes.InvoicePaymentNotFound:
-                                this.failedInvoicePaymentNotFound = this.failedInvoicePaymentNotFound.concat(payloads);
+                                this.failedInvoicePaymentNotFound = this.failedInvoicePaymentNotFound.concat(
+                                    payloads
+                                );
                                 break;
                             case 'InternalServer':
                                 this.failedInternal = this.failedInternal.concat(payloads);
@@ -76,7 +86,7 @@ export class CancelActionsComponent implements OnInit {
     }
 
     recreate() {
-        const createParams = this.cancelResult.map(({user, invoiceId, paymentId}) => ({
+        const createParams = this.cancelResult.map(({ user, invoiceId, paymentId }) => ({
             user,
             invoiceId,
             paymentId,
@@ -89,7 +99,7 @@ export class CancelActionsComponent implements OnInit {
     }
 
     retry() {
-        const cancelParams = this.failedInternal.map(({operationScope}) => operationScope);
+        const cancelParams = this.failedInternal.map(({ operationScope }) => operationScope);
         this.failedInternal = [];
         this.batchAdjustmentService.cancel(cancelParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments cancel');

@@ -1,9 +1,11 @@
 export const i64ToNumber = (buffer: object, offset: number, allowImprecise = false) => {
-    const b = buffer, o = offset;
+    const b = buffer,
+        o = offset;
     /* tslint:disable:no-bitwise */
     // Running sum of octets, doing a 2's complement
     const negate = b[o] & 0x80;
-    let x = 0, carry = 1;
+    let x = 0,
+        carry = 1;
     for (let i = 7, m = 1; i >= 0; i--, m *= 256) {
         let v = b[o + i];
         // 2's complement for negative numbers

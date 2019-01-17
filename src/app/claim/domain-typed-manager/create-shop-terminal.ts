@@ -4,7 +4,11 @@ import { CreateTerminalParams } from './create-terminal-params';
 import { toGenCommit, toGenDomainObject } from '../../thrift/converters';
 import { ProviderObject, TerminalObject, Commit } from '../../damsel';
 
-export const createShopTerminal = (terminalObjects: TerminalObject[], providerObject: ProviderObject, params: CreateTerminalParams): Commit => {
+export const createShopTerminal = (
+    terminalObjects: TerminalObject[],
+    providerObject: ProviderObject,
+    params: CreateTerminalParams
+): Commit => {
     const terminalObject = createTerminalObject(terminalObjects, params);
     const insertTerminal = {
         insert: {
@@ -14,7 +18,15 @@ export const createShopTerminal = (terminalObjects: TerminalObject[], providerOb
     const updateProvider = {
         update: {
             oldObject: toGenDomainObject(providerObject, 'provider'),
-            newObject: toGenDomainObject(addTerminalDecision(providerObject, params.partyID, params.shopID, terminalObject.ref.id), 'provider')
+            newObject: toGenDomainObject(
+                addTerminalDecision(
+                    providerObject,
+                    params.partyID,
+                    params.shopID,
+                    terminalObject.ref.id
+                ),
+                'provider'
+            )
         }
     };
     const commit = {

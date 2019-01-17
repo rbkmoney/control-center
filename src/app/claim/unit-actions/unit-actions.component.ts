@@ -14,11 +14,11 @@ interface UnitActionData {
     templateUrl: 'unit-actions.component.html'
 })
 export class UnitActionsComponent implements OnInit {
-
-    constructor(private bottomSheetRef: MatBottomSheetRef,
+    constructor(
+        private bottomSheetRef: MatBottomSheetRef,
         private dialog: MatDialog,
-        @Inject(MAT_BOTTOM_SHEET_DATA) public data: UnitActionData) {
-    }
+        @Inject(MAT_BOTTOM_SHEET_DATA) public data: UnitActionData
+    ) {}
 
     contractActions = {
         type: ActionType.contractAction,
@@ -28,7 +28,7 @@ export class UnitActionsComponent implements OnInit {
             ContractModificationName.reportPreferencesModification,
             ContractModificationName.adjustmentModification,
             ContractModificationName.payoutToolModification,
-            ContractModificationName.termination,
+            ContractModificationName.termination
             // ContractModificationName.contractorModification
         ]
     };
@@ -58,7 +58,10 @@ export class UnitActionsComponent implements OnInit {
                 this.contractActions.visible = true;
                 this.shopActions.visible = true;
                 this.domainActions.visible = true;
-                this.contractActions.names = [ContractModificationName.creation, ...this.contractActions.names];
+                this.contractActions.names = [
+                    ContractModificationName.creation,
+                    ...this.contractActions.names
+                ];
                 this.shopActions.names = [ShopModificationName.creation, ...this.shopActions.names];
                 break;
             case 'contractActions':

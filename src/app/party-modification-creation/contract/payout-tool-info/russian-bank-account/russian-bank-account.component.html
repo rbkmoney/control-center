@@ -1,28 +1,21 @@
 <cc-form-wrapper name="Russian bank account">
     <form [formGroup]="form" fxLayout="column">
         <mat-form-field>
-            <input matInput
-                   placeholder="Account"
-                   formControlName="account"
-                   required>
+            <input matInput placeholder="Account" formControlName="account" required />
         </mat-form-field>
         <mat-form-field>
-            <input matInput
-                   placeholder="Bank name"
-                   formControlName="bankName"
-                   required>
+            <input matInput placeholder="Bank name" formControlName="bankName" required />
         </mat-form-field>
         <mat-form-field>
-            <input matInput
-                   placeholder="Bank post account"
-                   formControlName="bankPostAccount"
-                   required>
+            <input
+                matInput
+                placeholder="Bank post account"
+                formControlName="bankPostAccount"
+                required
+            />
         </mat-form-field>
         <mat-form-field>
-            <input matInput
-                   placeholder="Bank bik"
-                   formControlName="bankBik"
-                   required>
+            <input matInput placeholder="Bank bik" formControlName="bankBik" required />
         </mat-form-field>
     </form>
 </cc-form-wrapper>

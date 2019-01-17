@@ -8,9 +8,7 @@ import { CreateClaimComponent } from '../create-claim/create-claim.component';
     templateUrl: 'claim-actions.component.html'
 })
 export class ClaimActionsComponent {
-
-    constructor(private dialogRef: MatDialog) {
-    }
+    constructor(private dialogRef: MatDialog) {}
 
     createClaim() {
         this.dialogRef.open(CreateClaimComponent, {

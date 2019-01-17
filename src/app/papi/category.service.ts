@@ -7,7 +7,6 @@ import { Category } from './model/category';
 
 @Injectable()
 export class CategoryService {
-
     private readonly papiEndpoint: string;
 
     constructor(private http: HttpClient, private configService: ConfigService) {
@@ -15,7 +14,6 @@ export class CategoryService {
     }
 
     getCategories(): Observable<Category[]> {
-        return this.http
-            .get<Category[]>(`${this.papiEndpoint}/dmt/categories`);
+        return this.http.get<Category[]>(`${this.papiEndpoint}/dmt/categories`);
     }
 }

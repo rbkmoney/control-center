@@ -1,17 +1,18 @@
 <div fxLayout="column">
     <mat-form-field>
-        <mat-select placeholder="Payout tool modification"
-                    [(value)]="selected"
-                    (selectionChange)="select()">
-            <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+        <mat-select
+            placeholder="Payout tool modification"
+            [(value)]="selected"
+            (selectionChange)="select()"
+        >
+            <mat-option *ngFor="let type of types" [value]="type">{{ type }}</mat-option>
         </mat-select>
     </mat-form-field>
-    <cc-payout-tool-params
-            *ngIf="selected === t.creation"
-            [form]="form.get(t.creation)">
+    <cc-payout-tool-params *ngIf="selected === t.creation" [form]="form.get(t.creation)">
     </cc-payout-tool-params>
     <cc-payout-tool-info
-            *ngIf="selected === t.infoModification"
-            [form]="form.get(t.infoModification)">
+        *ngIf="selected === t.infoModification"
+        [form]="form.get(t.infoModification)"
+    >
     </cc-payout-tool-info>
 </div>

@@ -9,17 +9,14 @@ import { PartyModificationUnit, ModificationGroupType } from '../model';
     templateUrl: 'party-modifications.component.html'
 })
 export class PartyModificationsComponent implements OnInit {
-
     shopUnits: PartyModificationUnit[] = [];
 
     contractUnits: PartyModificationUnit[] = [];
 
-    constructor(private claimService: ClaimService,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(private claimService: ClaimService, private snackBar: MatSnackBar) {}
 
     ngOnInit() {
-        this.claimService.modificationGroups$.subscribe((groups) => {
+        this.claimService.modificationGroups$.subscribe(groups => {
             this.shopUnits = [];
             this.contractUnits = [];
             for (const group of groups) {

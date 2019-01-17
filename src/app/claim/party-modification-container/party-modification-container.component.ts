@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { PartyModificationContainer, ModificationGroupType, ModificationUnitContainer } from '../model';
+import {
+    PartyModificationContainer,
+    ModificationGroupType,
+    ModificationUnitContainer
+} from '../model';
 import { ClaimService } from '../claim.service';
 
 @Component({
@@ -9,7 +13,6 @@ import { ClaimService } from '../claim.service';
     styleUrls: ['./party-modification-container.component.css']
 })
 export class PartyModificationContainerComponent implements OnInit {
-
     @Input()
     container: PartyModificationContainer;
 
@@ -18,12 +21,10 @@ export class PartyModificationContainerComponent implements OnInit {
 
     modifications: ModificationUnitContainer[];
 
-    constructor(private claimService: ClaimService) {
-    }
+    constructor(private claimService: ClaimService) {}
 
     ngOnInit() {
-        this.modifications = this.container.unitContainers
-            .slice();
+        this.modifications = this.container.unitContainers.slice();
     }
 
     remove(typeHash: string) {

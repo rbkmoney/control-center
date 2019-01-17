@@ -17,7 +17,6 @@ type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCapturePara
     templateUrl: 'capture-actions.component.html'
 })
 export class CaptureActionsComponent implements OnInit {
-
     @Input()
     isLoading = false;
 
@@ -28,15 +27,20 @@ export class CaptureActionsComponent implements OnInit {
     failedAdjustmentStatus: FailedPayload[] = [];
     failedInternal: FailedPayload[] = [];
 
-    constructor(private batchAdjustmentService: BatchPaymentAdjustmentService,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(
+        private batchAdjustmentService: BatchPaymentAdjustmentService,
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit() {
-        this.batchAdjustmentService.events$.subscribe((event) => {
+        this.batchAdjustmentService.events$.subscribe(event => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCaptured:
-                    this.snackBar.open(`${event.payload.length} payment(s) successfully captured`, 'OK', {duration: 3000});
+                    this.snackBar.open(
+                        `${event.payload.length} payment(s) successfully captured`,
+                        'OK',
+                        { duration: 3000 }
+                    );
                     break;
                 case EventType.CapturePaymentAdjustmentFailed:
                     const infoGroup = groupBy<any>(event.payload, 'code');
@@ -47,16 +51,24 @@ export class CaptureActionsComponent implements OnInit {
                                 this.failedInvalidUser = this.failedInvalidUser.concat(payloads);
                                 break;
                             case Codes.InvoiceNotFound:
-                                this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(payloads);
+                                this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(
+                                    payloads
+                                );
                                 break;
                             case Codes.InvoicePaymentNotFound:
-                                this.failedPaymentNotFound = this.failedPaymentNotFound.concat(payloads);
+                                this.failedPaymentNotFound = this.failedPaymentNotFound.concat(
+                                    payloads
+                                );
                                 break;
                             case Codes.InvoicePaymentAdjustmentNotFound:
-                                this.failedAdjustmentNotFound = this.failedAdjustmentNotFound.concat(payloads);
+                                this.failedAdjustmentNotFound = this.failedAdjustmentNotFound.concat(
+                                    payloads
+                                );
                                 break;
                             case Codes.InvalidPaymentAdjustmentStatus:
-                                this.failedAdjustmentStatus = this.failedAdjustmentStatus.concat(payloads);
+                                this.failedAdjustmentStatus = this.failedAdjustmentStatus.concat(
+                                    payloads
+                                );
                                 break;
                             case 'InternalServer':
                                 this.failedInternal = this.failedInternal.concat(payloads);
@@ -69,7 +81,7 @@ export class CaptureActionsComponent implements OnInit {
     }
 
     retry() {
-        const captureParams = this.failedInternal.map(({operationScope}) => operationScope);
+        const captureParams = this.failedInternal.map(({ operationScope }) => operationScope);
         this.failedInternal = [];
         this.batchAdjustmentService.capture(captureParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments capture');

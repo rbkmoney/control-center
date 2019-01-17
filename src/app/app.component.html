@@ -1,31 +1,20 @@
 <mat-toolbar color="primary" class="toolbar">
-    <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>Control Center</span>
-    <span class="spacer"></span>
-    <span>{{username}}</span>
-    <button mat-icon-button [matMenuTriggerFor]="userMenu">
-        <mat-icon>more_vert</mat-icon>
-    </button>
+    <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+    <span>Control Center</span> <span class="spacer"></span> <span>{{ username }}</span>
+    <button mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>more_vert</mat-icon></button>
 </mat-toolbar>
 
-<mat-menu #userMenu="matMenu">
-    <button mat-menu-item (click)="logout()">Logout</button>
-</mat-menu>
+<mat-menu #userMenu="matMenu"> <button mat-menu-item (click)="logout()">Logout</button> </mat-menu>
 
 <mat-sidenav-container>
-    <mat-sidenav
-            role="navigation"
-            #sidenav
-            mode="side"
-            fixedInViewport="true"
-            fixedTopGap="64">
+    <mat-sidenav role="navigation" #sidenav mode="side" fixedInViewport="true" fixedTopGap="64">
         <mat-nav-list>
-            <mat-list-item *ngFor="let item of menuItems"
-                           [routerLink]="item.route"
-                           [routerLinkActive]="['active']">
-                {{item.name}}
+            <mat-list-item
+                *ngFor="let item of menuItems"
+                [routerLink]="item.route"
+                [routerLinkActive]="['active']"
+            >
+                {{ item.name }}
             </mat-list-item>
         </mat-nav-list>
     </mat-sidenav>

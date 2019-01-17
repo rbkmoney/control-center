@@ -3,17 +3,13 @@
         <mat-spinner *ngIf="isLoading" fxFlexAlign="center"></mat-spinner>
         <div *ngIf="!isLoading" fxLayout="column" fxLayoutGap="20px">
             <mat-card>
-                <mat-card-subtitle>
-                    Party details
-                </mat-card-subtitle>
+                <mat-card-subtitle> Party details </mat-card-subtitle>
                 <mat-card-content>
                     <cc-party-details [party]="party$ | async"></cc-party-details>
                 </mat-card-content>
             </mat-card>
             <mat-card>
-                <mat-card-subtitle>
-                    Party shops
-                </mat-card-subtitle>
+                <mat-card-subtitle> Party shops </mat-card-subtitle>
                 <mat-card-content>
                     <cc-shops-table [shops]="shops$ | async"></cc-shops-table>
                 </mat-card-content>

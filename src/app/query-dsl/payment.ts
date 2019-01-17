@@ -1,10 +1,15 @@
-import { InvoicePaymentFlow, InvoicePaymentStatus, PaymentTool, TerminalPaymentProvider } from '../gen-damsel/merch_stat';
+import {
+    InvoicePaymentFlow,
+    InvoicePaymentStatus,
+    PaymentTool,
+    TerminalPaymentProvider
+} from '../gen-damsel/merch_stat';
 
 export interface Payment {
     payment_id?: string;
     invoice_id?: string;
     payment_email?: string;
-    payment_flow ?: InvoicePaymentFlow;
+    payment_flow?: InvoicePaymentFlow;
     payment_method?: PaymentTool;
     payment_terminal_provider?: TerminalPaymentProvider;
     payment_ip?: string;

@@ -13,7 +13,6 @@ import { Payout, PayoutStatus } from '../../papi/model';
     templateUrl: 'payouts-actions.component.html'
 })
 export class PayoutsActionsComponent implements OnInit {
-
     @Input()
     selectedPayouts: Payout[];
 
@@ -22,36 +21,40 @@ export class PayoutsActionsComponent implements OnInit {
 
     roles: string[];
 
-    constructor(private keycloakService: KeycloakService,
-                private dialogRef: MatDialog) {
-    }
+    constructor(private keycloakService: KeycloakService, private dialogRef: MatDialog) {}
 
     ngOnInit() {
         this.roles = this.keycloakService.getUserRoles();
     }
 
     pay() {
-        this.dialogRef.open(PayPayoutsComponent, {
-            data: this.getIds(this.selectedPayouts)
-        }).afterClosed()
-            .pipe(filter((result) => result === 'success'))
+        this.dialogRef
+            .open(PayPayoutsComponent, {
+                data: this.getIds(this.selectedPayouts)
+            })
+            .afterClosed()
+            .pipe(filter(result => result === 'success'))
             .subscribe(() => this.doAction.emit());
     }
 
     confirmPayouts() {
-        this.dialogRef.open(ConfirmPayoutsComponent, {
-            data: this.getIds(this.selectedPayouts)
-        }).afterClosed()
-            .pipe(filter((result) => result === 'success'))
+        this.dialogRef
+            .open(ConfirmPayoutsComponent, {
+                data: this.getIds(this.selectedPayouts)
+            })
+            .afterClosed()
+            .pipe(filter(result => result === 'success'))
             .subscribe(() => this.doAction.emit());
     }
 
     createPayout() {
-        this.dialogRef.open(CreatePayoutComponent, {
-            width: '720px',
-            disableClose: true
-        }).afterClosed()
-            .pipe(filter((result) => result === 'success'))
+        this.dialogRef
+            .open(CreatePayoutComponent, {
+                width: '720px',
+                disableClose: true
+            })
+            .afterClosed()
+            .pipe(filter(result => result === 'success'))
             .subscribe(() => this.doAction.emit());
     }
 
@@ -60,16 +63,16 @@ export class PayoutsActionsComponent implements OnInit {
     }
 
     isCanPay(): boolean {
-        const unpaid = this.selectedPayouts.filter((p) => p.status === PayoutStatus.unpaid);
+        const unpaid = this.selectedPayouts.filter(p => p.status === PayoutStatus.unpaid);
         return this.selectedPayouts.length === unpaid.length && unpaid.length > 0;
     }
 
     isCanConfirm(): boolean {
-        const paid = this.selectedPayouts.filter((p) => p.status === PayoutStatus.paid);
+        const paid = this.selectedPayouts.filter(p => p.status === PayoutStatus.paid);
         return this.selectedPayouts.length === paid.length && paid.length > 0;
     }
 
     private getIds(payouts: Payout[]): string[] {
-        return payouts.map((p) => p.id);
+        return payouts.map(p => p.id);
     }
 }

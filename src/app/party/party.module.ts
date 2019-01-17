@@ -37,10 +37,6 @@ import { ShopsTableComponent } from './shops-table/shops-table.component';
         MatFormFieldModule,
         MatInputModule
     ],
-    declarations: [
-        PartyComponent,
-        PartyDetailsComponent,
-        ShopsTableComponent
-    ]
+    declarations: [PartyComponent, PartyDetailsComponent, ShopsTableComponent]
 })
 export class PartyModule {}

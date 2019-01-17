@@ -11,7 +11,6 @@ import { SelectableItem } from './selectable-item';
     providers: [PartyTargetService]
 })
 export class PartyTargetComponent implements OnInit {
-
     @Input()
     partyID: string;
 
@@ -25,9 +24,7 @@ export class PartyTargetComponent implements OnInit {
 
     loading = true;
 
-    constructor(private partyTargetService: PartyTargetService,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(private partyTargetService: PartyTargetService, private snackBar: MatSnackBar) {}
 
     change(item: SelectableItem, change: MatCheckboxChange) {
         for (const selectedItem of this.items) {
@@ -39,13 +36,15 @@ export class PartyTargetComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.partyTargetService.getSelectableItems(this.partyID, this.partyTarget)
-            .subscribe((items) => {
+        this.partyTargetService.getSelectableItems(this.partyID, this.partyTarget).subscribe(
+            items => {
                 this.loading = false;
                 this.items = items;
-            }, () => {
+            },
+            () => {
                 this.loading = false;
                 this.snackBar.open('An error occurred while party receiving', 'OK');
-            });
+            }
+        );
     }
 }

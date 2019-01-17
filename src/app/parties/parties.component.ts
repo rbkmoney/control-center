@@ -12,15 +12,15 @@ import { MatSnackBar } from '@angular/material';
     providers: [PartiesService, PartyService]
 })
 export class PartiesComponent implements OnInit {
-
     public form: FormGroup;
     isLoading = false;
 
-    constructor(private partiesService: PartiesService,
-                private partyService: PartyService,
-                private snackBar: MatSnackBar,
-                private router: Router) {
-    }
+    constructor(
+        private partiesService: PartiesService,
+        private partyService: PartyService,
+        private snackBar: MatSnackBar,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         this.form = this.partiesService.form;
@@ -30,15 +30,18 @@ export class PartiesComponent implements OnInit {
         this.isLoading = true;
         let { partyId } = this.form.value;
         partyId = partyId.trim();
-        this.partyService.initialize(partyId).subscribe(() => {
-            this.isLoading = false;
-            this.router.navigate(['party', partyId]);
-        }, (err) => {
-            this.isLoading = false;
-            this.snackBar
-                .open(`An error occurred while initializing: ${ err }`, 'RETRY')
-                .onAction()
-                .subscribe(() => this.goToParty());
-        });
+        this.partyService.initialize(partyId).subscribe(
+            () => {
+                this.isLoading = false;
+                this.router.navigate(['party', partyId]);
+            },
+            err => {
+                this.isLoading = false;
+                this.snackBar
+                    .open(`An error occurred while initializing: ${err}`, 'RETRY')
+                    .onAction()
+                    .subscribe(() => this.goToParty());
+            }
+        );
     }
 }

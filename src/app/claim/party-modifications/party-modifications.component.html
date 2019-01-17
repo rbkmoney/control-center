@@ -1,16 +1,24 @@
-<div fxLayout="row" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+<div
+    fxLayout="row"
+    fxLayout.md="column"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutGap="15px"
+>
     <div fxFlex="50" *ngIf="shopUnits.length > 0">
         <cc-party-modification-units
-                unitsName="Shop modification units"
-                [type]="'ShopUnitContainer'"
-                [units]="shopUnits">
+            unitsName="Shop modification units"
+            [type]="'ShopUnitContainer'"
+            [units]="shopUnits"
+        >
         </cc-party-modification-units>
     </div>
     <div fxFlex="50" *ngIf="contractUnits.length > 0">
         <cc-party-modification-units
-                unitsName="Contract modification units"
-                [type]="'ContractUnitContainer'"
-                [units]="contractUnits">
+            unitsName="Contract modification units"
+            [type]="'ContractUnitContainer'"
+            [units]="contractUnits"
+        >
         </cc-party-modification-units>
     </div>
 </div>

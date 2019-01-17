@@ -6,8 +6,8 @@ import { DomainModificationInfo } from '../../model';
 import { TerminalOption } from '../../domain-typed-manager';
 
 export const getOptions = (option: string, params: DomainModificationInfo): TerminalOption[] => {
-    const {shopUrl, partyId} = params;
-    let options = [{key: '', value: ''}];
+    const { shopUrl, partyId } = params;
+    let options = [{ key: '', value: '' }];
     switch (option) {
         case 'VTB':
             options = getVtbTemplateOptions(shopUrl, partyId);
@@ -21,7 +21,6 @@ export const getOptions = (option: string, params: DomainModificationInfo): Term
         case 'SNGB':
             options = getSngbTemplateOptions();
             break;
-
     }
     return options;
 };

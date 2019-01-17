@@ -25,9 +25,6 @@ import { PartiesRoutingModule } from './parties-routing.module';
         MatButtonModule,
         MatProgressSpinnerModule
     ],
-    declarations: [
-        PartiesComponent
-    ]
+    declarations: [PartiesComponent]
 })
-export class PartiesModule {
-}
+export class PartiesModule {}

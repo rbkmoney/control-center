@@ -6,12 +6,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     templateUrl: 'payout-tool-modification.component.html'
 })
 export class PayoutToolModificationComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.setControl('modification', this.fb.control('', Validators.required));

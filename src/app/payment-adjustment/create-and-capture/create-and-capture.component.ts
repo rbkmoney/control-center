@@ -27,7 +27,6 @@ import {
     ]
 })
 export class CreateAndCaptureComponent implements OnInit {
-
     form: FormGroup;
 
     isLoading: boolean;
@@ -40,13 +39,15 @@ export class CreateAndCaptureComponent implements OnInit {
 
     adjustmentParams: InvoicePaymentAdjustmentParams;
 
-    constructor(private dialogRef: MatDialogRef<CreateAndCaptureComponent>,
-                private dialog: MatDialog,
-                private batchAdjustmentService: BatchPaymentAdjustmentService,
-                @Inject(MAT_DIALOG_DATA) data: StatPayment[],
-                private snackBar: MatSnackBar,
-                private keycloakService: KeycloakService,
-                private fb: FormBuilder) {
+    constructor(
+        private dialogRef: MatDialogRef<CreateAndCaptureComponent>,
+        private dialog: MatDialog,
+        private batchAdjustmentService: BatchPaymentAdjustmentService,
+        @Inject(MAT_DIALOG_DATA) data: StatPayment[],
+        private snackBar: MatSnackBar,
+        private keycloakService: KeycloakService,
+        private fb: FormBuilder
+    ) {
         this.payments = data;
     }
 
@@ -56,7 +57,7 @@ export class CreateAndCaptureComponent implements OnInit {
             reason: ['', Validators.required]
         });
         this.progress$ = this.batchAdjustmentService.progress$;
-        this.batchAdjustmentService.events$.subscribe((event) => {
+        this.batchAdjustmentService.events$.subscribe(event => {
             switch (event.type) {
                 case EventType.BatchOperationStarted:
                     this.isLoading = true;
@@ -70,11 +71,13 @@ export class CreateAndCaptureComponent implements OnInit {
     }
 
     create() {
-        const {value: {revision, reason}} = this.form;
-        this.adjustmentParams = {domainRevision: revision, reason};
+        const {
+            value: { revision, reason }
+        } = this.form;
+        this.adjustmentParams = { domainRevision: revision, reason };
         this.createStarted = true;
         this.form.disable();
-        const createParams = this.payments.map(({invoiceId, id}) => ({
+        const createParams = this.payments.map(({ invoiceId, id }) => ({
             user: this.getUser(),
             invoiceId,
             paymentId: id,
@@ -90,7 +93,7 @@ export class CreateAndCaptureComponent implements OnInit {
     private getUser(): UserInfo {
         return {
             id: this.keycloakService.getUsername(),
-            type: {internalUser: {}}
+            type: { internalUser: {} }
         };
     }
 }

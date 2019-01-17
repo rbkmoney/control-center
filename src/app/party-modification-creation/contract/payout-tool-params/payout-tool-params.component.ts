@@ -6,12 +6,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     templateUrl: 'payout-tool-params.component.html'
 })
 export class PayoutToolParamsComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.registerControl('currency', this.fb.group({}));

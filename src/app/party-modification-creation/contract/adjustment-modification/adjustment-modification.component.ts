@@ -6,12 +6,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     templateUrl: 'adjustment-modification.component.html'
 })
 export class AdjustmentModificationComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.registerControl('creation', this.fb.group({}));

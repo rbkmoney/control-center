@@ -4,8 +4,8 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 import { ConfigService } from './config.service';
 
-const initializer = (keycloak: KeycloakService, configService: ConfigService) =>
-    () => Promise.all([
+const initializer = (keycloak: KeycloakService, configService: ConfigService) => () =>
+    Promise.all([
         configService.load(),
         keycloak.init({
             config: '/assets/authConfig.json',
@@ -14,18 +14,13 @@ const initializer = (keycloak: KeycloakService, configService: ConfigService) =>
                 checkLoginIframe: true
             },
             enableBearerInterceptor: true,
-            bearerExcludedUrls: [
-                '/assets'
-            ],
+            bearerExcludedUrls: ['/assets'],
             bearerPrefix: 'Bearer'
         })
     ]);
 
 @NgModule({
-    imports: [
-        CommonModule,
-        KeycloakAngularModule
-    ],
+    imports: [CommonModule, KeycloakAngularModule],
     providers: [
         ConfigService,
         {

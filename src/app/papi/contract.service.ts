@@ -7,7 +7,6 @@ import { ContractTemplate } from './model';
 
 @Injectable()
 export class ContractService {
-
     private readonly papiEndpoint: string;
 
     constructor(private http: HttpClient, private configService: ConfigService) {
@@ -15,7 +14,6 @@ export class ContractService {
     }
 
     getContractTemplates(): Observable<ContractTemplate[]> {
-        return this.http
-            .get<ContractTemplate[]>(`${this.papiEndpoint}/dmt/contract/templates`);
+        return this.http.get<ContractTemplate[]>(`${this.papiEndpoint}/dmt/contract/templates`);
     }
 }

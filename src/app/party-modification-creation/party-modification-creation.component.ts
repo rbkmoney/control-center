@@ -20,7 +20,6 @@ import { PartyModification } from '../gen-damsel/payment_processing';
     templateUrl: 'party-modification-creation.component.html'
 })
 export class PartyModificationCreationComponent implements OnInit, OnChanges {
-
     @Input()
     unitID = '';
 
@@ -42,18 +41,20 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
 
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form = this.fb.group({
-            unitID: [{
-                value: this.unitID,
-                disabled: this.unitIDDisabled
-            }, Validators.required],
+            unitID: [
+                {
+                    value: this.unitID,
+                    disabled: this.unitIDDisabled
+                },
+                Validators.required
+            ],
             modification: this.fb.group({})
         });
-        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
+        this.form.statusChanges.subscribe(status => this.statusChanges.emit(status));
         this.form.valueChanges.subscribe(() => {
             const filtered = filterEmptyStringValues(this.form.getRawValue());
             const modification = toPartyModification(this.action, filtered);
@@ -62,9 +63,9 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        const {unitID} = changes;
+        const { unitID } = changes;
         if (unitID && !unitID.firstChange) {
-            this.form.patchValue({unitID: unitID.currentValue});
+            this.form.patchValue({ unitID: unitID.currentValue });
         }
     }
 }

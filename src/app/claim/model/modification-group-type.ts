@@ -3,4 +3,3 @@ export enum ModificationGroupType {
     ContractUnitContainer = 'ContractUnitContainer',
     unknown = 'unknown'
 }
-

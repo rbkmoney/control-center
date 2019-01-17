@@ -17,8 +17,6 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
             }
         ])
     ],
-    exports: [
-        RouterModule
-    ]
+    exports: [RouterModule]
 })
 export class PartyRoutingModule {}

@@ -11,7 +11,6 @@ import { debounceTime } from 'rxjs/internal/operators';
     providers: [SearchFormService]
 })
 export class SearchFormComponent implements OnInit {
-
     @Output()
     valueChanges: EventEmitter<ClaimSearchParams> = new EventEmitter();
 
@@ -22,12 +21,11 @@ export class SearchFormComponent implements OnInit {
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        const {claimStatuses, form, formValueToSearchParams} = this.searchFormService;
+        const { claimStatuses, form, formValueToSearchParams } = this.searchFormService;
         this.claimStatuses = claimStatuses;
         this.form = form;
         this.form.valueChanges
             .pipe(debounceTime(300))
-            .subscribe((value) =>
-                this.valueChanges.emit(formValueToSearchParams(value)));
+            .subscribe(value => this.valueChanges.emit(formValueToSearchParams(value)));
     }
 }

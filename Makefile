@@ -20,7 +20,7 @@ BUILD_IMAGE_TAG := 1862224e600e34a9bd04327db7b3186fa4d31ceb
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)'
 
-CALL_W_CONTAINER := init build clean submodules thrift
+CALL_W_CONTAINER := init build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
 
@@ -38,7 +38,7 @@ submodules: $(SUBTARGETS)
 init:
 	npm install
 
-build: lint compile-damsel
+build: check lint compile-damsel
 	npm run build
 
 clean:
@@ -63,3 +63,6 @@ damsel-model:
 
 lint:
 	npm run lint
+
+check:
+	npm run check	

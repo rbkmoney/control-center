@@ -6,12 +6,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     templateUrl: 'russian-bank-account.component.html'
 })
 export class RussianBankAccountComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         const control = () => this.fb.control('', Validators.required);
