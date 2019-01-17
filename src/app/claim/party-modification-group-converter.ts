@@ -37,6 +37,9 @@ const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
     }));
 };
 
+const isHasUnsaved = (units: PersistentUnit[], unitID: string): boolean =>
+    units.filter(i => !i.saved && i.modificationUnit.id === unitID).length > 0;
+
 const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => {
     const grouped = groupBy(persistentUnits, item => item.modificationUnit.id);
     return map(grouped, (units, unitID) => ({
@@ -45,9 +48,6 @@ const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => 
         containers: toContainers(units)
     }));
 };
-
-const isHasUnsaved = (units: PersistentUnit[], unitID: string): boolean =>
-    units.filter(i => !i.saved && i.modificationUnit.id === unitID).length > 0;
 
 const toGroup = (
     name: GroupName,
