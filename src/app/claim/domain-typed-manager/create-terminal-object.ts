@@ -15,5 +15,7 @@ const convert = (id: number, params: CreateTerminalParams): TerminalObject => ({
     }
 });
 
-export const createTerminalObject = (terminalObjects: TerminalObject[], params: CreateTerminalParams): TerminalObject =>
-    toGenTerminalObject(convert(generateID(terminalObjects), params));
+export const createTerminalObject = (
+    terminalObjects: TerminalObject[],
+    params: CreateTerminalParams
+): TerminalObject => toGenTerminalObject(convert(generateID(terminalObjects), params));

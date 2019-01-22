@@ -25,7 +25,7 @@ const toGenOperation = (operation: Operation) => {
 };
 
 const toGenCommitOps = (operations: Operation[]) =>
-    operations.map((operation) => toGenOperation(operation));
+    operations.map(operation => toGenOperation(operation));
 
 export const toGenCommit = (commit: Commit) => {
     const genCommit = new DomainConfigTypes.Commit();

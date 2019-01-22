@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as uuid from 'uuid/v4';
 
@@ -7,23 +7,24 @@ import * as uuid from 'uuid/v4';
     templateUrl: 'fill-in-unit-id.component.html'
 })
 export class FillInUnitIdComponent implements OnInit {
+    @Input()
+    unitID: string;
 
     @Output()
     valueChanges: EventEmitter<string> = new EventEmitter();
 
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form = this.fb.group({
-            unitID: ''
+            unitID: this.unitID
         });
-        this.form.valueChanges.subscribe((value) => this.valueChanges.emit(value.unitID));
+        this.form.valueChanges.subscribe(value => this.valueChanges.emit(value.unitID));
     }
 
     generate() {
-        this.form.patchValue({unitID: uuid()});
+        this.form.patchValue({ unitID: uuid() });
     }
 }

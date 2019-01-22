@@ -5,7 +5,6 @@ import { ThriftFormatter } from './thrift-formatter';
     name: 'ccThriftEncode'
 })
 export class ThriftEncodePipe implements PipeTransform {
-
     transform(value: any, ...args: any[]): any {
         return ThriftFormatter.encode(value);
     }

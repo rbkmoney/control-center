@@ -7,12 +7,10 @@ import * as uuid from 'uuid/v4';
     templateUrl: 'payout-tool-modification-unit.component.html'
 })
 export class PayoutToolModificationUnitComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.registerControl('payoutToolId', this.fb.control('', Validators.required));
@@ -20,6 +18,6 @@ export class PayoutToolModificationUnitComponent implements OnInit {
     }
 
     generate() {
-        this.form.patchValue({payoutToolId: uuid()});
+        this.form.patchValue({ payoutToolId: uuid() });
     }
 }

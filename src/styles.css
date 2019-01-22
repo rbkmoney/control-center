@@ -1,12 +1,6 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body {
     margin: 0;
-    background: #FAFAFA;
-}
-
-/* ban to moving the stepper header forward and backward */
-.mat-horizontal-stepper-header-without-events .mat-horizontal-stepper-header {
-    pointer-events: none;
-    user-select: none;
+    background: #fafafa;
 }

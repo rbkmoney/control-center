@@ -6,11 +6,10 @@ import { map } from 'rxjs/internal/operators';
 import { ConfigService } from '../core/config.service';
 import { ContractTemplate } from './model';
 import { decode } from '../shared/thrift-formatter';
-import { Party } from '../damsel/domain';
+import { Party } from '../gen-damsel/domain';
 
 @Injectable()
 export class PartyService {
-
     private readonly papiEndpoint: string;
 
     constructor(private http: HttpClient, private configService: ConfigService) {
@@ -20,6 +19,6 @@ export class PartyService {
     getParty(partyId: string): Observable<Party> {
         return this.http
             .get<ContractTemplate[]>(`${this.papiEndpoint}/parties/${partyId}`)
-            .pipe(map((party) => decode(party)));
+            .pipe(map(party => decode(party)));
     }
 }

@@ -1,26 +1,30 @@
-<form [formGroup]="form"
-      fxLayout="column"
-      fxLayoutGap="5px">
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
     <mat-form-field fxFlex="50">
-        <input matInput
-               placeholder="Legal agreement ID"
-               formControlName="legalAgreementId"
-               required>
+        <input
+            matInput
+            placeholder="Legal agreement ID"
+            formControlName="legalAgreementId"
+            required
+        />
     </mat-form-field>
     <mat-form-field fxFlex="50">
-        <input matInput
-               [matDatepicker]="signedAtDatepicker"
-               placeholder="Signed at"
-               formControlName="signedAt"
-               required>
+        <input
+            matInput
+            [matDatepicker]="signedAtDatepicker"
+            placeholder="Signed at"
+            formControlName="signedAt"
+            required
+        />
         <mat-datepicker-toggle matSuffix [for]="signedAtDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #signedAtDatepicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field fxFlex="50">
-        <input matInput
-               [matDatepicker]="validUntilDatepicker"
-               placeholder="Valid until"
-               formControlName="validUntil">
+        <input
+            matInput
+            [matDatepicker]="validUntilDatepicker"
+            placeholder="Valid until"
+            formControlName="validUntil"
+        />
         <mat-datepicker-toggle matSuffix [for]="validUntilDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #validUntilDatepicker></mat-datepicker>
     </mat-form-field>

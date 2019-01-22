@@ -80,8 +80,6 @@ import { PayoutsActionsComponent } from './payouts-actions/payouts-actions.compo
         PayPayoutsComponent,
         ConfirmPayoutsComponent
     ],
-    providers: [
-        PayoutsService
-    ]
+    providers: [PayoutsService]
 })
 export class PayoutsModule {}

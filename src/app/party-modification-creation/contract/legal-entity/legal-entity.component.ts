@@ -11,7 +11,6 @@ enum Type {
     templateUrl: 'legal-entity.component.html'
 })
 export class LegalEntityComponent {
-
     @Input()
     form: FormGroup;
 
@@ -21,8 +20,7 @@ export class LegalEntityComponent {
 
     t = Type;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     select() {
         switch (this.selected) {

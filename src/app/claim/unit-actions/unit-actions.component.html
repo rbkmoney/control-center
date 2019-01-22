@@ -1,13 +1,27 @@
 <mat-nav-list>
-    <a mat-list-item *ngFor="let contractAction of contractActions" (click)="select(contractAction)">
-        {{contractAction.name | ccContainerName:'ContractUnitContainer'}}
-    </a>
-    <mat-divider></mat-divider>
-    <a mat-list-item *ngFor="let shopAction of shopActions" (click)="select(shopAction)">
-        {{shopAction.name | ccContainerName:'ShopUnitContainer'}}
-    </a>
-    <mat-divider></mat-divider>
-    <a mat-list-item *ngFor="let domainAction of domainActions" (click)="select(domainAction)">
-        Domain config modification: Add terminal
-    </a>
+    <div *ngIf="contractActions.visible">
+        <a
+            mat-list-item
+            *ngFor="let contractAction of contractActions.names"
+            (click)="select(contractActions.type, contractAction)"
+        >
+            {{ contractAction | ccContainerName: 'ContractUnitContainer' }}
+        </a>
+    </div>
+    <div *ngIf="data.type === 'allActions'"><mat-divider></mat-divider></div>
+    <div *ngIf="shopActions.visible">
+        <a
+            mat-list-item
+            *ngFor="let shopAction of shopActions.names"
+            (click)="select(shopActions.type, shopAction)"
+        >
+            {{ shopAction | ccContainerName: 'ShopUnitContainer' }}
+        </a>
+    </div>
+    <div *ngIf="data.type === 'allActions'"><mat-divider></mat-divider></div>
+    <div *ngIf="domainActions.visible">
+        <a mat-list-item (click)="select(domainActions.type)">
+            Domain config modification: Add terminal
+        </a>
+    </div>
 </mat-nav-list>

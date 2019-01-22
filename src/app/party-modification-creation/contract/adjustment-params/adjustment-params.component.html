@@ -1,7 +1,4 @@
-<form [formGroup]="form"
-      fxLayout="column"
-      fxLayoutGap="5px">
-    <cc-contract-template-ref
-            [form]="form.get('template')" [required]="true">
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
+    <cc-contract-template-ref [form]="form.get('template')" [required]="true">
     </cc-contract-template-ref>
 </form>

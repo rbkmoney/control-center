@@ -15,5 +15,7 @@ export class MerchantStatisticsService extends ThriftService {
     }
 
     getPayments = (req: StatRequest): Observable<StatResponse> =>
-        this.toObservableAction('GetPayments')(new ThriftStatRequest(encode(req))).pipe(map((res) => decode(res)))
+        this.toObservableAction('GetPayments')(new ThriftStatRequest(encode(req))).pipe(
+            map(res => decode(res))
+        );
 }

@@ -11,7 +11,6 @@ enum Type {
     templateUrl: 'payout-tool-modification.component.html'
 })
 export class PayoutToolModificationComponent {
-
     @Input()
     form: FormGroup;
 
@@ -21,8 +20,7 @@ export class PayoutToolModificationComponent {
 
     t = Type;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     select() {
         switch (this.selected) {

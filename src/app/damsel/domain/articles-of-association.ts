@@ -1,2 +1,1 @@
-export class ArticlesOfAssociation {
-}
+export class ArticlesOfAssociation {}

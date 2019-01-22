@@ -11,7 +11,7 @@ export class ClaimInfoContainer {
     updatedAt?: string;
     reason?: string;
     extractedIds?: {
-        shopId: string,
-        contractId: string
+        shopId: string;
+        contractId: string;
     };
 }

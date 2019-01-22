@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
@@ -11,7 +20,6 @@ import { i64ToNumber } from '../../shared/i64-to-number';
     styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit, OnChanges {
-
     @Input()
     payments: StatPayment[] = [];
 
@@ -25,17 +33,10 @@ export class TableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator)
     paginator: MatPaginator;
 
-    cols = [
-        'select',
-        'revision',
-        'invoiceId',
-        'createdAt',
-        'ownerId',
-        'shopId'
-    ];
+    cols = ['select', 'revision', 'invoiceId', 'createdAt', 'ownerId', 'shopId'];
 
     ngOnChanges(changes: SimpleChanges) {
-        const {payments} = changes;
+        const { payments } = changes;
         if (payments && payments.currentValue) {
             this.selection.clear();
             this.changeSelected.emit([]);
@@ -44,8 +45,8 @@ export class TableComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.selection.changed.subscribe((e) => this.changeSelected.emit(e.source.selected));
-        this.dataSource.filterPredicate = ({domainRevision}: any, filter: string) => {
+        this.selection.changed.subscribe(e => this.changeSelected.emit(e.source.selected));
+        this.dataSource.filterPredicate = ({ domainRevision }: any, filter: string) => {
             const number = i64ToNumber(domainRevision.buffer, domainRevision.offset);
             return filter === number.toString();
         };
@@ -58,9 +59,9 @@ export class TableComponent implements OnInit, OnChanges {
     }
 
     masterToggle() {
-        this.isAllSelected() ?
-            this.selection.clear() :
-            this.selection.select(...this.dataSource.filteredData);
+        this.isAllSelected()
+            ? this.selection.clear()
+            : this.selection.select(...this.dataSource.filteredData);
     }
 
     isAllSelected() {

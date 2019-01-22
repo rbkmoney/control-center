@@ -9,6 +9,8 @@ import { TargetType } from './targe-type';
     templateUrl: 'party-modification-target.component.html'
 })
 export class PartyModificationTargetComponent {
+    @Input()
+    unitID: string;
 
     @Input()
     partyID: string;

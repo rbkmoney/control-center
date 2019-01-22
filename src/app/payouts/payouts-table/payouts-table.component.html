@@ -1,15 +1,19 @@
 <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            <mat-checkbox
+                (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+            >
             </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? selection.toggle(row) : null"
-                          [checked]="selection.isSelected(row)">
+            <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)"
+            >
             </mat-checkbox>
         </td>
     </ng-container>
@@ -34,8 +38,8 @@
     <ng-container matColumnDef="period">
         <th mat-header-cell *matHeaderCellDef fxHide.xs>Period</th>
         <td mat-cell *matCellDef="let payout" fxHide.xs>
-            {{ payout.fromTime | date: "dd.MM.yyyy HH:mm:ss" }}<br>
-            — {{ payout.toTime | date: "dd.MM.yyyy HH:mm:ss" }}
+            {{ payout.fromTime | date: 'dd.MM.yyyy HH:mm:ss' }}<br />
+            — {{ payout.toTime | date: 'dd.MM.yyyy HH:mm:ss' }}
         </td>
     </ng-container>
     <ng-container matColumnDef="status">
@@ -44,13 +48,18 @@
     </ng-container>
     <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>Created at</th>
-        <td mat-cell *matCellDef="let payout">{{ payout.createdAt | date: "dd.MM.yyyy" }}</td>
+        <td mat-cell *matCellDef="let payout">{{ payout.createdAt | date: 'dd.MM.yyyy' }}</td>
     </ng-container>
     <ng-container matColumnDef="payoutDetailButton">
         <th mat-header-cell *matHeaderCellDef class="action-cell"></th>
         <td mat-cell *matCellDef="let payout" class="action-cell">
             <mat-menu #appMenu="matMenu">
-                <button *ngIf='hasRole("payout:cancel")' mat-menu-item (click)="cancelPayout(payout.id)">Cancel payout
+                <button
+                    *ngIf="hasRole('payout:cancel')"
+                    mat-menu-item
+                    (click)="cancelPayout(payout.id)"
+                >
+                    Cancel payout
                 </button>
             </mat-menu>
             <button mat-icon-button [matMenuTriggerFor]="appMenu">
@@ -59,6 +68,7 @@
         </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let payout; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let payout; columns: displayedColumns"></tr>
 </table>
+
 <mat-paginator [pageSizeOptions]="[10, 20, 50, 100, 250, 500]" showFirstLastButtons></mat-paginator>

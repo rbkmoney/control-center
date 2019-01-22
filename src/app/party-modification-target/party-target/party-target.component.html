@@ -2,8 +2,8 @@
 <div *ngIf="!loading && items">
     <div fxLayout="column" *ngFor="let item of items">
         <div fxLayout="column">
-            <mat-checkbox [checked]="item.checked"
-                          (change)="change(item, $event)">{{item.id}}
+            <mat-checkbox [checked]="item.checked" (change)="change(item, $event)"
+                >{{ item.id }}
             </mat-checkbox>
             <cc-thrift-json [object]="item.item"></cc-thrift-json>
         </div>

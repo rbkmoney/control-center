@@ -75,12 +75,7 @@ import { SharedModule } from '../shared/shared.module';
         CancelActionsComponent,
         CaptureActionsComponent
     ],
-    entryComponents: [
-        CreateAndCaptureComponent
-    ],
-    providers: [
-        PaymentAdjustmentService
-    ]
+    entryComponents: [CreateAndCaptureComponent],
+    providers: [PaymentAdjustmentService]
 })
-export class PaymentAdjustmentModule {
-}
+export class PaymentAdjustmentModule {}

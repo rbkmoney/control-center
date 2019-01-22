@@ -17,9 +17,9 @@ const toModification = (
 });
 
 export const toPartyModification = (action: ModificationAction, formValue: any) => {
-    const {unitID, modification} = formValue;
+    const { unitID, modification } = formValue;
     const toMod = toModification.bind(null, unitID, modification);
-    const {type, name} = action;
+    const { type, name } = action;
     switch (type) {
         case ActionType.shopAction:
             return toMod(UnitName.shopModification, name);

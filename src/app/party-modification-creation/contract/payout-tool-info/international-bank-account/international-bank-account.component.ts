@@ -7,7 +7,6 @@ import { MatCheckboxChange } from '@angular/material';
     templateUrl: 'international-bank-account.component.html'
 })
 export class InternationalBankAccountComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
@@ -15,8 +14,7 @@ export class InternationalBankAccountComponent implements OnInit {
 
     isCorrespondentAccount = false;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.registerControl('number', this.fb.control(''));

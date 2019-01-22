@@ -12,7 +12,6 @@ import { PaymentInstitutionObject } from '../../../damsel/domain';
     templateUrl: 'payment-institution-ref.component.html'
 })
 export class PaymentInstitutionRefComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
@@ -21,14 +20,19 @@ export class PaymentInstitutionRefComponent implements OnInit {
 
     paymentInstitutions$: Observable<PaymentInstitutionObject[]>;
 
-    constructor(private fb: FormBuilder,
-                private dtm: DomainTypedManager) {
-    }
+    constructor(private fb: FormBuilder, private dtm: DomainTypedManager) {}
 
     ngOnInit() {
         this.paymentInstitutions$ = this.dtm
             .getPaymentInstitutions()
-            .pipe(map((paymentInstitutions) => sortBy(paymentInstitutions, (paymentInstitution) => paymentInstitution.ref.id)));
-        this.form.registerControl('id', this.fb.control('', this.required ? Validators.required : null));
+            .pipe(
+                map(paymentInstitutions =>
+                    sortBy(paymentInstitutions, paymentInstitution => paymentInstitution.ref.id)
+                )
+            );
+        this.form.registerControl(
+            'id',
+            this.fb.control('', this.required ? Validators.required : null)
+        );
     }
 }

@@ -52,9 +52,6 @@ import { CreateClaimComponent } from './create-claim/create-claim.component';
         ClaimActionsComponent,
         CreateClaimComponent
     ],
-    entryComponents: [
-        CreateClaimComponent
-    ]
+    entryComponents: [CreateClaimComponent]
 })
-export class ClaimsModule {
-}
+export class ClaimsModule {}

@@ -8,32 +8,32 @@ import { ClaimInfo } from '../papi/model';
 
 @Component({
     templateUrl: 'claims.component.html',
-    styleUrls: ['../shared/container.css'],
+    styleUrls: ['../shared/container.css']
 })
 export class ClaimsComponent implements OnInit {
-
     isLoading = false;
 
     claims: ClaimInfo[];
 
-    constructor(private claimService: ClaimService,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(private claimService: ClaimService, private snackBar: MatSnackBar) {}
 
     ngOnInit() {
-        this.search({claimStatus: 'pending'});
+        this.search({ claimStatus: 'pending' });
     }
 
     search(params: ClaimSearchParams) {
         this.isLoading = true;
-        this.claimService.getClaims(params).subscribe((claims) => {
-            this.isLoading = false;
-            this.claims = claims.reverse();
-        }, (error: HttpErrorResponse) => {
-            this.isLoading = false;
-            this.snackBar.open(`${error.status}: ${error.message}`, 'OK', {
-                duration: 1500
-            });
-        });
+        this.claimService.getClaims(params).subscribe(
+            claims => {
+                this.isLoading = false;
+                this.claims = claims.reverse();
+            },
+            (error: HttpErrorResponse) => {
+                this.isLoading = false;
+                this.snackBar.open(`${error.status}: ${error.message}`, 'OK', {
+                    duration: 1500
+                });
+            }
+        );
     }
 }

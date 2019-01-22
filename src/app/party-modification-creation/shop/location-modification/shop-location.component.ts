@@ -6,12 +6,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     templateUrl: 'shop-location.component.html'
 })
 export class ShopLocationComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form.registerControl('url', this.fb.control(''));

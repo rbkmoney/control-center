@@ -5,7 +5,6 @@ import { Component, Input } from '@angular/core';
     templateUrl: 'form-wrapper.component.html'
 })
 export class FormWrapperComponent {
-
     @Input()
     name: string;
 }

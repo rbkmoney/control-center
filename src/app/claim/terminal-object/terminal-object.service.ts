@@ -6,21 +6,22 @@ import { getOptions, prepareTerminalName } from './form-default-values';
 import { DomainModificationInfo } from '../model';
 
 const toFormArray = (fb: FormBuilder, options: TerminalOption[]): FormArray =>
-    fb.array(options.map((option) => fb.group(option)));
+    fb.array(options.map(option => fb.group(option)));
 
 @Injectable()
 export class TerminalObjectService {
-
     optionTemplates: string[] = ['VTB', 'TCS', 'RIET', 'SNGB', 'none'];
 
     riskCoverages = [
         {
             name: 'low',
             value: 0
-        }, {
+        },
+        {
             name: 'high',
             value: 100
-        }, {
+        },
+        {
             name: 'fatal',
             value: 9999
         }
@@ -30,8 +31,7 @@ export class TerminalObjectService {
 
     private domainModificationInfo: DomainModificationInfo;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     addOption() {
         (this.form.controls.options as FormArray).push(this.getOption());
@@ -51,7 +51,10 @@ export class TerminalObjectService {
     }
 
     setBankOptionsTemplate(option: string) {
-        this.form.setControl('options', toFormArray(this.fb, getOptions(option, this.domainModificationInfo)));
+        this.form.setControl(
+            'options',
+            toFormArray(this.fb, getOptions(option, this.domainModificationInfo))
+        );
         this.form.patchValue({
             terminalName: prepareTerminalName(option, this.form.value.shopUrl)
         });
@@ -63,10 +66,13 @@ export class TerminalObjectService {
             shopID: ['', Validators.required],
             partyID: [param.partyId, Validators.required],
             shopUrl: '',
-            providerID: [{
-                value: '',
-                disabled: true
-            }, Validators.required],
+            providerID: [
+                {
+                    value: '',
+                    disabled: true
+                },
+                Validators.required
+            ],
             terminalName: [prepareTerminalName(defaultOption, param.shopUrl), Validators.required],
             terminalDescription: 'No',
             riskCoverage: [100, Validators.required],
