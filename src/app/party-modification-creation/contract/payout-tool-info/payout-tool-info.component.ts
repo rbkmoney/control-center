@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 enum Type {
     russianBankAccount = 'russianBankAccount',
-    internationalBankAccount = 'internationalBankAccount'
+    internationalBankAccount = 'internationalBankAccount',
+    walletInfo = 'walletInfo'
 }
 
 @Component({
@@ -17,7 +18,7 @@ export class PayoutToolInfoComponent {
 
     selected: Type;
 
-    types = [Type.russianBankAccount, Type.internationalBankAccount];
+    types = [Type.russianBankAccount, Type.internationalBankAccount, Type.walletInfo];
 
     t = Type;
 
@@ -27,13 +28,23 @@ export class PayoutToolInfoComponent {
     select() {
         switch (this.selected) {
             case Type.russianBankAccount:
+                this.clearControl();
                 this.form.registerControl(Type.russianBankAccount, this.fb.group({}));
-                this.form.removeControl(Type.internationalBankAccount);
                 break;
             case Type.internationalBankAccount:
+                this.clearControl();
                 this.form.registerControl(Type.internationalBankAccount, this.fb.group({}));
-                this.form.removeControl(Type.russianBankAccount);
+                break;
+            case Type.walletInfo:
+                this.clearControl();
+                this.form.registerControl(Type.walletInfo, this.fb.group({}));
                 break;
         }
+    }
+
+    private clearControl() {
+        this.types.forEach((type) => {
+            this.form.removeControl(type);
+        });
     }
 }
