@@ -41,7 +41,7 @@ export class PayoutToolInfoComponent {
     }
 
     private clearControl() {
-        this.types.forEach((type) => {
+        this.types.forEach(type => {
             this.form.removeControl(type);
         });
     }
