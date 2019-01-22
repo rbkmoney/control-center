@@ -38,11 +38,11 @@ export class ShopComponent implements OnInit {
             this.providers = providers.filter(provider => {
                 const decisions = provider.data.terminal.decisions;
                 return decisions
-                    ? provider.data.terminal.decisions.filter(
-                          decision =>
-                              decision.if_.condition.party.id === this.partyID ||
-                              decision.if_.condition.party.definition.shopIs === shop.id
-                      )
+                    ? decisions.filter(
+                    decision =>
+                        decision.if_.condition.party.definition.shopIs === shop.id ||
+                        decision.if_.condition.party.id === this.partyID
+                ).length > 0
                     : false;
             });
         });
