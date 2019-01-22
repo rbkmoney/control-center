@@ -14,13 +14,14 @@ import { ShopComponent } from './shop/shop.component';
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['party:get']
-                },
-                children: [
-                    {
-                        path: 'shop/:shopId',
-                        component: ShopComponent
-                    }
-                ]
+                }
+            }, {
+                path: 'party/:partyId/shop/:shopId',
+                component: ShopComponent,
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['party:get']
+                }
             }
         ])
     ],

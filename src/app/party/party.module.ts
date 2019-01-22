@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
     MatCardModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
+    MatListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatRadioModule,
@@ -20,6 +22,13 @@ import { PartyRoutingModule } from './party-routing.module';
 import { PartyDetailsComponent } from './party-details/party-details.component';
 import { ShopsTableComponent } from './shops-table/shops-table.component';
 import { ShopComponent } from './shop/shop.component';
+import { ShopDetailsComponent } from './shop/shop-details/shop-details.component';
+import { PartyService } from './party.service';
+import { ShopBlockingPipe } from './shop/shop-details/shop-blocking.pipe';
+import { ShopSuspensionPipe } from './shop/shop-details/shop-suspension.pipe';
+import { ProvidersComponent } from './shop/providers/providers.component';
+import { ProviderComponent } from './shop/providers/provider/provider.component';
+import { TerminalComponent } from './shop/providers/provider/terminal/terminal.component';
 
 @NgModule({
     imports: [
@@ -36,13 +45,24 @@ import { ShopComponent } from './shop/shop.component';
         MatProgressSpinnerModule,
         MatPaginatorModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatExpansionModule,
+        MatListModule
     ],
     declarations: [
         PartyComponent,
         PartyDetailsComponent,
         ShopsTableComponent,
-        ShopComponent
+        ShopComponent,
+        ShopDetailsComponent,
+        ProvidersComponent,
+        ProviderComponent,
+        TerminalComponent,
+        ShopBlockingPipe,
+        ShopSuspensionPipe
+    ],
+    providers: [
+        PartyService
     ]
 })
 export class PartyModule {}

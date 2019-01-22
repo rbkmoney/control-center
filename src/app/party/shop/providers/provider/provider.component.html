@@ -1,0 +1,16 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{provider.data.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{provider.data.description}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list *ngFor="let decision of provider.data.terminal.decisions">
+        <h3 mat-subheader>Terminals</h3>
+        <mat-list-item *ngFor="let terminal of decision.then_.value">
+            <cc-terminal [terminalID]="terminal.id"></cc-terminal>
+        </mat-list-item>
+    </mat-list>
+</mat-expansion-panel>

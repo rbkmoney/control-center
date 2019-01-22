@@ -8,8 +8,7 @@ import { PartyService } from './party.service';
 
 @Component({
     templateUrl: 'party.component.html',
-    styleUrls: ['../shared/container.css', 'party.component.css'],
-    providers: [PartyService]
+    styleUrls: ['../shared/container.css', 'party.component.css']
 })
 export class PartyComponent implements OnInit {
     party$: Observable<Party>;

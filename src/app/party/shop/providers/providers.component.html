@@ -1,0 +1,11 @@
+<div *ngIf="!providers">
+    Loading...
+</div>
+<div *ngIf="providers">
+    <div *ngIf="providers.length === 0">
+        no data
+    </div>
+    <div class="provider-groups" *ngIf="providers.length > 0" fxLayout="column" fxLayoutGap="20px">
+        <cc-provider *ngFor="let provider of providers" [provider]="provider"></cc-provider>
+    </div>
+</div>

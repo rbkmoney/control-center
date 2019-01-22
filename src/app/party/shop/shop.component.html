@@ -1,5 +1,12 @@
 <div class="container">
-    <div class="card-container" fxLayout="column">
-        kekes
+    <div class="card-container" fxLayout="column" fxLayoutGap="20px">
+        <mat-card>
+            <mat-card-subtitle>Shop details</mat-card-subtitle>
+            <mat-card-content>
+                <cc-shop-details [shop]="shop"></cc-shop-details>
+            </mat-card-content>
+        </mat-card>
+        <h4 class="mat-h4 mat-subheading-1">Providers</h4>
+        <cc-providers [providers]="providers"></cc-providers>
     </div>
 </div>
