@@ -39,10 +39,10 @@ export class ShopComponent implements OnInit {
                 const decisions = provider.data.terminal.decisions;
                 return decisions
                     ? decisions.filter(
-                    decision =>
-                        decision.if_.condition.party.definition.shopIs === shop.id ||
-                        decision.if_.condition.party.id === this.partyID
-                ).length > 0
+                          decision =>
+                              decision.if_.condition.party.definition.shopIs === shop.id ||
+                              decision.if_.condition.party.id === this.partyID
+                      ).length > 0
                     : false;
             });
         });
