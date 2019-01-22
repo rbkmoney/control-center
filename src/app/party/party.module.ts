@@ -61,8 +61,6 @@ import { TerminalComponent } from './shop/providers/provider/terminal/terminal.c
         ShopBlockingPipe,
         ShopSuspensionPipe
     ],
-    providers: [
-        PartyService
-    ]
+    providers: [PartyService]
 })
 export class PartyModule {}

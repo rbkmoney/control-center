@@ -18,9 +18,8 @@ export class ShopsTableComponent implements OnChanges {
 
     private partyId: string;
 
-    constructor(private router: Router,
-                private route: ActivatedRoute) {
-        this.route.params.subscribe((params) => {
+    constructor(private router: Router, private route: ActivatedRoute) {
+        this.route.params.subscribe(params => {
             this.partyId = params['partyId'];
         });
     }
@@ -41,6 +40,6 @@ export class ShopsTableComponent implements OnChanges {
     }
 
     navigateToShop(shopID: string) {
-        this.router.navigate([`/party/${ this.partyId }/shop/${ shopID }`]);
+        this.router.navigate([`/party/${this.partyId}/shop/${shopID}`]);
     }
 }

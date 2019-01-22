@@ -15,7 +15,8 @@ import { ShopComponent } from './shop/shop.component';
                 data: {
                     roles: ['party:get']
                 }
-            }, {
+            },
+            {
                 path: 'party/:partyId/shop/:shopId',
                 component: ShopComponent,
                 canActivate: [AppAuthGuardService],

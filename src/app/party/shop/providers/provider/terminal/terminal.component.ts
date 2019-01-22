@@ -7,15 +7,13 @@ import { PartyService } from '../../../../party.service';
     templateUrl: 'terminal.component.html'
 })
 export class TerminalComponent implements OnInit {
-
     @Input() terminalID: number;
     terminal: TerminalObject;
 
-    constructor(private partyService: PartyService) {
-    }
+    constructor(private partyService: PartyService) {}
 
     ngOnInit(): void {
-        this.partyService.getTerminal(this.terminalID).subscribe((terminalObject) => {
+        this.partyService.getTerminal(this.terminalID).subscribe(terminalObject => {
             this.terminal = terminalObject;
         });
     }

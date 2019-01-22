@@ -12,17 +12,18 @@ import { ProviderObject } from '../../damsel/domain';
     styleUrls: ['../../shared/container.css']
 })
 export class ShopComponent implements OnInit {
-
     shop: Shop;
     providers: ProviderObject[];
 
     private shopID: string;
     private partyID: string;
 
-    constructor(private partyService: PartyService,
-                private route: ActivatedRoute,
-                private dtm: DomainTypedManager) {
-        this.route.params.subscribe((params) => {
+    constructor(
+        private partyService: PartyService,
+        private route: ActivatedRoute,
+        private dtm: DomainTypedManager
+    ) {
+        this.route.params.subscribe(params => {
             this.shopID = params['shopId'];
             this.partyID = params['partyId'];
         });
@@ -34,11 +35,15 @@ export class ShopComponent implements OnInit {
             this.dtm.getProviderObjects()
         ]).subscribe(([shop, providers]) => {
             this.shop = shop;
-            this.providers = providers.filter((provider) => {
+            this.providers = providers.filter(provider => {
                 const decisions = provider.data.terminal.decisions;
-                return decisions ? provider.data.terminal.decisions.filter((decision) =>
-                    decision.if_.condition.party.id === this.partyID || decision.if_.condition.party.definition.shopIs === shop.id
-                ) : false;
+                return decisions
+                    ? provider.data.terminal.decisions.filter(
+                          decision =>
+                              decision.if_.condition.party.id === this.partyID ||
+                              decision.if_.condition.party.definition.shopIs === shop.id
+                      )
+                    : false;
             });
         });
     }
