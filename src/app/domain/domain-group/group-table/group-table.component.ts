@@ -45,10 +45,9 @@ export class GroupTableComponent implements OnInit, OnChanges {
         this.detailsContainerService.opened$.subscribe(opened => (this.detailsOpened = opened));
     }
 
-    openDetails({ json }: TableDataSource, index: number) {
-        console.log(index);
+    openDetails({ pair }: TableDataSource, index: number) {
         this.selectedIndex = index;
-        this.detailsService.emit(json);
+        this.detailsService.emit(pair);
     }
 
     applyFilter(filterValue: string) {

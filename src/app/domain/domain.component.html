@@ -8,7 +8,10 @@
     >
         <div class="details-container" fxLayout="column" fxLayoutGap="20px">
             <cc-domain-obj-details fxFlex="95"></cc-domain-obj-details>
-            <button mat-stroked-button (click)="closeDetails()">CLOSE</button>
+            <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between center">
+                <button mat-button (click)="closeDetails()">CLOSE</button>
+                <button mat-button (click)="editDomainObj()">EDIT</button>
+            </div>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>

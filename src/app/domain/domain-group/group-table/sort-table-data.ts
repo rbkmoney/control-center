@@ -48,16 +48,16 @@ function sortByStrField(
 function sortByRef(data: TableDataSource[], sort: MatSort) {
     if (sort.direction === 'asc') {
         return data.sort((a, b) => {
-            if (isNumber(a.json.ref.id)) {
-                return numberAsc(a.json.ref.id, b.json.ref.id);
+            if (isNumber(a.pair.object.ref.id)) {
+                return numberAsc(a.pair.object.ref.id, b.pair.object.ref.id);
             }
             return strAsc(a.ref, b.ref);
         });
     }
     if (sort.direction === 'desc') {
         return data.sort((a, b) => {
-            if (isNumber(a.json.ref.id)) {
-                return numberDes(a.json.ref.id, b.json.ref.id);
+            if (isNumber(a.pair.object.ref.id)) {
+                return numberDes(a.pair.object.ref.id, b.pair.object.ref.id);
             }
             return strDes(a.ref, b.ref);
         });

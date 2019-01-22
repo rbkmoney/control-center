@@ -1,4 +1,4 @@
-import { AbstractDomainObject } from '../domain-group';
+import { DomainPair } from '../domain-group';
 
 interface ViewDomainObject {
     ref: string;
@@ -7,7 +7,7 @@ interface ViewDomainObject {
 
 interface TableItem {
     stringified: string;
-    json: AbstractDomainObject;
+    pair: DomainPair;
     view: ViewDomainObject;
 }
 
@@ -20,6 +20,6 @@ export interface TableDataSource {
     name: string;
     ref: string;
     data: string;
-    json: AbstractDomainObject;
+    pair: DomainPair;
     stringified: string;
 }

@@ -14,10 +14,7 @@ export class DomainGroupService {
         this.domainService.payload$.subscribe(({ shapshot: { version, domain }, metadata }) => {
             this.version$.next(version.toNumber());
             this.group$.next(
-                group(
-                    [...domain.values()],
-                    metadata.find(({ name }) => name === 'domain').ast.union.DomainObject
-                )
+                group(domain, metadata.find(({ name }) => name === 'domain').ast.union.DomainObject)
             );
         });
     }

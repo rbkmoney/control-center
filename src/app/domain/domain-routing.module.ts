@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { DomainComponent } from './domain.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
+import { DomainObjModificationComponent } from './domain-obj-modification';
 
 @NgModule({
     imports: [
@@ -10,6 +11,14 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
             {
                 path: 'domain',
                 component: DomainComponent,
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['dmt:checkout']
+                }
+            },
+            {
+                path: 'domain/:ref',
+                component: DomainObjModificationComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['dmt:checkout']

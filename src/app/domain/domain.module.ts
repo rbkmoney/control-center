@@ -19,8 +19,8 @@ import { ThriftModule } from '../thrift/thrift.module';
 import { DomainGroupModule } from './domain-group';
 import { MetadataLoader } from './metadata-loader';
 import { SharedModule } from '../shared/shared.module';
-import { DomainDetailsService } from './domain-details.service';
 import { MonacoEditorModule } from '../monaco-editor';
+import { DomainObjModificationModule } from './domain-obj-modification';
 
 @NgModule({
     declarations: [DomainComponent, DomainObjDetailsComponent],
@@ -38,8 +38,9 @@ import { MonacoEditorModule } from '../monaco-editor';
         MonacoEditorModule,
         ThriftModule,
         DomainGroupModule,
-        SharedModule
+        SharedModule,
+        DomainObjModificationModule
     ],
     providers: [DomainService, MetadataLoader]
 })
-export class DamainModule {}
+export class DomainModule {}

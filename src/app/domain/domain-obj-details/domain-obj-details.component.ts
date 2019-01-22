@@ -19,11 +19,11 @@ export class DomainObjDetailsComponent implements OnInit {
     constructor(private detailsService: DomainDetailsService) {}
 
     ngOnInit() {
-        this.file$ = this.detailsService.detailedObject$.pipe(
-            map(o => ({
+        this.file$ = this.detailsService.domainPair$.pipe(
+            map(({ object }) => ({
                 uri: 'index.json',
                 language: 'json',
-                content: JSON.stringify(o, null, 2)
+                content: JSON.stringify(object, null, 2)
             }))
         );
     }

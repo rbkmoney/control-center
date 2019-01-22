@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar, MatSidenav } from '@angular/material';
+import { Router } from '@angular/router';
 
 import { DomainService } from './domain.service';
 import { DomainDetailsService } from './domain-details.service';
@@ -15,21 +16,31 @@ export class DomainComponent implements OnInit {
     isLoading: boolean;
     @ViewChild('domainObjDetails') detailsContainer: MatSidenav;
 
+    private detailedObjRef: any;
+
     constructor(
         private domainService: DomainService,
         private snackBar: MatSnackBar,
         private detailsService: DomainDetailsService,
-        private detailsContainerService: DetailsContainerService
+        private detailsContainerService: DetailsContainerService,
+        private router: Router
     ) {}
 
     ngOnInit() {
         this.initialize();
         this.detailsContainerService.container = this.detailsContainer;
-        this.detailsService.detailedObject$.subscribe(() => this.detailsContainerService.open());
+        this.detailsService.domainPair$.subscribe(({ ref }) => {
+            this.detailedObjRef = ref;
+            this.detailsContainerService.open();
+        });
     }
 
     closeDetails() {
         this.detailsContainerService.close();
+    }
+
+    editDomainObj() {
+        this.router.navigate(['domain', JSON.stringify(this.detailedObjRef)]);
     }
 
     private initialize() {

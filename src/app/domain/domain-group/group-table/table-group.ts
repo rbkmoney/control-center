@@ -1,4 +1,4 @@
-import { DomainGroup } from '../domain-group';
+import { DomainGroup, DomainPair } from '../domain-group';
 import { toJson } from '../../../shared/thrift-json-converter';
 import { TableGroup, TableDataSource } from './model';
 
@@ -7,19 +7,19 @@ function shorten(str: string, limit = 150): string {
 }
 
 export function toTableGroup(domainGroup: DomainGroup[]): TableGroup[] {
-    return domainGroup.map(({ name, objects }) => {
+    return domainGroup.map(({ name, pairs }) => {
         return {
             name,
-            tableItems: objects.map(o => {
-                const json = toJson(o);
-                const stringifiedRef = JSON.stringify(json.ref);
-                const stringifiedData = JSON.stringify(json.data);
+            tableItems: pairs.map(p => {
+                const pair = toJson(p);
+                const stringifiedRef = JSON.stringify(pair.object.ref);
+                const stringifiedData = JSON.stringify(pair.object.data);
                 const stringified = stringifiedRef + stringifiedData;
                 const view = {
                     ref: shorten(stringifiedRef),
                     data: shorten(stringifiedData)
                 };
-                return { stringified, json, view };
+                return { stringified, pair, view };
             })
         };
     });
@@ -31,11 +31,11 @@ export function toDataSource(group: TableGroup[], selectedTypes: string[]): Tabl
         .reduce(
             (acc, { name, tableItems }) =>
                 acc.concat(
-                    tableItems.map(({ json, view: { ref, data }, stringified }) => ({
+                    tableItems.map(({ pair, view: { ref, data }, stringified }) => ({
                         name,
                         ref,
                         data,
-                        json,
+                        pair,
                         stringified
                     }))
                 ),
