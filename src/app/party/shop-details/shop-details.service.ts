@@ -11,9 +11,8 @@ export class ShopDetailsService {
     constructor(private dtm: DomainTypedManager) {}
 
     getTerminalObject(id: number): Observable<TerminalObject> {
-        const terminalObject = this.terminalObjects
-            ? this.terminalObjects.find(terminal => terminal.ref.id === id)
-            : null;
+        const predicate = (obj: TerminalObject) => obj.ref.id === id;
+        const terminalObject = this.terminalObjects ? this.terminalObjects.find(predicate) : null;
         if (terminalObject) {
             return Observable.create(observer => {
                 observer.next(terminalObject);
@@ -24,7 +23,7 @@ export class ShopDetailsService {
                 tap(objects => {
                     this.terminalObjects = objects;
                 }),
-                map(objects => objects.find(obj => obj.ref.id === id))
+                map(objects => objects.find(predicate))
             );
         }
     }
