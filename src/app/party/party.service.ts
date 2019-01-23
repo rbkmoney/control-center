@@ -3,30 +3,27 @@ import { Observable } from 'rxjs';
 
 import { Party, Shop } from '../gen-damsel/domain';
 import { PartyService as PapiPartyService } from '../papi/party.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class PartyService {
     private party: Party;
 
-    constructor(private papiPartyService: PapiPartyService) {}
+    constructor(private papiPartyService: PapiPartyService) {
+    }
 
     getParty(partyID: string): Observable<Party> {
-        return Observable.create(observer => {
-            if (this.party && this.party.id === partyID) {
+        if (this.party && this.party.id === partyID) {
+            return Observable.create(observer => {
                 observer.next(this.party);
                 observer.complete();
-            } else {
-                this.papiPartyService.getParty(partyID).subscribe(
-                    party => {
-                        this.party = party;
-                        observer.next(party);
-                        observer.complete();
-                    },
-                    err => observer.error(err)
-                );
-            }
-        });
+            });
+        } else {
+            return this.papiPartyService.getParty(partyID)
+                       .pipe(tap(party => {
+                           this.party = party;
+                       }));
+        }
     }
 
     getShops(partyID: string): Observable<Shop[]> {

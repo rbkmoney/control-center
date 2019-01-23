@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -11,9 +11,6 @@ import { PartyService } from '../party.service';
 export class PartyDetailsComponent implements OnInit {
     party$: Observable<Party>;
     shops$: Observable<Shop[]>;
-
-    @Input()
-    party: Party;
 
     private partyID: string;
 
