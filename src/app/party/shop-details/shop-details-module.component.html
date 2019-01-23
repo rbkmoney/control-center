@@ -9,8 +9,16 @@
             <mat-spinner *ngIf="!providers"></mat-spinner>
             <div *ngIf="providers" fxLayout="column" fxFlexAlign="stretch">
                 <h4 class="mat-h4 mat-subheading-1" *ngIf="providers.length === 0">No providers</h4>
-                <div *ngIf="providers.length > 0" class="provider-groups" fxLayout="column" fxLayoutGap="20px">
-                    <cc-provider *ngFor="let provider of providers" [provider]="provider"></cc-provider>
+                <div
+                    *ngIf="providers.length > 0"
+                    class="provider-groups"
+                    fxLayout="column"
+                    fxLayoutGap="20px"
+                >
+                    <cc-provider
+                        *ngFor="let provider of providers"
+                        [provider]="provider"
+                    ></cc-provider>
                 </div>
             </div>
         </div>

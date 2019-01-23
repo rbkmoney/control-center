@@ -9,8 +9,7 @@ import { map, tap } from 'rxjs/operators';
 export class PartyService {
     private party: Party;
 
-    constructor(private papiPartyService: PapiPartyService) {
-    }
+    constructor(private papiPartyService: PapiPartyService) {}
 
     getParty(partyID: string): Observable<Party> {
         if (this.party && this.party.id === partyID) {
@@ -19,10 +18,11 @@ export class PartyService {
                 observer.complete();
             });
         } else {
-            return this.papiPartyService.getParty(partyID)
-                       .pipe(tap(party => {
-                           this.party = party;
-                       }));
+            return this.papiPartyService.getParty(partyID).pipe(
+                tap(party => {
+                    this.party = party;
+                })
+            );
         }
     }
 
@@ -31,8 +31,6 @@ export class PartyService {
     }
 
     getShop(partyID: string, shopID: string): Observable<Shop> {
-        return this.getShops(partyID).pipe(
-            map(shops => shops.find(shop => shop.id === shopID))
-        );
+        return this.getShops(partyID).pipe(map(shops => shops.find(shop => shop.id === shopID)));
     }
 }
