@@ -37,4 +37,4 @@ import { TerminalComponent } from './providers/provider/terminal/terminal.compon
         TerminalComponent
     ]
 })
-export class ShopDetailsModule {}
+export class ShopModule {}

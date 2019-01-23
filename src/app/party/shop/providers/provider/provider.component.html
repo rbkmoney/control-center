@@ -4,10 +4,10 @@
         <mat-panel-description> {{ provider.data.description }} </mat-panel-description>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-        <mat-list *ngFor="let decision of provider.data.terminal.decisions">
+        <mat-list>
             <h3 mat-subheader>Terminals</h3>
-            <mat-list-item *ngFor="let terminal of decision.then_.value">
-                <cc-terminal [terminalID]="terminal.id"></cc-terminal>
+            <mat-list-item *ngFor="let terminal of terminalIDs">
+                <cc-terminal [terminalID]="terminal"></cc-terminal>
             </mat-list-item>
         </mat-list>
     </ng-template>

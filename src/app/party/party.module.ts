@@ -14,9 +14,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PartyComponent } from './party.component';
 import { PartyService } from './party.service';
 import { ShopsTableComponent } from './shops-table/shops-table.component';
-import { PartyDetailsModule } from './party-details/party-details.module';
-import { ShopDetailsModule } from './shop/shop-details.module';
-import { PartyDetailsComponent } from './party-details/party-details.component';
+import { ShopModule } from './shop/shop.module';
+import { PartyDetailsModule } from './party/party-details.module';
+import { PartyDetailsComponent } from './party/party-details.component';
 
 @NgModule({
     imports: [
@@ -30,7 +30,7 @@ import { PartyDetailsComponent } from './party-details/party-details.component';
         MatFormFieldModule,
         MatInputModule,
         PartyDetailsModule,
-        ShopDetailsModule
+        ShopModule
     ],
     declarations: [PartyComponent, ShopsTableComponent, PartyDetailsComponent],
     providers: [PartyService]
