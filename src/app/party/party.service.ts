@@ -1,67 +1,43 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { Party, Shop } from '../gen-damsel/domain';
 import { PartyService as PapiPartyService } from '../papi/party.service';
-import { TerminalObject } from '../damsel/domain';
-import { DomainTypedManager } from '../thrift/domain-typed-manager';
 
 @Injectable()
 export class PartyService {
-    party$: Subject<Party> = new BehaviorSubject(null);
-    shops$: Subject<Shop[]> = new BehaviorSubject(null);
-    terminals$: Subject<TerminalObject[]> = new BehaviorSubject(null);
+    private party: Party;
 
-    constructor(private papiPartyService: PapiPartyService, private dtm: DomainTypedManager) {}
+    constructor(private papiPartyService: PapiPartyService) {}
 
-    initialize(partyID: string): Observable<Party> {
-        return this.papiPartyService.getParty(partyID).pipe(
-            tap(party => {
-                this.party$.next(party);
-                this.shops$.next(Array.from(party.shops.values()));
-            })
-        );
-    }
-
-    getShop(partyID: string, shopID: string): Observable<Shop> {
-        const predicate = (s: Shop) => s.id === shopID;
+    getParty(partyID: string): Observable<Party> {
         return Observable.create(observer => {
-            this.shops$
-                .subscribe(shops => {
-                    const shop = shops ? shops.find(predicate) : null;
-                    if (shop) {
-                        observer.next(shop);
-                        observer.complete();
-                    } else {
-                        this.initialize(partyID).subscribe(party => {
-                            observer.next(Array.from(party.shops.values()).find(predicate));
-                            observer.complete();
-                        });
-                    }
-                })
-                .unsubscribe();
+            if (this.party && this.party.id === partyID) {
+                observer.next(this.party);
+                observer.complete();
+            } else {
+                this.papiPartyService.getParty(partyID).subscribe(party => {
+                    this.party = party;
+                    observer.next(party);
+                    observer.complete();
+                });
+            }
         });
     }
 
-    getTerminal(terminalID: number): Observable<TerminalObject> {
-        const predicate = (t: TerminalObject) => t.ref.id === terminalID;
+    getShops(partyID: string): Observable<Shop[]> {
         return Observable.create(observer => {
-            this.terminals$
-                .subscribe(terminals => {
-                    const terminal = terminals ? terminals.find(predicate) : null;
-                    if (terminal) {
-                        observer.next(terminal);
-                        observer.complete();
-                    } else {
-                        this.dtm.getTerminalObjects().subscribe(terminalObjects => {
-                            this.terminals$.next(terminalObjects);
-                            observer.next(terminalObjects.find(predicate));
-                            observer.complete();
-                        });
-                    }
-                })
-                .unsubscribe();
+            this.getParty(partyID).subscribe(party => {
+                observer.next(Array.from(party.shops.values()));
+            });
+        });
+    }
+
+    getShop(partyID: string, shopID: string): Observable<Shop> {
+        return Observable.create(observer => {
+            this.getParty(partyID).subscribe(party => {
+                observer.next(Array.from(party.shops.values()).find(shop => shop.id === shopID));
+            });
         });
     }
 }

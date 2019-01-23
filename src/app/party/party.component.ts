@@ -17,37 +17,36 @@ export class PartyComponent implements OnInit {
 
     party: Party;
 
-    private partyId: string;
+    private partyID: string;
 
     constructor(
         private partyService: PartyService,
-        private route: ActivatedRoute,
-        private snackBar: MatSnackBar
-    ) {
+        private route: ActivatedRoute
+    ) // private snackBar: MatSnackBar
+    {
         this.route.params.subscribe(params => {
-            this.partyId = params['partyId'];
+            this.partyID = params['partyId'];
         });
     }
 
     ngOnInit(): void {
-        this.initialize();
-        this.shops$ = this.partyService.shops$;
-        this.party$ = this.partyService.party$;
+        this.party$ = this.partyService.getParty(this.partyID);
+        this.shops$ = this.partyService.getShops(this.partyID);
     }
 
-    private initialize() {
-        this.isLoading = true;
-        this.partyService.initialize(this.partyId).subscribe(
-            () => {
-                this.isLoading = false;
-            },
-            err => {
-                this.isLoading = false;
-                this.snackBar
-                    .open(`An error occurred while initializing: ${err}`, 'RETRY')
-                    .onAction()
-                    .subscribe(() => this.initialize());
-            }
-        );
-    }
+    // private initialize() {
+    //     this.isLoading = true;
+    //     this.partyService.getParty(this.partyID).subscribe(
+    //         () => {
+    //             this.isLoading = false;
+    //         },
+    //         err => {
+    //             this.isLoading = false;
+    //             this.snackBar
+    //                 .open(`An error occurred while initializing: ${err}`, 'RETRY')
+    //                 .onAction()
+    //                 .subscribe(() => this.initialize());
+    //         }
+    //     );
+    // }
 }

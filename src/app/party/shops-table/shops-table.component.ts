@@ -25,7 +25,7 @@ export class ShopsTableComponent implements OnChanges {
     }
 
     ngOnChanges({ shops }: SimpleChanges) {
-        if (shops) {
+        if (shops.currentValue) {
             this.dataSource.data = shops.currentValue;
             this.dataSource.filterPredicate = (shop: Shop, filter: string) =>
                 JSON.stringify(shop)

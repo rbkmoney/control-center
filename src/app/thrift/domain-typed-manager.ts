@@ -85,6 +85,13 @@ export class DomainTypedManager {
         return this.domain.pipe(map(domain => findTerminalObjects(domain)));
     }
 
+    getTerminalObject(id: number): Observable<TerminalObject> {
+        return this.domain.pipe(
+            map(domain => findTerminalObjects(domain)),
+            map(objects => findDomainObject(objects, id))
+        );
+    }
+
     createTerminal(params: CreateTerminalParams): Observable<Version> {
         return combineLatest(
             this.getLastVersion(),

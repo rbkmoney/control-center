@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TerminalObject } from '../../../../../damsel/domain';
-import { PartyService } from '../../../../party.service';
+import { DomainTypedManager } from '../../../../../thrift/domain-typed-manager';
 
 @Component({
     selector: 'cc-terminal',
@@ -10,10 +10,10 @@ export class TerminalComponent implements OnInit {
     @Input() terminalID: number;
     terminal: TerminalObject;
 
-    constructor(private partyService: PartyService) {}
+    constructor(private dtm: DomainTypedManager) {}
 
     ngOnInit(): void {
-        this.partyService.getTerminal(this.terminalID).subscribe(terminalObject => {
+        this.dtm.getTerminalObject(this.terminalID).subscribe(terminalObject => {
             this.terminal = terminalObject;
         });
     }

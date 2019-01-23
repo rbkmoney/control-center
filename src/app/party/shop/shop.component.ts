@@ -6,6 +6,7 @@ import { Shop } from '../../gen-damsel/domain';
 import { PartyService } from '../party.service';
 import { DomainTypedManager } from '../../thrift/domain-typed-manager';
 import { ProviderObject } from '../../damsel/domain';
+import { findTerminalIds } from './find-terminal-ids';
 
 @Component({
     templateUrl: 'shop.component.html',
@@ -38,11 +39,7 @@ export class ShopComponent implements OnInit {
             this.providers = providers.filter(provider => {
                 const decisions = provider.data.terminal.decisions;
                 return decisions
-                    ? decisions.filter(
-                          decision =>
-                              decision.if_.condition.party.definition.shopIs === shop.id ||
-                              decision.if_.condition.party.id === this.partyID
-                      ).length > 0
+                    ? findTerminalIds(decisions, this.shopID, this.partyID).length > 0
                     : false;
             });
         });
