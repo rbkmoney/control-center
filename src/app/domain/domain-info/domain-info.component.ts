@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 
 import { DomainDetailsService } from './domain-details.service';
 import { DetailsContainerService } from './details-container.service';
-import { DomainService } from '../domain.service';
+import { DomainInfoService } from './domain-info.service';
 
 @Component({
     templateUrl: './domain-info.component.html',
     styleUrls: ['../../shared/container.css', './domain-info.component.scss'],
-    providers: [DomainDetailsService, DetailsContainerService]
+    providers: [DomainInfoService, DomainDetailsService, DetailsContainerService]
 })
 export class DomainInfoComponent implements OnInit {
     initialized = false;
@@ -19,10 +19,10 @@ export class DomainInfoComponent implements OnInit {
     private detailedObjRef: any;
 
     constructor(
-        private domainService: DomainService,
         private snackBar: MatSnackBar,
         private detailsService: DomainDetailsService,
         private detailsContainerService: DetailsContainerService,
+        private domainInfoService: DomainInfoService,
         private router: Router
     ) {}
 
@@ -45,7 +45,7 @@ export class DomainInfoComponent implements OnInit {
 
     private initialize() {
         this.isLoading = true;
-        this.domainService.initialize().subscribe(
+        this.domainInfoService.initialize().subscribe(
             () => {
                 this.isLoading = false;
                 this.initialized = true;

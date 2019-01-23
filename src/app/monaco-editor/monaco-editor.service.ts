@@ -24,10 +24,6 @@ export class MonacoEditorService {
                 this.editor = monaco.editor.create(nativeElement, {
                     ...options
                 });
-                this.editor.onDidChangeModel((e: monaco.editor.IModelChangedEvent) => {
-                    const model = this.editor.getModel();
-                    console.log(model);
-                });
                 if (this.file) {
                     this.open(this.file);
                 }
