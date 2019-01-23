@@ -3,7 +3,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 
 import { group } from './group-domain-objects';
 import { DomainGroup } from './domain-group';
-import { DomainService } from '../domain.service';
+import { DomainService } from '../../domain.service';
 
 @Injectable()
 export class DomainGroupService {

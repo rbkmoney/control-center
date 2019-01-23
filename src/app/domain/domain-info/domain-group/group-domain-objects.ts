@@ -1,7 +1,7 @@
-import { DomainObject, Domain } from '../../gen-damsel/domain';
+import { AstDefenition } from '../../metadata-loader';
+import { clearNullFields } from '../../../shared/thrift-utils';
 import { DomainGroup } from './domain-group';
-import { clearNullFields } from '../../shared/thrift-utils';
-import { AstDefenition } from '../metadata-loader';
+import { Domain } from '../../../gen-damsel/domain';
 
 function getTypeDef(domainObjDef: AstDefenition[]) {
     return domainObjDef.reduce(

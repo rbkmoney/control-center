@@ -1,5 +1,5 @@
-import { DomainGroup, DomainPair } from '../domain-group';
-import { toJson } from '../../../shared/thrift-json-converter';
+import { DomainGroup } from '../domain-group';
+import { toJson } from '../../../../shared/thrift-json-converter';
 import { TableGroup, TableDataSource } from './model';
 
 function shorten(str: string, limit = 150): string {

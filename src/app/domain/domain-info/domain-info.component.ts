@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSnackBar, MatSidenav } from '@angular/material';
+import { MatSidenav, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { DomainService } from './domain.service';
 import { DomainDetailsService } from './domain-details.service';
 import { DetailsContainerService } from './details-container.service';
+import { DomainService } from '../domain.service';
 
 @Component({
-    templateUrl: './domain.component.html',
-    styleUrls: ['../shared/container.css', './domain.component.scss'],
+    templateUrl: './domain-info.component.html',
+    styleUrls: ['../../shared/container.css', './domain-info.component.scss'],
     providers: [DomainDetailsService, DetailsContainerService]
 })
-export class DomainComponent implements OnInit {
+export class DomainInfoComponent implements OnInit {
     initialized = false;
     isLoading: boolean;
     @ViewChild('domainObjDetails') detailsContainer: MatSidenav;

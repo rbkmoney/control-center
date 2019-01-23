@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DomainDetailsService } from '../domain-details.service';
-import { MonacoFile, MonacoEditorOptions } from '../../monaco-editor';
+import { MonacoFile, MonacoEditorOptions } from '../../../monaco-editor';
 
 @Component({
     selector: 'cc-domain-obj-details',
