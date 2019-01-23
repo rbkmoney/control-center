@@ -20,7 +20,7 @@ export class PartyService {
                     this.party = party;
                     observer.next(party);
                     observer.complete();
-                });
+                }, (err) => observer.error(err));
             }
         });
     }
@@ -29,7 +29,7 @@ export class PartyService {
         return Observable.create(observer => {
             this.getParty(partyID).subscribe(party => {
                 observer.next(Array.from(party.shops.values()));
-            });
+            }, (err) => observer.error(err));
         });
     }
 
@@ -37,7 +37,7 @@ export class PartyService {
         return Observable.create(observer => {
             this.getParty(partyID).subscribe(party => {
                 observer.next(Array.from(party.shops.values()).find(shop => shop.id === shopID));
-            });
+            }, (err) => observer.error(err));
         });
     }
 }
