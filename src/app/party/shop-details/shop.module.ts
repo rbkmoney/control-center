@@ -8,7 +8,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { ShopRoutingModule } from './shop-routing.module';
 import { ShopBlockingPipe } from './shop-details/shop-blocking.pipe';
 import { ShopSuspensionPipe } from './shop-details/shop-suspension.pipe';
 import { ShopComponent } from './shop.component';
@@ -19,7 +18,6 @@ import { TerminalComponent } from './providers/provider/terminal/terminal.compon
 
 @NgModule({
     imports: [
-        ShopRoutingModule,
         MatExpansionModule,
         MatListModule,
         MatCardModule,

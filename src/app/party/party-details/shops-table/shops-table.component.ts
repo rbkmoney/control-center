@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, ViewChild, SimpleChanges } from '@angular/
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Shop } from '../../gen-damsel/domain';
+import { Shop } from '../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-shops-table',

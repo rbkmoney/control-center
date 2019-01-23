@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 
 import { Party, Shop } from '../gen-damsel/domain';
 import { PartyService as PapiPartyService } from '../papi/party.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PartyService {
     private party: Party;
 
-    constructor(private papiPartyService: PapiPartyService) {}
+    constructor(private papiPartyService: PapiPartyService) {
+    }
 
     getParty(partyID: string): Observable<Party> {
         return Observable.create(observer => {
@@ -26,18 +28,16 @@ export class PartyService {
     }
 
     getShops(partyID: string): Observable<Shop[]> {
-        return Observable.create(observer => {
-            this.getParty(partyID).subscribe(party => {
-                observer.next(Array.from(party.shops.values()));
-            }, (err) => observer.error(err));
-        });
+        return this.getParty(partyID)
+                   .pipe(
+                       map((party) => Array.from(party.shops.values()))
+                   );
     }
 
     getShop(partyID: string, shopID: string): Observable<Shop> {
-        return Observable.create(observer => {
-            this.getParty(partyID).subscribe(party => {
-                observer.next(Array.from(party.shops.values()).find(shop => shop.id === shopID));
-            }, (err) => observer.error(err));
-        });
+        return this.getParty(partyID)
+                   .pipe(
+                       map((party) => Array.from(party.shops.values()).find(shop => shop.id === shopID))
+                   );
     }
 }
