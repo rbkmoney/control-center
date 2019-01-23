@@ -5,9 +5,9 @@
             <mat-card-content> <cc-shop-details [shop]="shop"></cc-shop-details> </mat-card-content>
         </mat-card>
         <h4 class="mat-h4 mat-subheading-1">Providers</h4>
-        <div fxLayout="column" fxLayoutAlign="center stretch">
+        <div fxLayout="column" fxLayoutAlign="center center">
             <mat-spinner *ngIf="!providers"></mat-spinner>
-            <div *ngIf="providers">
+            <div *ngIf="providers" fxLayout="column" fxFlexAlign="stretch">
                 <h4 class="mat-h4 mat-subheading-1" *ngIf="providers.length === 0">No providers</h4>
                 <cc-providers *ngIf="providers.length > 0" [providers]="providers"></cc-providers>
             </div>
