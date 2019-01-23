@@ -9,7 +9,6 @@ import { PartyService } from '../party.service';
     templateUrl: 'party-details.component.html'
 })
 export class PartyDetailsComponent implements OnInit {
-
     party$: Observable<Party>;
     shops$: Observable<Shop[]>;
 
@@ -18,10 +17,7 @@ export class PartyDetailsComponent implements OnInit {
 
     private partyID: string;
 
-    constructor(
-        private partyService: PartyService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private partyService: PartyService, private route: ActivatedRoute) {
         this.route.params.subscribe(params => {
             this.partyID = params['partyId'];
         });

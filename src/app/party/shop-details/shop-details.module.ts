@@ -8,13 +8,13 @@ import {
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { ShopBlockingPipe } from './shop-details/shop-blocking.pipe';
-import { ShopSuspensionPipe } from './shop-details/shop-suspension.pipe';
-import { ShopComponent } from './shop.component';
-import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { ProvidersComponent } from './providers/providers.component';
 import { ProviderComponent } from './providers/provider/provider.component';
 import { TerminalComponent } from './providers/provider/terminal/terminal.component';
+import { ShopBlockingPipe } from './shop-info/shop-blocking.pipe';
+import { ShopSuspensionPipe } from './shop-info/shop-suspension.pipe';
+import { ShopInfo } from './shop-info/shop-info.component';
+import { ShopDetailsComponent } from './shop-details.component';
 
 @NgModule({
     imports: [
@@ -26,13 +26,13 @@ import { TerminalComponent } from './providers/provider/terminal/terminal.compon
         FlexLayoutModule
     ],
     declarations: [
+        ShopDetailsComponent,
         ShopBlockingPipe,
         ShopSuspensionPipe,
-        ShopComponent,
-        ShopDetailsComponent,
+        ShopInfo,
         ProvidersComponent,
         ProviderComponent,
         TerminalComponent
     ]
 })
-export class ShopModule {}
+export class ShopDetailsModule {}

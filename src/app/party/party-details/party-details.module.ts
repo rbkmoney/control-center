@@ -15,11 +15,16 @@ import { PartyDetailsComponent } from './party-details.component';
 import { ShopsTableComponent } from './shops-table/shops-table.component';
 
 @NgModule({
-    imports: [CommonModule, FlexLayoutModule, MatProgressSpinnerModule, MatCardModule, MatButtonModule,
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatButtonModule,
         MatTableModule,
         MatPaginatorModule,
         MatFormFieldModule,
-        MatInputModule,
+        MatInputModule
     ],
     declarations: [PartyDetailsComponent, ShopsTableComponent]
 })

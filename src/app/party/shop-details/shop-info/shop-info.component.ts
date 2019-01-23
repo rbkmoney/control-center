@@ -4,8 +4,8 @@ import { Shop } from '../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-shop-details',
-    templateUrl: 'shop-details.component.html'
+    templateUrl: 'shop-info.component.html'
 })
-export class ShopDetailsComponent {
+export class ShopInfo {
     @Input() shop: Shop;
 }

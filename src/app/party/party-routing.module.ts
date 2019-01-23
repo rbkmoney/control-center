@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { ShopComponent } from './shop-details/shop.component';
+import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
 import { PartyDetailsComponent } from './party-details/party-details.component';
 
@@ -18,7 +18,7 @@ import { PartyDetailsComponent } from './party-details/party-details.component';
             },
             {
                 path: 'party/:partyId/shop/:shopId',
-                component: ShopComponent,
+                component: ShopDetailsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['party:get']

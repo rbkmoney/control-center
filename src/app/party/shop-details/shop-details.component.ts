@@ -9,10 +9,10 @@ import { ProviderObject } from '../../damsel/domain';
 import { findTerminalIds } from './find-terminal-ids';
 
 @Component({
-    templateUrl: 'shop.component.html',
+    templateUrl: 'shop-details-module.component.html',
     styleUrls: ['../../shared/container.css']
 })
-export class ShopComponent implements OnInit {
+export class ShopDetailsComponent implements OnInit {
     shop: Shop;
     providers: ProviderObject[];
 

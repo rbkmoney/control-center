@@ -10,7 +10,6 @@ import { findTerminalIds } from '../../find-terminal-ids';
     styleUrls: ['provider.component.scss']
 })
 export class ProviderComponent implements OnInit {
-
     terminalIDs: number[];
 
     private shopID: string;
@@ -19,13 +18,17 @@ export class ProviderComponent implements OnInit {
     @Input() provider: ProviderObject;
 
     constructor(private route: ActivatedRoute) {
-        this.route.params.subscribe((params) => {
+        this.route.params.subscribe(params => {
             this.shopID = params['shopId'];
             this.partyID = params['partyId'];
         });
     }
 
     ngOnInit(): void {
-        this.terminalIDs = findTerminalIds(this.provider.data.terminal.decisions, this.shopID, this.partyID);
+        this.terminalIDs = findTerminalIds(
+            this.provider.data.terminal.decisions,
+            this.shopID,
+            this.partyID
+        );
     }
 }

@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { PartyService } from './party.service';
 import { PartyDetailsModule } from './party-details/party-details.module';
-import { ShopModule } from './shop-details/shop.module';
+import { ShopDetailsModule } from './shop-details/shop-details.module';
 import { PartyRoutingModule } from './party-routing.module';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { PartyRoutingModule } from './party-routing.module';
         CommonModule,
         FlexLayoutModule,
         PartyDetailsModule,
-        ShopModule
+        ShopDetailsModule
     ],
     providers: [PartyService]
 })
