@@ -34,8 +34,8 @@ export class PartyService {
     }
 
     getShop(partyID: string, shopID: string): Observable<Shop> {
-        return this.getParty(partyID).pipe(
-            map(party => Array.from(party.shops.values()).find(shop => shop.id === shopID))
+        return this.getShops(partyID).pipe(
+            map(shops => shops.find(shop => shop.id === shopID))
         );
     }
 }
