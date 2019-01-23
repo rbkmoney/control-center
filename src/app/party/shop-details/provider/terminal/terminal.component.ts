@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TerminalObject } from '../../../../../damsel/domain';
-import { DomainTypedManager } from '../../../../../thrift/domain-typed-manager';
+import { TerminalObject } from '../../../../damsel/domain';
+import { DomainTypedManager } from '../../../../thrift/domain-typed-manager';
 
 @Component({
     selector: 'cc-terminal',

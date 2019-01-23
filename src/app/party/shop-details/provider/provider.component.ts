@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ProviderObject } from '../../../../damsel/domain';
-import { findTerminalIds } from '../../find-terminal-ids';
+import { ProviderObject } from '../../../damsel/domain';
+import { findTerminalIds } from '../find-terminal-ids';
 
 @Component({
     selector: 'cc-provider',
