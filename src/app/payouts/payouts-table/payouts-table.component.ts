@@ -42,7 +42,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         'amount',
         'period',
         'status',
-        'createdAt',
+        'type',
         'payoutDetailButton'
     ];
 

@@ -1,8 +1,7 @@
 <cc-form-wrapper name="Wallet Info">
     <form [formGroup]="form" fxLayout="column">
         <mat-form-field>
-            <input matInput placeholder="Wallet ID" formControlName="walletID" />
+            <input matInput placeholder="Wallet ID" formControlName="walletID" required />
         </mat-form-field>
-        <div><button (click)="generate()" mat-stroked-button>GENERATE NEW VALUE</button></div>
     </form>
 </cc-form-wrapper>

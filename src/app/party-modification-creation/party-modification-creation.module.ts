@@ -78,6 +78,7 @@ import { WalletInfoComponent } from './contract/payout-tool-info/wallet-info/wal
         CurrencyRefComponent,
         PayoutToolInfoComponent,
         RussianBankAccountComponent,
+        WalletInfoComponent,
         InternationalBankAccountComponent,
         InternationalBankDetailsComponent,
         WalletInfoComponent,
