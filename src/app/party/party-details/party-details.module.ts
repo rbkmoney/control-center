@@ -13,6 +13,7 @@ import {
 
 import { PartyDetailsComponent } from './party-details.component';
 import { ShopsTableComponent } from './shops-table/shops-table.component';
+import { PartyInfoComponent } from './party-info/party-info.component';
 
 @NgModule({
     imports: [
@@ -26,6 +27,6 @@ import { ShopsTableComponent } from './shops-table/shops-table.component';
         MatFormFieldModule,
         MatInputModule
     ],
-    declarations: [PartyDetailsComponent, ShopsTableComponent]
+    declarations: [PartyDetailsComponent, ShopsTableComponent, PartyInfoComponent]
 })
 export class PartyDetailsModule {}

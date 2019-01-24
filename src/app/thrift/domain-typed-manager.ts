@@ -62,10 +62,7 @@ export class DomainTypedManager {
 
     getProviderObjects(): Observable<ProviderObject[]> {
         return this.getDomain().pipe(
-            map(domain => {
-                console.log(domain);
-                return findProviderObjects(domain);
-            })
+            map(domain => findProviderObjects(domain))
         );
     }
 
