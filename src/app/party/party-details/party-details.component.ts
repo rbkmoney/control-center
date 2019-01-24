@@ -6,7 +6,8 @@ import { Party, Shop } from '../../gen-damsel/domain';
 import { PartyService } from '../party.service';
 
 @Component({
-    templateUrl: 'party-details.component.html'
+    templateUrl: 'party-details.component.html',
+    styleUrls: ['../../shared/container.css']
 })
 export class PartyDetailsComponent implements OnInit {
     party$: Observable<Party>;
