@@ -48,22 +48,22 @@ export class DomainTypedManager {
     private domain: Domain;
 
     constructor(private dmtService: DomainService) {
-
     }
 
     private getDomain(): Observable<Domain> {
-        return Observable.create((observer) => {
+        return Observable.create(observer => {
             if (this.domain) {
                 observer.next(this.domain);
                 observer.complete();
             } else {
-                observer.next(this.dmtService
-                                  .checkout(toGenReference())
-                                  .pipe(
-                                      tap(snapshot => this.domain = snapshot.domain),
-                                      map(snapshot => snapshot.domain)
-                                  ));
-                observer.complete();
+                this.dmtService
+                    .checkout(toGenReference())
+                    .pipe(map(snapshot => snapshot.domain))
+                    .subscribe(domain => {
+                        this.domain = domain;
+                        observer.next(domain);
+                        observer.complete();
+                    });
             }
         });
     }
@@ -80,7 +80,12 @@ export class DomainTypedManager {
     }
 
     getProviderObjects(): Observable<ProviderObject[]> {
-        return this.getDomain().pipe(map(domain => findProviderObjects(domain)));
+        return this.getDomain().pipe(
+            map(domain => {
+                console.log(domain);
+                return findProviderObjects(domain);
+            })
+        );
     }
 
     getProviderObjectsWithSelector(filter: 'decisions' | 'value'): Observable<ProviderObject[]> {
@@ -123,11 +128,10 @@ export class DomainTypedManager {
     }
 
     getLastVersion(): Observable<any> {
-        return this.dmtService.checkout(toGenReference())
-                   .pipe(
-                       tap(snapshot => this.domain = snapshot.domain),
-                       map(snapshot => snapshot.version)
-                   );
+        return this.dmtService.checkout(toGenReference()).pipe(
+            tap(snapshot => (this.domain = snapshot.domain)),
+            map(snapshot => snapshot.version)
+        );
     }
 
     getPaymentInstitutions(): Observable<PaymentInstitutionObject[]> {
