@@ -14,7 +14,6 @@ import { ShopBlockingPipe } from './shop-info/shop-blocking.pipe';
 import { ShopSuspensionPipe } from './shop-info/shop-suspension.pipe';
 import { ShopInfo } from './shop-info/shop-info.component';
 import { ShopDetailsComponent } from './shop-details.component';
-import { ShopDetailsService } from './shop-details.service';
 
 @NgModule({
     imports: [
@@ -32,7 +31,6 @@ import { ShopDetailsService } from './shop-details.service';
         ShopInfo,
         ProviderComponent,
         TerminalComponent
-    ],
-    providers: [ShopDetailsService]
+    ]
 })
 export class ShopDetailsModule {}
