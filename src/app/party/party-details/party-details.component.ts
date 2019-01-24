@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
 
 import { Party, Shop } from '../../gen-damsel/domain';
 import { PartyService } from '../party.service';
@@ -10,8 +10,9 @@ import { PartyService } from '../party.service';
     styleUrls: ['../../shared/container.css']
 })
 export class PartyDetailsComponent implements OnInit {
-    party$: Observable<Party>;
-    shops$: Observable<Shop[]>;
+    party$: Subject<Party> = new Subject();
+    shops$: Subject<Shop[]> = new Subject();
+    isLoading = false;
 
     private partyID: string;
 
@@ -22,7 +23,14 @@ export class PartyDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.party$ = this.partyService.getParty(this.partyID);
-        this.shops$ = this.partyService.getShops(this.partyID);
+        this.isLoading = true;
+        combineLatest(
+            this.partyService.getParty(this.partyID),
+            this.partyService.getShops(this.partyID)
+        ).subscribe(([party, shops]) => {
+            this.isLoading = false;
+            this.party$.next(party);
+            this.shops$.next(shops);
+        });
     }
 }
