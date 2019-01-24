@@ -16,6 +16,7 @@ import { createShopTerminal } from '../claim/domain-typed-manager/create-shop-te
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
 import { CheckoutCacheService } from './checkout-cache.service';
+import { filter } from 'rxjs/operators';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -52,7 +53,10 @@ export class DomainTypedManager {
         private dmtService: DomainService,
         private checkoutCacheService: CheckoutCacheService
     ) {
-        this.domain = this.checkoutCacheService.checkout().pipe(map(s => s.domain));
+        this.domain = this.checkoutCacheService.checkout().pipe(
+            filter(s => s !== null),
+            map(s => s.domain)
+        );
     }
 
     getBusinessScheduleObjects(): Observable<BusinessScheduleObject[]> {
