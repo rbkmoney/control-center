@@ -47,26 +47,7 @@ const filterByTerminalSelector = (
 export class DomainTypedManager {
     private domain: Domain;
 
-    constructor(private dmtService: DomainService) {
-    }
-
-    private getDomain(): Observable<Domain> {
-        return Observable.create(observer => {
-            if (this.domain) {
-                observer.next(this.domain);
-                observer.complete();
-            } else {
-                this.dmtService
-                    .checkout(toGenReference())
-                    .pipe(map(snapshot => snapshot.domain))
-                    .subscribe(domain => {
-                        this.domain = domain;
-                        observer.next(domain);
-                        observer.complete();
-                    });
-            }
-        });
-    }
+    constructor(private dmtService: DomainService) {}
 
     getBusinessScheduleObjects(): Observable<BusinessScheduleObject[]> {
         return this.getDomain().pipe(map(domain => findBusinessScheduleObjects(domain)));
@@ -136,5 +117,19 @@ export class DomainTypedManager {
 
     getPaymentInstitutions(): Observable<PaymentInstitutionObject[]> {
         return this.getDomain().pipe(map(domain => findPaymentInstitutions(domain)));
+    }
+
+    private getDomain(): Observable<Domain> {
+        if (this.domain) {
+            return Observable.create(observer => {
+                observer.next(this.domain);
+                observer.complete();
+            });
+        } else {
+            return this.dmtService.checkout(toGenReference()).pipe(
+                map(snapshot => snapshot.domain),
+                tap(domain => (this.domain = domain))
+            );
+        }
     }
 }
