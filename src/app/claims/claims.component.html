@@ -1,9 +1,7 @@
 <div class="container">
     <div class="card-container" fxLayout="column" fxLayoutGap="20px">
         <mat-card>
-            <mat-card-subtitle>
-                Search claims
-            </mat-card-subtitle>
+            <mat-card-subtitle> Search claims </mat-card-subtitle>
             <mat-card-content>
                 <cc-search-form (valueChanges)="search($event)"></cc-search-form>
             </mat-card-content>
@@ -17,8 +15,6 @@
                 <cc-claim-actions></cc-claim-actions>
             </mat-card-content>
         </mat-card>
-        <div class="mat-elevation-z2">
-            <cc-claims-table [claims]="claims"></cc-claims-table>
-        </div>
+        <div class="mat-elevation-z2"><cc-claims-table [claims]="claims"></cc-claims-table></div>
     </div>
 </div>

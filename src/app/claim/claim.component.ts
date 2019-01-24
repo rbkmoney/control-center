@@ -9,17 +9,17 @@ import { ClaimService } from './claim.service';
     styleUrls: ['../shared/container.css']
 })
 export class ClaimComponent {
-
-    constructor(private route: ActivatedRoute,
-                private claimService: ClaimService,
-                private snackBar: MatSnackBar) {
-        this.route.params.subscribe((params) => {
-            const {action, partyId, claimId} = params;
-            this.claimService.resolveClaimInfo(action, partyId, claimId)
-                .subscribe(null, (error) => {
-                    console.error(error);
-                    this.snackBar.open('An error occurred while claim resolving', 'OK');
-                });
+    constructor(
+        private route: ActivatedRoute,
+        private claimService: ClaimService,
+        private snackBar: MatSnackBar
+    ) {
+        this.route.params.subscribe(params => {
+            const { action, partyId, claimId } = params;
+            this.claimService.resolveClaimInfo(action, partyId, claimId).subscribe(null, error => {
+                console.error(error);
+                this.snackBar.open('An error occurred while claim resolving', 'OK');
+            });
         });
     }
 }

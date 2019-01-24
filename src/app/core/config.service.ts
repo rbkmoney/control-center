@@ -7,20 +7,16 @@ export interface AppConfig {
 
 @Injectable()
 export class ConfigService {
-
     config: AppConfig;
 
     constructor(private http: HttpClient) {}
 
     load() {
-        return new Promise((resolve) => {
-            this.http
-                .get<AppConfig>('assets/appConfig.json')
-                .subscribe((config) => {
-                    this.config = config;
-                    resolve();
-                });
+        return new Promise(resolve => {
+            this.http.get<AppConfig>('assets/appConfig.json').subscribe(config => {
+                this.config = config;
+                resolve();
+            });
         });
-
     }
 }

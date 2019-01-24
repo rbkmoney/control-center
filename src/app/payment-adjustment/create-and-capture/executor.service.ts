@@ -29,7 +29,6 @@ export interface ExecErrorResult extends ExecResult {
 
 @Injectable()
 export class ExecutorService {
-
     progress$: Subject<number> = new Subject();
 
     exec(containers: ExecContainer[], execCount = 4): Observable<ExecResult[]> {
@@ -37,36 +36,44 @@ export class ExecutorService {
         this.updateProgress(containers.length, 0);
         const executor = (results: ExecResult[] = []) => {
             const container = containerQueue.pop();
-            this.updateProgress(containers.length, containers.length - containerQueue.length - execCount);
+            this.updateProgress(
+                containers.length,
+                containers.length - containerQueue.length - execCount
+            );
             if (container) {
-                const {fn, context, params} = container;
-                const args = Object.entries(params).map((e) => e.length > 0 ? e[1] : null);
+                const { fn, context, params } = container;
+                const args = Object.entries(params).map(e => (e.length > 0 ? e[1] : null));
                 return fn.apply(context, args).pipe(
-                    catchError((exception) => of({
-                        type: ExecResultType.error,
-                        container,
-                        exception
-                    })),
+                    catchError(exception =>
+                        of({
+                            type: ExecResultType.error,
+                            container,
+                            exception
+                        })
+                    ),
                     switchMap((nextRes: any) => {
                         if (nextRes && nextRes.type === ExecResultType.error) {
                             return executor([...results, nextRes]);
                         }
-                        return executor([...results, {
-                            type: ExecResultType.success,
-                            container,
-                            data: nextRes
-                        } as ExecSuccessResult]);
+                        return executor([
+                            ...results,
+                            {
+                                type: ExecResultType.success,
+                                container,
+                                data: nextRes
+                            } as ExecSuccessResult
+                        ]);
                     })
                 );
             }
             return of(results);
         };
         const execs = new Array(execCount).fill([]).map(executor);
-        return forkJoin(execs).pipe(map((res) => flatten(res)));
+        return forkJoin(execs).pipe(map(res => flatten(res)));
     }
 
     private updateProgress(length: number, value: number) {
-        const result = Math.min(Math.max(Math.round(value / length * 100), 0), 100);
+        const result = Math.min(Math.max(Math.round((value / length) * 100), 0), 100);
         this.progress$.next(result);
     }
 }

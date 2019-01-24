@@ -11,7 +11,6 @@ enum Type {
     templateUrl: 'representative-document.component.html'
 })
 export class RepresentativeDocumentComponent {
-
     @Input()
     form: FormGroup;
 
@@ -21,8 +20,7 @@ export class RepresentativeDocumentComponent {
 
     t = Type;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     select() {
         switch (this.selected) {

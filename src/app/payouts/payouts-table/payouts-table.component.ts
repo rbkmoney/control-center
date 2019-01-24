@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 import { KeycloakService } from 'keycloak-angular';
@@ -12,7 +21,6 @@ import { CancelPayoutComponent } from '../cancel-payout/cancel-payout.component'
     styleUrls: ['./payouts-table.component.css']
 })
 export class PayoutsTableComponent implements OnInit, OnChanges {
-
     @Output()
     valueChanges: EventEmitter<Payout[]> = new EventEmitter();
 
@@ -38,12 +46,10 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         'payoutDetailButton'
     ];
 
-    constructor(private matDialog: MatDialog,
-                private keycloakService: KeycloakService) {
-    }
+    constructor(private matDialog: MatDialog, private keycloakService: KeycloakService) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        const {payouts} = changes;
+        const { payouts } = changes;
         if (payouts && payouts.currentValue) {
             this.selection.clear();
             this.dataSource.data = payouts.currentValue;
@@ -52,7 +58,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.roles = this.keycloakService.getUserRoles();
-        this.selection.changed.subscribe((e) => this.valueChanges.emit(e.source.selected));
+        this.selection.changed.subscribe(e => this.valueChanges.emit(e.source.selected));
         this.dataSource.paginator = this.paginator;
     }
 
@@ -61,9 +67,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     }
 
     masterToggle() {
-        this.isAllSelected() ?
-            this.selection.clear() :
-            this.selection.select(...this.payouts);
+        this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.payouts);
     }
 
     cancelPayout(id: string) {

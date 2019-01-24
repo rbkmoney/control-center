@@ -9,7 +9,6 @@ type Exception<N = string, T = {}> = {
 } & T;
 
 export class ThriftService {
-
     protected endpoint: string;
     protected service: any;
 
@@ -19,11 +18,11 @@ export class ThriftService {
     }
 
     protected toObservableAction<T extends (...A: any[]) => Observable<any>>(name: string): T {
-        return (
-            (...args) => Observable.create((observer) => {
+        return ((...args) =>
+            Observable.create(observer => {
                 this.zone.run(() => {
                     try {
-                        this.createClient((msg) => {
+                        this.createClient(msg => {
                             observer.error(msg);
                             observer.complete();
                         })[name](...args, (ex: Exception, result) => {
@@ -35,13 +34,16 @@ export class ThriftService {
                         observer.complete();
                     }
                 });
-            }).pipe(
-                timeout(60000)
-            )
-        ) as any;
+            }).pipe(timeout(60000))) as any;
     }
 
     private createClient(errorCb: Function) {
-        return connectClient(location.hostname, location.port, this.endpoint, this.service, errorCb);
+        return connectClient(
+            location.hostname,
+            location.port,
+            this.endpoint,
+            this.service,
+            errorCb
+        );
     }
 }

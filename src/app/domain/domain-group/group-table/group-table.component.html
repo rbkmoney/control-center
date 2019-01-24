@@ -1,0 +1,40 @@
+<cc-group-control
+    [group]="group"
+    (typeSelectionChange)="setTableData($event)"
+    (regExpPatternChange)="applyFilter($event)"
+></cc-group-control>
+<div class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="name" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let object">{{ object.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="ref">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ref</th>
+            <td mat-cell *matCellDef="let object">
+                <cc-pretty-json inline="true" [object]="object.ref"></cc-pretty-json>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
+            <td mat-cell *matCellDef="let object">
+                <cc-pretty-json inline="true" [object]="object.data"></cc-pretty-json>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="details" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let object; let index = index">
+                <button mat-icon-button (click)="openDetails(object, index)">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="cols"></tr>
+        <tr
+            mat-row
+            *matRowDef="let object; columns: cols; let index = index"
+            [class.selected-row]="selectedIndex === index && detailsOpened"
+        ></tr>
+    </table>
+</div>
+<mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>

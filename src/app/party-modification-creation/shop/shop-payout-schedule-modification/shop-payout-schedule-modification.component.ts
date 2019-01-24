@@ -6,12 +6,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     templateUrl: 'shop-payout-schedule-modification.component.html'
 })
 export class ShopPayoutScheduleModificationComponent {
-
     @Input()
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     toggleCheckbox(e, data) {
         if (e.checked) {

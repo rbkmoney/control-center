@@ -10,31 +10,30 @@ import { ExecResultGroup } from './exec-result-group';
 
 @Injectable()
 export abstract class AdjustmentOperationService {
-
     events$: Subject<AdjustmentOperationEvent> = new Subject<AdjustmentOperationEvent>();
 
     progress$: Subject<number>;
 
     constructor(
         protected executorService: ExecutorService,
-        protected manager: PaymentProcessingService) {
+        protected manager: PaymentProcessingService
+    ) {
         this.progress$ = this.executorService.progress$;
     }
 
     batch(params: any[]): Observable<void> {
         const execParams = this.toExecParams(params);
-        this.events$.next({type: EventType.BatchOperationStarted});
-        return this.executorService.exec(execParams)
-            .pipe(
-                map((res) => groupBy(res, 'type')),
-                tap(this.handleExecResult.bind(this)),
-                tap(() => this.events$.next({type: EventType.BatchOperationFinished})),
-                map(() => null),
-                catchError((err) => {
-                    this.events$.next({type: EventType.BatchOperationFailed});
-                    return throwError(err);
-                })
-            );
+        this.events$.next({ type: EventType.BatchOperationStarted });
+        return this.executorService.exec(execParams).pipe(
+            map(res => groupBy(res, 'type')),
+            tap(this.handleExecResult.bind(this)),
+            tap(() => this.events$.next({ type: EventType.BatchOperationFinished })),
+            map(() => null),
+            catchError(err => {
+                this.events$.next({ type: EventType.BatchOperationFailed });
+                return throwError(err);
+            })
+        );
     }
 
     protected abstract toExecParams(params: any[]): any[];

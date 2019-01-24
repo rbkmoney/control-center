@@ -11,9 +11,8 @@ import { ExecResultGroup } from './exec-result-group';
 import { PaymentAdjustmentCancelParams } from './adjustment-params';
 
 export class CancelAdjustmentService extends AdjustmentOperationService {
-
     protected toExecParams(cancelParams: any[]): any[] {
-        return cancelParams.map((params) => ({
+        return cancelParams.map(params => ({
             fn: this.manager.cancelPaymentAdjustment,
             context: this.manager,
             params
@@ -21,12 +20,12 @@ export class CancelAdjustmentService extends AdjustmentOperationService {
     }
 
     protected handleExecResult(group: ExecResultGroup): void {
-        const {success, error} = group;
+        const { success, error } = group;
         if (success) {
             this.events$.next({
                 type: EventType.PaymentAdjustmentsCancelled,
                 operationType: ExecResultType.success,
-                payload: success.map(({container: {params}}) => params)
+                payload: success.map(({ container: { params } }) => params)
             } as AdjustmentOperationEvent<PaymentAdjustmentCancelParams>);
         }
         if (error) {
@@ -39,8 +38,11 @@ export class CancelAdjustmentService extends AdjustmentOperationService {
     }
 
     private toErrorPayload(result: ExecErrorResult[]): OperationFailedPayload[] {
-        return result.map((error) => {
-            const {exception, container: {params}} = error;
+        return result.map(error => {
+            const {
+                exception,
+                container: { params }
+            } = error;
             const errorCodes = [
                 'InvalidUser',
                 'InvoiceNotFound',
@@ -49,9 +51,7 @@ export class CancelAdjustmentService extends AdjustmentOperationService {
                 'InvalidPaymentAdjustmentStatus'
             ];
             return {
-                code: errorCodes.includes(exception.name)
-                    ? exception.name
-                    : 'InternalServer',
+                code: errorCodes.includes(exception.name) ? exception.name : 'InternalServer',
                 operationScope: params
             };
         });

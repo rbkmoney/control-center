@@ -1,4 +1,4 @@
-export const getSngbTemplateOptions = () => ([
+export const getSngbTemplateOptions = () => [
     {
         key: 'mpiEnable',
         value: 'true'
@@ -11,4 +11,4 @@ export const getSngbTemplateOptions = () => ([
         key: 'tran_portal_password',
         value: ''
     }
-]);
+];

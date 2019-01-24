@@ -14,23 +14,25 @@ interface Params {
 
 @Injectable()
 export class ReportService {
-
     private papiEndpoint: string;
 
-    constructor(
-        private http: HttpClient,
-        private configService: ConfigService
-    ) {
+    constructor(private http: HttpClient, private configService: ConfigService) {
         this.papiEndpoint = configService.config.papiEndpoint;
     }
 
     getInvoices(params: ReportSearchParams): Observable<Invoice[]> {
-        return this.http.get<{invoices: any[]}>(`${this.papiEndpoint}/mst/invoices`, {params: params as ReportSearchParams & Params})
-            .pipe(map((res) => decode(res.invoices)));
+        return this.http
+            .get<{ invoices: any[] }>(`${this.papiEndpoint}/mst/invoices`, {
+                params: params as ReportSearchParams & Params
+            })
+            .pipe(map(res => decode(res.invoices)));
     }
 
     getPayments(params: ReportSearchParams): Observable<Payment[]> {
-        return this.http.get<{payments: any[]}>(`${this.papiEndpoint}/mst/payments`, {params: params as ReportSearchParams & Params})
-            .pipe(map((res) => decode(res.payments)));
+        return this.http
+            .get<{ payments: any[] }>(`${this.papiEndpoint}/mst/payments`, {
+                params: params as ReportSearchParams & Params
+            })
+            .pipe(map(res => decode(res.payments)));
     }
 }

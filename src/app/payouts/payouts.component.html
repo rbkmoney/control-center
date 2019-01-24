@@ -1,20 +1,21 @@
 <div class="container">
     <div class="card-container" fxLayout="column" fxLayoutGap="20px">
         <mat-card>
-            <mat-card-subtitle>
-                Search payouts
-            </mat-card-subtitle>
+            <mat-card-subtitle> Search payouts </mat-card-subtitle>
             <mat-card-content>
                 <cc-payouts-search-form
-                        (valueChanges)="formValueChanges($event)"
-                        (statusChanges)="formStatusChanges($event)">
+                    (valueChanges)="formValueChanges($event)"
+                    (statusChanges)="formStatusChanges($event)"
+                >
                 </cc-payouts-search-form>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button
-                        color="primary"
-                        [disabled]="!formValid || isLoading"
-                        (click)="search()">
+                <button
+                    mat-button
+                    color="primary"
+                    [disabled]="!formValid || isLoading"
+                    (click)="search()"
+                >
                     SEARCH
                 </button>
             </mat-card-actions>
@@ -25,13 +26,18 @@
         <mat-card>
             <mat-card-subtitle>Payout actions</mat-card-subtitle>
             <mat-card-content fxLayout="row" fxLayoutGap="20px">
-                <cc-payouts-actions [selectedPayouts]="selectedPayouts" (doAction)="search()"></cc-payouts-actions>
+                <cc-payouts-actions
+                    [selectedPayouts]="selectedPayouts"
+                    (doAction)="search()"
+                ></cc-payouts-actions>
             </mat-card-content>
         </mat-card>
         <mat-card>
             <mat-card-content>
-                <cc-payouts-table [payouts]="payouts"
-                                  (valueChanges)="tableOnChange($event)"></cc-payouts-table>
+                <cc-payouts-table
+                    [payouts]="payouts"
+                    (valueChanges)="tableOnChange($event)"
+                ></cc-payouts-table>
             </mat-card-content>
         </mat-card>
     </div>

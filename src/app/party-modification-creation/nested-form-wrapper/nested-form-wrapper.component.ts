@@ -5,7 +5,6 @@ import { Component, Input } from '@angular/core';
     templateUrl: 'nested-form-wrapper.component.html'
 })
 export class NestedFormWrapperComponent {
-
     @Input()
     caption: string;
 }

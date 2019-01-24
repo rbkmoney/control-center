@@ -1,31 +1,37 @@
 <mat-card *ngIf="claimInfoContainer">
-    <mat-card-subtitle>
-        Claim details
-    </mat-card-subtitle>
+    <mat-card-subtitle> Claim details </mat-card-subtitle>
     <mat-card-content>
         <cc-claim-info-details [claimInfoContainer]="claimInfoContainer"></cc-claim-info-details>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between stretch">
         <div fxLayout="row" fxLayout.xs="column">
-            <button mat-button
-                    [disabled]="!addAvailable() || isLoading"
-                    (click)="add()">ADD MODIFICATION
+            <button mat-button [disabled]="!addAvailable() || isLoading" (click)="add()">
+                ADD MODIFICATION
             </button>
-            <button mat-button
-                    [disabled]="!hasUnsavedChanges() || isLoading"
-                    (click)="save()">SAVE MODIFICATIONS
+            <button mat-button [disabled]="!hasUnsavedChanges() || isLoading" (click)="save()">
+                SAVE MODIFICATIONS
             </button>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
-            <button mat-button
-                    color="primary"
-                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading"
-                    (click)="accept()">ACCEPT CLAIM
+            <button
+                mat-button
+                color="primary"
+                [disabled]="
+                    hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading
+                "
+                (click)="accept()"
+            >
+                ACCEPT CLAIM
             </button>
-            <button mat-button
-                    color="warn"
-                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading"
-                    (click)="deny()">DENY CLAIM
+            <button
+                mat-button
+                color="warn"
+                [disabled]="
+                    hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading
+                "
+                (click)="deny()"
+            >
+                DENY CLAIM
             </button>
         </div>
     </mat-card-actions>

@@ -11,7 +11,6 @@ import { DomainTypedManager } from '../../../claim/domain-typed-manager';
     templateUrl: 'business-schedule-selector.component.html'
 })
 export class BusinessScheduleSelectorComponent implements OnInit {
-
     @Output()
     idChange = new EventEmitter<number>();
 
@@ -21,18 +20,15 @@ export class BusinessScheduleSelectorComponent implements OnInit {
 
     hasError = false;
 
-    constructor(private domainManager: DomainTypedManager,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(private domainManager: DomainTypedManager, private snackBar: MatSnackBar) {}
 
     selectionChange(change: MatSelectChange) {
         this.idChange.emit(change.value);
     }
 
     ngOnInit() {
-        this.schedules$ = this.domainManager
-            .getBusinessScheduleObjects()
-            .pipe(tap(
+        this.schedules$ = this.domainManager.getBusinessScheduleObjects().pipe(
+            tap(
                 () => {
                     this.isLoading = false;
                 },
@@ -40,6 +36,8 @@ export class BusinessScheduleSelectorComponent implements OnInit {
                     this.isLoading = false;
                     this.hasError = true;
                     this.snackBar.open('An error occurred while business schedule receiving', 'OK');
-                }));
+                }
+            )
+        );
     }
 }

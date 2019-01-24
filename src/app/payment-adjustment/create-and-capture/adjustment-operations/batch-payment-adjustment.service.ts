@@ -14,7 +14,6 @@ import {
 
 @Injectable()
 export class BatchPaymentAdjustmentService {
-
     progress$: Subject<number> = new Subject<number>();
 
     events$: Subject<AdjustmentOperationEvent> = new Subject<AdjustmentOperationEvent>();
@@ -24,17 +23,24 @@ export class BatchPaymentAdjustmentService {
         private cancelAdjustmentService: CancelAdjustmentService,
         private captureAdjustmentService: CaptureAdjustmentService
     ) {
-        of(this.createAdjustmentService.events$, this.cancelAdjustmentService.events$, this.captureAdjustmentService.events$)
+        of(
+            this.createAdjustmentService.events$,
+            this.cancelAdjustmentService.events$,
+            this.captureAdjustmentService.events$
+        )
             .pipe(mergeAll<AdjustmentOperationEvent>())
-            .subscribe((event) => {
+            .subscribe(event => {
                 this.events$.next(event);
             });
-        of(this.createAdjustmentService.progress$, this.cancelAdjustmentService.progress$, this.captureAdjustmentService.progress$)
+        of(
+            this.createAdjustmentService.progress$,
+            this.cancelAdjustmentService.progress$,
+            this.captureAdjustmentService.progress$
+        )
             .pipe(mergeAll())
-            .subscribe((event) => {
+            .subscribe(event => {
                 this.progress$.next(event);
             });
-
     }
 
     create(params: PaymentAdjustmentCreationParams[]): Observable<void> {

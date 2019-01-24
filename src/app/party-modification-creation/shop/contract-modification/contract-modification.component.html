@@ -1,16 +1,8 @@
-<form [formGroup]="form"
-      fxLayout="column"
-      fxLayoutGap="5px">
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
     <mat-form-field fxFlex>
-        <input matInput
-               placeholder="Contract ID"
-               formControlName="contractId"
-               required>
+        <input matInput placeholder="Contract ID" formControlName="contractId" required />
     </mat-form-field>
     <mat-form-field fxFlex>
-        <input matInput
-               placeholder="Payout tool ID"
-               formControlName="payoutToolId"
-               required>
+        <input matInput placeholder="Payout tool ID" formControlName="payoutToolId" required />
     </mat-form-field>
 </form>

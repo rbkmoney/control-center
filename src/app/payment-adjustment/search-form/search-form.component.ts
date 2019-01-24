@@ -10,7 +10,6 @@ import { SearchFormParams } from './search-form-params';
     providers: [SearchFormService]
 })
 export class SearchFormComponent implements OnInit {
-
     @Output()
     valueChanges: EventEmitter<SearchFormParams> = new EventEmitter();
 
@@ -21,13 +20,14 @@ export class SearchFormComponent implements OnInit {
 
     statuses: string[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
 
-    constructor(private searchFormService: SearchFormService) {
-    }
+    constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        const {form, formValueToSearchParams} = this.searchFormService;
+        const { form, formValueToSearchParams } = this.searchFormService;
         this.form = form;
-        this.form.valueChanges.subscribe((value) => this.valueChanges.emit(formValueToSearchParams(value)));
-        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
+        this.form.valueChanges.subscribe(value =>
+            this.valueChanges.emit(formValueToSearchParams(value))
+        );
+        this.form.statusChanges.subscribe(status => this.statusChanges.emit(status));
     }
 }

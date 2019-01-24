@@ -4,4 +4,4 @@
 
     make wc_shell
 
-    make compile-thrift
+    make compile-damsel

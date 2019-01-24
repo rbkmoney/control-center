@@ -19,7 +19,6 @@ type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCreationSco
     templateUrl: 'create-actions.component.html'
 })
 export class CreateActionsComponent implements OnInit {
-
     @Input()
     isLoading = false;
 
@@ -30,15 +29,18 @@ export class CreateActionsComponent implements OnInit {
     failedInvoiceNotFound: FailedPayload[] = [];
     failedInvalidUser: FailedPayload[] = [];
 
-    constructor(private batchAdjustmentService: BatchPaymentAdjustmentService,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(
+        private batchAdjustmentService: BatchPaymentAdjustmentService,
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit() {
-        this.batchAdjustmentService.events$.subscribe((event) => {
+        this.batchAdjustmentService.events$.subscribe(event => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCreated:
-                    this.createResult = this.createResult.concat((event as AdjustmentOperationEvent<PaymentAdjustmentCreationScope>).payload);
+                    this.createResult = this.createResult.concat(
+                        (event as AdjustmentOperationEvent<PaymentAdjustmentCreationScope>).payload
+                    );
                     break;
                 case EventType.CreatePaymentAdjustmentFailed:
                     const infoGroup = groupBy<any>(event.payload, 'code');
@@ -49,10 +51,14 @@ export class CreateActionsComponent implements OnInit {
                                 this.failedPending = this.failedPending.concat(payloads);
                                 break;
                             case Codes.InvalidPaymentStatus:
-                                this.failedInvalidPaymentStatus = this.failedInvalidPaymentStatus.concat(payloads);
+                                this.failedInvalidPaymentStatus = this.failedInvalidPaymentStatus.concat(
+                                    payloads
+                                );
                                 break;
                             case Codes.InvoiceNotFound:
-                                this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(payloads);
+                                this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(
+                                    payloads
+                                );
                                 break;
                             case Codes.InvalidUser:
                                 this.failedInvalidUser = this.failedInvalidUser.concat(payloads);
@@ -68,26 +74,30 @@ export class CreateActionsComponent implements OnInit {
     }
 
     capture() {
-        const captureParams = this.createResult.map(({adjustmentId, creationParams}) => ({
+        const captureParams = this.createResult.map(({ adjustmentId, creationParams }) => ({
             user: creationParams.user,
             invoiceId: creationParams.invoiceId,
             paymentId: creationParams.paymentId,
             adjustmentId
         }));
         this.createResult = [];
-        this.batchAdjustmentService.capture(captureParams).subscribe(() => {
-        }, () => {
-            this.snackBar.open('An error occurred while adjustments capture');
-        });
+        this.batchAdjustmentService.capture(captureParams).subscribe(
+            () => {},
+            () => {
+                this.snackBar.open('An error occurred while adjustments capture');
+            }
+        );
     }
 
     cancelPending() {
-        const cancelParams = this.failedPending.map(({operationScope: {creationParams, adjustmentId}}) => ({
-            user: creationParams.user,
-            invoiceId: creationParams.invoiceId,
-            paymentId: creationParams.paymentId,
-            adjustmentId
-        }));
+        const cancelParams = this.failedPending.map(
+            ({ operationScope: { creationParams, adjustmentId } }) => ({
+                user: creationParams.user,
+                invoiceId: creationParams.invoiceId,
+                paymentId: creationParams.paymentId,
+                adjustmentId
+            })
+        );
         this.failedPending = [];
         this.batchAdjustmentService.cancel(cancelParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments cancel');
@@ -95,7 +105,7 @@ export class CreateActionsComponent implements OnInit {
     }
 
     retryFailedInternal() {
-        const createParams = this.failedInternal.map((item) => item.operationScope.creationParams);
+        const createParams = this.failedInternal.map(item => item.operationScope.creationParams);
         this.failedInternal = [];
         this.batchAdjustmentService.create(createParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments create');

@@ -13,7 +13,7 @@ const toGenVersion = (version: Version) => {
     return reference;
 };
 
-export const toGenReference = (reference: Reference = {head: {}}) => {
+export const toGenReference = (reference: Reference = { head: {} }) => {
     let result;
     if (reference.head) {
         result = toGenHead();

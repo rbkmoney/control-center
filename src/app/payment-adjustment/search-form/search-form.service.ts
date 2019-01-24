@@ -6,7 +6,6 @@ import { SearchFormParams } from './search-form-params';
 
 @Injectable()
 export class SearchFormService {
-
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -14,7 +13,7 @@ export class SearchFormService {
     }
 
     formValueToSearchParams(value: any): SearchFormParams {
-        const {fromTime, toTime} = value;
+        const { fromTime, toTime } = value;
         return {
             ...value,
             fromTime: fromTime.startOf('day').toISOString(),

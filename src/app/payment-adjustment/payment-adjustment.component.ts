@@ -12,7 +12,6 @@ import { SearchFormParams } from './search-form/search-form-params';
     styleUrls: ['../shared/container.css']
 })
 export class PaymentAdjustmentComponent implements OnInit {
-
     isLoading = false;
 
     payments: StatPayment[] = [];
@@ -27,11 +26,10 @@ export class PaymentAdjustmentComponent implements OnInit {
         private dialogRef: MatDialog,
         private paymentAdjustmentService: PaymentAdjustmentService,
         private snackBar: MatSnackBar
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
-        this.paymentAdjustmentService.searchPaymentChanges$.subscribe((payments) => {
+        this.paymentAdjustmentService.searchPaymentChanges$.subscribe(payments => {
             this.payments = payments;
         });
     }
@@ -60,13 +58,16 @@ export class PaymentAdjustmentComponent implements OnInit {
         this.payments = [];
         this.selectedPayments = [];
         this.isLoading = true;
-        this.paymentAdjustmentService.fetchPayments(this.searchParams).subscribe(() => {
-            this.selectedPayments = [];
-            this.isLoading = false;
-        }, (e) => {
-            this.snackBar.open(`${e.message || 'Error'}`, 'OK');
-            this.isLoading = false;
-            console.error(e);
-        });
+        this.paymentAdjustmentService.fetchPayments(this.searchParams).subscribe(
+            () => {
+                this.selectedPayments = [];
+                this.isLoading = false;
+            },
+            e => {
+                this.snackBar.open(`${e.message || 'Error'}`, 'OK');
+                this.isLoading = false;
+                console.error(e);
+            }
+        );
     }
 }

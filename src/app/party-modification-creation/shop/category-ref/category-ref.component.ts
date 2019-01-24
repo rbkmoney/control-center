@@ -13,7 +13,6 @@ import { CategoryService } from '../../../papi/category.service';
     templateUrl: 'category-ref.component.html'
 })
 export class CategoryRefComponent implements OnInit {
-
     @Input()
     form: FormGroup;
 
@@ -24,27 +23,35 @@ export class CategoryRefComponent implements OnInit {
 
     isLoading = true;
 
-    constructor(private categoryService: CategoryService,
-                private fb: FormBuilder,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(
+        private categoryService: CategoryService,
+        private fb: FormBuilder,
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit() {
-        this.form.registerControl('id', this.fb.control({
-            value: '',
-            disabled: true
-        }, this.required ? Validators.required : null));
-        this.categories$ = this.categoryService
-            .getCategories()
-            .pipe(
-                map((categories) => sortBy(categories, 'id')),
-                tap(() => {
+        this.form.registerControl(
+            'id',
+            this.fb.control(
+                {
+                    value: '',
+                    disabled: true
+                },
+                this.required ? Validators.required : null
+            )
+        );
+        this.categories$ = this.categoryService.getCategories().pipe(
+            map(categories => sortBy(categories, 'id')),
+            tap(
+                () => {
                     this.form.controls.id.enable();
                     this.isLoading = false;
-                }, () => {
+                },
+                () => {
                     this.isLoading = false;
                     this.snackBar.open('An error occurred while shop category receiving', 'OK');
-                })
-            );
+                }
+            )
+        );
     }
 }

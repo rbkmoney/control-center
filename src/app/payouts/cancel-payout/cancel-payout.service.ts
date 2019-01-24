@@ -11,7 +11,7 @@ export class CancelPayoutService {
 
     private prepareForm(): FormGroup {
         return this.fb.group({
-            reason: ['', Validators.required],
+            reason: ['', Validators.required]
         });
     }
 }

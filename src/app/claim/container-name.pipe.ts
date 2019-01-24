@@ -6,7 +6,6 @@ import { ContractModificationName, ShopModificationName, ModificationGroupType }
     name: 'ccContainerName'
 })
 export class ContainerNamePipe implements PipeTransform {
-
     transform(value: any, ...args: any[]): any {
         if (args.length < 1) {
             return value;
@@ -43,7 +42,6 @@ export class ContainerNamePipe implements PipeTransform {
             default:
                 return value;
         }
-
     }
 
     private transformContractModificationName(value: ContractModificationName): string {

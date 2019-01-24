@@ -23,9 +23,7 @@ import { CurrencyRefComponent } from './currency-ref/currency-ref.component';
 import { PayoutToolInfoComponent } from './contract/payout-tool-info/payout-tool-info.component';
 import { RussianBankAccountComponent } from './contract/payout-tool-info/russian-bank-account/russian-bank-account.component';
 import { InternationalBankAccountComponent } from './contract/payout-tool-info/international-bank-account/international-bank-account.component';
-import {
-    InternationalBankDetailsComponent
-} from './contract/payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
+import { InternationalBankDetailsComponent } from './contract/payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
 import { LegalAgreementBindingComponent } from './contract/legal-agreement-binding/legal-agreement-binding.component';
 import { AdjustmentModificationUnitComponent } from './contract/adjustment-modification-unit/adjustment-modification-unit.component';
 import { ReportPreferencesComponent } from './contract/report-preferences/report-preferences.component';
@@ -112,9 +110,6 @@ import { WalletInfoComponent } from './contract/payout-tool-info/wallet-info/wal
         FormWrapperComponent,
         BusinessScheduleSelectorComponent
     ],
-    exports: [
-        PartyModificationCreationComponent
-    ]
+    exports: [PartyModificationCreationComponent]
 })
-export class PartyModificationCreationModule {
-}
+export class PartyModificationCreationModule {}

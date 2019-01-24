@@ -15,7 +15,6 @@ import { tap } from 'rxjs/internal/operators';
     providers: [TerminalObjectService]
 })
 export class TerminalObjectComponent implements OnInit {
-
     @Input()
     domainModificationInfo: DomainModificationInfo;
 
@@ -33,34 +32,41 @@ export class TerminalObjectComponent implements OnInit {
 
     optionTemplates: string[];
 
-    riskCoverages: Array<{ name: string, value: number }>;
+    riskCoverages: Array<{ name: string; value: number }>;
 
     isLoading = true;
 
-    constructor(private fb: FormBuilder,
-                private terminalObjectService: TerminalObjectService,
-                private domainTypedManager: DomainTypedManager,
-                private snackBar: MatSnackBar) {
-    }
+    constructor(
+        private fb: FormBuilder,
+        private terminalObjectService: TerminalObjectService,
+        private domainTypedManager: DomainTypedManager,
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit() {
         this.form = this.terminalObjectService.initForm(this.domainModificationInfo);
         this.providerObjects$ = this.domainTypedManager
             .getProviderObjectsWithSelector('decisions')
             .pipe(
-                tap(() => {
-                    this.isLoading = false;
-                    this.form.controls.providerID.enable();
-                }, () => {
-                    this.snackBar.open('An error occurred while provider object receiving', 'OK');
-                })
+                tap(
+                    () => {
+                        this.isLoading = false;
+                        this.form.controls.providerID.enable();
+                    },
+                    () => {
+                        this.snackBar.open(
+                            'An error occurred while provider object receiving',
+                            'OK'
+                        );
+                    }
+                )
             );
         this.optionTemplates = this.terminalObjectService.optionTemplates;
         this.riskCoverages = this.terminalObjectService.riskCoverages;
-        this.form.statusChanges.subscribe((status) => {
+        this.form.statusChanges.subscribe(status => {
             this.statusChanges.emit(status);
         });
-        this.form.valueChanges.subscribe((value) => {
+        this.form.valueChanges.subscribe(value => {
             this.options = this.form.controls.options as FormGroup;
             this.valueChanges.emit(value);
         });
