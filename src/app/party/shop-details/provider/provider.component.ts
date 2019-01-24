@@ -6,8 +6,7 @@ import { findTerminalIds } from '../find-terminal-ids';
 
 @Component({
     selector: 'cc-provider',
-    templateUrl: 'provider.component.html',
-    styleUrls: ['provider.component.scss']
+    templateUrl: 'provider.component.html'
 })
 export class ProviderComponent implements OnInit {
     terminalIDs: number[];
