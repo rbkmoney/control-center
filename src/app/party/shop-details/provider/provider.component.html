@@ -1,14 +1,16 @@
-<mat-expansion-panel>
-    <mat-expansion-panel-header>
-        <mat-panel-title> {{ provider.data.name }} </mat-panel-title>
-        <mat-panel-description> {{ provider.data.description }} </mat-panel-description>
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-        <mat-list>
-            <h3 mat-subheader>Terminals</h3>
-            <mat-list-item *ngFor="let terminal of terminalIDs">
-                <cc-terminal [terminalID]="terminal"></cc-terminal>
-            </mat-list-item>
-        </mat-list>
-    </ng-template>
-</mat-expansion-panel>
+<mat-accordion multi="true">
+    <mat-expansion-panel *ngFor="let info of providerInfo">
+        <mat-expansion-panel-header fxLayout fxLayoutAlign="space-between center">
+            <mat-panel-title fxFlex="40"> {{ info?.provider.data.name }} </mat-panel-title>
+            <mat-panel-description> {{ info?.provider.data.description }} </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <mat-list *ngIf="info.terminals">
+                <h3 mat-subheader>Terminals</h3>
+                <mat-list-item *ngFor="let terminal of info.terminals">
+                    <cc-terminal [terminal]="terminal"></cc-terminal>
+                </mat-list-item>
+            </mat-list>
+        </ng-template>
+    </mat-expansion-panel>
+</mat-accordion>

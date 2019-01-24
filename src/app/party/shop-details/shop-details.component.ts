@@ -1,47 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
+import { ShopDetailsService, ProviderInfo } from './shop-details.service';
 import { Shop } from '../../gen-damsel/domain';
-import { PartyService } from '../party.service';
-import { DomainTypedManager } from '../../thrift/domain-typed-manager';
-import { ProviderObject } from '../../damsel/domain';
-import { findTerminalIds } from './find-terminal-ids';
 
 @Component({
-    templateUrl: 'shop-details-module.component.html',
-    styleUrls: ['../../shared/container.css']
+    templateUrl: 'shop-details.component.html',
+    styleUrls: ['../../shared/container.css'],
+    providers: [ShopDetailsService]
 })
 export class ShopDetailsComponent implements OnInit {
+    isLoading = false;
     shop: Shop;
-    providers: ProviderObject[];
+    providerInfo: ProviderInfo[];
 
-    private shopID: string;
-    private partyID: string;
-
-    constructor(
-        private partyService: PartyService,
-        private route: ActivatedRoute,
-        private dtm: DomainTypedManager
-    ) {
-        this.route.params.subscribe(params => {
-            this.shopID = params['shopId'];
-            this.partyID = params['partyId'];
-        });
-    }
+    constructor(private route: ActivatedRoute, private shopDetailsService: ShopDetailsService) {}
 
     ngOnInit() {
-        combineLatest([
-            this.partyService.getShop(this.partyID, this.shopID),
-            this.dtm.getProviderObjects()
-        ]).subscribe(([shop, providers]) => {
-            this.shop = shop;
-            this.providers = providers.filter(provider => {
-                const decisions = provider.data.terminal.decisions;
-                return decisions
-                    ? findTerminalIds(decisions, this.shopID, this.partyID).length > 0
-                    : false;
+        this.isLoading = true;
+        this.route.params
+            .pipe(
+                switchMap(({ partyId, shopId }) =>
+                    this.shopDetailsService.initialize(partyId, shopId)
+                )
+            )
+            .subscribe(({ shop, providerInfo }) => {
+                this.isLoading = false;
+                this.shop = shop;
+                this.providerInfo = providerInfo;
             });
-        });
     }
 }

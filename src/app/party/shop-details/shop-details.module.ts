@@ -9,10 +9,10 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ProviderComponent } from './provider/provider.component';
-import { TerminalComponent } from './provider/terminal/terminal.component';
+import { TerminalComponent } from './terminal/terminal.component';
 import { ShopBlockingPipe } from './shop-info/shop-blocking.pipe';
 import { ShopSuspensionPipe } from './shop-info/shop-suspension.pipe';
-import { ShopInfo } from './shop-info/shop-info.component';
+import { ShopInfoComponent } from './shop-info/shop-info.component';
 import { ShopDetailsComponent } from './shop-details.component';
 
 @NgModule({
@@ -28,7 +28,7 @@ import { ShopDetailsComponent } from './shop-details.component';
         ShopDetailsComponent,
         ShopBlockingPipe,
         ShopSuspensionPipe,
-        ShopInfo,
+        ShopInfoComponent,
         ProviderComponent,
         TerminalComponent
     ]

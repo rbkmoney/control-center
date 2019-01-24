@@ -6,6 +6,6 @@ import { Shop } from '../../../gen-damsel/domain';
     selector: 'cc-shop-details',
     templateUrl: 'shop-info.component.html'
 })
-export class ShopInfo {
+export class ShopInfoComponent {
     @Input() shop: Shop;
 }
