@@ -18,4 +18,6 @@
         [form]="form.get(t.internationalBankAccount)"
     >
     </cc-international-bank-account>
+    <cc-wallet-info *ngIf="selected === t.walletInfo" [form]="form.get(t.walletInfo)">
+    </cc-wallet-info>
 </div>

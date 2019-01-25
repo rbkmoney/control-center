@@ -1,26 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { PartyComponent } from './party.component';
+import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
-import { ShopComponent } from './shop/shop.component';
+import { PartyDetailsComponent } from './party-details/party-details.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
                 path: 'party/:partyId',
-                component: PartyComponent,
+                component: PartyDetailsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['party:get']
-                },
-                children: [
-                    {
-                        path: 'shop/:shopId',
-                        component: ShopComponent
-                    }
-                ]
+                }
+            },
+            {
+                path: 'party/:partyId/shop/:shopId',
+                component: ShopDetailsComponent,
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['party:get']
+                }
             }
         ])
     ],

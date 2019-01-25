@@ -1,48 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatStepperModule,
-    MatTableModule
-} from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { PartyComponent } from './party.component';
+import { PartyService } from './party.service';
+import { PartyDetailsModule } from './party-details/party-details.module';
+import { ShopDetailsModule } from './shop-details/shop-details.module';
 import { PartyRoutingModule } from './party-routing.module';
-import { PartyDetailsComponent } from './party-details/party-details.component';
-import { ShopsTableComponent } from './shops-table/shops-table.component';
-import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
     imports: [
-        CommonModule,
         PartyRoutingModule,
-        MatCardModule,
+        CommonModule,
         FlexLayoutModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatRadioModule,
-        ReactiveFormsModule,
-        MatStepperModule,
-        MatTableModule,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
-        MatFormFieldModule,
-        MatInputModule
+        PartyDetailsModule,
+        ShopDetailsModule
     ],
-    declarations: [
-        PartyComponent,
-        PartyDetailsComponent,
-        ShopsTableComponent,
-        ShopComponent
-    ]
+    providers: [PartyService]
 })
 export class PartyModule {}

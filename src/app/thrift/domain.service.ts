@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import * as Repository from './gen-nodejs/Repository';
 import { ThriftService } from './thrift-service';
-import { Reference, Snapshot, Version, Commit } from '../gen-damsel/domain_config';
+import { Reference, Snapshot, Commit } from '../gen-damsel/domain_config';
 
 @Injectable()
 export class DomainService extends ThriftService {

@@ -52,6 +52,7 @@ import { RussianLegalEntityComponent } from './contract/legal-entity/russian-leg
 import { InternationalLegalEntityComponent } from './contract/legal-entity/international-legal-entity/international-legal-entity.component';
 import { NestedFormWrapperComponent } from './nested-form-wrapper/nested-form-wrapper.component';
 import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
+import { WalletInfoComponent } from './contract/payout-tool-info/wallet-info/wallet-info.component';
 
 @NgModule({
     imports: [
@@ -77,8 +78,10 @@ import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
         CurrencyRefComponent,
         PayoutToolInfoComponent,
         RussianBankAccountComponent,
+        WalletInfoComponent,
         InternationalBankAccountComponent,
         InternationalBankDetailsComponent,
+        WalletInfoComponent,
         LegalAgreementBindingComponent,
         AdjustmentModificationUnitComponent,
         ReportPreferencesComponent,
