@@ -74,7 +74,9 @@ export class DomainTypedManager {
         return this.domain.pipe(map(domain => findProviderObjects(domain)));
     }
 
-    getProviderObjectsWithSelector(filterValue: 'decisions' | 'value'): Observable<ProviderObject[]> {
+    getProviderObjectsWithSelector(
+        filterValue: 'decisions' | 'value'
+    ): Observable<ProviderObject[]> {
         return this.getProviderObjects().pipe(
             map(objects => filterByTerminalSelector(objects, filterValue))
         );
