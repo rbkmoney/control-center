@@ -81,6 +81,7 @@ import { WalletInfoComponent } from './contract/payout-tool-info/wallet-info/wal
         WalletInfoComponent,
         InternationalBankAccountComponent,
         InternationalBankDetailsComponent,
+        WalletInfoComponent,
         LegalAgreementBindingComponent,
         AdjustmentModificationUnitComponent,
         ReportPreferencesComponent,
