@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/internal/operators';
+import { filter } from 'rxjs/operators';
 
 import {
     Domain,
@@ -15,6 +16,7 @@ import { findDomainObject, findDomainObjects } from '../claim/domain-typed-manag
 import { createShopTerminal } from '../claim/domain-typed-manager/create-shop-terminal';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
+import { CheckoutCacheService } from './checkout-cache.service';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -30,11 +32,11 @@ const findPaymentInstitutions = (domain: Domain): PaymentInstitutionObject[] =>
 
 const filterByTerminalSelector = (
     objects: ProviderObject[],
-    filter: 'decisions' | 'value'
+    filterValue: 'decisions' | 'value'
 ): ProviderObject[] => {
     return objects.filter(object => {
         const selector = object.data.terminal;
-        switch (filter) {
+        switch (filterValue) {
             case 'decisions':
                 return selector.decisions;
             case 'value':
@@ -47,10 +49,14 @@ const filterByTerminalSelector = (
 export class DomainTypedManager {
     private domain: Observable<Domain>;
 
-    constructor(private dmtService: DomainService) {
-        this.domain = this.dmtService
-            .checkout(toGenReference())
-            .pipe(map(snapshot => snapshot.domain));
+    constructor(
+        private dmtService: DomainService,
+        private checkoutCacheService: CheckoutCacheService
+    ) {
+        this.domain = this.checkoutCacheService.checkout().pipe(
+            filter(s => s !== null),
+            map(s => s.domain)
+        );
     }
 
     getBusinessScheduleObjects(): Observable<BusinessScheduleObject[]> {
@@ -68,9 +74,11 @@ export class DomainTypedManager {
         return this.domain.pipe(map(domain => findProviderObjects(domain)));
     }
 
-    getProviderObjectsWithSelector(filter: 'decisions' | 'value'): Observable<ProviderObject[]> {
+    getProviderObjectsWithSelector(
+        filterValue: 'decisions' | 'value'
+    ): Observable<ProviderObject[]> {
         return this.getProviderObjects().pipe(
-            map(objects => filterByTerminalSelector(objects, filter))
+            map(objects => filterByTerminalSelector(objects, filterValue))
         );
     }
 
@@ -83,6 +91,13 @@ export class DomainTypedManager {
 
     getTerminalObjects(): Observable<TerminalObject[]> {
         return this.domain.pipe(map(domain => findTerminalObjects(domain)));
+    }
+
+    getTerminalObject(id: number): Observable<TerminalObject> {
+        return this.domain.pipe(
+            map(domain => findTerminalObjects(domain)),
+            map(objects => findDomainObject(objects, id))
+        );
     }
 
     createTerminal(params: CreateTerminalParams): Observable<Version> {

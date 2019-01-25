@@ -1,0 +1,56 @@
+<div fxLayout="row" fxLayoutGap="10px" fxLayout.sm="column" fxLayout.xs="column">
+    <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
+        <div *ngIf="shop?.id" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Shop ID:</label>
+            <div>{{ shop.id }}</div>
+        </div>
+        <div *ngIf="shop?.contractId" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Contract ID:</label>
+            <div>{{ shop.contractId }}</div>
+        </div>
+        <div *ngIf="shop?.payoutToolId" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Payout tool ID:</label>
+            <div>{{ shop.payoutToolId }}</div>
+        </div>
+        <div *ngIf="shop?.payoutSchedule?.id" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Payout schedule ID:</label>
+            <div>{{ shop.payoutSchedule.id }}</div>
+        </div>
+        <div *ngIf="shop?.details?.name" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Name:</label>
+            <div>{{ shop.details.name }}</div>
+        </div>
+        <div *ngIf="shop?.details?.description" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Description:</label>
+            <div>{{ shop.details.description }}</div>
+        </div>
+        <div *ngIf="shop?.suspension" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Suspension:</label>
+            <div>{{ shop.suspension | ccSuspensionPipe }}</div>
+        </div>
+    </div>
+    <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
+        <div *ngIf="shop?.createdAt" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Created at:</label>
+            <div>{{ shop.createdAt | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+        </div>
+        <div *ngIf="shop?.category?.id" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Category:</label>
+            <div>{{ shop.category.id }}</div>
+        </div>
+        <div *ngIf="shop?.location?.url" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">URL:</label>
+            <div>
+                <a href="{{ shop.location.url }}">{{ shop.location.url }}</a>
+            </div>
+        </div>
+        <div *ngIf="shop?.account?.currency?.symbolicCode" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Currency:</label>
+            <div>{{ shop.account.currency.symbolicCode }}</div>
+        </div>
+        <div *ngIf="shop?.blocking" fxLayout="row" fxLayout.xs="column">
+            <label fxFlex="20">Blocking:</label>
+            <div>{{ shop.blocking | ccBlockingPipe }}</div>
+        </div>
+    </div>
+</div>

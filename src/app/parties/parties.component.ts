@@ -30,7 +30,7 @@ export class PartiesComponent implements OnInit {
         this.isLoading = true;
         let { partyId } = this.form.value;
         partyId = partyId.trim();
-        this.partyService.initialize(partyId).subscribe(
+        this.partyService.getParty(partyId).subscribe(
             () => {
                 this.isLoading = false;
                 this.router.navigate(['party', partyId]);
