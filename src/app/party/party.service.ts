@@ -1,23 +1,36 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { Party, Shop } from '../gen-damsel/domain';
 import { PartyService as PapiPartyService } from '../papi/party.service';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class PartyService {
-    party$: Subject<Party> = new BehaviorSubject(null);
-    shops$: Subject<Shop[]> = new BehaviorSubject(null);
+    private party: Party;
 
     constructor(private papiPartyService: PapiPartyService) {}
 
-    initialize(partyID: string): Observable<Party> {
-        return this.papiPartyService.getParty(partyID).pipe(
-            tap(party => {
-                this.party$.next(party);
-                this.shops$.next(Array.from(party.shops.values()));
-            })
-        );
+    getParty(partyID: string): Observable<Party> {
+        if (this.party && this.party.id === partyID) {
+            return Observable.create(observer => {
+                observer.next(this.party);
+                observer.complete();
+            });
+        } else {
+            return this.papiPartyService.getParty(partyID).pipe(
+                tap(party => {
+                    this.party = party;
+                })
+            );
+        }
+    }
+
+    getShops(partyID: string): Observable<Shop[]> {
+        return this.getParty(partyID).pipe(map(party => Array.from(party.shops.values())));
+    }
+
+    getShop(partyID: string, shopID: string): Observable<Shop> {
+        return this.getShops(partyID).pipe(map(shops => shops.find(shop => shop.id === shopID)));
     }
 }

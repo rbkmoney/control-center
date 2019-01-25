@@ -1,12 +1,36 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs';
 
-import { Party } from '../../gen-damsel/domain';
+import { Party, Shop } from '../../gen-damsel/domain';
+import { PartyService } from '../party.service';
 
 @Component({
-    selector: 'cc-party-details',
-    templateUrl: 'party-details.component.html'
+    templateUrl: 'party-details.component.html',
+    styleUrls: ['../../shared/container.css']
 })
-export class PartyDetailsComponent {
-    @Input()
+export class PartyDetailsComponent implements OnInit {
     party: Party;
+    shops: Shop[];
+    isLoading = false;
+
+    private partyID: string;
+
+    constructor(private partyService: PartyService, private route: ActivatedRoute) {
+        this.route.params.subscribe(params => {
+            this.partyID = params['partyId'];
+        });
+    }
+
+    ngOnInit(): void {
+        this.isLoading = true;
+        combineLatest(
+            this.partyService.getParty(this.partyID),
+            this.partyService.getShops(this.partyID)
+        ).subscribe(([party, shops]) => {
+            this.isLoading = false;
+            this.party = party;
+            this.shops = shops;
+        });
+    }
 }
