@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/internal/operators';
+import { filter } from 'rxjs/operators';
 
 import {
     Domain,
@@ -16,7 +17,6 @@ import { createShopTerminal } from '../claim/domain-typed-manager/create-shop-te
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
 import { CheckoutCacheService } from './checkout-cache.service';
-import { filter } from 'rxjs/operators';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -32,11 +32,11 @@ const findPaymentInstitutions = (domain: Domain): PaymentInstitutionObject[] =>
 
 const filterByTerminalSelector = (
     objects: ProviderObject[],
-    filter: 'decisions' | 'value'
+    filterValue: 'decisions' | 'value'
 ): ProviderObject[] => {
     return objects.filter(object => {
         const selector = object.data.terminal;
-        switch (filter) {
+        switch (filterValue) {
             case 'decisions':
                 return selector.decisions;
             case 'value':
@@ -74,9 +74,9 @@ export class DomainTypedManager {
         return this.domain.pipe(map(domain => findProviderObjects(domain)));
     }
 
-    getProviderObjectsWithSelector(filter: 'decisions' | 'value'): Observable<ProviderObject[]> {
+    getProviderObjectsWithSelector(filterValue: 'decisions' | 'value'): Observable<ProviderObject[]> {
         return this.getProviderObjects().pipe(
-            map(objects => filterByTerminalSelector(objects, filter))
+            map(objects => filterByTerminalSelector(objects, filterValue))
         );
     }
 
