@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap } from 'rxjs/internal/operators';
-import { filter } from 'rxjs/operators';
+import { shareReplay, map, switchMap } from 'rxjs/operators';
 
 import {
     Domain,
@@ -16,7 +15,6 @@ import { findDomainObject, findDomainObjects } from '../claim/domain-typed-manag
 import { createShopTerminal } from '../claim/domain-typed-manager/create-shop-terminal';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
-import { CheckoutCacheService } from './checkout-cache.service';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -49,13 +47,10 @@ const filterByTerminalSelector = (
 export class DomainTypedManager {
     private domain: Observable<Domain>;
 
-    constructor(
-        private dmtService: DomainService,
-        private checkoutCacheService: CheckoutCacheService
-    ) {
-        this.domain = this.checkoutCacheService.checkout().pipe(
-            filter(s => s !== null),
-            map(s => s.domain)
+    constructor(private dmtService: DomainService) {
+        this.domain = this.dmtService.checkout(toGenReference()).pipe(
+            map(s => s.domain),
+            shareReplay(1)
         );
     }
 
