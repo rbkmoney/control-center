@@ -2,26 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { shareReplay, map } from 'rxjs/operators';
+import { JsonAST, Field } from 'thrift-ts';
 
 import { Reference } from '../gen-damsel/domain';
-
-export interface AstDefenition {
-    type: string;
-    name: string;
-    id: number;
-    option?: 'optional' | 'required';
-}
-
-export interface Ast {
-    union?: {
-        [key: string]: AstDefenition[];
-    };
-}
 
 export interface Metadata {
     path: string;
     name: string;
-    ast: Ast;
+    ast: JsonAST;
 }
 
 @Injectable()
@@ -48,12 +36,12 @@ export class MetadataService {
         return this.getDomainDef().pipe(
             map(d => {
                 const found = d.find(({ name }) => name === searchName);
-                return found ? found.type : null;
+                return found ? (found.type as string) : null;
             })
         );
     }
 
-    getDomainDef(): Observable<AstDefenition[]> {
+    getDomainDef(): Observable<Field[]> {
         return this.metadata$.pipe(
             map(m => m.find(({ name }) => name === 'domain').ast.union.DomainObject)
         );

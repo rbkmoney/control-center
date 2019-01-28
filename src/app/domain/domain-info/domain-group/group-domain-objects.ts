@@ -1,9 +1,10 @@
-import { AstDefenition } from '../../metadata.service';
+import { Field } from 'thrift-ts';
+
 import { clearNullFields } from '../../../shared/thrift-utils';
 import { DomainGroup } from './domain-group';
 import { Domain } from '../../../gen-damsel/domain';
 
-function getTypeDef(domainObjDef: AstDefenition[]) {
+function getTypeDef(domainObjDef: Field[]) {
     return domainObjDef.reduce(
         (acc, { name, type }) => ({
             ...acc,
@@ -13,7 +14,7 @@ function getTypeDef(domainObjDef: AstDefenition[]) {
     );
 }
 
-function getDomainObjType(obj: object, domainObjDef: AstDefenition[]): string {
+function getDomainObjType(obj: object, domainObjDef: Field[]): string {
     const typeDef = getTypeDef(domainObjDef);
     const fieldName = Object.keys(obj)[0];
     return typeDef[fieldName];
@@ -23,7 +24,7 @@ function getDomainObjVal(obj: object): object {
     return Object.values(obj)[0];
 }
 
-function groupByType(domain: Domain, domainObjDef: AstDefenition[]) {
+function groupByType(domain: Domain, domainObjDef: Field[]) {
     let result = {};
     for (const [ref, domainObject] of domain) {
         const cleared = clearNullFields(domainObject);
@@ -50,7 +51,7 @@ function sortByName(a: DomainGroup, b: DomainGroup): number {
     return 0;
 }
 
-export function group(domain: Domain, domainObjDef: AstDefenition[]): DomainGroup[] {
+export function group(domain: Domain, domainObjDef: Field[]): DomainGroup[] {
     return Object.entries(groupByType(domain, domainObjDef))
         .reduce((acc, [name, pairs]) => acc.concat({ name, pairs }), [])
         .sort(sortByName);

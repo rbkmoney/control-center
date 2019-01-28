@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest, Subject, BehaviorSubject } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
+import { Field } from 'thrift-ts';
 
 import { DomainService } from '../domain.service';
-import { MetadataService, AstDefenition } from '../metadata.service';
+import { MetadataService } from '../metadata.service';
 import { Snapshot } from '../../gen-damsel/domain_config';
 
 export interface Payload {
     shapshot: Snapshot;
-    domainDef: AstDefenition[];
+    domainDef: Field[];
 }
 
 @Injectable()
