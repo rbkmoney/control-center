@@ -11,11 +11,11 @@ export class DomainGroupService {
     version$: Subject<number> = new BehaviorSubject(null);
 
     constructor(private domainInfoService: DomainInfoService) {
-        this.domainInfoService.payload$.subscribe(({ shapshot: { version, domain }, metadata }) => {
-            this.version$.next(version.toNumber());
-            this.group$.next(
-                group(domain, metadata.find(({ name }) => name === 'domain').ast.union.DomainObject)
-            );
-        });
+        this.domainInfoService.payload$.subscribe(
+            ({ shapshot: { version, domain }, domainDef }) => {
+                this.version$.next(version.toNumber());
+                this.group$.next(group(domain, domainDef));
+            }
+        );
     }
 }

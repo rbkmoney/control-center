@@ -6,9 +6,9 @@
         fixedInViewport="true"
         fixedTopGap="64"
     >
-        <div class="details-container" fxLayout="column" fxLayoutGap="20px">
+        <div class="details-container" fxLayout="column" fxLayoutGap="10px">
             <cc-domain-obj-details fxFlex="95"></cc-domain-obj-details>
-            <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between center">
+            <div fxLayout fxLayoutAlign="space-between center">
                 <button mat-button (click)="closeDetails()">CLOSE</button>
                 <button mat-button (click)="editDomainObj()">EDIT</button>
             </div>
@@ -16,7 +16,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <div class="container">
-            <div class="card-container" fxLayout="column" fxLayoutGap="20px">
+            <div class="card-container" fxLayout="column" fxLayoutGap="10px">
                 <div *ngIf="isLoading" fxLayout fxLayoutAlign="center stretch">
                     <mat-spinner></mat-spinner>
                 </div>

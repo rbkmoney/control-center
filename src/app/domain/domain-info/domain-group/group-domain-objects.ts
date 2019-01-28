@@ -1,4 +1,4 @@
-import { AstDefenition } from '../../metadata-loader';
+import { AstDefenition } from '../../metadata.service';
 import { clearNullFields } from '../../../shared/thrift-utils';
 import { DomainGroup } from './domain-group';
 import { Domain } from '../../../gen-damsel/domain';

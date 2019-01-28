@@ -3,23 +3,26 @@ import { Observable, combineLatest, Subject, BehaviorSubject } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
 import { DomainService } from '../domain.service';
-import { MetadataLoader, Metadata } from '../metadata-loader';
+import { MetadataService, AstDefenition } from '../metadata.service';
 import { Snapshot } from '../../gen-damsel/domain_config';
 
 export interface Payload {
     shapshot: Snapshot;
-    metadata: Metadata[];
+    domainDef: AstDefenition[];
 }
 
 @Injectable()
 export class DomainInfoService {
     payload$: Subject<Payload> = new BehaviorSubject(null);
 
-    constructor(private domainService: DomainService, private metadataLoader: MetadataLoader) {}
+    constructor(private domainService: DomainService, private metadataService: MetadataService) {}
 
     initialize(): Observable<void> {
-        return combineLatest([this.domainService.checkoutHead(), this.metadataLoader.load()]).pipe(
-            tap(([shapshot, metadata]) => this.payload$.next({ shapshot, metadata })),
+        return combineLatest([
+            this.domainService.shapshot,
+            this.metadataService.getDomainDef()
+        ]).pipe(
+            tap(([shapshot, domainDef]) => this.payload$.next({ shapshot, domainDef })),
             map(() => null)
         );
     }
