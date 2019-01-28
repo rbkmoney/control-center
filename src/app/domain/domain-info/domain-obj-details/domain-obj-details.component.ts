@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DomainDetailsService } from '../domain-details.service';
-import { MonacoFile, MonacoEditorOptions } from '../../monaco-editor';
+import { MonacoFile, MonacoEditorOptions } from '../../../monaco-editor';
 
 @Component({
     selector: 'cc-domain-obj-details',
@@ -19,11 +19,11 @@ export class DomainObjDetailsComponent implements OnInit {
     constructor(private detailsService: DomainDetailsService) {}
 
     ngOnInit() {
-        this.file$ = this.detailsService.detailedObject$.pipe(
-            map(o => ({
+        this.file$ = this.detailsService.domainPair$.pipe(
+            map(({ object }) => ({
                 uri: 'index.json',
                 language: 'json',
-                content: JSON.stringify(o, null, 2)
+                content: JSON.stringify(object, null, 2)
             }))
         );
     }

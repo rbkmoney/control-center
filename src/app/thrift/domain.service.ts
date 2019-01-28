@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import * as Repository from './gen-nodejs/Repository';
 import { ThriftService } from './thrift-service';
-import { Reference, Snapshot, Commit } from '../gen-damsel/domain_config';
+import { Reference, Snapshot, Commit, Version, Limit } from '../gen-damsel/domain_config';
 
 @Injectable()
 export class DomainService extends ThriftService {
@@ -14,4 +14,8 @@ export class DomainService extends ThriftService {
     checkout: (reference: Reference) => Observable<Snapshot> = this.toObservableAction('Checkout');
 
     commit: (version: any, commit: Commit) => Observable<any> = this.toObservableAction('Commit');
+
+    pullRange: (after: Version, limit: Limit) => Observable<History> = this.toObservableAction(
+        'PullRange'
+    );
 }

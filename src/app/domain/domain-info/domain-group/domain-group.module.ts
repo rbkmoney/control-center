@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material';
 
 import { DomainGroupComponent } from './domain-group.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { GroupControlComponent } from './group-control';
 import { DomainObjectsTypeSelectorComponent } from './domain-objects-type-selector';
 import { GroupTableComponent } from './group-table';

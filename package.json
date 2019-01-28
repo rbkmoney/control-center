@@ -38,7 +38,7 @@
     "moment": "^2.22.2",
     "monaco-editor": "^0.15.6",
     "rxjs": "^6.3.3",
-    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#17cea6fc8a57f899a3042917ab67761f2314aff1",
+    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#e3ef403c3eb9d1f9a06d7642200b7e2a65d48ffb",
     "uuid": "^3.3.2",
     "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#d2c90a54861593fa794afe3b09c4febb9d6e37d0",
     "zone.js": "~0.8.26"

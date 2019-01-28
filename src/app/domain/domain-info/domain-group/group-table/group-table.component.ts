@@ -2,12 +2,12 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from '@
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 import { DomainGroup } from '../domain-group';
-import { DomainDetailsService } from '../../domain-details.service';
+import { DomainDetailsService } from '../../../domain-info/domain-details.service';
 import { toTableGroup, toDataSource } from './table-group';
 import { sortData } from './sort-table-data';
 import { filterPredicate } from './filter-predicate';
 import { TableDataSource, TableGroup } from './model';
-import { DetailsContainerService } from '../../details-container.service';
+import { DetailsContainerService } from '../../../domain-info/details-container.service';
 
 @Component({
     selector: 'cc-group-table',
@@ -45,10 +45,9 @@ export class GroupTableComponent implements OnInit, OnChanges {
         this.detailsContainerService.opened$.subscribe(opened => (this.detailsOpened = opened));
     }
 
-    openDetails({ json }: TableDataSource, index: number) {
-        console.log(index);
+    openDetails({ pair }: TableDataSource, index: number) {
         this.selectedIndex = index;
-        this.detailsService.emit(json);
+        this.detailsService.emit(pair);
     }
 
     applyFilter(filterValue: string) {
