@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
 
 import { ShopDetailsService, ProviderInfo } from './shop-details.service';
 import { Shop } from '../../gen-damsel/domain';
+import { AddProviderComponent } from './add-provider/add-provider.component';
 
 @Component({
     templateUrl: 'shop-details.component.html',
-    styleUrls: ['../../shared/container.css'],
+    styleUrls: ['../../shared/container.css', 'shop-details.component.scss'],
     providers: [ShopDetailsService]
 })
 export class ShopDetailsComponent implements OnInit {
@@ -15,7 +17,11 @@ export class ShopDetailsComponent implements OnInit {
     shop: Shop;
     providerInfo: ProviderInfo[];
 
-    constructor(private route: ActivatedRoute, private shopDetailsService: ShopDetailsService) {}
+    constructor(
+        private route: ActivatedRoute,
+        private shopDetailsService: ShopDetailsService,
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit() {
         this.isLoading = true;
@@ -30,5 +36,16 @@ export class ShopDetailsComponent implements OnInit {
                 this.shop = shop;
                 this.providerInfo = providerInfo;
             });
+    }
+
+    addProvider() {
+        const config = {
+            data: {
+                shop: this.shop
+            },
+            width: '800px',
+            disableClose: true
+        };
+        this.dialog.open(AddProviderComponent, config);
     }
 }
