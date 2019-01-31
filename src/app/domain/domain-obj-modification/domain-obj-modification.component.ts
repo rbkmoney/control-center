@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/operators';
 
 import { Reference } from '../../gen-damsel/domain';
-import { MonacoEditorOptions, MonacoFile } from '../../monaco-editor/model';
+import { IEditorOptions, MonacoFile } from '../../monaco-editor/model';
 import { DomainObjModificationService } from './domain-obj-modification.service';
 
 @Component({
@@ -17,10 +17,11 @@ export class DomainObjModificationComponent implements OnInit {
     isLoading: boolean;
 
     file: MonacoFile;
-    options: MonacoEditorOptions = {
+    options: IEditorOptions = {
         readOnly: false
     };
     objectType: string;
+    valid = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -35,6 +36,16 @@ export class DomainObjModificationComponent implements OnInit {
                 ref => this.initialize(ref),
                 () => this.snackBar.open('Malformed domain object ref', 'OK')
             );
+    }
+
+    fileChange({ content }: MonacoFile) {
+        let json;
+        try {
+            json = JSON.parse(content);
+            this.valid = true;
+        } catch {
+            this.valid = false;
+        }
     }
 
     private initialize(ref: Reference) {
