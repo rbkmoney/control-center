@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 
 import { DomainObjModificationComponent } from './domain-obj-modification.component';
 import { MonacoEditorModule } from '../../monaco-editor/monaco-editor.module';
+import { CODE_LENS_PROVIDERS } from '../../monaco-editor/tokens';
+import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
 
 @NgModule({
     declarations: [DomainObjModificationComponent],
@@ -20,6 +22,7 @@ import { MonacoEditorModule } from '../../monaco-editor/monaco-editor.module';
         MatIconModule,
         MonacoEditorModule
     ],
-    exports: [DomainObjModificationComponent]
+    exports: [DomainObjModificationComponent],
+    providers: [{ provide: CODE_LENS_PROVIDERS, useClass: DomainObjCodeLensProvider, multi: true }]
 })
 export class DomainObjModificationModule {}

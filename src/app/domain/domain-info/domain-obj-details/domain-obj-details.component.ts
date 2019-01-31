@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DomainDetailsService } from '../domain-details.service';
-import { MonacoFile, MonacoEditorOptions } from '../../../monaco-editor';
+import { MonacoFile, IEditorOptions } from '../../../monaco-editor';
 
 @Component({
     selector: 'cc-domain-obj-details',
@@ -12,7 +12,7 @@ import { MonacoFile, MonacoEditorOptions } from '../../../monaco-editor';
 })
 export class DomainObjDetailsComponent implements OnInit {
     file$: Observable<MonacoFile>;
-    options: MonacoEditorOptions = {
+    options: IEditorOptions = {
         readOnly: true
     };
 
