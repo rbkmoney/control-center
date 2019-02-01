@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { shareReplay, map, switchMap } from 'rxjs/operators';
+import { shareReplay, map, switchMap, tap } from 'rxjs/operators';
 
 import {
     Domain,
@@ -15,6 +15,7 @@ import { findDomainObject, findDomainObjects } from '../claim/domain-typed-manag
 import { createShopTerminal } from '../claim/domain-typed-manager/create-shop-terminal';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
+import { addProviderDecision, AddProviderDecision } from './add-provider-decision';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -95,7 +96,7 @@ export class DomainTypedManager {
         );
     }
 
-    createTerminal(params: CreateTerminalParams): Observable<Version> {
+    createTerminal(params: CreateTerminalParams): Observable<void> {
         return combineLatest(
             this.getLastVersion(),
             this.getTerminalObjects(),
@@ -106,12 +107,33 @@ export class DomainTypedManager {
                     version,
                     createShopTerminal(terminalObjects, providerObject, params)
                 )
-            )
+            ),
+            switchMap(() => this.getNewDomain())
+        );
+    }
+
+    addProviderDecision(params: AddProviderDecision): Observable<void> {
+        return combineLatest(this.getLastVersion(), this.getProviderObjects()).pipe(
+            switchMap(([version, providerObjects]) =>
+                this.dmtService.commit(version, addProviderDecision(providerObjects, params))
+            ),
+            switchMap(() => this.getNewDomain())
         );
     }
 
     getLastVersion(): Observable<any> {
         return this.dmtService.checkout(toGenReference()).pipe(map(snapshot => snapshot.version));
+    }
+
+    getNewDomain(): Observable<void> {
+        return Observable.create(observer => {
+            this.domain = this.dmtService.checkout(toGenReference()).pipe(
+                map(s => s.domain),
+                shareReplay(1)
+            );
+            observer.next(this.domain);
+            observer.complete();
+        });
     }
 
     getPaymentInstitutions(): Observable<PaymentInstitutionObject[]> {

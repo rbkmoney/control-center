@@ -1,17 +1,18 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
-import { map } from 'rxjs/operators';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/material';
+import { map, switchMap } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 import get from 'lodash-es/get';
 
-import { CategoryRef, Shop } from '../../../gen-damsel/domain';
+import { CategoryRef, Party, Shop } from '../../../gen-damsel/domain';
 import { DomainTypedManager } from '../../../thrift/domain-typed-manager';
 import { ProviderObject, TerminalObject } from '../../../damsel/domain';
-import { AddProviderService } from './add-provider.service';
-import { SelectionModel } from '@angular/cdk/collections';
+import { CreateTerminalParams } from '../../../claim/domain-typed-manager';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 interface AddProviderData {
     shop: Shop;
+    partyId: string;
 }
 
 enum Step {
@@ -19,46 +20,34 @@ enum Step {
     terminal = 1
 }
 
+enum TerminalDecision {
+    create = 0,
+    choosen = 1
+}
+
 @Component({
     templateUrl: 'add-provider.component.html',
-    providers: [AddProviderService],
     styleUrls: ['add-provider.component.scss']
 })
 export class AddProviderComponent implements OnInit {
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-
-    possibleProviders: ProviderObject[];
-    providerForm: FormGroup;
-    terminalForm: FormGroup;
+    terminals$: Subject<TerminalObject[]> = new BehaviorSubject(null);
+    providers$: Subject<ProviderObject[]> = new BehaviorSubject(null);
     providerFormValid: boolean;
-    displayedColumns: string[] = ['select', 'id', 'name', 'description'];
-    dataSource: MatTableDataSource<TerminalObject>;
-    selection = new SelectionModel<TerminalObject>(true, []);
+    terminalFormValid: boolean;
     currentStep = Step.provider;
-    riskCoverages: Array<{ name: string; value: number }>;
-    options: FormGroup;
+    terminalDecision: TerminalDecision;
+
+    selectedProvider: number;
+    selectedTerminal: number;
 
     constructor(
         private dialogRef: MatDialogRef<AddProviderComponent>,
         @Inject(MAT_DIALOG_DATA) public data: AddProviderData,
-        private dtm: DomainTypedManager,
-        private appProviderService: AddProviderService
-    ) {}
+        private dtm: DomainTypedManager
+    ) {
+    }
 
     ngOnInit(): void {
-        const { providerForm, terminalForm } = this.appProviderService;
-        this.providerForm = providerForm;
-        this.terminalForm = terminalForm;
-        this.riskCoverages = this.appProviderService.riskCoverages;
-
-        this.providerForm.valueChanges.subscribe(() => {
-            this.providerFormValid = this.providerForm.valid;
-        });
-
-        this.terminalForm.valueChanges.subscribe(() => {
-            this.options = this.terminalForm.controls.options as FormGroup;
-        });
-
         this.dtm
             .getProviderObjects()
             .pipe(
@@ -74,47 +63,94 @@ export class AddProviderComponent implements OnInit {
                         return paymentCats
                             ? !!Array.from(paymentCats.values()).find(predicate)
                             : null || recurrentCats
-                            ? !!Array.from(recurrentCats.values()).find(predicate)
-                            : null;
+                                ? !!Array.from(recurrentCats.values()).find(predicate)
+                                : null;
                     })
                 )
             )
             .subscribe(providerObjects => {
-                this.possibleProviders = providerObjects as ProviderObject[];
+                this.providers$.next(providerObjects as ProviderObject[]);
             });
         this.dtm.getTerminalObjects().subscribe(terminals => {
-            this.dataSource = new MatTableDataSource(Array.from(terminals.values()));
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.filterPredicate = (terminal: TerminalObject, filter: string) =>
-                JSON.stringify(terminal)
-                    .toLowerCase()
-                    .includes(filter);
+            this.terminals$.next(Array.from(terminals.values()));
         });
     }
 
-    applyFilter(filterValue: string) {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+    providerFormChanged(formStatus: boolean) {
+        this.providerFormValid = formStatus;
     }
 
-    isAllSelected() {
-        const numSelected = this.selection.selected.length;
-        const numRows = this.dataSource.data.length;
-        return numSelected === numRows;
+    providerSelected(id: number) {
+        this.selectedProvider = id;
     }
 
-    masterToggle() {
-        this.isAllSelected()
-            ? this.selection.clear()
-            : this.dataSource.data.forEach(row => this.selection.select(row));
+    terminalFormChanged(formStatus: boolean) {
+        this.terminalFormValid = formStatus;
     }
 
-    addOption() {
-        this.appProviderService.addOption();
+    terminalSelected(id: number) {
+        this.selectedTerminal = id;
     }
 
-    removeOption(index: number) {
-        this.appProviderService.removeOption(index);
+    terminalTabChanged(event: MatTabChangeEvent) {
+        switch (event.index) {
+            case 0:
+                this.terminalDecision = TerminalDecision.choosen;
+                break;
+            case 1:
+                this.terminalDecision = TerminalDecision.create;
+                break;
+        }
+
+        this.selectedTerminal = null;
+        this.terminalFormValid = false;
     }
 
-    add() {}
+    add() {
+        if (this.terminalDecision === TerminalDecision.create) {
+            const terminalParams = {
+                providerID: this.selectedProvider,
+                partyID: this.data.partyId,
+                shopID: this.data.shop.id,
+                ...this.terminalForm.value
+            } as CreateTerminalParams;
+            this.dtm
+                .createTerminal(terminalParams)
+                .pipe(
+                    switchMap(() => this.dtm.getTerminalObjects()),
+                    map((terminalObjects: TerminalObject[]) =>
+                        terminalObjects.find(
+                            obj =>
+                                obj.data.name === this.terminalForm.value['terminalName'] &&
+                                obj.data.description ===
+                                this.terminalForm.value['terminalDescription']
+                        )
+                    )
+                )
+                .subscribe(terminal => {
+                    this.selectedTerminal = terminal.ref.id;
+                    this.updateProvider();
+                });
+        } else {
+            this.updateProvider();
+        }
+    }
+
+    private updateProvider() {
+        console.log({
+            if_: {
+                condition: {
+                    party: {
+                        id: this.data.partyId,
+                        definition: {
+                            shop_is: this.data.shop.id
+                        }
+                    }
+                }
+            },
+            then_: {
+                value: [{ id: this.selectedTerminal }]
+            }
+        });
+    }
 }

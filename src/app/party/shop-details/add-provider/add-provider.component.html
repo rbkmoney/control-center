@@ -4,24 +4,19 @@
         <mat-step>
             <ng-template matStepLabel>Select provider:</ng-template>
             <div fxLayout="column" fxLayoutGap="20px">
-                <form class="provider-form" [formGroup]="providerForm">
-                    <mat-radio-group fxLayout="column" fxLayoutGap="20px" formControlName="id">
-                        <mat-radio-button
-                                *ngFor="let provider of possibleProviders"
-                                [value]="provider.ref.id"
-                        >
-                            {{ provider.data.name }} - {{ provider.data.description }}
-                        </mat-radio-button>
-                    </mat-radio-group>
-                </form>
+                <cc-providers-table-form
+                    [providers]="providers$ | async"
+                    (providerFormValid)="providerFormChanged($event)"
+                    (providerSelected)="providerSelected($event)"
+                ></cc-providers-table-form>
                 <div>
                     <button
-                            matStepperNext
-                            mat-button
-                            [disabled]="!providerFormValid"
-                            color="primary"
+                        matStepperNext
+                        mat-button
+                        [disabled]="!providerFormValid"
+                        color="primary"
                     >
-                        Next
+                        NEXT
                     </button>
                 </div>
             </div>
@@ -29,172 +24,31 @@
         <mat-step>
             <ng-template matStepLabel>Select or create terminal:</ng-template>
             <div fxLayout="column" fxLayoutGap="20px">
-                <mat-tab-group>
+                <mat-tab-group (selectedTabChange)="terminalTabChanged($event)">
                     <mat-tab label="Select terminal">
                         <div class="terminal-form">
-                            <div fxLayout fxLayoutAlign="space-between">
-                                <mat-form-field fxFlex="35">
-                                    <input
-                                            matInput
-                                            type="text"
-                                            (keyup)="applyFilter($event.target.value)"
-                                            placeholder="Filter"
-                                    />
-                                </mat-form-field>
-                            </div>
-                            <table mat-table [dataSource]="dataSource">
-                                <ng-container matColumnDef="select">
-                                    <th mat-header-cell *matHeaderCellDef>
-                                        <mat-checkbox
-                                                (change)="$event ? masterToggle() : null"
-                                                [checked]="selection.hasValue() && isAllSelected()"
-                                                [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                        >
-                                        </mat-checkbox>
-                                    </th>
-                                    <td mat-cell *matCellDef="let row">
-                                        <mat-checkbox
-                                                (click)="$event.stopPropagation()"
-                                                (change)="$event ? selection.toggle(row) : null"
-                                                [checked]="selection.isSelected(row)"
-                                        >
-                                        </mat-checkbox>
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="id">
-                                    <th mat-header-cell *matHeaderCellDef class="th">ID</th>
-                                    <td mat-cell *matCellDef="let terminal" class="td">
-                                        {{ terminal.ref.id }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="name">
-                                    <th mat-header-cell *matHeaderCellDef class="th">Name</th>
-                                    <td mat-cell *matCellDef="let terminal" class="td">
-                                        {{ terminal.data.name }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="description">
-                                    <th mat-header-cell *matHeaderCellDef class="th">Description</th>
-                                    <td mat-cell *matCellDef="let terminal" class="td">
-                                        {{ terminal.data.description }}
-                                    </td>
-                                </ng-container>
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                <tr
-                                        mat-row
-                                        *matRowDef="let row; columns: displayedColumns"
-                                        (click)="selection.toggle(row)"
-                                ></tr>
-                            </table>
-
-                            <mat-paginator
-                                    [pageSizeOptions]="[15, 50, 100]"
-                                    showFirstLastButtons
-                            ></mat-paginator>
+                            <cc-terminals-table
+                                [terminals]="terminals$ | async"
+                                (terminalFormValid)="terminalFormChanged($event)"
+                                (selectedTerminal)="terminalSelected($event)"
+                            ></cc-terminals-table>
                         </div>
                     </mat-tab>
                     <mat-tab label="Create new terminal">
-                        <form [formGroup]="terminalForm" class="terminal-form">
-                            <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
-                                <mat-form-field fxFlex>
-                                    <input
-                                            matInput
-                                            placeholder="Terminal name"
-                                            required
-                                            formControlName="terminalName"
-                                    />
-                                </mat-form-field>
-                                <mat-form-field fxFlex>
-                                    <input
-                                            matInput
-                                            placeholder="Terminal description"
-                                            required
-                                            formControlName="terminalDescription"
-                                    />
-                                </mat-form-field>
-                            </div>
-                            <div
-                                    fxLayout="row"
-                                    fxLayout.sm="column"
-                                    fxLayout.xs="column"
-                                    fxLayoutGap="10px"
-                            >
-                                <label fxFlex="25">Risk coverage:</label>
-                                <mat-radio-group
-                                        fxFlex="50"
-                                        fxLayout
-                                        fxLayoutAlign="space-between center"
-                                        formControlName="riskCoverage"
-                                >
-                                    <mat-radio-button
-                                            *ngFor="let coverage of riskCoverages"
-                                            fxFlex
-                                            [value]="coverage.value"
-                                    >{{ coverage.name }}
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                            <div fxLayout="column" fxLayoutGap="10px" *ngIf="options">
-                                <div>Options:</div>
-                                <div formArrayName="options">
-                                    <div
-                                            fxLayout="row"
-                                            fxLayout.sm="column"
-                                            fxLayout.xs="column"
-                                            *ngFor="let option of options.controls; let i = index"
-                                            [formGroupName]="i"
-                                    >
-                                        <mat-form-field fxFlex="30">
-                                            <input
-                                                    matInput
-                                                    placeholder="Key"
-                                                    formControlName="key"
-                                                    required
-                                            />
-                                        </mat-form-field>
-                                        <mat-form-field fxFlex>
-                                            <input
-                                                    matInput
-                                                    placeholder="Value"
-                                                    formControlName="value"
-                                                    required
-                                            />
-                                        </mat-form-field>
-                                        <button
-                                                mat-icon-button
-                                                color="basic"
-                                                fxFlex="40px"
-                                                (click)="removeOption(i)"
-                                        >
-                                            <mat-icon>clear</mat-icon>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div fxLayout fxLayoutAlign="end center">
-                                    <button
-                                            mat-icon-button
-                                            color="basic"
-                                            fxFlex="40px"
-                                            (click)="addOption()"
-                                    >
-                                        <mat-icon>add</mat-icon>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        <cc-create-terminal-form
+                            [form]="terminalForm"
+                            (terminalFormValid)="terminalFormChanged($event)"
+                        ></cc-create-terminal-form>
                     </mat-tab>
                 </mat-tab-group>
             </div>
-            <button
-                    matStepperPrevious=""
-                    mat-button
-                    color="primary"
-            >
-                BACK
-            </button>
+            <button matStepperPrevious="" mat-button color="primary">BACK</button>
         </mat-step>
     </mat-horizontal-stepper>
 </mat-dialog-content>
 <mat-dialog-actions>
+    <button mat-button (click)="add()" [disabled]="!(terminalFormValid && providerFormValid)">
+        ADD
+    </button>
     <button mat-button [mat-dialog-close]="false">CANCEL</button>
 </mat-dialog-actions>
