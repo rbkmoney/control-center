@@ -13,7 +13,7 @@ import {
 import { Subject } from 'rxjs';
 import { filter, map, distinctUntilChanged, debounceTime, takeUntil } from 'rxjs/operators';
 
-import { MonacoFile, MonacoEditorOptions } from './model';
+import { MonacoFile, IEditorOptions } from './model';
 import { MonacoEditorService } from './monaco-editor.service';
 
 @Directive({
@@ -21,8 +21,9 @@ import { MonacoEditorService } from './monaco-editor.service';
 })
 export class MonacoEditorDirective implements OnInit, OnChanges, OnDestroy {
     @Input() file: MonacoFile;
-    @Input() options: MonacoEditorOptions;
+    @Input() options: IEditorOptions;
 
+    @Output() fileChange = new EventEmitter<MonacoFile>();
     @Output() ready = new EventEmitter();
 
     private resize$ = new Subject();
@@ -61,6 +62,9 @@ export class MonacoEditorDirective implements OnInit, OnChanges, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(dimension => this.monacoEditorService.layout(dimension));
+        this.monacoEditorService.fileChange$.pipe(takeUntil(this.destroy$)).subscribe(file => {
+            this.fileChange.emit(file);
+        });
     }
 
     ngOnDestroy() {

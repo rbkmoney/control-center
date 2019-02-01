@@ -1,10 +1,11 @@
-import { Injectable, ElementRef, NgZone } from '@angular/core';
+import { Injectable, ElementRef, NgZone, Optional, Inject } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { tap, map, takeUntil, take } from 'rxjs/operators';
 
-import { MonacoEditorOptions, MonacoFile } from './model';
+import { IEditorOptions, MonacoFile, CodeLensProvider } from './model';
 import { fromDisposable } from './from-disposable';
 import { bootstrap$ } from './bootstrap';
+import { CODE_LENS_PROVIDERS } from './tokens';
 
 declare const window: any;
 
@@ -15,15 +16,19 @@ export class MonacoEditorService {
     private editor: monaco.editor.ICodeEditor;
     private file: MonacoFile;
 
-    constructor(private zone: NgZone) {}
+    constructor(
+        @Optional() @Inject(CODE_LENS_PROVIDERS) private codeLensProviders: CodeLensProvider[],
+        private zone: NgZone
+    ) {}
 
-    init({ nativeElement }: ElementRef, options: MonacoEditorOptions = {}): Observable<void> {
+    init({ nativeElement }: ElementRef, options: IEditorOptions = {}): Observable<void> {
         return bootstrap$.pipe(
             tap(() => {
                 this.disposeModels();
                 this.editor = monaco.editor.create(nativeElement, {
                     ...options
                 });
+                this.registerCodeLensProviders();
                 if (this.file) {
                     this.open(this.file);
                 }
@@ -31,7 +36,7 @@ export class MonacoEditorService {
         );
     }
 
-    updateOptions(options: MonacoEditorOptions) {
+    updateOptions(options: IEditorOptions) {
         if (this.editor) {
             this.editor.updateOptions(options);
         }
@@ -88,6 +93,15 @@ export class MonacoEditorService {
         }
         for (const model of monaco.editor.getModels()) {
             model.dispose();
+        }
+    }
+
+    private registerCodeLensProviders() {
+        if (!this.codeLensProviders) {
+            return;
+        }
+        for (const codeLensProvider of this.codeLensProviders) {
+            monaco.languages.registerCodeLensProvider(codeLensProvider.language, codeLensProvider);
         }
     }
 }
