@@ -53,13 +53,15 @@ export class ClaimService {
                 if (claimId) {
                     return this.papiClaimService.getClaim(partyId, toNumber(claimId)).pipe(
                         tap(claimInfo => {
-                            this.persistentContainerService.init(claimInfo.modifications.modifications, false);
+                            this.persistentContainerService.init(
+                                claimInfo.modifications.modifications,
+                                false
+                            );
                             this.claimInfoContainer = { type, partyId };
                             this.claimInfoContainer$.next(this.claimInfoContainer);
                         }),
                         map(() => null)
                     );
-
                 } else {
                     this.persistentContainerService.init([]);
                     this.claimInfoContainer = { type, partyId };

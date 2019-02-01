@@ -9,7 +9,6 @@ import { ClaimActionType } from '../claim-action-type';
     templateUrl: 'new-claim.component.html'
 })
 export class NewClaimComponent {
-
     isLoading = false;
 
     constructor(
@@ -27,5 +26,4 @@ export class NewClaimComponent {
         const claimID = this.dialogRef._containerInstance._config.data.claimID;
         this.router.navigate([`/claims/${partyID}/${ClaimActionType.create}/${claimID}`]);
     }
-
 }

@@ -13,23 +13,34 @@
             </button>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
-            <button mat-button
-                    color="primary"
-                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading"
-                    (click)="newClaim()">
+            <button
+                mat-button
+                color="primary"
+                [disabled]="
+                    hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading
+                "
+                (click)="newClaim()"
+            >
                 NEW CLAIM
             </button>
-            <button mat-button
-                    color="primary"
-                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading"
-                    (click)="accept()">
+            <button
+                mat-button
+                color="primary"
+                [disabled]="
+                    hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading
+                "
+                (click)="accept()"
+            >
                 ACCEPT CLAIM
             </button>
             <button
-                    mat-button
-                    color="warn"
-                    [disabled]="hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading"
-                    (click)="deny()">
+                mat-button
+                color="warn"
+                [disabled]="
+                    hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading
+                "
+                (click)="deny()"
+            >
                 DENY CLAIM
             </button>
         </div>
