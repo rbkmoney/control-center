@@ -1,3 +1,4 @@
+import { parse } from '../../jsonc/json-parser';
 import {
     CodeLensProvider,
     ITextModel,
@@ -15,14 +16,12 @@ export class DomainObjCodeLensProvider implements CodeLensProvider {
         model: ITextModel,
         token: CancellationToken
     ): ProviderResult<ICodeLensSymbol[]> {
+        const parsed = parse(model.getValue());
+        // console.log(parsed);
+        const range = monaco.Range.fromPositions(model.getPositionAt(5), model.getPositionAt(8));
         return [
             {
-                range: {
-                    startLineNumber: 2,
-                    startColumn: 1,
-                    endLineNumber: 3,
-                    endColumn: 1
-                },
+                range,
                 id: 'First Line',
                 command: {
                     id: null,
