@@ -32,6 +32,7 @@
     "core-js": "^2.5.4",
     "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#3abdcb47884071c025d50c1fea8bdbe15522ef2e",
     "hammerjs": "^2.0.8",
+    "jsonc-parser": "^2.0.2",
     "keycloak-angular": "6.0.0",
     "keycloak-js": "4.5.0",
     "lodash-es": "^4.17.10",
