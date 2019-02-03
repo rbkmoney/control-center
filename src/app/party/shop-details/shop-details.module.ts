@@ -10,6 +10,7 @@ import {
     MatInputModule,
     MatListModule,
     MatPaginatorModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
     MatRadioModule,
     MatStepperModule,
@@ -50,7 +51,8 @@ import { ProvidersTableFormComponent } from './add-provider/providers-table-form
         MatFormFieldModule,
         MatInputModule,
         MatTabsModule,
-        MatIconModule
+        MatIconModule,
+        MatProgressBarModule
     ],
     declarations: [
         ShopDetailsComponent,

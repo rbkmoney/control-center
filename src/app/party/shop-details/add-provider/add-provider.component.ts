@@ -1,28 +1,24 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/material';
-import { map, switchMap } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, MatTabChangeEvent } from '@angular/material';
+import { map } from 'rxjs/operators';
 import get from 'lodash-es/get';
 
-import { CategoryRef, Party, Shop } from '../../../gen-damsel/domain';
+import { CategoryRef, Shop } from '../../../gen-damsel/domain';
 import { DomainTypedManager } from '../../../thrift/domain-typed-manager';
 import { ProviderObject, TerminalObject } from '../../../damsel/domain';
 import { CreateTerminalParams } from '../../../claim/domain-typed-manager';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { AddProviderDecision } from '../../../thrift/add-provider-decision';
+import { TerminalFormChanged } from './terminal-form-changed';
 
 interface AddProviderData {
     shop: Shop;
     partyId: string;
 }
 
-enum Step {
-    provider = 0,
-    terminal = 1
-}
-
 enum TerminalDecision {
     create = 0,
-    choosen = 1
+    chosen = 1
 }
 
 @Component({
@@ -34,18 +30,18 @@ export class AddProviderComponent implements OnInit {
     providers$: Subject<ProviderObject[]> = new BehaviorSubject(null);
     providerFormValid: boolean;
     terminalFormValid: boolean;
-    currentStep = Step.provider;
     terminalDecision: TerminalDecision;
-
+    terminalFormValues: any;
+    isLoading = false;
     selectedProvider: number;
     selectedTerminal: number;
 
     constructor(
         private dialogRef: MatDialogRef<AddProviderComponent>,
         @Inject(MAT_DIALOG_DATA) public data: AddProviderData,
-        private dtm: DomainTypedManager
-    ) {
-    }
+        private dtm: DomainTypedManager,
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit(): void {
         this.dtm
@@ -60,11 +56,14 @@ export class AddProviderComponent implements OnInit {
                             obj,
                             'data.recurrent_paytool_terms.categories.value'
                         );
-                        return paymentCats
-                            ? !!Array.from(paymentCats.values()).find(predicate)
-                            : null || recurrentCats
-                                ? !!Array.from(recurrentCats.values()).find(predicate)
-                                : null;
+                        const isHaveDecisions = Array.isArray(get(obj, 'data.terminal.decisions'));
+                        if (paymentCats && isHaveDecisions) {
+                            return !!Array.from(paymentCats.values()).find(predicate);
+                        }
+                        if (recurrentCats && isHaveDecisions) {
+                            return !!Array.from(recurrentCats.values()).find(predicate);
+                        }
+                        return null;
                     })
                 )
             )
@@ -84,8 +83,12 @@ export class AddProviderComponent implements OnInit {
         this.selectedProvider = id;
     }
 
-    terminalFormChanged(formStatus: boolean) {
-        this.terminalFormValid = formStatus;
+    terminalFormChanged(data: TerminalFormChanged) {
+        const { valid, values } = data;
+        this.terminalFormValid = valid;
+        if (values) {
+            this.terminalFormValues = values;
+        }
     }
 
     terminalSelected(id: number) {
@@ -95,7 +98,7 @@ export class AddProviderComponent implements OnInit {
     terminalTabChanged(event: MatTabChangeEvent) {
         switch (event.index) {
             case 0:
-                this.terminalDecision = TerminalDecision.choosen;
+                this.terminalDecision = TerminalDecision.chosen;
                 break;
             case 1:
                 this.terminalDecision = TerminalDecision.create;
@@ -107,50 +110,58 @@ export class AddProviderComponent implements OnInit {
     }
 
     add() {
+        this.isLoading = true;
         if (this.terminalDecision === TerminalDecision.create) {
-            const terminalParams = {
-                providerID: this.selectedProvider,
-                partyID: this.data.partyId,
-                shopID: this.data.shop.id,
-                ...this.terminalForm.value
-            } as CreateTerminalParams;
-            this.dtm
-                .createTerminal(terminalParams)
-                .pipe(
-                    switchMap(() => this.dtm.getTerminalObjects()),
-                    map((terminalObjects: TerminalObject[]) =>
-                        terminalObjects.find(
-                            obj =>
-                                obj.data.name === this.terminalForm.value['terminalName'] &&
-                                obj.data.description ===
-                                this.terminalForm.value['terminalDescription']
-                        )
-                    )
-                )
-                .subscribe(terminal => {
-                    this.selectedTerminal = terminal.ref.id;
-                    this.updateProvider();
-                });
+            this.createTerminal();
         } else {
             this.updateProvider();
         }
     }
 
-    private updateProvider() {
-        console.log({
-            if_: {
-                condition: {
-                    party: {
-                        id: this.data.partyId,
-                        definition: {
-                            shop_is: this.data.shop.id
-                        }
-                    }
-                }
+    private createTerminal() {
+        const terminalParams = {
+            providerID: this.selectedProvider,
+            partyID: this.data.partyId,
+            shopID: this.data.shop.id,
+            ...this.terminalFormValues
+        } as CreateTerminalParams;
+        this.dtm.createTerminal(terminalParams).subscribe(
+            () => {
+                this.handleSuccess();
             },
-            then_: {
-                value: [{ id: this.selectedTerminal }]
+            e => {
+                this.handleError(e);
             }
-        });
+        );
+    }
+
+    private updateProvider() {
+        this.isLoading = true;
+        const params = {
+            partyId: this.data.partyId,
+            shopId: this.data.shop.id,
+            terminalId: this.selectedTerminal,
+            providerId: this.selectedProvider
+        } as AddProviderDecision;
+        this.dtm.addProviderDecision(params).subscribe(
+            () => {
+                this.handleSuccess();
+            },
+            e => {
+                this.handleError(e);
+            }
+        );
+    }
+
+    private handleSuccess() {
+        this.isLoading = false;
+        this.snackBar.open('Successfully added', 'OK', { duration: 3000 });
+        this.dialogRef.close(true);
+    }
+
+    private handleError(e: any) {
+        this.isLoading = false;
+        this.snackBar.open('An error occurred while while adding provider', 'OK');
+        console.error(e);
     }
 }

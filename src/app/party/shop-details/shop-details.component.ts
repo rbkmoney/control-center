@@ -25,6 +25,27 @@ export class ShopDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.getData();
+    }
+
+    addProvider() {
+        const config = {
+            data: {
+                shop: this.shop,
+                partyId: this.partyId
+            },
+            width: '800px',
+            disableClose: true
+        };
+        const dialog = this.dialog.open(AddProviderComponent, config);
+        dialog.afterClosed().subscribe(result => {
+            if (result) {
+                this.getData();
+            }
+        });
+    }
+
+    private getData() {
         this.isLoading = true;
         this.route.params
             .pipe(
@@ -38,17 +59,5 @@ export class ShopDetailsComponent implements OnInit {
                 this.shop = shop;
                 this.providerInfo = providerInfo;
             });
-    }
-
-    addProvider() {
-        const config = {
-            data: {
-                shop: this.shop,
-                partyId: this.partyId
-            },
-            width: '800px',
-            disableClose: true
-        };
-        this.dialog.open(AddProviderComponent, config);
     }
 }

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ProvidersTableFormService } from './providers-table-form.service';
 import { FormGroup } from '@angular/forms';
-import { ProviderObject, TerminalObject } from '../../../../damsel/domain';
+import { ProviderObject } from '../../../../damsel/domain';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -38,9 +38,8 @@ export class ProvidersTableFormComponent implements OnInit, OnChanges {
 
         this.form = form;
 
-        this.form.valueChanges.subscribe(value => {
+        this.form.valueChanges.subscribe(() => {
             this.providerFormValid.emit(this.form.valid);
-            // this.selectedProvider = value['id'];
         });
 
         this.dataSource.paginator = this.paginator;

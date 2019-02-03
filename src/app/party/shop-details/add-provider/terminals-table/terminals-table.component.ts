@@ -11,6 +11,7 @@ import {
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { TerminalObject } from '../../../../damsel/domain';
 import { SelectionModel } from '@angular/cdk/collections';
+import { TerminalFormChanged } from '../terminal-form-changed';
 
 @Component({
     selector: 'cc-terminals-table',
@@ -20,7 +21,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class TerminalsTableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @Input() terminals: TerminalObject[];
-    @Output() terminalFormValid: EventEmitter<boolean> = new EventEmitter();
+    @Output() formChanged: EventEmitter<TerminalFormChanged> = new EventEmitter();
     @Output() selectedTerminal: EventEmitter<number> = new EventEmitter();
 
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];
@@ -38,9 +39,9 @@ export class TerminalsTableComponent implements OnInit, OnChanges {
             const terminalSelection = Array.from(this.selection.selected.values());
             if (terminalSelection.length > 0) {
                 this.selectedTerminal.emit(terminalSelection[0].ref.id);
-                this.terminalFormValid.emit(true);
+                this.formChanged.emit({ valid: true });
             } else {
-                this.terminalFormValid.emit(false);
+                this.formChanged.emit({ valid: false });
             }
         });
     }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { CreateTerminalFormService } from './create-terminal-form.service';
+import { TerminalFormChanged } from '../terminal-form-changed';
 
 @Component({
     selector: 'cc-create-terminal-form',
@@ -10,7 +11,7 @@ import { CreateTerminalFormService } from './create-terminal-form.service';
 })
 export class CreateTerminalFormComponent implements OnInit {
     @Input() form: FormGroup;
-    @Output() terminalFormValid: EventEmitter<boolean> = new EventEmitter();
+    @Output() formChanged: EventEmitter<TerminalFormChanged> = new EventEmitter();
 
     riskCoverages: Array<{ name: string; value: number }>;
     options: FormGroup;
@@ -21,14 +22,10 @@ export class CreateTerminalFormComponent implements OnInit {
         const { form } = this.createTerminalFormService;
         this.form = form;
         this.riskCoverages = this.createTerminalFormService.riskCoverages;
+        this.options = this.form.controls.options as FormGroup;
 
-        this.form.valueChanges.subscribe(() => {
-            this.options = this.form.controls.options as FormGroup;
-        });
-
-        this.form.valueChanges.subscribe(() => {
-            this.terminalFormValid.emit(this.form.valid);
-            // this.terminalDecision = TerminalDecision.create;
+        this.form.valueChanges.subscribe(values => {
+            this.formChanged.emit({ valid: this.form.valid, values });
         });
     }
 
