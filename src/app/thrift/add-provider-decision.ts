@@ -1,7 +1,7 @@
 import { ProviderObject } from '../damsel/domain';
 import { Commit } from '../gen-damsel/domain_config';
 import { toGenCommit, toGenDomainObject } from './converters';
-import { addTerminalDecision } from '../claim/domain-typed-manager/add-terminal-decision';
+import { addTerminalDecision } from './operations/add-terminal-decision';
 
 export class AddProviderDecision {
     partyId: string;

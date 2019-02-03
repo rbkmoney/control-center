@@ -6,7 +6,7 @@ import get from 'lodash-es/get';
 import { CategoryRef, Shop } from '../../../gen-damsel/domain';
 import { DomainTypedManager } from '../../../thrift/domain-typed-manager';
 import { ProviderObject, TerminalObject } from '../../../damsel/domain';
-import { CreateTerminalParams } from '../../../claim/domain-typed-manager';
+import { CreateTerminalParams } from '../../../thrift/operations';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AddProviderDecision } from '../../../thrift/add-provider-decision';
 import { TerminalFormChanged } from './terminal-form-changed';

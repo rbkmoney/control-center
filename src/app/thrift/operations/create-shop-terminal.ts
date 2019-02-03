@@ -1,7 +1,7 @@
 import { addTerminalDecision } from './add-terminal-decision';
 import { createTerminalObject } from './create-terminal-object';
 import { CreateTerminalParams } from './create-terminal-params';
-import { toGenCommit, toGenDomainObject } from '../../thrift/converters';
+import { toGenCommit, toGenDomainObject } from '../converters';
 import { ProviderObject, TerminalObject, Commit } from '../../damsel';
 
 export const createShopTerminal = (

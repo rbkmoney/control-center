@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
 import { ProviderObject } from '../../damsel/domain';
-import { CreateTerminalParams, DomainTypedManager } from '../domain-typed-manager';
+import { CreateTerminalParams, DomainTypedManager } from '../../thrift/operations';
 import { tap } from 'rxjs/internal/operators';
 
 @Component({
