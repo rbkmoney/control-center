@@ -8,8 +8,6 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { ProvidersTableFormService } from './providers-table-form.service';
-import { FormGroup } from '@angular/forms';
 import { ProviderObject } from '../../../../damsel/domain';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -17,8 +15,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Component({
     selector: 'cc-providers-table-form',
     templateUrl: 'providers-table-form.component.html',
-    styleUrls: ['../add-provider.component.scss'],
-    providers: [ProvidersTableFormService]
+    styleUrls: ['../add-provider.component.scss']
 })
 export class ProvidersTableFormComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,19 +26,8 @@ export class ProvidersTableFormComponent implements OnInit, OnChanges {
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];
     dataSource: MatTableDataSource<ProviderObject>;
     selection = new SelectionModel<ProviderObject>(false, []);
-    form: FormGroup;
-
-    constructor(private providersTableFormService: ProvidersTableFormService) {}
 
     ngOnInit(): void {
-        const { form } = this.providersTableFormService;
-
-        this.form = form;
-
-        this.form.valueChanges.subscribe(() => {
-            this.providerFormValid.emit(this.form.valid);
-        });
-
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (terminal: ProviderObject, filter: string) =>
             JSON.stringify(terminal)
@@ -64,5 +50,9 @@ export class ProvidersTableFormComponent implements OnInit, OnChanges {
         if (providers && providers.currentValue.length > 0) {
             this.dataSource = new MatTableDataSource(providers.currentValue);
         }
+    }
+
+    applyFilter(filterValue: string) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 }

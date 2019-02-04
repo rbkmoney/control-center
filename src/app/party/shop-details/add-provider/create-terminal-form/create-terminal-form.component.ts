@@ -10,9 +10,9 @@ import { TerminalFormChanged } from '../terminal-form-changed';
     providers: [CreateTerminalFormService]
 })
 export class CreateTerminalFormComponent implements OnInit {
-    @Input() form: FormGroup;
     @Output() formChanged: EventEmitter<TerminalFormChanged> = new EventEmitter();
 
+    form: FormGroup;
     riskCoverages: Array<{ name: string; value: number }>;
     options: FormGroup;
 
