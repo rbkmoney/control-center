@@ -14,6 +14,8 @@ interface RouteData {
     templateUrl: 'clone-claim.component.html'
 })
 export class CloneClaimComponent {
+    isLoading = false;
+
     constructor(
         private dialogRef: MatDialogRef<CloneClaimComponent>,
         private claimService: ClaimService,
@@ -23,6 +25,7 @@ export class CloneClaimComponent {
     ) {}
 
     cloneClaim() {
+        this.isLoading = true;
         this.dialogRef.close();
         this.router.navigate([
             `/claims/${this.data.partyID}/${ClaimActionType.create}/${this.data.claimID}`
