@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { shareReplay, map, switchMap, tap } from 'rxjs/operators';
+import { shareReplay, map, switchMap } from 'rxjs/operators';
 
 import {
     Domain,
@@ -9,13 +9,12 @@ import {
     TerminalObject,
     PaymentInstitutionObject
 } from '../damsel/domain';
-import { Version } from '../damsel';
-import { CreateTerminalParams } from './operations';
 import { findDomainObject, findDomainObjects } from './operations/utils';
-import { createShopTerminal } from './operations/create-shop-terminal';
+import { createShopTerminal } from './operations';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
-import { addProviderDecision, AddProviderDecision } from './add-provider-decision';
+import { addDecisionToProvider, AddDecisionToProvider } from './operations';
+import { CreateTerminalParams } from './operations/create-terminal-params';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -112,10 +111,10 @@ export class DomainTypedManager {
         );
     }
 
-    addProviderDecision(params: AddProviderDecision): Observable<void> {
+    addProviderDecision(params: AddDecisionToProvider): Observable<void> {
         return combineLatest(this.getLastVersion(), this.getProviderObjects()).pipe(
             switchMap(([version, providerObjects]) =>
-                this.dmtService.commit(version, addProviderDecision(providerObjects, params))
+                this.dmtService.commit(version, addDecisionToProvider(providerObjects, params))
             ),
             switchMap(() => this.getNewDomain())
         );

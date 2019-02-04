@@ -2,13 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, MatTabChangeEvent } from '@angular/material';
 import { map } from 'rxjs/operators';
 import get from 'lodash-es/get';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import { CategoryRef, Shop } from '../../../gen-damsel/domain';
-import { DomainTypedManager } from '../../../thrift/domain-typed-manager';
+import { DomainTypedManager, AddDecisionToProvider, CreateTerminalParams } from '../../../thrift';
 import { ProviderObject, TerminalObject } from '../../../damsel/domain';
-import { CreateTerminalParams } from '../../../thrift/operations';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { AddProviderDecision } from '../../../thrift/add-provider-decision';
 import { TerminalFormChanged } from './terminal-form-changed';
 
 interface AddProviderData {
@@ -142,7 +140,7 @@ export class AddProviderComponent implements OnInit {
             shopId: this.data.shop.id,
             terminalId: this.selectedTerminal,
             providerId: this.selectedProvider
-        } as AddProviderDecision;
+        } as AddDecisionToProvider;
         this.dtm.addProviderDecision(params).subscribe(
             () => {
                 this.handleSuccess();

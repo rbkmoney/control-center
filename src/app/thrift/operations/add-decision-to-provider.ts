@@ -1,18 +1,18 @@
-import { ProviderObject } from '../damsel/domain';
-import { Commit } from '../gen-damsel/domain_config';
-import { toGenCommit, toGenDomainObject } from './converters';
-import { addTerminalDecision } from './operations/add-terminal-decision';
+import { ProviderObject } from '../../damsel/domain';
+import { Commit } from '../../gen-damsel/domain_config';
+import { toGenCommit, toGenDomainObject } from '../converters';
+import { addTerminalDecision } from './add-terminal-decision';
 
-export class AddProviderDecision {
+export class AddDecisionToProvider {
     partyId: string;
     shopId: string;
     terminalId: number;
     providerId: number;
 }
 
-export const addProviderDecision = (
+export const addDecisionToProvider = (
     providerObjects: ProviderObject[],
-    params: AddProviderDecision
+    params: AddDecisionToProvider
 ): Commit => {
     const providerObject = providerObjects.find(obj => obj.ref.id === params.providerId);
     const updateProvider = {

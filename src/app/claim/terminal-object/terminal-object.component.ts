@@ -2,12 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/internal/operators';
 
 import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
 import { ProviderObject } from '../../damsel/domain';
-import { CreateTerminalParams, DomainTypedManager } from '../../thrift/operations';
-import { tap } from 'rxjs/internal/operators';
+import { CreateTerminalParams } from '../../thrift/operations/create-terminal-params';
+import { DomainTypedManager } from '../../thrift/domain-typed-manager';
 
 @Component({
     selector: 'cc-terminal-object',
