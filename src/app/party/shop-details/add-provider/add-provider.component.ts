@@ -7,7 +7,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { CategoryRef, Shop } from '../../../gen-damsel/domain';
 import { DomainTypedManager, AddDecisionToProvider, CreateTerminalParams } from '../../../thrift';
 import { ProviderObject, TerminalObject } from '../../../damsel/domain';
-import { TerminalFormChanged } from './terminal-form-changed';
+import { FormChanged } from './form-changed';
 
 interface AddProviderData {
     shop: Shop;
@@ -73,15 +73,15 @@ export class AddProviderComponent implements OnInit {
         });
     }
 
-    providerFormChanged(formStatus: boolean) {
-        this.providerFormValid = formStatus;
+    providerFormChanged(data: FormChanged) {
+        const { valid, values } = data;
+        this.providerFormValid = valid;
+        if (values) {
+            this.selectedProvider = values;
+        }
     }
 
-    providerSelected(id: number) {
-        this.selectedProvider = id;
-    }
-
-    terminalFormChanged(data: TerminalFormChanged) {
+    terminalFormChanged(data: FormChanged) {
         const { valid, values } = data;
         this.terminalFormValid = valid;
         if (values) {

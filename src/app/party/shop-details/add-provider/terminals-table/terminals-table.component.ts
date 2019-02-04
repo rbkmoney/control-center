@@ -9,9 +9,10 @@ import {
     ViewChild
 } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { TerminalObject } from '../../../../damsel/domain';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TerminalFormChanged } from '../terminal-form-changed';
+
+import { FormChanged } from '../form-changed';
+import { TerminalObject } from '../../../../damsel/domain';
 
 @Component({
     selector: 'cc-terminals-table',
@@ -21,7 +22,7 @@ import { TerminalFormChanged } from '../terminal-form-changed';
 export class TerminalsTableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @Input() terminals: TerminalObject[];
-    @Output() formChanged: EventEmitter<TerminalFormChanged> = new EventEmitter();
+    @Output() formChanged: EventEmitter<FormChanged> = new EventEmitter();
     @Output() selectedTerminal: EventEmitter<number> = new EventEmitter();
 
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];

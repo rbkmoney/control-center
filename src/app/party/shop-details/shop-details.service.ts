@@ -7,7 +7,7 @@ import { Shop } from '../../gen-damsel/domain';
 import { ProviderObject, TerminalObject } from '../../damsel';
 import { findTerminalIds } from './find-terminal-ids';
 import { PartyService } from '../party.service';
-import { DomainTypedManager } from '../../thrift/domain-typed-manager';
+import { DomainTypedManager } from '../../thrift';
 
 export interface ProviderInfo {
     provider: ProviderObject;

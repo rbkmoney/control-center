@@ -7,8 +7,7 @@ import { tap } from 'rxjs/internal/operators';
 import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
 import { ProviderObject } from '../../damsel/domain';
-import { CreateTerminalParams } from '../../thrift/operations/create-terminal-params';
-import { DomainTypedManager } from '../../thrift/domain-typed-manager';
+import { CreateTerminalParams, DomainTypedManager } from '../../thrift';
 
 @Component({
     selector: 'cc-terminal-object',

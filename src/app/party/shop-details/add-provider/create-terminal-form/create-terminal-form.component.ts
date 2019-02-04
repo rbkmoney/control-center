@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { CreateTerminalFormService } from './create-terminal-form.service';
-import { TerminalFormChanged } from '../terminal-form-changed';
+import { FormChanged } from '../form-changed';
 
 @Component({
     selector: 'cc-create-terminal-form',
@@ -10,7 +10,7 @@ import { TerminalFormChanged } from '../terminal-form-changed';
     providers: [CreateTerminalFormService]
 })
 export class CreateTerminalFormComponent implements OnInit {
-    @Output() formChanged: EventEmitter<TerminalFormChanged> = new EventEmitter();
+    @Output() formChanged: EventEmitter<FormChanged> = new EventEmitter();
 
     form: FormGroup;
     riskCoverages: Array<{ name: string; value: number }>;

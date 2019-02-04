@@ -8,9 +8,11 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { ProviderObject } from '../../../../damsel/domain';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
+
+import { FormChanged } from '../form-changed';
+import { ProviderObject } from '../../../../damsel/domain';
 
 @Component({
     selector: 'cc-providers-table-form',
@@ -19,8 +21,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class ProvidersTableFormComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    @Output() providerFormValid: EventEmitter<boolean> = new EventEmitter();
-    @Output() providerSelected: EventEmitter<number> = new EventEmitter();
+    @Output() formChanged: EventEmitter<FormChanged> = new EventEmitter();
     @Input() providers: ProviderObject[];
 
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];
@@ -37,10 +38,9 @@ export class ProvidersTableFormComponent implements OnInit, OnChanges {
         this.selection.changed.subscribe(() => {
             const terminalSelection = Array.from(this.selection.selected.values());
             if (terminalSelection.length > 0) {
-                this.providerSelected.emit(terminalSelection[0].ref.id);
-                this.providerFormValid.emit(true);
+                this.formChanged.emit({ values: terminalSelection[0].ref.id, valid: true });
             } else {
-                this.providerFormValid.emit(false);
+                this.formChanged.emit({ valid: false });
             }
         });
     }
