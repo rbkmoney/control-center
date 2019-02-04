@@ -10,10 +10,11 @@ export class PersistentContainerService {
     containers$: Subject<PersistentContainer[]> = new Subject();
     private containers: PersistentContainer[] = [];
 
-    init(persisted: PartyModification[]) {
+    init(persisted: PartyModification[], saved = true) {
         this.containers = persisted.map(modification => ({
             modification,
-            saved: true
+            saved,
+            typeHash: !saved ? this.makeTypeHash(modification) : null
         }));
         this.containers$.next(this.containers);
     }
