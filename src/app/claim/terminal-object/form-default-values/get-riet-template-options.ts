@@ -1,4 +1,4 @@
-import { TerminalOption } from '../../../thrift/operations';
+import { TerminalOption } from '../../../thrift';
 
 export const getRietTemplateOptions = (): TerminalOption[] => [
     {

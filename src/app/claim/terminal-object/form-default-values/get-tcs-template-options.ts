@@ -1,5 +1,5 @@
 import { getHost } from './get-host';
-import { TerminalOption } from '../../../thrift/operations';
+import { TerminalOption } from '../../../thrift';
 
 export const getTcsTemplateOptions = (shopUrl: string): TerminalOption[] => [
     {

@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { getOptions, prepareTerminalName } from './form-default-values';
 import { DomainModificationInfo } from '../model';
-import { TerminalOption } from '../../thrift/operations';
+import { TerminalOption } from '../../thrift';
 
 const toFormArray = (fb: FormBuilder, options: TerminalOption[]): FormArray =>
     fb.array(options.map(option => fb.group(option)));

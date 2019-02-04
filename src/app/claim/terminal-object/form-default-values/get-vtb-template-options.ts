@@ -1,6 +1,6 @@
 import last from 'lodash-es/last';
 import { getHost } from './get-host';
-import { TerminalOption } from '../../../thrift/operations';
+import { TerminalOption } from '../../../thrift';
 
 const partyIDToSmid = (partyID: string) => last(partyID.split('-'));
 

@@ -7,9 +7,8 @@ import { ActionType, ModificationAction } from '../modification-action';
 import { DomainModificationInfo, ModificationGroupType } from '../model';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
-import { DomainTypedManager } from '../../thrift/domain-typed-manager';
+import { DomainTypedManager, CreateTerminalParams } from '../../thrift';
 import { PartyModification } from '../../gen-damsel/payment_processing';
-import { CreateTerminalParams } from '../../thrift/operations/create-terminal-params';
 
 interface CreateModificationData {
     action: ModificationAction;

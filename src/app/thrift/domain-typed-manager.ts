@@ -13,8 +13,7 @@ import { findDomainObject, findDomainObjects } from './operations/utils';
 import { createShopTerminal } from './operations';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
-import { addDecisionToProvider, AddDecisionToProvider } from './operations';
-import { CreateTerminalParams } from './operations/create-terminal-params';
+import { addDecisionToProvider, AddDecisionToProvider, CreateTerminalParams } from './operations';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
