@@ -17,7 +17,6 @@ export class DomainObjCodeLensProvider implements CodeLensProvider {
         token: CancellationToken
     ): ProviderResult<ICodeLensSymbol[]> {
         const parsed = parse(model.getValue());
-        // console.log(parsed);
         const range = monaco.Range.fromPositions(model.getPositionAt(5), model.getPositionAt(8));
         return [
             {
