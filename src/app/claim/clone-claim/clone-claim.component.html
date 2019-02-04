@@ -1,6 +1,8 @@
-<div class="mat-dialog-title">Confirm new claim creation</div>
+<div class="mat-dialog-title">Confirm claim cloning</div>
 <mat-dialog-actions>
-    <button mat-button [disabled]="isLoading" color="primary" (click)="newClaim()">CONFIRM</button>
+    <button mat-button [disabled]="isLoading" color="primary" (click)="cloneClaim()">
+        CONFIRM
+    </button>
     <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
     <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 </mat-dialog-actions>

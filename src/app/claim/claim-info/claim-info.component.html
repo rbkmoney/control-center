@@ -19,9 +19,9 @@
                 [disabled]="
                     hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading
                 "
-                (click)="newClaim()"
+                (click)="cloneClaim()"
             >
-                NEW CLAIM
+                CLONE CLAIM
             </button>
             <button
                 mat-button

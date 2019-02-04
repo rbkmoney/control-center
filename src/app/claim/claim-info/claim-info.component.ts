@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatDialog, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 import { ClaimService } from '../claim.service';
 import { ClaimInfoContainer } from '../model';
@@ -8,8 +9,8 @@ import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 import { ClaimActionType } from '../claim-action-type';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
-import { NewClaimComponent } from '../new-claim/new-claim.component';
 import { ClaimStatus } from '../../papi/model/claim-statuses';
+import { CloneClaimComponent } from '../clone-claim/clone-claim.component';
 
 @Component({
     selector: 'cc-claim-info',
@@ -31,13 +32,13 @@ export class ClaimInfoComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.claimService.claimInfoContainer$.subscribe(container => {
-            if (container) {
+        this.claimService.claimInfoContainer$
+            .pipe(filter(container => container !== null))
+            .subscribe(container => {
                 this.claimInfoContainer = container;
                 this.partyID = container.partyId;
                 this.claimID = container.claimId;
-            }
-        });
+            });
     }
 
     hasUnsavedChanges() {
@@ -80,8 +81,8 @@ export class ClaimInfoComponent implements OnInit {
         this.bottomSheet.open(UnitActionsComponent, { data: { type: 'allActions' } });
     }
 
-    newClaim() {
-        this.dialog.open(NewClaimComponent, {
+    cloneClaim() {
+        this.dialog.open(CloneClaimComponent, {
             disableClose: true,
             data: { partyID: this.partyID, claimID: this.claimID }
         });
