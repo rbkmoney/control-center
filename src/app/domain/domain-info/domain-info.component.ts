@@ -1,40 +1,51 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSnackBar, MatSidenav } from '@angular/material';
+import { MatSidenav, MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
-import { DomainService } from './domain.service';
 import { DomainDetailsService } from './domain-details.service';
 import { DetailsContainerService } from './details-container.service';
+import { DomainInfoService } from './domain-info.service';
 
 @Component({
-    templateUrl: './domain.component.html',
-    styleUrls: ['../shared/container.css', './domain.component.scss'],
-    providers: [DomainDetailsService, DetailsContainerService]
+    templateUrl: './domain-info.component.html',
+    styleUrls: ['../../shared/container.css', './domain-info.component.scss'],
+    providers: [DomainInfoService, DomainDetailsService, DetailsContainerService]
 })
-export class DomainComponent implements OnInit {
+export class DomainInfoComponent implements OnInit {
     initialized = false;
     isLoading: boolean;
     @ViewChild('domainObjDetails') detailsContainer: MatSidenav;
 
+    private detailedObjRef: any;
+
     constructor(
-        private domainService: DomainService,
         private snackBar: MatSnackBar,
         private detailsService: DomainDetailsService,
-        private detailsContainerService: DetailsContainerService
+        private detailsContainerService: DetailsContainerService,
+        private domainInfoService: DomainInfoService,
+        private router: Router
     ) {}
 
     ngOnInit() {
         this.initialize();
         this.detailsContainerService.container = this.detailsContainer;
-        this.detailsService.detailedObject$.subscribe(() => this.detailsContainerService.open());
+        this.detailsService.domainPair$.subscribe(({ ref }) => {
+            this.detailedObjRef = ref;
+            this.detailsContainerService.open();
+        });
     }
 
     closeDetails() {
         this.detailsContainerService.close();
     }
 
+    editDomainObj() {
+        this.router.navigate(['domain', JSON.stringify(this.detailedObjRef)]);
+    }
+
     private initialize() {
         this.isLoading = true;
-        this.domainService.initialize().subscribe(
+        this.domainInfoService.initialize().subscribe(
             () => {
                 this.isLoading = false;
                 this.initialized = true;

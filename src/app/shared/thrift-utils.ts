@@ -1,8 +1,10 @@
-export function clearNullFields(obj: object): object {
-    if (!obj) {
+import { DomainObject } from '../gen-damsel/domain';
+
+export function clearNullFields(union: object): object {
+    if (!union) {
         return;
     }
-    const filtered = Object.entries(obj).filter(([, k]) => k !== null);
+    const filtered = Object.entries(union).filter(([, v]) => v !== null);
     let result = {};
     for (const [key, val] of filtered) {
         result = {
@@ -11,4 +13,16 @@ export function clearNullFields(obj: object): object {
         };
     }
     return result;
+}
+
+export function extract(domainObject: DomainObject): object {
+    if (!domainObject) {
+        return;
+    }
+    return Object.entries(domainObject).reduce((acc, [, v]) => {
+        if (v !== null) {
+            return v;
+        }
+        return acc;
+    }, null);
 }
