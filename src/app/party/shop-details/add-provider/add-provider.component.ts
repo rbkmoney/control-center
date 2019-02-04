@@ -136,10 +136,10 @@ export class AddProviderComponent implements OnInit {
     private updateProvider() {
         this.isLoading = true;
         const params = {
-            partyId: this.data.partyId,
-            shopId: this.data.shop.id,
-            terminalId: this.selectedTerminal,
-            providerId: this.selectedProvider
+            partyID: this.data.partyId,
+            shopID: this.data.shop.id,
+            terminalID: this.selectedTerminal,
+            providerID: this.selectedProvider
         } as AddDecisionToProvider;
         this.dtm.addProviderDecision(params).subscribe(
             () => {
