@@ -1,5 +1,5 @@
 <mat-card *ngIf="claimInfoContainer">
-    <mat-card-subtitle> Claim details </mat-card-subtitle>
+    <mat-card-subtitle> Claim details</mat-card-subtitle>
     <mat-card-content>
         <cc-claim-info-details [claimInfoContainer]="claimInfoContainer"></cc-claim-info-details>
     </mat-card-content>
@@ -13,6 +13,16 @@
             </button>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
+            <button
+                mat-button
+                color="primary"
+                [disabled]="
+                    hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading
+                "
+                (click)="cloneClaim()"
+            >
+                CLONE CLAIM
+            </button>
             <button
                 mat-button
                 color="primary"
