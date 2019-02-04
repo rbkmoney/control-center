@@ -1,8 +1,8 @@
-import { addTerminalDecision } from './add-terminal-decision';
 import { createTerminalObject } from './create-terminal-object';
 import { CreateTerminalParams } from './create-terminal-params';
 import { toGenCommit, toGenDomainObject } from '../converters';
 import { ProviderObject, TerminalObject, Commit } from '../../damsel';
+import { createAddTerminalToProviderOperation } from './create-add-terminal-to-provider-operation';
 
 export const createShopTerminal = (
     terminalObjects: TerminalObject[],
@@ -16,18 +16,12 @@ export const createShopTerminal = (
         }
     };
     const updateProvider = {
-        update: {
-            oldObject: toGenDomainObject(providerObject, 'provider'),
-            newObject: toGenDomainObject(
-                addTerminalDecision(
-                    providerObject,
-                    params.partyID,
-                    params.shopID,
-                    terminalObject.ref.id
-                ),
-                'provider'
-            )
-        }
+        update: createAddTerminalToProviderOperation(providerObject, {
+            shopID: params.shopID,
+            partyID: params.partyID,
+            providerID: providerObject.ref.id,
+            terminalID: terminalObject.ref.id
+        })
     };
     const commit = {
         ops: [insertTerminal, updateProvider]

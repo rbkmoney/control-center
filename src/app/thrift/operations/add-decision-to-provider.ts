@@ -1,33 +1,22 @@
 import { ProviderObject } from '../../damsel/domain';
 import { Commit } from '../../gen-damsel/domain_config';
-import { toGenCommit, toGenDomainObject } from '../converters';
-import { addTerminalDecision } from './add-terminal-decision';
+import { toGenCommit } from '../converters';
+import { createAddTerminalToProviderOperation } from './create-add-terminal-to-provider-operation';
 
 export class AddDecisionToProvider {
-    partyId: string;
-    shopId: string;
-    terminalId: number;
-    providerId: number;
+    partyID: string;
+    shopID: string;
+    terminalID: number;
+    providerID: number;
 }
 
 export const addDecisionToProvider = (
     providerObjects: ProviderObject[],
     params: AddDecisionToProvider
 ): Commit => {
-    const providerObject = providerObjects.find(obj => obj.ref.id === params.providerId);
+    const providerObject = providerObjects.find(obj => obj.ref.id === params.providerID);
     const updateProvider = {
-        update: {
-            oldObject: toGenDomainObject(providerObject, 'provider'),
-            newObject: toGenDomainObject(
-                addTerminalDecision(
-                    providerObject,
-                    params.partyId,
-                    params.shopId,
-                    params.terminalId
-                ),
-                'provider'
-            )
-        }
+        update: createAddTerminalToProviderOperation(providerObject, params)
     };
     const commit = {
         ops: [updateProvider]
