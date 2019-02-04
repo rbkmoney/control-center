@@ -51,7 +51,7 @@ export class ClaimService {
         switch (type) {
             case ClaimActionType.create:
                 if (claimId) {
-                    return this.papiClaimService.getClaim(partyId, toNumber(claimId)).pipe(
+                    return this.getClaimInfo(partyId, claimId).pipe(
                         tap(claimInfo => {
                             this.persistentContainerService.init(
                                 claimInfo.modifications.modifications,
@@ -69,7 +69,7 @@ export class ClaimService {
                     return of();
                 }
             case ClaimActionType.edit:
-                return this.papiClaimService.getClaim(partyId, toNumber(claimId)).pipe(
+                return this.getClaimInfo(partyId, claimId).pipe(
                     tap(claimInfo => {
                         this.persistentContainerService.init(claimInfo.modifications.modifications);
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
@@ -192,6 +192,10 @@ export class ClaimService {
             },
             { shopId: null, contractId: null }
         );
+    }
+
+    private getClaimInfo(partyId: string, claimId: string): Observable<ClaimInfo> {
+        return this.papiClaimService.getClaim(partyId, toNumber(claimId));
     }
 
     private pollClaimChange(revision: string, delayMs = 2000, retryCount = 15): Observable<void> {
