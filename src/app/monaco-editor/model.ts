@@ -3,6 +3,7 @@ export type ITextModel = monaco.editor.ITextModel;
 export type CancellationToken = monaco.CancellationToken;
 export type ProviderResult<T> = monaco.languages.ProviderResult<T>;
 export type ICodeLensSymbol = monaco.languages.ICodeLensSymbol;
+export type IDisposable = monaco.IDisposable;
 
 export interface MonacoFile {
     uri: string;
