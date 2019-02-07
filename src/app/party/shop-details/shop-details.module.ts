@@ -28,9 +28,10 @@ import { ShopSuspensionPipe } from './shop-info/shop-suspension.pipe';
 import { ShopInfoComponent } from './shop-info/shop-info.component';
 import { ShopDetailsComponent } from './shop-details.component';
 import { AddProviderComponent } from './add-provider/add-provider.component';
-import { TerminalsTableComponent } from './add-provider/terminals-table/terminals-table.component';
-import { CreateTerminalFormComponent } from './add-provider/create-terminal-form/create-terminal-form.component';
-import { ProvidersTableFormComponent } from './add-provider/providers-table-form/providers-table-form.component';
+import { TerminalsTableComponent } from './add-provider/select-terminal/terminals-table/terminals-table.component';
+import { CreateTerminalFormComponent } from './add-provider/select-terminal/create-terminal-form/create-terminal-form.component';
+import { SelectTerminalComponent } from './add-provider/select-terminal/select-terminal.component';
+import { SelectProviderComponent } from './add-provider/select-provider/select-provider.component';
 
 @NgModule({
     imports: [
@@ -64,7 +65,8 @@ import { ProvidersTableFormComponent } from './add-provider/providers-table-form
         AddProviderComponent,
         TerminalsTableComponent,
         CreateTerminalFormComponent,
-        ProvidersTableFormComponent
+        SelectProviderComponent,
+        SelectTerminalComponent
     ],
     entryComponents: [AddProviderComponent]
 })

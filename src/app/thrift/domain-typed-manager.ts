@@ -10,11 +10,12 @@ import {
     PaymentInstitutionObject
 } from '../damsel/domain';
 import { findDomainObject, findDomainObjects } from './operations/utils';
-import { createShopTerminal } from './operations';
+import { createShopTerminal, getCreateTerminalCommit, NewCreateTerminalParams } from './operations';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
 import { addDecisionToProvider, AddDecisionToProvider, CreateTerminalParams } from './operations';
 import { DomainCacheService } from './domain-cache.service';
+import { filterProvidersByTerminalSelector } from './filters';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -27,21 +28,6 @@ const findTerminalObjects = (domain: Domain): TerminalObject[] =>
 
 const findPaymentInstitutions = (domain: Domain): PaymentInstitutionObject[] =>
     findDomainObjects(domain, 'payment_institution');
-
-const filterByTerminalSelector = (
-    objects: ProviderObject[],
-    filterValue: 'decisions' | 'value'
-): ProviderObject[] => {
-    return objects.filter(object => {
-        const selector = object.data.terminal;
-        switch (filterValue) {
-            case 'decisions':
-                return selector.decisions;
-            case 'value':
-                return selector.value;
-        }
-    });
-};
 
 @Injectable()
 export class DomainTypedManager {
@@ -60,14 +46,6 @@ export class DomainTypedManager {
 
     getProviderObjects(): Observable<ProviderObject[]> {
         return this.dmtCacheService.domain.pipe(map(domain => findProviderObjects(domain)));
-    }
-
-    getProviderObjectsWithSelector(
-        filterValue: 'decisions' | 'value'
-    ): Observable<ProviderObject[]> {
-        return this.getProviderObjects().pipe(
-            map(objects => filterByTerminalSelector(objects, filterValue))
-        );
     }
 
     getProviderObject(id: number): Observable<ProviderObject> {
@@ -101,6 +79,19 @@ export class DomainTypedManager {
                 )
             ),
             tap(() => this.dmtCacheService.forceReload())
+        );
+    }
+
+    newCreateTerminal(params: NewCreateTerminalParams): Observable<TerminalObject> {
+        let newTerminalID = null;
+        return combineLatest(this.getLastVersion(), this.getTerminalObjects()).pipe(
+            switchMap(([version, terminalObjects]) => {
+                const commit = getCreateTerminalCommit(terminalObjects, params);
+                newTerminalID = commit.id;
+                return this.dmtService.commit(version, commit.commit);
+            }),
+            tap(() => this.dmtCacheService.forceReload()),
+            switchMap(() => this.getTerminalObject(newTerminalID))
         );
     }
 

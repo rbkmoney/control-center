@@ -15,7 +15,7 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
 export class ShopDetailsComponent implements OnInit {
     isLoading = false;
     shop: Shop;
-    partyId: string;
+    partyID: string;
     providerInfo: ProviderInfo[];
 
     constructor(
@@ -31,8 +31,9 @@ export class ShopDetailsComponent implements OnInit {
     addProvider() {
         const config = {
             data: {
-                shop: this.shop,
-                partyId: this.partyId
+                shopID: this.shop.id,
+                partyID: this.partyID,
+                shopCategory: this.shop.category.id
             },
             width: '800px',
             disableClose: true
@@ -49,9 +50,9 @@ export class ShopDetailsComponent implements OnInit {
         this.isLoading = true;
         this.route.params
             .pipe(
-                switchMap(({ partyId, shopId }) => {
-                    this.partyId = partyId;
-                    return this.shopDetailsService.initialize(partyId, shopId);
+                switchMap(({ partyID, shopID }) => {
+                    this.partyID = partyID;
+                    return this.shopDetailsService.initialize(partyID, shopID);
                 })
             )
             .subscribe(({ shop, providerInfo }) => {

@@ -14,3 +14,10 @@ export class CreateTerminalParams {
     partyID: string;
     shopID: string;
 }
+
+export class NewCreateTerminalParams {
+    terminalName: string;
+    terminalDescription: string;
+    riskCoverage: RiskScore;
+    options: TerminalOption[];
+}

@@ -52,4 +52,9 @@
             </button>
         </div>
     </div>
+    <div>
+        <button mat-button (click)="save()" [disabled]="!form.valid || isLoading || saved">
+            {{ saved ? 'SAVED' : 'SAVE TERMINAL' }}
+        </button>
+    </div>
 </form>

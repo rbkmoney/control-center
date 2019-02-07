@@ -9,10 +9,10 @@ export const createShopTerminal = (
     providerObject: ProviderObject,
     params: CreateTerminalParams
 ): Commit => {
-    const terminalObject = createTerminalObject(terminalObjects, params);
+    const createdTerminalObject = createTerminalObject(terminalObjects, params);
     const insertTerminal = {
         insert: {
-            object: toGenDomainObject(terminalObject, 'terminal')
+            object: toGenDomainObject(createdTerminalObject, 'terminal')
         }
     };
     const updateProvider = {
@@ -20,7 +20,7 @@ export const createShopTerminal = (
             shopID: params.shopID,
             partyID: params.partyID,
             providerID: providerObject.ref.id,
-            terminalID: terminalObject.ref.id
+            terminalID: createdTerminalObject.id
         })
     };
     const commit = {

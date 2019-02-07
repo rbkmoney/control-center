@@ -1,18 +1,18 @@
 <div class="mat-dialog-title">Add provider</div>
 <mat-dialog-content>
-    <mat-horizontal-stepper>
-        <mat-step>
+    <mat-horizontal-stepper [linear]="true">
+        <mat-step [stepControl]="providerForm">
             <ng-template matStepLabel>Select provider:</ng-template>
             <div fxLayout="column" fxLayoutGap="20px">
-                <cc-providers-table-form
+                <cc-select-provider
                     [providers]="providers$ | async"
                     (formChanged)="providerFormChanged($event)"
-                ></cc-providers-table-form>
+                ></cc-select-provider>
                 <div>
                     <button
                         matStepperNext
                         mat-button
-                        [disabled]="!providerFormValid"
+                        [disabled]="!providerForm.valid"
                         color="primary"
                     >
                         NEXT
@@ -20,27 +20,15 @@
                 </div>
             </div>
         </mat-step>
-        <mat-step>
+        <mat-step [stepControl]="terminalForm">
             <ng-template matStepLabel>Select or create terminal:</ng-template>
             <div fxLayout="column" fxLayoutGap="20px">
-                <mat-tab-group (selectedTabChange)="terminalTabChanged($event)">
-                    <mat-tab label="Select terminal">
-                        <div class="terminal-form">
-                            <cc-terminals-table
-                                [terminals]="terminals$ | async"
-                                (formChanged)="terminalFormChanged($event)"
-                                (selectedTerminal)="terminalSelected($event)"
-                            ></cc-terminals-table>
-                        </div>
-                    </mat-tab>
-                    <mat-tab label="Create new terminal">
-                        <cc-create-terminal-form
-                            (formChanged)="terminalFormChanged($event)"
-                        ></cc-create-terminal-form>
-                    </mat-tab>
-                </mat-tab-group>
+                <cc-select-terminal
+                    [terminals]="terminals$ | async"
+                    (formChanged)="terminalFormChanged($event)"
+                ></cc-select-terminal>
+                <div><button matStepperPrevious mat-button color="primary">BACK</button></div>
             </div>
-            <button matStepperPrevious mat-button color="primary">BACK</button>
         </mat-step>
     </mat-horizontal-stepper>
 </mat-dialog-content>
@@ -49,7 +37,7 @@
         <button
             mat-button
             (click)="add()"
-            [disabled]="!(terminalFormValid && providerFormValid) || isLoading"
+            [disabled]="!(providerForm.valid && terminalForm.valid) || isLoading"
         >
             ADD
         </button>

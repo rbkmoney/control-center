@@ -3,3 +3,4 @@ export * from './add-terminal-decision';
 export * from './create-terminal-object';
 export * from './create-shop-terminal';
 export * from './create-terminal-params';
+export * from './get-create-terminal-commit';

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { shareReplay, map } from 'rxjs/operators';
 
 import { Domain } from '../gen-damsel/domain';
 import { DomainService } from './domain.service';
-import { toGenReference } from './converters/to-gen-reference';
+import { toGenReference } from './converters';
 
 @Injectable()
 export class DomainCacheService {

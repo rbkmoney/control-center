@@ -11,21 +11,20 @@ import {
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { FormChanged } from '../form-changed';
 import { ProviderObject } from '../../../../damsel/domain';
 
 @Component({
-    selector: 'cc-providers-table-form',
-    templateUrl: 'providers-table-form.component.html',
+    selector: 'cc-select-provider',
+    templateUrl: 'select-provider.component.html',
     styleUrls: ['../add-provider.component.scss']
 })
-export class ProvidersTableFormComponent implements OnInit, OnChanges {
+export class SelectProviderComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    @Output() formChanged: EventEmitter<FormChanged> = new EventEmitter();
+    @Output() formChanged: EventEmitter<any> = new EventEmitter();
     @Input() providers: ProviderObject[];
 
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];
-    dataSource: MatTableDataSource<ProviderObject>;
+    dataSource: MatTableDataSource<ProviderObject> = new MatTableDataSource([]);
     selection = new SelectionModel<ProviderObject>(false, []);
 
     ngOnInit(): void {
@@ -38,16 +37,14 @@ export class ProvidersTableFormComponent implements OnInit, OnChanges {
         this.selection.changed.subscribe(() => {
             const terminalSelection = Array.from(this.selection.selected.values());
             if (terminalSelection.length > 0) {
-                this.formChanged.emit({ values: terminalSelection[0].ref.id, valid: true });
-            } else {
-                this.formChanged.emit({ valid: false });
+                this.formChanged.emit({ id: terminalSelection[0].ref.id });
             }
         });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         const { providers } = changes;
-        if (providers && providers.currentValue.length > 0) {
+        if (providers.currentValue && providers.currentValue.length > 0) {
             this.dataSource = new MatTableDataSource(providers.currentValue);
         }
     }

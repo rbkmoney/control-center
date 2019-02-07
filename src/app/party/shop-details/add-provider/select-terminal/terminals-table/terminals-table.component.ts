@@ -11,22 +11,20 @@ import {
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { FormChanged } from '../form-changed';
-import { TerminalObject } from '../../../../damsel/domain';
+import { TerminalObject } from '../../../../../damsel/domain';
 
 @Component({
     selector: 'cc-terminals-table',
     templateUrl: 'terminals-table.component.html',
-    styleUrls: ['../add-provider.component.scss']
+    styleUrls: ['../../add-provider.component.scss']
 })
 export class TerminalsTableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @Input() terminals: TerminalObject[];
-    @Output() formChanged: EventEmitter<FormChanged> = new EventEmitter();
-    @Output() selectedTerminal: EventEmitter<number> = new EventEmitter();
+    @Output() selectedTerminal: EventEmitter<any> = new EventEmitter();
 
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];
-    dataSource: MatTableDataSource<TerminalObject>;
+    dataSource: MatTableDataSource<TerminalObject> = new MatTableDataSource([]);
     selection = new SelectionModel<TerminalObject>(false, []);
 
     ngOnInit(): void {
@@ -39,17 +37,14 @@ export class TerminalsTableComponent implements OnInit, OnChanges {
         this.selection.changed.subscribe(() => {
             const terminalSelection = Array.from(this.selection.selected.values());
             if (terminalSelection.length > 0) {
-                this.selectedTerminal.emit(terminalSelection[0].ref.id);
-                this.formChanged.emit({ valid: true });
-            } else {
-                this.formChanged.emit({ valid: false });
+                this.selectedTerminal.emit({ id: terminalSelection[0].ref.id });
             }
         });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         const { terminals } = changes;
-        if (terminals && terminals.currentValue.length > 0) {
+        if (terminals.currentValue && terminals.currentValue.length > 0) {
             this.dataSource = new MatTableDataSource(terminals.currentValue);
         }
     }
