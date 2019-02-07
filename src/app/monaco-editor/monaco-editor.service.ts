@@ -12,13 +12,18 @@ import {
 } from 'rxjs/operators';
 import flatten from 'lodash-es/flatten';
 
-import { IEditorOptions, MonacoFile, CodeLensProvider, IDisposable } from './model';
+import {
+    IEditorOptions,
+    MonacoFile,
+    CodeLensProvider,
+    IDisposable,
+    CompletionProvider
+} from './model';
 import { fromDisposable } from './from-disposable';
 import { bootstrap$ } from './bootstrap';
-import { CODE_LENS_PROVIDERS } from './tokens';
-import { CodeLensService } from './code-lens.service';
-
-declare const window: any;
+import { CODE_LENS_PROVIDERS, COMPLETION_PROVIDERS } from './tokens';
+import { CodeLensService } from './providers/code-lens.service';
+import { CompletionService } from './providers/completion.service';
 
 @Injectable()
 export class MonacoEditorService {
@@ -31,11 +36,18 @@ export class MonacoEditorService {
     private file: MonacoFile;
 
     constructor(
-        @Optional() @Inject(CODE_LENS_PROVIDERS) private tokenCodeLensProviders: CodeLensProvider[],
+        @Optional()
+        @Inject(CODE_LENS_PROVIDERS)
+        private tokenCodeLensProviders: CodeLensProvider[],
+        @Optional()
+        @Inject(COMPLETION_PROVIDERS)
+        private tokenCompletionProviders: CompletionProvider[],
         private codeLensService: CodeLensService,
+        private completionService: CompletionService,
         private zone: NgZone
     ) {
         this.registerCodeLensListener();
+        this.registerCompletionListener();
         this.registerResizeListener();
     }
 
@@ -52,6 +64,7 @@ export class MonacoEditorService {
                     ...options
                 });
                 this.codeLensService.add(this.tokenCodeLensProviders);
+                this.completionService.add(this.tokenCompletionProviders);
                 if (this.file) {
                     this.open(this.file);
                 }
@@ -103,6 +116,14 @@ export class MonacoEditorService {
         return this.codeLensService.registered.pipe(takeUntil(this.destroy$));
     }
 
+    addCompletionProvider(providers: CompletionProvider[]) {
+        this.completionService.add(providers);
+    }
+
+    completionProviderRegistered(): Observable<IDisposable[]> {
+        return this.completionService.registered.pipe(takeUntil(this.destroy$));
+    }
+
     private registerResizeListener() {
         this.resize$
             .pipe(
@@ -136,21 +157,29 @@ export class MonacoEditorService {
     }
 
     private registerCodeLensListener() {
-        this.codeLensService.providers
-            .pipe(
-                buffer(this.editorInitialized$),
-                map(buffered => flatten(buffered).filter(i => i !== null))
-            )
-            .subscribe(providers => this.codeLensService.register(providers));
+        this.bufferEditorInitialized(this.codeLensService.providers).subscribe(providers =>
+            this.codeLensService.register(providers)
+        );
+    }
+
+    private registerCompletionListener() {
+        this.bufferEditorInitialized(this.completionService.providers).subscribe(providers =>
+            this.completionService.register(providers)
+        );
+    }
+
+    private bufferEditorInitialized<T>(o: Observable<T[]>): Observable<T[]> {
+        return o.pipe(
+            buffer(this.editorInitialized$),
+            map(buffered => flatten(buffered).filter(i => i !== null))
+        );
     }
 
     private disposeModels() {
-        if (!window.monaco) {
-            return;
-        }
         for (const model of monaco.editor.getModels()) {
             model.dispose();
         }
         this.codeLensService.dispose();
+        this.completionService.dispose();
     }
 }

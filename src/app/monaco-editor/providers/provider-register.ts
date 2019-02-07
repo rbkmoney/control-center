@@ -1,15 +1,13 @@
-import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
-import { CodeLensProvider, IDisposable } from './model';
+import { IDisposable, LanguageProvider } from '../model';
 
-@Injectable()
-export class CodeLensService {
-    private providers$ = new Subject<CodeLensProvider[]>();
+export abstract class ProviderRegister<T extends LanguageProvider> {
+    private providers$ = new Subject<T[]>();
     private registered$ = new Subject<IDisposable[]>();
     private disposableRegister: IDisposable[] = [];
 
-    get providers(): Observable<CodeLensProvider[]> {
+    get providers(): Observable<T[]> {
         return this.providers$;
     }
 
@@ -17,20 +15,17 @@ export class CodeLensService {
         return this.registered$;
     }
 
-    add(providers: CodeLensProvider[]) {
+    add(providers: T[]) {
         this.providers$.next(providers);
     }
 
-    register(providers: CodeLensProvider[]) {
+    register(providers: T[]) {
         if (!providers) {
             return;
         }
         let disposes = [];
         for (const provider of providers) {
-            const disposable = monaco.languages.registerCodeLensProvider(
-                provider.language,
-                provider
-            );
+            const disposable = this.registerProvider(provider);
             disposes = [...disposes, disposable];
         }
         this.disposableRegister = [...this.disposableRegister, ...disposes];
@@ -39,7 +34,11 @@ export class CodeLensService {
 
     dispose() {
         for (const disposable of this.disposableRegister) {
-            disposable.dispose();
+            if (disposable) {
+                disposable.dispose();
+            }
         }
     }
+
+    protected abstract registerProvider(providers: T): IDisposable;
 }
