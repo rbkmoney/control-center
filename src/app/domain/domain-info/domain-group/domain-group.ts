@@ -11,6 +11,6 @@ export interface DomainPair {
 }
 
 export interface DomainGroup {
-    name: string;
-    pairs: DomainPair[];
+    name: string | 'undef';
+    pairs?: DomainPair[];
 }

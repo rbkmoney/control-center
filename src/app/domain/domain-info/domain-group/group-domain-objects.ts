@@ -14,14 +14,22 @@ function getTypeDef(domainObjDef: Field[]) {
     );
 }
 
-function getDomainObjType(obj: object, domainObjDef: Field[]): string {
+function getDomainObjType(obj: object, domainObjDef: Field[]): string | 'undef' {
     const typeDef = getTypeDef(domainObjDef);
     const fieldName = Object.keys(obj)[0];
-    return typeDef[fieldName];
+    const type = typeDef[fieldName];
+    return type ? type : 'undef';
 }
 
 function getDomainObjVal(obj: object): object {
     return Object.values(obj)[0];
+}
+
+function groupResult(result: object, type: string | 'undef', val: object): object {
+    if (type === 'undef') {
+        return { undef: null };
+    }
+    return result[type] ? { [type]: result[type].concat(val) } : { [type]: [val] };
 }
 
 function groupByType(domain: Domain, domainObjDef: Field[]) {
@@ -35,7 +43,7 @@ function groupByType(domain: Domain, domainObjDef: Field[]) {
         };
         result = {
             ...result,
-            ...(result[type] ? { [type]: result[type].concat(val) } : { [type]: [val] })
+            ...groupResult(result, type, val)
         };
     }
     return result;
