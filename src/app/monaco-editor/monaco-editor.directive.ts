@@ -11,7 +11,13 @@ import {
     OnDestroy
 } from '@angular/core';
 
-import { MonacoFile, IEditorOptions, CodeLensProvider, IDisposable } from './model';
+import {
+    MonacoFile,
+    IEditorOptions,
+    CodeLensProvider,
+    IDisposable,
+    CompletionProvider
+} from './model';
 import { MonacoEditorService } from './monaco-editor.service';
 
 @Directive({
@@ -21,10 +27,12 @@ export class MonacoEditorDirective implements OnInit, OnChanges, OnDestroy {
     @Input() file: MonacoFile;
     @Input() options: IEditorOptions;
     @Input() codeLensProviders: CodeLensProvider[];
+    @Input() completionProviders: CompletionProvider[];
 
     @Output() fileChange = new EventEmitter<MonacoFile>();
     @Output() ready = new EventEmitter();
     @Output() codeLensProviderRegistered = new EventEmitter<IDisposable[]>();
+    @Output() completionProviderRegistered = new EventEmitter<IDisposable[]>();
 
     constructor(private monacoEditorService: MonacoEditorService, private editorRef: ElementRef) {}
 
@@ -32,7 +40,7 @@ export class MonacoEditorDirective implements OnInit, OnChanges, OnDestroy {
         this.monacoEditorService.resize();
     }
 
-    ngOnChanges({ options, file, codeLensProviders }: SimpleChanges) {
+    ngOnChanges({ options, file, codeLensProviders, completionProviders }: SimpleChanges) {
         if (options) {
             this.monacoEditorService.updateOptions(options.currentValue);
         }
@@ -41,6 +49,9 @@ export class MonacoEditorDirective implements OnInit, OnChanges, OnDestroy {
         }
         if (codeLensProviders) {
             this.monacoEditorService.addCodeLensProvider(codeLensProviders.currentValue);
+        }
+        if (completionProviders) {
+            this.monacoEditorService.addCompletionProvider(completionProviders.currentValue);
         }
     }
 
@@ -52,6 +63,9 @@ export class MonacoEditorDirective implements OnInit, OnChanges, OnDestroy {
         this.monacoEditorService
             .codeLensProviderRegistered()
             .subscribe(disposible => this.codeLensProviderRegistered.emit(disposible));
+        this.monacoEditorService
+            .completionProviderRegistered()
+            .subscribe(disposible => this.completionProviderRegistered.emit(disposible));
     }
 
     ngOnDestroy() {
