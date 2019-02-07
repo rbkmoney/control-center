@@ -1,12 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ContractModificationName, ShopModificationName } from '../claim/model';
@@ -21,13 +13,16 @@ import { PartyModification } from '../gen-damsel/payment_processing';
 })
 export class PartyModificationCreationComponent implements OnInit, OnChanges {
     @Input()
-    unitID = '';
+    unitID;
 
     @Input()
     action: ModificationAction;
 
     @Input()
-    unitIDDisabled = false;
+    unitIDDisabled;
+
+    @Input()
+    partyModification: PartyModification;
 
     @Output()
     valueChanges: EventEmitter<PartyModification> = new EventEmitter();
@@ -66,6 +61,29 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
         const { unitID } = changes;
         if (unitID && !unitID.firstChange) {
             this.form.patchValue({ unitID: unitID.currentValue });
+        }
+    }
+
+    private getFormGroup(data: object): FormGroup {
+        const formData = data;
+        Object.keys(formData).forEach((key) => {
+            const value = formData[key];
+            if (key === 'modification') {
+
+            } else {
+                (typeof value === 'object') ? formData[key] = this.getFormGroup(value) : formData[key] = this.fb.control(value);
+            }
+        });
+        console.log(formData);
+        return this.fb.group(formData);
+    }
+
+    private getModiticationType(): string {
+        switch (this.action.type) {
+            case ActionType.shopAction:
+                return 'shopModification';
+            case ActionType.contractAction:
+                return 'contractModification';
         }
     }
 }

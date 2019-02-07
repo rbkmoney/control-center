@@ -10,6 +10,9 @@
                 <button *ngIf="!unit.saved" mat-button color="warn" (click)="remove(unit.typeHash)">
                     REMOVE
                 </button>
+                <button *ngIf="!unit.saved" mat-button color="primary" (click)="edit(unit.typeHash)">
+                    EDIT
+                </button>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

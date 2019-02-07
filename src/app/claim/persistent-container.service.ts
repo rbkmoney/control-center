@@ -19,6 +19,10 @@ export class PersistentContainerService {
         this.containers$.next(this.containers);
     }
 
+    getModification(typeHash: string) {
+        return this.containers.filter((mod) => mod.typeHash === typeHash)[0] || null;
+    }
+
     add(modification: PartyModification) {
         const typeHash = this.makeTypeHash(modification);
         const item = {
@@ -49,7 +53,7 @@ export class PersistentContainerService {
         return modificationUnit.id + this.getModificationName(modification);
     }
 
-    private getModificationName(modification: PartyModification): string {
+    getModificationName(modification: PartyModification): string {
         const modificationKeys = Object.keys(modification);
         if (modificationKeys.length !== 1) {
             return 'unknown';

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import {
-    PartyModificationContainer,
-    ModificationGroupType,
-    ModificationUnitContainer
-} from '../model';
+import { ModificationGroupType, ModificationUnitContainer, PartyModificationContainer } from '../model';
 import { ClaimService } from '../claim.service';
+import { CreateModificationComponent } from '../create-modification/create-modification.component';
+import { MatDialog } from '@angular/material';
+import { ActionType } from '../modification-action';
+import { PartyModification } from '../../gen-damsel/payment_processing';
 
 @Component({
     selector: 'cc-party-modification-container',
@@ -21,7 +21,10 @@ export class PartyModificationContainerComponent implements OnInit {
 
     modifications: ModificationUnitContainer[];
 
-    constructor(private claimService: ClaimService) {}
+    constructor(
+        private dialog: MatDialog,
+        private claimService: ClaimService
+    ) {}
 
     ngOnInit() {
         this.modifications = this.container.unitContainers.slice();
@@ -29,5 +32,42 @@ export class PartyModificationContainerComponent implements OnInit {
 
     remove(typeHash: string) {
         this.claimService.removeModification(typeHash);
+    }
+
+    edit(typeHash: string) {
+        const modification = this.claimService.getModificationByHash(typeHash);
+        const name = this.claimService.getModificationName(modification.modification);
+        const type = this.getActionType();
+        const config = {
+            data: {
+                action: {
+                    type,
+                    name
+                },
+                unitID: this.getUnitID(modification.modification, type),
+                modification: modification.modification
+            },
+            width: '800px',
+            disableClose: true
+        };
+        this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
+    }
+
+    private getActionType(): ActionType {
+        switch (this.type) {
+            case ModificationGroupType.ContractUnitContainer:
+                return ActionType.contractAction;
+            case ModificationGroupType.ShopUnitContainer:
+                return ActionType.shopAction;
+        }
+    }
+
+    private getUnitID(modification: PartyModification, type: ActionType): string {
+        switch (type) {
+            case ActionType.shopAction:
+                return modification.shopModification.id;
+            case ActionType.contractAction:
+                return modification.contractModification.id;
+        }
     }
 }

@@ -14,6 +14,7 @@ import { PartyModification } from '../../gen-damsel/payment_processing';
 interface CreateModificationData {
     action: ModificationAction;
     unitID?: string;
+    modification?: PartyModification;
 }
 
 enum Step {

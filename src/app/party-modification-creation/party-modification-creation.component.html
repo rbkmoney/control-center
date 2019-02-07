@@ -43,41 +43,49 @@
         <cc-category-ref
             *ngIf="action.name === shopModificationNames.categoryModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.shopModification?.modification?.categoryModification"
         >
         </cc-category-ref>
         <cc-shop-details
             *ngIf="action.name === shopModificationNames.detailsModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.shopModification?.modification?.detailsModification"
         >
         </cc-shop-details>
         <cc-shop-location
             *ngIf="action.name === shopModificationNames.locationModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.shopModification?.modification?.locationModification"
         >
         </cc-shop-location>
         <cc-shop-account-creation
             *ngIf="action.name === shopModificationNames.shopAccountCreation"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.shopModification?.modification?.shopAccountCreation"
         >
         </cc-shop-account-creation>
         <cc-shop-schedule-modification
             *ngIf="action.name === shopModificationNames.payoutScheduleModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.shopModification?.modification?.payoutScheduleModification"
         >
         </cc-shop-schedule-modification>
         <cc-shop-contract-modification
             *ngIf="action.name === shopModificationNames.contractModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.shopModification?.modification?.contractModification"
         >
         </cc-shop-contract-modification>
         <cc-shop-payout-tool-modification
             *ngIf="action.name === shopModificationNames.payoutToolModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.shopModification?.modification?.payoutToolModification"
         >
         </cc-shop-payout-tool-modification>
         <cc-shop-params
             *ngIf="action.name === shopModificationNames.creation"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.shopModification?.modification?.creation"
         >
         </cc-shop-params>
     </div>

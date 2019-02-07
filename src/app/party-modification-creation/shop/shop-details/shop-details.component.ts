@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { get } from 'lodash-es';
+
+import { ShopDetails } from '../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-shop-details',
@@ -9,10 +12,15 @@ export class ShopDetailsComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    @Input()
+    initialValue: ShopDetails;
+
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.registerControl('name', this.fb.control('', Validators.required));
-        this.form.registerControl('description', this.fb.control(''));
+        const name = get(this.initialValue, 'name', '');
+        const description = get(this.initialValue, 'description', '');
+        this.form.registerControl('name', this.fb.control(name, Validators.required));
+        this.form.registerControl('description', this.fb.control(description));
     }
 }
