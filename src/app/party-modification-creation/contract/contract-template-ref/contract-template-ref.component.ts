@@ -4,9 +4,11 @@ import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/internal/operators';
 import sortBy from 'lodash-es/sortBy';
+import get from 'lodash-es/get';
 
 import { ContractTemplate } from '../../../papi/model';
 import { ContractService } from '../../../papi/contract.service';
+import { ContractTemplateRef } from '../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-contract-template-ref',
@@ -19,6 +21,9 @@ export class ContractTemplateRefComponent implements OnInit {
     @Input()
     required: boolean;
 
+    @Input()
+    initialValue: ContractTemplateRef;
+
     contracts$: Observable<ContractTemplate[]>;
 
     isLoading = true;
@@ -30,12 +35,13 @@ export class ContractTemplateRefComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        const templateId = get(this, 'initialValue.id', '');
         this.form.registerControl(
             'id',
             this.fb.control(
                 {
-                    value: '',
-                    disabled: true
+                    value: templateId,
+                    disabled: (templateId.length === 0)
                 },
                 this.required ? Validators.required : null
             )

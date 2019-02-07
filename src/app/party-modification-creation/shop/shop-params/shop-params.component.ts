@@ -30,21 +30,17 @@ export class ShopParamsComponent implements OnInit {
         this.toggleCategory();
     }
 
-    toggleCheckbox(e, data) {
-        if (e.checked) {
-            this.form.registerControl(data, this.fb.group({}));
+    toggleCheckbox(show: boolean, controlName: string, data: object = {}) {
+        if (show) {
+            this.form.registerControl(controlName, this.fb.group(data));
         } else {
-            this.form.removeControl(data);
+            this.form.removeControl(controlName);
         }
     }
 
     toggleCategory() {
         const category = get(this, 'initialValue.category', null);
         this.showCategory = category !== null;
-        if (this.showCategory) {
-            this.form.registerControl('category', this.fb.group({}));
-        } else {
-            this.form.removeControl('category');
-        }
+        this.toggleCheckbox(this.showCategory, 'category', category);
     }
 }

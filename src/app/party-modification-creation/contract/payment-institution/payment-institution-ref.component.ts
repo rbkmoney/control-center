@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
+import get from 'lodash-es/get';
 
 import { DomainTypedManager } from '../../../claim/domain-typed-manager';
 import { PaymentInstitutionObject } from '../../../damsel/domain';
+import { PaymentInstitutionRef } from '../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-payment-institution-ref',
@@ -17,6 +19,9 @@ export class PaymentInstitutionRefComponent implements OnInit {
 
     @Input()
     required: boolean;
+
+    @Input()
+    initialValue: PaymentInstitutionRef;
 
     paymentInstitutions$: Observable<PaymentInstitutionObject[]>;
 
@@ -30,9 +35,10 @@ export class PaymentInstitutionRefComponent implements OnInit {
                     sortBy(paymentInstitutions, paymentInstitution => paymentInstitution.ref.id)
                 )
             );
+        const paymentInstitutionId = get(this, 'initialValue.id', '');
         this.form.registerControl(
             'id',
-            this.fb.control('', this.required ? Validators.required : null)
+            this.fb.control(paymentInstitutionId, this.required ? Validators.required : null)
         );
     }
 }

@@ -6,6 +6,7 @@
         <cc-contract-params
             *ngIf="action.name === contractModificationNames.creation"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.contractModification?.modification?.creation"
         >
         </cc-contract-params>
         <cc-contract-payout-tool-modification-unit

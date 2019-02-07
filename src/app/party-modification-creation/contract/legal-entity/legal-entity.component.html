@@ -12,6 +12,7 @@
         <cc-russian-legal-entity
             *ngIf="selected === t.russianLegalEntity"
             [form]="form.get(t.russianLegalEntity)"
+            [initialValue]="initialValue?.russianLegalEntity"
         >
         </cc-russian-legal-entity>
         <cc-international-legal-entity
