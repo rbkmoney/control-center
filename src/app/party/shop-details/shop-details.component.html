@@ -10,8 +10,14 @@
                     <cc-shop-details [shop]="shop"></cc-shop-details>
                 </mat-card-content>
             </mat-card>
-            <div>
-                <h4 class="mat-h4 mat-subheading-1">Providers:</h4>
+            <mat-card>
+                <mat-card-subtitle>Shop actions</mat-card-subtitle>
+                <mat-card-content>
+                    <button mat-flat-button (click)="addProvider()">ADD PROVIDER</button>
+                </mat-card-content>
+            </mat-card>
+            <div fxLayout="column" fxLayoutGap="20px">
+                <h4 class="mat-h4 mat-subheading-1 action-header">Providers:</h4>
                 <h4 class="mat-h4 mat-subheading-1" *ngIf="providerInfo.length === 0">
                     Providers not found
                 </h4>

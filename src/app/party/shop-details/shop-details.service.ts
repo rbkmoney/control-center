@@ -5,9 +5,9 @@ import get from 'lodash-es/get';
 
 import { Shop } from '../../gen-damsel/domain';
 import { ProviderObject, TerminalObject } from '../../damsel';
-import { DomainTypedManager } from '../../claim/domain-typed-manager';
 import { findTerminalIds } from './find-terminal-ids';
 import { PartyService } from '../party.service';
+import { DomainTypedManager } from '../../thrift';
 
 export interface ProviderInfo {
     provider: ProviderObject;

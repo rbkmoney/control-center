@@ -2,12 +2,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/internal/operators';
 
 import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
 import { ProviderObject } from '../../damsel/domain';
-import { CreateTerminalParams, DomainTypedManager } from '../domain-typed-manager';
-import { tap } from 'rxjs/internal/operators';
+import {
+    AppendTerminalToProviderParams,
+    DomainTypedManager,
+    filterProvidersByTerminalSelector
+} from '../../thrift';
 
 @Component({
     selector: 'cc-terminal-object',
@@ -19,7 +23,7 @@ export class TerminalObjectComponent implements OnInit {
     domainModificationInfo: DomainModificationInfo;
 
     @Output()
-    valueChanges: EventEmitter<CreateTerminalParams> = new EventEmitter();
+    valueChanges: EventEmitter<AppendTerminalToProviderParams> = new EventEmitter();
 
     @Output()
     statusChanges: EventEmitter<'VALID' | 'INVALID'> = new EventEmitter();
@@ -45,22 +49,18 @@ export class TerminalObjectComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.terminalObjectService.initForm(this.domainModificationInfo);
-        this.providerObjects$ = this.domainTypedManager
-            .getProviderObjectsWithSelector('decisions')
-            .pipe(
-                tap(
-                    () => {
-                        this.isLoading = false;
-                        this.form.controls.providerID.enable();
-                    },
-                    () => {
-                        this.snackBar.open(
-                            'An error occurred while provider object receiving',
-                            'OK'
-                        );
-                    }
-                )
-            );
+        this.providerObjects$ = this.domainTypedManager.getProviderObjects().pipe(
+            map(objects => filterProvidersByTerminalSelector(objects, 'decisions')),
+            tap(
+                () => {
+                    this.isLoading = false;
+                    this.form.controls.providerID.enable();
+                },
+                () => {
+                    this.snackBar.open('An error occurred while provider object receiving', 'OK');
+                }
+            )
+        );
         this.optionTemplates = this.terminalObjectService.optionTemplates;
         this.riskCoverages = this.terminalObjectService.riskCoverages;
         this.form.statusChanges.subscribe(status => {
