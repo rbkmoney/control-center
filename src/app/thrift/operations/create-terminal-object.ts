@@ -1,11 +1,11 @@
-import { CreateTerminalParams, NewCreateTerminalParams } from './create-terminal-params';
+import { AppendTerminalToProviderParams, CreateTerminalParams } from './append-terminal-to-provider-params';
 import { generateID, toMap } from './utils';
 import { TerminalObject } from '../../damsel/domain';
 import { toGenTerminalObject } from '../converters';
 
 const convert = (
     id: number,
-    params: CreateTerminalParams | NewCreateTerminalParams
+    params: AppendTerminalToProviderParams | CreateTerminalParams
 ): TerminalObject => ({
     ref: {
         id
@@ -25,7 +25,7 @@ export interface CreateTerminalObject {
 
 export const createTerminalObject = (
     terminalObjects: TerminalObject[],
-    params: CreateTerminalParams | NewCreateTerminalParams
+    params: AppendTerminalToProviderParams | CreateTerminalParams
 ): CreateTerminalObject => {
     const id = generateID(terminalObjects);
     return { terminalObject: toGenTerminalObject(convert(id, params)), id };

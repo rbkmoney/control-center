@@ -5,7 +5,7 @@ export class TerminalOption {
     value: string;
 }
 
-export class CreateTerminalParams {
+export class AppendTerminalToProviderParams {
     providerID: number;
     terminalName: string;
     terminalDescription: string;
@@ -15,7 +15,7 @@ export class CreateTerminalParams {
     shopID: string;
 }
 
-export class NewCreateTerminalParams {
+export class CreateTerminalParams {
     terminalName: string;
     terminalDescription: string;
     riskCoverage: RiskScore;

@@ -1,5 +1,5 @@
 import { createTerminalObject } from './create-terminal-object';
-import { NewCreateTerminalParams } from './create-terminal-params';
+import { CreateTerminalParams } from './append-terminal-to-provider-params';
 import { toGenCommit, toGenDomainObject } from '../converters';
 import { TerminalObject, Commit } from '../../damsel';
 
@@ -10,7 +10,7 @@ export interface GetCreateTerminalCommit {
 
 export const getCreateTerminalCommit = (
     terminalObjects: TerminalObject[],
-    params: NewCreateTerminalParams
+    params: CreateTerminalParams
 ): GetCreateTerminalCommit => {
     const createdTerminalObject = createTerminalObject(terminalObjects, params);
     const insertTerminal = {

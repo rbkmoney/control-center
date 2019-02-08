@@ -8,7 +8,7 @@ import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
 import { ProviderObject } from '../../damsel/domain';
 import {
-    CreateTerminalParams,
+    AppendTerminalToProviderParams,
     DomainTypedManager,
     filterProvidersByTerminalSelector
 } from '../../thrift';
@@ -23,7 +23,7 @@ export class TerminalObjectComponent implements OnInit {
     domainModificationInfo: DomainModificationInfo;
 
     @Output()
-    valueChanges: EventEmitter<CreateTerminalParams> = new EventEmitter();
+    valueChanges: EventEmitter<AppendTerminalToProviderParams> = new EventEmitter();
 
     @Output()
     statusChanges: EventEmitter<'VALID' | 'INVALID'> = new EventEmitter();

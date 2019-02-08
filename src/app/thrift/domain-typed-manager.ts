@@ -13,14 +13,14 @@ import { findDomainObject, findDomainObjects } from './operations/utils';
 import {
     appendShopTerminalToProvider,
     getCreateTerminalCommit,
-    NewCreateTerminalParams
+    CreateTerminalParams
 } from './operations';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
 import {
     addDecisionToProviderCommit,
     AddDecisionToProvider,
-    CreateTerminalParams
+    AppendTerminalToProviderParams
 } from './operations';
 import { DomainCacheService } from './domain-cache.service';
 import { filterProvidersByTerminalSelector } from './filters';
@@ -74,7 +74,7 @@ export class DomainTypedManager {
         );
     }
 
-    appendTerminalToProvider(params: CreateTerminalParams): Observable<void> {
+    appendTerminalToProvider(params: AppendTerminalToProviderParams): Observable<void> {
         return combineLatest(
             this.getLastVersion(),
             this.getTerminalObjects(),
@@ -90,7 +90,7 @@ export class DomainTypedManager {
         );
     }
 
-    createTerminal(params: NewCreateTerminalParams): Observable<number> {
+    createTerminal(params: CreateTerminalParams): Observable<number> {
         let newTerminalID = null;
         return combineLatest(this.getLastVersion(), this.getTerminalObjects()).pipe(
             switchMap(([version, terminalObjects]) => {
