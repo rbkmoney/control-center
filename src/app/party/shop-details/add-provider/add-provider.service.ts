@@ -9,7 +9,7 @@ import {
     filterProvidersByTerminalSelector
 } from '../../../thrift';
 import { ProviderObject, TerminalObject } from '../../../damsel/domain';
-import { filterProvidersByCategories } from '../../../thrift/filters';
+import { filterProvidersByCategoryId } from '../../../thrift/filters';
 
 @Injectable()
 export class AddProviderService {
@@ -22,10 +22,10 @@ export class AddProviderService {
         return this.dtm.getTerminalObjects();
     }
 
-    getProviders(shopCategory: number): Observable<ProviderObject[]> {
+    getProviders(categoryId: number): Observable<ProviderObject[]> {
         return this.dtm.getProviderObjects().pipe(
             map(objects => filterProvidersByTerminalSelector(objects, 'decisions')),
-            map(objects => filterProvidersByCategories(objects, [shopCategory]))
+            map(objects => filterProvidersByCategoryId(objects, categoryId))
         );
     }
 

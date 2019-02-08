@@ -1,15 +1,17 @@
 <mat-tab-group (selectedTabChange)="terminalTabChanged($event)">
     <mat-tab label="Select terminal">
-        <div class="terminal-form">
+        <div class="tab-container">
             <cc-terminals-table
                 [terminals]="terminals"
-                (terminalSelected)="terminalSelected($event)"
+                (terminalIdSelected)="terminalSelected($event)"
             ></cc-terminals-table>
         </div>
     </mat-tab>
     <mat-tab label="Create new terminal">
-        <cc-create-terminal-form
-            (terminalSelected)="terminalSelected($event)"
-        ></cc-create-terminal-form>
+        <div class="tab-container">
+            <cc-create-terminal-form
+                (terminalIdSelected)="terminalSelected($event)"
+            ></cc-create-terminal-form>
+        </div>
     </mat-tab>
 </mat-tab-group>

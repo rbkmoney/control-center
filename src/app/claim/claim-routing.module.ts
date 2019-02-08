@@ -8,7 +8,7 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
     imports: [
         RouterModule.forChild([
             {
-                path: 'claims/:partyID/:action/:claimId',
+                path: 'claims/:partyId/:action/:claimId',
                 component: ClaimComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
@@ -16,7 +16,7 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
                 }
             },
             {
-                path: 'claims/:partyID/:action',
+                path: 'claims/:partyId/:action',
                 component: ClaimComponent,
                 canActivate: [AppAuthGuardService],
                 data: {

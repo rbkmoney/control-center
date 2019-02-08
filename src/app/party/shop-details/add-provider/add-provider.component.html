@@ -6,7 +6,7 @@
             <div fxLayout="column" fxLayoutGap="20px">
                 <cc-select-provider
                     [providers]="providers$ | async"
-                    (formChanged)="providerFormChanged($event)"
+                    (providerIdSelected)="providerFormChanged($event)"
                 ></cc-select-provider>
                 <div>
                     <button
@@ -25,7 +25,7 @@
             <div fxLayout="column" fxLayoutGap="20px">
                 <cc-select-terminal
                     [terminals]="terminals$ | async"
-                    (formChanged)="terminalFormChanged($event)"
+                    (terminalIdSelected)="terminalFormChanged($event)"
                 ></cc-select-terminal>
                 <div><button matStepperPrevious mat-button color="primary">BACK</button></div>
             </div>

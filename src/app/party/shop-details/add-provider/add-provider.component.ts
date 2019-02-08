@@ -31,7 +31,7 @@ export class AddProviderComponent implements OnInit {
         private addProviderService: AddProviderService
     ) {}
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.providerForm = this.addProviderService.providerForm;
         this.terminalForm = this.addProviderService.terminalForm;
         this.terminals$ = this.addProviderService.getTerminals();

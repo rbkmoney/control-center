@@ -3,17 +3,18 @@ import { TerminalObject } from '../../../../damsel/domain';
 
 @Component({
     selector: 'cc-select-terminal',
-    templateUrl: 'select-terminal.component.html'
+    templateUrl: 'select-terminal.component.html',
+    styleUrls: ['select-terminal.component.scss']
 })
 export class SelectTerminalComponent {
-    @Output() formChanged: EventEmitter<number> = new EventEmitter();
     @Input() terminals: TerminalObject[];
+    @Output() terminalIdSelected: EventEmitter<number> = new EventEmitter();
 
     terminalTabChanged() {
-        this.formChanged.emit(null);
+        this.terminalIdSelected.emit(null);
     }
 
     terminalSelected(id: number) {
-        this.formChanged.emit(id);
+        this.terminalIdSelected.emit(id);
     }
 }

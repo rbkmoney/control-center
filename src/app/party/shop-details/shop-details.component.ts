@@ -42,9 +42,7 @@ export class ShopDetailsComponent implements OnInit {
         dialog
             .afterClosed()
             .pipe(filter(result => result))
-            .subscribe(() => {
-                this.getData();
-            });
+            .subscribe(() => this.getData());
     }
 
     private getData() {

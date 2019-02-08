@@ -11,7 +11,7 @@ import { CreateTerminalFormService } from './create-terminal-form.service';
     providers: [CreateTerminalFormService]
 })
 export class CreateTerminalFormComponent implements OnInit {
-    @Output() terminalSelected: EventEmitter<number> = new EventEmitter();
+    @Output() terminalIdSelected: EventEmitter<number> = new EventEmitter();
 
     form: FormGroup;
     riskCoverages: Array<{ name: string; value: number }>;
@@ -46,7 +46,7 @@ export class CreateTerminalFormComponent implements OnInit {
         this.isLoading = true;
         this.createTerminalFormService.saveTerminal().subscribe(
             terminalID => {
-                this.terminalSelected.emit(terminalID);
+                this.terminalIdSelected.emit(terminalID);
                 this.isLoading = false;
                 this.saved = true;
                 this.snackBar.open('Terminal successfully added', 'OK', { duration: 3000 });
