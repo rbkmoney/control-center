@@ -1,4 +1,7 @@
-import { AppendTerminalToProviderParams, CreateTerminalParams } from './append-terminal-to-provider-params';
+import {
+    AppendTerminalToProviderParams,
+    CreateTerminalParams
+} from './append-terminal-to-provider-params';
 import { generateID, toMap } from './utils';
 import { TerminalObject } from '../../damsel/domain';
 import { toGenTerminalObject } from '../converters';
