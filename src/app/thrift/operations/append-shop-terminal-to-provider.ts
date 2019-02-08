@@ -4,7 +4,7 @@ import { toGenCommit, toGenDomainObject } from '../converters';
 import { ProviderObject, TerminalObject, Commit } from '../../damsel';
 import { createAddTerminalToProviderOperation } from './create-add-terminal-to-provider-operation';
 
-export const createShopTerminal = (
+export const appendShopTerminalToProvider = (
     terminalObjects: TerminalObject[],
     providerObject: ProviderObject,
     params: CreateTerminalParams

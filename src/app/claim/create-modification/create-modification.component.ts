@@ -113,7 +113,7 @@ export class CreateModificationComponent implements OnInit {
     private createTerminal() {
         this.isLoading = true;
         this.domainTypedManager
-            .createTerminal(this.values as CreateTerminalParams)
+            .appendTerminalToProvider(this.values as CreateTerminalParams)
             .subscribe(() => this.success(), e => this.failed(e));
     }
 

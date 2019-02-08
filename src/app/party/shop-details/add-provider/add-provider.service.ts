@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { DomainTypedManager, filterProvidersByTerminalSelector } from '../../../thrift';
+import {
+    AddDecisionToProvider,
+    DomainTypedManager,
+    filterProvidersByTerminalSelector
+} from '../../../thrift';
 import { ProviderObject, TerminalObject } from '../../../damsel/domain';
 import { filterProvidersByCategories } from '../../../thrift/filters';
 
@@ -23,6 +27,16 @@ export class AddProviderService {
             map(objects => filterProvidersByTerminalSelector(objects, 'decisions')),
             map(objects => filterProvidersByCategories(objects, [shopCategory]))
         );
+    }
+
+    addProvider(partyID: string, shopID: string) {
+        const params = {
+            partyID,
+            shopID,
+            terminalID: this.terminalForm.value['id'],
+            providerID: this.providerForm.value['id']
+        } as AddDecisionToProvider;
+        return this.dtm.addProviderDecision(params);
     }
 
     private prepareForm(): FormGroup {

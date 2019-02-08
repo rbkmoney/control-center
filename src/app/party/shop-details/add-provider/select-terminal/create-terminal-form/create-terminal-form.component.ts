@@ -1,18 +1,17 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
 import { CreateTerminalFormService } from './create-terminal-form.service';
-import { DomainTypedManager } from '../../../../../thrift';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'cc-create-terminal-form',
     templateUrl: 'create-terminal-form.component.html',
     styleUrls: ['../../add-provider.component.scss'],
-    providers: [CreateTerminalFormService, DomainTypedManager]
+    providers: [CreateTerminalFormService]
 })
 export class CreateTerminalFormComponent implements OnInit {
-    @Output() terminalSelected: EventEmitter<any> = new EventEmitter();
+    @Output() terminalSelected: EventEmitter<number> = new EventEmitter();
 
     form: FormGroup;
     riskCoverages: Array<{ name: string; value: number }>;
@@ -22,7 +21,6 @@ export class CreateTerminalFormComponent implements OnInit {
 
     constructor(
         private createTerminalFormService: CreateTerminalFormService,
-        private dtm: DomainTypedManager,
         private snackBar: MatSnackBar
     ) {}
 
@@ -46,9 +44,9 @@ export class CreateTerminalFormComponent implements OnInit {
 
     save() {
         this.isLoading = true;
-        this.dtm.newCreateTerminal(this.form.value).subscribe(
-            terminalObject => {
-                this.terminalSelected.emit({ id: terminalObject.ref.id });
+        this.createTerminalFormService.saveTerminal().subscribe(
+            terminalID => {
+                this.terminalSelected.emit(terminalID);
                 this.isLoading = false;
                 this.saved = true;
                 this.snackBar.open('Terminal successfully added', 'OK', { duration: 3000 });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 
 import { ShopDetailsService, ProviderInfo } from './shop-details.service';
@@ -33,17 +33,18 @@ export class ShopDetailsComponent implements OnInit {
             data: {
                 shopID: this.shop.id,
                 partyID: this.partyID,
-                shopCategory: this.shop.category.id
+                shopCategoryID: this.shop.category.id
             },
             width: '800px',
             disableClose: true
         };
         const dialog = this.dialog.open(AddProviderComponent, config);
-        dialog.afterClosed().subscribe(result => {
-            if (result) {
+        dialog
+            .afterClosed()
+            .pipe(filter(result => result))
+            .subscribe(() => {
                 this.getData();
-            }
-        });
+            });
     }
 
     private getData() {

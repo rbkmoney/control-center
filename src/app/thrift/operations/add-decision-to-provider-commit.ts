@@ -10,11 +10,10 @@ export class AddDecisionToProvider {
     providerID: number;
 }
 
-export const addDecisionToProvider = (
-    providerObjects: ProviderObject[],
+export const addDecisionToProviderCommit = (
+    providerObject: ProviderObject,
     params: AddDecisionToProvider
 ): Commit => {
-    const providerObject = providerObjects.find(obj => obj.ref.id === params.providerID);
     const updateProvider = {
         update: createAddTerminalToProviderOperation(providerObject, params)
     };

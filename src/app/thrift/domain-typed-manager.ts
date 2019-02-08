@@ -10,10 +10,18 @@ import {
     PaymentInstitutionObject
 } from '../damsel/domain';
 import { findDomainObject, findDomainObjects } from './operations/utils';
-import { createShopTerminal, getCreateTerminalCommit, NewCreateTerminalParams } from './operations';
+import {
+    appendShopTerminalToProvider,
+    getCreateTerminalCommit,
+    NewCreateTerminalParams
+} from './operations';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
-import { addDecisionToProvider, AddDecisionToProvider, CreateTerminalParams } from './operations';
+import {
+    addDecisionToProviderCommit,
+    AddDecisionToProvider,
+    CreateTerminalParams
+} from './operations';
 import { DomainCacheService } from './domain-cache.service';
 import { filterProvidersByTerminalSelector } from './filters';
 
@@ -66,7 +74,7 @@ export class DomainTypedManager {
         );
     }
 
-    createTerminal(params: CreateTerminalParams): Observable<void> {
+    appendTerminalToProvider(params: CreateTerminalParams): Observable<void> {
         return combineLatest(
             this.getLastVersion(),
             this.getTerminalObjects(),
@@ -75,30 +83,30 @@ export class DomainTypedManager {
             switchMap(([version, terminalObjects, providerObject]) =>
                 this.dmtService.commit(
                     version,
-                    createShopTerminal(terminalObjects, providerObject, params)
+                    appendShopTerminalToProvider(terminalObjects, providerObject, params)
                 )
             ),
             tap(() => this.dmtCacheService.forceReload())
         );
     }
 
-    newCreateTerminal(params: NewCreateTerminalParams): Observable<TerminalObject> {
+    createTerminal(params: NewCreateTerminalParams): Observable<number> {
         let newTerminalID = null;
         return combineLatest(this.getLastVersion(), this.getTerminalObjects()).pipe(
             switchMap(([version, terminalObjects]) => {
-                const commit = getCreateTerminalCommit(terminalObjects, params);
-                newTerminalID = commit.id;
-                return this.dmtService.commit(version, commit.commit);
+                const { commit, id } = getCreateTerminalCommit(terminalObjects, params);
+                newTerminalID = id;
+                return this.dmtService.commit(version, commit);
             }),
             tap(() => this.dmtCacheService.forceReload()),
-            switchMap(() => this.getTerminalObject(newTerminalID))
+            map(() => newTerminalID)
         );
     }
 
     addProviderDecision(params: AddDecisionToProvider): Observable<void> {
-        return combineLatest(this.getLastVersion(), this.getProviderObjects()).pipe(
-            switchMap(([version, providerObjects]) =>
-                this.dmtService.commit(version, addDecisionToProvider(providerObjects, params))
+        return combineLatest(this.getLastVersion(), this.getProviderObject(params.providerID)).pipe(
+            switchMap(([version, providerObject]) =>
+                this.dmtService.commit(version, addDecisionToProviderCommit(providerObject, params))
             ),
             tap(() => this.dmtCacheService.forceReload())
         );

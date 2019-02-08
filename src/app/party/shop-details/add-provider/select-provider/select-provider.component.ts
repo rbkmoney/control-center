@@ -20,7 +20,7 @@ import { ProviderObject } from '../../../../damsel/domain';
 })
 export class SelectProviderComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    @Output() formChanged: EventEmitter<any> = new EventEmitter();
+    @Output() formChanged: EventEmitter<number> = new EventEmitter();
     @Input() providers: ProviderObject[];
 
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];
@@ -29,15 +29,15 @@ export class SelectProviderComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (terminal: ProviderObject, filter: string) =>
-            JSON.stringify(terminal)
+        this.dataSource.filterPredicate = (provider: ProviderObject, filter: string) =>
+            JSON.stringify(provider)
                 .toLowerCase()
                 .includes(filter);
 
         this.selection.changed.subscribe(() => {
-            const terminalSelection = Array.from(this.selection.selected.values());
-            if (terminalSelection.length > 0) {
-                this.formChanged.emit({ id: terminalSelection[0].ref.id });
+            const providerSelection = Array.from(this.selection.selected.values());
+            if (providerSelection.length > 0) {
+                this.formChanged.emit(providerSelection[0].ref.id);
             }
         });
     }

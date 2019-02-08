@@ -21,7 +21,7 @@ import { TerminalObject } from '../../../../../damsel/domain';
 export class TerminalsTableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @Input() terminals: TerminalObject[];
-    @Output() selectedTerminal: EventEmitter<any> = new EventEmitter();
+    @Output() terminalSelected: EventEmitter<number> = new EventEmitter();
 
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];
     dataSource: MatTableDataSource<TerminalObject> = new MatTableDataSource([]);
@@ -37,7 +37,7 @@ export class TerminalsTableComponent implements OnInit, OnChanges {
         this.selection.changed.subscribe(() => {
             const terminalSelection = Array.from(this.selection.selected.values());
             if (terminalSelection.length > 0) {
-                this.selectedTerminal.emit({ id: terminalSelection[0].ref.id });
+                this.terminalSelected.emit(terminalSelection[0].ref.id);
             }
         });
     }
