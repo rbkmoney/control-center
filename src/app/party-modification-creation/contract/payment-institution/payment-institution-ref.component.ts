@@ -4,8 +4,8 @@ import { map } from 'rxjs/operators';
 import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
 
-import { DomainTypedManager } from '../../../claim/domain-typed-manager';
 import { PaymentInstitutionObject } from '../../../damsel/domain';
+import { DomainTypedManager } from '../../../thrift';
 
 @Component({
     selector: 'cc-payment-institution-ref',

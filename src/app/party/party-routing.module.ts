@@ -9,7 +9,7 @@ import { PartyDetailsComponent } from './party-details/party-details.component';
     imports: [
         RouterModule.forChild([
             {
-                path: 'party/:partyId',
+                path: 'party/:partyID',
                 component: PartyDetailsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
@@ -17,7 +17,7 @@ import { PartyDetailsComponent } from './party-details/party-details.component';
                 }
             },
             {
-                path: 'party/:partyId/shop/:shopId',
+                path: 'party/:partyID/shop/:shopID',
                 component: ShopDetailsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
