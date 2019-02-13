@@ -24,7 +24,10 @@ export class ReportPreferencesComponent implements OnInit {
 
     toggleCheckbox(show: boolean, controlName: string, data = {}) {
         if (show) {
-            this.form.registerControl(controlName, this.fb.group(this.getFormGroup(controlName, data)));
+            this.form.registerControl(
+                controlName,
+                this.fb.group(this.getFormGroup(controlName, data))
+            );
         } else {
             this.form.removeControl(controlName);
         }

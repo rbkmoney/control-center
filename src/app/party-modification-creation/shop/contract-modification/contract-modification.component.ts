@@ -21,6 +21,9 @@ export class ContractModificationComponent implements OnInit {
         const contractId = get(this, 'initialValue.contractId', '');
         const payoutToolId = get(this, 'initialValue.payoutToolId', '');
         this.form.registerControl('contractId', this.fb.control(contractId, Validators.required));
-        this.form.registerControl('payoutToolId', this.fb.control(payoutToolId, Validators.required));
+        this.form.registerControl(
+            'payoutToolId',
+            this.fb.control(payoutToolId, Validators.required)
+        );
     }
 }

@@ -20,7 +20,7 @@ export class PersistentContainerService {
     }
 
     getModification(typeHash: string) {
-        return this.containers.filter((mod) => mod.typeHash === typeHash)[0] || null;
+        return this.containers.filter(mod => mod.typeHash === typeHash)[0] || null;
     }
 
     add(modification: PartyModification) {

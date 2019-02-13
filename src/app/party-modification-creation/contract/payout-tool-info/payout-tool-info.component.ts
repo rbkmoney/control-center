@@ -48,7 +48,10 @@ export class PayoutToolInfoComponent implements OnInit {
         switch (this.selected) {
             case Type.russianBankAccount:
                 this.clearControl();
-                this.form.registerControl(Type.russianBankAccount, this.fb.group(this.initialValue.russianBankAccount || {}));
+                this.form.registerControl(
+                    Type.russianBankAccount,
+                    this.fb.group(this.initialValue.russianBankAccount || {})
+                );
                 break;
             case Type.internationalBankAccount:
                 this.clearControl();
@@ -56,7 +59,10 @@ export class PayoutToolInfoComponent implements OnInit {
                 break;
             case Type.walletInfo:
                 this.clearControl();
-                this.form.registerControl(Type.walletInfo, this.fb.group(this.initialValue.walletInfo || {}));
+                this.form.registerControl(
+                    Type.walletInfo,
+                    this.fb.group(this.initialValue.walletInfo || {})
+                );
                 break;
         }
     }

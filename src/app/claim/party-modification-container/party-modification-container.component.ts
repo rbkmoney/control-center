@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ModificationGroupType, ModificationUnitContainer, PartyModificationContainer } from '../model';
+import {
+    ModificationGroupType,
+    ModificationUnitContainer,
+    PartyModificationContainer
+} from '../model';
 import { ClaimService } from '../claim.service';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
 import { MatDialog } from '@angular/material';
@@ -21,10 +25,7 @@ export class PartyModificationContainerComponent implements OnInit {
 
     modifications: ModificationUnitContainer[];
 
-    constructor(
-        private dialog: MatDialog,
-        private claimService: ClaimService
-    ) {}
+    constructor(private dialog: MatDialog, private claimService: ClaimService) {}
 
     ngOnInit() {
         this.modifications = this.container.unitContainers.slice();

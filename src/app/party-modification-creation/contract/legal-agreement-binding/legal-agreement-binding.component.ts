@@ -21,7 +21,10 @@ export class LegalAgreementBindingComponent implements OnInit {
         const legalAgreementId = get(this, 'initialValue.legalAgreementId', '');
         const signedAt = get(this, 'initialValue.signedAt', '');
         const validUntil = get(this, 'initialValue.validUntil', '');
-        this.form.registerControl('legalAgreementId', this.fb.control(legalAgreementId, Validators.required));
+        this.form.registerControl(
+            'legalAgreementId',
+            this.fb.control(legalAgreementId, Validators.required)
+        );
         this.form.registerControl('signedAt', this.fb.control(signedAt, Validators.required));
         this.form.registerControl('validUntil', this.fb.control(validUntil));
     }

@@ -5,6 +5,9 @@
         </mat-form-field>
         <div><button (click)="generate()" mat-stroked-button>GENERATE NEW VALUE</button></div>
     </div>
-    <cc-contract-payout-tool-modification [form]="form.get('modification')" [initialValue]="initialValue?.modification">
+    <cc-contract-payout-tool-modification
+        [form]="form.get('modification')"
+        [initialValue]="initialValue?.modification"
+    >
     </cc-contract-payout-tool-modification>
 </form>

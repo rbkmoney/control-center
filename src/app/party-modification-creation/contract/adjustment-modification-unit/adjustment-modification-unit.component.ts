@@ -19,8 +19,11 @@ export class AdjustmentModificationUnitComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const adjustmentId = get (this, 'initialValue.adjustmentId', '');
-        this.form.registerControl('adjustmentId', this.fb.control(adjustmentId, Validators.required));
+        const adjustmentId = get(this, 'initialValue.adjustmentId', '');
+        this.form.registerControl(
+            'adjustmentId',
+            this.fb.control(adjustmentId, Validators.required)
+        );
         this.form.registerControl('modification', this.fb.group({}));
     }
 

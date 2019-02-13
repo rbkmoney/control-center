@@ -20,7 +20,10 @@ export class PayoutToolModificationUnitComponent implements OnInit {
 
     ngOnInit() {
         const payoutToolId = get(this, 'initialValue.payoutToolId', '');
-        this.form.registerControl('payoutToolId', this.fb.control(payoutToolId, Validators.required));
+        this.form.registerControl(
+            'payoutToolId',
+            this.fb.control(payoutToolId, Validators.required)
+        );
         this.form.registerControl('modification', this.fb.group({}));
     }
 

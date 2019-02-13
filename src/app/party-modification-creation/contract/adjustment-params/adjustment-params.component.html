@@ -1,4 +1,8 @@
 <form [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
-    <cc-contract-template-ref [form]="form.get('template')" [required]="true" [initialValue]="initialValue?.template">
+    <cc-contract-template-ref
+        [form]="form.get('template')"
+        [required]="true"
+        [initialValue]="initialValue?.template"
+    >
     </cc-contract-template-ref>
 </form>

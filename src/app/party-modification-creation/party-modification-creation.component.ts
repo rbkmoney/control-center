@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ContractModificationName, ShopModificationName } from '../claim/model';
@@ -66,12 +74,13 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
 
     private getFormGroup(data: object): FormGroup {
         const formData = data;
-        Object.keys(formData).forEach((key) => {
+        Object.keys(formData).forEach(key => {
             const value = formData[key];
             if (key === 'modification') {
-
             } else {
-                (typeof value === 'object') ? formData[key] = this.getFormGroup(value) : formData[key] = this.fb.control(value);
+                typeof value === 'object'
+                    ? (formData[key] = this.getFormGroup(value))
+                    : (formData[key] = this.fb.control(value));
             }
         });
         return this.fb.group(formData);

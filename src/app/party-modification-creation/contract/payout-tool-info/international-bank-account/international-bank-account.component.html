@@ -13,13 +13,17 @@
                 >
             </section>
             <cc-international-bank-details
-                    *ngIf="isBankDetails"
-                    [form]="form.get('bank')"
-                    [initialValue]="initialValue?.bank"
+                *ngIf="isBankDetails"
+                [form]="form.get('bank')"
+                [initialValue]="initialValue?.bank"
             >
             </cc-international-bank-details>
             <section>
-                <mat-checkbox [checked]="isCorrespondentAccount" (change)="accountChange($event.checked)">Correspondent account</mat-checkbox>
+                <mat-checkbox
+                    [checked]="isCorrespondentAccount"
+                    (change)="accountChange($event.checked)"
+                    >Correspondent account</mat-checkbox
+                >
             </section>
             <div fxLayout>
                 <div fxFlex="10"></div>
