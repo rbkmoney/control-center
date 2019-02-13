@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, combineLatest, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, combineLatest, Subject, AsyncSubject } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { Field } from 'thrift-ts';
 
@@ -14,7 +14,7 @@ export interface Payload {
 
 @Injectable()
 export class DomainInfoService {
-    payload$: Subject<Payload> = new BehaviorSubject(null);
+    payload$: Subject<Payload> = new AsyncSubject();
 
     constructor(private domainService: DomainService, private metadataService: MetadataService) {}
 
@@ -23,7 +23,10 @@ export class DomainInfoService {
             this.domainService.shapshot,
             this.metadataService.getDomainDef()
         ]).pipe(
-            tap(([shapshot, domainDef]) => this.payload$.next({ shapshot, domainDef })),
+            tap(([shapshot, domainDef]) => {
+                this.payload$.next({ shapshot, domainDef });
+                this.payload$.complete();
+            }),
             map(() => null)
         );
     }

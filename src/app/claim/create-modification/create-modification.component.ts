@@ -7,8 +7,7 @@ import { ActionType, ModificationAction } from '../modification-action';
 import { DomainModificationInfo, ModificationGroupType } from '../model';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
-import { CreateTerminalParams } from '../domain-typed-manager';
-import { DomainTypedManager } from '../../thrift/domain-typed-manager';
+import { DomainTypedManager, AppendTerminalToProviderParams } from '../../thrift';
 import { PartyModification } from '../../gen-damsel/payment_processing';
 
 interface CreateModificationData {
@@ -32,7 +31,7 @@ export class CreateModificationComponent implements OnInit {
 
     partyId: string;
 
-    values: PartyModification | CreateTerminalParams;
+    values: PartyModification | AppendTerminalToProviderParams;
 
     unitID: string;
 
@@ -115,7 +114,7 @@ export class CreateModificationComponent implements OnInit {
     private createTerminal() {
         this.isLoading = true;
         this.domainTypedManager
-            .createTerminal(this.values as CreateTerminalParams)
+            .appendTerminalToProvider(this.values as AppendTerminalToProviderParams)
             .subscribe(() => this.success(), e => this.failed(e));
     }
 

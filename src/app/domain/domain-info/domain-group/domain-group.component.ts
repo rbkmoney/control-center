@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { filter } from 'rxjs/operators';
 
 import { DomainGroupService } from './domain-group.service';
 import { DomainGroup } from './domain-group';
@@ -9,12 +10,24 @@ import { DomainGroup } from './domain-group';
     templateUrl: './domain-group.component.html',
     providers: [DomainGroupService]
 })
-export class DomainGroupComponent {
-    group$: Observable<DomainGroup[]>;
-    version$: Observable<number>;
+export class DomainGroupComponent implements OnInit {
+    group: DomainGroup[];
+    version: number;
 
-    constructor(private groupService: DomainGroupService) {
-        this.group$ = this.groupService.group$;
-        this.version$ = this.groupService.version$;
+    constructor(private groupService: DomainGroupService, private snackBar: MatSnackBar) {}
+
+    ngOnInit() {
+        this.groupService.initialize().subscribe(({ group, version }) => {
+            this.group = group;
+            this.version = version;
+        });
+        this.groupService.undefDetectionStatus$
+            .pipe(filter(s => s === 'detected'))
+            .subscribe(() =>
+                this.snackBar.open(
+                    'Detected undefined domain types. Need to bump damsel version.',
+                    'OK'
+                )
+            );
     }
 }
