@@ -1,1 +1,6 @@
-<span *ngIf="terminal"> {{ terminal.data.name }} - {{ terminal.data.description }} </span>
+<div *ngIf="terminal">
+    <button mat-icon-button (click)="removeTerminal()" [disabled]="isLoading">
+        <mat-icon>remove_circle</mat-icon>
+    </button>
+    <span>{{ terminal.data.name }} - {{ terminal.data.description }}</span>
+</div>

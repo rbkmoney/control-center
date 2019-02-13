@@ -1,6 +1,6 @@
 {
     "/v1": {
-        "target": "https://iddqd.rbk.money",
+        "target": "http://iddqd.rbk.test:8080",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
@@ -12,7 +12,7 @@
         "changeOrigin": true
     },
     "/papi/v1": {
-        "target": "https://iddqd.rbk.money",
+        "target": "http://iddqd.rbk.test:8080",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true

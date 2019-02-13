@@ -4,3 +4,5 @@ export * from './create-terminal-object';
 export * from './append-shop-terminal-to-provider';
 export * from './append-terminal-to-provider-params';
 export * from './get-create-terminal-commit';
+export * from './create-remove-terminal-from-provider-operation';
+export * from './remove-terminal-decision';
