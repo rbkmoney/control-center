@@ -1,13 +1,16 @@
 <form [formGroup]="form" fxLayout="column">
-    <mat-checkbox (change)="toggleCheckbox($event, 'serviceAcceptanceActPreferences')"
+    <mat-checkbox [checked]="showPreferences" (change)="toggleCheckbox($event.checked, 'serviceAcceptanceActPreferences')"
         >Service acceptance act preferences
     </mat-checkbox>
     <div *ngIf="form.get('serviceAcceptanceActPreferences')">
         <cc-business-schedule-ref
             [form]="form.get('serviceAcceptanceActPreferences').get('schedule')"
+            [initialValue]="initialValue?.serviceAcceptanceActPreferences?.schedule"
         >
         </cc-business-schedule-ref>
-        <cc-representative [form]="form.get('serviceAcceptanceActPreferences').get('signer')">
+        <cc-representative
+                [form]="form.get('serviceAcceptanceActPreferences').get('signer')"
+                [initialValue]="initialValue?.serviceAcceptanceActPreferences?.signer">
         </cc-representative>
     </div>
 </form>

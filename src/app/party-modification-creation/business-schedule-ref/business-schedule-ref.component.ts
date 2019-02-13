@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import get from 'lodash-es/get';
+
+import { BusinessScheduleRef } from '../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-business-schedule-ref',
@@ -9,10 +12,14 @@ export class BusinessScheduleRefComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    @Input()
+    initialValue: BusinessScheduleRef;
+
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.registerControl('id', this.fb.control('', Validators.required));
+        const id = get(this, 'initialValue.id', '');
+        this.form.registerControl('id', this.fb.control(id, Validators.required));
     }
 
     scheduleIdChange(id: number) {

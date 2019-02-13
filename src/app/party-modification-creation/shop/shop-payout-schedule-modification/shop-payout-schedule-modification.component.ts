@@ -33,7 +33,6 @@ export class ShopPayoutScheduleModificationComponent implements OnInit {
 
     toggleSchedule() {
         const schedule = get(this, 'initialValue.schedule', null);
-        console.log(schedule);
         this.showSchedule = schedule !== null;
         if (this.showSchedule) {
             this.form.registerControl('schedule', this.fb.group(schedule));

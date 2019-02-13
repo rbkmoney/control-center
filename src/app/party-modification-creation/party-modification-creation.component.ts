@@ -74,7 +74,6 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
                 (typeof value === 'object') ? formData[key] = this.getFormGroup(value) : formData[key] = this.fb.control(value);
             }
         });
-        console.log(formData);
         return this.fb.group(formData);
     }
 

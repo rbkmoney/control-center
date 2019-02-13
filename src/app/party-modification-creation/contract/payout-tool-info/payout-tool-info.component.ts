@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { PayoutToolInfo } from '../../../gen-damsel/domain';
+import get from 'lodash-es/get';
 
 enum Type {
     russianBankAccount = 'russianBankAccount',
@@ -11,9 +13,12 @@ enum Type {
     selector: 'cc-payout-tool-info',
     templateUrl: 'payout-tool-info.component.html'
 })
-export class PayoutToolInfoComponent {
+export class PayoutToolInfoComponent implements OnInit {
     @Input()
     form: FormGroup;
+
+    @Input()
+    initialValue: PayoutToolInfo;
 
     selected: Type;
 
@@ -23,11 +28,27 @@ export class PayoutToolInfoComponent {
 
     constructor(private fb: FormBuilder) {}
 
+    ngOnInit() {
+        const russianBankAccount = get(this, 'initialValue.russianBankAccount', null);
+        const internationalBankAccount = get(this, 'initialValue.internationalBankAccount', null);
+        const walletInfo = get(this, 'initialValue.walletInfo', null);
+        if (russianBankAccount) {
+            this.selected = Type.russianBankAccount;
+        }
+        if (internationalBankAccount) {
+            this.selected = Type.internationalBankAccount;
+        }
+        if (walletInfo) {
+            this.selected = Type.walletInfo;
+        }
+        this.select();
+    }
+
     select() {
         switch (this.selected) {
             case Type.russianBankAccount:
                 this.clearControl();
-                this.form.registerControl(Type.russianBankAccount, this.fb.group({}));
+                this.form.registerControl(Type.russianBankAccount, this.fb.group(this.initialValue.russianBankAccount || {}));
                 break;
             case Type.internationalBankAccount:
                 this.clearControl();
@@ -35,7 +56,7 @@ export class PayoutToolInfoComponent {
                 break;
             case Type.walletInfo:
                 this.clearControl();
-                this.form.registerControl(Type.walletInfo, this.fb.group({}));
+                this.form.registerControl(Type.walletInfo, this.fb.group(this.initialValue.walletInfo || {}));
                 break;
         }
     }

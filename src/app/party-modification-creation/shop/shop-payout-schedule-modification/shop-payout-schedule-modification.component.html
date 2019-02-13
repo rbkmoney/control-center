@@ -3,5 +3,6 @@
     <cc-business-schedule-ref
         *ngIf="form.get('schedule')"
         [form]="form.get('schedule')"
+        [initialValue]="initialValue?.schedule"
     ></cc-business-schedule-ref>
 </div>

@@ -12,26 +12,31 @@
         <cc-contract-payout-tool-modification-unit
             *ngIf="action.name === contractModificationNames.payoutToolModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.contractModification?.modification?.payoutToolModification"
         >
         </cc-contract-payout-tool-modification-unit>
         <cc-legal-agreement-binding
             *ngIf="action.name === contractModificationNames.legalAgreementBinding"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.contractModification?.modification?.legalAgreementBinding"
         >
         </cc-legal-agreement-binding>
         <cc-adjustment-modification-unit
             *ngIf="action.name === contractModificationNames.adjustmentModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.contractModification?.modification?.adjustmentModification"
         >
         </cc-adjustment-modification-unit>
         <cc-report-preferences
             *ngIf="action.name === contractModificationNames.reportPreferencesModification"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.contractModification?.modification?.reportPreferencesModification"
         >
         </cc-report-preferences>
         <cc-termination
             *ngIf="action.name === contractModificationNames.termination"
             [form]="form.get('modification')"
+            [initialValue]="partyModification?.contractModification?.modification?.termination"
         >
         </cc-termination>
         <cc-contractor-id

@@ -5,5 +5,5 @@
     <mat-form-field fxFlex>
         <input matInput placeholder="Full name" formControlName="fullName" required />
     </mat-form-field>
-    <cc-representative-document [form]="form.get('document')"> </cc-representative-document>
+    <cc-representative-document [form]="form.get('document')" [initialValue]="initialValue?.document"> </cc-representative-document>
 </form>

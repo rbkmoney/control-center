@@ -16,6 +16,7 @@
     <cc-international-bank-account
         *ngIf="selected === t.internationalBankAccount"
         [form]="form.get(t.internationalBankAccount)"
+        [initialValue]="initialValue?.internationalBankAccount"
     >
     </cc-international-bank-account>
     <cc-wallet-info *ngIf="selected === t.walletInfo" [form]="form.get(t.walletInfo)">

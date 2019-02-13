@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ContractAdjustmentParams } from '../../../gen-damsel/payment_processing';
 
 @Component({
     selector: 'cc-contract-adjustment-params',
@@ -8,6 +9,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AdjustmentParamsComponent implements OnInit {
     @Input()
     form: FormGroup;
+
+    @Input()
+    initialValue: ContractAdjustmentParams;
 
     constructor(private fb: FormBuilder) {}
 
