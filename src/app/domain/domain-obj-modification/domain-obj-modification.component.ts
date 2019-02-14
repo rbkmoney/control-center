@@ -13,6 +13,10 @@ import {
 import { DomainObjModificationService } from './domain-obj-modification.service';
 import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
 import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
+import { MetadataService } from '../metadata.service';
+import { build } from '../../damsel-meta/meta-builder';
+import { DefinitionService } from '../../damsel-meta/definition.service';
+import { ASTDefinition } from '../../damsel-meta/model/ast-definition';
 
 @Component({
     templateUrl: './domain-obj-modification.component.html',
@@ -32,10 +36,13 @@ export class DomainObjModificationComponent implements OnInit {
     codeLensProviders: CodeLensProvider[];
     completionProviders: CompletionProvider[];
 
+    astDifinition: ASTDefinition[];
+
     constructor(
         private route: ActivatedRoute,
         private snackBar: MatSnackBar,
-        private domainObjModificationService: DomainObjModificationService
+        private domainObjModificationService: DomainObjModificationService,
+        private definitionService: DefinitionService
     ) {}
 
     ngOnInit() {
@@ -47,16 +54,16 @@ export class DomainObjModificationComponent implements OnInit {
             );
         this.codeLensProviders = [new DomainObjCodeLensProvider()];
         this.completionProviders = [new DomainObjCompletionProvider()];
+
+        this.definitionService.astDefinition.subscribe(d => {
+            console.log(d);
+            this.astDifinition = d;
+        });
     }
 
     fileChange({ content }: MonacoFile) {
-        let json;
-        try {
-            json = JSON.parse(content);
-            this.valid = true;
-        } catch {
-            this.valid = false;
-        }
+        const meta = build(content, this.astDifinition, this.objectType);
+        console.log('Builded', meta);
     }
 
     private initialize(ref: Reference) {
