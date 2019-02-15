@@ -9,16 +9,14 @@ import {
     MetaType,
     MetaField,
     MetaStruct,
-    MetaUnion
+    MetaUnion,
+    MetaTypeDefined
 } from '../model';
 import { MetaTypeCondition, MetaGroup } from './model';
 import { findMeta } from './find-meta';
 import { isPrimitiveType } from './utils';
 
-const isNeedEnrichment = (meta: any) => {
-    console.log(meta);
-    return isString(meta) && !isPrimitiveType(meta);
-};
+const isNeedEnrichment = (meta: any) => isString(meta) && !isPrimitiveType(meta);
 
 function getCondition(meta: string, defaultNamespace: string): MetaTypeCondition {
     const [first, second] = meta.split('.');
@@ -33,20 +31,16 @@ function getCondition(meta: string, defaultNamespace: string): MetaTypeCondition
           };
 }
 
-const enrichMetaObjectField = (
-    meta: MetaTyped & MetaObject,
-    namespace: string,
-    source: MetaGroup[]
-) => ({
+const enrichObject = (meta: MetaTyped & MetaObject, namespace: string, source: MetaGroup[]) => ({
     ...meta,
     fields: enrichFields(meta.fields, namespace, source)
 });
 
-const enrichMetaCollectionField = (
+function enrichCollection(
     meta: MetaTyped & MetaCollection,
     namespace: string,
     source: MetaGroup[]
-) => {
+) {
     if (!isNeedEnrichment(meta.itemMeta)) {
         return meta;
     }
@@ -55,9 +49,9 @@ const enrichMetaCollectionField = (
         ...meta,
         itemMeta: enrichFieldMeta({ namespace, type }, source)
     };
-};
+}
 
-const enrichMetaMapField = (meta: MetaTyped & MetaMap, namespace: string, source: MetaGroup[]) => {
+function enrichMap(meta: MetaTyped & MetaMap, namespace: string, source: MetaGroup[]) {
     let keyMeta = meta.keyMeta;
     if (isNeedEnrichment(keyMeta)) {
         const keyType = meta.keyMeta as string;
@@ -73,52 +67,45 @@ const enrichMetaMapField = (meta: MetaTyped & MetaMap, namespace: string, source
         keyMeta,
         valueMeta
     };
-};
+}
 
 function enrichByType(type: MetaType, meta: MetaTyped, namespace: string, source: MetaGroup[]) {
     switch (type) {
         case MetaType.struct:
         case MetaType.union:
-            return enrichMetaObjectField(meta as MetaTyped & MetaObject, namespace, source);
+            return enrichObject(meta as MetaTyped & MetaObject, namespace, source);
         case MetaType.collection:
-            return enrichMetaCollectionField(meta as MetaCollection, namespace, source);
+            return enrichCollection(meta as MetaCollection, namespace, source);
         case MetaType.map:
-            return enrichMetaMapField(meta as MetaMap, namespace, source);
+            return enrichMap(meta as MetaMap, namespace, source);
         case MetaType.typedef:
-            return enrichMetaTypedefField(meta as MetaTypedef, namespace, source);
+            return enrichType((meta as MetaTypedef).meta, namespace, source);
     }
     return meta;
 }
 
-const enrichMetaTypedefField = (
-    { meta }: MetaTyped & MetaTypedef,
+function enrichType(
+    meta: MetaTyped | MetaObject | MetaTypeDefined | string,
     namespace: string,
     source: MetaGroup[]
-) => {
+) {
     if (isNeedEnrichment(meta)) {
         const condition = getCondition(meta as string, namespace);
         return enrichFieldMeta(condition, source);
     }
     const type = (meta as MetaTyped).type;
     return enrichByType(type, meta as any, namespace, source);
-};
+}
 
-const enrichFieldMeta = (condition: MetaTypeCondition, source: MetaGroup[]) => {
+function enrichFieldMeta(condition: MetaTypeCondition, source: MetaGroup[]) {
     const meta = findMeta<MetaTyped>(condition, source);
     return enrichByType(meta.type, meta, condition.namespace, source);
-};
-
-function enrichField(field: MetaField, namespace: string, source: MetaGroup[]): MetaField {
-    if (!isNeedEnrichment(field.meta)) { // TODO fix it
-        return field;
-    }
-    const metaType = field.meta as string; // field.meta is string after isNeedEnrichment check
-    const condition = getCondition(metaType, namespace);
-    return {
-        ...field,
-        meta: enrichFieldMeta(condition, source)
-    };
 }
+
+const enrichField = (field: MetaField, namespace: string, source: MetaGroup[]): MetaField => ({
+    ...field,
+    meta: enrichType(field.meta, namespace, source)
+});
 
 const enrichFields = (fields: MetaField[], namespace: string, source: MetaGroup[]): MetaField[] =>
     fields.map(f => enrichField(f, namespace, source));

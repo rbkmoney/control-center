@@ -13,7 +13,6 @@ import {
 import { DomainObjModificationService } from './domain-obj-modification.service';
 import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
 import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
-import { MetadataService } from '../metadata.service';
 import { build } from '../../damsel-meta/builder';
 import { DefinitionService } from '../../damsel-meta/definition.service';
 import { ASTDefinition } from '../../damsel-meta/model/ast-definition';
@@ -56,14 +55,13 @@ export class DomainObjModificationComponent implements OnInit {
         this.completionProviders = [new DomainObjCompletionProvider()];
 
         this.definitionService.astDefinition.subscribe(d => {
-            console.log(d);
             this.astDifinition = d;
         });
     }
 
     fileChange({ content }: MonacoFile) {
         const meta = build(content, this.astDifinition, this.objectType);
-        console.log('Builded', meta);
+        console.log('BUILDED', meta);
     }
 
     private initialize(ref: Reference) {
