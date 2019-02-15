@@ -14,7 +14,7 @@ import { DomainObjModificationService } from './domain-obj-modification.service'
 import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
 import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
 import { MetadataService } from '../metadata.service';
-import { build } from '../../damsel-meta/meta-builder';
+import { build } from '../../damsel-meta/builder';
 import { DefinitionService } from '../../damsel-meta/definition.service';
 import { ASTDefinition } from '../../damsel-meta/model/ast-definition';
 
