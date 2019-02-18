@@ -1,4 +1,3 @@
-/// <reference path="../../../node_modules/monaco-editor/monaco.d.ts" />
 import { Observable, Observer } from 'rxjs';
 
 export function fromDisposable<T>(

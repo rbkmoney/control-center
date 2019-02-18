@@ -5,9 +5,9 @@ import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
 import get from 'lodash-es/get';
 
-import { DomainTypedManager } from '../../../claim/domain-typed-manager';
 import { PaymentInstitutionObject } from '../../../damsel/domain';
 import { PaymentInstitutionRef } from '../../../gen-damsel/domain';
+import { DomainTypedManager } from '../../../thrift';
 
 @Component({
     selector: 'cc-payment-institution-ref',

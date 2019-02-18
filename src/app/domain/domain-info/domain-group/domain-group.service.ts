@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Observable, AsyncSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { group } from './group-domain-objects';
 import { DomainGroup } from './domain-group';
@@ -7,15 +8,32 @@ import { DomainInfoService } from '../domain-info.service';
 
 @Injectable()
 export class DomainGroupService {
-    group$: Subject<DomainGroup[]> = new BehaviorSubject(null);
-    version$: Subject<number> = new BehaviorSubject(null);
+    undefDetectionStatus$ = new AsyncSubject();
 
-    constructor(private domainInfoService: DomainInfoService) {
-        this.domainInfoService.payload$.subscribe(
-            ({ shapshot: { version, domain }, domainDef }) => {
-                this.version$.next(version.toNumber());
-                this.group$.next(group(domain, domainDef));
-            }
+    constructor(private domainInfoService: DomainInfoService) {}
+
+    initialize(): Observable<{ version: number; group: DomainGroup[] }> {
+        return this.domainInfoService.payload$.pipe(
+            map(({ shapshot: { version, domain }, domainDef }) => {
+                const domainGroup = group(domain, domainDef);
+                this.detectUndefGroup(domainGroup);
+                return {
+                    version: version.toNumber(),
+                    group: this.filterUndef(domainGroup)
+                };
+            })
         );
+    }
+
+    private detectUndefGroup(domainGroup: DomainGroup[]) {
+        const undef = domainGroup.find(g => g.name === 'undef');
+        if (undef) {
+            this.undefDetectionStatus$.next('detected');
+        }
+        this.undefDetectionStatus$.complete();
+    }
+
+    private filterUndef(domainGroup: DomainGroup[]) {
+        return domainGroup.filter(g => g.name !== 'undef');
     }
 }

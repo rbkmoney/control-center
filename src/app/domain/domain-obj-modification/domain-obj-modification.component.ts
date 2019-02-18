@@ -4,8 +4,15 @@ import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/operators';
 
 import { Reference } from '../../gen-damsel/domain';
-import { IEditorOptions, MonacoFile } from '../../monaco-editor/model';
+import {
+    IEditorOptions,
+    MonacoFile,
+    CodeLensProvider,
+    CompletionProvider
+} from '../../monaco-editor/model';
 import { DomainObjModificationService } from './domain-obj-modification.service';
+import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
+import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
 
 @Component({
     templateUrl: './domain-obj-modification.component.html',
@@ -22,6 +29,8 @@ export class DomainObjModificationComponent implements OnInit {
     };
     objectType: string;
     valid = false;
+    codeLensProviders: CodeLensProvider[];
+    completionProviders: CompletionProvider[];
 
     constructor(
         private route: ActivatedRoute,
@@ -36,6 +45,8 @@ export class DomainObjModificationComponent implements OnInit {
                 ref => this.initialize(ref),
                 () => this.snackBar.open('Malformed domain object ref', 'OK')
             );
+        this.codeLensProviders = [new DomainObjCodeLensProvider()];
+        this.completionProviders = [new DomainObjCompletionProvider()];
     }
 
     fileChange({ content }: MonacoFile) {
