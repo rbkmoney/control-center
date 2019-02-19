@@ -16,9 +16,7 @@
             <button
                 mat-button
                 color="primary"
-                [disabled]="
-                    hasUnsavedChanges() || claimInfoContainer?.status !== 'pending' || isLoading
-                "
+                [disabled]="hasUnsavedChanges() || isLoading"
                 (click)="cloneClaim()"
             >
                 CLONE CLAIM
