@@ -7,10 +7,29 @@ import { removeTerminalDecision } from './remove-terminal-decision';
 export const createRemoveTerminalFromProviderOperation = (
     providerObject: ProviderObject,
     params: RemoveTerminalFromShopParams
-): UpdateOp => ({
-    oldObject: toGenDomainObject(providerObject, 'provider'),
-    newObject: toGenDomainObject(
-        removeTerminalDecision(providerObject, params.partyID, params.shopID, params.terminalID),
-        'provider'
-    )
-});
+): UpdateOp => {
+    console.log({
+        oldObject: toGenDomainObject(providerObject, 'provider'),
+        newObject: toGenDomainObject(
+            removeTerminalDecision(
+                providerObject,
+                params.partyID,
+                params.shopID,
+                params.terminalID
+            ),
+            'provider'
+        )
+    });
+    return {
+        oldObject: toGenDomainObject(providerObject, 'provider'),
+        newObject: toGenDomainObject(
+            removeTerminalDecision(
+                providerObject,
+                params.partyID,
+                params.shopID,
+                params.terminalID
+            ),
+            'provider'
+        )
+    };
+};

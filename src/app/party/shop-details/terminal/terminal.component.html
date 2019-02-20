@@ -1,6 +1,14 @@
-<div *ngIf="terminal">
-    <button mat-icon-button (click)="removeTerminal()" [disabled]="isLoading">
-        <mat-icon>remove_circle</mat-icon>
-    </button>
-    <span>{{ terminal.data.name }} - {{ terminal.data.description }}</span>
+<div *ngIf="terminal" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>ID {{ terminal.ref.id }} | {{ terminal.data.name }} - {{ terminal.data.description }}</div>
+    <div>
+        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #appMenu="matMenu">
+            <button mat-menu-item (click)="removeTerminal()">
+                <mat-icon>delete</mat-icon>
+                <span>Remove</span>
+            </button>
+        </mat-menu>
+    </div>
 </div>

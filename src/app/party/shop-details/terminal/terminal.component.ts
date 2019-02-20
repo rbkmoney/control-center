@@ -10,27 +10,37 @@ import { DomainTypedManager } from '../../../thrift';
 })
 export class TerminalComponent {
     @Input() terminal: TerminalObject;
+    @Input() partyID: string;
+    @Input() shopID: string;
+    @Input() providerID: number;
 
     isLoading = false;
 
-    constructor(private dtm: DomainTypedManager, private snackBar: MatSnackBar) {
-    }
+    constructor(private dtm: DomainTypedManager, private snackBar: MatSnackBar) {}
 
     removeTerminal() {
         this.isLoading = true;
         const params = {
-            partyID: 'string',
-            shopID: 'string',
+            partyID: this.partyID,
+            shopID: this.shopID,
             terminalID: this.terminal.ref.id,
-            providerID: 1
+            providerID: this.providerID
         };
-        this.dtm.removeTerminalFromShop(params).subscribe(() => {
-            this.isLoading = false;
-            this.snackBar.open('Terminal successfully removed from shop', 'OK', { duration: 3000 });
-        }, (e) => {
-            this.isLoading = false;
-            this.snackBar.open('An error occurred while while removing terminal from shop', 'OK');
-            console.error(e);
-        });
+        this.dtm.removeTerminalFromShop(params).subscribe(
+            () => {
+                this.isLoading = false;
+                this.snackBar.open('Terminal successfully removed from shop', 'OK', {
+                    duration: 3000
+                });
+            },
+            e => {
+                this.isLoading = false;
+                this.snackBar.open(
+                    'An error occurred while while removing terminal from shop',
+                    'OK'
+                );
+                console.error(e);
+            }
+        );
     }
 }

@@ -45,6 +45,8 @@ export class ShopDetailsComponent implements OnInit {
             .subscribe(() => this.getData());
     }
 
+    needReload() {}
+
     private getData() {
         this.isLoading = true;
         this.route.params

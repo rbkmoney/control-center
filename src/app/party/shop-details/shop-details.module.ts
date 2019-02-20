@@ -9,6 +9,7 @@ import {
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatMenuModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
@@ -53,7 +54,8 @@ import { SelectProviderComponent } from './add-provider/select-provider/select-p
         MatInputModule,
         MatTabsModule,
         MatIconModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        MatMenuModule
     ],
     declarations: [
         ShopDetailsComponent,

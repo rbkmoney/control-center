@@ -4,7 +4,10 @@ import { Commit } from '../../damsel/domain-config';
 import { toGenCommit } from '../converters';
 import { createRemoveTerminalFromProviderOperation } from './create-remove-terminal-from-provider-operation';
 
-export const createRemoveTerminalFromShopCommit = (providerObject: ProviderObject, params: RemoveTerminalFromShopParams): Commit => {
+export const createRemoveTerminalFromShopCommit = (
+    providerObject: ProviderObject,
+    params: RemoveTerminalFromShopParams
+): Commit => {
     const updateProvider = {
         update: createRemoveTerminalFromProviderOperation(providerObject, params)
     };
