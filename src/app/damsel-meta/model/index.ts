@@ -13,7 +13,7 @@ export interface MetaTypeDefined {
 export interface MetaField {
     required: boolean;
     name: string;
-    meta: MetaTyped | MetaObject | MetaTypeDefined | string;
+    meta: MetaTyped | string;
 }
 
 export interface MetaStruct extends MetaTyped, MetaObject, MetaTypeDefined {
@@ -47,7 +47,7 @@ export interface MetaMap extends MetaTyped {
 }
 
 export interface MetaTypedef extends MetaTyped {
-    meta: MetaTyped | MetaObject | MetaTypeDefined | string;
+    meta: MetaTyped | string;
 }
 
 export enum MetaType {

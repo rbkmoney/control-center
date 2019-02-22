@@ -16,6 +16,15 @@ import { MetaTypeCondition, MetaGroup } from './model';
 import { findMeta } from './find-meta';
 import { isPrimitiveType } from './utils';
 
+interface MetaSource {
+    namespace: string;
+    shallowDefenition: MetaGroup[];
+    used: MetaTypeDefined[];
+}
+
+const isMetaUsed = (meta: string, usedMeta: MetaTypeDefined[]) =>
+    !!usedMeta.find(i => i.name === meta);
+
 const isNeedEnrichment = (meta: any) => isString(meta) && !isPrimitiveType(meta);
 
 function getCondition(meta: string, defaultNamespace: string): MetaTypeCondition {
@@ -31,36 +40,35 @@ function getCondition(meta: string, defaultNamespace: string): MetaTypeCondition
           };
 }
 
-const enrichObject = (meta: MetaTyped & MetaObject, namespace: string, source: MetaGroup[]) => ({
+const enrichWithCircularProtection = (type: string, source: MetaSource): MetaTyped | string =>
+    isMetaUsed(type, source.used)
+        ? `$circular_${type}`
+        : enrich(getCondition(type, source.namespace), source);
+
+const enrichObject = (meta: MetaTyped & MetaObject, source: MetaSource) => ({
     ...meta,
-    fields: enrichFields(meta.fields, namespace, source)
+    fields: enrichFields(meta.fields, source)
 });
 
-function enrichCollection(
-    meta: MetaTyped & MetaCollection,
-    namespace: string,
-    source: MetaGroup[]
-) {
+function enrichCollection(meta: MetaTyped & MetaCollection, source: MetaSource) {
     if (!isNeedEnrichment(meta.itemMeta)) {
         return meta;
     }
     const type = meta.itemMeta as string;
     return {
         ...meta,
-        itemMeta: enrichFieldMeta({ namespace, type }, source)
+        itemMeta: enrichWithCircularProtection(type, source)
     };
 }
 
-function enrichMap(meta: MetaTyped & MetaMap, namespace: string, source: MetaGroup[]) {
+function enrichMap(meta: MetaTyped & MetaMap, source: MetaSource) {
     let keyMeta = meta.keyMeta;
     if (isNeedEnrichment(keyMeta)) {
-        const keyType = meta.keyMeta as string;
-        keyMeta = enrichFieldMeta({ namespace, type: keyType }, source);
+        keyMeta = enrichWithCircularProtection(meta.keyMeta as string, source);
     }
     let valueMeta = meta.valueMeta;
     if (isNeedEnrichment(valueMeta)) {
-        const valueType = meta.valueMeta as string;
-        valueMeta = enrichFieldMeta({ namespace, type: valueType }, source);
+        valueMeta = enrichWithCircularProtection(meta.valueMeta as string, source);
     }
     return {
         ...meta,
@@ -69,57 +77,69 @@ function enrichMap(meta: MetaTyped & MetaMap, namespace: string, source: MetaGro
     };
 }
 
-function enrichByType(type: MetaType, meta: MetaTyped, namespace: string, source: MetaGroup[]) {
-    switch (type) {
+function enrichTyped(meta: MetaTyped, source: MetaSource): MetaTyped | string {
+    let result = meta;
+    switch (meta.type) {
         case MetaType.struct:
         case MetaType.union:
-            return enrichObject(meta as MetaTyped & MetaObject, namespace, source);
+            result = enrichObject(meta as MetaTyped & MetaObject, source);
+            break;
         case MetaType.collection:
-            return enrichCollection(meta as MetaCollection, namespace, source);
+            result = enrichCollection(meta as MetaCollection, source);
+            break;
         case MetaType.map:
-            return enrichMap(meta as MetaMap, namespace, source);
+            result = enrichMap(meta as MetaMap, source);
+            break;
         case MetaType.typedef:
-            return enrichType((meta as MetaTypedef).meta, namespace, source);
+            result = enrichVariableMetaType((meta as MetaTypedef).meta, source) as any; // TODO fix any
+            break;
     }
-    return meta;
+    return result;
 }
 
-function enrichType(
-    meta: MetaTyped | MetaObject | MetaTypeDefined | string,
-    namespace: string,
-    source: MetaGroup[]
-) {
+function registerUsedMeta(meta: MetaTyped, used: MetaTypeDefined[]): MetaTypeDefined[] {
+    switch (meta.type) {
+        case MetaType.struct:
+        case MetaType.union:
+            return [...used, meta as MetaTyped & MetaTypeDefined];
+    }
+    return used;
+}
+
+function enrich(condition: MetaTypeCondition, source: MetaSource): MetaTyped | string {
+    const meta = findMeta<MetaTyped & MetaTypeDefined>(condition, source.shallowDefenition);
+    const enriched = enrichTyped(meta, {
+        ...source,
+        used: registerUsedMeta(meta, source.used)
+    });
+    return enriched;
+}
+
+function enrichVariableMetaType(meta: MetaTyped | string, source: MetaSource): MetaTyped | string {
     if (isNeedEnrichment(meta)) {
-        const condition = getCondition(meta as string, namespace);
-        return enrichFieldMeta(condition, source);
+        return enrichWithCircularProtection(meta as string, source);
     }
-    const type = (meta as MetaTyped).type;
-    return enrichByType(type, meta as any, namespace, source);
+    return enrichTyped(meta as MetaTyped, source);
 }
 
-function enrichFieldMeta(condition: MetaTypeCondition, source: MetaGroup[]) {
-    const meta = findMeta<MetaTyped>(condition, source);
-    return enrichByType(meta.type, meta, condition.namespace, source);
-}
-
-const enrichField = (field: MetaField, namespace: string, source: MetaGroup[]): MetaField => ({
+const enrichField = (field: MetaField, source: MetaSource): MetaField => ({
     ...field,
-    meta: enrichType(field.meta, namespace, source)
+    meta: enrichVariableMetaType(field.meta, source)
 });
 
-const enrichFields = (fields: MetaField[], namespace: string, source: MetaGroup[]): MetaField[] =>
-    fields.map(f => enrichField(f, namespace, source));
+const enrichFields = (fields: MetaField[], source: MetaSource): MetaField[] =>
+    fields.map(f => enrichField(f, source));
 
 export function enrichMeta(
     target: MetaStruct | MetaUnion,
     namespace: string,
-    source: MetaGroup[]
+    shallowDefenition: MetaGroup[]
 ): MetaStruct | MetaUnion {
-    if (!target || !namespace || !source) {
+    if (!target || !namespace || !shallowDefenition) {
         return null;
     }
     return {
         ...target,
-        fields: enrichFields(target.fields, namespace, source)
+        fields: enrichFields(target.fields, { namespace, shallowDefenition, used: [] })
     };
 }
