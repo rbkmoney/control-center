@@ -1,4 +1,5 @@
-import { Condition, Predicate, TerminalObject, TerminalRef } from '../../gen-damsel/domain';
+import { Condition, Predicate, TerminalRef } from '../../gen-damsel/domain';
+import { TerminalObject } from '../../damsel/domain';
 import get from 'lodash-es/get';
 
 export class TerminalInfo {
