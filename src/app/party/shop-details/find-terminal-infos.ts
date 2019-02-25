@@ -1,6 +1,11 @@
 import { Condition, Predicate, TerminalRef } from '../../gen-damsel/domain';
 import get from 'lodash-es/get';
 
+export class TerminalInfo {
+    ids: number[];
+    isActive: boolean;
+}
+
 function inPredicates(predicates: Predicate[], shopID: string, partyID: string): boolean {
     for (const predicate of predicates) {
         if (hasShopAndParty(predicate, shopID, partyID)) {
@@ -59,11 +64,24 @@ function extractIds({ decisions, value }: any): number[] {
     }
 }
 
+// Get active status
+function isActive(if_: any): boolean {
+    const { all_of } = if_;
+    if (all_of && all_of.length > 0) {
+        const predicate = all_of.find((pre) => pre.constant !== null);
+        return predicate ? predicate.constant : true;
+    }
+    return true;
+}
+
 // Need TerminalDecision with if_ then_
-export function findTerminalIds(decisions: any[], shopID: string, partyID: string): number[] {
+export function findTerminalInfos(decisions: any[], shopID: string, partyID: string): TerminalInfo[] {
     return decisions.reduce((r, { if_, then_ }) => {
         if (hasShopAndParty(if_, shopID, partyID)) {
-            r = r.concat(extractIds(then_));
+            r = r.concat({
+                ids: extractIds(then_),
+                isActive: isActive(if_)
+            });
         }
         return r;
     }, []);

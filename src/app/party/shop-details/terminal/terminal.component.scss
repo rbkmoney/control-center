@@ -1,0 +1,13 @@
+.isActive-badge {
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: white;
+  font-weight: bold;
+
+  &.active {
+    background-color: #2ba52b;
+  }
+  &.inactive {
+    background-color: #cccccc;
+  }
+}
