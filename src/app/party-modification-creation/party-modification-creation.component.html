@@ -12,33 +12,25 @@
         <cc-contract-payout-tool-modification-unit
             *ngIf="action.name === contractModificationNames.payoutToolModification"
             [form]="form.get('modification')"
-            [initialValue]="
-                modification?.payoutToolModification
-            "
+            [initialValue]="modification?.payoutToolModification"
         >
         </cc-contract-payout-tool-modification-unit>
         <cc-legal-agreement-binding
             *ngIf="action.name === contractModificationNames.legalAgreementBinding"
             [form]="form.get('modification')"
-            [initialValue]="
-                modification?.legalAgreementBinding
-            "
+            [initialValue]="modification?.legalAgreementBinding"
         >
         </cc-legal-agreement-binding>
         <cc-adjustment-modification-unit
             *ngIf="action.name === contractModificationNames.adjustmentModification"
             [form]="form.get('modification')"
-            [initialValue]="
-                modification?.adjustmentModification
-            "
+            [initialValue]="modification?.adjustmentModification"
         >
         </cc-adjustment-modification-unit>
         <cc-report-preferences
             *ngIf="action.name === contractModificationNames.reportPreferencesModification"
             [form]="form.get('modification')"
-            [initialValue]="
-                modification?.reportPreferencesModification
-            "
+            [initialValue]="modification?.reportPreferencesModification"
         >
         </cc-report-preferences>
         <cc-termination
@@ -81,9 +73,7 @@
         <cc-shop-schedule-modification
             *ngIf="action.name === shopModificationNames.payoutScheduleModification"
             [form]="form.get('modification')"
-            [initialValue]="
-                modification?.payoutScheduleModification
-            "
+            [initialValue]="modification?.payoutScheduleModification"
         >
         </cc-shop-schedule-modification>
         <cc-shop-contract-modification
@@ -95,9 +85,7 @@
         <cc-shop-payout-tool-modification
             *ngIf="action.name === shopModificationNames.payoutToolModification"
             [form]="form.get('modification')"
-            [initialValue]="
-                modification?.payoutToolModification
-            "
+            [initialValue]="modification?.payoutToolModification"
         >
         </cc-shop-payout-tool-modification>
         <cc-shop-params

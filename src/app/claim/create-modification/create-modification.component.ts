@@ -8,7 +8,11 @@ import { DomainModificationInfo, ModificationGroupType } from '../model';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
 import { DomainTypedManager, AppendTerminalToProviderParams } from '../../thrift';
-import { ContractModificationUnit, PartyModification, ShopModificationUnit } from '../../gen-damsel/payment_processing';
+import {
+    ContractModificationUnit,
+    PartyModification,
+    ShopModificationUnit
+} from '../../gen-damsel/payment_processing';
 
 export interface CreateModificationData {
     action: ModificationAction;

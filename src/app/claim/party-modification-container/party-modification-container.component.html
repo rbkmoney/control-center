@@ -9,12 +9,7 @@
                 </ng-template>
                 <cc-pretty-json [object]="unit.modificationUnit"></cc-pretty-json>
                 <div fxLayoutAlign="end center">
-                    <button
-                        *ngIf="!unit.saved"
-                        mat-button
-                        color="primary"
-                        (click)="edit(unit)"
-                    >
+                    <button *ngIf="!unit.saved" mat-button color="primary" (click)="edit(unit)">
                         EDIT
                     </button>
                     <button

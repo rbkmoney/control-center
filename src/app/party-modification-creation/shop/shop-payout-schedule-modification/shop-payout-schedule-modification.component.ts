@@ -24,7 +24,6 @@ export class ShopPayoutScheduleModificationComponent implements OnInit {
             this.toggleSchedule();
             this.form.updateValueAndValidity();
         });
-
     }
 
     toggleCheckbox(e, data) {

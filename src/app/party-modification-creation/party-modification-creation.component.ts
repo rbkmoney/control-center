@@ -13,7 +13,11 @@ import { ContractModificationName, ShopModificationName } from '../claim/model';
 import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../claim/modification-action';
 import { filterEmptyStringValues } from './filter-empty-string-value';
-import { ContractModification, PartyModification, ShopModification } from '../gen-damsel/payment_processing';
+import {
+    ContractModification,
+    PartyModification,
+    ShopModification
+} from '../gen-damsel/payment_processing';
 
 @Component({
     selector: 'cc-party-modification-creation',

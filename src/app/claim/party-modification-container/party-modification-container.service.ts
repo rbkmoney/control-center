@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 
 import { ActionType } from '../modification-action';
 import { ContractModificationName, ModificationGroupType, ShopModificationName } from '../model';
-import { ContractModificationUnit, ShopModificationUnit } from '../../gen-damsel/payment_processing';
-
+import {
+    ContractModificationUnit,
+    ShopModificationUnit
+} from '../../gen-damsel/payment_processing';
 
 @Injectable()
 export class PartyModificationContainerService {
-
-    getDialogConfig(modification: ShopModificationUnit | ContractModificationUnit, name: ContractModificationName | ShopModificationName, type: string)  {
+    getDialogConfig(
+        modification: ShopModificationUnit | ContractModificationUnit,
+        name: ContractModificationName | ShopModificationName,
+        type: string
+    ) {
         const actionType = this.getActionType(type);
         const unitID = modification.id;
         return {
@@ -22,7 +27,7 @@ export class PartyModificationContainerService {
             },
             width: '800px',
             disableClose: true
-        }
+        };
     }
 
     private getActionType(type): ActionType {

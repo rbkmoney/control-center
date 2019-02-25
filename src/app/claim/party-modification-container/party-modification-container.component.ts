@@ -39,8 +39,11 @@ export class PartyModificationContainerComponent implements OnInit {
     }
 
     edit(unit: ModificationUnitContainer) {
-        const config = this.partyModificationContainerService.getDialogConfig(unit.modificationUnit, this.container.name, this.type);
+        const config = this.partyModificationContainerService.getDialogConfig(
+            unit.modificationUnit,
+            this.container.name,
+            this.type
+        );
         this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
     }
-
 }
