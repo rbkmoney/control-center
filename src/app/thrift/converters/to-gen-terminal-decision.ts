@@ -7,7 +7,7 @@ import {
     PartyConditionDefinition,
     TerminalSelector,
     TerminalRef
-} from '../../damsel';
+} from '../../gen-damsel/domain';
 
 const toPartyConditionDefinitionGen = (definition: PartyConditionDefinition) => {
     const definitionGen = new DomainTypes.PartyConditionDefinition();
@@ -47,14 +47,14 @@ const toTerminalRefGen = (ref: TerminalRef) => {
 const toTerminalSelectorGen = (selector: TerminalSelector) => {
     const selectorGen = new DomainTypes.TerminalSelector();
     if (selector.value) {
-        selectorGen.value = selector.value.map(ref => toTerminalRefGen(ref));
+        selectorGen.value = Array.from(selector.value).map(ref => toTerminalRefGen(ref));
     }
     return selectorGen;
 };
 
 export const toGenTerminalDecision = (terminalDecision: TerminalDecision) => {
     const terminalDecisionGen = new DomainTypes.TerminalDecision();
-    terminalDecisionGen.if_ = toPredicateGen(terminalDecision.if_);
-    terminalDecisionGen.then_ = toTerminalSelectorGen(terminalDecision.then_);
+    terminalDecisionGen.if_ = toPredicateGen(terminalDecision.if);
+    terminalDecisionGen.then_ = toTerminalSelectorGen(terminalDecision.then);
     return terminalDecisionGen;
 };
