@@ -21,12 +21,15 @@ export class SearchFormComponent implements OnInit {
 
     payoutStatuses: string[];
 
+    payoutTypes: string[];
+
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        const { payoutStatuses, form } = this.searchFormService;
+        const { payoutStatuses, payoutTypes, form } = this.searchFormService;
         this.form = form;
         this.payoutStatuses = payoutStatuses;
+        this.payoutTypes = payoutTypes;
         this.form.valueChanges.subscribe(value => this.emitValue(value));
         this.form.statusChanges.subscribe(status => this.emitStatus(status));
         this.emitValue(this.form.value);
