@@ -20,5 +20,6 @@ export class ShopAccountCreationComponent implements OnInit {
     ngOnInit() {
         const currency = get(this, 'initialValue.currency', '');
         this.form.registerControl('currency', this.fb.group(currency));
+        this.form.updateValueAndValidity();
     }
 }

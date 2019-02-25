@@ -20,6 +20,7 @@ export class BusinessScheduleRefComponent implements OnInit {
     ngOnInit() {
         const id = get(this, 'initialValue.id', '');
         this.form.registerControl('id', this.fb.control(id, Validators.required));
+        this.form.updateValueAndValidity();
     }
 
     scheduleIdChange(id: number) {

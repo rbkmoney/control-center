@@ -53,7 +53,7 @@ export class PersistentContainerService {
         return modificationUnit.id + this.getModificationName(modification);
     }
 
-    getModificationName(modification: PartyModification): string {
+    private getModificationName(modification: PartyModification): string {
         const modificationKeys = Object.keys(modification);
         if (modificationKeys.length !== 1) {
             return 'unknown';

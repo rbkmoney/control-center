@@ -40,5 +40,6 @@ export class PaymentInstitutionRefComponent implements OnInit {
             'id',
             this.fb.control(paymentInstitutionId, this.required ? Validators.required : null)
         );
+        this.form.updateValueAndValidity();
     }
 }

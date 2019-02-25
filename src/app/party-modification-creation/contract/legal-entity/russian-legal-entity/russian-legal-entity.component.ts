@@ -18,7 +18,7 @@ export class RussianLegalEntityComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const control = value => this.fb.control(value, Validators.required);
+        const control = (value) => this.fb.control(value, Validators.required);
         const registeredName = get(this, 'initialValue.registeredName', '');
         const registeredNumber = get(this, 'initialValue.registeredNumber', '');
         const inn = get(this, 'initialValue.inn', '');
@@ -36,5 +36,6 @@ export class RussianLegalEntityComponent implements OnInit {
         this.form.registerControl('representativeFullName', control(representativeFullName));
         this.form.registerControl('representativeDocument', control(representativeDocument));
         this.form.registerControl('russianBankAccount', this.fb.group({}));
+        this.form.updateValueAndValidity();
     }
 }

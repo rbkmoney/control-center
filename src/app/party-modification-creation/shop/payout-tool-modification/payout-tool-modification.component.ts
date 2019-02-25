@@ -20,5 +20,6 @@ export class PayoutToolModificationComponent implements OnInit {
     ngOnInit() {
         const payoutToolId = get(this, 'initialValue.modification', '');
         this.form.setControl('modification', this.fb.control(payoutToolId, Validators.required));
+        this.form.updateValueAndValidity();
     }
 }

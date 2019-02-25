@@ -42,16 +42,14 @@ export class PayoutToolInfoComponent implements OnInit {
             this.selected = Type.walletInfo;
         }
         this.select();
+        this.form.updateValueAndValidity();
     }
 
     select() {
         switch (this.selected) {
             case Type.russianBankAccount:
                 this.clearControl();
-                this.form.registerControl(
-                    Type.russianBankAccount,
-                    this.fb.group(this.initialValue.russianBankAccount || {})
-                );
+                this.form.registerControl('russianBankAccount', this.fb.group(this.initialValue.russianBankAccount || {}));
                 break;
             case Type.internationalBankAccount:
                 this.clearControl();

@@ -91,14 +91,6 @@ export class ClaimService {
         this.persistentContainerService.remove(typeHash);
     }
 
-    getModificationByHash(typeHash: string) {
-        return this.persistentContainerService.getModification(typeHash);
-    }
-
-    getModificationName(modification: PartyModification) {
-        return this.persistentContainerService.getModificationName(modification);
-    }
-
     saveChanges(): Observable<void> {
         const { partyId, claimId } = this.claimInfoContainer;
         const units = this.toModificationUnits(this.containers);

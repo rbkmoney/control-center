@@ -17,5 +17,6 @@ export class ContractorComponent implements OnInit {
 
     ngOnInit() {
         this.form.registerControl('legalEntity', this.fb.group({}));
+        this.form.updateValueAndValidity();
     }
 }

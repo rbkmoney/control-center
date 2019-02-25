@@ -20,7 +20,11 @@ export class ShopPayoutScheduleModificationComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.toggleSchedule();
+        setTimeout(() => {
+            this.toggleSchedule();
+            this.form.updateValueAndValidity();
+        });
+
     }
 
     toggleCheckbox(e, data) {

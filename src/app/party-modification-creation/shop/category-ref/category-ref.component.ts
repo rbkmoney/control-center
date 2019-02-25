@@ -59,5 +59,6 @@ export class CategoryRefComponent implements OnInit {
                 }
             )
         );
+        this.form.updateValueAndValidity();
     }
 }

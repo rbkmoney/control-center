@@ -13,7 +13,7 @@ import { ContractModificationName, ShopModificationName } from '../claim/model';
 import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../claim/modification-action';
 import { filterEmptyStringValues } from './filter-empty-string-value';
-import { PartyModification } from '../gen-damsel/payment_processing';
+import { ContractModification, PartyModification, ShopModification } from '../gen-damsel/payment_processing';
 
 @Component({
     selector: 'cc-party-modification-creation',
@@ -30,7 +30,7 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     unitIDDisabled;
 
     @Input()
-    partyModification: PartyModification;
+    modification: ShopModification | ContractModification;
 
     @Output()
     valueChanges: EventEmitter<PartyModification> = new EventEmitter();
@@ -69,29 +69,6 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
         const { unitID } = changes;
         if (unitID && !unitID.firstChange) {
             this.form.patchValue({ unitID: unitID.currentValue });
-        }
-    }
-
-    private getFormGroup(data: object): FormGroup {
-        const formData = data;
-        Object.keys(formData).forEach(key => {
-            const value = formData[key];
-            if (key === 'modification') {
-            } else {
-                typeof value === 'object'
-                    ? (formData[key] = this.getFormGroup(value))
-                    : (formData[key] = this.fb.control(value));
-            }
-        });
-        return this.fb.group(formData);
-    }
-
-    private getModiticationType(): string {
-        switch (this.action.type) {
-            case ActionType.shopAction:
-                return 'shopModification';
-            case ActionType.contractAction:
-                return 'contractModification';
         }
     }
 }

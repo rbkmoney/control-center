@@ -39,6 +39,7 @@ export class PayoutToolModificationComponent implements OnInit {
             this.selected = Type.infoModification;
             this.select();
         }
+        this.form.updateValueAndValidity();
     }
 
     select() {

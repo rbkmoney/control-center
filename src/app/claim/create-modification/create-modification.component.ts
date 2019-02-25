@@ -8,12 +8,12 @@ import { DomainModificationInfo, ModificationGroupType } from '../model';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
 import { DomainTypedManager, AppendTerminalToProviderParams } from '../../thrift';
-import { PartyModification } from '../../gen-damsel/payment_processing';
+import { ContractModificationUnit, PartyModification, ShopModificationUnit } from '../../gen-damsel/payment_processing';
 
-interface CreateModificationData {
+export interface CreateModificationData {
     action: ModificationAction;
     unitID?: string;
-    modification?: PartyModification;
+    modification?: ShopModificationUnit | ContractModificationUnit;
 }
 
 enum Step {
@@ -71,7 +71,9 @@ export class CreateModificationComponent implements OnInit {
     }
 
     statusChanges(status: string) {
-        this.valid.next(status === 'VALID');
+        setTimeout(() => {
+            this.valid.next(status === 'VALID');
+        });
     }
 
     add() {

@@ -17,5 +17,6 @@ export class AdjustmentParamsComponent implements OnInit {
 
     ngOnInit() {
         this.form.registerControl('template', this.fb.group({}));
+        this.form.updateValueAndValidity();
     }
 }

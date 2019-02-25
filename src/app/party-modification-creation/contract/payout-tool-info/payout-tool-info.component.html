@@ -11,6 +11,7 @@
     <cc-russian-bank-account
         *ngIf="selected === t.russianBankAccount"
         [form]="form.get(t.russianBankAccount)"
+        [initialValue]="initialValue?.russianBankAccount"
     >
     </cc-russian-bank-account>
     <cc-international-bank-account

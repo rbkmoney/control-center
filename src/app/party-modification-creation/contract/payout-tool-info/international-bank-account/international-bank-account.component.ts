@@ -34,6 +34,7 @@ export class InternationalBankAccountComponent implements OnInit {
         if (account) {
             this.accountChange(true);
         }
+        this.form.updateValueAndValidity();
     }
 
     detailsChange(showDetails: boolean) {

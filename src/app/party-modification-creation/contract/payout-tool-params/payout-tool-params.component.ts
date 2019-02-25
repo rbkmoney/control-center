@@ -19,5 +19,6 @@ export class PayoutToolParamsComponent implements OnInit {
     ngOnInit() {
         this.form.registerControl('currency', this.fb.group({}));
         this.form.registerControl('toolInfo', this.fb.group({}));
+        this.form.updateValueAndValidity();
     }
 }

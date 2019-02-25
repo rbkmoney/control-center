@@ -25,6 +25,7 @@ export class PayoutToolModificationUnitComponent implements OnInit {
             this.fb.control(payoutToolId, Validators.required)
         );
         this.form.registerControl('modification', this.fb.group({}));
+        this.form.updateValueAndValidity();
     }
 
     generate() {

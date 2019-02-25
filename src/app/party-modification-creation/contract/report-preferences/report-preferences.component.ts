@@ -20,6 +20,7 @@ export class ReportPreferencesComponent implements OnInit {
 
     ngOnInit() {
         this.togglePreferences();
+        this.form.updateValueAndValidity();
     }
 
     toggleCheckbox(show: boolean, controlName: string, data = {}) {

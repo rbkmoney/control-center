@@ -27,5 +27,6 @@ export class RussianBankAccountComponent implements OnInit {
         this.form.registerControl('bankName', control(bankName));
         this.form.registerControl('bankPostAccount', control(bankPostAccount));
         this.form.registerControl('bankBik', control(bankBik));
+        this.form.updateValueAndValidity();
     }
 }

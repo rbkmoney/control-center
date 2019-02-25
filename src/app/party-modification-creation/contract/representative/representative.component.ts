@@ -23,5 +23,6 @@ export class RepresentativeComponent implements OnInit {
         this.form.registerControl('position', this.fb.control(position, Validators.required));
         this.form.registerControl('fullName', this.fb.control(fullName, Validators.required));
         this.form.registerControl('document', this.fb.group({}));
+        this.form.updateValueAndValidity();
     }
 }

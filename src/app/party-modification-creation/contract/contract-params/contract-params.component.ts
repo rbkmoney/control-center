@@ -22,10 +22,10 @@ export class ContractParamsComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        // this.form.registerControl('contractorId', this.fb.control('', Validators.required));
         this.form.registerControl('contractor', this.fb.group({}));
         this.toggleTemplate();
         this.togglePaymentInstitution();
+        this.form.updateValueAndValidity();
     }
 
     toggleCheckbox(show: boolean, controlName: string, data: object = {}) {

@@ -29,5 +29,6 @@ export class InternationalBankDetailsComponent implements OnInit {
         this.form.registerControl('name', control(name));
         this.form.registerControl('address', control(address));
         this.form.registerControl('abaRtn', control(abaRtn));
+        this.form.updateValueAndValidity();
     }
 }

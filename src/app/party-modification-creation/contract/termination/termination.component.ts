@@ -20,5 +20,6 @@ export class TerminationComponent implements OnInit {
     ngOnInit() {
         const reason = get(this, 'initialValue.reason', '');
         this.form.registerControl('reason', this.fb.control(reason));
+        this.form.updateValueAndValidity();
     }
 }

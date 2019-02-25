@@ -25,6 +25,7 @@ export class AdjustmentModificationUnitComponent implements OnInit {
             this.fb.control(adjustmentId, Validators.required)
         );
         this.form.registerControl('modification', this.fb.group({}));
+        this.form.updateValueAndValidity();
     }
 
     generate() {

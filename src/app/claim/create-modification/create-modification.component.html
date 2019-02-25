@@ -19,7 +19,7 @@
                 <cc-party-modification-creation
                     [unitID]="unitID"
                     [unitIDDisabled]="true"
-                    [partyModification]="data.modification"
+                    [modification]="data?.modification?.modification"
                     [action]="action"
                     (valueChanges)="valueChanges($event)"
                     (statusChanges)="statusChanges($event)"

@@ -22,5 +22,6 @@ export class ShopDetailsComponent implements OnInit {
         const description = get(this.initialValue, 'description', '');
         this.form.registerControl('name', this.fb.control(name, Validators.required));
         this.form.registerControl('description', this.fb.control(description));
+        this.form.updateValueAndValidity();
     }
 }

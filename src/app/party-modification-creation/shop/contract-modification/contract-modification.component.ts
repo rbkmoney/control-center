@@ -25,5 +25,6 @@ export class ContractModificationComponent implements OnInit {
             'payoutToolId',
             this.fb.control(payoutToolId, Validators.required)
         );
+        this.form.updateValueAndValidity();
     }
 }

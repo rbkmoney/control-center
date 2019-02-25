@@ -30,6 +30,7 @@ export class ShopParamsComponent implements OnInit {
         this.form.registerControl('details', this.fb.group({}));
         this.form.registerControl('location', this.fb.group({}));
         this.toggleCategory();
+        this.form.updateValueAndValidity();
     }
 
     toggleCheckbox(show: boolean, controlName: string, data: object = {}) {

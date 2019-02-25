@@ -13,5 +13,6 @@ export class WalletInfoComponent implements OnInit {
 
     ngOnInit() {
         this.form.registerControl('walletId', this.fb.control(''));
+        this.form.updateValueAndValidity();
     }
 }

@@ -44,13 +44,14 @@ export class LegalEntityComponent implements OnInit {
     select() {
         switch (this.selected) {
             case Type.russianLegalEntity:
-                this.form.registerControl(Type.russianLegalEntity, this.fb.group({}));
                 this.form.removeControl(Type.internationalLegalEntity);
+                this.form.registerControl(Type.russianLegalEntity, this.fb.group({}));
                 break;
             case Type.internationalLegalEntity:
-                this.form.registerControl(Type.internationalLegalEntity, this.fb.group({}));
                 this.form.removeControl(Type.russianLegalEntity);
+                this.form.registerControl(Type.internationalLegalEntity, this.fb.group({}));
                 break;
         }
+        this.form.updateValueAndValidity();
     }
 }

@@ -18,6 +18,7 @@
         <cc-international-legal-entity
             *ngIf="selected === t.internationalLegalEntity"
             [form]="form.get(t.internationalLegalEntity)"
+            [initialValue]="initialValue?.internationalLegalEntity"
         >
         </cc-international-legal-entity>
     </div>

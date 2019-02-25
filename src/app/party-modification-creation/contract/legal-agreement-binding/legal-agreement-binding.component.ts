@@ -27,5 +27,6 @@ export class LegalAgreementBindingComponent implements OnInit {
         );
         this.form.registerControl('signedAt', this.fb.control(signedAt, Validators.required));
         this.form.registerControl('validUntil', this.fb.control(validUntil));
+        this.form.updateValueAndValidity();
     }
 }

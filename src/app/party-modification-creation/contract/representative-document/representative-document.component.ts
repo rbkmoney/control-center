@@ -38,6 +38,7 @@ export class RepresentativeDocumentComponent implements OnInit {
             this.selected = Type.powerOfAttorney;
             this.select(powerOfAttorney);
         }
+        this.form.updateValueAndValidity();
     }
 
     select(data = {}) {
