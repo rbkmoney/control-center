@@ -1,4 +1,4 @@
-import { ProviderObject } from '../../damsel/domain';
+import { ProviderObject } from '../../gen-damsel/domain';
 
 export const filterProvidersByTerminalSelector = (
     objects: ProviderObject[],

@@ -8,7 +8,7 @@ import {
     DomainTypedManager,
     filterProvidersByTerminalSelector
 } from '../../../thrift';
-import { ProviderObject, TerminalObject } from '../../../damsel/domain';
+import { ProviderObject, TerminalObject } from '../../../gen-damsel/domain';
 import { filterProvidersByCategoryId } from '../../../thrift/filters';
 
 @Injectable()

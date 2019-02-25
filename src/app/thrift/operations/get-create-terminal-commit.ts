@@ -1,7 +1,8 @@
 import { createTerminalObject } from './create-terminal-object';
 import { CreateTerminalParams } from './append-terminal-to-provider-params';
 import { toGenCommit, toGenDomainObject } from '../converters';
-import { TerminalObject, Commit } from '../../damsel';
+import { TerminalObject } from '../../gen-damsel/domain';
+import { Commit } from '../../gen-damsel/domain_config';
 
 export interface GetCreateTerminalCommit {
     commit: Commit;

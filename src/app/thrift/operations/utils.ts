@@ -1,7 +1,8 @@
 import sortBy from 'lodash-es/sortBy';
 import transform from 'lodash-es/transform';
-
-import { AbstractDomainObject, AbstractStringMapItem, Domain } from '../../damsel/domain';
+import { Domain } from '../../gen-damsel/domain';
+import { AbstractStringMapItem } from '../../damsel';
+import { AbstractDomainObject } from '../../damsel';
 
 export const generateID = (objects: AbstractDomainObject[]): number => {
     const objWithMaxId = sortBy(objects, obj => obj.ref.id)[objects.length - 1];

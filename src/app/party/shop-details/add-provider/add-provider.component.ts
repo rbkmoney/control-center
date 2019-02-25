@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { AddProviderService } from './add-provider.service';
-import { ProviderObject, TerminalObject } from '../../../damsel/domain';
+import { ProviderObject, TerminalObject } from '../../../gen-damsel/domain';
 
 interface AddProviderData {
     partyID: string;

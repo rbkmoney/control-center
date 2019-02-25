@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TerminalObject } from '../../../../damsel/domain';
+import { TerminalObject } from '../../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-select-terminal',

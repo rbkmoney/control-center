@@ -1,6 +1,6 @@
 import get from 'lodash-es/get';
 
-import { ProviderObject } from '../../damsel/domain';
+import { ProviderObject } from '../../gen-damsel/domain';
 import { CategoryRef } from '../../gen-damsel/domain';
 
 export const filterProvidersByCategories = (
