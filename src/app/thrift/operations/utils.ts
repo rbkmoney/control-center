@@ -1,24 +1,20 @@
 import sortBy from 'lodash-es/sortBy';
 import transform from 'lodash-es/transform';
 import { Domain } from '../../gen-damsel/domain';
-import { AbstractStringMapItem } from '../../damsel';
-import { AbstractDomainObject } from '../../damsel';
 
-export const generateID = (objects: AbstractDomainObject[]): number => {
-    const objWithMaxId = sortBy(objects, obj => obj.ref.id)[objects.length - 1];
+export const generateID = (domainObjects: any[]): number => {
+    const objWithMaxId = sortBy(domainObjects, obj => obj.ref.id)[domainObjects.length - 1];
     return objWithMaxId.ref.id + 1;
 };
 
-export const toMap = (items: AbstractStringMapItem[]): Map<string, string> => {
+export const toMap = (domainMap: { key: any; value: any }[]): Map<string, string> => {
     const result = new Map();
-    items.forEach(item => result.set(item.key, item.value));
+    domainMap.forEach(item => result.set(item.key, item.value));
     return result;
 };
 
-export const findDomainObject = (
-    objects: AbstractDomainObject[],
-    id: number
-): AbstractDomainObject => objects.find(object => object.ref.id === id);
+export const findDomainObject = (domainObjects: any[], id: number) =>
+    domainObjects.find(object => object.ref.id === id);
 
 const transformUnion = (union: any): any =>
     transform(union, (result, value, key) => (value ? (result[key] = value) : undefined), {});
