@@ -8,3 +8,4 @@ export * from './payout-statuses';
 export * from './payment';
 export * from './invoice';
 export * from './claim-created';
+export * from './payout-types';
