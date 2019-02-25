@@ -1,8 +1,8 @@
-import { Condition, Predicate, TerminalRef } from '../../gen-damsel/domain';
+import { Condition, Predicate, TerminalObject, TerminalRef } from '../../gen-damsel/domain';
 import get from 'lodash-es/get';
 
 export class TerminalInfo {
-    ids: number[];
+    terminals: TerminalObject[];
     isActive: boolean;
 }
 
@@ -68,18 +68,25 @@ function extractIds({ decisions, value }: any): number[] {
 function isActive(if_: any): boolean {
     const { all_of } = if_;
     if (all_of && all_of.length > 0) {
-        const predicate = all_of.find((pre) => pre.constant !== null);
+        const predicate = all_of.find(pre => pre.constant !== null);
         return predicate ? predicate.constant : true;
     }
     return true;
 }
 
 // Need TerminalDecision with if_ then_
-export function findTerminalInfos(decisions: any[], shopID: string, partyID: string): TerminalInfo[] {
+export function findTerminalInfos(
+    decisions: any[],
+    terminalObjects: TerminalObject[],
+    shopID: string,
+    partyID: string
+): TerminalInfo[] {
     return decisions.reduce((r, { if_, then_ }) => {
         if (hasShopAndParty(if_, shopID, partyID)) {
             r = r.concat({
-                ids: extractIds(then_),
+                terminals: extractIds(then_).map(terminalId =>
+                    terminalObjects.find(({ ref: { id } }) => id === terminalId)
+                ),
                 isActive: isActive(if_)
             });
         }

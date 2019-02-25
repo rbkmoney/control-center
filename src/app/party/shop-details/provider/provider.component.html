@@ -8,7 +8,11 @@
             <mat-list *ngIf="info.terminalInfos">
                 <h3 mat-subheader>Terminals</h3>
                 <mat-list-item *ngFor="let terminalInfo of info.terminalInfos">
-                    <cc-terminal *ngFor="let terminal of terminalInfo.terminals" [terminal]="terminal" [isActive]="terminalInfo.isActive"></cc-terminal>
+                    <cc-terminal
+                        *ngFor="let terminal of terminalInfo.terminals"
+                        [terminal]="terminal"
+                        [isActive]="terminalInfo.isActive"
+                    ></cc-terminal>
                 </mat-list-item>
             </mat-list>
         </ng-template>

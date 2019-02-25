@@ -21,8 +21,7 @@ export interface Payload {
 
 @Injectable()
 export class ShopDetailsService {
-    constructor(private partyService: PartyService, private dtm: DomainTypedManager) {
-    }
+    constructor(private partyService: PartyService, private dtm: DomainTypedManager) {}
 
     initialize(partyID: string, shopID: string): Observable<Payload> {
         return combineLatest([
@@ -48,7 +47,7 @@ export class ShopDetailsService {
             if (!decisions) {
                 return r;
             }
-            const infos = findTerminalInfos(decisions, shopID, partyID);
+            const infos = findTerminalInfos(decisions, terminalObjects, shopID, partyID);
             if (infos.length === 0) {
                 return r;
             }
@@ -56,14 +55,9 @@ export class ShopDetailsService {
                 ...r,
                 {
                     provider,
-                    terminalInfos: infos.map(info => ({
-                        isActive: info.isActive,
-                        terminals: info.ids.map(terminalId => terminalObjects.find(({ ref: { id } }) => id === terminalId))
-                    }))
-
+                    terminalInfos: infos
                 }
             ];
         }, []);
-
     }
 }

@@ -1,3 +1,4 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <span>{{ terminal.data.name }} - {{ terminal.data.description }}</span> <span [class]="getIsActiveClass(isActive)">{{isActive | ccIsActive}}</span>
+    <span>{{ terminal.data.name }} - {{ terminal.data.description }}</span>
+    <span [class]="getIsActiveClass(isActive)">{{ isActive | ccIsActive }}</span>
 </div>

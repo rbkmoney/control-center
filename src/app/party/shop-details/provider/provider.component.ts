@@ -11,6 +11,6 @@ export class ProviderComponent {
     @Input() providerInfo: ProviderInfo[];
 
     toString(kek: any) {
-        return JSON.stringify(kek)
+        return JSON.stringify(kek);
     }
 }
