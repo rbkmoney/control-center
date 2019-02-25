@@ -3,6 +3,7 @@ import {
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatChipsModule,
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -54,7 +55,8 @@ import { IsActivePipe } from './is-active.pipe';
         MatInputModule,
         MatTabsModule,
         MatIconModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        MatChipsModule
     ],
     declarations: [
         ShopDetailsComponent,

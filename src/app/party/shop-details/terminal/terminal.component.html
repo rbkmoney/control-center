@@ -1,4 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
     <span>{{ terminal.data.name }} - {{ terminal.data.description }}</span>
-    <span [class]="getIsActiveClass(isActive)">{{ isActive | ccIsActive }}</span>
+    <mat-chip-list>
+        <mat-chip [selected]="isActive">{{ isActive | ccIsActive }}</mat-chip>
+    </mat-chip-list>
 </div>
