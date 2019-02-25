@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import get from 'lodash-es/get';
 
 import { Shop } from '../../gen-damsel/domain';
-import { ProviderObject, TerminalObject } from '../../damsel';
+import { ProviderObject, TerminalObject } from '../../gen-damsel/domain';
 import { findTerminalIds } from './find-terminal-ids';
 import { PartyService } from '../party.service';
 import { DomainTypedManager } from '../../thrift';

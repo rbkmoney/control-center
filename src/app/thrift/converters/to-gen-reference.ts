@@ -1,5 +1,5 @@
-import { Reference, Version } from '../../damsel';
 import * as DomainConfigTypes from '../gen-nodejs/domain_config_types';
+import { Reference, Version } from '../../gen-damsel/domain_config';
 
 const toGenHead = () => {
     const reference = new DomainConfigTypes.Reference();

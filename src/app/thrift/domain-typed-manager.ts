@@ -8,7 +8,7 @@ import {
     ProviderObject,
     TerminalObject,
     PaymentInstitutionObject
-} from '../damsel/domain';
+} from '../gen-damsel/domain';
 import { findDomainObject, findDomainObjects } from './operations/utils';
 import {
     appendShopTerminalToProvider,
@@ -23,7 +23,6 @@ import {
     AppendTerminalToProviderParams
 } from './operations';
 import { DomainCacheService } from './domain-cache.service';
-import { filterProvidersByTerminalSelector } from './filters';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
