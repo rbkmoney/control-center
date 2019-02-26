@@ -4,7 +4,8 @@ import {
     MatCardModule,
     MatButtonModule,
     MatProgressBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule
 } from '@angular/material';
 
 import { RepairingComponent } from './repairing.component';
@@ -20,7 +21,8 @@ import { SharedModule } from '../shared/shared.module';
         MatButtonModule,
         SharedModule,
         MatProgressBarModule,
-        MatTabsModule
+        MatTabsModule,
+        MatTableModule
     ],
     declarations: [RepairingComponent],
     providers: [RepairingService]

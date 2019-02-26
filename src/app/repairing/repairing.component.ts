@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 
 @Component({
     templateUrl: 'repairing.component.html',
-    styleUrls: [],
+    styleUrls: ['repairing.component.css'],
     providers: []
 })
 export class RepairingComponent {
-    private isLoading = false;
+    isLoading = false;
+    displayedColumns: string[] = ['id', 'actions'];
+    dataSource: Array<{ id: string }> = [];
 
     constructor() {}
 }

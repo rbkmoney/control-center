@@ -3,7 +3,21 @@
         <mat-card-subtitle>Repairing</mat-card-subtitle>
         <mat-card-content>
             <mat-tab-group>
-                <mat-tab label="Invoices"></mat-tab>
+                <mat-tab label="Invoices">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef>ID</th>
+                            <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Actions</th>
+                            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                    </table>
+                </mat-tab>
                 <mat-tab label="Parties"></mat-tab>
                 <mat-tab label="Withdrawals"></mat-tab>
                 <mat-tab label="Customers"></mat-tab>
