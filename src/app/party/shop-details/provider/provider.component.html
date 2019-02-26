@@ -12,6 +12,7 @@
                         *ngFor="let terminal of terminalInfo.terminals"
                         [terminal]="terminal"
                         [isActive]="terminalInfo.isActive"
+                        [decisionType]="terminalInfo.decisionType"
                     ></cc-terminal>
                 </mat-list-item>
             </mat-list>

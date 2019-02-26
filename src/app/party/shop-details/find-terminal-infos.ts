@@ -2,9 +2,17 @@ import { Condition, Predicate, TerminalRef } from '../../gen-damsel/domain';
 import { TerminalObject } from '../../damsel/domain';
 import get from 'lodash-es/get';
 
+export enum DecisionType {
+    condition = 'condition',
+    is_not = 'is_not',
+    all_of = 'all_of',
+    any_of = 'any_of'
+}
+
 export class TerminalInfo {
     terminals: TerminalObject[];
     isActive: boolean;
+    decisionType: DecisionType;
 }
 
 function inPredicates(predicates: Predicate[], shopID: string, partyID: string): boolean {
@@ -75,6 +83,16 @@ function isActive(if_: any): boolean {
     return true;
 }
 
+function getDecisionType(if_: any): DecisionType {
+    const { condition, is_not, all_of, any_of } = if_;
+    let result = null;
+    result = condition ? DecisionType.condition : result;
+    result = is_not ? DecisionType.is_not : result;
+    result = all_of ? DecisionType.all_of : result;
+    result = any_of ? DecisionType.any_of : result;
+    return result;
+}
+
 // Need TerminalDecision with if_ then_
 export function findTerminalInfos(
     decisions: any[],
@@ -88,7 +106,8 @@ export function findTerminalInfos(
                 terminals: extractIds(then_).map(terminalId =>
                     terminalObjects.find(({ ref: { id } }) => id === terminalId)
                 ),
-                isActive: isActive(if_)
+                isActive: isActive(if_),
+                decisionType: getDecisionType(if_)
             });
         }
         return r;
