@@ -3,8 +3,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import get from 'lodash-es/get';
 
-import { Shop } from '../../gen-damsel/domain';
-import { ProviderObject, TerminalObject } from '../../damsel';
+import { ProviderObject, Shop, TerminalObject } from '../../gen-damsel/domain';
 import { findTerminalInfos, TerminalInfo } from './find-terminal-infos';
 import { PartyService } from '../party.service';
 import { DomainTypedManager } from '../../thrift';
