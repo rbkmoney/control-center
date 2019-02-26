@@ -6,12 +6,25 @@
         <input matInput placeholder="Payout tool ID" formControlName="payoutToolId" />
     </mat-form-field>
     <cc-nested-form-wrapper caption="details">
-        <cc-shop-details fxFlex [form]="form.get('details')"> </cc-shop-details>
+        <cc-shop-details fxFlex [form]="form.get('details')" [initialValue]="initialValue?.details">
+        </cc-shop-details>
     </cc-nested-form-wrapper>
     <cc-nested-form-wrapper caption="location">
-        <cc-shop-location fxFlex [form]="form.get('location')"> </cc-shop-location>
+        <cc-shop-location
+            fxFlex
+            [form]="form.get('location')"
+            [initialValue]="initialValue?.location"
+        >
+        </cc-shop-location>
     </cc-nested-form-wrapper>
-    <mat-checkbox (change)="toggleCheckbox($event, 'category')">Category</mat-checkbox>
-    <cc-category-ref *ngIf="form.get('category')" [form]="form.get('category')" [required]="false">
+    <mat-checkbox [checked]="showCategory" (change)="toggleCheckbox($event.checked, 'category')"
+        >Category</mat-checkbox
+    >
+    <cc-category-ref
+        *ngIf="form.get('category')"
+        [form]="form.get('category')"
+        [required]="false"
+        [initialValue]="initialValue?.category"
+    >
     </cc-category-ref>
 </form>

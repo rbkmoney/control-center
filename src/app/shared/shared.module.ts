@@ -6,7 +6,6 @@ import { CurrencyPipe } from './pipes/currency.pipe';
 import { FormatAmountPipe } from './pipes/format-amount.pipe';
 import { ThriftEncodePipe } from './thrift-encode.pipe';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
-import { ThriftJsonComponent } from './components/thrift-json.component';
 import { ThriftViewPipe } from './pipes/thrift-view.pipe';
 import { PrettyJsonComponent } from './components/pretty-json/pretty-json.component';
 
@@ -17,7 +16,6 @@ import { PrettyJsonComponent } from './components/pretty-json/pretty-json.compon
         FormatAmountPipe,
         ThriftEncodePipe,
         ThriftInt64Pipe,
-        ThriftJsonComponent,
         ThriftViewPipe,
         PrettyJsonComponent
     ],
@@ -26,7 +24,6 @@ import { PrettyJsonComponent } from './components/pretty-json/pretty-json.compon
         FormatAmountPipe,
         ThriftEncodePipe,
         ThriftInt64Pipe,
-        ThriftJsonComponent,
         ThriftViewPipe,
         PrettyJsonComponent
     ]
