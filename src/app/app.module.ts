@@ -28,6 +28,7 @@ import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment
 import { PartiesModule } from './parties/parties.module';
 import { PartyModule } from './party/party.module';
 import { DomainModule } from './domain/domain.module';
+import { RepairingModule } from './repairing/repairing.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -48,7 +49,8 @@ import { DomainModule } from './domain/domain.module';
         PaymentAdjustmentModule,
         PartiesModule,
         PartyModule,
-        DomainModule
+        DomainModule,
+        RepairingModule
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
