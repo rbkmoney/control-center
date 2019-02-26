@@ -10,6 +10,6 @@ import { PredicateType } from '../extract-terminal-info';
 })
 export class TerminalComponent {
     @Input() terminal: TerminalObject;
-    @Input() isActive: boolean;
+    @Input() disabled: boolean;
     @Input() predicateType: PredicateType;
 }

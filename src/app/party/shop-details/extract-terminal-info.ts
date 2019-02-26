@@ -1,6 +1,6 @@
 import get from 'lodash-es/get';
 
-import { Condition, Predicate, TerminalRef } from '../../gen-damsel/domain';
+import { Condition, Predicate, TerminalObject, TerminalRef } from '../../gen-damsel/domain';
 
 interface PredicateInfo {
     shopPartyContain: boolean;
@@ -14,6 +14,12 @@ interface TerminalInfoGroup {
     predicateType: PredicateType;
 }
 
+interface FlattenTerminalInfoGroup {
+    terminalId: number;
+    disabled: boolean;
+    predicateType: PredicateType;
+}
+
 export enum PredicateType {
     condition = 'condition',
     is_not = 'is_not',
@@ -22,7 +28,7 @@ export enum PredicateType {
 }
 
 export interface TerminalInfo {
-    terminalId: number;
+    terminal: TerminalObject;
     disabled: boolean;
     predicateType: PredicateType;
 }
@@ -41,8 +47,8 @@ function inPartyCondition({ party }: Condition, shopID: string, partyID: string)
 }
 
 function isDisabled(all_of: any[]): boolean {
-    const found = all_of.find(pre => pre.constant === null);
-    return found ? found : false;
+    const constant = all_of.find(pre => pre.constant !== null);
+    return !!constant ? constant.constant : false;
 }
 
 function extractPredicateInfo(
@@ -129,7 +135,7 @@ const extractTerminalInfoGroup = (
         return r;
     }, []);
 
-const flatternGroup = (group: TerminalInfoGroup[]): TerminalInfo[] =>
+const flatternGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
     group.reduce(
         (r, { terminalIds, disabled, predicateType }) =>
             (r = [
@@ -143,12 +149,23 @@ const flatternGroup = (group: TerminalInfoGroup[]): TerminalInfo[] =>
         []
     );
 
+const enrichWithTerminal = (
+    groups: FlattenTerminalInfoGroup[],
+    terminalObjects: TerminalObject[]
+): TerminalInfo[] =>
+    groups.map(group => ({
+        terminal: terminalObjects.find(({ ref: { id } }) => group.terminalId === id),
+        disabled: group.disabled,
+        predicateType: group.predicateType
+    }));
+
 // Need TerminalDecision with if_ then_
 export function extractTerminalInfo(
     decisions: any[],
+    terminalObjects: TerminalObject[],
     shopID: string,
     partyID: string
 ): TerminalInfo[] {
     const extractedGroup = extractTerminalInfoGroup(decisions, shopID, partyID);
-    return flatternGroup(extractedGroup);
+    return enrichWithTerminal(flatternGroup(extractedGroup), terminalObjects);
 }
