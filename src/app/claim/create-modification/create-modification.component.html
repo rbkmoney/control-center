@@ -7,7 +7,7 @@
             <ng-template matStepLabel>Prepare party modification target</ng-template>
             <cc-party-modification-target
                 [unitID]="unitID"
-                [partyID]="partyId"
+                [partyID]="partyID"
                 [partyTarget]="getPartyTarget(action.type)"
                 (valueChanges)="unitIDChange($event)"
             >
@@ -36,8 +36,8 @@
     >
     </cc-terminal-object>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button [disabled]="isLoading || !(valid | async)" color="primary" (click)="add()">
+<mat-dialog-actions *ngIf="initialized">
+    <button mat-button [disabled]="isLoading || !valid" color="primary" (click)="apply()">
         APPLY
     </button>
     <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>

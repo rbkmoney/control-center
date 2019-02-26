@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
 import { DomainModificationInfo, ModificationGroupType } from '../model';
@@ -30,10 +30,10 @@ enum Step {
 })
 export class CreateModificationComponent implements OnInit {
     isLoading = false;
+    valid = false;
+    initialized = false;
 
-    valid = new BehaviorSubject(false);
-
-    partyId: string;
+    partyID: string;
 
     values: PartyModification | AppendTerminalToProviderParams;
 
@@ -55,15 +55,14 @@ export class CreateModificationComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.route.firstChild.params.subscribe(params => {
-            this.partyId = params.partyId;
-        });
+        this.route.firstChild.params.subscribe(p => (this.partyID = p.partyId));
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
         if (this.data.unitID) {
-            this.unitIDChange(this.data.unitID);
+            this.unitID = this.data.unitID;
             this.currentStep = Step.fillInModification;
         }
         this.action = this.data.action;
+        this.initialized = true;
     }
 
     valueChanges(e: any) {
@@ -75,12 +74,10 @@ export class CreateModificationComponent implements OnInit {
     }
 
     statusChanges(status: string) {
-        setTimeout(() => {
-            this.valid.next(status === 'VALID');
-        });
+        this.valid = status === 'VALID';
     }
 
-    add() {
+    apply() {
         switch (this.data.action.type) {
             case ActionType.shopAction:
             case ActionType.contractAction:
