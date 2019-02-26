@@ -135,7 +135,7 @@ const extractTerminalInfoGroup = (
         return r;
     }, []);
 
-const flatternGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
+const flattenGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
     group.reduce(
         (r, { terminalIds, disabled, predicateType }) =>
             (r = [
@@ -167,5 +167,5 @@ export function extractTerminalInfo(
     partyID: string
 ): TerminalInfo[] {
     const extractedGroup = extractTerminalInfoGroup(decisions, shopID, partyID);
-    return enrichWithTerminal(flatternGroup(extractedGroup), terminalObjects);
+    return enrichWithTerminal(flattenGroup(extractedGroup), terminalObjects);
 }
