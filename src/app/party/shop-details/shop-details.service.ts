@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import get from 'lodash-es/get';
 
 import { ProviderObject, Shop, TerminalObject } from '../../gen-damsel/domain';
-import { findTerminalInfos, TerminalInfo } from './find-terminal-infos';
+import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 import { PartyService } from '../party.service';
 import { DomainTypedManager } from '../../thrift';
 
@@ -46,7 +46,8 @@ export class ShopDetailsService {
             if (!decisions) {
                 return r;
             }
-            const infos = findTerminalInfos(decisions, terminalObjects, shopID, partyID);
+            const infos = extractTerminalInfo(decisions, shopID, partyID);
+            console.log(infos);
             if (infos.length === 0) {
                 return r;
             }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { TerminalObject } from '../../../gen-damsel/domain';
-import { DecisionType } from '../find-terminal-infos';
+import { PredicateType } from '../extract-terminal-info';
 
 @Component({
     selector: 'cc-terminal',
@@ -11,5 +11,5 @@ import { DecisionType } from '../find-terminal-infos';
 export class TerminalComponent {
     @Input() terminal: TerminalObject;
     @Input() isActive: boolean;
-    @Input() decisionType: DecisionType;
+    @Input() predicateType: PredicateType;
 }
