@@ -1,5 +1,8 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div>{{ terminal.data.name }} - {{ terminal.data.description }} <span class="decision-type">{{decisionType}}</span></div>
+    <div>
+        {{ terminal.data.name }} - {{ terminal.data.description }}
+        <span class="decision-type">{{ decisionType }}</span>
+    </div>
     <mat-chip-list>
         <mat-chip [selected]="isActive">{{ isActive | ccIsActive }}</mat-chip>
     </mat-chip-list>
