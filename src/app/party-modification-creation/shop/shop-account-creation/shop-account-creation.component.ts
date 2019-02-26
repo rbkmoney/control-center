@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { get } from 'lodash-es';
+
+import { ShopAccountParams } from '../../../gen-damsel/payment_processing';
 
 @Component({
     selector: 'cc-shop-account-creation',
@@ -9,9 +12,14 @@ export class ShopAccountCreationComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    @Input()
+    initialValue: ShopAccountParams;
+
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.registerControl('currency', this.fb.group({}));
+        const currency = get(this, 'initialValue.currency', '');
+        this.form.registerControl('currency', this.fb.group(currency));
+        this.form.updateValueAndValidity();
     }
 }

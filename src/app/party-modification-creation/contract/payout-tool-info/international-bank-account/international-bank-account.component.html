@@ -8,14 +8,22 @@
         </mat-form-field>
         <div fxLayout="column" fxLayoutGap="15px">
             <section>
-                <mat-checkbox (change)="detailsChange($event)"
+                <mat-checkbox [checked]="isBankDetails" (change)="detailsChange($event.checked)"
                     >International bank details</mat-checkbox
                 >
             </section>
-            <cc-international-bank-details *ngIf="isBankDetails" [form]="form.get('bank')">
+            <cc-international-bank-details
+                *ngIf="isBankDetails"
+                [form]="form.get('bank')"
+                [initialValue]="initialValue?.bank"
+            >
             </cc-international-bank-details>
             <section>
-                <mat-checkbox (change)="accountChange($event)">Correspondent account</mat-checkbox>
+                <mat-checkbox
+                    [checked]="isCorrespondentAccount"
+                    (change)="accountChange($event.checked)"
+                    >Correspondent account</mat-checkbox
+                >
             </section>
             <div fxLayout>
                 <div fxFlex="10"></div>
@@ -23,6 +31,7 @@
                     fxFlex="90"
                     *ngIf="isCorrespondentAccount"
                     [form]="form.get('correspondentAccount')"
+                    [initialValue]="initialValue?.correspondentAccount"
                 >
                 </cc-international-bank-account>
             </div>

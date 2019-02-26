@@ -1,11 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import {
-    PartyModificationContainer,
     ModificationGroupType,
-    ModificationUnitContainer
+    ModificationUnitContainer,
+    PartyModificationContainer
 } from '../model';
 import { ClaimService } from '../claim.service';
+import { PartyModificationContainerService } from './party-modification-container.service';
+import { CreateModificationComponent } from '../create-modification/create-modification.component';
 
 @Component({
     selector: 'cc-party-modification-container',
@@ -21,7 +24,11 @@ export class PartyModificationContainerComponent implements OnInit {
 
     modifications: ModificationUnitContainer[];
 
-    constructor(private claimService: ClaimService) {}
+    constructor(
+        private dialog: MatDialog,
+        private claimService: ClaimService,
+        private partyModificationContainerService: PartyModificationContainerService
+    ) {}
 
     ngOnInit() {
         this.modifications = this.container.unitContainers.slice();
@@ -29,5 +36,14 @@ export class PartyModificationContainerComponent implements OnInit {
 
     remove(typeHash: string) {
         this.claimService.removeModification(typeHash);
+    }
+
+    edit(unit: ModificationUnitContainer) {
+        const config = this.partyModificationContainerService.getDialogConfig(
+            unit.modificationUnit,
+            this.container.name,
+            this.type
+        );
+        this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
     }
 }
