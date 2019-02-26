@@ -9,8 +9,4 @@ import { ProviderInfo } from '../shop-details.service';
 })
 export class ProviderComponent {
     @Input() providerInfo: ProviderInfo[];
-
-    toString(kek: any) {
-        return JSON.stringify(kek);
-    }
 }
