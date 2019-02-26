@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import values from 'lodash-es/values';
 
-import { PayoutStatus } from '../../papi/model';
+import { PayoutStatus, PayoutTypes } from '../../papi/model';
 
 @Injectable()
 export class SearchFormService {
@@ -11,13 +11,17 @@ export class SearchFormService {
 
     payoutStatuses: string[];
 
+    payoutTypes: string[];
+
     constructor(private fb: FormBuilder) {
         this.form = this.prepareForm();
         this.payoutStatuses = values(PayoutStatus);
+        this.payoutTypes = values(PayoutTypes);
     }
 
     private prepareForm(): FormGroup {
         return this.fb.group({
+            type: '',
             status: PayoutStatus.paid,
             fromTime: [moment(), Validators.required],
             toTime: [moment(), Validators.required],

@@ -47,6 +47,12 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field fxFlex="10">
+        <mat-select placeholder="Payout type" formControlName="type">
+            <mat-option [value]="">any</mat-option>
+            <mat-option *ngFor="let type of payoutTypes" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="10">
         <input matInput formControlName="currencyCode" placeholder="Currency code" />
     </mat-form-field>
     <mat-form-field fxFlex="40">
