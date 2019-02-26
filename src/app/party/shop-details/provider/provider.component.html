@@ -5,10 +5,14 @@
             <mat-panel-description> {{ info?.provider.data.description }} </mat-panel-description>
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
-            <mat-list *ngIf="info.terminals">
+            <mat-list *ngIf="info.terminalInfos">
                 <h3 mat-subheader>Terminals</h3>
-                <mat-list-item *ngFor="let terminal of info.terminals">
-                    <cc-terminal [terminal]="terminal"></cc-terminal>
+                <mat-list-item *ngFor="let terminalInfo of info.terminalInfos">
+                    <cc-terminal
+                        [terminal]="terminalInfo.terminal"
+                        [disabled]="terminalInfo.disabled"
+                        [predicateType]="terminalInfo.predicateType"
+                    ></cc-terminal>
                 </mat-list-item>
             </mat-list>
         </ng-template>
