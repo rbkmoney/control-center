@@ -1,4 +1,4 @@
-import { ProviderObject } from '../../damsel/domain';
+import { ProviderObject } from '../../gen-damsel/domain';
 import { Commit } from '../../gen-damsel/domain_config';
 import { toGenCommit } from '../converters';
 import { createAddTerminalToProviderOperation } from './create-add-terminal-to-provider-operation';

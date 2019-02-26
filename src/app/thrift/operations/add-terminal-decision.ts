@@ -2,11 +2,16 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import last from 'lodash-es/last';
 import dropRight from 'lodash-es/dropRight';
 
-import { ProviderObject, TerminalSelector, TerminalDecision } from '../../damsel';
+import {
+    ProviderObject,
+    TerminalSelector,
+    TerminalDecision,
+    TerminalRef
+} from '../../gen-damsel/domain';
 import { toGenTerminalDecision } from '../converters';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision => ({
-    if_: {
+    if: {
         condition: {
             party: {
                 id: partyID,
@@ -16,8 +21,8 @@ const createDecision = (partyID: string, shopID: string, terminalID: number): Te
             }
         }
     },
-    then_: {
-        value: [{ id: terminalID }]
+    then: {
+        value: ([{ id: terminalID }] as unknown) as Set<TerminalRef>
     }
 });
 
