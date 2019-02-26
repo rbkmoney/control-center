@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
     providers: []
 })
 export class RepairingComponent {
+    private isLoading = false;
+
     constructor() {}
 }
