@@ -4,6 +4,6 @@
         <span class="predicate-type">{{ predicateType }}</span>
     </div>
     <mat-chip-list>
-        <mat-chip [selected]="!disabled">{{ isActive | ccIsActive }}</mat-chip>
+        <mat-chip [selected]="!disabled">{{ !disabled | ccIsActive }}</mat-chip>
     </mat-chip-list>
 </div>
