@@ -11,6 +11,7 @@
     <cc-legal-agreement-binding
         *ngIf="selected === t.powerOfAttorney"
         [form]="form.get(t.powerOfAttorney)"
+        [initialValue]="initialValue?.powerOfAttorney"
     >
     </cc-legal-agreement-binding>
 </div>

@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import get from 'lodash-es/get';
+
+import { InternationalBankDetails } from '../../../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-international-bank-details',
@@ -9,13 +12,23 @@ export class InternationalBankDetailsComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    @Input()
+    initialValue: InternationalBankDetails;
+
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.registerControl('bic', this.fb.control(''));
-        this.form.registerControl('country', this.fb.control('')); // Residence enum
-        this.form.registerControl('name', this.fb.control(''));
-        this.form.registerControl('address', this.fb.control(''));
-        this.form.registerControl('abaRtn', this.fb.control(''));
+        const control = (data = '') => this.fb.control(data);
+        const bic = get(this, 'initialValue.bic', '');
+        const country = get(this, 'initialValue.country', '');
+        const name = get(this, 'initialValue.name', '');
+        const address = get(this, 'initialValue.address', '');
+        const abaRtn = get(this, 'initialValue.abaRtn', '');
+        this.form.registerControl('bic', control(bic));
+        this.form.registerControl('country', control(country)); // Residence enum
+        this.form.registerControl('name', control(name));
+        this.form.registerControl('address', control(address));
+        this.form.registerControl('abaRtn', control(abaRtn));
+        this.form.updateValueAndValidity();
     }
 }

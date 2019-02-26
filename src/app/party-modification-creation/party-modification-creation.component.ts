@@ -13,7 +13,11 @@ import { ContractModificationName, ShopModificationName } from '../claim/model';
 import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../claim/modification-action';
 import { filterEmptyStringValues } from './filter-empty-string-value';
-import { PartyModification } from '../gen-damsel/payment_processing';
+import {
+    ContractModification,
+    PartyModification,
+    ShopModification
+} from '../gen-damsel/payment_processing';
 
 @Component({
     selector: 'cc-party-modification-creation',
@@ -21,13 +25,16 @@ import { PartyModification } from '../gen-damsel/payment_processing';
 })
 export class PartyModificationCreationComponent implements OnInit, OnChanges {
     @Input()
-    unitID = '';
+    unitID;
 
     @Input()
     action: ModificationAction;
 
     @Input()
-    unitIDDisabled = false;
+    unitIDDisabled;
+
+    @Input()
+    modification: ShopModification | ContractModification;
 
     @Output()
     valueChanges: EventEmitter<PartyModification> = new EventEmitter();

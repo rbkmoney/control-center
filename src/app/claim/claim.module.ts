@@ -43,6 +43,7 @@ import { PartyModificationTargetModule } from '../party-modification-target';
 import { TerminalObjectComponent } from './terminal-object/terminal-object.component';
 import { PersistentContainerService } from './persistent-container.service';
 import { CloneClaimComponent } from './clone-claim/clone-claim.component';
+import { PartyModificationContainerService } from './party-modification-container/party-modification-container.service';
 
 @NgModule({
     imports: [
@@ -97,6 +98,6 @@ import { CloneClaimComponent } from './clone-claim/clone-claim.component';
         DenyClaimComponent,
         CreateModificationComponent
     ],
-    providers: [ClaimService, PersistentContainerService]
+    providers: [ClaimService, PersistentContainerService, PartyModificationContainerService]
 })
 export class ClaimModule {}
