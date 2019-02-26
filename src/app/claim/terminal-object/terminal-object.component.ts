@@ -6,7 +6,7 @@ import { map, tap } from 'rxjs/internal/operators';
 
 import { DomainModificationInfo } from '../model';
 import { TerminalObjectService } from './terminal-object.service';
-import { ProviderObject } from '../../damsel/domain';
+import { ProviderObject } from '../../gen-damsel/domain';
 import {
     AppendTerminalToProviderParams,
     DomainTypedManager,

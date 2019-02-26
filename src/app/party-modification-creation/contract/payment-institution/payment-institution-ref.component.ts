@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
 
-import { PaymentInstitutionObject } from '../../../damsel/domain';
+import { PaymentInstitutionObject } from '../../../gen-damsel/domain';
 import { DomainTypedManager } from '../../../thrift';
 
 @Component({

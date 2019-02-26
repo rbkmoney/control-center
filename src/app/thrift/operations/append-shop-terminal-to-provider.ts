@@ -1,8 +1,9 @@
 import { createTerminalObject } from './create-terminal-object';
 import { AppendTerminalToProviderParams } from './append-terminal-to-provider-params';
 import { toGenCommit, toGenDomainObject } from '../converters';
-import { ProviderObject, TerminalObject, Commit } from '../../damsel';
+import { ProviderObject, TerminalObject } from '../../gen-damsel/domain';
 import { createAddTerminalToProviderOperation } from './create-add-terminal-to-provider-operation';
+import { Commit } from '../../gen-damsel/domain_config';
 
 export const appendShopTerminalToProvider = (
     terminalObjects: TerminalObject[],
