@@ -12,5 +12,6 @@ export function findMeta<T extends MetaTypeDefined | MetaTyped | MetaObject>(
     if (!byNamespace) {
         return null;
     }
-    return byNamespace.meta.find(({ name }) => name === condition.type) as T;
+    const found = byNamespace.meta.find(({ name }) => name === condition.type) as T;
+    return found ? found : null;
 }

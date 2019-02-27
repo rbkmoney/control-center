@@ -23,6 +23,14 @@ interface MetaSource {
     used: MetaTypeDefined[];
 }
 
+const resolveRefContainer = [];
+function pushToContainer(item: MetaStruct | MetaUnion) {
+    const found = resolveRefContainer.find(i => i.name === item.name);
+    if (!found) {
+        resolveRefContainer.push(item);
+    }
+}
+
 const isMetaUsed = (meta: string, usedMeta: MetaTypeDefined[]) =>
     !!usedMeta.find(i => i.name === meta);
 
@@ -41,13 +49,14 @@ function getCondition(meta: string, defaultNamespace: string): MetaTypeCondition
           };
 }
 
-const enrichObject = (
-    meta: MetaTyped & MetaObject,
-    source: MetaSource
-): MetaTyped & MetaObject => ({
-    ...meta,
-    fields: enrichFields(meta.fields, source)
-});
+const enrichObject = (meta: MetaTyped & MetaObject, source: MetaSource): MetaTyped & MetaObject => {
+    const result = {
+        ...meta,
+        fields: enrichFields(meta.fields, source)
+    };
+    pushToContainer(result as MetaStruct | MetaUnion);
+    return result;
+};
 
 function enrichCollection(meta: MetaTyped & MetaCollection, source: MetaSource): MetaCollection {
     let itemMeta = meta.itemMeta;
@@ -106,7 +115,9 @@ function registerUsedMeta(meta: MetaTyped, used: MetaTypeDefined[]): MetaTypeDef
 function enrichObjectRef(condition: MetaTypeCondition, source: MetaSource): MetaTyped | string {
     const meta = findMeta<MetaTyped>(condition, source.shallowDefenition);
     if (meta === null) {
-        throw new Error('Meta not found');
+        throw new Error(
+            `Meta not found. Condition namespace: ${condition.namespace}; type: ${condition.type}`
+        );
     }
     const used = registerUsedMeta(meta, source.used);
     return enrichTyped(meta, {
@@ -151,8 +162,9 @@ export function enrichMeta(
     }
     const enriched = {
         ...target,
-        fields: enrichFields(target.fields, { namespace, shallowDefenition, used: [] })
+        fields: enrichFields(target.fields, { namespace, shallowDefenition, used: [target] })
     };
-    // return enriched;
-    return resolveCircularMeta(enriched, '$circular_');
+    pushToContainer(enriched);
+    resolveCircularMeta(resolveRefContainer, '$circular_');
+    return enriched;
 }

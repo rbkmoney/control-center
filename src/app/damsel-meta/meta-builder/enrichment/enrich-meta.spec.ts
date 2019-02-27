@@ -4,15 +4,15 @@ import { MetaType } from '../../model';
 fdescribe('enrichMeta', () => {
     it('should enrich circular dependency', () => {
         const target = {
-            type: MetaType.struct,
+            name: 'Object_1',
             fields: [
                 {
-                    required: true,
-                    name: 'firstObjField',
-                    meta: 'SecondObject'
+                    name: 'field_11',
+                    meta: 'Object_2',
+                    required: true
                 }
             ],
-            name: 'FirstObject',
+            type: MetaType.struct,
             isRef: false
         };
 
@@ -22,32 +22,15 @@ fdescribe('enrichMeta', () => {
                 meta: [
                     target,
                     {
-                        type: MetaType.struct,
+                        name: 'Object_2',
                         fields: [
                             {
                                 required: true,
-                                name: 'secondObjField',
-                                meta: 'ThirdObject'
-                                // meta: 'FirstObject'
+                                name: 'field_21',
+                                meta: 'Object_1'
                             }
                         ],
-                        name: 'SecondObject',
-                        isRef: false
-                    },
-                    {
                         type: MetaType.struct,
-                        fields: [
-                            {
-                                required: true,
-                                name: 'thirdObjField',
-                                // meta: {
-                                //     type: MetaType.primitive,
-                                //     primitiveType: PrimitiveType.string
-                                // }
-                                meta: 'FirstObject'
-                            }
-                        ],
-                        name: 'ThirdObject',
                         isRef: false
                     }
                 ]
@@ -57,29 +40,30 @@ fdescribe('enrichMeta', () => {
         const result = enrichMeta(target, 'test', source);
 
         const expected = {
-            name: 'FirstObject',
-            type: MetaType.struct,
+            name: 'Object_1',
             fields: [
                 {
-                    required: true,
-                    name: 'firstObjField',
+                    name: 'field_11',
                     meta: {
-                        name: 'SecondObject',
-                        type: MetaType.struct,
+                        name: 'Object_2',
                         fields: [
                             {
-                                required: true,
-                                name: 'secondObjField',
-                                meta: 'FirstObject'
+                                name: 'field_21',
+                                meta: '$circular_Object_1',
+                                required: true
                             }
                         ],
+                        type: MetaType.struct,
                         isRef: false
-                    }
+                    },
+                    required: true
                 }
             ],
+            type: MetaType.struct,
             isRef: false
         };
-        // expected.fields[0].meta.fields[0].meta = expected;
+        
+        ((expected as any).fields[0].meta.fields[0].meta = expected); // Resolve refs
 
         console.log('Result', result);
         expect(result).toEqual(expected);

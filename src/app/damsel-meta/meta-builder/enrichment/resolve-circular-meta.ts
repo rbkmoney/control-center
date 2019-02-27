@@ -10,93 +10,70 @@ import {
     MetaCollection
 } from '../../model';
 
-interface ResolveSource {
-    сircularSign: string;
-    resolveContainer: (MetaUnion | MetaStruct)[];
-}
+let container;
+const resolvedContainer = [];
 
-function isCircular(meta: MetaTyped | string, source: ResolveSource) {
-    if (isString(meta) && meta.startsWith(source.сircularSign)) {
-        return true;
-    }
-}
+const isCircular = (meta: MetaTyped | string, сircularSign: string) =>
+    isString(meta) && meta.startsWith(сircularSign);
 
-function resolveObject(
-    meta: MetaUnion | MetaStruct,
-    source: ResolveSource
-): MetaUnion | MetaStruct {
-    const found = source.resolveContainer.find(c => c.name === meta.name);
+function resolveObject(meta: MetaUnion | MetaStruct, сircularSign: string): void {
+    const found = resolvedContainer.find(i => i.name === meta.name);
     if (found) {
-        // console.log('maybe', found);
-    } else {
-        source.resolveContainer.push(meta);
+        return;
     }
-
-    return {
-        ...meta,
-        fields: resolveFields(meta.fields, source)
-    };
+    resolveFields(meta.fields, сircularSign);
 }
 
-function resolveMap(meta: MetaMap, source: ResolveSource): MetaMap {
-    return {
-        ...meta,
-        keyMeta: resolveMeta(meta.keyMeta, source),
-        valueMeta: resolveMeta(meta.valueMeta, source)
-    };
+function resolveMap(meta: MetaMap, сircularSign: string): void {
+    resolveMeta(meta.keyMeta, сircularSign);
+    resolveMeta(meta.valueMeta, сircularSign);
 }
 
-function resolveCollection(meta: MetaCollection, source: ResolveSource): MetaCollection {
-    return {
-        ...meta,
-        itemMeta: resolveMeta(meta.itemMeta, source)
-    };
+function resolveCollection(meta: MetaCollection, сircularSign: string): void {
+    resolveMeta(meta.itemMeta, сircularSign);
 }
 
-function resolveMeta(meta: MetaTyped | string, source: ResolveSource): any {
-    if (isCircular(meta, source)) {
-        const found = source.resolveContainer.find(
-            c => c.name === (meta as string).replace(source.сircularSign, '')
-        );
+function resolveMeta(meta: MetaTyped | string, сircularSign: string) {
+    if (isCircular(meta, сircularSign)) {
+        const found = container.find(i => i.name === (meta as string).replace(сircularSign, ''));
+        resolvedContainer.push(found);
         return found;
     }
+    let result = meta;
     const metaTyped = meta as MetaTyped;
     switch (metaTyped.type) {
         case MetaType.struct:
         case MetaType.union:
-            return resolveObject(meta as MetaUnion, source);
+            resolveObject(meta as MetaUnion, сircularSign);
+            break;
         case MetaType.collection:
-            return resolveCollection(meta as MetaCollection, source);
+            resolveCollection(meta as MetaCollection, сircularSign);
+            break;
         case MetaType.map:
-            return resolveMap(meta as MetaMap, source);
+            resolveMap(meta as MetaMap, сircularSign);
+            break;
         case MetaType.typedef:
             console.log('unexpected typedef', meta);
-            return meta;
+            break;
         case MetaType.primitive:
         case MetaType.enum:
-            return meta;
+            break;
+    }
+    return result;
+}
+
+function resolveFields(fields: MetaField[], сircularSign: string) {
+    for (const field of fields) {
+        field.meta = resolveMeta(field.meta, сircularSign);
     }
 }
 
-const resolveFields = (fields: MetaField[], source: ResolveSource) =>
-    fields.map(f => resolveMeta(f.meta, source));
-
-
-
-function resolveRefs(resolveContainer: (MetaUnion | MetaStruct)[]) {
-    resolveContainer.forEach(item => {
-        item.fields.forEach(field => {
-        })
-    });
-}
-
 export const resolveCircularMeta = (
-    meta: MetaStruct | MetaUnion,
+    resolveContainer: (MetaStruct | MetaUnion)[],
     сircularSign: string
-): MetaStruct | MetaUnion => {
-    const resolveContainer = [];
-    const result = resolveObject(meta, { resolveContainer, сircularSign });
-    // resolveContainer[7].fields[2].meta = resolveContainer[7];
-    // console.log(resolveContainer);
-    return result;
+): void => {
+    container = resolveContainer;
+    for (const item of resolveContainer) {
+        resolveFields(item.fields, сircularSign);
+    }
 };
