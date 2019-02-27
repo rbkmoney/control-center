@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { uniqBy } from 'lodash-es';
 
 @Component({
     templateUrl: 'repairing.component.html',
@@ -24,6 +25,12 @@ export class RepairingComponent {
             ids.push(execId[0]);
         }
         this.idsControl.setValue('');
-        this.dataSource = this.dataSource.concat(ids.map(id => ({ id })));
+        this.dataSource = uniqBy(this.dataSource.concat(ids.map(id => ({ id }))), 'id');
+    }
+
+    remove(element) {
+        const resultDataSource = this.dataSource.slice();
+        resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
+        this.dataSource = resultDataSource;
     }
 }

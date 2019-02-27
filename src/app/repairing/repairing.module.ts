@@ -7,7 +7,8 @@ import {
     MatTabsModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +31,8 @@ import { SharedModule } from '../shared/shared.module';
         MatFormFieldModule,
         MatInputModule,
         FlexLayoutModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatIconModule
     ],
     declarations: [RepairingComponent],
     providers: [RepairingService]
