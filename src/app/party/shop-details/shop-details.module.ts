@@ -3,6 +3,7 @@ import {
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatChipsModule,
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -33,6 +34,7 @@ import { TerminalsTableComponent } from './add-provider/select-terminal/terminal
 import { CreateTerminalFormComponent } from './add-provider/select-terminal/create-terminal-form/create-terminal-form.component';
 import { SelectTerminalComponent } from './add-provider/select-terminal/select-terminal.component';
 import { SelectProviderComponent } from './add-provider/select-provider/select-provider.component';
+import { IsActivePipe } from './is-active.pipe';
 
 @NgModule({
     imports: [
@@ -55,7 +57,9 @@ import { SelectProviderComponent } from './add-provider/select-provider/select-p
         MatTabsModule,
         MatIconModule,
         MatProgressBarModule,
-        MatMenuModule
+        MatMenuModule,
+        MatProgressBarModule,
+        MatChipsModule
     ],
     declarations: [
         ShopDetailsComponent,
@@ -68,7 +72,8 @@ import { SelectProviderComponent } from './add-provider/select-provider/select-p
         TerminalsTableComponent,
         CreateTerminalFormComponent,
         SelectProviderComponent,
-        SelectTerminalComponent
+        SelectTerminalComponent,
+        IsActivePipe
     ],
     entryComponents: [AddProviderComponent]
 })

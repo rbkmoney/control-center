@@ -12,11 +12,13 @@
         <cc-russian-legal-entity
             *ngIf="selected === t.russianLegalEntity"
             [form]="form.get(t.russianLegalEntity)"
+            [initialValue]="initialValue?.russianLegalEntity"
         >
         </cc-russian-legal-entity>
         <cc-international-legal-entity
             *ngIf="selected === t.internationalLegalEntity"
             [form]="form.get(t.internationalLegalEntity)"
+            [initialValue]="initialValue?.internationalLegalEntity"
         >
         </cc-international-legal-entity>
     </div>

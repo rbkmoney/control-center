@@ -1,6 +1,12 @@
 <div *ngIf="terminal" fxLayout="row" fxLayoutAlign="space-between center">
-    <div>ID {{ terminal.ref.id }} | {{ terminal.data.name }} - {{ terminal.data.description }}</div>
     <div>
+        {{ terminal.data.name }} - {{ terminal.data.description }}
+        <span class="predicate-type">{{ predicateType }}</span>
+    </div>
+    <div>
+        <mat-chip-list>
+            <mat-chip [selected]="!disabled">{{ !disabled | ccIsActive }}</mat-chip>
+        </mat-chip-list>
         <button mat-icon-button [matMenuTriggerFor]="appMenu">
             <mat-icon>more_vert</mat-icon>
         </button>

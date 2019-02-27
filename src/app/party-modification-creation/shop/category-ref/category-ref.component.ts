@@ -4,9 +4,11 @@ import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/internal/operators';
 import sortBy from 'lodash-es/sortBy';
+import { get } from 'lodash-es';
 
 import { Category } from '../../../papi/model';
 import { CategoryService } from '../../../papi/category.service';
+import { CategoryRef } from '../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-category-ref',
@@ -19,6 +21,9 @@ export class CategoryRefComponent implements OnInit {
     @Input()
     required: boolean;
 
+    @Input()
+    initialValue: CategoryRef;
+
     categories$: Observable<Category[]>;
 
     isLoading = true;
@@ -30,12 +35,13 @@ export class CategoryRefComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        const category = get(this, 'initialValue.id', '');
         this.form.registerControl(
             'id',
             this.fb.control(
                 {
-                    value: '',
-                    disabled: true
+                    value: category,
+                    disabled: category.length === 0
                 },
                 this.required ? Validators.required : null
             )
@@ -53,5 +59,6 @@ export class CategoryRefComponent implements OnInit {
                 }
             )
         );
+        this.form.updateValueAndValidity();
     }
 }

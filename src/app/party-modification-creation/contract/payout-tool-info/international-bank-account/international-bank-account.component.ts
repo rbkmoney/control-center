@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material';
+import get from 'lodash-es/get';
+
+import { InternationalBankAccount } from '../../../../gen-damsel/domain';
 
 @Component({
     selector: 'cc-international-bank-account',
@@ -10,6 +12,9 @@ export class InternationalBankAccountComponent implements OnInit {
     @Input()
     form: FormGroup;
 
+    @Input()
+    initialValue: InternationalBankAccount;
+
     isBankDetails = false;
 
     isCorrespondentAccount = false;
@@ -17,20 +22,31 @@ export class InternationalBankAccountComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.registerControl('number', this.fb.control(''));
-        this.form.registerControl('iban', this.fb.control(''));
+        const number = get(this, 'initialValue.number', '');
+        const iban = get(this, 'initialValue.iban', '');
+        this.form.registerControl('number', this.fb.control(number));
+        this.form.registerControl('iban', this.fb.control(iban));
+        const bank = get(this, 'initialValue.bank', null);
+        if (bank) {
+            this.detailsChange(true);
+        }
+        const account = get(this, 'initialValue.correspondentAccount', null);
+        if (account) {
+            this.accountChange(true);
+        }
+        this.form.updateValueAndValidity();
     }
 
-    detailsChange(change: MatCheckboxChange) {
-        this.isBankDetails = change.checked;
-        change.checked
+    detailsChange(showDetails: boolean) {
+        this.isBankDetails = showDetails;
+        this.isBankDetails
             ? this.form.registerControl('bank', this.fb.group({}))
             : this.form.removeControl('bank');
     }
 
-    accountChange(change: MatCheckboxChange) {
-        this.isCorrespondentAccount = change.checked;
-        change.checked
+    accountChange(showCorrespondentAccount: boolean) {
+        this.isCorrespondentAccount = showCorrespondentAccount;
+        this.isCorrespondentAccount
             ? this.form.registerControl('correspondentAccount', this.fb.group({}))
             : this.form.removeControl('correspondentAccount');
     }

@@ -8,7 +8,7 @@ import {
     ProviderObject,
     TerminalObject,
     PaymentInstitutionObject
-} from '../damsel/domain';
+} from '../gen-damsel/domain';
 import { findDomainObject, findDomainObjects } from './operations/utils';
 import {
     appendShopTerminalToProvider,
