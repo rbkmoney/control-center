@@ -5,8 +5,12 @@ import {
     MatButtonModule,
     MatProgressBarModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule
 } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { RepairingComponent } from './repairing.component';
 import { RepairingService } from './repairing.service';
@@ -22,7 +26,11 @@ import { SharedModule } from '../shared/shared.module';
         SharedModule,
         MatProgressBarModule,
         MatTabsModule,
-        MatTableModule
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FlexLayoutModule,
+        ReactiveFormsModule
     ],
     declarations: [RepairingComponent],
     providers: [RepairingService]
