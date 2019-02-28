@@ -4,4 +4,4 @@
 
     make wc_shell
 
-    make compile-damsel
+    make clean compile-damsel

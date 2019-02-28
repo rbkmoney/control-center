@@ -44,16 +44,10 @@ build: check lint compile-damsel
 clean:
 	rm -rf dist src/app/thrift/gen-* src/assets/gen-* src/app/gen-damsel
 
-compile-damsel: damsel-client/domain-config damsel-client/payment-processing damsel-client/merch-stat damsel-model damsel-meta
+compile-damsel: damsel-client damsel-model damsel-meta
 
-damsel-client/domain-config:
-	thrift -r -gen js:node,runtime_package=woody_js/src/client/gen -o ./src/app/thrift ./node_modules/damsel/proto/domain_config.thrift
-
-damsel-client/payment-processing:
-	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/payment_processing.thrift
-
-damsel-client/merch-stat:
-	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/merch_stat.thrift
+damsel-client:
+	@$(foreach file,$(wildcard ./node_modules/damsel/proto/*.thrift),echo damsel-client $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift $(file);)
 
 damsel-meta:
 	npm run damsel-meta
