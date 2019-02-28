@@ -17,6 +17,7 @@ import { RepairingComponent } from './repairing.component';
 import { RepairingService } from './repairing.service';
 import { RepairingRoutingModule } from './repairing-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { MachinegunModule } from '../machinegun/machinegun.module';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import { SharedModule } from '../shared/shared.module';
         MatInputModule,
         FlexLayoutModule,
         ReactiveFormsModule,
-        MatIconModule
+        MatIconModule,
+        MachinegunModule
     ],
     declarations: [RepairingComponent],
     providers: [RepairingService]
