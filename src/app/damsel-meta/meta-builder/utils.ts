@@ -6,6 +6,8 @@ export const isPrimitiveType = (type: ValueType): boolean =>
     isString(type) &&
     ['int', 'bool', 'i8', 'i16', 'i32', 'i64', 'string', 'double', 'binary'].includes(type);
 
+export const isObjectRefType = (meta: any) => isString(meta) && !isPrimitiveType(meta);
+
 export const isComplexType = (type: ValueType, typeName: 'map' | 'list' | 'set'): boolean => {
     if (!isObject(type)) {
         return false;
