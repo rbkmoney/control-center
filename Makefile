@@ -38,22 +38,32 @@ submodules: $(SUBTARGETS)
 init:
 	npm install
 
-build: check lint compile-damsel
+build: check lint compile-damsel compile-machinegun
 	npm run build
 
+compile: clean compile-damsel compile-machinegun
+
 clean:
-	rm -rf dist src/app/thrift/gen-* src/assets/gen-* src/app/gen-damsel
+	rm -rf dist src/app/thrift/gen-* src/assets/meta-damsel.json src/app/gen-damsel src/app/machinegun/gen-*
 
 compile-damsel: damsel-client damsel-model damsel-meta
 
 damsel-client:
-	@$(foreach file,$(wildcard ./node_modules/damsel/proto/*.thrift),echo damsel-client $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift $(file);)
+	@$(foreach file,domain_config payment_processing merch_stat,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/$(file).thrift;)
 
 damsel-meta:
 	npm run damsel-meta
 
 damsel-model:
 	npm run damsel-model
+
+compile-machinegun: machinegun-model machinegun-client
+
+machinegun-client:
+	@$(foreach file,state_processing,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/machinegun ./node_modules/machinegun_proto/proto/$(file).thrift;)
+
+machinegun-model:
+	npm run machinegun-model
 
 lint:
 	npm run lint

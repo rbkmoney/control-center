@@ -2,6 +2,7 @@
 
 Компиляция thrift:
 
-    make wc_shell
-
-    make clean compile-damsel
+```sh
+make wc_shell
+make compile
+```
