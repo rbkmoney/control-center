@@ -74,11 +74,11 @@ export class CreateActionsComponent implements OnInit {
     }
 
     capture() {
-        const captureParams = this.createResult.map(({ adjustmentId, creationParams }) => ({
-            user: creationParams.user,
-            invoiceId: creationParams.invoiceId,
-            paymentId: creationParams.paymentId,
-            adjustmentId
+        const captureParams = this.createResult.map(({ adjustment_id, creation_params }) => ({
+            user: creation_params.user,
+            invoice_id: creation_params.invoice_id,
+            payment_id: creation_params.payment_id,
+            adjustment_id
         }));
         this.createResult = [];
         this.batchAdjustmentService.capture(captureParams).subscribe(
@@ -91,11 +91,11 @@ export class CreateActionsComponent implements OnInit {
 
     cancelPending() {
         const cancelParams = this.failedPending.map(
-            ({ operationScope: { creationParams, adjustmentId } }) => ({
-                user: creationParams.user,
-                invoiceId: creationParams.invoiceId,
-                paymentId: creationParams.paymentId,
-                adjustmentId
+            ({ operationScope: { creation_params, adjustment_id } }) => ({
+                user: creation_params.user,
+                invoice_id: creation_params.invoice_id,
+                payment_id: creation_params.payment_id,
+                adjustment_id
             })
         );
         this.failedPending = [];
@@ -105,7 +105,7 @@ export class CreateActionsComponent implements OnInit {
     }
 
     retryFailedInternal() {
-        const createParams = this.failedInternal.map(item => item.operationScope.creationParams);
+        const createParams = this.failedInternal.map(item => item.operationScope.creation_params);
         this.failedInternal = [];
         this.batchAdjustmentService.create(createParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments create');

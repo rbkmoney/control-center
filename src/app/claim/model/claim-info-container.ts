@@ -4,14 +4,14 @@ import { ClaimActionType } from '../claim-action-type';
 export class ClaimInfoContainer {
     type: ClaimActionType;
     status?: ClaimStatus;
-    partyId?: string;
-    claimId?: number;
+    party_id?: string;
+    claim_id?: number;
     revision?: string;
-    createdAt?: string;
-    updatedAt?: string;
+    created_at?: string;
+    updated_at?: string;
     reason?: string;
-    extractedIds?: {
-        shopId: string;
-        contractId: string;
+    extracted_ids?: {
+        shop_id: string;
+        contract_id: string;
     };
 }

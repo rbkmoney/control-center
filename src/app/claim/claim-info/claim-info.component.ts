@@ -36,8 +36,8 @@ export class ClaimInfoComponent implements OnInit {
             .pipe(filter(container => container !== null))
             .subscribe(container => {
                 this.claimInfoContainer = container;
-                this.partyID = container.partyId;
-                this.claimID = container.claimId;
+                this.partyID = container.party_id;
+                this.claimID = container.claim_id;
             });
     }
 
@@ -56,9 +56,9 @@ export class ClaimInfoComponent implements OnInit {
             case ClaimActionType.create:
                 this.claimService.createClaim().subscribe(
                     claimInfo => {
-                        const editEndpoint = `/claims/${claimInfo.partyId}/${
+                        const editEndpoint = `/claims/${claimInfo.party_id}/${
                             ClaimActionType.edit
-                        }/${claimInfo.claimId}`;
+                        }/${claimInfo.claim_id}`;
                         this.router.navigate([editEndpoint]).then(() => this.success());
                     },
                     e => this.failed(e)

@@ -11,17 +11,17 @@ import {
 import { toGenTerminalDecision } from '../converters';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision => ({
-    if: {
+    if_: {
         condition: {
             party: {
                 id: partyID,
                 definition: {
-                    shopIs: shopID
+                    shop_is: shopID
                 }
             }
         }
     },
-    then: {
+    then_: {
         value: ([{ id: terminalID }] as unknown) as Set<TerminalRef>
     }
 });

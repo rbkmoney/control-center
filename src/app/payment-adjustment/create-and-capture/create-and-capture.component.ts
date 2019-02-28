@@ -74,13 +74,13 @@ export class CreateAndCaptureComponent implements OnInit {
         const {
             value: { revision, reason }
         } = this.form;
-        this.adjustmentParams = { domainRevision: revision, reason };
+        this.adjustmentParams = { domain_revision: revision, reason } as InvoicePaymentAdjustmentParams;
         this.createStarted = true;
         this.form.disable();
-        const createParams = this.payments.map(({ invoiceId, id }) => ({
+        const createParams = this.payments.map(({ invoice_id, id }) => ({
             user: this.getUser(),
-            invoiceId,
-            paymentId: id,
+            invoice_id,
+            payment_id: id,
             params: this.adjustmentParams
         }));
         this.batchAdjustmentService.create(createParams).subscribe(null, () => {
@@ -93,7 +93,7 @@ export class CreateAndCaptureComponent implements OnInit {
     private getUser(): UserInfo {
         return {
             id: this.keycloakService.getUsername(),
-            type: { internalUser: {} }
+            type: { internal_user: {} }
         };
     }
 }

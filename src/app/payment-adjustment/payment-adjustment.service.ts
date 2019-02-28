@@ -30,8 +30,8 @@ export class PaymentAdjustmentService {
             mergeMap(res => {
                 const mergedPayments = [...payments, ...res.data.payments];
                 this.searchPaymentChanges$.next(mergedPayments);
-                return res.continuationToken
-                    ? this.getAllPayments(params, res.continuationToken, mergedPayments)
+                return res.continuation_token
+                    ? this.getAllPayments(params, res.continuation_token, mergedPayments)
                     : of(mergedPayments);
             })
         );

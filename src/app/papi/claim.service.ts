@@ -21,6 +21,7 @@ export class ClaimService {
     }
 
     getClaim(partyID: string, claimID: number): Observable<ClaimInfo> {
+        console.log(partyID, claimID);
         const params = new HttpParams().set('partyId', partyID).set('claimId', claimID.toString());
         return this.http
             .get<ClaimInfo>(`${this.papiEndpoint}/walk/claim`, { params })
@@ -42,6 +43,7 @@ export class ClaimService {
         revision: string,
         unit: PartyModificationUnit
     ): Observable<void> {
+        console.log(unit, ThriftFormatter.encode(unit));
         const params = new HttpParams()
             .set('partyId', partyID)
             .set('claimId', claimID.toString())

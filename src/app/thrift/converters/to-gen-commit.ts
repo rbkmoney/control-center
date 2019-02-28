@@ -9,8 +9,8 @@ const toGenInsertOp = (insertOp: InsertOp) => {
 
 const toGenUpdateOp = (updateOp: UpdateOp) => {
     const updateOpGen = new DomainConfigTypes.UpdateOp();
-    updateOpGen.old_object = updateOp.oldObject;
-    updateOpGen.new_object = updateOp.newObject;
+    updateOpGen.old_object = updateOp.old_object;
+    updateOpGen.new_object = updateOp.new_object;
     return updateOpGen;
 };
 

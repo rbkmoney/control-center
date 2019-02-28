@@ -12,7 +12,7 @@ export class CurrencyRefComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.registerControl('symbolicCode', this.fb.control('RUB', Validators.required));
+        this.form.registerControl('symbolic_code', this.fb.control('RUB', Validators.required));
         this.form.updateValueAndValidity();
     }
 }

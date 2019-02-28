@@ -47,7 +47,7 @@ function decodeArray(arr: any[]): any[] | Map<any, any> | Set<any> {
 
 function decodeObject(obj: object): object {
     const result = {};
-    forIn(obj, (value, key) => (result[camelCase(key)] = isObject(value) ? decode(value) : value));
+    forIn(obj, (value, key) => (result[key] = isObject(value) ? decode(value) : value));
     return result;
 }
 
@@ -75,13 +75,12 @@ export class ThriftFormatter {
             result = {};
             forIn(model, (value, key) => {
                 if (typeof value === 'object') {
-                    result[snakeCase(key)] = ThriftFormatter.encode(value);
+                    result[key] = ThriftFormatter.encode(value);
                 } else {
-                    result[snakeCase(key)] = value;
+                    result[key] = value;
                 }
             });
         }
-
         return result;
     }
 }

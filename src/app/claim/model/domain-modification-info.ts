@@ -1,5 +1,5 @@
 export class DomainModificationInfo {
-    shopUrl: string;
-    partyId: string;
-    shopId: string;
+    shop_url: string;
+    party_id: string;
+    shop_id: string;
 }
