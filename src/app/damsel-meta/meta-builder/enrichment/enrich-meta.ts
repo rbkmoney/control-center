@@ -14,10 +14,11 @@ import { resolveCircularMeta } from './resolve-circular-meta';
 import { isObjectRefType } from '../utils';
 
 type MetaLoop = string;
+type ObjectRef = string;
 
 export class MetaEnricher {
+    private objectRefs: MetaTypeDefined[] = [];
     private enrichedObjects: (MetaStruct | MetaUnion)[] = [];
-    private registredMeta: MetaTypeDefined[] = [];
     private errors: string[] = [];
 
     constructor(
@@ -30,9 +31,9 @@ export class MetaEnricher {
         if (!target) {
             return null;
         }
-        this.registerMeta(target);
+        this.registerObjectRef(target);
         const enriched = this.enrichStructUnion(target);
-        this.pushEnrichedObject(enriched);
+        this.addEnriched(enriched);
         resolveCircularMeta(this.enrichedObjects, this.loopSign);
         return enriched;
     }
@@ -46,7 +47,7 @@ export class MetaEnricher {
             ...meta,
             fields
         };
-        this.pushEnrichedObject(result);
+        this.addEnriched(result);
         return result;
     }
 
@@ -68,8 +69,8 @@ export class MetaEnricher {
         this.registerError(`Unsupported enrichment MetaType: ${meta.type}`);
     }
 
-    private enrichTypedef(meta: MetaTypedef): MetaTypedef {
-        const result = this.enrichObjectMeta(meta.meta);
+    private enrichTypedef({ meta }: MetaTypedef): MetaTypedef {
+        const result = this.enrichObjectMeta(meta);
         if (result === this.loopSign) {
             this.registerError(`Typedef enrichment should not be looped`);
         }
@@ -91,37 +92,42 @@ export class MetaEnricher {
         };
     }
 
-    private enrichCollectionMapMeta(meta: MetaTyped | string): MetaTyped | MetaLoop {
+    private enrichCollectionMapMeta(meta: MetaTyped | ObjectRef): MetaTyped | MetaLoop {
         if (isObjectRefType(meta)) {
-            return this.enrichObjectRefWithLoopCheck(meta as string);
+            return this.enrichObjectRefWithLoopCheck(meta as ObjectRef);
         }
         return meta;
     }
 
-    private enrichObjectMeta(meta: MetaTyped | string): MetaTyped | MetaLoop {
+    private enrichObjectMeta(meta: MetaTyped | ObjectRef): MetaTyped | MetaLoop {
         if (isObjectRefType(meta)) {
-            return this.enrichObjectRefWithLoopCheck(meta as string);
+            return this.enrichObjectRefWithLoopCheck(meta as ObjectRef);
         }
         return this.enrichTyped(meta as MetaTyped);
     }
 
-    private enrichObjectRefWithLoopCheck(meta: string): MetaTyped | MetaLoop {
-        if (this.isMetaRegistred(meta)) {
+    private enrichObjectRefWithLoopCheck(meta: ObjectRef): MetaTyped | MetaLoop {
+        if (this.isObjectRefUsed(meta)) {
             return `${this.loopSign}${meta}`;
         }
         return this.enrichObjectRef(this.getCondition(meta));
     }
 
     private enrichObjectRef(condition: MetaTypeCondition): MetaTyped {
-        const meta = findMeta<MetaTyped & MetaTypeDefined>(condition, this.shallowMetaDef);
-        if (meta === null) {
-            this.registerError(
-                `Meta not found. Namespace: ${condition.namespace}, type: ${condition.type}`
-            );
+        const found = findMeta<MetaTyped & MetaTypeDefined>(condition, this.shallowMetaDef);
+        const conditionState = `Namespace: ${condition.namespace}, type: ${condition.type}`;
+        if (found === null) {
+            this.registerError(`Meta not found. ${conditionState}`);
             return; // TODO test this case
         }
-        this.registerMeta(meta);
-        return this.enrichTyped(meta);
+        if (!found.type) {
+            this.registerError(`Meta should be typed. ${conditionState}`);
+        }
+        if (!found.name) {
+            this.registerError(`Meta should be type defined. ${conditionState}`);
+        }
+        this.registerObjectRef(found);
+        return this.enrichTyped(found);
     }
 
     private registerError(message: string, prefix = 'Enrichement error'): void {
@@ -130,26 +136,26 @@ export class MetaEnricher {
         this.errors = [...this.errors, error];
     }
 
-    private pushEnrichedObject(o: MetaStruct | MetaUnion): void {
-        const found = this.enrichedObjects.find(i => i.name === o.name);
+    private addEnriched(o: MetaStruct | MetaUnion): void {
+        const found = this.enrichedObjects.find(i => i.name === o.name); // TODO Use _.uniqWith
         if (!found) {
             this.enrichedObjects = [...this.enrichedObjects, o];
         }
     }
 
-    private registerMeta(meta: MetaTyped & MetaTypeDefined): void {
+    private registerObjectRef(meta: MetaTyped & MetaTypeDefined): void {
         switch (meta.type) {
             case MetaType.struct:
             case MetaType.union:
-                this.registredMeta = [...this.registredMeta, meta];
+                this.objectRefs = [...this.objectRefs, meta];
         }
     }
 
-    private isMetaRegistred(meta: string): boolean {
-        return !!this.registredMeta.find(i => i.name === meta);
+    private isObjectRefUsed(meta: ObjectRef): boolean {
+        return !!this.objectRefs.find(({ name }) => name === meta);
     }
 
-    private getCondition(meta: string): MetaTypeCondition {
+    private getCondition(meta: ObjectRef): MetaTypeCondition {
         const [first, second] = meta.split('.');
         return second
             ? {
