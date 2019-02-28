@@ -1,7 +1,7 @@
-import { enrichMeta } from './enrich-meta';
+import { MetaEnricher } from './enrich-meta';
 import { MetaType } from '../../model';
 
-fdescribe('enrichMeta', () => {
+describe('enrichMeta', () => {
     it('should enrich circular dependency', () => {
         const target = {
             name: 'Object_1',
@@ -37,7 +37,8 @@ fdescribe('enrichMeta', () => {
             }
         ];
 
-        const result = enrichMeta(target, 'test', source);
+        const enricher = new MetaEnricher('test', source);
+        const result = enricher.enrich(target);
 
         const expected = {
             name: 'Object_1',
@@ -62,8 +63,8 @@ fdescribe('enrichMeta', () => {
             type: MetaType.struct,
             isRef: false
         };
-        
-        ((expected as any).fields[0].meta.fields[0].meta = expected); // Resolve refs
+
+        (expected as any).fields[0].meta.fields[0].meta = expected; // Resolve refs
 
         console.log('Result', result);
         expect(result).toEqual(expected);

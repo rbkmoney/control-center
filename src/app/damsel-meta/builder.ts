@@ -1,6 +1,7 @@
 import { MetaTyped, ASTDefinition, MetaStruct, MetaUnion } from './model';
 import { parse, JSONDocument } from '../jsonc';
-import { buildInitialMeta, enrichMeta, findMeta } from './meta-builder';
+import { buildInitialMeta, findMeta } from './meta-builder';
+import { MetaEnricher } from './meta-builder/enrichment/enrich-meta';
 
 function applyValue(subject: any, value: JSONDocument): MetaTyped {
     return subject;
@@ -20,7 +21,10 @@ export function build(
     if (!target.fields) {
         return;
     }
-    const enriched = enrichMeta(target, namespace, initial);
+
+    const enricher = new MetaEnricher(namespace, initial);
+    const enriched = enricher.enrich(target);
+
     const document = parse(json);
     if (document.errors.length > 0) {
         return;

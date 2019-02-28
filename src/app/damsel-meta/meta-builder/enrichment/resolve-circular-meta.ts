@@ -25,12 +25,12 @@ function resolveObject(meta: MetaUnion | MetaStruct, сircularSign: string): voi
 }
 
 function resolveMap(meta: MetaMap, сircularSign: string): void {
-    resolveMeta(meta.keyMeta, сircularSign);
-    resolveMeta(meta.valueMeta, сircularSign);
+    meta.keyMeta = resolveMeta(meta.keyMeta, сircularSign);
+    meta.valueMeta = resolveMeta(meta.valueMeta, сircularSign);
 }
 
 function resolveCollection(meta: MetaCollection, сircularSign: string): void {
-    resolveMeta(meta.itemMeta, сircularSign);
+    meta.itemMeta = resolveMeta(meta.itemMeta, сircularSign);
 }
 
 function resolveMeta(meta: MetaTyped | string, сircularSign: string) {
