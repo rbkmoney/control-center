@@ -1,1 +1,1 @@
-export * from './enrich-meta';
+export * from './meta-enricher';
