@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectChange, MatSnackBar } from '@angular/material';
 import { tap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
 
-import { BusinessScheduleObject } from '../../../damsel/domain';
+import { BusinessScheduleObject } from '../../../gen-damsel/domain';
 import { DomainTypedManager } from '../../../thrift';
 
 @Component({
@@ -11,6 +11,9 @@ import { DomainTypedManager } from '../../../thrift';
     templateUrl: 'business-schedule-selector.component.html'
 })
 export class BusinessScheduleSelectorComponent implements OnInit {
+    @Input()
+    initialValue: string;
+
     @Output()
     idChange = new EventEmitter<number>();
 

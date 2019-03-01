@@ -3,5 +3,9 @@
         <input matInput placeholder="Adjustment ID" formControlName="adjustmentId" required />
     </mat-form-field>
     <div><button (click)="generate()" mat-stroked-button>GENERATE NEW VALUE</button></div>
-    <cc-adjustment-modification [form]="form.get('modification')"> </cc-adjustment-modification>
+    <cc-adjustment-modification
+        [form]="form.get('modification')"
+        [initialValue]="initialValue?.modification"
+    >
+    </cc-adjustment-modification>
 </form>

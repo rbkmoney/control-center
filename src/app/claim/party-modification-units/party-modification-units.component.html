@@ -11,10 +11,11 @@
     <mat-tab-group>
         <mat-tab *ngFor="let unit of units">
             <ng-template mat-tab-label>
-                {{ unit.unitID }} <span>{{ !unit.hasUnsaved ? '' : '*' }}</span>
+                {{ unit.unitID }}
+                <span class="unsaved-label">{{ !unit.hasUnsaved ? '' : '*' }}</span>
             </ng-template>
-            <div class="tab-container" fxLayout="column" fxLayoutGap="3px">
-                <div fxLayoutAlign="end center">
+            <div class="tab-container" fxLayout="column" fxLayoutGap="10px">
+                <div class="add-modification-container" fxLayoutAlign="end center">
                     <button mat-button (click)="add(unit.unitID)">ADD MODIFICATION</button>
                 </div>
                 <cc-party-modification-container

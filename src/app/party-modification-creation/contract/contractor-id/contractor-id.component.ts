@@ -12,6 +12,7 @@ export class ContractorIdComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.setControl('modification', this.fb.control('', Validators.required));
+        this.form.registerControl('modification', this.fb.control('', Validators.required));
+        this.form.updateValueAndValidity();
     }
 }

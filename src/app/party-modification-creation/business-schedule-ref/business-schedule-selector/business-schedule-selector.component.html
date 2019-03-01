@@ -4,6 +4,7 @@
             placeholder="Select schedule"
             [disabled]="isLoading || hasError"
             (selectionChange)="selectionChange($event)"
+            [value]="initialValue"
         >
             <mat-option *ngFor="let schedule of (schedules$ | async)" [value]="schedule.ref.id">
                 {{ schedule.ref.id }} {{ schedule.data.name }}

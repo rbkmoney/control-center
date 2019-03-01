@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import get from 'lodash-es/get';
+
+import { PayoutToolModification } from '../../../gen-damsel/payment_processing';
 
 enum Type {
     creation = 'creation',
@@ -10,9 +13,12 @@ enum Type {
     selector: 'cc-contract-payout-tool-modification',
     templateUrl: 'payout-tool-modification.component.html'
 })
-export class PayoutToolModificationComponent {
+export class PayoutToolModificationComponent implements OnInit {
     @Input()
     form: FormGroup;
+
+    @Input()
+    initialValue: PayoutToolModification;
 
     types = [Type.creation, Type.infoModification];
 
@@ -21,6 +27,20 @@ export class PayoutToolModificationComponent {
     t = Type;
 
     constructor(private fb: FormBuilder) {}
+
+    ngOnInit() {
+        const creation = get(this, 'initialValue.creation', '');
+        const infoModification = get(this, 'initialValue.infoModification', '');
+        if (creation) {
+            this.selected = Type.creation;
+            this.select();
+        }
+        if (infoModification) {
+            this.selected = Type.infoModification;
+            this.select();
+        }
+        this.form.updateValueAndValidity();
+    }
 
     select() {
         switch (this.selected) {
