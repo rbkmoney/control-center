@@ -74,7 +74,10 @@ export class CreateAndCaptureComponent implements OnInit {
         const {
             value: { revision, reason }
         } = this.form;
-        this.adjustmentParams = { domain_revision: revision, reason } as InvoicePaymentAdjustmentParams;
+        this.adjustmentParams = {
+            domain_revision: revision,
+            reason
+        } as InvoicePaymentAdjustmentParams;
         this.createStarted = true;
         this.form.disable();
         const createParams = this.payments.map(({ invoice_id, id }) => ({

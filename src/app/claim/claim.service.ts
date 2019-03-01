@@ -121,7 +121,11 @@ export class ClaimService {
         return this.papiClaimService.getClaim(party_id, claim_id).pipe(
             switchMap(claimInfo =>
                 this.papiClaimService
-                    .acceptClaim({ partyId: party_id, claimId: claim_id, revision: claimInfo.revision })
+                    .acceptClaim({
+                        partyId: party_id,
+                        claimId: claim_id,
+                        revision: claimInfo.revision
+                    })
                     .pipe(map(() => claimInfo.revision))
             ),
             switchMap(revision => this.pollClaimChange(revision))
@@ -133,7 +137,12 @@ export class ClaimService {
         return this.papiClaimService.getClaim(party_id, claim_id).pipe(
             switchMap(claimInfo =>
                 this.papiClaimService
-                    .denyClaim({ claim_id, party_id, revision: claimInfo.revision, reason })
+                    .denyClaim({
+                        claimId: claim_id,
+                        partyId: party_id,
+                        revision: claimInfo.revision,
+                        reason
+                    })
                     .pipe(map(() => claimInfo.revision))
             ),
             switchMap(revision => this.pollClaimChange(revision))
@@ -178,7 +187,9 @@ export class ClaimService {
         };
     }
 
-    private extractIds(modifications: PartyModification[]): { shop_id: string; contract_id: string } {
+    private extractIds(
+        modifications: PartyModification[]
+    ): { shop_id: string; contract_id: string } {
         return modifications.reduce(
             (prev, current) => {
                 if (!prev.shop_id && current.shop_modification) {

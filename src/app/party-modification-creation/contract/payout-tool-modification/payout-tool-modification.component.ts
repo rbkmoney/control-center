@@ -6,7 +6,7 @@ import { PayoutToolModification } from '../../../gen-damsel/payment_processing';
 
 enum Type {
     creation = 'creation',
-    infoModification = 'infoModification'
+    infoModification = 'info_modification'
 }
 
 @Component({
@@ -30,7 +30,7 @@ export class PayoutToolModificationComponent implements OnInit {
 
     ngOnInit() {
         const creation = get(this, 'initialValue.creation', '');
-        const infoModification = get(this, 'initialValue.infoModification', '');
+        const infoModification = get(this, 'initialValue.info_modification', '');
         if (creation) {
             this.selected = Type.creation;
             this.select();

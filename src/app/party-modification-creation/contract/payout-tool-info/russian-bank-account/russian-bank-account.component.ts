@@ -20,13 +20,13 @@ export class RussianBankAccountComponent implements OnInit {
     ngOnInit() {
         const control = value => this.fb.control(value, Validators.required);
         const account = get(this, 'initialValue.account', '');
-        const bankName = get(this, 'initialValue.bankName', '');
-        const bankPostAccount = get(this, 'initialValue.bankPostAccount', '');
-        const bankBik = get(this, 'initialValue.bankBik', '');
+        const bankName = get(this, 'initialValue.bank_name', '');
+        const bankPostAccount = get(this, 'initialValue.bank_post_account', '');
+        const bankBik = get(this, 'initialValue.bank_bik', '');
         this.form.registerControl('account', control(account));
-        this.form.registerControl('bankName', control(bankName));
-        this.form.registerControl('bankPostAccount', control(bankPostAccount));
-        this.form.registerControl('bankBik', control(bankBik));
+        this.form.registerControl('bank_name', control(bankName));
+        this.form.registerControl('bank_post_account', control(bankPostAccount));
+        this.form.registerControl('bank_bik', control(bankBik));
         this.form.updateValueAndValidity();
     }
 }

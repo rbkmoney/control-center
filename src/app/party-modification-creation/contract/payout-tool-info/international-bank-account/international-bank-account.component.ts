@@ -30,7 +30,7 @@ export class InternationalBankAccountComponent implements OnInit {
         if (bank) {
             this.detailsChange(true);
         }
-        const account = get(this, 'initialValue.correspondentAccount', null);
+        const account = get(this, 'initialValue.correspondent_account', null);
         if (account) {
             this.accountChange(true);
         }
@@ -47,7 +47,7 @@ export class InternationalBankAccountComponent implements OnInit {
     accountChange(showCorrespondentAccount: boolean) {
         this.isCorrespondentAccount = showCorrespondentAccount;
         this.isCorrespondentAccount
-            ? this.form.registerControl('correspondentAccount', this.fb.group({}))
-            : this.form.removeControl('correspondentAccount');
+            ? this.form.registerControl('correspondent_account', this.fb.group({}))
+            : this.form.removeControl('correspondent_account');
     }
 }

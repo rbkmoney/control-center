@@ -19,9 +19,9 @@ export class AdjustmentModificationUnitComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const adjustmentId = get(this, 'initialValue.adjustmentId', '');
+        const adjustmentId = get(this, 'initialValue.adjustment_id', '');
         this.form.registerControl(
-            'adjustmentId',
+            'adjustment_id',
             this.fb.control(adjustmentId, Validators.required)
         );
         this.form.registerControl('modification', this.fb.group({}));
@@ -29,6 +29,6 @@ export class AdjustmentModificationUnitComponent implements OnInit {
     }
 
     generate() {
-        this.form.patchValue({ adjustmentId: uuid() });
+        this.form.patchValue({ adjustment_id: uuid() });
     }
 }

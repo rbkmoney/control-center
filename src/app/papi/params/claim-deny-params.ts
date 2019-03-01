@@ -1,6 +1,6 @@
 export class ClaimDenyParams {
-    claim_id: number;
-    party_id: string;
+    claimId: number;
+    partyId: string;
     reason: string;
     revision: string;
 }

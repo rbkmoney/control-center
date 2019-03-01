@@ -16,12 +16,12 @@ export class InternationalLegalEntityComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.registerControl('legalName', this.fb.control('', Validators.required));
-        this.form.registerControl('registeredAddress', this.fb.control('', Validators.required));
+        this.form.registerControl('legal_name', this.fb.control('', Validators.required));
+        this.form.registerControl('registered_address', this.fb.control('', Validators.required));
 
-        this.form.registerControl('tradingName', this.fb.control(''));
-        this.form.registerControl('actualAddress', this.fb.control(''));
-        this.form.registerControl('registeredNumber', this.fb.control(''));
+        this.form.registerControl('trading_name', this.fb.control(''));
+        this.form.registerControl('actual_address', this.fb.control(''));
+        this.form.registerControl('registered_number', this.fb.control(''));
         this.form.updateValueAndValidity();
     }
 }

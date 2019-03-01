@@ -5,8 +5,8 @@ import get from 'lodash-es/get';
 
 enum Type {
     russianBankAccount = 'russian_bank_account',
-    internationalBankAccount = 'internationalBankAccount',
-    walletInfo = 'walletInfo'
+    internationalBankAccount = 'international_bank_account',
+    walletInfo = 'wallet_info'
 }
 
 @Component({
@@ -50,7 +50,7 @@ export class PayoutToolInfoComponent implements OnInit {
             case Type.russianBankAccount:
                 this.clearControl();
                 this.form.registerControl(
-                    'russian_bank_account',
+                    Type.russianBankAccount,
                     this.fb.group(this.initialValue.russian_bank_account || {})
                 );
                 break;

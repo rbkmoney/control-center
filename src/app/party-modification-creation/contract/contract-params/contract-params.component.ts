@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { get } from 'lodash-es';
 
 import { ContractParams } from '../../../gen-damsel/payment_processing';
@@ -43,8 +43,8 @@ export class ContractParamsComponent implements OnInit {
     }
 
     togglePaymentInstitution() {
-        const paymentInstitution = get(this, 'initialValue.paymentInstitution', null);
+        const paymentInstitution = get(this, 'initialValue.payment_institution', null);
         this.showPaymentInstitution = paymentInstitution !== null;
-        this.toggleCheckbox(this.showPaymentInstitution, 'paymentInstitution', paymentInstitution);
+        this.toggleCheckbox(this.showPaymentInstitution, 'payment_institution', paymentInstitution);
     }
 }
