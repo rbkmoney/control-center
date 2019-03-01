@@ -71,7 +71,6 @@ export class ClaimService {
             case ClaimActionType.edit:
                 return this.getClaimInfo(party_id, claim_id).pipe(
                     tap(claimInfo => {
-                        console.log(claimInfo);
                         this.persistentContainerService.init(claimInfo.modifications.modifications);
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
                         const domainModificationInfo = this.toDomainModificationInfo(claimInfo);

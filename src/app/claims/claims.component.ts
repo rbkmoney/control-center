@@ -25,7 +25,6 @@ export class ClaimsComponent implements OnInit {
         this.isLoading = true;
         this.claimService.getClaims(params).subscribe(
             claims => {
-                console.log(claims);
                 this.isLoading = false;
                 this.claims = claims.reverse();
             },
