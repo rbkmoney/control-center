@@ -16,10 +16,12 @@ export class ClaimComponent {
     ) {
         this.route.params.subscribe(params => {
             const { action, party_id, claim_id } = params;
-            this.claimService.resolveClaimInfo(action, party_id, claim_id).subscribe(null, error => {
-                console.error(error);
-                this.snackBar.open('An error occurred while claim resolving', 'OK');
-            });
+            this.claimService
+                .resolveClaimInfo(action, party_id, claim_id)
+                .subscribe(null, error => {
+                    console.error(error);
+                    this.snackBar.open('An error occurred while claim resolving', 'OK');
+                });
         });
     }
 }
