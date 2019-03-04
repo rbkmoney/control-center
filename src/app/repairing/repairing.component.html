@@ -10,6 +10,10 @@
                                 <th mat-header-cell *matHeaderCellDef>ID</th>
                                 <td mat-cell *matCellDef="let el">{{ el.id }}</td>
                             </ng-container>
+                            <ng-container matColumnDef="timer">
+                                <th mat-header-cell *matHeaderCellDef>Timer</th>
+                                <td mat-cell *matCellDef="let el">{{ getTimer(el) }}</td>
+                            </ng-container>
                             <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef>Status</th>
                                 <td mat-cell *matCellDef="let el">
@@ -18,6 +22,7 @@
                                             selected
                                             [color]="getColor(el.status)"
                                             (click)="updateStatus([el])"
+                                            [disabled]="isLoading"
                                         >
                                             {{ el.status }}
                                         </mat-chip>
@@ -27,7 +32,20 @@
                             <ng-container matColumnDef="actions">
                                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                                 <td mat-cell *matCellDef="let el">
-                                    <button mat-icon-button color="warn" (click)="remove(el)">
+                                    <button
+                                        mat-icon-button
+                                        color="primary"
+                                        (click)="repair([el])"
+                                        [disabled]="isLoading"
+                                    >
+                                        <mat-icon>build</mat-icon>
+                                    </button>
+                                    <button
+                                        mat-icon-button
+                                        color="warn"
+                                        (click)="remove(el)"
+                                        [disabled]="isLoading"
+                                    >
                                         <mat-icon>remove</mat-icon>
                                     </button>
                                 </td>
@@ -48,11 +66,26 @@
                                 <mat-hint>Use any delimiter and press enter to add</mat-hint>
                             </mat-form-field>
                             <div>
-                                <button mat-button color="primary" (click)="add()">ADD</button>
+                                <button
+                                    mat-button
+                                    color="primary"
+                                    (click)="add()"
+                                    [disabled]="isLoading"
+                                >
+                                    ADD
+                                </button>
                             </div>
                         </div>
                         <div>
-                            <button mat-button color="primary" (click)="repair()">REPAIR</button>
+                            <button
+                                mat-button
+                                color="primary"
+                                (click)="repair()"
+                                [disabled]="isLoading"
+                            >
+                                <mat-icon>build</mat-icon>
+                                REPAIR
+                            </button>
                         </div>
                     </div>
                 </mat-tab>
@@ -64,7 +97,10 @@
         </mat-card-content>
         <!-- <mat-card-actions></mat-card-actions> -->
         <mat-card-footer *ngIf="isLoading">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            <mat-progress-bar
+                [mode]="progress === true ? 'indeterminate' : 'determinate'"
+                [value]="progress === true ? undefined : progress * 100"
+            ></mat-progress-bar>
         </mat-card-footer>
     </mat-card>
 </cc-card-container>

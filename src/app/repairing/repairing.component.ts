@@ -1,21 +1,30 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import * as moment from 'moment';
 
 import { AutomatonService } from '../machinegun/automaton.service';
-import { execute } from '../shared/execute';
+import { execute, SuccessResult } from '../shared/execute';
+import { Machine } from '../machinegun/gen-model/state_processing';
 
 enum Status {
-    update = 'update',
-    found = 'found',
-    repaired = 'repaired',
-    notFound = 'not found',
-    error = 'error'
+    found = 'machine found',
+    repaired = 'machine repaired',
+
+    update = 'status updated',
+
+    unknownError = 'unknown error',
+    namespaceNotFound = 'namespace not found',
+    machineNotFound = 'machine not found',
+    machineFailed = 'machine failed',
+    eventNotFound = 'event not found',
+    machineAlreadyWorking = 'machine already working'
 }
 
 interface Element {
     id: string;
     status: Status;
+    machine?: Machine;
 }
 
 enum Namespace {
@@ -28,10 +37,10 @@ enum Namespace {
     providers: []
 })
 export class RepairingComponent {
-    isLoading = false;
-    displayedColumns: string[] = ['id', 'status', 'actions'];
+    displayedColumns: string[] = ['id', 'status', 'timer', 'actions'];
     dataSource: Array<Element> = [];
     idsControl: FormControl;
+    progress: boolean | number = false;
 
     constructor(
         private fb: FormBuilder,
@@ -39,6 +48,10 @@ export class RepairingComponent {
         private snackBar: MatSnackBar
     ) {
         this.idsControl = fb.control('');
+    }
+
+    get isLoading() {
+        return this.progress !== false && this.progress !== 1;
     }
 
     add() {
@@ -75,49 +88,93 @@ export class RepairingComponent {
         this.dataSource = resultDataSource;
     }
 
-    updateStatus(elements: Element[]) {
+    setStatus(elements: Element[] = this.dataSource, status = Status.update) {
         for (const element of elements) {
             element.status = Status.update;
-            this.automatonService
-                .getMachine({
-                    ns: Namespace.invoice,
-                    ref: { id: element.id },
-                    range: { limit: 0, direction: 1 }
-                })
-                .subscribe(
-                    machine => {
-                        element.status = Status.found;
-                    },
-                    error => {
-                        element.status = Status.notFound;
-                    }
-                );
         }
     }
 
-    repair() {
+    updateStatus(elements: Element[]) {
+        if (!elements.length) {
+            return;
+        }
+        this.progress = 0;
+        this.setStatus(elements);
         execute(
-            this.dataSource.map(({ id }) => () =>
+            elements.map(({ id }) => () =>
+                this.automatonService.getMachine({
+                    ns: Namespace.invoice,
+                    ref: { id },
+                    range: { limit: 0, direction: 1 }
+                })
+            )
+        ).subscribe(result => {
+            this.progress = result.progress;
+            const element = elements[result.idx];
+            if (result.hasError) {
+                element.status = this.statusByError(result.error);
+            } else {
+                element.status = Status.found;
+                element.machine = (result as SuccessResult).data;
+            }
+        });
+    }
+
+    statusByError(error: any) {
+        switch (error.name) {
+            case 'MachineNotFound':
+                return Status.machineNotFound;
+            case 'MachineFailed':
+                return Status.machineFailed;
+            case 'NamespaceNotFound':
+                return Status.namespaceNotFound;
+            case 'MachineAlreadyWorking':
+                return Status.machineAlreadyWorking;
+            default:
+                return Status.unknownError;
+        }
+    }
+
+    repair(elements: Element[] = this.dataSource) {
+        if (!elements.length) {
+            return;
+        }
+        this.progress = 0;
+        for (const element of elements) {
+            element.status = Status.update;
+        }
+        execute(
+            elements.map(({ id }) => () =>
                 this.automatonService.simpleRepair(Namespace.invoice, { id })
             )
         ).subscribe(result => {
-            console.log(this.dataSource[result.idx]);
+            this.progress = result.progress;
             console.log(result);
+            const element = elements[result.idx];
+            if (result.hasError) {
+                element.status = this.statusByError(result.error);
+            } else {
+                element.status = Status.repaired;
+            }
         });
     }
 
     getColor(status: Status) {
         switch (status) {
+            case Status.found:
             case Status.repaired:
                 return 'primary';
-            case Status.found:
-                return 'accent';
-            case Status.error:
-            case Status.notFound:
-                return 'warn';
             case Status.update:
+                return 'accent';
             default:
-                return '';
+                return 'warn';
         }
+    }
+
+    getTimer(element: Element): string {
+        if (element.machine) {
+            return moment(element.machine.timer).format('L LTS');
+        }
+        return '';
     }
 }
