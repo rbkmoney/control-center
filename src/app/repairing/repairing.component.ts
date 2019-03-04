@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { uniqBy } from 'lodash-es';
+import { MatSnackBar } from '@angular/material';
 
 import { AutomatonService } from '../machinegun/automaton.service';
 import { execute } from '../shared/execute';
@@ -29,7 +30,11 @@ export class RepairingComponent {
     dataSource: Array<Element> = [];
     idsControl: FormControl;
 
-    constructor(private fb: FormBuilder, private automatonService: AutomatonService) {
+    constructor(
+        private fb: FormBuilder,
+        private automatonService: AutomatonService,
+        private snackBar: MatSnackBar
+    ) {
         this.idsControl = fb.control('');
     }
 

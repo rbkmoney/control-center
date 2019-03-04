@@ -14,7 +14,10 @@
                                 <th mat-header-cell *matHeaderCellDef>Status</th>
                                 <td mat-cell *matCellDef="let el">
                                     <mat-chip-list>
-                                        <mat-chip [color]="getColor(el.status)">
+                                        <mat-chip
+                                            [color]="getColor(el.status)"
+                                            (click)="updateStatus([el])"
+                                        >
                                             {{ el.status }}
                                         </mat-chip>
                                     </mat-chip-list>
