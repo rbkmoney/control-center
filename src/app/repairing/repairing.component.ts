@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { uniqBy } from 'lodash-es';
 import { MatSnackBar } from '@angular/material';
 
 import { AutomatonService } from '../machinegun/automaton.service';
@@ -46,14 +45,27 @@ export class RepairingComponent {
         const ids: string[] = [];
         const selectIds = /[a-z0-9-]+/gi;
         let execId: string[];
+        const alreadyAddedIds: string[] = [];
         while ((execId = selectIds.exec(this.idsControl.value))) {
-            ids.push(execId[0]);
+            const id = execId[0];
+            if (
+                this.dataSource.findIndex(el => el.id === id) >= 0 ||
+                ids.findIndex(addedId => addedId === id) >= 0
+            ) {
+                if (alreadyAddedIds.findIndex(alreadyAddedId => alreadyAddedId === id) === -1) {
+                    alreadyAddedIds.push(id);
+                }
+            } else {
+                ids.push(id);
+            }
+        }
+        if (alreadyAddedIds.length) {
+            this.snackBar.open(`IDs: ${alreadyAddedIds.join(', ')} has already been added`, 'OK', {
+                duration: 10000
+            });
         }
         this.idsControl.setValue('');
-        this.dataSource = uniqBy(
-            this.dataSource.concat(ids.map(id => ({ id, status: Status.update }))),
-            'id'
-        );
+        this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.update })));
         this.updateStatus(this.dataSource.filter(el => ids.find(id => id === el.id)));
     }
 
