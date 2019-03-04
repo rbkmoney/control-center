@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { AutomatonService } from '../machinegun/automaton.service';
 import { execute, SuccessResult } from '../shared/execute';
 import { Machine } from '../machinegun/gen-model/state_processing';
+import { Namespace } from '../machinegun/model/namespace';
 
 enum Status {
     found = 'machine found',
@@ -25,10 +26,6 @@ interface Element {
     id: string;
     status: Status;
     machine?: Machine;
-}
-
-enum Namespace {
-    invoice = 'invoice'
 }
 
 @Component({
