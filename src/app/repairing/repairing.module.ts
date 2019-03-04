@@ -15,11 +15,12 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { RepairingComponent } from './repairing.component';
+import { RepairComponent } from './repair/repair.component';
 import { RepairingService } from './repairing.service';
 import { RepairingRoutingModule } from './repairing-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MachinegunModule } from '../machinegun/machinegun.module';
+import { RepairingComponent } from './repairing.component';
 
 @NgModule({
     imports: [
@@ -40,7 +41,7 @@ import { MachinegunModule } from '../machinegun/machinegun.module';
         MatChipsModule,
         MatSnackBarModule
     ],
-    declarations: [RepairingComponent],
+    declarations: [RepairComponent, RepairingComponent],
     providers: [RepairingService]
 })
 export class RepairingModule {}
