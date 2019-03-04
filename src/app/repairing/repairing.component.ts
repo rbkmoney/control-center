@@ -19,6 +19,10 @@ interface Element {
     status: Status;
 }
 
+enum Namespace {
+    invoice = 'invoice'
+}
+
 @Component({
     templateUrl: 'repairing.component.html',
     styleUrls: ['repairing.component.css'],
@@ -64,7 +68,7 @@ export class RepairingComponent {
             element.status = Status.update;
             this.automatonService
                 .getMachine({
-                    ns: 'invoice',
+                    ns: Namespace.invoice,
                     ref: { id: element.id },
                     range: { limit: 0, direction: 1 }
                 })
@@ -82,9 +86,10 @@ export class RepairingComponent {
     repair() {
         execute(
             this.dataSource.map(({ id }) => () =>
-                this.automatonService.simpleRepair('Invoice', { id })
+                this.automatonService.simpleRepair(Namespace.invoice, { id })
             )
         ).subscribe(result => {
+            console.log(this.dataSource[result.idx]);
             console.log(result);
         });
     }

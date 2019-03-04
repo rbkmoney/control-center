@@ -17,25 +17,26 @@ interface SuccessResult extends BaseResult {
 
 type Result = ErrorResult | SuccessResult;
 
-async function exec(funcs: Fn[], srcFuncs: Fn[], result$: Subject<Result>): Promise<void> {
-    let func: Fn;
+async function exec(funcs: Array<[number, Fn]>, result$: Subject<Result>): Promise<void> {
+    let func: [number, Fn], result: BaseResult;
     while ((func = funcs.pop())) {
-        const idx = srcFuncs.findIndex(f => f === func);
+        result = { func: func[1], idx: func[0] };
         try {
-            const data = await func().toPromise();
-            result$.next({ func, idx, data });
+            (result as SuccessResult).data = await func[1]().toPromise();
         } catch (error) {
-            result$.next({ func, idx, error });
+            (result as ErrorResult).error = error;
+        } finally {
+            result$.next(result as SuccessResult | ErrorResult);
         }
     }
 }
 
 export function execute(funcs: Fn[], execCount = 4): Observable<Result> {
     const result$: Subject<Result> = new Subject();
-    const tmpFuncs = funcs.slice();
+    const tmpFuncs = funcs.map((f, idx) => [idx, f]) as Array<[number, Fn]>;
     const execs: Promise<void>[] = [];
     for (let i = 0; i < execCount; ++i) {
-        execs.push(exec(tmpFuncs, funcs, result$));
+        execs.push(exec(tmpFuncs, result$));
     }
     Promise.all(execs)
         .then(() => result$.complete())
