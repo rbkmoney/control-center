@@ -25,6 +25,7 @@ enum Status {
 interface Element {
     id: string;
     status: Status;
+    ns: Namespace;
     machine?: Machine;
 }
 
@@ -34,10 +35,13 @@ interface Element {
     providers: []
 })
 export class RepairingComponent {
-    displayedColumns: string[] = ['id', 'status', 'timer', 'actions'];
+    displayedColumns: string[] = ['id', 'ns', 'timer', 'status', 'actions'];
     dataSource: Array<Element> = [];
-    idsControl: FormControl;
     progress: boolean | number = false;
+    namespaces = Object.values(Namespace);
+
+    idsControl: FormControl;
+    nsControl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -45,6 +49,7 @@ export class RepairingComponent {
         private snackBar: MatSnackBar
     ) {
         this.idsControl = fb.control('');
+        this.nsControl = fb.control(Namespace.invoice);
     }
 
     get isLoading() {
@@ -75,7 +80,10 @@ export class RepairingComponent {
             });
         }
         this.idsControl.setValue('');
-        this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.update })));
+        const ns = this.nsControl.value;
+        this.dataSource = this.dataSource.concat(
+            ids.map(id => ({ id, ns, status: Status.update }))
+        );
         this.updateStatus(this.dataSource.filter(el => ids.find(id => id === el.id)));
     }
 
@@ -98,9 +106,9 @@ export class RepairingComponent {
         this.progress = 0;
         this.setStatus(elements);
         execute(
-            elements.map(({ id }) => () =>
+            elements.map(({ id, ns }) => () =>
                 this.automatonService.getMachine({
-                    ns: Namespace.invoice,
+                    ns,
                     ref: { id },
                     range: { limit: 0, direction: 1 }
                 })
@@ -141,9 +149,7 @@ export class RepairingComponent {
             element.status = Status.update;
         }
         execute(
-            elements.map(({ id }) => () =>
-                this.automatonService.simpleRepair(Namespace.invoice, { id })
-            )
+            elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
         ).subscribe(result => {
             this.progress = result.progress;
             console.log(result);

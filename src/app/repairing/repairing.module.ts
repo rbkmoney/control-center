@@ -10,7 +10,8 @@ import {
     MatInputModule,
     MatIconModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -38,7 +39,8 @@ import { MachinegunModule } from '../machinegun/machinegun.module';
         MatIconModule,
         MachinegunModule,
         MatChipsModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatSelectModule
     ],
     declarations: [RepairingComponent],
     providers: [RepairingService]
