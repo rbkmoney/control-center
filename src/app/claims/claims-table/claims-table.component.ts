@@ -26,8 +26,9 @@ export class ClaimsTableComponent {
     constructor(private router: Router) {}
 
     navigateToClaim(claim: ClaimInfo) {
+        const c = claim as any;
         this.router.navigate([
-            `/claims/${claim.party_id}/${ClaimActionType.edit}/${claim.claim_id}`
+            `/claims/${c.partyId}/${ClaimActionType.edit}/${c.claimId}`
         ]);
     }
 }
