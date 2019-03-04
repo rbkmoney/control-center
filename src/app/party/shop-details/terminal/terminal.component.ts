@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
-import { TerminalObject } from '../../../gen-damsel/domain';
 import { DomainTypedManager } from '../../../thrift';
-import { PredicateType } from '../extract-terminal-info';
+import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 
 @Component({
     selector: 'cc-terminal',
@@ -11,7 +10,7 @@ import { PredicateType } from '../extract-terminal-info';
     styleUrls: ['terminal.component.scss']
 })
 export class TerminalComponent {
-    @Input() terminal: TerminalObject;
+    @Input() terminalInfo: TerminalInfo;
     @Input() partyID: string;
     @Input() shopID: string;
     @Input() providerID: number;
@@ -25,7 +24,7 @@ export class TerminalComponent {
         const params = {
             partyID: this.partyID,
             shopID: this.shopID,
-            terminalID: this.terminal.ref.id,
+            terminalID: this.terminalInfo.terminal.ref.id,
             providerID: this.providerID
         };
         this.dtm.removeTerminalFromShop(params).subscribe(
@@ -45,6 +44,9 @@ export class TerminalComponent {
             }
         );
     }
-    @Input() disabled: boolean;
-    @Input() predicateType: PredicateType;
+
+    isRemovable() {
+        const { predicateType } = this.terminalInfo;
+        return predicateType === PredicateType.condition || predicateType === PredicateType.any_of;
+    }
 }

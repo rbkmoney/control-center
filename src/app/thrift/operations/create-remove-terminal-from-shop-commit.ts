@@ -1,8 +1,8 @@
-import { ProviderObject } from '../../damsel/domain';
 import { RemoveTerminalFromShopParams } from './remove-terminal-from-shop-params';
-import { Commit } from '../../damsel/domain-config';
 import { toGenCommit } from '../converters';
 import { createRemoveTerminalFromProviderOperation } from './create-remove-terminal-from-provider-operation';
+import { ProviderObject } from '../../gen-damsel/domain';
+import { Commit } from '../../gen-damsel/domain_config';
 
 export const createRemoveTerminalFromShopCommit = (
     providerObject: ProviderObject,
