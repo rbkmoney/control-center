@@ -33,6 +33,8 @@ export class ClaimService {
 
     modificationGroups$: Subject<ModificationGroup[]> = new Subject();
 
+    isSaving = false;
+
     private claimInfoContainer: ClaimInfoContainer;
 
     private containers: PersistentContainer[];

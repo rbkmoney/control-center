@@ -16,7 +16,13 @@
             </ng-template>
             <div class="tab-container" fxLayout="column" fxLayoutGap="10px">
                 <div class="add-modification-container" fxLayoutAlign="end center">
-                    <button mat-button (click)="add(unit.unitID)">ADD MODIFICATION</button>
+                    <button
+                        mat-button
+                        [disabled]="claimService.isSaving"
+                        (click)="add(unit.unitID)"
+                    >
+                        ADD MODIFICATION
+                    </button>
                 </div>
                 <cc-party-modification-container
                     *ngFor="let container of unit.containers"

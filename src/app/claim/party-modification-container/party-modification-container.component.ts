@@ -9,6 +9,7 @@ import {
 import { ClaimService } from '../claim.service';
 import { PartyModificationContainerService } from './party-modification-container.service';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
+import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.component';
 
 @Component({
     selector: 'cc-party-modification-container',
@@ -24,6 +25,8 @@ export class PartyModificationContainerComponent implements OnInit {
 
     modifications: ModificationUnitContainer[];
 
+    activeUnit: ModificationUnitContainer;
+
     constructor(
         private dialog: MatDialog,
         private claimService: ClaimService,
@@ -32,18 +35,28 @@ export class PartyModificationContainerComponent implements OnInit {
 
     ngOnInit() {
         this.modifications = this.container.unitContainers.slice();
+        this.activeUnit = this.modifications[0];
     }
 
-    remove(typeHash: string) {
-        this.claimService.removeModification(typeHash);
+    remove() {
+        const config = {
+            data: {
+                typeHash: this.activeUnit.typeHash
+            }
+        };
+        this.dialog.open<RemoveConfirmComponent>(RemoveConfirmComponent, config);
     }
 
-    edit(unit: ModificationUnitContainer) {
+    edit() {
         const config = this.partyModificationContainerService.getDialogConfig(
-            unit.modificationUnit,
+            this.activeUnit.modificationUnit,
             this.container.name,
             this.type
         );
         this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
+    }
+
+    onChangeIndex(index) {
+        this.activeUnit = this.modifications[index];
     }
 }

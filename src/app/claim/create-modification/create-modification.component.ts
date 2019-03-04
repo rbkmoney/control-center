@@ -55,7 +55,7 @@ export class CreateModificationComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.route.firstChild.params.subscribe(p => (this.partyID = p.partyId));
+        this.route.firstChild.params.subscribe(p => (this.partyID = p.party_id));
         this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
         if (this.data.unitID) {
             this.unitID = this.data.unitID;

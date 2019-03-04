@@ -18,7 +18,6 @@ import { CloneClaimComponent } from '../clone-claim/clone-claim.component';
 })
 export class ClaimInfoComponent implements OnInit {
     claimInfoContainer: ClaimInfoContainer;
-    isLoading = false;
     partyID: string;
     claimID: number;
 
@@ -46,7 +45,7 @@ export class ClaimInfoComponent implements OnInit {
     }
 
     save() {
-        this.isLoading = true;
+        this.claimService.isSaving = true;
         switch (this.claimInfoContainer.type) {
             case ClaimActionType.edit:
                 this.claimService
@@ -102,13 +101,13 @@ export class ClaimInfoComponent implements OnInit {
     }
 
     private success() {
-        this.isLoading = false;
+        this.claimService.isSaving = false;
         this.snackBar.open('Changes saved', 'OK', { duration: 3000 });
     }
 
     private failed(error) {
         console.error(error);
-        this.isLoading = false;
+        this.claimService.isSaving = false;
         this.snackBar.open('An error occurred', 'OK');
     }
 }

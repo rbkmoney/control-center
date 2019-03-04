@@ -1,27 +1,18 @@
 <mat-card>
     <mat-card-subtitle>{{ container.name | ccContainerName: type }}</mat-card-subtitle>
     <mat-card-content>
-        <mat-tab-group>
+        <mat-tab-group (selectedIndexChange)="onChangeIndex($event)">
             <mat-tab *ngFor="let unit of modifications; let index = index">
                 <ng-template mat-tab-label>
                     {{ 'unit ' + (index + 1) }}
                     <span class="unsaved-label">{{ unit.saved ? '' : '*' }}</span>
                 </ng-template>
                 <cc-pretty-json [object]="unit.modificationUnit"></cc-pretty-json>
-                <div fxLayoutAlign="end center">
-                    <button *ngIf="!unit.saved" mat-button color="primary" (click)="edit(unit)">
-                        EDIT
-                    </button>
-                    <button
-                        *ngIf="!unit.saved"
-                        mat-button
-                        color="warn"
-                        (click)="remove(unit.typeHash)"
-                    >
-                        REMOVE
-                    </button>
-                </div>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>
+    <mat-card-actions *ngIf="!activeUnit?.saved" fxLayoutAlign="end center">
+        <button mat-button color="primary" (click)="edit()">EDIT</button>
+        <button mat-button color="warn" (click)="remove()">REMOVE</button>
+    </mat-card-actions>
 </mat-card>
