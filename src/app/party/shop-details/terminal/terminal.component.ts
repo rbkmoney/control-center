@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { DomainTypedManager } from '../../../thrift';
@@ -14,6 +14,7 @@ export class TerminalComponent {
     @Input() partyID: string;
     @Input() shopID: string;
     @Input() providerID: number;
+    @Output() terminalRemovedEvent: EventEmitter<void> = new EventEmitter();
 
     isLoading = false;
 
@@ -33,6 +34,7 @@ export class TerminalComponent {
                 this.snackBar.open('Terminal successfully removed from shop', 'OK', {
                     duration: 3000
                 });
+                this.terminalRemovedEvent.emit();
             },
             e => {
                 this.isLoading = false;

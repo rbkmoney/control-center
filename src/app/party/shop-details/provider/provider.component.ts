@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ProviderInfo } from '../shop-details.service';
 
@@ -11,4 +11,9 @@ export class ProviderComponent {
     @Input() providerInfo: ProviderInfo[];
     @Input() partyID: string;
     @Input() shopID: string;
+    @Output() terminalRemovedEvent: EventEmitter<void> = new EventEmitter();
+
+    terminalRemoved() {
+        this.terminalRemovedEvent.emit();
+    }
 }

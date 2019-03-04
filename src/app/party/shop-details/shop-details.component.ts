@@ -45,7 +45,9 @@ export class ShopDetailsComponent implements OnInit {
             .subscribe(() => this.getData());
     }
 
-    needReload() {}
+    terminalRemoved() {
+        this.getData();
+    }
 
     private getData() {
         this.isLoading = true;

@@ -13,6 +13,7 @@
                         [providerID]="info.provider.ref.id"
                         [shopID]="shopID"
                         [partyID]="partyID"
+                        (terminalRemovedEvent)="terminalRemoved()"
                     ></cc-terminal>
                 </mat-list-item>
             </mat-list>

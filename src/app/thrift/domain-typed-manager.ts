@@ -93,13 +93,12 @@ export class DomainTypedManager {
 
     removeTerminalFromShop(params: RemoveTerminalFromShopParams) {
         return combineLatest(this.getLastVersion(), this.getProviderObject(params.providerID)).pipe(
-            switchMap(([version, provider]) => {
-                console.log(createRemoveTerminalFromShopCommit(provider, params));
-                return this.dmtService.commit(
+            switchMap(([version, provider]) =>
+                this.dmtService.commit(
                     version,
                     createRemoveTerminalFromShopCommit(provider, params)
-                );
-            }),
+                )
+            ),
             tap(() => this.dmtCacheService.forceReload())
         );
     }
