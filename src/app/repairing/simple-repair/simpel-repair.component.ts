@@ -99,7 +99,7 @@ export class SimpleRepairComponent {
 
     setStatus(elements: Element[] = this.dataSource, status = Status.update) {
         for (const element of elements) {
-            element.status = Status.update;
+            element.status = status;
         }
     }
 

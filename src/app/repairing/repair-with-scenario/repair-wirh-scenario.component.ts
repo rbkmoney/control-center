@@ -1,36 +1,38 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import * as moment from 'moment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 
-import { AutomatonService } from '../../machinegun/automaton.service';
-import { execute, SuccessResult } from '../../shared/execute';
-import { Machine } from '../../machinegun/gen-model/state_processing';
-import { Namespace } from '../../machinegun/model/namespace';
+import { execute } from '../../shared/execute';
 import { PaymentProcessingService } from '../../thrift/payment-processing.service';
 import { RepairingService } from '../repairing.service';
+import { map } from 'rxjs/operators';
 
 enum Status {
-    found = 'machine found',
     repaired = 'machine repaired',
 
     update = 'status updated',
 
+    unknown = 'unknown',
+
     unknownError = 'unknown error',
-    namespaceNotFound = 'namespace not found',
-    machineNotFound = 'machine not found',
-    machineFailed = 'machine failed',
-    eventNotFound = 'event not found',
-    machineAlreadyWorking = 'machine already working'
+    invalidUser = 'invalid user',
+    invoiceNotFound = 'invoice not found',
+    invalidRequest = 'invalid request'
+}
+
+enum Scenario {
+    // complex = 'complex',
+    fail_pre_processing = 'fail_pre_processing',
+    // skip_inspector = 'skip_inspector',
+    fail_session = 'fail_session'
 }
 
 interface Element {
     id: string;
     status: Status;
-    ns: Namespace;
-    machine?: Machine;
+    error?: string;
 }
 
 @Component({
@@ -40,12 +42,15 @@ interface Element {
     providers: []
 })
 export class RepairWithScenarioComponent {
-    displayedColumns: string[] = ['id', 'ns', 'timer', 'status', 'actions'];
+    displayedColumns: string[] = ['id', 'status', 'actions'];
     dataSource: Array<Element> = [];
-    namespaces = Object.values(Namespace);
+    scenarios = Object.values(Scenario);
+    codes: string[] = ['authorization_failed'];
+    filteredCodes: Observable<string[]>;
 
     idsControl: FormControl;
-    nsControl: FormControl;
+    scenarioControl: FormControl;
+    codeControl: FormControl = new FormControl('');
 
     @Input()
     progress$: BehaviorSubject<boolean | number>;
@@ -54,14 +59,18 @@ export class RepairWithScenarioComponent {
 
     constructor(
         private fb: FormBuilder,
-        private automatonService: AutomatonService,
         private snackBar: MatSnackBar,
         private paymentProcessingService: PaymentProcessingService,
         private keycloakService: KeycloakService,
         private repairingService: RepairingService
     ) {
         this.idsControl = fb.control('');
-        this.nsControl = fb.control(Namespace.invoice);
+        this.scenarioControl = fb.control(Scenario.fail_pre_processing);
+        this.filteredCodes = this.codeControl.valueChanges.pipe(
+            map(code =>
+                code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
+            )
+        );
     }
 
     add() {
@@ -88,11 +97,10 @@ export class RepairWithScenarioComponent {
             });
         }
         this.idsControl.setValue('');
-        const ns = this.nsControl.value;
+        const ns = this.scenarioControl.value;
         this.dataSource = this.dataSource.concat(
-            ids.map(id => ({ id, ns, status: Status.update }))
+            ids.map(id => ({ id, ns, status: Status.unknown }))
         );
-        this.updateStatus(this.dataSource.filter(el => ids.find(id => id === el.id)));
     }
 
     remove(element) {
@@ -103,46 +111,18 @@ export class RepairWithScenarioComponent {
 
     setStatus(elements: Element[] = this.dataSource, status = Status.update) {
         for (const element of elements) {
-            element.status = Status.update;
+            element.status = status;
         }
-    }
-
-    updateStatus(elements: Element[]) {
-        if (!elements.length) {
-            return;
-        }
-        this.progress$.next(0);
-        this.setStatus(elements);
-        execute(
-            elements.map(({ id, ns }) => () =>
-                this.automatonService.getMachine({
-                    ns,
-                    ref: { id },
-                    range: { limit: 0, direction: 1 }
-                })
-            )
-        ).subscribe(result => {
-            this.progress$.next(result.progress);
-            const element = elements[result.idx];
-            if (result.hasError) {
-                element.status = this.statusByError(result.error);
-            } else {
-                element.status = Status.found;
-                element.machine = (result as SuccessResult).data;
-            }
-        });
     }
 
     statusByError(error: any) {
         switch (error.name) {
-            case 'MachineNotFound':
-                return Status.machineNotFound;
-            case 'MachineFailed':
-                return Status.machineFailed;
-            case 'NamespaceNotFound':
-                return Status.namespaceNotFound;
-            case 'MachineAlreadyWorking':
-                return Status.machineAlreadyWorking;
+            case 'InvalidUser':
+                return Status.invalidUser;
+            case 'InvoiceNotFound':
+                return Status.invoiceNotFound;
+            case 'InvalidRequest':
+                return Status.invalidRequest;
             default:
                 return Status.unknownError;
         }
@@ -156,66 +136,43 @@ export class RepairWithScenarioComponent {
         for (const element of elements) {
             element.status = Status.update;
         }
-        execute(
-            elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
-        ).subscribe(result => {
-            this.progress$.next(result.progress);
-            const element = elements[result.idx];
-            if (result.hasError) {
-                element.status = this.statusByError(result.error);
-            } else {
-                element.status = Status.repaired;
+        const scenario: any = {
+            fail_session: {
+                failure: { code: this.codeControl.value }
             }
-        });
-    }
-
-    repairWithScenario(elements: Element[] = this.dataSource) {
-        if (!elements.length) {
-            return;
-        }
-        this.progress$.next(0);
-        for (const element of elements) {
-            element.status = Status.update;
-        }
-        const scenario: any = { fail_session: { failure: { code: 'authorization_failed' } } };
+        };
+        const user: any = {
+            id: this.keycloakService.getUsername(),
+            type: { internal_user: {} }
+        };
         execute(
             elements.map(({ id }) => () =>
-                this.paymentProcessingService.repairWithScenario(
-                    {
-                        id: this.keycloakService.getUsername(),
-                        type: { internalUser: {} }
-                    },
-                    id,
-                    scenario
-                )
+                this.paymentProcessingService.repairWithScenario(user, id, scenario)
             )
         ).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.hasError) {
                 element.status = this.statusByError(result.error);
+                element.error = Array.isArray(result.error.errors)
+                    ? result.error.errors.join('. ')
+                    : '';
             } else {
                 element.status = Status.repaired;
+                element.error = '';
             }
         });
     }
 
     getColor(status: Status) {
         switch (status) {
-            case Status.found:
             case Status.repaired:
                 return 'primary';
+            case Status.unknown:
             case Status.update:
                 return 'accent';
             default:
                 return 'warn';
         }
-    }
-
-    getTimer(element: Element): string {
-        if (element.machine) {
-            return moment(element.machine.timer).format('L LTS');
-        }
-        return '';
     }
 }

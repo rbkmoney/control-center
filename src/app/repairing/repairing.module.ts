@@ -11,7 +11,9 @@ import {
     MatIconModule,
     MatChipsModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatTooltipModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +44,9 @@ import { RepairWithScenarioComponent } from './repair-with-scenario/repair-wirh-
         MachinegunModule,
         MatChipsModule,
         MatSnackBarModule,
-        MatSelectModule
+        MatSelectModule,
+        MatAutocompleteModule,
+        MatTooltipModule
     ],
     declarations: [RepairingComponent, SimpleRepairComponent, RepairWithScenarioComponent],
     providers: [RepairingService]
