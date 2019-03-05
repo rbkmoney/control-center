@@ -36,8 +36,8 @@ export class ClaimInfoComponent implements OnInit {
             .pipe(filter(container => container !== null))
             .subscribe(container => {
                 this.claimInfoContainer = container;
-                this.partyID = container.party_id;
-                this.claimID = container.claim_id;
+                this.partyID = container.partyId;
+                this.claimID = container.claimId;
             });
     }
 

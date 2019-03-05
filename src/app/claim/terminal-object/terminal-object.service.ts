@@ -64,7 +64,7 @@ export class TerminalObjectService {
         const defaultOption = 'VTB';
         return this.fb.group({
             shopID: ['', Validators.required],
-            partyID: [param.party_id, Validators.required],
+            partyID: [param.partyId, Validators.required],
             shopUrl: '',
             providerID: [
                 {
@@ -73,7 +73,7 @@ export class TerminalObjectService {
                 },
                 Validators.required
             ],
-            terminalName: [prepareTerminalName(defaultOption, param.shop_url), Validators.required],
+            terminalName: [prepareTerminalName(defaultOption, param.shopUrl), Validators.required],
             terminalDescription: 'No',
             riskCoverage: [100, Validators.required],
             bankOptionsTemplate: [defaultOption],

@@ -6,14 +6,14 @@ import { DomainModificationInfo } from '../../model';
 import { TerminalOption } from '../../../thrift';
 
 export const getOptions = (option: string, params: DomainModificationInfo): TerminalOption[] => {
-    const { shop_url, party_id } = params;
+    const { shopUrl, partyId } = params;
     let options = [{ key: '', value: '' }];
     switch (option) {
         case 'VTB':
-            options = getVtbTemplateOptions(shop_url, party_id);
+            options = getVtbTemplateOptions(shopUrl, partyId);
             break;
         case 'TCS':
-            options = getTcsTemplateOptions(shop_url);
+            options = getTcsTemplateOptions(shopUrl);
             break;
         case 'RIET':
             options = getRietTemplateOptions();
