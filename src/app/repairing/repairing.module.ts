@@ -16,6 +16,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { SimpleRepairComponent } from './simple-repair/simpel-repair.component';
 import { RepairingComponent } from './repairing.component';
 import { RepairingService } from './repairing.service';
 import { RepairingRoutingModule } from './repairing-routing.module';
@@ -42,7 +43,7 @@ import { MachinegunModule } from '../machinegun/machinegun.module';
         MatSnackBarModule,
         MatSelectModule
     ],
-    declarations: [RepairingComponent],
+    declarations: [RepairingComponent, SimpleRepairComponent],
     providers: [RepairingService]
 })
 export class RepairingModule {}
