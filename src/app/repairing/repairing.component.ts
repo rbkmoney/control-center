@@ -7,6 +7,8 @@ import { AutomatonService } from '../machinegun/automaton.service';
 import { execute, SuccessResult } from '../shared/execute';
 import { Machine } from '../machinegun/gen-model/state_processing';
 import { Namespace } from '../machinegun/model/namespace';
+import { PaymentProcessingService } from '../thrift/payment-processing.service';
+import { KeycloakService } from 'keycloak-angular';
 
 enum Status {
     found = 'machine found',
@@ -53,7 +55,9 @@ export class RepairingComponent {
     constructor(
         private fb: FormBuilder,
         private automatonService: AutomatonService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private paymentProcessingService: PaymentProcessingService,
+        private keycloakService: KeycloakService
     ) {
         this.idsControl = fb.control('');
         this.nsControl = fb.control(Namespace.invoice);
@@ -161,6 +165,37 @@ export class RepairingComponent {
         }
         execute(
             elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
+        ).subscribe(result => {
+            this.progress = result.progress;
+            const element = elements[result.idx];
+            if (result.hasError) {
+                element.status = this.statusByError(result.error);
+            } else {
+                element.status = Status.repaired;
+            }
+        });
+    }
+
+    repairWithScenario(elements: Element[] = this.dataSource) {
+        if (!elements.length) {
+            return;
+        }
+        this.progress = 0;
+        for (const element of elements) {
+            element.status = Status.update;
+        }
+        const scenario: any = { fail_session: { failure: { code: 'authorization_failed' } } };
+        execute(
+            elements.map(({ id }) => () =>
+                this.paymentProcessingService.repairWithScenario(
+                    {
+                        id: this.keycloakService.getUsername(),
+                        type: { internalUser: {} }
+                    },
+                    id,
+                    scenario
+                )
+            )
         ).subscribe(result => {
             this.progress = result.progress;
             const element = elements[result.idx];
