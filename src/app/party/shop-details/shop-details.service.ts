@@ -3,15 +3,14 @@ import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import get from 'lodash-es/get';
 
-import { Shop } from '../../gen-damsel/domain';
-import { ProviderObject, TerminalObject } from '../../gen-damsel/domain';
-import { findTerminalIds } from './find-terminal-ids';
+import { ProviderObject, Shop, TerminalObject } from '../../gen-damsel/domain';
+import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 import { PartyService } from '../party.service';
 import { DomainTypedManager } from '../../thrift';
 
 export interface ProviderInfo {
     provider: ProviderObject;
-    terminals: TerminalObject[];
+    terminalInfos: TerminalInfo[];
 }
 
 export interface Payload {
@@ -47,17 +46,15 @@ export class ShopDetailsService {
             if (!decisions) {
                 return r;
             }
-            const ids = findTerminalIds(decisions, shopID, partyID);
-            if (ids.length === 0) {
+            const infos = extractTerminalInfo(decisions, terminalObjects, shopID, partyID);
+            if (infos.length === 0) {
                 return r;
             }
             return [
                 ...r,
                 {
                     provider,
-                    terminals: ids.map(terminalId =>
-                        terminalObjects.find(({ ref: { id } }) => id === terminalId)
-                    )
+                    terminalInfos: infos
                 }
             ];
         }, []);

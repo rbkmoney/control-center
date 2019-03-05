@@ -31,7 +31,7 @@
     "@angular/router": "^7.0.0",
     "angular2-prettyjson": "3.0.1",
     "core-js": "^2.5.4",
-    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#3abdcb47884071c025d50c1fea8bdbe15522ef2e",
+    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#27b28aa4be73a2955a1e5ede53b51e28bbcab138",
     "hammerjs": "^2.0.8",
     "jsonc-parser": "^2.0.2",
     "keycloak-angular": "6.0.0",
