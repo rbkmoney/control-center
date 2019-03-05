@@ -1,5 +1,3 @@
-import camelCase from 'lodash-es/camelCase';
-import snakeCase from 'lodash-es/snakeCase';
 import isArray from 'lodash-es/isArray';
 import forIn from 'lodash-es/forIn';
 import isObject from 'lodash-es/isObject';
@@ -61,26 +59,24 @@ export function decode(thrift: any): any {
     }
 }
 
-export class ThriftFormatter {
-    static encode(model): any | any[] {
-        let result;
-        if (isArray(model)) {
-            result = ['list'];
-            for (const item of model) {
-                if (typeof item === 'object') {
-                    result.push(ThriftFormatter.encode(item));
-                }
+export function encode(model: any): any | any[] {
+    let result;
+    if (isArray(model)) {
+        result = ['list'];
+        for (const item of model) {
+            if (typeof item === 'object') {
+                result.push(encode(item));
             }
-        } else {
-            result = {};
-            forIn(model, (value, key) => {
-                if (typeof value === 'object') {
-                    result[key] = ThriftFormatter.encode(value);
-                } else {
-                    result[key] = value;
-                }
-            });
         }
-        return result;
+    } else {
+        result = {};
+        forIn(model, (value, key) => {
+            if (typeof value === 'object') {
+                result[key] = encode(value);
+            } else {
+                result[key] = value;
+            }
+        });
     }
+    return result;
 }

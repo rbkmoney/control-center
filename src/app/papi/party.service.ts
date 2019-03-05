@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
+import { map } from 'rxjs/operators';
 
 import { ConfigService } from '../core/config.service';
 import { ContractTemplate } from './model';
-import { decode } from '../shared/thrift-formatter';
+import { decode } from '../shared/java-thrift-formatter';
 import { Party } from '../gen-damsel/domain';
 
 @Injectable()
