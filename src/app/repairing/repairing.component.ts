@@ -22,6 +22,11 @@ enum Status {
     machineAlreadyWorking = 'machine already working'
 }
 
+enum Type {
+    simpleRepair = 'Simple repair',
+    repairWithScenario = 'Repair with scenario'
+}
+
 interface Element {
     id: string;
     status: Status;
@@ -39,6 +44,8 @@ export class RepairingComponent {
     dataSource: Array<Element> = [];
     progress: boolean | number = false;
     namespaces = Object.values(Namespace);
+    types = Object.values(Type);
+    selectedTypeIdx = 0;
 
     idsControl: FormControl;
     nsControl: FormControl;
@@ -54,6 +61,10 @@ export class RepairingComponent {
 
     get isLoading() {
         return this.progress !== false && this.progress !== 1;
+    }
+
+    get selectedType() {
+        return this.types[this.selectedTypeIdx];
     }
 
     add() {
@@ -152,7 +163,6 @@ export class RepairingComponent {
             elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
         ).subscribe(result => {
             this.progress = result.progress;
-            console.log(result);
             const element = elements[result.idx];
             if (result.hasError) {
                 element.status = this.statusByError(result.error);
