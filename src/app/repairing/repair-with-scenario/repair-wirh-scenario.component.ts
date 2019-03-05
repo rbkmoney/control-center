@@ -3,11 +3,13 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
+import { KeycloakService } from 'keycloak-angular';
 
 import { AutomatonService } from '../../machinegun/automaton.service';
 import { execute, SuccessResult } from '../../shared/execute';
 import { Machine } from '../../machinegun/gen-model/state_processing';
 import { Namespace } from '../../machinegun/model/namespace';
+import { PaymentProcessingService } from '../../thrift/payment-processing.service';
 import { RepairingService } from '../repairing.service';
 
 enum Status {
@@ -32,12 +34,12 @@ interface Element {
 }
 
 @Component({
-    selector: 'cc-simple-repair',
-    templateUrl: 'simple-repair.component.html',
+    selector: 'cc-repair-with-scenario',
+    templateUrl: 'repair-with-scenario.component.html',
     styleUrls: ['../repairing.component.css'],
     providers: []
 })
-export class SimpleRepairComponent {
+export class RepairWithScenarioComponent {
     displayedColumns: string[] = ['id', 'ns', 'timer', 'status', 'actions'];
     dataSource: Array<Element> = [];
     namespaces = Object.values(Namespace);
@@ -54,6 +56,8 @@ export class SimpleRepairComponent {
         private fb: FormBuilder,
         private automatonService: AutomatonService,
         private snackBar: MatSnackBar,
+        private paymentProcessingService: PaymentProcessingService,
+        private keycloakService: KeycloakService,
         private repairingService: RepairingService
     ) {
         this.idsControl = fb.control('');
@@ -154,6 +158,37 @@ export class SimpleRepairComponent {
         }
         execute(
             elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
+        ).subscribe(result => {
+            this.progress$.next(result.progress);
+            const element = elements[result.idx];
+            if (result.hasError) {
+                element.status = this.statusByError(result.error);
+            } else {
+                element.status = Status.repaired;
+            }
+        });
+    }
+
+    repairWithScenario(elements: Element[] = this.dataSource) {
+        if (!elements.length) {
+            return;
+        }
+        this.progress$.next(0);
+        for (const element of elements) {
+            element.status = Status.update;
+        }
+        const scenario: any = { fail_session: { failure: { code: 'authorization_failed' } } };
+        execute(
+            elements.map(({ id }) => () =>
+                this.paymentProcessingService.repairWithScenario(
+                    {
+                        id: this.keycloakService.getUsername(),
+                        type: { internalUser: {} }
+                    },
+                    id,
+                    scenario
+                )
+            )
         ).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];

@@ -22,6 +22,7 @@ import { RepairingService } from './repairing.service';
 import { RepairingRoutingModule } from './repairing-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MachinegunModule } from '../machinegun/machinegun.module';
+import { RepairWithScenarioComponent } from './repair-with-scenario/repair-wirh-scenario.component';
 
 @NgModule({
     imports: [
@@ -43,7 +44,7 @@ import { MachinegunModule } from '../machinegun/machinegun.module';
         MatSnackBarModule,
         MatSelectModule
     ],
-    declarations: [RepairingComponent, SimpleRepairComponent],
+    declarations: [RepairingComponent, SimpleRepairComponent, RepairWithScenarioComponent],
     providers: [RepairingService]
 })
 export class RepairingModule {}
