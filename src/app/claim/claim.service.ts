@@ -60,17 +60,17 @@ export class ClaimService {
         });
     }
 
-    resolveClaimInfo(type: ClaimActionType, party_id: string, claim_id?: string): Observable<void> {
+    resolveClaimInfo(type: ClaimActionType, partyId: string, claimId?: string): Observable<void> {
         switch (type) {
             case ClaimActionType.create:
-                if (claim_id) {
-                    return this.getClaimInfo(party_id, claim_id).pipe(
+                if (claimId) {
+                    return this.getClaimInfo(partyId, claimId).pipe(
                         tap(claimInfo => {
                             this.persistentContainerService.init(
                                 claimInfo.modifications.modifications,
                                 false
                             );
-                            this.claimInfoContainer = { type, party_id };
+                            this.claimInfoContainer = { type, partyId };
                             this.claimInfoContainer$.next(this.claimInfoContainer);
                         }),
                         map(() => null),
@@ -78,13 +78,13 @@ export class ClaimService {
                     );
                 } else {
                     this.persistentContainerService.init([]);
-                    this.claimInfoContainer = { type, party_id };
+                    this.claimInfoContainer = { type, partyId };
                     this.claimInfoContainer$.next(this.claimInfoContainer);
                     tap(() => this.isAddModificationAvailable$.next(this.getAvailability()));
                     return of();
                 }
             case ClaimActionType.edit:
-                return this.getClaimInfo(party_id, claim_id).pipe(
+                return this.getClaimInfo(partyId, claimId).pipe(
                     tap(claimInfo => {
                         this.persistentContainerService.init(claimInfo.modifications.modifications);
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
@@ -108,12 +108,12 @@ export class ClaimService {
     }
 
     saveChanges(): Observable<void> {
-        const { party_id, claim_id } = this.claimInfoContainer;
+        const { partyId, claimId } = this.claimInfoContainer;
         const units = this.toModificationUnits(this.containers);
-        return this.papiClaimService.getClaim(party_id, claim_id).pipe(
+        return this.papiClaimService.getClaim(partyId, claimId).pipe(
             switchMap(claimInfo =>
                 this.papiClaimService
-                    .updateClaim(party_id, claim_id, claimInfo.revision, units)
+                    .updateClaim(partyId, claimId, claimInfo.revision, units)
                     .pipe(map(() => claimInfo.revision))
             ),
             switchMap(revision => this.pollClaimChange(revision))
@@ -123,22 +123,24 @@ export class ClaimService {
     createClaim(): Observable<ClaimInfo> {
         this.isLoading$.next(true);
         const units = this.toModificationUnits(this.containers);
-        return this.papiClaimService.createClaim(this.claimInfoContainer.party_id, units).pipe(
-            switchMap(createdClaim =>
-                this.pollClaimCreated(this.claimInfoContainer.party_id, createdClaim.claimId)
-            ),
-            tap(() => this.isLoading$.next(false))
-        );
+        return this.papiClaimService
+            .createClaim(this.claimInfoContainer.partyId, units)
+            .pipe(
+                switchMap(createdClaim =>
+                    this.pollClaimCreated(this.claimInfoContainer.partyId, createdClaim.claimId)
+                ),
+                tap(() => this.isLoading$.next(false))
+            );
     }
 
     acceptClaim(): Observable<void> {
-        const { claim_id, party_id } = this.claimInfoContainer;
-        return this.papiClaimService.getClaim(party_id, claim_id).pipe(
+        const { claimId, partyId } = this.claimInfoContainer;
+        return this.papiClaimService.getClaim(partyId, claimId).pipe(
             switchMap(claimInfo =>
                 this.papiClaimService
                     .acceptClaim({
-                        partyId: party_id,
-                        claimId: claim_id,
+                        partyId,
+                        claimId: claimId,
                         revision: claimInfo.revision
                     })
                     .pipe(map(() => claimInfo.revision))
@@ -149,13 +151,13 @@ export class ClaimService {
     }
 
     denyClaim(reason: string): Observable<void> {
-        const { claim_id, party_id } = this.claimInfoContainer;
-        return this.papiClaimService.getClaim(party_id, claim_id).pipe(
+        const { claimId, partyId } = this.claimInfoContainer;
+        return this.papiClaimService.getClaim(partyId, claimId).pipe(
             switchMap(claimInfo =>
                 this.papiClaimService
                     .denyClaim({
-                        claimId: claim_id,
-                        partyId: party_id,
+                        claimId,
+                        partyId,
                         revision: claimInfo.revision,
                         reason
                     })
@@ -195,41 +197,39 @@ export class ClaimService {
         const extracted_ids = this.extractIds(modifications);
         return {
             type: ClaimActionType.edit,
-            claim_id,
-            party_id,
+            claimId: claim_id,
+            partyId: party_id,
             revision,
             status,
             reason,
-            created_at,
-            updated_at,
-            extracted_ids
+            createdAt: created_at,
+            updatedAt: updated_at,
+            extractedIds: extracted_ids
         };
     }
 
     private toDomainModificationInfo(claimInfo: ClaimInfo): DomainModificationInfo {
         return {
-            shop_url: '',
-            party_id: claimInfo.party_id,
-            shop_id: ''
+            shopUrl: '',
+            partyId: claimInfo.party_id,
+            shopId: ''
         };
     }
 
-    private extractIds(
-        modifications: PartyModification[]
-    ): { shop_id: string; contract_id: string } {
+    private extractIds(modifications: PartyModification[]): { shopId: string; contractId: string } {
         return modifications.reduce(
             (prev, current) => {
-                if (!prev.shop_id && current.shop_modification) {
-                    const shop_id = current.shop_modification.id;
-                    return { ...prev, shop_id };
-                } else if (!prev.contract_id && current.contract_modification) {
-                    const contract_id = current.contract_modification.id;
-                    return { ...prev, contract_id };
+                if (!prev.shopId && current.shop_modification) {
+                    const shopId = current.shop_modification.id;
+                    return { ...prev, shopId };
+                } else if (!prev.contractId && current.contract_modification) {
+                    const contractId = current.contract_modification.id;
+                    return { ...prev, contractId };
                 } else {
                     return prev;
                 }
             },
-            { shop_id: null, contract_id: null }
+            { shopId: null, contractId: null }
         );
     }
 
@@ -239,12 +239,12 @@ export class ClaimService {
 
     private pollClaimChange(revision: string, delayMs = 2000, retryCount = 15): Observable<void> {
         const container = this.claimInfoContainer;
-        const { party_id, claim_id, status } = container;
+        const { partyId, claimId, status } = container;
         const currentPair = { status, revision };
         let newPair = {};
         return Observable.create(observer => {
             this.papiClaimService
-                .getClaim(party_id, claim_id)
+                .getClaim(partyId, claimId)
                 .pipe(
                     repeatWhen(notifications => {
                         return notifications.pipe(

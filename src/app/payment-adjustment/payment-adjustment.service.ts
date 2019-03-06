@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { ReportService } from '../papi/report.service';
 import { SearchFormParams } from './search-form/search-form-params';
 import { MerchantStatisticsService } from '../thrift/merchant-statistics.service';
 import { StatPayment, StatResponse } from '../gen-damsel/merch_stat';
@@ -12,10 +11,7 @@ import { QueryDSL } from '../query-dsl';
 export class PaymentAdjustmentService {
     searchPaymentChanges$: Subject<StatPayment[]> = new Subject<StatPayment[]>();
 
-    constructor(
-        private reportService: ReportService,
-        private merchantStatisticsService: MerchantStatisticsService
-    ) {}
+    constructor(private merchantStatisticsService: MerchantStatisticsService) {}
 
     fetchPayments(params: SearchFormParams): Observable<StatPayment[]> {
         return this.getAllPayments(params);

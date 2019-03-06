@@ -10,7 +10,6 @@ import {
     InvoicePaymentAdjustmentParams,
     UserInfo
 } from '../gen-damsel/payment_processing';
-import { encode } from '../shared/thrift-js-formatter';
 import { ThriftService } from './thrift-service';
 import * as Invoicing from './gen-nodejs/Invoicing';
 
@@ -27,10 +26,10 @@ export class PaymentProcessingService extends ThriftService {
         params: InvoicePaymentAdjustmentParams
     ): Observable<InvoicePaymentAdjustment> =>
         this.toObservableAction('CreatePaymentAdjustment')(
-            new UserInfoObject(encode(user)),
+            new UserInfoObject(user),
             id,
             paymentId,
-            new InvoicePaymentAdjustmentParamsObject(encode(params))
+            new InvoicePaymentAdjustmentParamsObject(params)
         );
 
     capturePaymentAdjustment = (
@@ -40,7 +39,7 @@ export class PaymentProcessingService extends ThriftService {
         adjustmentId: string
     ): Observable<void> =>
         this.toObservableAction('CapturePaymentAdjustment')(
-            new UserInfoObject(encode(user)),
+            new UserInfoObject(user),
             id,
             paymentId,
             adjustmentId
@@ -53,7 +52,7 @@ export class PaymentProcessingService extends ThriftService {
         adjustmentId: string
     ): Observable<void> =>
         this.toObservableAction('CancelPaymentAdjustment')(
-            new UserInfoObject(encode(user)),
+            new UserInfoObject(user),
             id,
             paymentId,
             adjustmentId
