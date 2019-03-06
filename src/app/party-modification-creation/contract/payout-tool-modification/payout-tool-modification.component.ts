@@ -6,7 +6,7 @@ import { PayoutToolModification } from '../../../gen-damsel/payment_processing';
 
 enum Type {
     creation = 'creation',
-    infoModification = 'info_modification'
+    infoModification = 'infoModification'
 }
 
 @Component({

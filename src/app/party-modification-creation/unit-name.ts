@@ -1,4 +1,4 @@
 export enum UnitName {
-    shopModification = 'shop_modification',
-    contractModification = 'contract_modification'
+    shopModification = 'shopModification',
+    contractModification = 'contractModification'
 }

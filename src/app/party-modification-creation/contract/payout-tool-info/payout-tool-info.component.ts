@@ -4,9 +4,9 @@ import { PayoutToolInfo } from '../../../gen-damsel/domain';
 import get from 'lodash-es/get';
 
 enum Type {
-    russianBankAccount = 'russian_bank_account',
-    internationalBankAccount = 'international_bank_account',
-    walletInfo = 'wallet_info'
+    russianBankAccount = 'russianBankAccount',
+    internationalBankAccount = 'internationalBankAccount',
+    walletInfo = 'walletInfo'
 }
 
 @Component({

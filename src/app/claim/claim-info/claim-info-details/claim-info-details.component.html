@@ -1,6 +1,6 @@
 <div *ngIf="claimInfoContainer.type === t.create" fxLayout="row" fxLayout.xs="column">
     <label fxFlex="20">Party ID:</label>
-    <div>{{ claimInfoContainer?.party_id }}</div>
+    <div>{{ claimInfoContainer?.partyId }}</div>
 </div>
 <div
     *ngIf="claimInfoContainer.type === t.edit"
@@ -12,7 +12,7 @@
     <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
         <div fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Claim ID:</label>
-            <div>{{ claimInfoContainer?.claim_id }}</div>
+            <div>{{ claimInfoContainer?.claimId }}</div>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Status:</label>
@@ -30,15 +30,15 @@
     <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
         <div fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Party ID:</label>
-            <div>{{ claimInfoContainer?.party_id }}</div>
+            <div>{{ claimInfoContainer?.partyId }}</div>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Created At:</label>
-            <div>{{ claimInfoContainer?.created_at | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+            <div>{{ claimInfoContainer?.createdAt | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
         </div>
         <div fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Updated At:</label>
-            <div>{{ claimInfoContainer?.updated_at | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+            <div>{{ claimInfoContainer?.updatedAt | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
         </div>
     </div>
 </div>

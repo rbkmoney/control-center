@@ -2,7 +2,7 @@ export enum ContractModificationName {
     creation = 'creation',
     termination = 'termination',
     adjustmentModification = 'adjustmentModification',
-    payoutToolModification = 'payout_toolModification',
+    payoutToolModification = 'payoutToolModification',
     legalAgreementBinding = 'legalAgreementBinding',
     reportPreferencesModification = 'reportPreferencesModification',
     contractorModification = 'contractorModification',
