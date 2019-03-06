@@ -11,6 +11,7 @@
     "damsel-model": "thrift-ts node_modules/damsel/proto -o src/app/gen-damsel -d false -c true",
     "damsel-meta": "thrift-ts node_modules/damsel/proto -o src/assets/meta-damsel.json --json --pack --prettify",
     "machinegun-model": "thrift-ts node_modules/machinegun_proto/proto -o src/app/machinegun/gen-model -d false",
+    "fistful-model": "thrift-ts node_modules/fistful-proto/proto -o src/app/fistful/gen-model -d false",
     "prettier": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --write",
     "check": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --list-different"
   },
@@ -32,6 +33,7 @@
     "angular2-prettyjson": "3.0.1",
     "core-js": "^2.5.4",
     "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#27b28aa4be73a2955a1e5ede53b51e28bbcab138",
+    "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#59b72ba54ec0e7f1af1d9b83aba10883ac985019",
     "hammerjs": "^2.0.8",
     "jsonc-parser": "^2.0.2",
     "keycloak-angular": "6.0.0",

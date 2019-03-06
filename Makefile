@@ -38,13 +38,15 @@ submodules: $(SUBTARGETS)
 init:
 	npm install
 
-build: check lint compile-damsel compile-machinegun
+compile: compile-damsel compile-machinegun compile-fistful
+
+build: check lint compile
 	npm run build
 
-compile: clean compile-damsel compile-machinegun
+clean-compile: clean compile
 
 clean:
-	rm -rf dist src/app/thrift/gen-* src/assets/meta-damsel.json src/app/gen-damsel src/app/machinegun/gen-*
+	rm -rf dist src/app/thrift/gen-* src/assets/meta-damsel.json src/app/gen-damsel src/app/machinegun/gen-* src/app/fistful/gen-*
 
 compile-damsel: damsel-client damsel-model damsel-meta
 
@@ -64,6 +66,14 @@ machinegun-client:
 
 machinegun-model:
 	npm run machinegun-model
+
+compile-fistful: fistful-model fistful-client
+
+fistful-client:
+	@$(foreach file,withdrawal_session,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/fistful ./node_modules/fistful-proto/proto/$(file).thrift;)
+
+fistful-model:
+	npm run fistful-model
 
 lint:
 	npm run lint

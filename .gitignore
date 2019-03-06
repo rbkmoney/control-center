@@ -41,3 +41,4 @@ Thumbs.db
 /src/app/thrift/gen-nodejs/
 /src/app/gen-damsel/
 /src/app/machinegun/gen-*
+/src/app/fistful/gen-*

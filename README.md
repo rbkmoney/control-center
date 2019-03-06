@@ -4,5 +4,5 @@
 
 ```sh
 make wc_shell
-make compile
+make clean-compile
 ```
