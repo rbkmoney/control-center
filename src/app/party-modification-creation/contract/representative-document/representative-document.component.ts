@@ -4,8 +4,8 @@ import { RepresentativeDocument } from '../../../gen-damsel/domain';
 import get from 'lodash-es/get';
 
 enum Type {
-    articlesOfAssociation = 'articlesOfAssociation',
-    powerOfAttorney = 'powerOfAttorney'
+    articlesOfAssociation = 'articles_of_association',
+    powerOfAttorney = 'power_of_attorney'
 }
 
 @Component({
@@ -28,8 +28,8 @@ export class RepresentativeDocumentComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const articlesOfAssociation = get(this, 'initialValue.articlesOfAssociation', null);
-        const powerOfAttorney = get(this, 'initialValue.powerOfAttorney', null);
+        const articlesOfAssociation = get(this, 'initialValue.articles_of_association', null);
+        const powerOfAttorney = get(this, 'initialValue.power_of_attorney', null);
         if (articlesOfAssociation) {
             this.selected = Type.articlesOfAssociation;
             this.select(articlesOfAssociation);

@@ -1,9 +1,22 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
     <div>
-        {{ terminal.data.name }} - {{ terminal.data.description }}
-        <span class="predicate-type">{{ predicateType }}</span>
+        {{ terminalInfo.terminal.data.name }} - {{ terminalInfo.terminal.data.description }}
+        <span class="predicate-type">{{ terminalInfo.predicateType }}</span>
     </div>
-    <mat-chip-list>
-        <mat-chip [selected]="!disabled">{{ !disabled | ccIsActive }}</mat-chip>
-    </mat-chip-list>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="15px">
+        <mat-chip-list fxLayout="row" fxLayoutAlign="center">
+            <mat-chip [selected]="!terminalInfo.disabled">{{
+                !terminalInfo.disabled | ccIsActive
+            }}</mat-chip>
+        </mat-chip-list>
+        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #appMenu="matMenu">
+            <button mat-menu-item (click)="removeTerminal()" [disabled]="!isRemovable()">
+                <mat-icon>delete</mat-icon>
+                <span>Remove</span>
+            </button>
+        </mat-menu>
+    </div>
 </div>

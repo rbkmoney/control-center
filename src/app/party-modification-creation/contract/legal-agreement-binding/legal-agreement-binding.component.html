@@ -3,7 +3,7 @@
         <input
             matInput
             placeholder="Legal agreement ID"
-            formControlName="legalAgreementId"
+            formControlName="legal_agreement_id"
             required
         />
     </mat-form-field>
@@ -12,7 +12,7 @@
             matInput
             [matDatepicker]="signedAtDatepicker"
             placeholder="Signed at"
-            formControlName="signedAt"
+            formControlName="signed_at"
             required
         />
         <mat-datepicker-toggle matSuffix [for]="signedAtDatepicker"></mat-datepicker-toggle>
@@ -23,7 +23,7 @@
             matInput
             [matDatepicker]="validUntilDatepicker"
             placeholder="Valid until"
-            formControlName="validUntil"
+            formControlName="valid_until"
         />
         <mat-datepicker-toggle matSuffix [for]="validUntilDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #validUntilDatepicker></mat-datepicker>

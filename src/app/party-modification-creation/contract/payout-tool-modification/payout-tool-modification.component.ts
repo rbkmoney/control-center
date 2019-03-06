@@ -30,7 +30,7 @@ export class PayoutToolModificationComponent implements OnInit {
 
     ngOnInit() {
         const creation = get(this, 'initialValue.creation', '');
-        const infoModification = get(this, 'initialValue.infoModification', '');
+        const infoModification = get(this, 'initialValue.info_modification', '');
         if (creation) {
             this.selected = Type.creation;
             this.select();

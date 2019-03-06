@@ -23,12 +23,12 @@ export class InternationalBankDetailsComponent implements OnInit {
         const country = get(this, 'initialValue.country', '');
         const name = get(this, 'initialValue.name', '');
         const address = get(this, 'initialValue.address', '');
-        const abaRtn = get(this, 'initialValue.abaRtn', '');
+        const abaRtn = get(this, 'initialValue.aba_rtn', '');
         this.form.registerControl('bic', control(bic));
         this.form.registerControl('country', control(country)); // Residence enum
         this.form.registerControl('name', control(name));
         this.form.registerControl('address', control(address));
-        this.form.registerControl('abaRtn', control(abaRtn));
+        this.form.registerControl('aba_rtn', control(abaRtn));
         this.form.updateValueAndValidity();
     }
 }

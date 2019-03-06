@@ -35,14 +35,18 @@ export class ReportPreferencesComponent implements OnInit {
     }
 
     togglePreferences() {
-        const preferences = get(this, 'initialValue.serviceAcceptanceActPreferences', null);
+        const preferences = get(this, 'initialValue.service_acceptance_act_preferences', null);
         this.showPreferences = preferences !== null;
-        this.toggleCheckbox(this.showPreferences, 'serviceAcceptanceActPreferences', preferences);
+        this.toggleCheckbox(
+            this.showPreferences,
+            'service_acceptance_act_preferences',
+            preferences
+        );
     }
 
     private getFormGroup(type: string, data) {
         switch (type) {
-            case 'serviceAcceptanceActPreferences':
+            case 'service_acceptance_act_preferences':
                 return {
                     schedule: this.fb.group(data.schedule || {}),
                     signer: this.fb.group({})

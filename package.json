@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "damsel-model": "thrift-ts node_modules/damsel/proto -o src/app/gen-damsel -d false -c true",
+    "damsel-model": "thrift-ts node_modules/damsel/proto -o src/app/gen-damsel -d false",
     "damsel-meta": "thrift-ts node_modules/damsel/proto -o src/assets/meta-damsel.json --json --pack --prettify",
     "machinegun-model": "thrift-ts node_modules/machinegun_proto/proto -o src/app/machinegun/gen-model -d false",
     "fistful-model": "thrift-ts node_modules/fistful-proto/proto -o src/app/fistful/gen-model -d false",

@@ -2,21 +2,21 @@ import { InvoicePaymentAdjustmentParams, UserInfo } from '../../../gen-damsel/pa
 
 export interface PaymentAdjustmentCreationParams {
     user: UserInfo;
-    invoiceId: string;
-    paymentId: string;
+    invoice_id: string;
+    payment_id: string;
     params: InvoicePaymentAdjustmentParams;
 }
 
 export interface PaymentAdjustmentCancelParams {
     user: UserInfo;
-    invoiceId: string;
-    paymentId: string;
-    adjustmentId: string;
+    invoice_id: string;
+    payment_id: string;
+    adjustment_id: string;
 }
 
 export interface PaymentAdjustmentCaptureParams {
     user: UserInfo;
-    invoiceId: string;
-    paymentId: string;
-    adjustmentId: string;
+    invoice_id: string;
+    payment_id: string;
+    adjustment_id: string;
 }

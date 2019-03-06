@@ -18,15 +18,15 @@ export class LegalAgreementBindingComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const legalAgreementId = get(this, 'initialValue.legalAgreementId', '');
-        const signedAt = get(this, 'initialValue.signedAt', '');
-        const validUntil = get(this, 'initialValue.validUntil', '');
+        const legalAgreementId = get(this, 'initialValue.legal_agreement_id', '');
+        const signedAt = get(this, 'initialValue.signed_at', '');
+        const validUntil = get(this, 'initialValue.valid_until', '');
         this.form.registerControl(
-            'legalAgreementId',
+            'legal_agreement_id',
             this.fb.control(legalAgreementId, Validators.required)
         );
-        this.form.registerControl('signedAt', this.fb.control(signedAt, Validators.required));
-        this.form.registerControl('validUntil', this.fb.control(validUntil));
+        this.form.registerControl('signed_at', this.fb.control(signedAt, Validators.required));
+        this.form.registerControl('valid_until', this.fb.control(validUntil));
         this.form.updateValueAndValidity();
     }
 }

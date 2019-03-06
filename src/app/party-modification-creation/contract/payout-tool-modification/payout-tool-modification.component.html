@@ -11,13 +11,13 @@
     <cc-payout-tool-params
         *ngIf="selected === t.creation"
         [form]="form.get(t.creation)"
-        [initialValue]="initialValue?.creation?.toolInfo"
+        [initialValue]="initialValue?.creation?.tool_info"
     >
     </cc-payout-tool-params>
     <cc-payout-tool-info
         *ngIf="selected === t.infoModification"
         [form]="form.get(t.infoModification)"
-        [initialValue]="initialValue?.infoModification"
+        [initialValue]="initialValue?.info_modification"
     >
     </cc-payout-tool-info>
 </div>

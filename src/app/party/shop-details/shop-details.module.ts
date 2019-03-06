@@ -10,6 +10,7 @@ import {
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatMenuModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
@@ -55,6 +56,8 @@ import { IsActivePipe } from './is-active.pipe';
         MatInputModule,
         MatTabsModule,
         MatIconModule,
+        MatProgressBarModule,
+        MatMenuModule,
         MatProgressBarModule,
         MatChipsModule
     ],
