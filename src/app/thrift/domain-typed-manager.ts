@@ -23,6 +23,8 @@ import {
     AppendTerminalToProviderParams
 } from './operations';
 import { DomainCacheService } from './domain-cache.service';
+import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
+import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -83,6 +85,18 @@ export class DomainTypedManager {
                 this.dmtService.commit(
                     version,
                     appendShopTerminalToProvider(terminalObjects, providerObject, params)
+                )
+            ),
+            tap(() => this.dmtCacheService.forceReload())
+        );
+    }
+
+    removeTerminalFromShop(params: RemoveTerminalFromShopParams) {
+        return combineLatest(this.getLastVersion(), this.getProviderObject(params.providerID)).pipe(
+            switchMap(([version, provider]) =>
+                this.dmtService.commit(
+                    version,
+                    createRemoveTerminalFromShopCommit(provider, params)
                 )
             ),
             tap(() => this.dmtCacheService.forceReload())
