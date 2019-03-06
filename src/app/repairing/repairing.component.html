@@ -15,6 +15,9 @@
                         [isLoading]="isLoading$ | async"
                     ></cc-repair-with-scenario>
                 </mat-tab>
+                <mat-tab label="Repair">
+                    <cc-repair [progress$]="progress$" [isLoading]="isLoading$ | async"></cc-repair>
+                </mat-tab>
             </mat-tab-group>
         </mat-card-content>
         <mat-card-footer *ngIf="(isLoading$ | async)">

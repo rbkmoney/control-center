@@ -7,13 +7,15 @@ import { FormatAmountPipe } from './pipes/format-amount.pipe';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
 import { ThriftViewPipe } from './pipes/thrift-view.pipe';
 import { PrettyJsonComponent } from './components/pretty-json/pretty-json.component';
+import { CardContainerComponent } from './components/card-container/card-container.component';
 
 const declarations = [
     CurrencyPipe,
     FormatAmountPipe,
     ThriftInt64Pipe,
     ThriftViewPipe,
-    PrettyJsonComponent
+    PrettyJsonComponent,
+    CardContainerComponent
 ];
 
 @NgModule({

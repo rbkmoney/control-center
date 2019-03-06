@@ -25,6 +25,8 @@ import { RepairingRoutingModule } from './repairing-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MachinegunModule } from '../machinegun/machinegun.module';
 import { RepairWithScenarioComponent } from './repair-with-scenario/repair-wirh-scenario.component';
+import { FistfulModule } from '../fistful/fistful.model';
+import { RepairComponent } from './repair/repair.component';
 
 @NgModule({
     imports: [
@@ -46,9 +48,15 @@ import { RepairWithScenarioComponent } from './repair-with-scenario/repair-wirh-
         MatSnackBarModule,
         MatSelectModule,
         MatAutocompleteModule,
-        MatTooltipModule
+        MatTooltipModule,
+        FistfulModule
     ],
-    declarations: [RepairingComponent, SimpleRepairComponent, RepairWithScenarioComponent],
+    declarations: [
+        RepairingComponent,
+        SimpleRepairComponent,
+        RepairWithScenarioComponent,
+        RepairComponent
+    ],
     providers: [RepairingService]
 })
 export class RepairingModule {}

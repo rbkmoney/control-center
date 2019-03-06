@@ -2,12 +2,11 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { KeycloakService } from 'keycloak-angular';
 
 import { execute } from '../../shared/execute';
-import { PaymentProcessingService } from '../../thrift/payment-processing.service';
 import { RepairingService } from '../repairing.service';
 import { map } from 'rxjs/operators';
+import { RepairerService } from 'src/app/fistful/repairer.service';
 
 enum Status {
     repaired = 'machine repaired',
@@ -17,31 +16,27 @@ enum Status {
     unknown = 'unknown',
 
     unknownError = 'unknown error',
-    invalidUser = 'invalid user',
-    invoiceNotFound = 'invoice not found',
-    invalidRequest = 'invalid request'
+    withdrawalSessionNotFound = 'withdrawal session not found',
+    machineAlreadyWorking = 'machine already working'
 }
 
 enum Scenario {
-    // complex = 'complex',
-    fail_pre_processing = 'fail_pre_processing',
-    // skip_inspector = 'skip_inspector',
-    fail_session = 'fail_session'
+    // add_events = 'add_events',
+    set_session_result = 'set_session_result'
 }
 
 interface Element {
     id: string;
     status: Status;
-    error?: string;
 }
 
 @Component({
-    selector: 'cc-repair-with-scenario',
-    templateUrl: 'repair-with-scenario.component.html',
+    selector: 'cc-repair',
+    templateUrl: 'repair.component.html',
     styleUrls: ['../repairing.component.css'],
     providers: []
 })
-export class RepairWithScenarioComponent {
+export class RepairComponent {
     displayedColumns: string[] = ['id', 'status', 'actions'];
     dataSource: Array<Element> = [];
     scenarios = Object.values(Scenario);
@@ -60,12 +55,11 @@ export class RepairWithScenarioComponent {
     constructor(
         private fb: FormBuilder,
         private snackBar: MatSnackBar,
-        private paymentProcessingService: PaymentProcessingService,
-        private keycloakService: KeycloakService,
+        private repairerService: RepairerService,
         private repairingService: RepairingService
     ) {
         this.idsControl = fb.control('');
-        this.scenarioControl = fb.control(Scenario.fail_pre_processing);
+        this.scenarioControl = fb.control(Scenario.set_session_result);
         this.filteredCodes = this.codeControl.valueChanges.pipe(
             map(code =>
                 code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
@@ -117,12 +111,10 @@ export class RepairWithScenarioComponent {
 
     statusByError(error: any) {
         switch (error.name) {
-            case 'InvalidUser':
-                return Status.invalidUser;
-            case 'InvoiceNotFound':
-                return Status.invoiceNotFound;
-            case 'InvalidRequest':
-                return Status.invalidRequest;
+            case 'WithdrawalSessionNotFound':
+                return Status.withdrawalSessionNotFound;
+            case 'MachineAlreadyWorking':
+                return Status.machineAlreadyWorking;
             default:
                 return Status.unknownError;
         }
@@ -137,29 +129,17 @@ export class RepairWithScenarioComponent {
             element.status = Status.update;
         }
         const scenario = {
-            [this.scenarioControl.value]: {
-                failure: { code: this.codeControl.value }
-            }
-        };
-        const user = {
-            id: this.keycloakService.getUsername(),
-            type: { internal_user: {} }
+            set_session_result: { result: { failed: { failure: { code: 'unknown' } } } }
         };
         execute(
-            elements.map(({ id }) => () =>
-                this.paymentProcessingService.repairWithScenario(user, id, scenario)
-            )
+            elements.map(({ id }) => () => this.repairerService.repair(id, scenario))
         ).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.hasError) {
                 element.status = this.statusByError(result.error);
-                element.error = Array.isArray(result.error.errors)
-                    ? result.error.errors.join('. ')
-                    : '';
             } else {
                 element.status = Status.repaired;
-                element.error = '';
             }
         });
     }
