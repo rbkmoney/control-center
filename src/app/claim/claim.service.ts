@@ -123,14 +123,12 @@ export class ClaimService {
     createClaim(): Observable<ClaimInfo> {
         this.isLoading$.next(true);
         const units = this.toModificationUnits(this.containers);
-        return this.papiClaimService
-            .createClaim(this.claimInfoContainer.partyId, units)
-            .pipe(
-                switchMap(createdClaim =>
-                    this.pollClaimCreated(this.claimInfoContainer.partyId, createdClaim.claimId)
-                ),
-                tap(() => this.isLoading$.next(false))
-            );
+        return this.papiClaimService.createClaim(this.claimInfoContainer.partyId, units).pipe(
+            switchMap(createdClaim =>
+                this.pollClaimCreated(this.claimInfoContainer.partyId, createdClaim.claimId)
+            ),
+            tap(() => this.isLoading$.next(false))
+        );
     }
 
     acceptClaim(): Observable<void> {

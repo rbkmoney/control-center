@@ -27,7 +27,7 @@
             <button
                 mat-button
                 color="primary"
-                [disabled]="hasUnsavedChanges() || claimService.isLoading | async"
+                [disabled]="hasUnsavedChanges() || (claimService.isLoading | async)"
                 (click)="cloneClaim()"
             >
                 CLONE CLAIM
@@ -37,8 +37,8 @@
                 color="primary"
                 [disabled]="
                     hasUnsavedChanges() ||
-                        claimInfoContainer?.status !== 'pending' ||
-                        claimService.isLoading | async
+                    claimInfoContainer?.status !== 'pending' ||
+                    (claimService.isLoading | async)
                 "
                 (click)="accept()"
             >
@@ -49,8 +49,8 @@
                 color="warn"
                 [disabled]="
                     hasUnsavedChanges() ||
-                        claimInfoContainer?.status !== 'pending' ||
-                        claimService.isLoading | async
+                    claimInfoContainer?.status !== 'pending' ||
+                    (claimService.isLoading | async)
                 "
                 (click)="deny()"
             >
@@ -58,7 +58,7 @@
             </button>
         </div>
     </mat-card-actions>
-    <mat-card-footer *ngIf="claimService.isLoading | async">
+    <mat-card-footer *ngIf="(claimService.isLoading | async)">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
 </mat-card>
