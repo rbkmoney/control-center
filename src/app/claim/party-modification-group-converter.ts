@@ -67,11 +67,11 @@ const toGroup = (
 
 export const convert = (containers: PersistentContainer[]): ModificationGroup[] => {
     const grouped = groupBy(containers, item => {
-        const { shopModification, contractModification } = item.modification;
-        if (shopModification) {
+        const { shop_modification, contract_modification } = item.modification;
+        if (shop_modification) {
             return ModificationGroupType.ShopUnitContainer;
         }
-        if (contractModification) {
+        if (contract_modification) {
             return ModificationGroupType.ContractUnitContainer;
         }
         return ModificationGroupType.unknown;

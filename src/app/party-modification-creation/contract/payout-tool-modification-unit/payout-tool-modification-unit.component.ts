@@ -19,9 +19,9 @@ export class PayoutToolModificationUnitComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const payoutToolId = get(this, 'initialValue.payoutToolId', '');
+        const payoutToolId = get(this, 'initialValue.payout_tool_id', '');
         this.form.registerControl(
-            'payoutToolId',
+            'payout_tool_id',
             this.fb.control(payoutToolId, Validators.required)
         );
         this.form.registerControl('modification', this.fb.group({}));
@@ -29,6 +29,6 @@ export class PayoutToolModificationUnitComponent implements OnInit {
     }
 
     generate() {
-        this.form.patchValue({ payoutToolId: uuid() });
+        this.form.patchValue({ payout_tool_id: uuid() });
     }
 }

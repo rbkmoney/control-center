@@ -1,6 +1,6 @@
 import { PaymentAdjustmentCreationParams } from './adjustment-params';
 
 export interface PaymentAdjustmentCreationScope {
-    adjustmentId?: string;
-    creationParams: PaymentAdjustmentCreationParams;
+    adjustment_id?: string;
+    creation_params: PaymentAdjustmentCreationParams;
 }

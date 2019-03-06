@@ -29,9 +29,9 @@ export class PayoutToolInfoComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const russianBankAccount = get(this, 'initialValue.russianBankAccount', null);
-        const internationalBankAccount = get(this, 'initialValue.internationalBankAccount', null);
-        const walletInfo = get(this, 'initialValue.walletInfo', null);
+        const russianBankAccount = get(this, 'initialValue.russian_bank_account', null);
+        const internationalBankAccount = get(this, 'initialValue.international_bank_account', null);
+        const walletInfo = get(this, 'initialValue.wallet_info', null);
         if (russianBankAccount) {
             this.selected = Type.russianBankAccount;
         }
@@ -50,8 +50,8 @@ export class PayoutToolInfoComponent implements OnInit {
             case Type.russianBankAccount:
                 this.clearControl();
                 this.form.registerControl(
-                    'russianBankAccount',
-                    this.fb.group(this.initialValue.russianBankAccount || {})
+                    Type.russianBankAccount,
+                    this.fb.group(this.initialValue.russian_bank_account || {})
                 );
                 break;
             case Type.internationalBankAccount:
@@ -62,7 +62,7 @@ export class PayoutToolInfoComponent implements OnInit {
                 this.clearControl();
                 this.form.registerControl(
                     Type.walletInfo,
-                    this.fb.group(this.initialValue.walletInfo || {})
+                    this.fb.group(this.initialValue.wallet_info || {})
                 );
                 break;
         }

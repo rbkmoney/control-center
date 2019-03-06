@@ -11,7 +11,7 @@ import {
 
 const toPartyConditionDefinitionGen = (definition: PartyConditionDefinition) => {
     const definitionGen = new DomainTypes.PartyConditionDefinition();
-    definitionGen.shop_is = definition.shopIs;
+    definitionGen.shop_is = definition.shop_is;
     return definitionGen;
 };
 
@@ -54,7 +54,7 @@ const toTerminalSelectorGen = (selector: TerminalSelector) => {
 
 export const toGenTerminalDecision = (terminalDecision: TerminalDecision) => {
     const terminalDecisionGen = new DomainTypes.TerminalDecision();
-    terminalDecisionGen.if_ = toPredicateGen(terminalDecision.if);
-    terminalDecisionGen.then_ = toTerminalSelectorGen(terminalDecision.then);
+    terminalDecisionGen.if_ = toPredicateGen(terminalDecision.if_);
+    terminalDecisionGen.then_ = toTerminalSelectorGen(terminalDecision.then_);
     return terminalDecisionGen;
 };

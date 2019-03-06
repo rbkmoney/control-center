@@ -16,13 +16,13 @@
     </cc-contract-template-ref>
     <mat-checkbox
         [checked]="showPaymentInstitution"
-        (change)="toggleCheckbox($event.checked, 'paymentInstitution')"
+        (change)="toggleCheckbox($event.checked, 'payment_institution')"
         >Payment institution</mat-checkbox
     >
     <cc-payment-institution-ref
-        *ngIf="form.get('paymentInstitution')"
-        [form]="form.get('paymentInstitution')"
-        [initialValue]="initialValue?.paymentInstitution"
+        *ngIf="form.get('payment_institution')"
+        [form]="form.get('payment_institution')"
+        [initialValue]="initialValue?.payment_institution"
     >
     </cc-payment-institution-ref>
     <cc-nested-form-wrapper caption="contractor">

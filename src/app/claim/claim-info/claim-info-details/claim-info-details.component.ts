@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ClaimInfoContainer } from '../../model';
 import { ClaimActionType } from '../../claim-action-type';

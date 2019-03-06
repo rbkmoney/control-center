@@ -5,18 +5,10 @@ import { ClaimService } from './claim.service';
 import { CategoryService } from './category.service';
 import { ContractService } from './contract.service';
 import { PayoutsService } from './payouts.service';
-import { ReportService } from './report.service';
 import { PartyService } from './party.service';
 
 @NgModule({
     imports: [HttpClientModule],
-    providers: [
-        ClaimService,
-        CategoryService,
-        ContractService,
-        PayoutsService,
-        ReportService,
-        PartyService
-    ]
+    providers: [ClaimService, CategoryService, ContractService, PayoutsService, PartyService]
 })
 export class PapiModule {}

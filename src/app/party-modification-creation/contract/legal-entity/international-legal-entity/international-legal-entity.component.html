@@ -1,24 +1,24 @@
 <form [formGroup]="form">
     <div fxLayout="column">
         <mat-form-field fxFlex>
-            <input matInput placeholder="Legal name" formControlName="legalName" required />
+            <input matInput placeholder="Legal name" formControlName="legal_name" required />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <input matInput placeholder="Trading name" formControlName="tradingName" />
+            <input matInput placeholder="Trading name" formControlName="trading_name" />
         </mat-form-field>
         <mat-form-field fxFlex>
             <input
                 matInput
                 placeholder="Registered address"
-                formControlName="registeredAddress"
+                formControlName="registered_address"
                 required
             />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <input matInput placeholder="Actual address" formControlName="actualAddress" />
+            <input matInput placeholder="Actual address" formControlName="actual_address" />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <input matInput placeholder="Registered number" formControlName="registeredNumber" />
+            <input matInput placeholder="Registered number" formControlName="registered_number" />
         </mat-form-field>
     </div>
 </form>

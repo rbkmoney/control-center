@@ -19,9 +19,9 @@ export class RepresentativeComponent implements OnInit {
 
     ngOnInit() {
         const position = get(this, 'initialValue.position', '');
-        const fullName = get(this, 'initialValue.fullName', '');
+        const fullName = get(this, 'initialValue.full_name', '');
         this.form.registerControl('position', this.fb.control(position, Validators.required));
-        this.form.registerControl('fullName', this.fb.control(fullName, Validators.required));
+        this.form.registerControl('full_name', this.fb.control(fullName, Validators.required));
         this.form.registerControl('document', this.fb.group({}));
         this.form.updateValueAndValidity();
     }

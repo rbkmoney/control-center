@@ -86,10 +86,10 @@ export class CancelActionsComponent implements OnInit {
     }
 
     recreate() {
-        const createParams = this.cancelResult.map(({ user, invoiceId, paymentId }) => ({
+        const createParams = this.cancelResult.map(({ user, invoice_id, payment_id }) => ({
             user,
-            invoiceId,
-            paymentId,
+            invoice_id,
+            payment_id,
             params: this.adjustmentParams
         }));
         this.cancelResult = [];

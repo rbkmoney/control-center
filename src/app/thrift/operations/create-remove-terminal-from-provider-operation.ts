@@ -8,8 +8,8 @@ export const createRemoveTerminalFromProviderOperation = (
     providerObject: ProviderObject,
     params: RemoveTerminalFromShopParams
 ): UpdateOp => ({
-    oldObject: toGenDomainObject(providerObject, 'provider'),
-    newObject: toGenDomainObject(
+    old_object: toGenDomainObject(providerObject, 'provider'),
+    new_object: toGenDomainObject(
         removeTerminalDecision(providerObject, params.partyID, params.shopID, params.terminalID),
         'provider'
     )

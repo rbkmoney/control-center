@@ -19,10 +19,6 @@ export class PersistentContainerService {
         this.containers$.next(this.containers);
     }
 
-    getModification(typeHash: string) {
-        return this.containers.filter(mod => mod.typeHash === typeHash)[0] || null;
-    }
-
     add(modification: PartyModification) {
         const typeHash = this.makeTypeHash(modification);
         const item = {

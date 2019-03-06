@@ -11,7 +11,7 @@ const toGenTerminal = (data: Terminal) => {
     const terminal = new DomainTypes.Terminal();
     terminal.name = data.name;
     terminal.description = data.description;
-    terminal.risk_coverage = data.riskCoverage;
+    terminal.risk_coverage = data.risk_coverage;
     terminal.options = data.options;
     return terminal;
 };

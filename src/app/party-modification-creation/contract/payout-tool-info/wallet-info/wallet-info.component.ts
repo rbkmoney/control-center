@@ -12,7 +12,7 @@ export class WalletInfoComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.registerControl('walletId', this.fb.control(''));
+        this.form.registerControl('wallet_id', this.fb.control(''));
         this.form.updateValueAndValidity();
     }
 }
