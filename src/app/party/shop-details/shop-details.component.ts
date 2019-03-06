@@ -45,6 +45,10 @@ export class ShopDetailsComponent implements OnInit {
             .subscribe(() => this.getData());
     }
 
+    terminalRemoved() {
+        this.getData();
+    }
+
     private getData() {
         this.isLoading = true;
         this.route.params

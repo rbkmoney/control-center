@@ -1,5 +1,5 @@
 import * as DomainConfigTypes from '../gen-nodejs/domain_config_types';
-import { Commit, InsertOp, Operation, UpdateOp } from '../../gen-damsel/domain_config';
+import { Commit, InsertOp, Operation, RemoveOp, UpdateOp } from '../../gen-damsel/domain_config';
 
 const toGenInsertOp = (insertOp: InsertOp) => {
     const insertOpGen = new DomainConfigTypes.InsertOp();
@@ -14,12 +14,20 @@ const toGenUpdateOp = (updateOp: UpdateOp) => {
     return updateOpGen;
 };
 
+const toGenRemoveOp = (removeOp: RemoveOp) => {
+    const removeOpGen = new DomainConfigTypes.RemoveOp();
+    removeOpGen.object = removeOp.object;
+    return removeOpGen;
+};
+
 const toGenOperation = (operation: Operation) => {
     const operationGen = new DomainConfigTypes.Operation();
     if (operation.insert) {
         operationGen.insert = toGenInsertOp(operation.insert);
     } else if (operation.update) {
         operationGen.update = toGenUpdateOp(operation.update);
+    } else if (operation.remove) {
+        operationGen.remove = toGenRemoveOp(operation.remove);
     }
     return operationGen;
 };
