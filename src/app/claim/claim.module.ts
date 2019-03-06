@@ -44,6 +44,7 @@ import { TerminalObjectComponent } from './terminal-object/terminal-object.compo
 import { PersistentContainerService } from './persistent-container.service';
 import { CloneClaimComponent } from './clone-claim/clone-claim.component';
 import { PartyModificationContainerService } from './party-modification-container/party-modification-container.service';
+import { RemoveConfirmComponent } from './party-modification-container/remove-confirm/remove-confirm.component';
 
 @NgModule({
     imports: [
@@ -89,14 +90,16 @@ import { PartyModificationContainerService } from './party-modification-containe
         PartyModificationUnitsComponent,
         ContainerNamePipe,
         CreateModificationComponent,
-        TerminalObjectComponent
+        TerminalObjectComponent,
+        RemoveConfirmComponent
     ],
     entryComponents: [
         UnitActionsComponent,
         CloneClaimComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
-        CreateModificationComponent
+        CreateModificationComponent,
+        RemoveConfirmComponent
     ],
     providers: [ClaimService, PersistentContainerService, PartyModificationContainerService]
 })
