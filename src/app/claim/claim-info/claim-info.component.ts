@@ -9,7 +9,6 @@ import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 import { ClaimActionType } from '../claim-action-type';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
-import { ClaimStatus } from '../../papi/model/claim-statuses';
 import { CloneClaimComponent } from '../clone-claim/clone-claim.component';
 
 @Component({
@@ -45,7 +44,6 @@ export class ClaimInfoComponent implements OnInit {
     }
 
     save() {
-        this.claimService.isSaving = true;
         switch (this.claimInfoContainer.type) {
             case ClaimActionType.edit:
                 this.claimService
@@ -64,16 +62,6 @@ export class ClaimInfoComponent implements OnInit {
                 );
                 break;
         }
-    }
-
-    addAvailable() {
-        switch (this.claimInfoContainer.type) {
-            case ClaimActionType.edit:
-                return this.claimInfoContainer.status === ClaimStatus.pending;
-            case ClaimActionType.create:
-                return true;
-        }
-        return false;
     }
 
     add() {
@@ -101,13 +89,11 @@ export class ClaimInfoComponent implements OnInit {
     }
 
     private success() {
-        this.claimService.isSaving = false;
         this.snackBar.open('Changes saved', 'OK', { duration: 3000 });
     }
 
     private failed(error) {
         console.error(error);
-        this.claimService.isSaving = false;
         this.snackBar.open('An error occurred', 'OK');
     }
 }

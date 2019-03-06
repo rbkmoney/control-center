@@ -56,7 +56,7 @@ export class PartyModificationContainerComponent implements OnInit {
         this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
     }
 
-    onChangeIndex(index) {
+    onChangeTabIndex(index) {
         this.activeUnit = this.modifications[index];
     }
 }

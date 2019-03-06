@@ -24,6 +24,7 @@ import { PersistentContainerService } from './persistent-container.service';
 import { convert } from './party-modification-group-converter';
 import { PartyModification } from '../gen-damsel/payment_processing';
 import { ClaimActionType } from './claim-action-type';
+import { ClaimStatus } from '../papi/model/claim-statuses';
 
 @Injectable()
 export class ClaimService {
@@ -33,11 +34,21 @@ export class ClaimService {
 
     modificationGroups$: Subject<ModificationGroup[]> = new Subject();
 
-    isSaving = false;
+    private isLoading$: Subject<boolean> = new BehaviorSubject(false);
+
+    private isAddModificationAvailable$: Subject<boolean> = new BehaviorSubject(false);
 
     private claimInfoContainer: ClaimInfoContainer;
 
     private containers: PersistentContainer[];
+
+    get isLoading(): Observable<boolean> {
+        return this.isLoading$;
+    }
+
+    get isAddModificationAvailable(): Observable<boolean> {
+        return this.isAddModificationAvailable$;
+    }
 
     constructor(
         private papiClaimService: ClaimPapi,
@@ -62,12 +73,14 @@ export class ClaimService {
                             this.claimInfoContainer = { type, party_id };
                             this.claimInfoContainer$.next(this.claimInfoContainer);
                         }),
-                        map(() => null)
+                        map(() => null),
+                        tap(() => this.isAddModificationAvailable$.next(this.getAvailability()))
                     );
                 } else {
                     this.persistentContainerService.init([]);
                     this.claimInfoContainer = { type, party_id };
                     this.claimInfoContainer$.next(this.claimInfoContainer);
+                    tap(() => this.isAddModificationAvailable$.next(this.getAvailability()));
                     return of();
                 }
             case ClaimActionType.edit:
@@ -79,7 +92,8 @@ export class ClaimService {
                         this.domainModificationInfo$.next(domainModificationInfo);
                         this.claimInfoContainer$.next(this.claimInfoContainer);
                     }),
-                    map(() => null)
+                    map(() => null),
+                    tap(() => this.isAddModificationAvailable$.next(this.getAvailability()))
                 );
         }
         return throwError('Unsupported claim action type');
@@ -107,14 +121,14 @@ export class ClaimService {
     }
 
     createClaim(): Observable<ClaimInfo> {
+        this.isLoading$.next(true);
         const units = this.toModificationUnits(this.containers);
-        return this.papiClaimService
-            .createClaim(this.claimInfoContainer.party_id, units)
-            .pipe(
-                switchMap(createdClaim =>
-                    this.pollClaimCreated(this.claimInfoContainer.party_id, createdClaim.claimId)
-                )
-            );
+        return this.papiClaimService.createClaim(this.claimInfoContainer.party_id, units).pipe(
+            switchMap(createdClaim =>
+                this.pollClaimCreated(this.claimInfoContainer.party_id, createdClaim.claimId)
+            ),
+            tap(() => this.isLoading$.next(false))
+        );
     }
 
     acceptClaim(): Observable<void> {
@@ -129,7 +143,8 @@ export class ClaimService {
                     })
                     .pipe(map(() => claimInfo.revision))
             ),
-            switchMap(revision => this.pollClaimChange(revision))
+            switchMap(revision => this.pollClaimChange(revision)),
+            tap(() => this.isLoading$.next(false))
         );
     }
 
@@ -146,12 +161,23 @@ export class ClaimService {
                     })
                     .pipe(map(() => claimInfo.revision))
             ),
-            switchMap(revision => this.pollClaimChange(revision))
+            switchMap(revision => this.pollClaimChange(revision)),
+            tap(() => this.isLoading$.next(false))
         );
     }
 
     hasUnsavedChanges(): boolean {
         return this.containers ? this.containers.filter(i => !i.saved).length > 0 : false;
+    }
+
+    private getAvailability(): boolean {
+        switch (this.claimInfoContainer.type) {
+            case ClaimActionType.edit:
+                return this.claimInfoContainer.status === ClaimStatus.pending;
+            case ClaimActionType.create:
+                return true;
+        }
+        return false;
     }
 
     private toModificationUnits(containers: PersistentContainer[]): PartyModificationUnit {

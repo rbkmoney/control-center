@@ -18,7 +18,10 @@
                 <div class="add-modification-container" fxLayoutAlign="end center">
                     <button
                         mat-button
-                        [disabled]="claimService.isSaving"
+                        [disabled]="
+                            (claimService.isLoading | async) ||
+                            (!claimService.isAddModificationAvailable | async)
+                        "
                         (click)="add(unit.unitID)"
                     >
                         ADD MODIFICATION

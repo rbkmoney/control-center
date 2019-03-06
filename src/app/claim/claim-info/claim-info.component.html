@@ -7,14 +7,17 @@
         <div fxLayout="row" fxLayout.xs="column">
             <button
                 mat-button
-                [disabled]="!addAvailable() || claimService.isSaving"
+                [disabled]="
+                    (claimService.isLoading | async) ||
+                    (!claimService.isAddModificationAvailable | async)
+                "
                 (click)="add()"
             >
                 ADD MODIFICATION
             </button>
             <button
                 mat-button
-                [disabled]="!hasUnsavedChanges() || claimService.isSaving"
+                [disabled]="!hasUnsavedChanges() || (claimService.isLoading | async)"
                 (click)="save()"
             >
                 SAVE MODIFICATIONS
@@ -24,7 +27,7 @@
             <button
                 mat-button
                 color="primary"
-                [disabled]="hasUnsavedChanges() || claimService.isSaving"
+                [disabled]="hasUnsavedChanges() || claimService.isLoading | async"
                 (click)="cloneClaim()"
             >
                 CLONE CLAIM
@@ -34,8 +37,8 @@
                 color="primary"
                 [disabled]="
                     hasUnsavedChanges() ||
-                    claimInfoContainer?.status !== 'pending' ||
-                    claimService.isSaving
+                        claimInfoContainer?.status !== 'pending' ||
+                        claimService.isLoading | async
                 "
                 (click)="accept()"
             >
@@ -46,8 +49,8 @@
                 color="warn"
                 [disabled]="
                     hasUnsavedChanges() ||
-                    claimInfoContainer?.status !== 'pending' ||
-                    claimService.isSaving
+                        claimInfoContainer?.status !== 'pending' ||
+                        claimService.isLoading | async
                 "
                 (click)="deny()"
             >
@@ -55,7 +58,7 @@
             </button>
         </div>
     </mat-card-actions>
-    <mat-card-footer *ngIf="claimService.isSaving">
+    <mat-card-footer *ngIf="(claimService.isLoading | async)">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
 </mat-card>
