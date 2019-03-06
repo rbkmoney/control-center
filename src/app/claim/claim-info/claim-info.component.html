@@ -58,7 +58,7 @@
             </button>
         </div>
     </mat-card-actions>
-    <mat-card-footer *ngIf="(claimService.isLoading | async)">
+    <mat-card-footer *ngIf="claimService.isLoading | async">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
 </mat-card>
