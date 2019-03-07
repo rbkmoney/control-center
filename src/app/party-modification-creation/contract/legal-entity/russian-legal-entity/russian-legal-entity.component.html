@@ -5,7 +5,7 @@
                 <input
                     matInput
                     placeholder="Registered name"
-                    formControlName="registeredName"
+                    formControlName="registered_name"
                     required
                 />
             </mat-form-field>
@@ -13,7 +13,7 @@
                 <input
                     matInput
                     placeholder="Registered number"
-                    formControlName="registeredNumber"
+                    formControlName="registered_number"
                     required
                 />
             </mat-form-field>
@@ -24,18 +24,23 @@
                 <input
                     matInput
                     placeholder="Actual address"
-                    formControlName="actualAddress"
+                    formControlName="actual_address"
                     required
                 />
             </mat-form-field>
             <mat-form-field fxFlex>
-                <input matInput placeholder="Post address" formControlName="postAddress" required />
+                <input
+                    matInput
+                    placeholder="Post address"
+                    formControlName="post_address"
+                    required
+                />
             </mat-form-field>
             <mat-form-field fxFlex>
                 <input
                     matInput
                     placeholder="Representative position"
-                    formControlName="representativePosition"
+                    formControlName="representative_position"
                     required
                 />
             </mat-form-field>
@@ -43,7 +48,7 @@
                 <input
                     matInput
                     placeholder="Representative full name"
-                    formControlName="representativeFullName"
+                    formControlName="representative_full_name"
                     required
                 />
             </mat-form-field>
@@ -51,15 +56,15 @@
                 <input
                     matInput
                     placeholder="Representative document"
-                    formControlName="representativeDocument"
+                    formControlName="representative_document"
                     required
                 />
             </mat-form-field>
             <cc-nested-form-wrapper caption="russian_bank_account">
                 <cc-russian-bank-account
                     fxFlex
-                    [form]="form.get('russianBankAccount')"
-                    [initialValue]="initialValue?.russianBankAccount"
+                    [form]="form.get('russian_bank_account')"
+                    [initialValue]="initialValue?.russian_bank_account"
                 >
                 </cc-russian-bank-account>
             </cc-nested-form-wrapper>

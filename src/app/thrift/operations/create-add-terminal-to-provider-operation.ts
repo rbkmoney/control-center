@@ -8,8 +8,8 @@ export const createAddTerminalToProviderOperation = (
     providerObject: ProviderObject,
     params: AddDecisionToProvider
 ): UpdateOp => ({
-    oldObject: toGenDomainObject(providerObject, 'provider'),
-    newObject: toGenDomainObject(
+    old_object: toGenDomainObject(providerObject, 'provider'),
+    new_object: toGenDomainObject(
         addTerminalDecision(providerObject, params.partyID, params.shopID, params.terminalID),
         'provider'
     )

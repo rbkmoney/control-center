@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
+import { map } from 'rxjs/operators';
 
 import { ClaimCreated, ClaimInfo, PartyModificationUnit } from './model';
 import { ConfigService } from '../core/config.service';
-import { decode, ThriftFormatter } from '../shared/thrift-formatter';
+import { decode, encode } from '../shared/java-thrift-formatter';
 import { ClaimAcceptParams, ClaimDenyParams, ClaimSearchParams } from './params';
 
 @Injectable()
@@ -29,11 +29,9 @@ export class ClaimService {
 
     createClaim(partyID: string, unit: PartyModificationUnit): Observable<ClaimCreated> {
         const params = new HttpParams().set('partyId', partyID);
-        return this.http.post<ClaimCreated>(
-            `${this.papiEndpoint}/walk/claim`,
-            ThriftFormatter.encode(unit),
-            { params }
-        );
+        return this.http.post<ClaimCreated>(`${this.papiEndpoint}/walk/claim`, encode(unit), {
+            params
+        });
     }
 
     updateClaim(
@@ -46,11 +44,9 @@ export class ClaimService {
             .set('partyId', partyID)
             .set('claimId', claimID.toString())
             .set('revision', revision);
-        return this.http.post<void>(
-            `${this.papiEndpoint}/walk/claim/update`,
-            ThriftFormatter.encode(unit),
-            { params }
-        );
+        return this.http.post<void>(`${this.papiEndpoint}/walk/claim/update`, encode(unit), {
+            params
+        });
     }
 
     acceptClaim(params: ClaimAcceptParams): Observable<void> {

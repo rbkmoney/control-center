@@ -11,13 +11,13 @@
     <cc-russian-bank-account
         *ngIf="selected === t.russianBankAccount"
         [form]="form.get(t.russianBankAccount)"
-        [initialValue]="initialValue?.russianBankAccount"
+        [initialValue]="initialValue?.russian_bank_account"
     >
     </cc-russian-bank-account>
     <cc-international-bank-account
         *ngIf="selected === t.internationalBankAccount"
         [form]="form.get(t.internationalBankAccount)"
-        [initialValue]="initialValue?.internationalBankAccount"
+        [initialValue]="initialValue?.international_bank_account"
     >
     </cc-international-bank-account>
     <cc-wallet-info *ngIf="selected === t.walletInfo" [form]="form.get(t.walletInfo)">

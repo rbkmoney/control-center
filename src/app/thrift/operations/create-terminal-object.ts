@@ -16,7 +16,7 @@ const convert = (
     data: {
         name: params.terminalName,
         description: params.terminalDescription,
-        riskCoverage: params.riskCoverage,
+        risk_coverage: params.riskCoverage,
         options: toMap(params.options)
     }
 });

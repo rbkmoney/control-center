@@ -41,8 +41,8 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
         return result.map(
             ({ data, container: { params } }) =>
                 ({
-                    adjustmentId: data && data.id,
-                    creationParams: params
+                    adjustment_id: data && data.id,
+                    creation_params: params
                 } as PaymentAdjustmentCreationScope)
         );
     }

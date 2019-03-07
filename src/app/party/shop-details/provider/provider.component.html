@@ -9,9 +9,11 @@
                 <h3 mat-subheader>Terminals</h3>
                 <mat-list-item *ngFor="let terminalInfo of info.terminalInfos">
                     <cc-terminal
-                        [terminal]="terminalInfo.terminal"
-                        [disabled]="terminalInfo.disabled"
-                        [predicateType]="terminalInfo.predicateType"
+                        [terminalInfo]="terminalInfo"
+                        [providerID]="info.provider.ref.id"
+                        [shopID]="shopID"
+                        [partyID]="partyID"
+                        (terminalRemovedEvent)="terminalRemoved()"
                     ></cc-terminal>
                 </mat-list-item>
             </mat-list>

@@ -5,8 +5,8 @@ import get from 'lodash-es/get';
 import { LegalEntity } from '../../../gen-damsel/domain';
 
 enum Type {
-    russianLegalEntity = 'russianLegalEntity',
-    internationalLegalEntity = 'internationalLegalEntity'
+    russianLegalEntity = 'russian_legal_entity',
+    internationalLegalEntity = 'international_legal_entity'
 }
 
 @Component({
@@ -29,8 +29,8 @@ export class LegalEntityComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const russianLegalEntity = get(this, 'initialValue.russianLegalEntity', null);
-        const internationalLegalEntity = get(this, 'initialValue.internationalLegalEntity', null);
+        const russianLegalEntity = get(this, 'initialValue.russian_legal_entity', null);
+        const internationalLegalEntity = get(this, 'initialValue.international_legal_entity', null);
         if (russianLegalEntity) {
             this.selected = Type.russianLegalEntity;
             this.select();

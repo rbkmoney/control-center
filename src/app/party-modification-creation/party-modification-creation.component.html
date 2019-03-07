@@ -12,25 +12,25 @@
         <cc-contract-payout-tool-modification-unit
             *ngIf="action.name === contractModificationNames.payoutToolModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.payoutToolModification"
+            [initialValue]="modification?.payout_tool_modification"
         >
         </cc-contract-payout-tool-modification-unit>
         <cc-legal-agreement-binding
             *ngIf="action.name === contractModificationNames.legalAgreementBinding"
             [form]="form.get('modification')"
-            [initialValue]="modification?.legalAgreementBinding"
+            [initialValue]="modification?.legal_agreement_binding"
         >
         </cc-legal-agreement-binding>
         <cc-adjustment-modification-unit
             *ngIf="action.name === contractModificationNames.adjustmentModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.adjustmentModification"
+            [initialValue]="modification?.adjustment_modification"
         >
         </cc-adjustment-modification-unit>
         <cc-report-preferences
             *ngIf="action.name === contractModificationNames.reportPreferencesModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.reportPreferencesModification"
+            [initialValue]="modification?.report_preferences_modification"
         >
         </cc-report-preferences>
         <cc-termination
@@ -49,43 +49,43 @@
         <cc-category-ref
             *ngIf="action.name === shopModificationNames.categoryModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.categoryModification"
+            [initialValue]="modification?.category_modification"
         >
         </cc-category-ref>
         <cc-shop-details
             *ngIf="action.name === shopModificationNames.detailsModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.detailsModification"
+            [initialValue]="modification?.details_modification"
         >
         </cc-shop-details>
         <cc-shop-location
             *ngIf="action.name === shopModificationNames.locationModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.locationModification"
+            [initialValue]="modification?.location_modification"
         >
         </cc-shop-location>
         <cc-shop-account-creation
             *ngIf="action.name === shopModificationNames.shopAccountCreation"
             [form]="form.get('modification')"
-            [initialValue]="modification?.shopAccountCreation"
+            [initialValue]="modification?.shop_account_creation"
         >
         </cc-shop-account-creation>
         <cc-shop-schedule-modification
             *ngIf="action.name === shopModificationNames.payoutScheduleModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.payoutScheduleModification"
+            [initialValue]="modification?.payout_schedule_modification"
         >
         </cc-shop-schedule-modification>
         <cc-shop-contract-modification
             *ngIf="action.name === shopModificationNames.contractModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.contractModification"
+            [initialValue]="modification?.contract_modification"
         >
         </cc-shop-contract-modification>
         <cc-shop-payout-tool-modification
             *ngIf="action.name === shopModificationNames.payoutToolModification"
             [form]="form.get('modification')"
-            [initialValue]="modification?.payoutToolModification"
+            [initialValue]="modification?.payout_tool_modification"
         >
         </cc-shop-payout-tool-modification>
         <cc-shop-params

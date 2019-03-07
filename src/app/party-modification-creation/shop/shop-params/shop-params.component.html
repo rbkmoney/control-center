@@ -1,9 +1,9 @@
 <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
     <mat-form-field fxFlex>
-        <input matInput placeholder="Contract ID" formControlName="contractId" required />
+        <input matInput placeholder="Contract ID" formControlName="contract_id" required />
     </mat-form-field>
     <mat-form-field fxFlex>
-        <input matInput placeholder="Payout tool ID" formControlName="payoutToolId" />
+        <input matInput placeholder="Payout tool ID" formControlName="payout_tool_id" />
     </mat-form-field>
     <cc-nested-form-wrapper caption="details">
         <cc-shop-details fxFlex [form]="form.get('details')" [initialValue]="initialValue?.details">

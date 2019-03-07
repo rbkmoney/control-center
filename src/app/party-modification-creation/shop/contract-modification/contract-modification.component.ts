@@ -18,11 +18,11 @@ export class ContractModificationComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const contractId = get(this, 'initialValue.contractId', '');
-        const payoutToolId = get(this, 'initialValue.payoutToolId', '');
-        this.form.registerControl('contractId', this.fb.control(contractId, Validators.required));
+        const contractId = get(this, 'initialValue.contract_id', '');
+        const payoutToolId = get(this, 'initialValue.payout_tool_id', '');
+        this.form.registerControl('contract_id', this.fb.control(contractId, Validators.required));
         this.form.registerControl(
-            'payoutToolId',
+            'payout_tool_id',
             this.fb.control(payoutToolId, Validators.required)
         );
         this.form.updateValueAndValidity();
