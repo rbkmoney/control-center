@@ -61,34 +61,16 @@ export class SimpleRepairComponent {
     }
 
     add() {
-        const ids: string[] = [];
-        const selectIds = /[a-z0-9-]+/gi;
-        let execId: string[];
-        const alreadyAddedIds: string[] = [];
-        while ((execId = selectIds.exec(this.idsControl.value))) {
-            const id = execId[0];
-            if (
-                this.dataSource.findIndex(el => el.id === id) >= 0 ||
-                ids.findIndex(addedId => addedId === id) >= 0
-            ) {
-                if (alreadyAddedIds.findIndex(alreadyAddedId => alreadyAddedId === id) === -1) {
-                    alreadyAddedIds.push(id);
-                }
-            } else {
-                ids.push(id);
-            }
-        }
-        if (alreadyAddedIds.length) {
-            this.snackBar.open(`IDs: ${alreadyAddedIds.join(', ')} has already been added`, 'OK', {
-                duration: 10000
-            });
-        }
+        const ids = this.repairingService.execIdsFromStr(
+            this.idsControl.value,
+            this.dataSource.map(({ id }) => id)
+        );
         this.idsControl.setValue('');
         const ns = this.nsControl.value;
         this.dataSource = this.dataSource.concat(
             ids.map(id => ({ id, ns, status: Status.update }))
         );
-        this.updateStatus(this.dataSource.filter(el => ids.find(id => id === el.id)));
+        this.updateStatus(this.dataSource.filter(el => ids.includes(el.id)));
     }
 
     remove(element) {
