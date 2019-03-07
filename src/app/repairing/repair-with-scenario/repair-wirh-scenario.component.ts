@@ -50,7 +50,7 @@ export class RepairWithScenarioComponent {
 
     idsControl: FormControl;
     scenarioControl: FormControl;
-    codeControl: FormControl = new FormControl('');
+    codeControl: FormControl;
 
     @Input()
     progress$: BehaviorSubject<boolean | number>;
@@ -66,6 +66,7 @@ export class RepairWithScenarioComponent {
     ) {
         this.idsControl = fb.control('');
         this.scenarioControl = fb.control(Scenario.fail_pre_processing);
+        this.codeControl = fb.control(this.codes[0]);
         this.filteredCodes = this.codeControl.valueChanges.pipe(
             map(code =>
                 code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes

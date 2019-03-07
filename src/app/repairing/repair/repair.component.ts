@@ -40,12 +40,12 @@ export class RepairComponent {
     displayedColumns: string[] = ['id', 'status', 'actions'];
     dataSource: Array<Element> = [];
     scenarios = Object.values(Scenario);
-    codes: string[] = ['authorization_failed'];
+    codes: string[] = ['unknown'];
     filteredCodes: Observable<string[]>;
 
     idsControl: FormControl;
     scenarioControl: FormControl;
-    codeControl: FormControl = new FormControl('');
+    codeControl: FormControl;
 
     @Input()
     progress$: BehaviorSubject<boolean | number>;
@@ -60,6 +60,7 @@ export class RepairComponent {
     ) {
         this.idsControl = fb.control('');
         this.scenarioControl = fb.control(Scenario.set_session_result);
+        this.codeControl = fb.control(this.codes[0]);
         this.filteredCodes = this.codeControl.valueChanges.pipe(
             map(code =>
                 code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
@@ -129,7 +130,9 @@ export class RepairComponent {
             element.status = Status.update;
         }
         const scenario = {
-            set_session_result: { result: { failed: { failure: { code: 'unknown' } } } }
+            [this.scenarioControl.value]: {
+                result: { failed: { failure: { code: this.codeControl.value } } }
+            }
         };
         execute(
             elements.map(({ id }) => () => this.repairerService.repair(id, scenario))
