@@ -2,9 +2,10 @@ import { ValueType, SetType, ListType, MapType } from 'thrift-ts';
 import isString from 'lodash-es/isString';
 import isObject from 'lodash-es/isObject';
 
+import { PrimitiveType } from '../model';
+
 export const isPrimitiveType = (type: ValueType): boolean =>
-    isString(type) &&
-    ['int', 'bool', 'i8', 'i16', 'i32', 'i64', 'string', 'double', 'binary'].includes(type);
+    isString(type) && Object.keys(PrimitiveType).includes(type);
 
 export const isObjectRefType = (meta: any) => isString(meta) && !isPrimitiveType(meta);
 
