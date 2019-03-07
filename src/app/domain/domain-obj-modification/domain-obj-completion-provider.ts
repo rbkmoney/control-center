@@ -25,7 +25,7 @@ export class DomainObjCompletionProvider implements CompletionProvider {
                     label: 'test',
                     kind: monaco.languages.CompletionItemKind.Text,
                     documentation: 'Set the language',
-                    insertText: 'Ебало стяни!'
+                    insertText: 'Test value'
                 }
             ]
         };
