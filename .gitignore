@@ -19,7 +19,7 @@
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
+#!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
@@ -42,3 +42,6 @@ Thumbs.db
 /src/app/gen-damsel/
 /src/app/machinegun/gen-*
 /src/app/fistful/gen-*
+
+# Sonar
+.scannerwork
