@@ -1,7 +1,4 @@
 table {
     width: 100%;
-}
-
-.mat-column-actions {
-    text-align: right;
+    white-space: nowrap;
 }
