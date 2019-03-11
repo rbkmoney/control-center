@@ -108,9 +108,7 @@ export class RepairComponent {
             return;
         }
         this.progress$.next(0);
-        for (const element of elements) {
-            element.status = Status.update;
-        }
+        this.setStatus(elements, Status.update);
         const scenario = {
             [this.scenarioControl.value]: {
                 result: { failed: { failure: { code: this.codeControl.value } } }

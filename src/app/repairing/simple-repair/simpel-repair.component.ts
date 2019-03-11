@@ -131,9 +131,7 @@ export class SimpleRepairComponent {
             return;
         }
         this.progress$.next(0);
-        for (const element of elements) {
-            element.status = Status.update;
-        }
+        this.setStatus(elements, Status.update);
         execute(
             elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
         ).subscribe(result => {
