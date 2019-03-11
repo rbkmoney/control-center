@@ -37,11 +37,7 @@ interface Element {
 export class RepairWithScenarioComponent {
     displayedColumns: string[] = ['id', 'status'];
     dataSource: Array<Element> = [];
-
     idsControl: FormControl;
-
-    scenario: string;
-    code: string;
 
     @Input()
     progress$: BehaviorSubject<boolean | number>;
@@ -79,7 +75,7 @@ export class RepairWithScenarioComponent {
         }
     }
 
-    statusByError(error: any) {
+    getStatusByError(error: any) {
         switch (error.name) {
             case 'InvalidUser':
                 return Status.invalidUser;
@@ -92,10 +88,10 @@ export class RepairWithScenarioComponent {
         }
     }
 
-    getScenario(): InvoiceRepairScenario {
+    getScenario(scenario: string, code: string): InvoiceRepairScenario {
         return {
-            [this.scenario]: {
-                failure: { code: this.code }
+            [scenario]: {
+                failure: { code }
             }
         };
     }
@@ -105,18 +101,16 @@ export class RepairWithScenarioComponent {
             width: '600px'
         });
         dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {
-            this.scenario = scenario;
-            this.code = code;
+            this.repair(this.dataSource, this.getScenario(scenario, code));
         });
     }
 
-    repair(elements: Element[] = this.dataSource) {
+    repair(elements: Element[] = this.dataSource, scenario: InvoiceRepairScenario) {
         if (!elements.length) {
             return;
         }
         this.progress$.next(0);
         this.setStatus(elements, Status.update);
-        const scenario = this.getScenario();
         const user = this.repairingService.getUser();
         execute(
             elements.map(({ id }) => () =>
@@ -126,7 +120,7 @@ export class RepairWithScenarioComponent {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.hasError) {
-                element.status = this.statusByError(result.error);
+                element.status = this.getStatusByError(result.error);
                 element.error = Array.isArray(result.error.errors)
                     ? result.error.errors.join('. ')
                     : '';

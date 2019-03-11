@@ -73,7 +73,7 @@ export class RepairComponent {
         }
     }
 
-    statusByError(error: any) {
+    getStatusByError(error: any) {
         switch (error.name) {
             case 'WithdrawalSessionNotFound':
                 return Status.withdrawalSessionNotFound;
@@ -113,7 +113,7 @@ export class RepairComponent {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.hasError) {
-                element.status = this.statusByError(result.error);
+                element.status = this.getStatusByError(result.error);
             } else {
                 element.status = Status.repaired;
             }
