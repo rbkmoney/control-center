@@ -116,15 +116,17 @@ export class RepairComponent {
         });
     }
 
+    executeRepair(elements: Element[], scenario: RepairScenario) {
+        return execute(elements.map(({ id }) => () => this.repairerService.repair(id, scenario)));
+    }
+
     repair(elements: Element[] = this.selection.selected, scenario: RepairScenario) {
         if (!elements.length) {
             return;
         }
         this.progress$.next(0);
         this.setStatus(elements, Status.update);
-        execute(
-            elements.map(({ id }) => () => this.repairerService.repair(id, scenario))
-        ).subscribe(result => {
+        this.executeRepair(elements, scenario).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.hasError) {

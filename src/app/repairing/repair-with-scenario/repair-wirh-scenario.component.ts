@@ -120,18 +120,22 @@ export class RepairWithScenarioComponent {
         });
     }
 
-    repair(elements: Element[] = this.selection.selected, scenario: InvoiceRepairScenario) {
+    executeRepairWithScenario(elements: Element[], scenario: InvoiceRepairScenario) {
+        const user = this.repairingService.getUser();
+        return execute(
+            elements.map(({ id }) => () =>
+                this.paymentProcessingService.repairWithScenario(user, id, scenario)
+            )
+        );
+    }
+
+    repair(elements: Element[], scenario: InvoiceRepairScenario) {
         if (!elements.length) {
             return;
         }
         this.progress$.next(0);
         this.setStatus(elements, Status.update);
-        const user = this.repairingService.getUser();
-        execute(
-            elements.map(({ id }) => () =>
-                this.paymentProcessingService.repairWithScenario(user, id, scenario)
-            )
-        ).subscribe(result => {
+        this.executeRepairWithScenario(elements, scenario).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.hasError) {

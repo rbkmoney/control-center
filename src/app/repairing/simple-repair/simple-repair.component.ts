@@ -140,15 +140,19 @@ export class SimpleRepairComponent {
         }
     }
 
+    executeSimpleRepair(elements: Element[]) {
+        return execute(
+            elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
+        );
+    }
+
     repair(elements: Element[] = this.selection.selected) {
         if (!elements.length) {
             return;
         }
         this.progress$.next(0);
         this.setStatus(elements, Status.update);
-        execute(
-            elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
-        ).subscribe(result => {
+        this.executeSimpleRepair(elements).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.hasError) {
