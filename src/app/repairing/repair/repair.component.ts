@@ -76,9 +76,9 @@ export class RepairComponent {
     remove(elements: Element[] = this.selection.selected) {
         const resultDataSource = this.dataSource.slice();
         for (const element of elements) {
-            this.selection.clear();
             resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
         }
+        this.selection.clear();
         this.dataSource = resultDataSource;
     }
 
