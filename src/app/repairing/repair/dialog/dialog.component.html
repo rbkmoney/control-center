@@ -16,7 +16,7 @@
             [matAutocomplete]="auto"
         />
         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let code of (filteredCodes | async)" [value]="code">
+            <mat-option *ngFor="let code of (autocmpleteCodes$ | async)" [value]="code">
                 {{ code }}
             </mat-option>
         </mat-autocomplete>

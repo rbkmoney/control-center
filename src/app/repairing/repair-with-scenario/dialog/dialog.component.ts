@@ -27,7 +27,7 @@ export class DialogComponent {
 
     scenarioControl: FormControl;
     codeControl: FormControl;
-    filteredCodes: Observable<string[]>;
+    autocmpleteCodes$: Observable<string[]>;
 
     constructor(
         private fb: FormBuilder,
@@ -36,7 +36,7 @@ export class DialogComponent {
     ) {
         this.scenarioControl = fb.control(Scenario.fail_pre_processing);
         this.codeControl = fb.control(this.codes[0]);
-        this.filteredCodes = this.codeControl.valueChanges.pipe(
+        this.autocmpleteCodes$ = this.codeControl.valueChanges.pipe(
             map(code =>
                 code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
             )
