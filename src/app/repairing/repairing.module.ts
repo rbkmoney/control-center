@@ -29,6 +29,7 @@ import { RepairWithScenarioComponent } from './repair-with-scenario/repair-wirh-
 import { DialogComponent as RepairWithScenarioDialogComponent } from './repair-with-scenario/dialog/dialog.component';
 import { FistfulModule } from '../fistful/fistful.model';
 import { RepairComponent } from './repair/repair.component';
+import { DialogComponent as RepairDialogComponent } from './repair/dialog/dialog.component';
 
 @NgModule({
     imports: [
@@ -59,9 +60,10 @@ import { RepairComponent } from './repair/repair.component';
         SimpleRepairComponent,
         RepairWithScenarioComponent,
         RepairComponent,
-        RepairWithScenarioDialogComponent
+        RepairWithScenarioDialogComponent,
+        RepairDialogComponent
     ],
-    entryComponents: [RepairWithScenarioDialogComponent],
+    entryComponents: [RepairWithScenarioDialogComponent, RepairDialogComponent],
     providers: [RepairingService]
 })
 export class RepairingModule {}
