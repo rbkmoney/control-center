@@ -28,32 +28,9 @@
             <button mat-button color="primary" (click)="add()" [disabled]="isLoading">ADD</button>
         </div>
     </div>
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center">
-        <mat-form-field>
-            <mat-select placeholder="Scenario" [formControl]="scenarioControl">
-                <mat-option *ngFor="let scenario of scenarios" [value]="scenario">
-                    {{ scenario }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <input
-                type="text"
-                placeholder="Code"
-                matInput
-                [formControl]="codeControl"
-                [matAutocomplete]="auto"
-            />
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let code of (filteredCodes | async)" [value]="code">
-                    {{ code }}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-    </div>
     <div fxLayoutAlign="space-between">
         <button mat-button color="warn" (click)="remove()" [disabled]="isLoading">REMOVE</button>
-        <button mat-button color="primary" (click)="repair()" [disabled]="isLoading">
+        <button mat-button color="primary" (click)="repairDialog()" [disabled]="isLoading">
             CONFIGURE REPAIR
         </button>
     </div>

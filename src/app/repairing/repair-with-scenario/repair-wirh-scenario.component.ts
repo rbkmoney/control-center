@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { KeycloakService } from 'keycloak-angular';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { BehaviorSubject } from 'rxjs';
 
 import { execute } from '../../shared/execute';
 import { PaymentProcessingService } from '../../thrift/payment-processing.service';
 import { RepairingService } from '../repairing.service';
-import { map } from 'rxjs/operators';
+import { DialogComponent, DialogData } from './dialog/dialog.component';
+import { InvoiceRepairScenario } from 'src/app/gen-damsel/payment_processing';
 
 enum Status {
     repaired = 'machine repaired',
@@ -20,13 +20,6 @@ enum Status {
     invalidUser = 'invalid user',
     invoiceNotFound = 'invoice not found',
     invalidRequest = 'invalid request'
-}
-
-enum Scenario {
-    // complex = 'complex',
-    fail_pre_processing = 'fail_pre_processing',
-    // skip_inspector = 'skip_inspector',
-    fail_session = 'fail_session'
 }
 
 interface Element {
@@ -44,13 +37,11 @@ interface Element {
 export class RepairWithScenarioComponent {
     displayedColumns: string[] = ['id', 'status'];
     dataSource: Array<Element> = [];
-    scenarios = Object.values(Scenario);
-    codes: string[] = ['authorization_failed'];
-    filteredCodes: Observable<string[]>;
 
     idsControl: FormControl;
-    scenarioControl: FormControl;
-    codeControl: FormControl;
+
+    scenario: string;
+    code: string;
 
     @Input()
     progress$: BehaviorSubject<boolean | number>;
@@ -61,16 +52,10 @@ export class RepairWithScenarioComponent {
         private fb: FormBuilder,
         private snackBar: MatSnackBar,
         private paymentProcessingService: PaymentProcessingService,
-        private repairingService: RepairingService
+        private repairingService: RepairingService,
+        private dialog: MatDialog
     ) {
         this.idsControl = fb.control('');
-        this.scenarioControl = fb.control(Scenario.fail_pre_processing);
-        this.codeControl = fb.control(this.codes[0]);
-        this.filteredCodes = this.codeControl.valueChanges.pipe(
-            map(code =>
-                code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
-            )
-        );
     }
 
     add() {
@@ -79,10 +64,7 @@ export class RepairWithScenarioComponent {
             this.dataSource.map(({ id }) => id)
         );
         this.idsControl.setValue('');
-        const ns = this.scenarioControl.value;
-        this.dataSource = this.dataSource.concat(
-            ids.map(id => ({ id, ns, status: Status.unknown }))
-        );
+        this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.unknown })));
     }
 
     remove(element) {
@@ -110,19 +92,31 @@ export class RepairWithScenarioComponent {
         }
     }
 
+    getScenario(): InvoiceRepairScenario {
+        return {
+            [this.scenario]: {
+                failure: { code: this.code }
+            }
+        };
+    }
+
+    repairDialog() {
+        const dialogRef = this.dialog.open(DialogComponent, {
+            width: '600px'
+        });
+        dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {
+            this.scenario = scenario;
+            this.code = code;
+        });
+    }
+
     repair(elements: Element[] = this.dataSource) {
         if (!elements.length) {
             return;
         }
         this.progress$.next(0);
-        for (const element of elements) {
-            element.status = Status.update;
-        }
-        const scenario = {
-            [this.scenarioControl.value]: {
-                failure: { code: this.codeControl.value }
-            }
-        };
+        this.setStatus(elements, Status.update);
+        const scenario = this.getScenario();
         const user = this.repairingService.getUser();
         execute(
             elements.map(({ id }) => () =>

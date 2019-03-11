@@ -13,7 +13,8 @@ import {
     MatSnackBarModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +26,7 @@ import { RepairingRoutingModule } from './repairing-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MachinegunModule } from '../machinegun/machinegun.module';
 import { RepairWithScenarioComponent } from './repair-with-scenario/repair-wirh-scenario.component';
+import { DialogComponent as RepairWithScenarioDialogComponent } from './repair-with-scenario/dialog/dialog.component';
 import { FistfulModule } from '../fistful/fistful.model';
 import { RepairComponent } from './repair/repair.component';
 
@@ -49,14 +51,17 @@ import { RepairComponent } from './repair/repair.component';
         MatSelectModule,
         MatAutocompleteModule,
         MatTooltipModule,
-        FistfulModule
+        FistfulModule,
+        MatDialogModule
     ],
     declarations: [
         RepairingComponent,
         SimpleRepairComponent,
         RepairWithScenarioComponent,
-        RepairComponent
+        RepairComponent,
+        RepairWithScenarioDialogComponent
     ],
+    entryComponents: [RepairWithScenarioDialogComponent],
     providers: [RepairingService]
 })
 export class RepairingModule {}
