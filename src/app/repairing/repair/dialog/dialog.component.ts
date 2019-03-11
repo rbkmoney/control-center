@@ -21,7 +21,7 @@ export interface DialogData {
 })
 export class DialogComponent {
     scenarios = Object.values(Scenario);
-    codes: string[] = ['authorization_failed'];
+    codes: string[] = ['unknown'];
 
     scenarioControl: FormControl;
     codeControl: FormControl;
