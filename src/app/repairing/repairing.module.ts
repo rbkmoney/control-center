@@ -20,7 +20,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { SimpleRepairComponent } from './simple-repair/simpel-repair.component';
+import { SimpleRepairComponent } from './simple-repair/simple-repair.component';
 import { RepairingComponent } from './repairing.component';
 import { RepairingService } from './repairing.service';
 import { RepairingRoutingModule } from './repairing-routing.module';
