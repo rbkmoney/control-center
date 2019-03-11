@@ -46,7 +46,8 @@
             <button mat-button color="primary" (click)="add()" [disabled]="isLoading">ADD</button>
         </div>
     </div>
-    <div>
+    <div fxLayoutAlign="space-between">
+        <button mat-button color="warn" (click)="remove()" [disabled]="isLoading">REMOVE</button>
         <button mat-button color="primary" (click)="repair()" [disabled]="isLoading">REPAIR</button>
     </div>
 </div>

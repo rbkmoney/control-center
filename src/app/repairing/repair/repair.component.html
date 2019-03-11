@@ -28,7 +28,7 @@
             <button mat-button color="primary" (click)="add()" [disabled]="isLoading">ADD</button>
         </div>
     </div>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign=" center">
         <mat-form-field>
             <mat-select placeholder="Scenario" [formControl]="scenarioControl">
                 <mat-option *ngFor="let scenario of scenarios" [value]="scenario">
@@ -50,6 +50,11 @@
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
-        <button mat-button color="primary" (click)="repair()" [disabled]="isLoading">REPAIR</button>
+    </div>
+    <div fxLayoutAlign="space-between">
+        <button mat-button color="warn" (click)="remove()" [disabled]="isLoading">REMOVE</button>
+        <button mat-button color="primary" (click)="repair()" [disabled]="isLoading">
+            CONFIGURE REPAIR
+        </button>
     </div>
 </div>
