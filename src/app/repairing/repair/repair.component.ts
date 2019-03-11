@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
+import { SelectionModel } from '@angular/cdk/collections';
 
 import { execute } from '../../shared/execute';
 import { RepairingService } from '../repairing.service';
@@ -33,8 +34,9 @@ interface Element {
     providers: []
 })
 export class RepairComponent {
-    displayedColumns: string[] = ['id', 'status'];
+    displayedColumns: string[] = ['select', 'id', 'status'];
     dataSource: Array<Element> = [];
+    selection = new SelectionModel<Element>(true, []);
     idsControl: FormControl;
 
     @Input()
@@ -52,6 +54,16 @@ export class RepairComponent {
         this.idsControl = fb.control('');
     }
 
+    isAllSelected() {
+        return this.selection.selected.length === this.dataSource.length;
+    }
+
+    masterToggle() {
+        this.isAllSelected()
+            ? this.selection.clear()
+            : this.dataSource.forEach(row => this.selection.select(row));
+    }
+
     add() {
         const ids = this.repairingService.execIdsFromStr(
             this.idsControl.value,
@@ -61,9 +73,12 @@ export class RepairComponent {
         this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.unknown })));
     }
 
-    remove(element) {
+    remove(elements: Element[] = this.selection.selected) {
         const resultDataSource = this.dataSource.slice();
-        resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
+        for (const element of elements) {
+            this.selection.clear();
+            resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
+        }
         this.dataSource = resultDataSource;
     }
 
@@ -97,11 +112,11 @@ export class RepairComponent {
             width: '600px'
         });
         dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {
-            this.repair(this.dataSource, this.getScenario(scenario, code));
+            this.repair(this.selection.selected, this.getScenario(scenario, code));
         });
     }
 
-    repair(elements: Element[] = this.dataSource, scenario: RepairScenario) {
+    repair(elements: Element[] = this.selection.selected, scenario: RepairScenario) {
         if (!elements.length) {
             return;
         }
