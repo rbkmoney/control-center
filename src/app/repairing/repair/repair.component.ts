@@ -37,7 +37,7 @@ interface Element {
     providers: []
 })
 export class RepairComponent {
-    displayedColumns: string[] = ['id', 'status', 'actions'];
+    displayedColumns: string[] = ['id', 'status'];
     dataSource: Array<Element> = [];
     scenarios = Object.values(Scenario);
     codes: string[] = ['unknown'];

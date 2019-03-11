@@ -38,7 +38,7 @@ interface Element {
     providers: []
 })
 export class SimpleRepairComponent {
-    displayedColumns: string[] = ['id', 'ns', 'timer', 'status', 'actions'];
+    displayedColumns: string[] = ['id', 'ns', 'timer', 'status'];
     dataSource: Array<Element> = [];
     namespaces = Object.values(Namespace);
 

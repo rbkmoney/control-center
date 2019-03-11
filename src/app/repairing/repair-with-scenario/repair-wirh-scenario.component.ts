@@ -42,7 +42,7 @@ interface Element {
     providers: []
 })
 export class RepairWithScenarioComponent {
-    displayedColumns: string[] = ['id', 'status', 'actions'];
+    displayedColumns: string[] = ['id', 'status'];
     dataSource: Array<Element> = [];
     scenarios = Object.values(Scenario);
     codes: string[] = ['authorization_failed'];
