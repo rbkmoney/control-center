@@ -3,6 +3,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
+import { SelectionModel } from '@angular/cdk/collections';
 
 import { AutomatonService } from '../../machinegun/automaton.service';
 import { execute, SuccessResult } from '../../shared/execute';
@@ -38,10 +39,10 @@ interface Element {
     providers: []
 })
 export class SimpleRepairComponent {
-    displayedColumns: string[] = ['id', 'ns', 'timer', 'status'];
+    displayedColumns: string[] = ['select', 'id', 'ns', 'timer', 'status'];
     dataSource: Array<Element> = [];
+    selection = new SelectionModel<Element>(true, []);
     namespaces = Object.values(Namespace);
-
     idsControl: FormControl;
     nsControl: FormControl;
 
@@ -60,6 +61,16 @@ export class SimpleRepairComponent {
         this.nsControl = fb.control(Namespace.invoice);
     }
 
+    isAllSelected() {
+        return this.selection.selected.length === this.dataSource.length;
+    }
+
+    masterToggle() {
+        this.isAllSelected()
+            ? this.selection.clear()
+            : this.dataSource.forEach(row => this.selection.select(row));
+    }
+
     add() {
         const ids = this.repairingService.execIdsFromStr(
             this.idsControl.value,
@@ -73,9 +84,12 @@ export class SimpleRepairComponent {
         this.updateStatus(this.dataSource.filter(el => ids.includes(el.id)));
     }
 
-    remove(element) {
+    remove(elements: Element[] = this.selection.selected) {
         const resultDataSource = this.dataSource.slice();
-        resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
+        for (const element of elements) {
+            this.selection.clear();
+            resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
+        }
         this.dataSource = resultDataSource;
     }
 
@@ -126,7 +140,7 @@ export class SimpleRepairComponent {
         }
     }
 
-    repair(elements: Element[] = this.dataSource) {
+    repair(elements: Element[] = this.selection.selected) {
         if (!elements.length) {
             return;
         }

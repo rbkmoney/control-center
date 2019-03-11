@@ -14,7 +14,8 @@ import {
     MatSelectModule,
     MatAutocompleteModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -53,7 +54,8 @@ import { DialogComponent as RepairDialogComponent } from './repair/dialog/dialog
         MatAutocompleteModule,
         MatTooltipModule,
         FistfulModule,
-        MatDialogModule
+        MatDialogModule,
+        MatCheckboxModule
     ],
     declarations: [
         RepairingComponent,
