@@ -99,13 +99,8 @@ export class SimpleRepairComponent {
         }
     }
 
-    updateStatus(elements: Element[]) {
-        if (!elements.length) {
-            return;
-        }
-        this.progress$.next(0);
-        this.setStatus(elements);
-        execute(
+    executeGetMachine(elements: Element[]) {
+        return execute(
             elements.map(({ id, ns }) => () =>
                 this.automatonService.getMachine({
                     ns,
@@ -113,7 +108,16 @@ export class SimpleRepairComponent {
                     range: { limit: 0, direction: 1 }
                 })
             )
-        ).subscribe(result => {
+        );
+    }
+
+    updateStatus(elements: Element[]) {
+        if (!elements.length) {
+            return;
+        }
+        this.progress$.next(0);
+        this.setStatus(elements);
+        this.executeGetMachine(elements).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.hasError) {
