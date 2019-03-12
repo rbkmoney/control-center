@@ -16,13 +16,15 @@ export class RepairingService {
     }
 
     combineIds(addedIds: string[], currentIds: string[] = []) {
-        const ids: string[] = currentIds.slice();
+        const ids: string[] = [];
         const alreadyAddedIds: string[] = [];
         for (const id of addedIds) {
-            if (!ids.includes(id)) {
+            if (ids.includes(id) || currentIds.includes(id)) {
+                if (!alreadyAddedIds.includes(id)) {
+                    alreadyAddedIds.push(id);
+                }
+            } else {
                 ids.push(id);
-            } else if (!alreadyAddedIds.includes(id)) {
-                alreadyAddedIds.push(id);
             }
         }
         if (alreadyAddedIds.length) {
