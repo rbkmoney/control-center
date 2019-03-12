@@ -45,10 +45,7 @@ export class SimpleRepairComponent {
     namespaces = Object.values(Namespace);
     idsControl: FormControl;
     nsControl: FormControl;
-
-    @Input()
-    progress$: BehaviorSubject<boolean | number>;
-    @Input()
+    progress$: BehaviorSubject<number>;
     isLoading: boolean;
 
     constructor(
@@ -57,6 +54,8 @@ export class SimpleRepairComponent {
         private snackBar: MatSnackBar,
         private repairingService: RepairingService
     ) {
+        this.progress$ = this.repairingService.progress$;
+        this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
         this.idsControl = fb.control('');
         this.nsControl = fb.control(Namespace.invoice);
     }

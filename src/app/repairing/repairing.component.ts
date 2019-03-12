@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 import { RepairingService } from './repairing.service';
-import { map } from 'rxjs/operators';
 
 @Component({
     templateUrl: 'repairing.component.html',
@@ -10,12 +8,11 @@ import { map } from 'rxjs/operators';
     providers: []
 })
 export class RepairingComponent {
-    progress$: BehaviorSubject<boolean | number> = new BehaviorSubject(false);
-    isLoading$: Observable<boolean>;
+    progress: number;
+    isLoading: boolean;
 
     constructor(repairingService: RepairingService) {
-        this.isLoading$ = this.progress$.pipe(
-            map(progress => progress !== false && progress !== 1)
-        );
+        repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
+        repairingService.progress$.subscribe(progress => (this.progress = progress));
     }
 }

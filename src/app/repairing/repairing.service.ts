@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { KeycloakService } from 'keycloak-angular';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { UserInfo } from '../gen-damsel/payment_processing';
 
 @Injectable()
 export class RepairingService {
-    constructor(private snackBar: MatSnackBar, private keycloakService: KeycloakService) {}
+    progress$: BehaviorSubject<number> = new BehaviorSubject(1);
+    isLoading$: Observable<boolean>;
+
+    constructor(private snackBar: MatSnackBar, private keycloakService: KeycloakService) {
+        this.isLoading$ = this.progress$.pipe(map(progress => progress !== 1));
+    }
 
     execIdsFromStr(str: string, currentIds: string[] = []) {
         const ids: string[] = [];

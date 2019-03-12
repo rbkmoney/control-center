@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { FormControl, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { execute } from '../../shared/execute';
 import { RepairingService } from '../repairing.service';
-import { RepairerService } from 'src/app/fistful/repairer.service';
+import { RepairerService } from '../../fistful/repairer.service';
 import { RepairSettingsComponent, DialogData } from './repair-settings/repair-settings.component';
-import { RepairScenario } from 'src/app/fistful/gen-model/withdrawal_session';
+import { RepairScenario } from '../../fistful/gen-model/withdrawal_session';
 
 enum Status {
     repaired = 'machine repaired',
@@ -38,19 +38,17 @@ export class RepairComponent {
     dataSource: Element[] = [];
     selection = new SelectionModel<Element>(true, []);
     idsControl: FormControl;
-
-    @Input()
-    progress$: BehaviorSubject<boolean | number>;
-    @Input()
+    progress$: BehaviorSubject<number>;
     isLoading: boolean;
 
     constructor(
-        private fb: FormBuilder,
-        private snackBar: MatSnackBar,
+        fb: FormBuilder,
         private repairerService: RepairerService,
         private repairingService: RepairingService,
         private dialog: MatDialog
     ) {
+        this.progress$ = this.repairingService.progress$;
+        this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
         this.idsControl = fb.control('');
     }
 
