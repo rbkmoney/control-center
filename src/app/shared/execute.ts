@@ -2,25 +2,30 @@ import { Observable, Subject } from 'rxjs';
 
 type Fn = () => Observable<any>;
 
-interface BaseResult {
+export enum ExecStateType {
+    success = 'success',
+    error = 'error'
+}
+
+interface BaseExecState {
     func: Fn;
     idx: number;
-    /** 0 - 1 */
+    /** 0..1 */
     progress: number;
-    hasError: boolean;
+    type: ExecStateType;
 }
 
-export interface SuccessResult extends BaseResult {
+export interface SuccessExecState extends BaseExecState {
     data: any;
-    hasError: false;
+    type: ExecStateType.success;
 }
 
-export interface ErrorResult extends BaseResult {
+export interface ErrorExecState extends BaseExecState {
     error: any;
-    hasError: true;
+    type: ExecStateType.error;
 }
 
-type Result = ErrorResult | SuccessResult;
+type ExecState = ErrorExecState | SuccessExecState;
 
 class Progress {
     private waitCount: number;
@@ -29,7 +34,7 @@ class Progress {
         this.waitCount = allCount;
     }
 
-    decrease() {
+    decrease(): number {
         --this.waitCount;
         return 1 - this.waitCount / this.allCount;
     }
@@ -37,7 +42,7 @@ class Progress {
 
 async function exec(
     funcs: Array<[number, Fn]>,
-    result$: Subject<Result>,
+    result$: Subject<ExecState>,
     progress: Progress
 ): Promise<void> {
     let func: [number, Fn];
@@ -47,20 +52,20 @@ async function exec(
             idx: func[0]
         };
         try {
-            (result as SuccessResult).data = await func[1]().toPromise();
-            result.hasError = false;
+            (result as SuccessExecState).data = await func[1]().toPromise();
+            result.type = ExecStateType.success;
         } catch (error) {
-            (result as ErrorResult).error = error;
-            result.hasError = true;
+            (result as ErrorExecState).error = error;
+            result.type = ExecStateType.error;
         } finally {
             result.progress = progress.decrease();
-            result$.next(result as SuccessResult | ErrorResult);
+            result$.next(result as SuccessExecState | ErrorExecState);
         }
     }
 }
 
-export function execute(funcs: Fn[], execCount = 4): Observable<Result> {
-    const result$: Subject<Result> = new Subject();
+export function execute(funcs: Fn[], execCount = 4): Observable<ExecState> {
+    const result$: Subject<ExecState> = new Subject();
     const tmpFuncs = funcs.map((f, idx) => [idx, f]) as Array<[number, Fn]>;
     const execs: Promise<void>[] = [];
     const progress = new Progress(funcs.length);

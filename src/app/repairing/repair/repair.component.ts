@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { execute } from '../../shared/execute';
+import { execute, ExecStateType } from '../../shared/execute';
 import { RepairingService } from '../repairing.service';
 import { RepairerService } from '../../fistful/repairer.service';
 import { RepairSettingsComponent, DialogData } from './repair-settings/repair-settings.component';
@@ -114,7 +114,7 @@ export class RepairComponent {
         this.executeRepair(elements, scenario).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
-            if (result.hasError) {
+            if (result.type === ExecStateType.error) {
                 element.status = this.getStatusByError(result.error);
             } else {
                 element.status = Status.repaired;

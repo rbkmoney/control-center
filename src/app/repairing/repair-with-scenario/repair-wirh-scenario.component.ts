@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { execute } from '../../shared/execute';
+import { execute, ExecStateType } from '../../shared/execute';
 import { PaymentProcessingService } from '../../thrift/payment-processing.service';
 import { RepairingService } from '../repairing.service';
 import {
@@ -126,7 +126,7 @@ export class RepairWithScenarioComponent {
         this.executeRepairWithScenario(elements, scenario).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
-            if (result.hasError) {
+            if (result.type === ExecStateType.error) {
                 element.status = this.getStatusByError(result.error);
                 element.error = Array.isArray(result.error.errors)
                     ? result.error.errors.join('. ')

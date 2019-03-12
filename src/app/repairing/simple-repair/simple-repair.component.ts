@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { AutomatonService } from '../../machinegun/automaton.service';
-import { execute, SuccessResult } from '../../shared/execute';
+import { execute, ExecStateType } from '../../shared/execute';
 import { Machine } from '../../machinegun/gen-model/state_processing';
 import { Namespace } from '../../machinegun/model/namespace';
 import { RepairingService } from '../repairing.service';
@@ -106,11 +106,11 @@ export class SimpleRepairComponent {
         this.executeGetMachine(elements).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
-            if (result.hasError) {
+            if (result.type === ExecStateType.error) {
                 element.status = this.statusByError(result.error);
             } else {
                 element.status = Status.found;
-                element.machine = (result as SuccessResult).data;
+                element.machine = result.data;
             }
         });
     }
@@ -145,7 +145,7 @@ export class SimpleRepairComponent {
         this.executeSimpleRepair(elements).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
-            if (result.hasError) {
+            if (result.type === ExecStateType.error) {
                 element.status = this.statusByError(result.error);
             } else {
                 element.status = Status.repaired;
