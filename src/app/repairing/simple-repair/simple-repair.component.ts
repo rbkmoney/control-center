@@ -44,11 +44,7 @@ export class SimpleRepairComponent {
     progress$: BehaviorSubject<number>;
     isLoading: boolean;
 
-    constructor(
-        fb: FormBuilder,
-        private automatonService: AutomatonService,
-        private repairingService: RepairingService
-    ) {
+    constructor(fb: FormBuilder, private repairingService: RepairingService) {
         this.progress$ = this.repairingService.progress$;
         this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
         this.nsControl = fb.control(Namespace.invoice);
@@ -72,30 +68,12 @@ export class SimpleRepairComponent {
     }
 
     remove(elements: Element[] = this.selection.selected) {
-        const resultDataSource = this.dataSource.slice();
-        for (const element of elements) {
-            resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
-        }
         this.selection.clear();
-        this.dataSource = resultDataSource;
+        this.dataSource = this.repairingService.remove(this.dataSource, elements);
     }
 
     setStatus(elements: Element[] = this.dataSource, status = Status.update) {
-        for (const element of elements) {
-            element.status = status;
-        }
-    }
-
-    executeGetMachine(elements: Element[]) {
-        return execute(
-            elements.map(({ id, ns }) => () =>
-                this.automatonService.getMachine({
-                    ns,
-                    ref: { id },
-                    range: { limit: 0, direction: 1 }
-                })
-            )
-        );
+        this.repairingService.setStatus(elements, status);
     }
 
     updateStatus(elements: Element[]) {
@@ -104,7 +82,7 @@ export class SimpleRepairComponent {
         }
         this.progress$.next(0);
         this.setStatus(elements);
-        this.executeGetMachine(elements).subscribe(result => {
+        this.repairingService.executeGetMachine(elements).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
@@ -131,19 +109,13 @@ export class SimpleRepairComponent {
         }
     }
 
-    executeSimpleRepair(elements: Element[]) {
-        return execute(
-            elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
-        );
-    }
-
     repair(elements: Element[] = this.selection.selected) {
         if (!elements.length) {
             return;
         }
         this.progress$.next(0);
         this.setStatus(elements, Status.update);
-        this.executeSimpleRepair(elements).subscribe(result => {
+        this.repairingService.executeSimpleRepair(elements).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {

@@ -3,9 +3,8 @@ import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { execute, ExecStateType } from '../../shared/execute';
+import { ExecStateType } from '../../shared/execute';
 import { RepairingService } from '../repairing.service';
-import { RepairerService } from '../../fistful/repairer.service';
 import { RepairSettingsComponent, DialogData } from './repair-settings/repair-settings.component';
 import { RepairScenario } from '../../fistful/gen-model/withdrawal_session';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
@@ -37,11 +36,7 @@ export class RepairComponent {
     progress$: BehaviorSubject<number>;
     isLoading: boolean;
 
-    constructor(
-        private repairerService: RepairerService,
-        private repairingService: RepairingService,
-        private dialog: MatDialog
-    ) {
+    constructor(private repairingService: RepairingService, private dialog: MatDialog) {
         this.progress$ = this.repairingService.progress$;
         this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
     }
@@ -60,18 +55,12 @@ export class RepairComponent {
     }
 
     remove(elements: Element[] = this.selection.selected) {
-        const resultDataSource = this.dataSource.slice();
-        for (const element of elements) {
-            resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
-        }
         this.selection.clear();
-        this.dataSource = resultDataSource;
+        this.dataSource = this.repairingService.remove(this.dataSource, elements);
     }
 
     setStatus(elements: Element[] = this.dataSource, status = Status.update) {
-        for (const element of elements) {
-            element.status = status;
-        }
+        this.repairingService.setStatus(elements, status);
     }
 
     getStatusByError(error: any) {
@@ -102,17 +91,13 @@ export class RepairComponent {
         });
     }
 
-    executeRepair(elements: Element[], scenario: RepairScenario) {
-        return execute(elements.map(({ id }) => () => this.repairerService.repair(id, scenario)));
-    }
-
     repair(elements: Element[] = this.selection.selected, scenario: RepairScenario) {
         if (!elements.length) {
             return;
         }
         this.progress$.next(0);
         this.setStatus(elements, Status.update);
-        this.executeRepair(elements, scenario).subscribe(result => {
+        this.repairingService.executeRepair(elements, scenario).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {

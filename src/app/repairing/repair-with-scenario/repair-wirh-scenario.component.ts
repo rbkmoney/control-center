@@ -3,8 +3,7 @@ import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { execute, ExecStateType } from '../../shared/execute';
-import { PaymentProcessingService } from '../../thrift/payment-processing.service';
+import { ExecStateType } from '../../shared/execute';
 import { RepairingService } from '../repairing.service';
 import {
     RepairWithScenarioSettingsComponent,
@@ -42,11 +41,7 @@ export class RepairWithScenarioComponent {
     progress$: BehaviorSubject<number>;
     isLoading: boolean;
 
-    constructor(
-        private paymentProcessingService: PaymentProcessingService,
-        private repairingService: RepairingService,
-        private dialog: MatDialog
-    ) {
+    constructor(private repairingService: RepairingService, private dialog: MatDialog) {
         this.progress$ = this.repairingService.progress$;
         this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
     }
@@ -65,18 +60,12 @@ export class RepairWithScenarioComponent {
     }
 
     remove(elements: Element[] = this.selection.selected) {
-        const resultDataSource = this.dataSource.slice();
-        for (const element of elements) {
-            resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
-        }
         this.selection.clear();
-        this.dataSource = resultDataSource;
+        this.dataSource = this.repairingService.remove(this.dataSource, elements);
     }
 
     setStatus(elements: Element[] = this.dataSource, status = Status.update) {
-        for (const element of elements) {
-            element.status = status;
-        }
+        this.repairingService.setStatus(elements, status);
     }
 
     getStatusByError(error: any) {
@@ -92,30 +81,17 @@ export class RepairWithScenarioComponent {
         }
     }
 
-    getScenario(scenario: string, code: string): InvoiceRepairScenario {
-        return {
-            [scenario]: {
-                failure: { code }
-            }
-        };
-    }
-
     repairDialog() {
         const dialogRef = this.dialog.open(RepairWithScenarioSettingsComponent, {
             width: '600px'
         });
         dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {
-            this.repair(this.selection.selected, this.getScenario(scenario, code));
+            this.repair(this.selection.selected, {
+                [scenario]: {
+                    failure: { code }
+                }
+            });
         });
-    }
-
-    executeRepairWithScenario(elements: Element[], scenario: InvoiceRepairScenario) {
-        const user = this.repairingService.getUser();
-        return execute(
-            elements.map(({ id }) => () =>
-                this.paymentProcessingService.repairWithScenario(user, id, scenario)
-            )
-        );
     }
 
     repair(elements: Element[], scenario: InvoiceRepairScenario) {
@@ -124,7 +100,7 @@ export class RepairWithScenarioComponent {
         }
         this.progress$.next(0);
         this.setStatus(elements, Status.update);
-        this.executeRepairWithScenario(elements, scenario).subscribe(result => {
+        this.repairingService.executeRepairWithScenario(elements, scenario).subscribe(result => {
             this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
