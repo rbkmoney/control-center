@@ -12,9 +12,7 @@ import { RepairingService } from '../repairing.service';
 enum Status {
     found = 'machine found',
     repaired = 'machine repaired',
-
     update = 'status updated',
-
     unknownError = 'unknown error',
     namespaceNotFound = 'namespace not found',
     machineNotFound = 'machine not found',

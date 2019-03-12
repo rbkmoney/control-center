@@ -37,15 +37,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-        <mat-form-field fxFlex>
-            <input matInput placeholder="IDs" [formControl]="idsControl" (keyup.enter)="add()" />
-            <mat-hint>Use any delimiter and press enter to add</mat-hint>
-        </mat-form-field>
-        <div>
-            <button mat-button color="primary" (click)="add()" [disabled]="isLoading">ADD</button>
-        </div>
-    </div>
+    <cc-add-ids-input [disabled]="isLoading" (add)="add($event)" fxFlex></cc-add-ids-input>
     <div fxLayoutAlign="space-between">
         <button
             mat-button

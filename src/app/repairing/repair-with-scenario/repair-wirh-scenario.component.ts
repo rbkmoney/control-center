@@ -15,11 +15,8 @@ import { InvoiceRepairScenario } from 'src/app/gen-damsel/payment_processing';
 
 enum Status {
     repaired = 'machine repaired',
-
     update = 'status updated',
-
     unknown = 'unknown',
-
     unknownError = 'unknown error',
     invalidUser = 'invalid user',
     invoiceNotFound = 'invoice not found',
@@ -42,7 +39,6 @@ export class RepairWithScenarioComponent {
     displayedColumns: string[] = ['select', 'id', 'status'];
     dataSource: Element[] = [];
     selection = new SelectionModel<Element>(true, []);
-    idsControl: FormControl;
     progress$: BehaviorSubject<number>;
     isLoading: boolean;
 
@@ -55,7 +51,6 @@ export class RepairWithScenarioComponent {
     ) {
         this.progress$ = this.repairingService.progress$;
         this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
-        this.idsControl = fb.control('');
     }
 
     isAllSelected() {
@@ -66,12 +61,11 @@ export class RepairWithScenarioComponent {
         this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
     }
 
-    add() {
+    add(idsStr: string) {
         const ids = this.repairingService.execIdsFromStr(
-            this.idsControl.value,
+            idsStr,
             this.dataSource.map(({ id }) => id)
         );
-        this.idsControl.setValue('');
         this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.unknown })));
     }
 
