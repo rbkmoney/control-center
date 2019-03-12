@@ -57,9 +57,7 @@ export class RepairComponent {
     }
 
     masterToggle() {
-        this.isAllSelected()
-            ? this.selection.clear()
-            : this.dataSource.forEach(row => this.selection.select(row));
+        this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
     }
 
     add() {
