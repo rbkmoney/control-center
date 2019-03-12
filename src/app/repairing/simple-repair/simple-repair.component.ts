@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -176,12 +175,5 @@ export class SimpleRepairComponent {
             default:
                 return 'warn';
         }
-    }
-
-    getTimer(element: Element): string {
-        if (element.machine) {
-            return moment(element.machine.timer).format('L LTS');
-        }
-        return '';
     }
 }
