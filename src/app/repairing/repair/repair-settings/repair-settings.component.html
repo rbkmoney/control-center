@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Repair with scenario</h1>
-<div fxLayout="column">
+<form [formGroup]="formGroup" fxLayout="column">
     <mat-form-field>
-        <mat-select placeholder="Scenario" [formControl]="scenarioControl">
+        <mat-select placeholder="Scenario" formControlName="scenario">
             <mat-option *ngFor="let scenario of scenarios" [value]="scenario">
                 {{ scenario }}
             </mat-option>
@@ -12,7 +12,7 @@
             type="text"
             placeholder="Code"
             matInput
-            [formControl]="codeControl"
+            formControlName="code"
             [matAutocomplete]="auto"
         />
         <mat-autocomplete #auto="matAutocomplete">
@@ -21,7 +21,7 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-</div>
+</form>
 <div>
     <button mat-button color="primary" cdkFocusInitial [mat-dialog-close]="getData()">
         REPAIR

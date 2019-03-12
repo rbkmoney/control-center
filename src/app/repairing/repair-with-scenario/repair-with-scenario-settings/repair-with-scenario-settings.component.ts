@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormControl, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -24,20 +24,20 @@ export interface DialogData {
 export class RepairWithScenarioSettingsComponent {
     scenarios = Object.values(Scenario);
     codes: string[] = ['authorization_failed'];
-
-    scenarioControl: FormControl;
-    codeControl: FormControl;
+    formGroup: FormGroup;
     autocmpleteCodes$: Observable<string[]>;
 
     constructor(
-        private fb: FormBuilder,
+        fb: FormBuilder,
         public dialogRef: MatDialogRef<RepairWithScenarioSettingsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData
     ) {
-        this.scenarioControl = fb.control(Scenario.fail_pre_processing);
-        this.codeControl = fb.control(this.codes[0]);
-        this.autocmpleteCodes$ = this.codeControl.valueChanges.pipe(
-            map(code =>
+        this.formGroup = fb.group({
+            scenario: [Scenario.fail_pre_processing],
+            code: [this.codes[0]]
+        });
+        this.autocmpleteCodes$ = this.formGroup.valueChanges.pipe(
+            map(({ code }) =>
                 code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
             )
         );
@@ -49,8 +49,8 @@ export class RepairWithScenarioSettingsComponent {
 
     getData(): DialogData {
         return {
-            scenario: this.scenarioControl.value,
-            code: this.codeControl.value
+            scenario: this.formGroup.value.scenario,
+            code: this.formGroup.value.code
         };
     }
 }
