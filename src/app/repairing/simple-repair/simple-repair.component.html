@@ -56,13 +56,7 @@
                 <mat-option *ngFor="let ns of namespaces" [value]="ns"> {{ ns }} </mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field fxFlex>
-            <input matInput placeholder="IDs" [formControl]="idsControl" (keyup.enter)="add()" />
-            <mat-hint>Use any delimiter and press enter to add</mat-hint>
-        </mat-form-field>
-        <div>
-            <button mat-button color="primary" (click)="add()" [disabled]="isLoading">ADD</button>
-        </div>
+        <cc-add-ids-input [disabled]="isLoading" (add)="add($event)" fxFlex></cc-add-ids-input>
     </div>
     <div fxLayoutAlign="space-between">
         <button

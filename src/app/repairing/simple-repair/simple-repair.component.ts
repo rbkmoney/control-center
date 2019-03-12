@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -42,20 +41,17 @@ export class SimpleRepairComponent {
     dataSource: Element[] = [];
     selection = new SelectionModel<Element>(true, []);
     namespaces = Object.values(Namespace);
-    idsControl: FormControl;
     nsControl: FormControl;
     progress$: BehaviorSubject<number>;
     isLoading: boolean;
 
     constructor(
-        private fb: FormBuilder,
+        fb: FormBuilder,
         private automatonService: AutomatonService,
-        private snackBar: MatSnackBar,
         private repairingService: RepairingService
     ) {
         this.progress$ = this.repairingService.progress$;
         this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
-        this.idsControl = fb.control('');
         this.nsControl = fb.control(Namespace.invoice);
     }
 
@@ -67,12 +63,12 @@ export class SimpleRepairComponent {
         this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
     }
 
-    add() {
+    add(idsStr: string) {
+        console.log(idsStr);
         const ids = this.repairingService.execIdsFromStr(
-            this.idsControl.value,
+            idsStr,
             this.dataSource.map(({ id }) => id)
         );
-        this.idsControl.setValue('');
         const ns = this.nsControl.value;
         this.dataSource = this.dataSource.concat(
             ids.map(id => ({ id, ns, status: Status.update }))
