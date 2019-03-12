@@ -61,12 +61,8 @@ export class SimpleRepairComponent {
         this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
     }
 
-    add(idsStr: string) {
-        console.log(idsStr);
-        const ids = this.repairingService.execIdsFromStr(
-            idsStr,
-            this.dataSource.map(({ id }) => id)
-        );
+    add(addedIds: string[]) {
+        const ids = this.repairingService.combineIds(addedIds, this.dataSource.map(({ id }) => id));
         const ns = this.nsControl.value;
         this.dataSource = this.dataSource.concat(
             ids.map(id => ({ id, ns, status: Status.update }))

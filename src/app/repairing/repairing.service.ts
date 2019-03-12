@@ -15,19 +15,14 @@ export class RepairingService {
         this.isLoading$ = this.progress$.pipe(map(progress => progress !== 1));
     }
 
-    execIdsFromStr(str: string, currentIds: string[] = []) {
-        const ids: string[] = [];
-        const selectIds = /[a-z0-9-]+/gi;
-        let execId: string[];
+    combineIds(addedIds: string[], currentIds: string[] = []) {
+        const ids: string[] = currentIds.slice();
         const alreadyAddedIds: string[] = [];
-        while ((execId = selectIds.exec(str))) {
-            const id = execId[0];
-            if (currentIds.includes(id) || ids.includes(id)) {
-                if (!alreadyAddedIds.includes(id)) {
-                    alreadyAddedIds.push(id);
-                }
-            } else {
+        for (const id of addedIds) {
+            if (!ids.includes(id)) {
                 ids.push(id);
+            } else if (!alreadyAddedIds.includes(id)) {
+                alreadyAddedIds.push(id);
             }
         }
         if (alreadyAddedIds.length) {

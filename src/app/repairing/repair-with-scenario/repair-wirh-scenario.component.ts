@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -43,8 +42,6 @@ export class RepairWithScenarioComponent {
     isLoading: boolean;
 
     constructor(
-        private fb: FormBuilder,
-        private snackBar: MatSnackBar,
         private paymentProcessingService: PaymentProcessingService,
         private repairingService: RepairingService,
         private dialog: MatDialog
@@ -61,11 +58,8 @@ export class RepairWithScenarioComponent {
         this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
     }
 
-    add(idsStr: string) {
-        const ids = this.repairingService.execIdsFromStr(
-            idsStr,
-            this.dataSource.map(({ id }) => id)
-        );
+    add(addedIds: string[]) {
+        const ids = this.repairingService.combineIds(addedIds, this.dataSource.map(({ id }) => id));
         this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.unknown })));
     }
 

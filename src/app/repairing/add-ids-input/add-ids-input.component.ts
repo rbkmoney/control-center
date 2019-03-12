@@ -18,7 +18,18 @@ export class AddIdsInputComponent {
     constructor() {}
 
     emitAdd() {
-        this.add.emit(this.idsControl.value);
+        this.add.emit(this.execIdsFromStr(this.idsControl.value));
         this.idsControl.setValue('');
+    }
+
+    execIdsFromStr(str: string) {
+        const ids: string[] = [];
+        const selectIds = /[a-z0-9-]+/gi;
+        let execId: string[];
+        while ((execId = selectIds.exec(str))) {
+            const id = execId[0];
+            ids.push(id);
+        }
+        return ids;
     }
 }
