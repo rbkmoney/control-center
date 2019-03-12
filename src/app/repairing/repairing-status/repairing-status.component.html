@@ -1,0 +1,5 @@
+<mat-chip-list>
+    <mat-chip selected [color]="getColor()" [disabled]="disabled">
+        {{ status }}{{ description ? ' (' + description + ')' : '' }}
+    </mat-chip>
+</mat-chip-list>

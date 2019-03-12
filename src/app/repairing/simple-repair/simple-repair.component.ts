@@ -8,6 +8,7 @@ import { execute, ExecStateType } from '../../shared/execute';
 import { Machine } from '../../machinegun/gen-model/state_processing';
 import { Namespace } from '../../machinegun/model/namespace';
 import { RepairingService } from '../repairing.service';
+import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 
 enum Status {
     found = 'machine found',
@@ -153,15 +154,15 @@ export class SimpleRepairComponent {
         });
     }
 
-    getColor(status: Status) {
+    getRepairingStatusType(status: Status) {
         switch (status) {
             case Status.found:
             case Status.repaired:
-                return 'primary';
+                return RepairingStatusType.info;
             case Status.update:
-                return 'accent';
+                return RepairingStatusType.warn;
             default:
-                return 'warn';
+                return RepairingStatusType.error;
         }
     }
 }

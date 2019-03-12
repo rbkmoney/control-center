@@ -8,6 +8,7 @@ import { RepairingService } from '../repairing.service';
 import { RepairerService } from '../../fistful/repairer.service';
 import { RepairSettingsComponent, DialogData } from './repair-settings/repair-settings.component';
 import { RepairScenario } from '../../fistful/gen-model/withdrawal_session';
+import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 
 enum Status {
     repaired = 'machine repaired',
@@ -122,15 +123,15 @@ export class RepairComponent {
         });
     }
 
-    getColor(status: Status) {
+    getRepairingStatusType(status: Status) {
         switch (status) {
             case Status.repaired:
-                return 'primary';
+                return RepairingStatusType.info;
             case Status.unknown:
             case Status.update:
-                return 'accent';
+                return RepairingStatusType.warn;
             default:
-                return 'warn';
+                return RepairingStatusType.error;
         }
     }
 }

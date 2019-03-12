@@ -11,6 +11,7 @@ import {
     DialogData
 } from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 import { InvoiceRepairScenario } from 'src/app/gen-damsel/payment_processing';
+import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 
 enum Status {
     repaired = 'machine repaired',
@@ -138,15 +139,15 @@ export class RepairWithScenarioComponent {
         });
     }
 
-    getColor(status: Status) {
+    getRepairingStatusType(status: Status) {
         switch (status) {
             case Status.repaired:
-                return 'primary';
+                return RepairingStatusType.info;
             case Status.unknown:
             case Status.update:
-                return 'accent';
+                return RepairingStatusType.warn;
             default:
-                return 'warn';
+                return RepairingStatusType.error;
         }
     }
 }

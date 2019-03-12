@@ -32,6 +32,7 @@ import { FistfulModule } from '../fistful/fistful.model';
 import { RepairComponent } from './repair/repair.component';
 import { RepairSettingsComponent } from './repair/repair-settings/repair-settings.component';
 import { AddIdsInputComponent } from './add-ids-input/add-ids-input.component';
+import { RepairingStatusComponent } from './repairing-status/repairing-status.component';
 
 @NgModule({
     imports: [
@@ -65,7 +66,8 @@ import { AddIdsInputComponent } from './add-ids-input/add-ids-input.component';
         RepairWithScenarioSettingsComponent,
         RepairComponent,
         RepairSettingsComponent,
-        AddIdsInputComponent
+        AddIdsInputComponent,
+        RepairingStatusComponent
     ],
     entryComponents: [RepairWithScenarioSettingsComponent, RepairSettingsComponent],
     providers: [RepairingService]
