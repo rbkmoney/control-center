@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineAll, filter, map, switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 
 import { ShopDetailsService, ProviderInfo } from './shop-details.service';
 import { Contract, PayoutTool, Shop } from '../../gen-damsel/domain';
 import { AddProviderComponent } from './add-provider/add-provider.component';
-import { Observable } from 'rxjs';
-import { PartyService } from '../party.service';
 
 @Component({
     templateUrl: 'shop-details.component.html',
     styleUrls: ['../../shared/container.css', 'shop-details.component.scss'],
-    providers: [ShopDetailsService, PartyService]
+    providers: [ShopDetailsService]
 })
 export class ShopDetailsComponent implements OnInit {
     isLoading = false;
@@ -25,7 +23,6 @@ export class ShopDetailsComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private shopDetailsService: ShopDetailsService,
-        private partyService: PartyService,
         private dialog: MatDialog
     ) {}
 
