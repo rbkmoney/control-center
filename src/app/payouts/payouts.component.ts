@@ -8,7 +8,7 @@ import { PayoutSearchParams } from '../papi/params';
 
 @Component({
     templateUrl: 'payouts.component.html',
-    styleUrls: ['../shared/container.css', './payouts.component.css'],
+    styleUrls: ['./payouts.component.css'],
     providers: [SearchFormService]
 })
 export class PayoutsComponent {

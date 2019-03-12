@@ -8,7 +8,7 @@ import { ClaimInfo } from '../papi/model';
 
 @Component({
     templateUrl: 'claims.component.html',
-    styleUrls: ['../shared/container.css']
+    styleUrls: []
 })
 export class ClaimsComponent implements OnInit {
     isLoading = false;

@@ -14,6 +14,7 @@ import {
 import { PartyDetailsComponent } from './party-details.component';
 import { ShopsTableComponent } from './shops-table/shops-table.component';
 import { PartyInfoComponent } from './party-info/party-info.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { PartyInfoComponent } from './party-info/party-info.component';
         MatTableModule,
         MatPaginatorModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        SharedModule
     ],
     declarations: [PartyDetailsComponent, ShopsTableComponent, PartyInfoComponent]
 })

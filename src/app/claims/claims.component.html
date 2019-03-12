@@ -1,20 +1,18 @@
-<div class="container">
-    <div class="card-container" fxLayout="column" fxLayoutGap="20px">
-        <mat-card>
-            <mat-card-subtitle> Search claims </mat-card-subtitle>
-            <mat-card-content>
-                <cc-search-form (valueChanges)="search($event)"></cc-search-form>
-            </mat-card-content>
-            <mat-card-footer *ngIf="isLoading">
-                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </mat-card-footer>
-        </mat-card>
-        <mat-card>
-            <mat-card-subtitle>Claim actions</mat-card-subtitle>
-            <mat-card-content fxLayout="row" fxLayoutGap="20px">
-                <cc-claim-actions></cc-claim-actions>
-            </mat-card-content>
-        </mat-card>
-        <div class="mat-elevation-z2"><cc-claims-table [claims]="claims"></cc-claims-table></div>
-    </div>
-</div>
+<cc-card-container>
+    <mat-card>
+        <mat-card-subtitle> Search claims </mat-card-subtitle>
+        <mat-card-content>
+            <cc-search-form (valueChanges)="search($event)"></cc-search-form>
+        </mat-card-content>
+        <mat-card-footer *ngIf="isLoading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+    <mat-card>
+        <mat-card-subtitle>Claim actions</mat-card-subtitle>
+        <mat-card-content fxLayout="row" fxLayoutGap="20px">
+            <cc-claim-actions></cc-claim-actions>
+        </mat-card-content>
+    </mat-card>
+    <div class="mat-elevation-z2"><cc-claims-table [claims]="claims"></cc-claims-table></div>
+</cc-card-container>

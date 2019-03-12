@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { PartiesComponent } from './parties.component';
 import { PartiesRoutingModule } from './parties-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { PartiesRoutingModule } from './parties-routing.module';
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        SharedModule
     ],
     declarations: [PartiesComponent]
 })

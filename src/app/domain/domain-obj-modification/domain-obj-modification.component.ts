@@ -19,7 +19,7 @@ import { ASTDefinition } from '../../damsel-meta/model/ast-definition';
 
 @Component({
     templateUrl: './domain-obj-modification.component.html',
-    styleUrls: ['../../shared/container.css', 'domain-obj-modification.component.scss'],
+    styleUrls: ['domain-obj-modification.component.scss'],
     providers: [DomainObjModificationService]
 })
 export class DomainObjModificationComponent implements OnInit {

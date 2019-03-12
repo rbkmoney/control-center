@@ -8,7 +8,7 @@ import { DomainInfoService } from './domain-info.service';
 
 @Component({
     templateUrl: './domain-info.component.html',
-    styleUrls: ['../../shared/container.css', './domain-info.component.scss'],
+    styleUrls: ['./domain-info.component.scss'],
     providers: [DomainInfoService, DomainDetailsService, DetailsContainerService]
 })
 export class DomainInfoComponent implements OnInit {

@@ -9,7 +9,7 @@ import { SearchFormParams } from './search-form/search-form-params';
 @Component({
     selector: 'cc-payment-adjustment',
     templateUrl: './payment-adjustment.component.html',
-    styleUrls: ['../shared/container.css']
+    styleUrls: []
 })
 export class PaymentAdjustmentComponent implements OnInit {
     isLoading = false;

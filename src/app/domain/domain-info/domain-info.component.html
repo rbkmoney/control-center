@@ -15,13 +15,11 @@
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        <div class="container">
-            <div class="card-container" fxLayout="column" fxLayoutGap="10px">
-                <div *ngIf="isLoading" fxLayout fxLayoutAlign="center stretch">
-                    <mat-spinner></mat-spinner>
-                </div>
-                <cc-domain-group *ngIf="initialized"></cc-domain-group>
+        <cc-card-container>
+            <div *ngIf="isLoading" fxLayout fxLayoutAlign="center stretch">
+                <mat-spinner></mat-spinner>
             </div>
-        </div>
+            <cc-domain-group *ngIf="initialized"></cc-domain-group>
+        </cc-card-container>
     </mat-sidenav-content>
 </mat-sidenav-container>

@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 
 import { DomainObjModificationComponent } from './domain-obj-modification.component';
 import { MonacoEditorModule } from '../../monaco-editor/monaco-editor.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     declarations: [DomainObjModificationComponent],
@@ -18,7 +19,8 @@ import { MonacoEditorModule } from '../../monaco-editor/monaco-editor.module';
         MatCardModule,
         MatButtonModule,
         MatIconModule,
-        MonacoEditorModule
+        MonacoEditorModule,
+        SharedModule
     ],
     exports: [DomainObjModificationComponent]
 })

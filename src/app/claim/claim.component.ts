@@ -6,7 +6,7 @@ import { ClaimService } from './claim.service';
 
 @Component({
     templateUrl: 'claim.component.html',
-    styleUrls: ['../shared/container.css']
+    styleUrls: []
 })
 export class ClaimComponent {
     constructor(

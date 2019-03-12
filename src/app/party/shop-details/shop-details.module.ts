@@ -35,6 +35,7 @@ import { CreateTerminalFormComponent } from './add-provider/select-terminal/crea
 import { SelectTerminalComponent } from './add-provider/select-terminal/select-terminal.component';
 import { SelectProviderComponent } from './add-provider/select-provider/select-provider.component';
 import { IsActivePipe } from './is-active.pipe';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -59,7 +60,8 @@ import { IsActivePipe } from './is-active.pipe';
         MatProgressBarModule,
         MatMenuModule,
         MatProgressBarModule,
-        MatChipsModule
+        MatChipsModule,
+        SharedModule
     ],
     declarations: [
         ShopDetailsComponent,
