@@ -40,7 +40,7 @@ interface Element {
 })
 export class SimpleRepairComponent {
     displayedColumns: string[] = ['select', 'id', 'ns', 'timer', 'status'];
-    dataSource: Array<Element> = [];
+    dataSource: Element[] = [];
     selection = new SelectionModel<Element>(true, []);
     namespaces = Object.values(Namespace);
     idsControl: FormControl;

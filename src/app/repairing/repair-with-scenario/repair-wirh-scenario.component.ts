@@ -7,7 +7,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { execute } from '../../shared/execute';
 import { PaymentProcessingService } from '../../thrift/payment-processing.service';
 import { RepairingService } from '../repairing.service';
-import { DialogComponent, DialogData } from './dialog/dialog.component';
+import {
+    RepairWithScenarioSettingsComponent,
+    DialogData
+} from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 import { InvoiceRepairScenario } from 'src/app/gen-damsel/payment_processing';
 
 enum Status {
@@ -37,7 +40,7 @@ interface Element {
 })
 export class RepairWithScenarioComponent {
     displayedColumns: string[] = ['select', 'id', 'status'];
-    dataSource: Array<Element> = [];
+    dataSource: Element[] = [];
     selection = new SelectionModel<Element>(true, []);
     idsControl: FormControl;
 
@@ -112,7 +115,7 @@ export class RepairWithScenarioComponent {
     }
 
     repairDialog() {
-        const dialogRef = this.dialog.open(DialogComponent, {
+        const dialogRef = this.dialog.open(RepairWithScenarioSettingsComponent, {
             width: '600px'
         });
         dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {

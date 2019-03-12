@@ -27,10 +27,10 @@ import { RepairingRoutingModule } from './repairing-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MachinegunModule } from '../machinegun/machinegun.module';
 import { RepairWithScenarioComponent } from './repair-with-scenario/repair-wirh-scenario.component';
-import { DialogComponent as RepairWithScenarioDialogComponent } from './repair-with-scenario/dialog/dialog.component';
+import { RepairWithScenarioSettingsComponent } from './repair-with-scenario/repair-with-scenario-settings/repair-with-scenario-settings.component';
 import { FistfulModule } from '../fistful/fistful.model';
 import { RepairComponent } from './repair/repair.component';
-import { DialogComponent as RepairDialogComponent } from './repair/dialog/dialog.component';
+import { RepairSettingsComponent } from './repair/repair-settings/repair-settings.component';
 
 @NgModule({
     imports: [
@@ -61,11 +61,11 @@ import { DialogComponent as RepairDialogComponent } from './repair/dialog/dialog
         RepairingComponent,
         SimpleRepairComponent,
         RepairWithScenarioComponent,
+        RepairWithScenarioSettingsComponent,
         RepairComponent,
-        RepairWithScenarioDialogComponent,
-        RepairDialogComponent
+        RepairSettingsComponent
     ],
-    entryComponents: [RepairWithScenarioDialogComponent, RepairDialogComponent],
+    entryComponents: [RepairWithScenarioSettingsComponent, RepairSettingsComponent],
     providers: [RepairingService]
 })
 export class RepairingModule {}

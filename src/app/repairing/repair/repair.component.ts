@@ -7,7 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { execute } from '../../shared/execute';
 import { RepairingService } from '../repairing.service';
 import { RepairerService } from 'src/app/fistful/repairer.service';
-import { DialogComponent, DialogData } from './dialog/dialog.component';
+import { RepairSettingsComponent, DialogData } from './repair-settings/repair-settings.component';
 import { RepairScenario } from 'src/app/fistful/gen-model/withdrawal_session';
 
 enum Status {
@@ -35,7 +35,7 @@ interface Element {
 })
 export class RepairComponent {
     displayedColumns: string[] = ['select', 'id', 'status'];
-    dataSource: Array<Element> = [];
+    dataSource: Element[] = [];
     selection = new SelectionModel<Element>(true, []);
     idsControl: FormControl;
 
@@ -108,7 +108,7 @@ export class RepairComponent {
     }
 
     repairDialog() {
-        const dialogRef = this.dialog.open(DialogComponent, {
+        const dialogRef = this.dialog.open(RepairSettingsComponent, {
             width: '600px'
         });
         dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {

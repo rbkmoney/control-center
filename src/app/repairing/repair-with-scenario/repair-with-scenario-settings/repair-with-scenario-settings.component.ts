@@ -5,8 +5,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 enum Scenario {
-    // add_events = 'add_events',
-    set_session_result = 'set_session_result'
+    // complex = 'complex',
+    fail_pre_processing = 'fail_pre_processing',
+    // skip_inspector = 'skip_inspector',
+    fail_session = 'fail_session'
 }
 
 export interface DialogData {
@@ -15,13 +17,13 @@ export interface DialogData {
 }
 
 @Component({
-    templateUrl: 'dialog.component.html',
+    templateUrl: 'repair-with-scenario-settings.component.html',
     styleUrls: [],
     providers: []
 })
-export class DialogComponent {
+export class RepairWithScenarioSettingsComponent {
     scenarios = Object.values(Scenario);
-    codes: string[] = ['unknown'];
+    codes: string[] = ['authorization_failed'];
 
     scenarioControl: FormControl;
     codeControl: FormControl;
@@ -29,10 +31,10 @@ export class DialogComponent {
 
     constructor(
         private fb: FormBuilder,
-        public dialogRef: MatDialogRef<DialogComponent>,
+        public dialogRef: MatDialogRef<RepairWithScenarioSettingsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData
     ) {
-        this.scenarioControl = fb.control(Scenario.set_session_result);
+        this.scenarioControl = fb.control(Scenario.fail_pre_processing);
         this.codeControl = fb.control(this.codes[0]);
         this.autocmpleteCodes$ = this.codeControl.valueChanges.pipe(
             map(code =>
