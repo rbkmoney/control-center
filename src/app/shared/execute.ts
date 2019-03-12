@@ -29,7 +29,7 @@ class Progress {
         this.waitCount = allCount;
     }
 
-    get current() {
+    decrease() {
         --this.waitCount;
         return 1 - this.waitCount / this.allCount;
     }
@@ -53,7 +53,7 @@ async function exec(
             (result as ErrorResult).error = error;
             result.hasError = true;
         } finally {
-            result.progress = progress.current;
+            result.progress = progress.decrease();
             result$.next(result as SuccessResult | ErrorResult);
         }
     }
