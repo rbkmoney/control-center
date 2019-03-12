@@ -1,26 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, switchMap } from 'rxjs/operators';
+import { combineAll, filter, map, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 
 import { ShopDetailsService, ProviderInfo } from './shop-details.service';
-import { Shop } from '../../gen-damsel/domain';
+import { Contract, PayoutTool, Shop } from '../../gen-damsel/domain';
 import { AddProviderComponent } from './add-provider/add-provider.component';
+import { Observable } from 'rxjs';
+import { PartyService } from '../party.service';
 
 @Component({
     templateUrl: 'shop-details.component.html',
     styleUrls: ['../../shared/container.css', 'shop-details.component.scss'],
-    providers: [ShopDetailsService]
+    providers: [ShopDetailsService, PartyService]
 })
 export class ShopDetailsComponent implements OnInit {
     isLoading = false;
     shop: Shop;
+    contract: Contract;
+    payoutTool: PayoutTool;
     partyID: string;
     providerInfo: ProviderInfo[];
 
     constructor(
         private route: ActivatedRoute,
         private shopDetailsService: ShopDetailsService,
+        private partyService: PartyService,
         private dialog: MatDialog
     ) {}
 
@@ -58,10 +63,12 @@ export class ShopDetailsComponent implements OnInit {
                     return this.shopDetailsService.initialize(partyID, shopID);
                 })
             )
-            .subscribe(({ shop, providerInfo }) => {
+            .subscribe(payload => {
                 this.isLoading = false;
-                this.shop = shop;
-                this.providerInfo = providerInfo;
+                this.payoutTool = payload.payoutTool;
+                this.shop = payload.shop;
+                this.contract = payload.contract;
+                this.providerInfo = payload.providerInfo;
             });
     }
 }

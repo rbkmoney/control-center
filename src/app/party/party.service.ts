@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Party, Shop } from '../gen-damsel/domain';
+import { Contract, Party, PayoutTool, Shop } from '../gen-damsel/domain';
 import { PartyService as PapiPartyService } from '../papi/party.service';
 import { map, tap } from 'rxjs/operators';
 
@@ -32,5 +32,31 @@ export class PartyService {
 
     getShop(partyID: string, shopID: string): Observable<Shop> {
         return this.getShops(partyID).pipe(map(shops => shops.find(shop => shop.id === shopID)));
+    }
+
+    getContracts(partyID: string): Observable<Contract[]> {
+        return this.getParty(partyID).pipe(map(party => Array.from(party.contracts.values())));
+    }
+
+    getContract(partyID: string, contractID: string): Observable<Contract> {
+        return this.getContracts(partyID).pipe(
+            map(contracts => contracts.find(contract => contract.id === contractID))
+        );
+    }
+
+    getPayoutTools(partyID: string, contractID: string): Observable<PayoutTool[]> {
+        return this.getContract(partyID, contractID).pipe(
+            map(contract => Array.from(contract.payout_tools.values()))
+        );
+    }
+
+    getPayoutTool(
+        partyID: string,
+        contractID: string,
+        payoutToolID: string
+    ): Observable<PayoutTool> {
+        return this.getPayoutTools(partyID, contractID).pipe(
+            map(payoutTools => payoutTools.find(payoutTool => payoutTool.id === payoutToolID))
+        );
     }
 }

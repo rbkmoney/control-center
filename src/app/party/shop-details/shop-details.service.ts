@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import get from 'lodash-es/get';
 
-import { ProviderObject, Shop, TerminalObject } from '../../gen-damsel/domain';
+import {
+    Contract,
+    PayoutTool,
+    ProviderObject,
+    Shop,
+    TerminalObject
+} from '../../gen-damsel/domain';
 import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 import { PartyService } from '../party.service';
 import { DomainTypedManager } from '../../thrift';
@@ -15,6 +21,8 @@ export interface ProviderInfo {
 
 export interface Payload {
     shop: Shop;
+    contract: Contract;
+    payoutTool: PayoutTool;
     providerInfo: ProviderInfo[];
 }
 
@@ -23,14 +31,28 @@ export class ShopDetailsService {
     constructor(private partyService: PartyService, private dtm: DomainTypedManager) {}
 
     initialize(partyID: string, shopID: string): Observable<Payload> {
+        let shop;
+        let contract;
+        let providerInfo;
         return combineLatest([
             this.partyService.getShop(partyID, shopID),
             this.dtm.getProviderObjects(),
             this.dtm.getTerminalObjects()
         ]).pipe(
-            map(([shop, providers, terminalObjects]) => ({
+            switchMap(([_shop, providers, terminalObjects]) => {
+                shop = _shop;
+                providerInfo = this.toProviderInfo(providers, terminalObjects, partyID, shopID);
+                return this.partyService.getContract(partyID, _shop.contract_id);
+            }),
+            switchMap(_contract => {
+                contract = _contract;
+                return this.partyService.getPayoutTool(partyID, _contract.id, shop.payout_tool_id);
+            }),
+            map(payoutTool => ({
                 shop,
-                providerInfo: this.toProviderInfo(providers, terminalObjects, partyID, shopID)
+                contract,
+                payoutTool,
+                providerInfo
             }))
         );
     }
