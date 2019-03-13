@@ -31,29 +31,37 @@ export class ShopDetailsService {
     constructor(private partyService: PartyService, private dtm: DomainTypedManager) {}
 
     initialize(partyID: string, shopID: string): Observable<Payload> {
-        let shop;
-        let contract;
-        let providerInfo;
         return combineLatest([
             this.partyService.getShop(partyID, shopID),
             this.dtm.getProviderObjects(),
             this.dtm.getTerminalObjects()
         ]).pipe(
-            switchMap(([_shop, providers, terminalObjects]) => {
-                shop = _shop;
-                providerInfo = this.toProviderInfo(providers, terminalObjects, partyID, shopID);
-                return this.partyService.getContract(partyID, _shop.contract_id);
-            }),
-            switchMap(_contract => {
-                contract = _contract;
-                return this.partyService.getPayoutTool(partyID, _contract.id, shop.payout_tool_id);
-            }),
-            map(payoutTool => ({
-                shop,
-                contract,
-                payoutTool,
-                providerInfo
-            }))
+            switchMap(([shop, providers, terminalObjects]) =>
+                this.partyService.getContract(partyID, shop.contract_id).pipe(
+                    map(contract => ({
+                        contract,
+                        providerInfo: this.toProviderInfo(
+                            providers,
+                            terminalObjects,
+                            partyID,
+                            shopID
+                        ),
+                        shop
+                    })),
+                    switchMap(result =>
+                        this.partyService
+                            .getPayoutTool(partyID, result.contract.id, result.shop.payout_tool_id)
+                            .pipe(
+                                map(payoutTool => ({
+                                    payoutTool,
+                                    shop: result.shop,
+                                    providerInfo: result.providerInfo,
+                                    contract: result.contract
+                                }))
+                            )
+                    )
+                )
+            )
         );
     }
 
