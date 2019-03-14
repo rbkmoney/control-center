@@ -28,13 +28,6 @@
             </form>
         </mat-step>
     </mat-vertical-stepper>
-    <cc-terminal-object
-        *ngIf="action.type === 'domainAction'"
-        [domainModificationInfo]="domainModificationInfo$ | async"
-        (valueChanges)="valueChanges($event)"
-        (statusChanges)="statusChanges($event)"
-    >
-    </cc-terminal-object>
 </mat-dialog-content>
 <mat-dialog-actions *ngIf="initialized">
     <button mat-button [disabled]="isLoading || !valid" color="primary" (click)="apply()">
