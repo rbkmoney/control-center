@@ -45,20 +45,19 @@ export class ShopDetailsService {
                             terminalObjects,
                             partyID,
                             shopID
-                        )
-                    })),
-                    switchMap(({ contract, providerInfo }) =>
-                        this.partyService
-                            .getPayoutTool(partyID, contract.id, shop.payout_tool_id)
-                            .pipe(
-                                map(payoutTool => ({
-                                    payoutTool,
-                                    shop,
-                                    providerInfo,
-                                    contract
-                                }))
-                            )
-                    )
+                        ),
+                        shop
+                    }))
+                )
+            ),
+            switchMap(({ contract, providerInfo, shop }) =>
+                this.partyService.getPayoutTool(partyID, contract.id, shop.payout_tool_id).pipe(
+                    map(payoutTool => ({
+                        payoutTool,
+                        shop,
+                        providerInfo,
+                        contract
+                    }))
                 )
             )
         );
