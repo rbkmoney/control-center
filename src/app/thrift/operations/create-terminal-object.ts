@@ -1,14 +1,9 @@
-import {
-    CreateTerminalParams
-} from './create-terminal-params';
+import { CreateTerminalParams } from './create-terminal-params';
 import { generateID, toMap } from './utils';
 import { TerminalObject } from '../../gen-damsel/domain';
 import { toGenTerminalObject } from '../converters';
 
-const convert = (
-    id: number,
-    params: CreateTerminalParams
-): TerminalObject => ({
+const convert = (id: number, params: CreateTerminalParams): TerminalObject => ({
     ref: {
         id
     },
