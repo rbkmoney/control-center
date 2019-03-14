@@ -2,7 +2,7 @@
     {{ action.name | ccContainerName: getContainerType(action.type) }}
 </div>
 <mat-dialog-content>
-    <mat-vertical-stepper *ngIf="action.type !== 'domainAction'" [selectedIndex]="currentStep">
+    <mat-vertical-stepper [selectedIndex]="currentStep">
         <mat-step>
             <ng-template matStepLabel>Prepare party modification target</ng-template>
             <cc-party-modification-target
