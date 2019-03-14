@@ -48,7 +48,7 @@ export class ShopDetailsService {
                         ),
                         shop
                     })),
-                    switchMap(({contract, shop, providerInfo}) =>
+                    switchMap(({ contract, shop, providerInfo }) =>
                         this.partyService
                             .getPayoutTool(partyID, contract.id, shop.payout_tool_id)
                             .pipe(
