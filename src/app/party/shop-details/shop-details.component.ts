@@ -4,7 +4,7 @@ import { filter, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 
 import { ShopDetailsService, ProviderInfo } from './shop-details.service';
-import { Shop } from '../../gen-damsel/domain';
+import { Contract, PayoutTool, Shop } from '../../gen-damsel/domain';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 
 @Component({
@@ -15,6 +15,8 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
 export class ShopDetailsComponent implements OnInit {
     isLoading = false;
     shop: Shop;
+    contract: Contract;
+    payoutTool: PayoutTool;
     partyID: string;
     providerInfo: ProviderInfo[];
 
@@ -58,9 +60,11 @@ export class ShopDetailsComponent implements OnInit {
                     return this.shopDetailsService.initialize(partyID, shopID);
                 })
             )
-            .subscribe(({ shop, providerInfo }) => {
+            .subscribe(({ payoutTool, shop, contract, providerInfo }) => {
                 this.isLoading = false;
+                this.payoutTool = payoutTool;
                 this.shop = shop;
+                this.contract = contract;
                 this.providerInfo = providerInfo;
             });
     }
