@@ -60,12 +60,12 @@ export class ShopDetailsComponent implements OnInit {
                     return this.shopDetailsService.initialize(partyID, shopID);
                 })
             )
-            .subscribe(payload => {
+            .subscribe(({ payoutTool, shop, contract, providerInfo }) => {
                 this.isLoading = false;
-                this.payoutTool = payload.payoutTool;
-                this.shop = payload.shop;
-                this.contract = payload.contract;
-                this.providerInfo = payload.providerInfo;
+                this.payoutTool = payoutTool;
+                this.shop = shop;
+                this.contract = contract;
+                this.providerInfo = providerInfo;
             });
     }
 }
