@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
-import { DomainModificationInfo, ModificationGroupType } from '../model';
+import { ModificationGroupType } from '../model';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
 import {
@@ -38,8 +38,6 @@ export class CreateModificationComponent implements OnInit {
 
     unitID: string;
 
-    domainModificationInfo$: Observable<DomainModificationInfo>;
-
     action: ModificationAction;
 
     currentStep = Step.prepareTarget;
@@ -54,7 +52,6 @@ export class CreateModificationComponent implements OnInit {
 
     ngOnInit() {
         this.route.firstChild.params.subscribe(p => (this.partyID = p.party_id));
-        this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
         if (this.data.unitID) {
             this.unitID = this.data.unitID;
             this.currentStep = Step.fillInModification;
