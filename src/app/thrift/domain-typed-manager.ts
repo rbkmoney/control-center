@@ -10,18 +10,10 @@ import {
     PaymentInstitutionObject
 } from '../gen-damsel/domain';
 import { findDomainObject, findDomainObjects } from './operations/utils';
-import {
-    appendShopTerminalToProvider,
-    getCreateTerminalCommit,
-    CreateTerminalParams
-} from './operations';
+import { getCreateTerminalCommit, CreateTerminalParams } from './operations';
 import { toGenReference } from './converters';
 import { DomainService } from './domain.service';
-import {
-    addDecisionToProviderCommit,
-    AddDecisionToProvider,
-    AppendTerminalToProviderParams
-} from './operations';
+import { addDecisionToProviderCommit, AddDecisionToProvider } from './operations';
 import { DomainCacheService } from './domain-cache.service';
 import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
 import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
@@ -72,22 +64,6 @@ export class DomainTypedManager {
         return this.dmtCacheService.domain.pipe(
             map(domain => findTerminalObjects(domain)),
             map(objects => findDomainObject(objects, id))
-        );
-    }
-
-    appendTerminalToProvider(params: AppendTerminalToProviderParams): Observable<void> {
-        return combineLatest(
-            this.getLastVersion(),
-            this.getTerminalObjects(),
-            this.getProviderObject(params.providerID)
-        ).pipe(
-            switchMap(([version, terminalObjects, providerObject]) =>
-                this.dmtService.commit(
-                    version,
-                    appendShopTerminalToProvider(terminalObjects, providerObject, params)
-                )
-            ),
-            tap(() => this.dmtCacheService.forceReload())
         );
     }
 

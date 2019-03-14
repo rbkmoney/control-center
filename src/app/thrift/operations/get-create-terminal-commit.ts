@@ -1,5 +1,5 @@
 import { createTerminalObject } from './create-terminal-object';
-import { CreateTerminalParams } from './append-terminal-to-provider-params';
+import { CreateTerminalParams } from './create-terminal-params';
 import { toGenCommit, toGenDomainObject } from '../converters';
 import { TerminalObject } from '../../gen-damsel/domain';
 import { Commit } from '../../gen-damsel/domain_config';

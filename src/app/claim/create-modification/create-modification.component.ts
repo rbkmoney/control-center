@@ -4,10 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
-import { DomainModificationInfo, ModificationGroupType } from '../model';
+import { ModificationGroupType } from '../model';
 import { PartyTarget } from '../../party-modification-target';
 import { ClaimService } from '../claim.service';
-import { DomainTypedManager, AppendTerminalToProviderParams } from '../../thrift';
 import {
     ContractModificationUnit,
     PartyModification,
@@ -35,11 +34,9 @@ export class CreateModificationComponent implements OnInit {
 
     partyID: string;
 
-    values: PartyModification | AppendTerminalToProviderParams;
+    values: PartyModification;
 
     unitID: string;
-
-    domainModificationInfo$: Observable<DomainModificationInfo>;
 
     action: ModificationAction;
 
@@ -50,13 +47,11 @@ export class CreateModificationComponent implements OnInit {
         private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public data: CreateModificationData,
         private snackBar: MatSnackBar,
-        private claimService: ClaimService,
-        private domainTypedManager: DomainTypedManager
+        private claimService: ClaimService
     ) {}
 
     ngOnInit() {
         this.route.firstChild.params.subscribe(p => (this.partyID = p.party_id));
-        this.domainModificationInfo$ = this.claimService.domainModificationInfo$;
         if (this.data.unitID) {
             this.unitID = this.data.unitID;
             this.currentStep = Step.fillInModification;
@@ -83,9 +78,6 @@ export class CreateModificationComponent implements OnInit {
             case ActionType.contractAction:
                 this.addChange();
                 break;
-            case ActionType.domainAction:
-                this.createTerminal();
-                break;
         }
     }
 
@@ -95,8 +87,6 @@ export class CreateModificationComponent implements OnInit {
                 return ModificationGroupType.ShopUnitContainer;
             case ActionType.contractAction:
                 return ModificationGroupType.ContractUnitContainer;
-            case ActionType.domainAction:
-                return 'Domain modification';
         }
     }
 
@@ -112,24 +102,5 @@ export class CreateModificationComponent implements OnInit {
     private addChange() {
         this.claimService.addModification(this.values as PartyModification);
         this.dialogRef.close();
-    }
-
-    private createTerminal() {
-        this.isLoading = true;
-        this.domainTypedManager
-            .appendTerminalToProvider(this.values as AppendTerminalToProviderParams)
-            .subscribe(() => this.success(), e => this.failed(e));
-    }
-
-    private success() {
-        this.isLoading = false;
-        this.dialogRef.close();
-        this.snackBar.open(`${name} created`, 'OK', { duration: 3000 });
-    }
-
-    private failed(error) {
-        console.error(error);
-        this.isLoading = false;
-        this.snackBar.open(`An error occurred while creating ${name}`, 'OK');
     }
 }
