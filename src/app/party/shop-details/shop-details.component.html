@@ -7,9 +7,29 @@
             <mat-card>
                 <mat-card-subtitle>Shop details</mat-card-subtitle>
                 <mat-card-content>
-                    <cc-shop-details [shop]="shop"></cc-shop-details>
+                    <cc-shop-info [shop]="shop" [partyID]="partyID"></cc-shop-info>
                 </mat-card-content>
             </mat-card>
+            <div fxLayout="row" fxLayoutGap="15px">
+                <mat-accordion fxFlex="50">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Contract details </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <cc-pretty-json [object]="contract"></cc-pretty-json>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <mat-accordion fxFlex="50">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Payout tool details </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <cc-pretty-json [object]="payoutTool"></cc-pretty-json>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
             <mat-card>
                 <mat-card-subtitle>Shop actions</mat-card-subtitle>
                 <mat-card-content>
