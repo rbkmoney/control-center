@@ -12,8 +12,8 @@
         </mat-card-content>
         <mat-card-footer *ngIf="(isLoading$ | async)">
             <mat-progress-bar
-                [mode]="(progress$ | async) === 0 ? 'indeterminate' : 'determinate'"
-                [value]="(progress$ | async) === 0 ? undefined : (progress$ | async) * 100"
+                [mode]="progressBarMode$ | async"
+                [value]="progressBarValue$ | async"
             ></mat-progress-bar>
         </mat-card-footer>
     </mat-card>
