@@ -40,7 +40,6 @@ import { PartyModificationUnitsComponent } from './party-modification-units/part
 import { PartyModificationCreationModule } from '../party-modification-creation';
 import { CreateModificationComponent } from './create-modification/create-modification.component';
 import { PartyModificationTargetModule } from '../party-modification-target';
-import { TerminalObjectComponent } from './terminal-object/terminal-object.component';
 import { PersistentContainerService } from './persistent-container.service';
 import { CloneClaimComponent } from './clone-claim/clone-claim.component';
 import { PartyModificationContainerService } from './party-modification-container/party-modification-container.service';
@@ -90,7 +89,6 @@ import { RemoveConfirmComponent } from './party-modification-container/remove-co
         PartyModificationUnitsComponent,
         ContainerNamePipe,
         CreateModificationComponent,
-        TerminalObjectComponent,
         RemoveConfirmComponent
     ],
     entryComponents: [

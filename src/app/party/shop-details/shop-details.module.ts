@@ -35,6 +35,7 @@ import { CreateTerminalFormComponent } from './add-provider/select-terminal/crea
 import { SelectTerminalComponent } from './add-provider/select-terminal/select-terminal.component';
 import { SelectProviderComponent } from './add-provider/select-provider/select-provider.component';
 import { IsActivePipe } from './is-active.pipe';
+import { CategoryComponent } from './shop-info/category/category.component';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -75,7 +76,8 @@ import { SharedModule } from '../../shared/shared.module';
         CreateTerminalFormComponent,
         SelectProviderComponent,
         SelectTerminalComponent,
-        IsActivePipe
+        IsActivePipe,
+        CategoryComponent
     ],
     entryComponents: [AddProviderComponent]
 })

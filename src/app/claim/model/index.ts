@@ -3,7 +3,6 @@ export * from './contract-modification-name';
 export * from './party-modification-container';
 export * from './party-modification-unit';
 export * from './shop-modification-name';
-export * from './domain-modification-info';
 export * from './modification-group';
 export * from './modification-group-type';
 export * from './modification-unit-container';

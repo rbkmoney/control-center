@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import get from 'lodash-es/get';
 
-import { ProviderObject, Shop, TerminalObject } from '../../gen-damsel/domain';
+import {
+    Contract,
+    PayoutTool,
+    ProviderObject,
+    Shop,
+    TerminalObject
+} from '../../gen-damsel/domain';
 import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 import { PartyService } from '../party.service';
 import { DomainTypedManager } from '../../thrift';
@@ -15,6 +21,8 @@ export interface ProviderInfo {
 
 export interface Payload {
     shop: Shop;
+    contract: Contract;
+    payoutTool: PayoutTool;
     providerInfo: ProviderInfo[];
 }
 
@@ -28,10 +36,30 @@ export class ShopDetailsService {
             this.dtm.getProviderObjects(),
             this.dtm.getTerminalObjects()
         ]).pipe(
-            map(([shop, providers, terminalObjects]) => ({
-                shop,
-                providerInfo: this.toProviderInfo(providers, terminalObjects, partyID, shopID)
-            }))
+            switchMap(([shop, providers, terminalObjects]) =>
+                this.partyService.getContract(partyID, shop.contract_id).pipe(
+                    map(contract => ({
+                        contract,
+                        providerInfo: this.toProviderInfo(
+                            providers,
+                            terminalObjects,
+                            partyID,
+                            shopID
+                        ),
+                        shop
+                    }))
+                )
+            ),
+            switchMap(({ contract, providerInfo, shop }) =>
+                this.partyService.getPayoutTool(partyID, contract.id, shop.payout_tool_id).pipe(
+                    map(payoutTool => ({
+                        payoutTool,
+                        shop,
+                        providerInfo,
+                        contract
+                    }))
+                )
+            )
         );
     }
 

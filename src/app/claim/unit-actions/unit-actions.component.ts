@@ -47,17 +47,11 @@ export class UnitActionsComponent implements OnInit {
         ]
     };
 
-    domainActions = {
-        type: ActionType.domainAction,
-        visible: false
-    };
-
     ngOnInit() {
         switch (this.data.type) {
             case 'allActions':
                 this.contractActions.visible = true;
                 this.shopActions.visible = true;
-                this.domainActions.visible = true;
                 this.contractActions.names = [
                     ContractModificationName.creation,
                     ...this.contractActions.names

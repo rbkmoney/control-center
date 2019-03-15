@@ -14,12 +14,7 @@ import toNumber from 'lodash-es/toNumber';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
-import {
-    ClaimInfoContainer,
-    DomainModificationInfo,
-    ModificationGroup,
-    PersistentContainer
-} from './model';
+import { ClaimInfoContainer, ModificationGroup, PersistentContainer } from './model';
 import { PersistentContainerService } from './persistent-container.service';
 import { convert } from './party-modification-group-converter';
 import { PartyModification } from '../gen-damsel/payment_processing';
@@ -29,8 +24,6 @@ import { ClaimStatus } from '../papi/model/claim-statuses';
 @Injectable()
 export class ClaimService {
     claimInfoContainer$: Subject<ClaimInfoContainer> = new BehaviorSubject(null);
-
-    domainModificationInfo$: Subject<DomainModificationInfo> = new BehaviorSubject(null);
 
     modificationGroups$: Subject<ModificationGroup[]> = new Subject();
 
@@ -88,8 +81,6 @@ export class ClaimService {
                     tap(claimInfo => {
                         this.persistentContainerService.init(claimInfo.modifications.modifications);
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);
-                        const domainModificationInfo = this.toDomainModificationInfo(claimInfo);
-                        this.domainModificationInfo$.next(domainModificationInfo);
                         this.claimInfoContainer$.next(this.claimInfoContainer);
                     }),
                     map(() => null),
@@ -203,14 +194,6 @@ export class ClaimService {
             createdAt: created_at,
             updatedAt: updated_at,
             extractedIds: extracted_ids
-        };
-    }
-
-    private toDomainModificationInfo(claimInfo: ClaimInfo): DomainModificationInfo {
-        return {
-            shopUrl: '',
-            partyId: claimInfo.party_id,
-            shopId: ''
         };
     }
 
