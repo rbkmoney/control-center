@@ -9,7 +9,7 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
 
 @Component({
     templateUrl: 'shop-details.component.html',
-    styleUrls: ['../../shared/container.css', 'shop-details.component.scss'],
+    styleUrls: ['shop-details.component.scss'],
     providers: [ShopDetailsService]
 })
 export class ShopDetailsComponent implements OnInit {

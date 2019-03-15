@@ -24,6 +24,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
 import { CreateClaimComponent } from './create-claim/create-claim.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import { CreateClaimComponent } from './create-claim/create-claim.component';
         MatIconModule,
         MatMenuModule,
         MatDialogModule,
-        CdkTableModule
+        CdkTableModule,
+        SharedModule
     ],
     declarations: [
         ClaimsComponent,

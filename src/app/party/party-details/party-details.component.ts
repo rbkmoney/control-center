@@ -7,7 +7,7 @@ import { PartyService } from '../party.service';
 
 @Component({
     templateUrl: 'party-details.component.html',
-    styleUrls: ['../../shared/container.css']
+    styleUrls: []
 })
 export class PartyDetailsComponent implements OnInit {
     party: Party;

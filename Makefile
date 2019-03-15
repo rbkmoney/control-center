@@ -38,28 +38,42 @@ submodules: $(SUBTARGETS)
 init:
 	npm install
 
-build: check lint compile-damsel
+compile: compile-damsel compile-machinegun compile-fistful
+
+build: check lint compile
 	npm run build
 
+clean-compile: clean compile
+
 clean:
-	rm -rf dist src/app/thrift/gen-* src/assets/gen-* src/app/gen-damsel
+	rm -rf dist src/app/thrift/gen-* src/assets/meta-damsel.json src/app/gen-damsel src/app/machinegun/gen-* src/app/fistful/gen-*
 
-compile-damsel: damsel-client/domain-config damsel-client/payment-processing damsel-client/merch-stat damsel-model damsel-meta
+compile-damsel: damsel-client damsel-model damsel-meta
 
-damsel-client/domain-config:
-	thrift -r -gen js:node,runtime_package=woody_js/src/client/gen -o ./src/app/thrift ./node_modules/damsel/proto/domain_config.thrift
-
-damsel-client/payment-processing:
-	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/payment_processing.thrift
-
-damsel-client/merch-stat:
-	thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/merch_stat.thrift
+damsel-client:
+	@$(foreach file,domain_config payment_processing merch_stat,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/$(file).thrift;)
 
 damsel-meta:
 	npm run damsel-meta
 
 damsel-model:
 	npm run damsel-model
+
+compile-machinegun: machinegun-model machinegun-client
+
+machinegun-client:
+	@$(foreach file,state_processing,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/machinegun ./node_modules/machinegun_proto/proto/$(file).thrift;)
+
+machinegun-model:
+	npm run machinegun-model
+
+compile-fistful: fistful-model fistful-client
+
+fistful-client:
+	@$(foreach file,withdrawal_session,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/fistful ./node_modules/fistful-proto/proto/$(file).thrift;)
+
+fistful-model:
+	npm run fistful-model
 
 lint:
 	npm run lint

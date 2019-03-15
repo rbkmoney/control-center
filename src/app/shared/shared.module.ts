@@ -7,16 +7,20 @@ import { FormatAmountPipe } from './pipes/format-amount.pipe';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
 import { ThriftViewPipe } from './pipes/thrift-view.pipe';
 import { PrettyJsonComponent } from './components/pretty-json/pretty-json.component';
+import { CardContainerComponent } from './components/card-container/card-container.component';
+
+const declarations = [
+    CurrencyPipe,
+    FormatAmountPipe,
+    ThriftInt64Pipe,
+    ThriftViewPipe,
+    PrettyJsonComponent,
+    CardContainerComponent
+];
 
 @NgModule({
     imports: [CommonModule, PrettyJsonModule],
-    declarations: [
-        CurrencyPipe,
-        FormatAmountPipe,
-        ThriftInt64Pipe,
-        ThriftViewPipe,
-        PrettyJsonComponent
-    ],
-    exports: [CurrencyPipe, FormatAmountPipe, ThriftInt64Pipe, ThriftViewPipe, PrettyJsonComponent]
+    declarations,
+    exports: declarations
 })
 export class SharedModule {}

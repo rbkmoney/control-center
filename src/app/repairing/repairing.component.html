@@ -1,0 +1,20 @@
+<cc-card-container>
+    <mat-card>
+        <mat-card-subtitle>Repairing</mat-card-subtitle>
+        <mat-card-content>
+            <mat-tab-group>
+                <mat-tab label="Simple repair"> <cc-simple-repair></cc-simple-repair> </mat-tab>
+                <mat-tab label="Repair with scenario">
+                    <cc-repair-with-scenario></cc-repair-with-scenario>
+                </mat-tab>
+                <mat-tab label="Repair"> <cc-repair></cc-repair> </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+        <mat-card-footer *ngIf="(isLoading$ | async)">
+            <mat-progress-bar
+                [mode]="progressBarMode$ | async"
+                [value]="progressBarValue$ | async"
+            ></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+</cc-card-container>

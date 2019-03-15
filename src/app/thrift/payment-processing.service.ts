@@ -3,15 +3,18 @@ import { Observable } from 'rxjs';
 
 import {
     InvoicePaymentAdjustmentParams as InvoicePaymentAdjustmentParamsObject,
-    UserInfo as UserInfoObject
+    UserInfo as UserInfoObject,
+    InvoiceRepairScenario as InvoiceRepairScenarioObject
 } from './gen-nodejs/payment_processing_types';
 import {
     InvoicePaymentAdjustment,
     InvoicePaymentAdjustmentParams,
-    UserInfo
+    UserInfo,
+    InvoiceRepairScenario
 } from '../gen-damsel/payment_processing';
 import { ThriftService } from './thrift-service';
 import * as Invoicing from './gen-nodejs/Invoicing';
+import { InvoiceID } from '../gen-damsel/domain';
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {
@@ -56,5 +59,16 @@ export class PaymentProcessingService extends ThriftService {
             id,
             paymentId,
             adjustmentId
+        );
+
+    repairWithScenario = (
+        user: UserInfo,
+        id: InvoiceID,
+        scenario: InvoiceRepairScenario
+    ): Observable<void> =>
+        this.toObservableAction('RepairWithScenario')(
+            new UserInfoObject(user),
+            id,
+            new InvoiceRepairScenarioObject(scenario)
         );
 }

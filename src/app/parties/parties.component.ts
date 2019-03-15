@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material';
 
 @Component({
     templateUrl: 'parties.component.html',
-    styleUrls: ['../shared/container.css'],
+    styleUrls: [],
     providers: [PartiesService, PartyService]
 })
 export class PartiesComponent implements OnInit {
