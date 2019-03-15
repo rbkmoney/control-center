@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { KeycloakService } from 'keycloak-angular';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { UserInfo, InvoiceRepairScenario } from '../gen-damsel/payment_processing';
 import { execute } from '../shared/execute';
@@ -13,8 +13,7 @@ import { RepairScenario } from '../fistful/gen-model/withdrawal_session';
 
 @Injectable()
 export class RepairingService {
-    progress$: BehaviorSubject<number> = new BehaviorSubject(1);
-    isLoading$: Observable<boolean>;
+    private _progress$: BehaviorSubject<number> = new BehaviorSubject(1);
 
     constructor(
         private snackBar: MatSnackBar,
@@ -22,8 +21,14 @@ export class RepairingService {
         private automatonService: AutomatonService,
         private paymentProcessingService: PaymentProcessingService,
         private repairerService: RepairerService
-    ) {
-        this.isLoading$ = this.progress$.pipe(map(progress => progress !== 1));
+    ) {}
+
+    get progress$(): Observable<number> {
+        return this._progress$;
+    }
+
+    get isLoading$(): Observable<boolean> {
+        return this._progress$.pipe(map(progress => progress !== 1));
     }
 
     combineIds(addedIds: string[], currentIds: string[] = []) {
@@ -68,6 +73,7 @@ export class RepairingService {
     }
 
     executeGetMachine<E extends { id: string; ns: string }>(elements: E[]) {
+        this._progress$.next(0);
         return execute(
             elements.map(({ id, ns }) => () =>
                 this.automatonService.getMachine({
@@ -76,13 +82,14 @@ export class RepairingService {
                     range: { limit: 0, direction: 1 }
                 })
             )
-        );
+        ).pipe(tap(({ progress }) => this._progress$.next(progress)));
     }
 
     executeSimpleRepair<E extends { id: string; ns: string }>(elements: E[]) {
+        this._progress$.next(0);
         return execute(
             elements.map(({ id, ns }) => () => this.automatonService.simpleRepair(ns, { id }))
-        );
+        ).pipe(tap(({ progress }) => this._progress$.next(progress)));
     }
 
     executeRepairWithScenario<E extends { id: string }>(
@@ -90,14 +97,18 @@ export class RepairingService {
         scenario: InvoiceRepairScenario
     ) {
         const user = this.getUser();
+        this._progress$.next(0);
         return execute(
             elements.map(({ id }) => () =>
                 this.paymentProcessingService.repairWithScenario(user, id, scenario)
             )
-        );
+        ).pipe(tap(({ progress }) => this._progress$.next(progress)));
     }
 
     executeRepair<E extends { id: string }>(elements: E[], scenario: RepairScenario) {
-        return execute(elements.map(({ id }) => () => this.repairerService.repair(id, scenario)));
+        this._progress$.next(0);
+        return execute(
+            elements.map(({ id }) => () => this.repairerService.repair(id, scenario))
+        ).pipe(tap(({ progress }) => this._progress$.next(progress)));
     }
 }

@@ -10,10 +10,10 @@
                 <mat-tab label="Repair"> <cc-repair></cc-repair> </mat-tab>
             </mat-tab-group>
         </mat-card-content>
-        <mat-card-footer *ngIf="isLoading">
+        <mat-card-footer *ngIf="(isLoading$ | async)">
             <mat-progress-bar
-                [mode]="progress ? 'determinate' : 'indeterminate'"
-                [value]="progress ? progress * 100 : undefined"
+                [mode]="(progress$ | async) === 0 ? 'indeterminate' : 'determinate'"
+                [value]="(progress$ | async) === 0 ? undefined : (progress$ | async) * 100"
             ></mat-progress-bar>
         </mat-card-footer>
     </mat-card>

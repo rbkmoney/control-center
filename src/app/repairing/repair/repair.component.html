@@ -28,7 +28,7 @@
                 <cc-repairing-status
                     [type]="getRepairingStatusType(el.status)"
                     [status]="el.status"
-                    [disabled]="isLoading"
+                    [disabled]="isLoading$ | async"
                 ></cc-repairing-status>
             </td>
         </ng-container>
@@ -37,13 +37,13 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <cc-add-ids-input [disabled]="isLoading" (add)="add($event)" fxFlex></cc-add-ids-input>
+    <cc-add-ids-input [disabled]="isLoading$ | async" (add)="add($event)" fxFlex></cc-add-ids-input>
     <div fxLayoutAlign="space-between">
         <button
             mat-button
             color="warn"
             (click)="remove()"
-            [disabled]="isLoading || !this.selection.selected.length"
+            [disabled]="(isLoading$ | async) || !this.selection.selected.length"
         >
             REMOVE
         </button>
@@ -51,7 +51,7 @@
             mat-button
             color="primary"
             (click)="repairDialog()"
-            [disabled]="isLoading || !this.selection.selected.length"
+            [disabled]="(isLoading$ | async) || !this.selection.selected.length"
         >
             CONFIGURE REPAIR
         </button>

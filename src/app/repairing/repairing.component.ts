@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { RepairingService } from './repairing.service';
 
@@ -8,11 +9,11 @@ import { RepairingService } from './repairing.service';
     providers: []
 })
 export class RepairingComponent {
-    progress: number;
-    isLoading: boolean;
+    progress$: Observable<number>;
+    isLoading$: Observable<boolean>;
 
     constructor(repairingService: RepairingService) {
-        repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
-        repairingService.progress$.subscribe(progress => (this.progress = progress));
+        this.progress$ = repairingService.progress$;
+        this.isLoading$ = repairingService.isLoading$;
     }
 }

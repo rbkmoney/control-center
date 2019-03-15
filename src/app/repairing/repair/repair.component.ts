@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ExecStateType } from '../../shared/execute';
@@ -33,12 +33,10 @@ export class RepairComponent {
     displayedColumns: string[] = ['select', 'id', 'status'];
     dataSource: Element[] = [];
     selection = new SelectionModel<Element>(true, []);
-    progress$: BehaviorSubject<number>;
-    isLoading: boolean;
+    isLoading$: Observable<boolean>;
 
     constructor(private repairingService: RepairingService, private dialog: MatDialog) {
-        this.progress$ = this.repairingService.progress$;
-        this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
+        this.isLoading$ = repairingService.isLoading$;
     }
 
     isAllSelected() {
@@ -95,10 +93,8 @@ export class RepairComponent {
         if (!elements.length) {
             return;
         }
-        this.progress$.next(0);
         this.setStatus(elements, Status.update);
         this.repairingService.executeRepair(elements, scenario).subscribe(result => {
-            this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.getStatusByError(result.error);

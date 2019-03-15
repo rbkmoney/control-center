@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ExecStateType } from '../../shared/execute';
@@ -40,12 +40,10 @@ export class SimpleRepairComponent {
     selection = new SelectionModel<Element>(true, []);
     namespaces = Object.values(Namespace);
     nsControl: FormControl;
-    progress$: BehaviorSubject<number>;
-    isLoading: boolean;
+    isLoading$: Observable<boolean>;
 
     constructor(fb: FormBuilder, private repairingService: RepairingService) {
-        this.progress$ = this.repairingService.progress$;
-        this.repairingService.isLoading$.subscribe(isLoading => (this.isLoading = isLoading));
+        this.isLoading$ = repairingService.isLoading$;
         this.nsControl = fb.control(Namespace.invoice);
     }
 
@@ -79,10 +77,8 @@ export class SimpleRepairComponent {
         if (!elements.length) {
             return;
         }
-        this.progress$.next(0);
         this.setStatus(elements);
         this.repairingService.executeGetMachine(elements).subscribe(result => {
-            this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.statusByError(result.error);
@@ -112,10 +108,8 @@ export class SimpleRepairComponent {
         if (!elements.length) {
             return;
         }
-        this.progress$.next(0);
         this.setStatus(elements, Status.update);
         this.repairingService.executeSimpleRepair(elements).subscribe(result => {
-            this.progress$.next(result.progress);
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.statusByError(result.error);
