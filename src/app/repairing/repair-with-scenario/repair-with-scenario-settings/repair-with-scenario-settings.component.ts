@@ -25,7 +25,7 @@ export class RepairWithScenarioSettingsComponent {
     scenarios = Object.values(Scenario);
     codes: string[] = ['authorization_failed'];
     formGroup: FormGroup;
-    autocmpleteCodes$: Observable<string[]>;
+    autocompleteCodes$: Observable<string[]>;
 
     constructor(
         fb: FormBuilder,
@@ -36,7 +36,7 @@ export class RepairWithScenarioSettingsComponent {
             scenario: [Scenario.fail_pre_processing],
             code: [this.codes[0]]
         });
-        this.autocmpleteCodes$ = this.formGroup.valueChanges.pipe(
+        this.autocompleteCodes$ = this.formGroup.valueChanges.pipe(
             map(({ code }) =>
                 code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
             )

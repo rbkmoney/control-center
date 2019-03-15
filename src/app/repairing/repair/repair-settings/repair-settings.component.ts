@@ -23,7 +23,7 @@ export class RepairSettingsComponent {
     scenarios = Object.values(Scenario);
     codes: string[] = ['unknown'];
     formGroup: FormGroup;
-    autocmpleteCodes$: Observable<string[]>;
+    autocompleteCodes$: Observable<string[]>;
 
     constructor(
         fb: FormBuilder,
@@ -34,7 +34,7 @@ export class RepairSettingsComponent {
             scenario: [Scenario.set_session_result],
             code: [this.codes[0]]
         });
-        this.autocmpleteCodes$ = this.formGroup.valueChanges.pipe(
+        this.autocompleteCodes$ = this.formGroup.valueChanges.pipe(
             map(({ code }) =>
                 code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
             )
