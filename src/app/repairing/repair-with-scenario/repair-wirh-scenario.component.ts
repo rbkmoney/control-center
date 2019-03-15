@@ -9,7 +9,7 @@ import {
     RepairWithScenarioSettingsComponent,
     DialogData
 } from './repair-with-scenario-settings/repair-with-scenario-settings.component';
-import { InvoiceRepairScenario } from 'src/app/gen-damsel/payment_processing';
+import { InvoiceRepairScenario } from '../../gen-damsel/payment_processing';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 
 enum Status {
