@@ -1,11 +1,11 @@
 export enum ShopModificationName {
     creation = 'creation',
-    categoryModification = 'categoryModification',
-    detailsModification = 'detailsModification',
-    contractModification = 'contractModification',
-    payoutToolModification = 'payoutToolModification',
-    locationModification = 'locationModification',
-    shopAccountCreation = 'shopAccountCreation',
-    payoutScheduleModification = 'payoutScheduleModification',
+    categoryModification = 'category_modification',
+    detailsModification = 'details_modification',
+    contractModification = 'contract_modification',
+    payoutToolModification = 'payout_tool_modification',
+    locationModification = 'location_modification',
+    shopAccountCreation = 'shop_account_creation',
+    payoutScheduleModification = 'payout_schedule_modification',
     unknown = 'unknown'
 }

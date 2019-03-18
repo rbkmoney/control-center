@@ -7,16 +7,12 @@ import {
     PersistentContainer
 } from './model';
 import { ContractModificationUnit, ShopModificationUnit } from '../gen-damsel/payment_processing';
+import { UnitName } from '../party-modification-creation/unit-name';
 
 interface PersistentUnit {
     modificationUnit: ShopModificationUnit | ContractModificationUnit;
     saved: boolean;
     typeHash: string;
-}
-
-enum GroupName {
-    shopModification = 'shopModification',
-    contractModification = 'contractModification'
 }
 
 const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
@@ -50,7 +46,7 @@ const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => 
 };
 
 const toGroup = (
-    name: GroupName,
+    name: UnitName,
     type: ModificationGroupType,
     containers: PersistentContainer[]
 ): ModificationGroup => {
@@ -79,9 +75,9 @@ export const convert = (containers: PersistentContainer[]): ModificationGroup[] 
     return map(grouped, (persistentContainer, type) => {
         switch (type) {
             case ModificationGroupType.ShopUnitContainer:
-                return toGroup(GroupName.shopModification, type, persistentContainer);
+                return toGroup(UnitName.shopModification, type, persistentContainer);
             case ModificationGroupType.ContractUnitContainer:
-                return toGroup(GroupName.contractModification, type, persistentContainer);
+                return toGroup(UnitName.contractModification, type, persistentContainer);
             case ModificationGroupType.unknown:
                 return { type: ModificationGroupType.unknown };
         }
