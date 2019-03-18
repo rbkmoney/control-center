@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 import { ActionType, ModificationAction } from '../modification-action';
 import { ModificationGroupType } from '../model';

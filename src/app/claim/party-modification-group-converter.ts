@@ -15,8 +15,8 @@ interface PersistentUnit {
 }
 
 enum GroupName {
-    shopModification = 'shopModification',
-    contractModification = 'contractModification'
+    shopModification = 'shop_modification',
+    contractModification = 'contract_modification'
 }
 
 const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
