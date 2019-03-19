@@ -11,7 +11,7 @@ build('control-center', 'docker-host') {
     pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
     withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
   }
-  
+
   def pipeline = {
     runStage('init') {
       withGithubSshCredentials {
