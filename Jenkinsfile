@@ -11,8 +11,7 @@ build('control-center', 'docker-host') {
     pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
     withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
   }
-
-  pipeDefault(registry='dr2.rbkmoney.com', registryCredentialsId='jenkins_harbor') {
+  def pipeline = {
     runStage('init') {
       withGithubSshCredentials {
         sh 'make wc_init'
@@ -37,4 +36,5 @@ build('control-center', 'docker-host') {
       }
     }
   }
+  pipeDefault(pipeline, registry='dr2.rbkmoney.com', registryCredentialsId='jenkins_harbor') 
 }
