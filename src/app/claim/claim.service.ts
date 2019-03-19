@@ -99,6 +99,7 @@ export class ClaimService {
     }
 
     saveChanges(): Observable<void> {
+        this.isLoading$.next(true);
         const { partyId, claimId } = this.claimInfoContainer;
         const units = this.toModificationUnits(this.containers);
         return this.papiClaimService.getClaim(partyId, claimId).pipe(
@@ -107,7 +108,8 @@ export class ClaimService {
                     .updateClaim(partyId, claimId, claimInfo.revision, units)
                     .pipe(map(() => claimInfo.revision))
             ),
-            switchMap(revision => this.pollClaimChange(revision))
+            switchMap(revision => this.pollClaimChange(revision)),
+            tap(() => this.isLoading$.next(false))
         );
     }
 

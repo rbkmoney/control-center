@@ -55,7 +55,7 @@ export class ClaimInfoComponent implements OnInit {
                     claimInfo => {
                         const editEndpoint = `/claims/${claimInfo.party_id}/${
                             ClaimActionType.edit
-                        }/${claimInfo.party_id}`;
+                        }/${claimInfo.claim_id}`;
                         this.router.navigate([editEndpoint]).then(() => this.success());
                     },
                     e => this.failed(e)
