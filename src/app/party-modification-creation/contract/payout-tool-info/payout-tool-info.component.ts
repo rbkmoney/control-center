@@ -4,9 +4,9 @@ import { PayoutToolInfo } from '../../../gen-damsel/domain';
 import get from 'lodash-es/get';
 
 enum Type {
-    russianBankAccount = 'russianBankAccount',
-    internationalBankAccount = 'internationalBankAccount',
-    walletInfo = 'walletInfo'
+    russianBankAccount = 'russian_bank_account',
+    internationalBankAccount = 'international_bank_account',
+    walletInfo = 'wallet_info'
 }
 
 @Component({
@@ -49,10 +49,7 @@ export class PayoutToolInfoComponent implements OnInit {
         switch (this.selected) {
             case Type.russianBankAccount:
                 this.clearControl();
-                this.form.registerControl(
-                    Type.russianBankAccount,
-                    this.fb.group(this.initialValue.russian_bank_account || {})
-                );
+                this.form.registerControl(Type.russianBankAccount, this.fb.group({}));
                 break;
             case Type.internationalBankAccount:
                 this.clearControl();
@@ -60,10 +57,8 @@ export class PayoutToolInfoComponent implements OnInit {
                 break;
             case Type.walletInfo:
                 this.clearControl();
-                this.form.registerControl(
-                    Type.walletInfo,
-                    this.fb.group(this.initialValue.wallet_info || {})
-                );
+                const walletInfo = get(this, 'initialValue.wallet_info', {});
+                this.form.registerControl(Type.walletInfo, this.fb.group(walletInfo));
                 break;
         }
     }
