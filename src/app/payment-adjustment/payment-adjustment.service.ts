@@ -62,7 +62,7 @@ export class PaymentAdjustmentService {
                     }
                 }
             } as QueryDSL),
-            ...(continuationToken ? { continuationToken } : {})
+            ...(continuationToken ? { continuation_token: continuationToken } : {})
         });
     }
 }
