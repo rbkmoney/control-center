@@ -11,11 +11,6 @@ import {
 } from '../model';
 import { isPrimitiveType, isComplexType } from './utils';
 
-const resolvePrimitive = (primitiveType: PrimitiveType): MetaPrimitive => ({
-    type: MetaType.primitive,
-    primitiveType
-});
-
 const resolveCollection = (
     collectionType: CollectionType,
     itemType: ValueType
@@ -29,6 +24,11 @@ const resolveMap = (keyType: ValueType, valueType: ValueType): MetaMap => ({
     type: MetaType.map,
     keyMeta: keyType as string,
     valueMeta: valueType as string
+});
+
+export const resolvePrimitive = (primitiveType: PrimitiveType): MetaPrimitive => ({
+    type: MetaType.primitive,
+    primitiveType
 });
 
 export function resolveAstValueType(

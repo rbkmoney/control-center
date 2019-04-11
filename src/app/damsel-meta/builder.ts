@@ -1,11 +1,8 @@
 import { MetaTyped, ASTDefinition, MetaStruct, MetaUnion } from './model';
-import { parse, JSONDocument } from '../jsonc';
+import { parse, ObjectASTNode } from '../jsonc';
 import { buildInitialMeta, findMeta } from './meta-builder';
 import { MetaEnricher } from './meta-builder/enrichment/meta-enricher';
-
-function applyValue(subject: any, value: JSONDocument): MetaTyped {
-    return subject;
-}
+import { applyValue } from './apply-value';
 
 export function build(
     json: string,
@@ -21,13 +18,18 @@ export function build(
     if (!target.fields) {
         return;
     }
-
     const enricher = new MetaEnricher(namespace, initial);
-    const enriched = enricher.enrich(target);
-
+    const enrichResult = enricher.enrich(target);
+    if (enrichResult.errors.length > 0) {
+        return;
+    }
     const document = parse(json);
     if (document.errors.length > 0) {
         return;
     }
-    return applyValue(enriched, document);
+    const appliedResult = applyValue(enrichResult.enriched, document.root as ObjectASTNode);
+    if (appliedResult.errors.length > 0) {
+        return;
+    }
+    return appliedResult.applied;
 }

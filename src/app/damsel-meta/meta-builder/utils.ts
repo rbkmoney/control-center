@@ -4,7 +4,7 @@ import isObject from 'lodash-es/isObject';
 
 import { PrimitiveType } from '../model';
 
-export const isPrimitiveType = (type: ValueType): boolean =>
+export const isPrimitiveType = (type: any): boolean =>
     isString(type) && Object.keys(PrimitiveType).includes(type);
 
 export const isObjectRefType = (meta: any) => isString(meta) && !isPrimitiveType(meta);

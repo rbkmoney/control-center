@@ -6,12 +6,14 @@ import {
     MetaStruct,
     MetaUnion,
     MetaTypeDefined,
-    MetaTypedef
+    MetaTypedef,
+    PrimitiveType
 } from '../../model';
 import { MetaTypeCondition, MetaGroup } from '../model';
 import { findMeta } from '../find-meta';
 import { MetaLoopResolver } from './meta-loop-resolver';
-import { isObjectRefType, registerError } from '../utils';
+import { isObjectRefType, registerError, isPrimitiveType } from '../utils';
+import { resolvePrimitive } from '../resolve-ast-value-type';
 
 type MetaLoop = string;
 type ObjectRef = string;
@@ -111,6 +113,9 @@ export class MetaEnricher {
     private enrichCollectionMapMeta(meta: MetaTyped | ObjectRef): MetaTyped | MetaLoop {
         if (isObjectRefType(meta)) {
             return this.enrichObjectRefWithLoopCheck(meta as ObjectRef);
+        }
+        if (isPrimitiveType(meta)) {
+            return resolvePrimitive(meta as PrimitiveType);
         }
         return meta;
     }
