@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { map } from 'rxjs/operators';
 
-import { Reference } from '../../gen-damsel/domain';
 import {
     IEditorOptions,
     MonacoFile,
@@ -13,8 +10,6 @@ import {
 import { DomainObjModificationService } from './domain-obj-modification.service';
 import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
 import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
-import { build } from '../../damsel-meta/builder';
-import { DefinitionService } from '../../damsel-meta/definition.service';
 import { ASTDefinition } from '../../damsel-meta/model/ast-definition';
 
 @Component({
@@ -25,7 +20,6 @@ import { ASTDefinition } from '../../damsel-meta/model/ast-definition';
 export class DomainObjModificationComponent implements OnInit {
     initialized = false;
     isLoading: boolean;
-
     file: MonacoFile;
     options: IEditorOptions = {
         readOnly: false
@@ -35,56 +29,37 @@ export class DomainObjModificationComponent implements OnInit {
     codeLensProviders: CodeLensProvider[];
     completionProviders: CompletionProvider[];
 
-    astDifinition: ASTDefinition[];
-
     constructor(
-        private route: ActivatedRoute,
         private snackBar: MatSnackBar,
-        private domainObjModificationService: DomainObjModificationService,
-        private definitionService: DefinitionService
+        private domainObjModificationService: DomainObjModificationService
     ) {}
 
     ngOnInit() {
-        this.route.params
-            .pipe(map(({ ref }) => JSON.parse(ref)))
-            .subscribe(
-                ref => this.initialize(ref),
-                () => this.snackBar.open('Malformed domain object ref', 'OK')
-            );
+        this.initialize();
         this.codeLensProviders = [new DomainObjCodeLensProvider()];
         this.completionProviders = [new DomainObjCompletionProvider()];
-
-        this.definitionService.astDefinition.subscribe(d => {
-            this.astDifinition = d;
-        });
     }
 
     fileChange({ content }: MonacoFile) {
-        const meta = build(content, this.astDifinition, this.objectType);
+        const meta = this.domainObjModificationService.applyValue(content);
         console.log('BUILDED', meta);
     }
 
-    private initialize(ref: Reference) {
+    private initialize() {
         this.isLoading = true;
-        this.domainObjModificationService.initialize(ref).subscribe(
+        this.domainObjModificationService.initialize().subscribe(
             ({ file, objectType }) => {
                 this.isLoading = false;
-                this.initialized = true;
-                if (!file) {
-                    this.snackBar.open('Domain object not found', 'OK');
-                }
                 this.file = file;
-                if (!objectType) {
-                    this.snackBar.open('Domain object type not found', 'OK');
-                }
                 this.objectType = objectType;
+                this.initialized = true;
             },
             err => {
                 this.isLoading = false;
                 this.snackBar
                     .open(`An error occurred while initializing: ${err}`, 'RETRY')
                     .onAction()
-                    .subscribe(() => this.initialize(ref));
+                    .subscribe(() => this.initialize());
             }
         );
     }

@@ -5,7 +5,7 @@ import { DomainService } from './domain.service';
 import { MetadataService } from './metadata.service';
 import { DomainObjModificationModule } from './domain-obj-modification';
 import { DomainInfoModule } from './domain-info/domain-info.module';
-import { DamselMetaModule } from '../damsel-meta';
+import { DamselMetaModule } from '../damsel-meta/damsel-meta.module';
 
 @NgModule({
     imports: [DomainRoutingModule, DomainInfoModule, DomainObjModificationModule, DamselMetaModule],

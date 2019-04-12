@@ -15,7 +15,7 @@ export class DefinitionService {
         this.def$ = this.http.get<ASTDefinition[]>('/assets/meta-damsel.json').pipe(shareReplay(1));
     }
 
-    get astDefinition() {
+    get astDefinition(): Observable<ASTDefinition[]> {
         return this.def$;
     }
 
