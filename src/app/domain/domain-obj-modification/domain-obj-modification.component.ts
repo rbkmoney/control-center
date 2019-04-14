@@ -10,7 +10,6 @@ import {
 import { DomainObjModificationService } from './domain-obj-modification.service';
 import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
 import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
-import { ASTDefinition } from '../../damsel-meta/model/ast-definition';
 
 @Component({
     templateUrl: './domain-obj-modification.component.html',
@@ -32,7 +31,9 @@ export class DomainObjModificationComponent implements OnInit {
     constructor(
         private snackBar: MatSnackBar,
         private domainObjModificationService: DomainObjModificationService
-    ) {}
+    ) {
+        this.domainObjModificationService.valueValid.subscribe(v => (this.valid = v));
+    }
 
     ngOnInit() {
         this.initialize();
@@ -57,7 +58,9 @@ export class DomainObjModificationComponent implements OnInit {
             err => {
                 this.isLoading = false;
                 this.snackBar
-                    .open(`An error occurred while initializing: ${err}`, 'RETRY')
+                    .open(`An error occurred while initializing: ${err}`, 'RETRY', {
+                        duration: 10000
+                    })
                     .onAction()
                     .subscribe(() => this.initialize());
             }

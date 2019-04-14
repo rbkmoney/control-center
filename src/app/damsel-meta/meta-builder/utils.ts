@@ -21,6 +21,5 @@ export const isRef = (name: string): boolean => name.endsWith('Ref');
 
 export const registerError = (errContainer: string[], message: string, prefix: string) => {
     const error = `${prefix}. ${message}`;
-    console.error(error);
     return [...errContainer, error];
 };

@@ -11,7 +11,7 @@ import {
 } from './model';
 import { ObjectASTNode, PropertyASTNode, ASTNode, NumberASTNode, ArrayASTNode } from '../jsonc';
 
-export interface ApplyResult {
+export interface ApplyPayload {
     applied: MetaStruct | MetaUnion;
     errors: string[];
 }
@@ -162,22 +162,29 @@ function applyToStruct(subject: MetaStruct, value: ASTNode): MetaStruct {
     };
 }
 
-export function applyValue(subject: MetaStruct | MetaUnion, value: ObjectASTNode): ApplyResult {
-    if (value.type !== 'object') {
-        throw new Error('Apply value must be ObjectASTNode');
+export function applyValue(subject: MetaStruct | MetaUnion, value: ObjectASTNode): ApplyPayload {
+    const result = { applied: null, errors: [] };
+    try {
+        if (value.type !== 'object') {
+            throw new Error('Apply value must be ObjectASTNode');
+        }
+        let applied;
+        switch (subject.type) {
+            case MetaType.struct:
+                applied = applyToStruct(subject as MetaStruct, value);
+                break;
+            case MetaType.union:
+                applied = applyToUnion(subject as MetaUnion, value);
+                break;
+            default:
+                throw new Error(
+                    `Applied meta type should be struct or union. Current meta type is ${
+                        subject.type
+                    }`
+                );
+        }
+        return { ...result, applied };
+    } catch (ex) {
+        return { ...result, errors: [ex.message] };
     }
-    let applied;
-    switch (subject.type) {
-        case MetaType.struct:
-            applied = applyToStruct(subject as MetaStruct, value);
-            break;
-        case MetaType.union:
-            applied = applyToUnion(subject as MetaUnion, value);
-            break;
-        default:
-            throw new Error(
-                `Applied meta type should be struct or union. Current meta type is ${subject.type}`
-            );
-    }
-    return { applied, errors: [] };
 }
