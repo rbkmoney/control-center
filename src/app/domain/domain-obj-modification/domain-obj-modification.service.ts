@@ -39,7 +39,7 @@ export class DomainObjModificationService {
             this.errors$.next(e);
             console.error('Build meta error:', e);
         });
-        this.metaApplicator.errors.subscribe(e => console.info('Apply meta error:', e));
+        this.metaApplicator.errors.subscribe(e => console.log('Apply meta error:', e));
     }
 
     initialize(namespace = 'domain'): Observable<ModificationPayload> {
@@ -57,7 +57,7 @@ export class DomainObjModificationService {
 
     applyValue(json: string): MetaStruct | MetaUnion | null {
         if (!this.meta) {
-            throw 'Service is not initialized';
+            throw new Error('Service is not initialized');
         }
         const result = this.metaApplicator.apply(this.meta, json);
         this.valueValid$.next(result.valid);
@@ -66,15 +66,15 @@ export class DomainObjModificationService {
 
     private buildMeta(objectType, domainObj, namespace) {
         if (!objectType) {
-            throw 'Domain object type not found';
+            throw new Error('Domain object type not found');
         }
         if (!domainObj) {
-            throw 'Domain object not found';
+            throw new Error('Domain object not found');
         }
         return this.metaBuilder.build(objectType, namespace).pipe(
             tap(({ payload, valid }) => {
                 if (!valid) {
-                    throw 'Build meta failed';
+                    throw new Error('Build meta failed');
                 }
                 this.meta = payload;
             }),
@@ -89,7 +89,7 @@ export class DomainObjModificationService {
         try {
             return JSON.parse(ref);
         } catch {
-            throw 'Malformed domain object ref';
+            throw new Error('Malformed domain object ref');
         }
     }
 
