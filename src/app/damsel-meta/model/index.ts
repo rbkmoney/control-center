@@ -78,3 +78,4 @@ export enum CollectionType {
 }
 
 export * from './ast-definition';
+export * from './meta-payload';

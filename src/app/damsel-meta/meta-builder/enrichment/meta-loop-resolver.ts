@@ -1,5 +1,4 @@
 import isString from 'lodash-es/isString';
-import last from 'lodash-es/last';
 
 import { registerError } from '../utils';
 import {
@@ -21,13 +20,19 @@ export class MetaLoopResolver {
     private resolved: (MetaStruct | MetaUnion)[] = [];
     private errors: string[] = [];
 
-    constructor(private resolveContainer: (MetaStruct | MetaUnion)[], private loopSign: string) {}
+    constructor(
+        private resolveContainer: (MetaStruct | MetaUnion)[],
+        private loopSign: string,
+        private deep = 0,
+        private deepLimit = 3
+    ) {}
 
     resolve(target: MetaStruct | MetaUnion): ResolveLoopResult {
-        return {
-            resolved: last([...this.resolveContainer, target].map(i => this.resolveObject(i))),
+        const result = {
+            resolved: this.resolveObject(target),
             errors: this.errors
         };
+        return result;
     }
 
     private resolveMeta(meta: MetaTyped | string): MetaTyped | string {
@@ -88,7 +93,20 @@ export class MetaLoopResolver {
         if (!found) {
             this.registerError('Resolved meta not found');
         }
-        this.resolved.push(found);
+        if (this.deep < this.deepLimit) {
+            this.deep++;
+            const resolver = new MetaLoopResolver(
+                this.resolveContainer,
+                this.loopSign,
+                this.deep,
+                this.deepLimit
+            );
+            const { resolved, errors } = resolver.resolve(found);
+            this.errors = [...this.errors, ...errors];
+            this.resolved.push(resolved);
+        } else {
+            this.resolved.push(found);
+        }
         return found;
     }
 

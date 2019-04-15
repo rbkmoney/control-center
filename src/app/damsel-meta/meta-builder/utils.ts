@@ -4,7 +4,7 @@ import isObject from 'lodash-es/isObject';
 
 import { PrimitiveType } from '../model';
 
-export const isPrimitiveType = (type: ValueType): boolean =>
+export const isPrimitiveType = (type: any): boolean =>
     isString(type) && Object.keys(PrimitiveType).includes(type);
 
 export const isObjectRefType = (meta: any) => isString(meta) && !isPrimitiveType(meta);
@@ -21,6 +21,5 @@ export const isRef = (name: string): boolean => name.endsWith('Ref');
 
 export const registerError = (errContainer: string[], message: string, prefix: string) => {
     const error = `${prefix}. ${message}`;
-    console.error(error);
     return [...errContainer, error];
 };
