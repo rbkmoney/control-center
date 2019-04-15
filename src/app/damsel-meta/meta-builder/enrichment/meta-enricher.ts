@@ -28,6 +28,7 @@ export class MetaEnricher {
     private enrichedObjects: (MetaStruct | MetaUnion)[] = [];
     private errors: string[] = [];
     private hasLoop = false;
+    private externalNamespaces: string[] = [];
 
     constructor(
         private namespace: string,
@@ -136,7 +137,7 @@ export class MetaEnricher {
     }
 
     private enrichObjectRef(condition: MetaTypeCondition): MetaTyped | ObjectRef {
-        const found = findMeta<MetaTyped & MetaTypeDefined>(condition, this.shallowMetaDef);
+        const found = this.findMeta(condition);
         const conditionState = `${condition.namespace}.${condition.type}`;
         if (found === null) {
             this.registerError(`Meta not found: ${conditionState}. Bump Control Center damsel!`);
@@ -152,6 +153,23 @@ export class MetaEnricher {
         }
         this.registerObjectRef(found);
         return this.enrichTyped(found);
+    }
+
+    private findMeta(condition: MetaTypeCondition): MetaTyped & MetaTypeDefined | null {
+        let found = findMeta<MetaTyped & MetaTypeDefined>(condition, this.shallowMetaDef);
+        if (found) {
+            return found;
+        }
+        for (const usedNamespace of this.externalNamespaces) {
+            found = findMeta<MetaTyped & MetaTypeDefined>(
+                { ...condition, namespace: usedNamespace },
+                this.shallowMetaDef
+            );
+            if (found) {
+                break;
+            }
+        }
+        return found;
     }
 
     private registerError(message: string, prefix = 'Enrichment error'): void {
@@ -172,6 +190,9 @@ export class MetaEnricher {
 
     private getCondition(meta: ObjectRef): MetaTypeCondition {
         const [first, second] = meta.split('.');
+        if (second) {
+            this.registerExternalNamespace(first);
+        }
         return second
             ? {
                   namespace: first,
@@ -181,5 +202,12 @@ export class MetaEnricher {
                   namespace: this.namespace,
                   type: first
               };
+    }
+
+    private registerExternalNamespace(namespace: string): void {
+        const found = this.externalNamespaces.find(n => n === namespace);
+        if (!found) {
+            this.externalNamespaces = this.externalNamespaces.concat(namespace);
+        }
     }
 }

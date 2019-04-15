@@ -19,11 +19,14 @@ export class MetaBuilder implements ErrorObservable {
         return this.errorEmitter.errors;
     }
 
-    build(type: string, namespace = 'domain'): Observable<MetaPayload> {
+    build(type: string, namespace: string): Observable<MetaPayload> {
         return this.definitionService.astDefinition.pipe(
             map(astDef => {
                 const initial = buildInitialMeta(astDef);
                 const target = findMeta<MetaStruct | MetaUnion>({ namespace, type }, initial);
+                if (!target) {
+                    this.errorEmitter.emitErrors(['Target meta not found']);
+                }
                 const enricher = new MetaEnricher(namespace, initial);
                 const { errors, enriched } = enricher.enrich(target);
                 if (errors.length > 0) {

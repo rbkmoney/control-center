@@ -56,6 +56,7 @@ export class DomainObjModificationComponent implements OnInit {
                 this.initialized = true;
             },
             err => {
+                console.error(err);
                 this.isLoading = false;
                 this.snackBar
                     .open(`An error occurred while initializing: ${err}`, 'RETRY', {

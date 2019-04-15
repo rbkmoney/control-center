@@ -185,6 +185,7 @@ export function applyValue(subject: MetaStruct | MetaUnion, value: ObjectASTNode
         }
         return { ...result, applied };
     } catch (ex) {
+        console.error(ex);
         return { ...result, errors: [ex.message] };
     }
 }
