@@ -7,8 +7,9 @@ import { CompletionService } from './providers/completion.service';
 import { AbstractMonacoService } from './abstract-monaco.service';
 
 @Injectable()
-export class MonacoEditorService extends AbstractMonacoService {
-    private file: MonacoFile;
+export class MonacoDiffEditorService extends AbstractMonacoService {
+    private original: MonacoFile;
+    private modified: MonacoFile;
 
     constructor(
         @Optional()
@@ -17,9 +18,9 @@ export class MonacoEditorService extends AbstractMonacoService {
         @Optional()
         @Inject(COMPLETION_PROVIDERS)
         protected tokenCompletionProviders: CompletionProvider[],
+        protected zone: NgZone,
         protected codeLensService: CodeLensService,
-        protected completionService: CompletionService,
-        protected zone: NgZone
+        protected completionService: CompletionService
     ) {
         super(
             zone,
@@ -30,22 +31,27 @@ export class MonacoEditorService extends AbstractMonacoService {
         );
     }
 
-    open(file: MonacoFile) {
-        this.file = file;
-        if (!this.editor || !this.file) {
+    open(original: MonacoFile, modified: MonacoFile) {
+        this.original = original;
+        this.modified = modified;
+        if (!this.editor || !this.original || !this.modified) {
             return;
         }
-        this.editor.setModel(this.prepareModel(file));
+        this.editor.setModel({
+            original: this.prepareModel(original),
+            modified: this.prepareModel(modified)
+        });
     }
 
     protected createEditor(el: HTMLElement, options: IEditorOptions): monaco.editor.IEditor {
-        return monaco.editor.create(el, {
+        return monaco.editor.createDiffEditor(el, {
             ...options
         });
     }
+
     protected openFile() {
-        if (this.file) {
-            this.open(this.file);
+        if (this.original && this.modified) {
+            this.open(this.original, this.modified);
         }
     }
 }
