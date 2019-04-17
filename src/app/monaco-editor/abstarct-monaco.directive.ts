@@ -20,7 +20,9 @@ import {
 } from './model';
 import { AbstractMonacoService } from './abstract-monaco.service';
 
-@Directive({})
+@Directive({
+    selector: 'cc-abstract-monaco-editor,[ccAbstractMonacoEditor]'
+})
 export abstract class AbstractMonacoDirective implements OnInit, OnChanges, OnDestroy {
     @Input() options: IEditorOptions;
     @Input() codeLensProviders: CodeLensProvider[];
