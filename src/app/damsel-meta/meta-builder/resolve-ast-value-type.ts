@@ -17,13 +17,13 @@ const resolveCollection = (
 ): MetaCollection => ({
     type: MetaType.collection,
     collectionType,
-    itemMeta: itemType as string
+    itemMeta: resolveAstValueType(itemType)
 });
 
 const resolveMap = (keyType: ValueType, valueType: ValueType): MetaMap => ({
     type: MetaType.map,
-    keyMeta: keyType as string,
-    valueMeta: valueType as string
+    keyMeta: resolveAstValueType(keyType),
+    valueMeta: resolveAstValueType(valueType)
 });
 
 export const resolvePrimitive = (primitiveType: PrimitiveType): MetaPrimitive => ({

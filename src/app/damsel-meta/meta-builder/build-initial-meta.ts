@@ -69,14 +69,6 @@ function resolveJsonAst(ast: JsonAST): MetaTyped[] {
     return r;
 }
 
-function isMarkRequired(name: string): boolean {
-    return name.split('.').length !== 2;
-}
-
-function markNamespace(meta: any, namespace: string) {
-    return isMarkRequired(meta.name) ? { ...meta, name: `${namespace}.${meta.name}` } : meta;
-}
-
 export function buildInitialMeta(astDef: ASTDefinition[]): MetaGroup[] {
     if (!astDef || astDef.length === 0) {
         return;
