@@ -111,7 +111,9 @@ export class MetaEnricher {
         };
     }
 
-    private enrichCollectionMapMeta(meta: MetaTyped | ObjectRef | PrimitiveType): MetaTyped | MetaLoop {
+    private enrichCollectionMapMeta(
+        meta: MetaTyped | ObjectRef | PrimitiveType
+    ): MetaTyped | MetaLoop {
         if (isObjectRefType(meta)) {
             return this.enrichObjectRefWithLoopCheck(meta as ObjectRef);
         }
