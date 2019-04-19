@@ -111,14 +111,16 @@ export class MetaEnricher {
         };
     }
 
-    private enrichCollectionMapMeta(meta: MetaTyped | ObjectRef): MetaTyped | MetaLoop {
+    private enrichCollectionMapMeta(
+        meta: MetaTyped | ObjectRef | PrimitiveType
+    ): MetaTyped | MetaLoop {
         if (isObjectRefType(meta)) {
             return this.enrichObjectRefWithLoopCheck(meta as ObjectRef);
         }
         if (isPrimitiveType(meta)) {
             return resolvePrimitive(meta as PrimitiveType);
         }
-        return meta;
+        return this.enrichTyped(meta as MetaTyped);
     }
 
     private enrichObjectMeta(meta: MetaTyped | ObjectRef): MetaTyped | MetaLoop {

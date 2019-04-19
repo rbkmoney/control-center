@@ -38,7 +38,7 @@ function groupByType(domain: Domain, domainObjDef: Field[]) {
         const cleared = clearNullFields(domainObject);
         const type = getDomainObjType(cleared, domainObjDef);
         const val = {
-            ref: clearNullFields(ref),
+            ref,
             object: getDomainObjVal(cleared)
         };
         result = {

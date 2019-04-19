@@ -6,7 +6,7 @@ import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { toGenReference } from '../thrift/converters/to-gen-reference';
 import { Snapshot } from '../gen-damsel/domain_config';
 import { Reference, DomainObject } from '../gen-damsel/domain';
-import { clearNullFields } from '../shared/thrift-utils';
+import { toJson } from '../shared/thrift-json-converter';
 
 @Injectable()
 export class DomainService {
@@ -25,7 +25,7 @@ export class DomainService {
             map(({ domain }) => {
                 const searchRef = JSON.stringify(ref);
                 for (const [k, v] of domain) {
-                    const domainRef = JSON.stringify(clearNullFields(k));
+                    const domainRef = JSON.stringify(toJson(k));
                     if (domainRef === searchRef) {
                         return v;
                     }

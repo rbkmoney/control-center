@@ -82,15 +82,26 @@ function applyToPrimitive(meta: MetaPrimitive, nodeValue: ASTNode): MetaPrimitiv
     if (
         nodeValue.type !== 'number' &&
         nodeValue.type !== 'string' &&
-        nodeValue.type !== 'boolean'
+        nodeValue.type !== 'boolean' &&
+        nodeValue.type !== 'null'
     ) {
         throw new Error(
-            `Applied to primitive node value should be number, string or boolean type. Current type is ${
+            `Applied to primitive node value should be number, string, boolean or null type. Current type is ${
                 nodeValue.type
             }`
         );
     }
-    const value = (nodeValue as NumberASTNode).value;
+    let value;
+    switch (nodeValue.type) {
+        case 'number':
+        case 'string':
+        case 'boolean':
+            value = (nodeValue as NumberASTNode).value;
+            break;
+        case 'null':
+            value = null;
+            break;
+    }
     return {
         ...meta,
         value
