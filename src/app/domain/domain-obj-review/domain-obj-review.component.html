@@ -1,0 +1,40 @@
+<div class="editor-container">
+    <mat-card *ngIf="initialized">
+        <mat-card-header fxLayout="row" fxLayoutAlign="space-between stretch">
+            <mat-card-title>Review changes of {{ objectType }}</mat-card-title>
+            <div>
+                <mat-checkbox
+                    [checked]="options.renderSideBySide"
+                    (change)="renderSideBySide($event)"
+                    >Side by side</mat-checkbox
+                >
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <cc-monaco-diff-editor
+                class="editor"
+                [options]="options"
+                [original]="original"
+                [modified]="modified"
+            ></cc-monaco-diff-editor>
+        </mat-card-content>
+        <mat-card-actions>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-button (click)="back()">
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                    BACK TO EDIT
+                </button>
+                <button mat-button color="primary">COMMIT</button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card *ngIf="!initialized">
+        Nothing to review
+        <mat-card-actions>
+            <button mat-button (click)="back()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+                BACK TO EDIT
+            </button></mat-card-actions
+        >
+    </mat-card>
+</div>

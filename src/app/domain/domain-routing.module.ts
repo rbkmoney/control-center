@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AppAuthGuardService } from '../app-auth-guard.service';
 import { DomainInfoComponent } from './domain-info';
 import { DomainObjModificationComponent } from './domain-obj-modification';
+import { DomainObjReviewComponent } from './domain-obj-review';
 
 @NgModule({
     imports: [
@@ -19,6 +20,14 @@ import { DomainObjModificationComponent } from './domain-obj-modification';
             {
                 path: 'domain/:ref',
                 component: DomainObjModificationComponent,
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['dmt:checkout']
+                }
+            },
+            {
+                path: 'domain/:ref/review',
+                component: DomainObjReviewComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['dmt:checkout']
