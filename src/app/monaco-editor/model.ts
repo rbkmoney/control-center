@@ -1,4 +1,5 @@
 export type IEditorOptions = monaco.editor.IEditorOptions;
+export type IDiffEditorOptions = monaco.editor.IDiffEditorOptions;
 export type ITextModel = monaco.editor.ITextModel;
 export type CancellationToken = monaco.CancellationToken;
 export type ProviderResult<T> = monaco.languages.ProviderResult<T>;

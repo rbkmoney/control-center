@@ -1,69 +1,88 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-import {
-    IEditorOptions,
-    MonacoFile,
-    CodeLensProvider,
-    CompletionProvider
-} from '../../monaco-editor/model';
+import { MonacoFile, CodeLensProvider, CompletionProvider } from '../../monaco-editor/model';
 import { DomainObjModificationService } from './domain-obj-modification.service';
 import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
 import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
+import { DomainReviewService } from '../domain-review.service';
+import { toMonacoFile } from '../utils';
+import { DomainModificationModel } from '../domain-modification-model';
 
 @Component({
     templateUrl: './domain-obj-modification.component.html',
-    styleUrls: ['domain-obj-modification.component.scss'],
+    styleUrls: ['../editor-container.scss'],
     providers: [DomainObjModificationService]
 })
-export class DomainObjModificationComponent implements OnInit {
+export class DomainObjModificationComponent implements OnInit, OnDestroy {
     initialized = false;
     isLoading: boolean;
-    file: MonacoFile;
-    options: IEditorOptions = {
-        readOnly: false
-    };
-    objectType: string;
     valid = false;
     codeLensProviders: CodeLensProvider[];
     completionProviders: CompletionProvider[];
+    modifiedFile: MonacoFile;
+
+    private model: DomainModificationModel;
+    private initSub: Subscription;
 
     constructor(
+        private router: Router,
         private snackBar: MatSnackBar,
-        private domainObjModificationService: DomainObjModificationService
-    ) {
-        this.domainObjModificationService.valueValid.subscribe(v => (this.valid = v));
-    }
+        private domainObjModService: DomainObjModificationService,
+        private domainReviewService: DomainReviewService
+    ) {}
 
     ngOnInit() {
-        this.initialize();
+        this.initSub = this.initialize();
         this.codeLensProviders = [new DomainObjCodeLensProvider()];
         this.completionProviders = [new DomainObjCompletionProvider()];
     }
 
-    fileChange({ content }: MonacoFile) {
-        const meta = this.domainObjModificationService.applyValue(content);
-        console.log('BUILDED', meta);
+    ngOnDestroy() {
+        if (this.initSub) {
+            this.initSub.unsubscribe();
+        }
     }
 
-    private initialize() {
+    fileChange({ content }: MonacoFile) {
+        const { valid, payload } = this.domainObjModService.applyValue(
+            this.model.modified.meta,
+            content
+        );
+        this.valid = valid;
+        if (valid) {
+            this.model.modified = {
+                meta: payload,
+                monacoContent: content
+            };
+        }
+    }
+
+    reviewChanges() {
+        this.domainReviewService.addReviewModel(this.model);
+        this.router.navigate(['domain', JSON.stringify(this.model.ref), 'review']);
+    }
+
+    resetChanges() {
+        this.model = this.domainObjModService.reset(this.model);
+        this.modifiedFile = toMonacoFile(this.model.modified.monacoContent);
+    }
+
+    private initialize(): Subscription {
         this.isLoading = true;
-        this.domainObjModificationService.initialize().subscribe(
-            ({ file, objectType }) => {
+        return this.domainObjModService.init().subscribe(
+            model => {
                 this.isLoading = false;
-                this.file = file;
-                this.objectType = objectType;
+                this.model = model;
+                this.modifiedFile = toMonacoFile(model.modified.monacoContent);
                 this.initialized = true;
             },
             err => {
                 console.error(err);
                 this.isLoading = false;
-                this.snackBar
-                    .open(`An error occurred while initializing: ${err}`, 'RETRY', {
-                        duration: 10000
-                    })
-                    .onAction()
-                    .subscribe(() => this.initialize());
+                this.snackBar.open(`An error occurred while initializing: ${err}`, 'OK');
             }
         );
     }
