@@ -157,7 +157,8 @@ function applyToUnion(subject: MetaUnion, value: ASTNode): MetaUnion {
     return {
         ...subject,
         settedField: properties[0].location as string,
-        fields: applyToFields(subject.fields, properties)
+        fields: applyToFields(subject.fields, properties),
+        virgin: false
     };
 }
 
@@ -169,7 +170,8 @@ function applyToStruct(subject: MetaStruct, value: ASTNode): MetaStruct {
     }
     return {
         ...subject,
-        fields: applyToFields(subject.fields, (value as ObjectASTNode).properties)
+        fields: applyToFields(subject.fields, (value as ObjectASTNode).properties),
+        virgin: false
     };
 }
 

@@ -29,20 +29,24 @@ const resolveAstEnums = (ast: Enums): MetaEnum[] =>
         items: ast[name].items
     }));
 
-const resolveAstStructs = (ast: Structs): MetaStruct[] =>
+const resolveAstStructs = (ast: Structs, namespace: string): MetaStruct[] =>
     Object.keys(ast).map(name => ({
         type: MetaType.struct,
         name,
         fields: resolveAstFields(ast[name]),
-        isRef: isRef(name)
+        isRef: isRef(name),
+        namespace,
+        virgin: true
     }));
 
-const resolveAstUnion = (ast: Unions): MetaUnion[] =>
+const resolveAstUnion = (ast: Unions, namespace: string): MetaUnion[] =>
     Object.keys(ast).map(name => ({
         type: MetaType.union,
         name,
         fields: resolveAstFields(ast[name]),
-        settedField: null
+        settedField: null,
+        namespace,
+        virgin: true
     }));
 
 const resolveAstTypedef = (ast: TypeDefs): MetaTypedef[] =>
@@ -52,16 +56,16 @@ const resolveAstTypedef = (ast: TypeDefs): MetaTypedef[] =>
         meta: resolveAstValueType(ast[name].type)
     }));
 
-function resolveJsonAst(ast: JsonAST): MetaTyped[] {
+function resolveJsonAst(ast: JsonAST, namespace: string): MetaTyped[] {
     let r = [];
     if (ast.enum) {
         r = [...r, ...resolveAstEnums(ast.enum)];
     }
     if (ast.struct) {
-        r = [...r, ...resolveAstStructs(ast.struct)];
+        r = [...r, ...resolveAstStructs(ast.struct, namespace)];
     }
     if (ast.union) {
-        r = [...r, ...resolveAstUnion(ast.union)];
+        r = [...r, ...resolveAstUnion(ast.union, namespace)];
     }
     if (ast.typedef) {
         r = [...r, ...resolveAstTypedef(ast.typedef)];
@@ -78,7 +82,7 @@ export function buildInitialMeta(astDef: ASTDefinition[]): MetaGroup[] {
             ...r,
             {
                 namespace: name,
-                meta: resolveJsonAst(ast)
+                meta: resolveJsonAst(ast, name)
             }
         ],
         []

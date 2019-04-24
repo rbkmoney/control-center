@@ -24,17 +24,8 @@
                     <mat-icon>keyboard_arrow_left</mat-icon>
                     BACK TO EDIT
                 </button>
-                <button mat-button color="primary">COMMIT</button>
+                <button mat-button color="primary" [disabled]="isLoading" (click)="commit()">COMMIT</button>
             </div>
         </mat-card-actions>
-    </mat-card>
-    <mat-card *ngIf="!initialized">
-        Nothing to review
-        <mat-card-actions>
-            <button mat-button (click)="back()">
-                <mat-icon>keyboard_arrow_left</mat-icon>
-                BACK TO EDIT
-            </button></mat-card-actions
-        >
     </mat-card>
 </div>

@@ -3,10 +3,12 @@ export interface MetaTyped {
 }
 
 export interface MetaObject {
+    virgin: boolean;
     fields: MetaField[];
 }
 
 export interface MetaTypeDefined {
+    namespace: string;
     name: string;
 }
 
@@ -26,7 +28,7 @@ export interface MetaUnion extends MetaTyped, MetaObject, MetaTypeDefined {
 
 export interface MetaPrimitive extends MetaTyped {
     primitiveType: PrimitiveType;
-    value?: string | number;
+    value?: string | number | boolean;
 }
 
 export interface MetaEnum extends MetaTyped {
@@ -78,4 +80,3 @@ export enum CollectionType {
 }
 
 export * from './ast-definition';
-export * from './meta-payload';

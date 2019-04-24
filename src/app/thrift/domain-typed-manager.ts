@@ -17,6 +17,7 @@ import { addDecisionToProviderCommit, AddDecisionToProvider } from './operations
 import { DomainCacheService } from './domain-cache.service';
 import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
 import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
+import { Version } from '../gen-damsel/domain_config';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');
@@ -92,7 +93,7 @@ export class DomainTypedManager {
         );
     }
 
-    addProviderDecision(params: AddDecisionToProvider): Observable<void> {
+    addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
         return combineLatest(this.getLastVersion(), this.getProviderObject(params.providerID)).pipe(
             switchMap(([version, providerObject]) =>
                 this.dmtService.commit(version, addDecisionToProviderCommit(providerObject, params))
