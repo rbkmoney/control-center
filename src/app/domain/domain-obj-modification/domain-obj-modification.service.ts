@@ -98,8 +98,8 @@ export class DomainObjModificationService {
                     throw new Error('Build initial meta failed');
                 }
                 const monacoContent = toMonacoContent(domainObj);
-                const applyed = this.metaApplicator.apply(initialMeta, monacoContent);
-                if (!applyed) {
+                const applied = this.metaApplicator.apply(initialMeta, monacoContent);
+                if (!applied) {
                     throw new Error('Apply original value failed');
                 }
                 return {
@@ -108,7 +108,7 @@ export class DomainObjModificationService {
                     original: {
                         monacoContent,
                         domainObj,
-                        meta: applyed
+                        meta: applied
                     },
                     modified: {
                         monacoContent: monacoContent.slice()
