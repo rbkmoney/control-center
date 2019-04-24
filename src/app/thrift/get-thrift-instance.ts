@@ -8,14 +8,6 @@ export const SupportedNamespaces = {
     domain_config: DomainConfigTypes
 };
 
-function getClass(definition: object, name: string): any {
-    const result = definition[name];
-    if (!result) {
-        throw new Error(`Thrift type not found: ${name}`);
-    }
-    return result;
-}
-
 export function getThriftInstance(namespace: string, name: string): any {
     try {
         return new SupportedNamespaces[namespace][name]();
