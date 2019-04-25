@@ -1,3 +1,5 @@
+import { Int64 } from 'thrift-ts';
+
 import {
     MetaStruct,
     MetaUnion,
@@ -9,7 +11,16 @@ import {
     MetaCollection,
     MetaMap
 } from './model';
-import { ObjectASTNode, PropertyASTNode, ASTNode, NumberASTNode, ArrayASTNode } from '../jsonc';
+import {
+    ObjectASTNode,
+    PropertyASTNode,
+    ASTNode,
+    NumberASTNode,
+    ArrayASTNode,
+    StringASTNode,
+    BooleanASTNode
+} from '../jsonc';
+import { PrimitiveType } from './model';
 
 export interface ApplyPayload {
     applied: MetaStruct | MetaUnion;
@@ -78,6 +89,33 @@ function applyToEnum(meta: MetaEnum, nodeValue: ASTNode): MetaEnum {
     };
 }
 
+function applyToNumber({ primitiveType }: MetaPrimitive, { value }: NumberASTNode): number | Int64 {
+    switch (primitiveType) {
+        case PrimitiveType.i8:
+        case PrimitiveType.i16:
+        case PrimitiveType.i32:
+            return value;
+        case PrimitiveType.i64:
+            return new Int64(value);
+        default:
+            throw new Error(`Wrong primitiveType ${primitiveType} and number applied value`);
+    }
+}
+
+function applyToString({ primitiveType }: MetaPrimitive, { value }: StringASTNode): string {
+    if (primitiveType !== PrimitiveType.string) {
+        throw new Error(`Wrong primitiveType ${primitiveType} and string applied value`);
+    }
+    return value;
+}
+
+function applyToBoolean({ primitiveType }: MetaPrimitive, nodeValue: BooleanASTNode) {
+    if (primitiveType !== PrimitiveType.bool) {
+        throw new Error(`Wrong primitiveType ${primitiveType} and boolean applied value`);
+    }
+    return nodeValue.getValue();
+}
+
 function applyToPrimitive(meta: MetaPrimitive, nodeValue: ASTNode): MetaPrimitive {
     if (
         nodeValue.type !== 'number' &&
@@ -94,9 +132,13 @@ function applyToPrimitive(meta: MetaPrimitive, nodeValue: ASTNode): MetaPrimitiv
     let value;
     switch (nodeValue.type) {
         case 'number':
+            value = applyToNumber(meta, nodeValue as NumberASTNode);
+            break;
         case 'string':
+            value = applyToString(meta, nodeValue as StringASTNode);
+            break;
         case 'boolean':
-            value = (nodeValue as NumberASTNode).value;
+            value = applyToBoolean(meta, nodeValue as BooleanASTNode);
             break;
         case 'null':
             value = null;

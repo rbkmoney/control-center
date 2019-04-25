@@ -13,7 +13,7 @@ export class DomainService extends ThriftService {
 
     checkout: (reference: Reference) => Observable<Snapshot> = this.toObservableAction('Checkout');
 
-    commit: (version: any, commit: Commit) => Observable<Version> = this.toObservableAction(
+    commit: (version: Version, commit: Commit) => Observable<Version> = this.toObservableAction(
         'Commit'
     );
 
