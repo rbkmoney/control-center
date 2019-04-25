@@ -75,7 +75,6 @@ export class DomainObjReviewComponent implements OnInit, OnDestroy {
             .initialize()
             .subscribe(([{ ref }, model]) => {
                 this.ref = ref;
-                this.initialized = false;
                 if (!model) {
                     this.back();
                     return;
