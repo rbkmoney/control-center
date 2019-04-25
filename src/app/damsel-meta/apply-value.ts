@@ -97,7 +97,6 @@ function applyToNumber({ primitiveType }: MetaPrimitive, { value }: NumberASTNod
             return value;
         case PrimitiveType.i64:
             return new Int64(value);
-        // return null;
         default:
             throw new Error(`Wrong primitiveType ${primitiveType} and number applied value`);
     }

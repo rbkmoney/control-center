@@ -50,7 +50,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
 
     fileChange({ content }: MonacoFile) {
         const modified = this.domainObjModService.modify(this.model.original, content);
-        this.valid = modified ? true : false;
+        this.valid = !!modified;
         this.model.modified = modified;
     }
 
