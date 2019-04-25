@@ -1,4 +1,4 @@
-import { Int64 } from 'thrift-ts';
+import Int64 from 'thrift-ts/lib/int64';
 
 import {
     MetaStruct,
@@ -89,7 +89,7 @@ function applyToEnum(meta: MetaEnum, nodeValue: ASTNode): MetaEnum {
     };
 }
 
-function applyToNumber({ primitiveType }: MetaPrimitive, { value }: NumberASTNode): number | Int64 {
+function applyToNumber({ primitiveType }: MetaPrimitive, { value }: NumberASTNode) {
     switch (primitiveType) {
         case PrimitiveType.i8:
         case PrimitiveType.i16:
@@ -97,6 +97,7 @@ function applyToNumber({ primitiveType }: MetaPrimitive, { value }: NumberASTNod
             return value;
         case PrimitiveType.i64:
             return new Int64(value);
+        // return null;
         default:
             throw new Error(`Wrong primitiveType ${primitiveType} and number applied value`);
     }

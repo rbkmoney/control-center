@@ -69,7 +69,7 @@ export class ExecutorService {
             return of(results);
         };
         const execs = new Array(execCount).fill([]).map(executor);
-        return forkJoin(execs).pipe(map(res => flatten(res)));
+        return forkJoin(execs).pipe(map(res => flatten(res) as ExecResult[]));
     }
 
     private updateProgress(length: number, value: number) {
