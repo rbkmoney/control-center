@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -10,6 +10,7 @@ import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
 import { DomainReviewService } from '../domain-review.service';
 import { toMonacoFile } from '../utils';
 import { DomainModificationModel } from '../domain-modification-model';
+import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confirm-dialog.component';
 
 @Component({
     templateUrl: './domain-obj-modification.component.html',
@@ -31,7 +32,8 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
         private router: Router,
         private snackBar: MatSnackBar,
         private domainObjModService: DomainObjModificationService,
-        private domainReviewService: DomainReviewService
+        private domainReviewService: DomainReviewService,
+        private dialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -47,17 +49,9 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
     }
 
     fileChange({ content }: MonacoFile) {
-        const { valid, payload } = this.domainObjModService.applyValue(
-            this.model.modified.meta,
-            content
-        );
-        this.valid = valid;
-        if (valid) {
-            this.model.modified = {
-                meta: payload,
-                monacoContent: content
-            };
-        }
+        const modified = this.domainObjModService.modify(this.model.original, content);
+        this.valid = !!modified;
+        this.model.modified = modified;
     }
 
     reviewChanges() {
@@ -66,8 +60,19 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
     }
 
     resetChanges() {
-        this.model = this.domainObjModService.reset(this.model);
-        this.modifiedFile = toMonacoFile(this.model.modified.monacoContent);
+        this.dialog
+            .open(ResetConfirmDialogComponent, {
+                width: '300px'
+            })
+            .afterClosed()
+            .subscribe(result => {
+                if (!result) {
+                    return;
+                }
+                const modified = this.domainObjModService.reset(this.model.original);
+                this.model.modified = modified;
+                this.modifiedFile = toMonacoFile(modified.monacoContent);
+            });
     }
 
     private initialize(): Subscription {
@@ -78,6 +83,9 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
                 this.model = model;
                 this.modifiedFile = toMonacoFile(model.modified.monacoContent);
                 this.initialized = true;
+                if (this.initSub) {
+                    this.initSub.unsubscribe();
+                }
             },
             err => {
                 console.error(err);

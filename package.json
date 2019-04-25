@@ -32,7 +32,7 @@
     "@angular/router": "^7.0.0",
     "angular2-prettyjson": "3.0.1",
     "core-js": "^2.5.4",
-    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#27b28aa4be73a2955a1e5ede53b51e28bbcab138",
+    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#ef27dd7a0d4e18eacab6e598a4488be162d7d19b",
     "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#59b72ba54ec0e7f1af1d9b83aba10883ac985019",
     "hammerjs": "^2.0.8",
     "jsonc-parser": "^2.0.2",
@@ -43,7 +43,7 @@
     "moment": "^2.22.2",
     "monaco-editor": "^0.15.6",
     "rxjs": "^6.3.3",
-    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#e3ef403c3eb9d1f9a06d7642200b7e2a65d48ffb",
+    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#a5e3830ad30d5717e5e627ddcefa8f4d8918b174",
     "uuid": "^3.3.2",
     "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#d2c90a54861593fa794afe3b09c4febb9d6e37d0",
     "zone.js": "~0.8.26"

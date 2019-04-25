@@ -11,6 +11,13 @@ export class DomainReviewService {
     }
 
     addReviewModel(model: DomainModificationModel) {
+        if (!model) {
+            return;
+        }
         this.reviewModel$.next(model);
+    }
+
+    resetModel() {
+        this.reviewModel$.next(null);
     }
 }

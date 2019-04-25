@@ -1,15 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatCheckboxChange } from '@angular/material';
+import { Router } from '@angular/router';
+import { MatCheckboxChange, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs';
 
 import { MonacoFile, IDiffEditorOptions } from '../../monaco-editor/model';
-import { DomainReviewService } from '../domain-review.service';
 import { toMonacoFile } from '../utils';
+import { DomainModificationModel } from '../domain-modification-model';
+import { DomainObjReviewService } from './domain-obj-review.service';
 
 @Component({
     templateUrl: './domain-obj-review.component.html',
-    styleUrls: ['../editor-container.scss']
+    styleUrls: ['../editor-container.scss'],
+    providers: [DomainObjReviewService]
 })
 export class DomainObjReviewComponent implements OnInit, OnDestroy {
     initialized = false;
@@ -17,16 +19,19 @@ export class DomainObjReviewComponent implements OnInit, OnDestroy {
     modified: MonacoFile;
     objectType: string;
     options: IDiffEditorOptions = {
-        renderSideBySide: true
+        renderSideBySide: true,
+        readOnly: true
     };
+    isLoading = false;
 
-    private ref: string;
     private reviewModelSub: Subscription;
+    private ref: string;
+    private model: DomainModificationModel;
 
     constructor(
-        private route: ActivatedRoute,
         private router: Router,
-        private domainReviewService: DomainReviewService
+        private snackBar: MatSnackBar,
+        private domainObjReviewService: DomainObjReviewService
     ) {}
 
     ngOnInit() {
@@ -39,25 +44,46 @@ export class DomainObjReviewComponent implements OnInit, OnDestroy {
         }
     }
 
+    renderSideBySide({ checked }: MatCheckboxChange) {
+        this.options = { ...this.options, renderSideBySide: checked };
+    }
+
     back() {
         this.router.navigate(['domain', this.ref]);
     }
 
-    renderSideBySide(e: MatCheckboxChange) {
-        this.options = { ...this.options, renderSideBySide: e.checked };
+    commit() {
+        this.isLoading = true;
+        this.domainObjReviewService.commit(this.model).subscribe(
+            () => {
+                this.isLoading = false;
+                this.snackBar.open('Commit successful', 'OK', {
+                    duration: 2000
+                });
+                this.router.navigate(['domain', this.ref]);
+            },
+            ex => {
+                this.isLoading = false;
+                console.error(ex);
+                this.snackBar.open(`An error occured while commit: ${ex}`, 'OK');
+            }
+        );
     }
 
     private initialize() {
-        this.route.params.subscribe(({ ref }) => (this.ref = ref));
-        this.reviewModelSub = this.domainReviewService.reviewModel.subscribe(model => {
-            if (!model) {
-                this.initialized = false;
-                return;
-            }
-            this.original = toMonacoFile(model.original.monacoContent);
-            this.modified = toMonacoFile(model.modified.monacoContent);
-            this.objectType = model.objectType;
-            this.initialized = true;
-        });
+        this.reviewModelSub = this.domainObjReviewService
+            .initialize()
+            .subscribe(([{ ref }, model]) => {
+                this.ref = ref;
+                if (!model) {
+                    this.back();
+                    return;
+                }
+                this.original = toMonacoFile(model.original.monacoContent);
+                this.modified = toMonacoFile(model.modified.monacoContent);
+                this.objectType = model.objectType;
+                this.model = model;
+                this.initialized = true;
+            });
     }
 }

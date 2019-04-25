@@ -20,7 +20,7 @@
                     BACK TO DOMAIN
                 </button>
                 <button mat-button color="warn" (click)="resetChanges()">RESET CHANGES</button>
-                <button mat-button (click)="reviewChanges()">
+                <button mat-button [disabled]="!valid" (click)="reviewChanges()">
                     REVIEW CHANGES
                     <mat-icon aria-label="Login">keyboard_arrow_right</mat-icon>
                 </button>

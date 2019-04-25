@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
-import { toGenReference } from '../thrift/converters/to-gen-reference';
-import { Snapshot } from '../gen-damsel/domain_config';
+import { toGenReference, toGenCommit } from '../thrift/converters';
+import { Snapshot, Commit } from '../gen-damsel/domain_config';
 import { Reference, DomainObject } from '../gen-damsel/domain';
 import { toJson } from '../shared/thrift-json-converter';
 
@@ -13,7 +13,7 @@ export class DomainService {
     private shapshot$: Observable<Snapshot>;
 
     constructor(private thriftDomainService: ThriftDomainService) {
-        this.shapshot$ = this.thriftDomainService.checkout(toGenReference()).pipe(shareReplay(1));
+        this.shapshot$ = this.thriftDomainService.checkout(toGenReference());
     }
 
     get shapshot() {
@@ -32,6 +32,14 @@ export class DomainService {
                 }
                 return null;
             })
+        );
+    }
+
+    commit(commit: Commit) {
+        return this.shapshot$.pipe(
+            switchMap(({ version }) =>
+                this.thriftDomainService.commit(version, toGenCommit(commit))
+            )
         );
     }
 }
