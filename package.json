@@ -32,7 +32,7 @@
     "@angular/router": "^7.0.0",
     "angular2-prettyjson": "3.0.1",
     "core-js": "^2.5.4",
-    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#e8ad32f41822a0af15f215ee78bf64a8a2ea81fa",
+    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#2f1a27c60e4e4d384175c8791aee3fd13a69f474",
     "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#59b72ba54ec0e7f1af1d9b83aba10883ac985019",
     "hammerjs": "^2.0.8",
     "jsonc-parser": "^2.0.2",
