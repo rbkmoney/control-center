@@ -22,6 +22,8 @@ export class PaymentAdjustmentComponent implements OnInit {
 
     formValid: boolean;
 
+    version: number;
+
     constructor(
         private dialogRef: MatDialog,
         private paymentAdjustmentService: PaymentAdjustmentService,

@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
 import { SearchFormParams } from './search-form-params';
+import { PaymentAdjustmentService } from '../payment-adjustment.service';
 
 @Component({
     selector: 'cc-payment-adjustment-search-form',
@@ -20,7 +21,14 @@ export class SearchFormComponent implements OnInit {
 
     statuses: string[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
 
-    constructor(private searchFormService: SearchFormService) {}
+    get version() {
+        return this.paymentAdjustmentService.version;
+    }
+
+    constructor(
+        private searchFormService: SearchFormService,
+        private paymentAdjustmentService: PaymentAdjustmentService
+    ) {}
 
     ngOnInit() {
         const { form, formValueToSearchParams } = this.searchFormService;

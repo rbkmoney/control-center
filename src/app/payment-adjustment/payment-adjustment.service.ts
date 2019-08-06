@@ -6,12 +6,20 @@ import { SearchFormParams } from './search-form/search-form-params';
 import { MerchantStatisticsService } from '../thrift/merchant-statistics.service';
 import { StatPayment, StatResponse } from '../gen-damsel/merch_stat';
 import { QueryDSL } from '../query-dsl';
+import { DomainService } from '../domain';
 
 @Injectable()
 export class PaymentAdjustmentService {
     searchPaymentChanges$: Subject<StatPayment[]> = new Subject<StatPayment[]>();
 
-    constructor(private merchantStatisticsService: MerchantStatisticsService) {}
+    version: number;
+
+    constructor(
+        private merchantStatisticsService: MerchantStatisticsService,
+        private domainService: DomainService
+    ) {
+        this.domainService.version$.subscribe(version => (this.version = version));
+    }
 
     fetchPayments(params: SearchFormParams): Observable<StatPayment[]> {
         return this.getAllPayments(params);

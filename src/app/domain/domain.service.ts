@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { DomainService as ThriftDomainService } from '../thrift/domain.service';
 import { toGenReference, toGenCommit } from '../thrift/converters';
@@ -13,11 +13,17 @@ export class DomainService {
     private shapshot$: Observable<Snapshot>;
 
     constructor(private thriftDomainService: ThriftDomainService) {
-        this.shapshot$ = this.thriftDomainService.checkout(toGenReference());
+        this.updateSnapshot();
     }
 
     get shapshot() {
         return this.shapshot$;
+    }
+
+    get version$(): Observable<number> {
+        return this.shapshot$.pipe(
+            map(({ version }) => (version ? version.toNumber() : undefined))
+        );
     }
 
     getDomainObject(ref: Reference): Observable<DomainObject | null> {
@@ -33,6 +39,10 @@ export class DomainService {
                 return null;
             })
         );
+    }
+
+    updateSnapshot() {
+        return (this.shapshot$ = this.thriftDomainService.checkout(toGenReference()));
     }
 
     commit(commit: Commit) {
