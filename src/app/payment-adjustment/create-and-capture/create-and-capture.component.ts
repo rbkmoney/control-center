@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
@@ -40,8 +40,6 @@ export class CreateAndCaptureComponent implements OnInit {
     adjustmentParams: InvoicePaymentAdjustmentParams;
 
     constructor(
-        private dialogRef: MatDialogRef<CreateAndCaptureComponent>,
-        private dialog: MatDialog,
         private batchAdjustmentService: BatchPaymentAdjustmentService,
         @Inject(MAT_DIALOG_DATA) data: StatPayment[],
         private snackBar: MatSnackBar,
