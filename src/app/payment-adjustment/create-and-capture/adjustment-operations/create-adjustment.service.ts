@@ -9,6 +9,7 @@ import {
 import { CreatePaymentAdjustmentErrorCodes } from './error-codes';
 import { ExecResultGroup } from './exec-result-group';
 import { PaymentAdjustmentCreationScope } from './payment-adjustment-creation-scope';
+import { PaymentAdjustmentCreationParams } from '.';
 
 export class CreateAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(creationParams: any[]): any[] {
@@ -41,13 +42,15 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
         return result.map(
             ({ data, container: { params } }) =>
                 ({
-                    adjustment_id: data && data.id,
-                    creation_params: params
+                    adjustmentId: data && data.id,
+                    creationParams: params
                 } as PaymentAdjustmentCreationScope)
         );
     }
 
-    private toErrorPayload(result: ExecErrorResult[]): OperationFailedPayload[] {
+    private toErrorPayload(
+        result: ExecErrorResult[]
+    ): OperationFailedPayload<string, PaymentAdjustmentCreationScope>[] {
         return result.map(error => {
             const {
                 exception,
@@ -63,7 +66,7 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
             return {
                 code: errorCodes.includes(exception.name) ? exception.name : 'InternalServer',
                 operationScope: {
-                    creationParams: params,
+                    creationParams: params as PaymentAdjustmentCreationParams,
                     adjustmentId: exception.id ? exception.id : null
                 }
             };
