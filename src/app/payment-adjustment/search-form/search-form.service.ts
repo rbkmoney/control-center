@@ -16,8 +16,8 @@ export class SearchFormService {
         const { fromTime, toTime } = value;
         return {
             ...value,
-            fromTime: fromTime.startOf('day').toISOString(),
-            toTime: toTime.endOf('day').toISOString()
+            fromTime: fromTime ? fromTime.startOf('day').toISOString() : '',
+            toTime: toTime ? toTime.endOf('day').toISOString() : ''
         };
     }
 
