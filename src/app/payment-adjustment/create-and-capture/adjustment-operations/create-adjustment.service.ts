@@ -56,15 +56,10 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
                 exception,
                 container: { params }
             } = error;
-            const errorCodes = [
-                'InvoicePaymentAdjustmentPending',
-                'InvalidPaymentStatus',
-                'InvoicePaymentNotFound',
-                'InvoiceNotFound',
-                'InvalidUser'
-            ];
             return {
-                code: errorCodes.includes(exception.name) ? exception.name : 'InternalServer',
+                code: Object.values(CreatePaymentAdjustmentErrorCodes).includes(exception.name)
+                    ? exception.name
+                    : 'InternalServer',
                 operationScope: {
                     creationParams: params as PaymentAdjustmentCreationParams,
                     adjustmentId: exception.id ? exception.id : null

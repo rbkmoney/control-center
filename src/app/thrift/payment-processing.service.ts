@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 
 import {
     InvoicePaymentAdjustmentParams as InvoicePaymentAdjustmentParamsObject,
@@ -15,12 +15,26 @@ import {
 import { ThriftService } from './thrift-service';
 import * as Invoicing from './gen-nodejs/Invoicing';
 import { InvoiceID } from '../gen-damsel/domain';
+import { share, switchMap, first } from 'rxjs/operators';
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {
     constructor(zone: NgZone) {
         super(zone, '/v1/processing/invoicing', Invoicing);
     }
+
+    getPaymentAdjustment = (
+        user: UserInfo,
+        id: string,
+        paymentId: string,
+        paymentAdjustmentId: string
+    ): Observable<InvoicePaymentAdjustment> =>
+        this.toObservableAction('GetPaymentAdjustment')(
+            new UserInfoObject(user),
+            id,
+            paymentId,
+            paymentAdjustmentId
+        );
 
     createPaymentAdjustment = (
         user: UserInfo,
@@ -33,6 +47,16 @@ export class PaymentProcessingService extends ThriftService {
             id,
             paymentId,
             new InvoicePaymentAdjustmentParamsObject(params)
+        ).pipe(
+            switchMap((paymentAdjustment: InvoicePaymentAdjustment) =>
+                timer(1000, 2500).pipe(
+                    switchMap(() =>
+                        this.getPaymentAdjustment(user, id, paymentId, paymentAdjustment.id)
+                    ),
+                    first(({ status }: InvoicePaymentAdjustment) => !status.pending)
+                )
+            ),
+            share()
         );
 
     capturePaymentAdjustment = (
