@@ -36,6 +36,7 @@ import { CreateActionsComponent } from './create-and-capture/create-actions/crea
 import { CancelActionsComponent } from './create-and-capture/cancel-actions/cancel-actions.component';
 import { CaptureActionsComponent } from './create-and-capture/capture-actions/capture-actions.component';
 import { SharedModule } from '../shared/shared.module';
+import { DomainModule } from '../domain';
 
 @NgModule({
     imports: [
@@ -63,7 +64,8 @@ import { SharedModule } from '../shared/shared.module';
         MatProgressSpinnerModule,
         PapiModule,
         ThriftModule,
-        MatSelectModule
+        MatSelectModule,
+        DomainModule
     ],
     declarations: [
         PaymentAdjustmentComponent,

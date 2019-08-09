@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-import { mergeAll } from 'rxjs/internal/operators';
+import { Observable, of } from 'rxjs';
+import { mergeAll, share } from 'rxjs/internal/operators';
 
 import { CaptureAdjustmentService } from './capture-adjustment.service';
 import { CancelAdjustmentService } from './cancel-adjustment.service';
@@ -14,34 +14,29 @@ import {
 
 @Injectable()
 export class BatchPaymentAdjustmentService {
-    progress$: Subject<number> = new Subject<number>();
+    progress$: Observable<number> = of(
+        this.createAdjustmentService.progress$,
+        this.cancelAdjustmentService.progress$,
+        this.captureAdjustmentService.progress$
+    ).pipe(
+        mergeAll(),
+        share()
+    );
 
-    events$: Subject<AdjustmentOperationEvent> = new Subject<AdjustmentOperationEvent>();
+    events$: Observable<AdjustmentOperationEvent> = of(
+        this.createAdjustmentService.events$,
+        this.cancelAdjustmentService.events$,
+        this.captureAdjustmentService.events$
+    ).pipe(
+        mergeAll(),
+        share()
+    );
 
     constructor(
         private createAdjustmentService: CreateAdjustmentService,
         private cancelAdjustmentService: CancelAdjustmentService,
         private captureAdjustmentService: CaptureAdjustmentService
-    ) {
-        of(
-            this.createAdjustmentService.events$,
-            this.cancelAdjustmentService.events$,
-            this.captureAdjustmentService.events$
-        )
-            .pipe(mergeAll<AdjustmentOperationEvent>())
-            .subscribe(event => {
-                this.events$.next(event);
-            });
-        of(
-            this.createAdjustmentService.progress$,
-            this.cancelAdjustmentService.progress$,
-            this.captureAdjustmentService.progress$
-        )
-            .pipe(mergeAll())
-            .subscribe(event => {
-                this.progress$.next(event);
-            });
-    }
+    ) {}
 
     create(params: PaymentAdjustmentCreationParams[]): Observable<void> {
         return this.createAdjustmentService.batch(params);

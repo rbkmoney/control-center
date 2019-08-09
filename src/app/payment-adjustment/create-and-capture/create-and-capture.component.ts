@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 
 import { InvoicePaymentAdjustmentParams, UserInfo } from '../../gen-damsel/payment_processing';
@@ -33,15 +33,13 @@ export class CreateAndCaptureComponent implements OnInit {
 
     payments: StatPayment[];
 
-    progress$: Subject<number>;
+    progress$: Observable<number>;
 
     createStarted = false;
 
     adjustmentParams: InvoicePaymentAdjustmentParams;
 
     constructor(
-        private dialogRef: MatDialogRef<CreateAndCaptureComponent>,
-        private dialog: MatDialog,
         private batchAdjustmentService: BatchPaymentAdjustmentService,
         @Inject(MAT_DIALOG_DATA) data: StatPayment[],
         private snackBar: MatSnackBar,

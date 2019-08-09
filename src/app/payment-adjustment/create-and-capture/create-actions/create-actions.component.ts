@@ -74,12 +74,17 @@ export class CreateActionsComponent implements OnInit {
     }
 
     capture() {
-        const captureParams = this.createResult.map(({ adjustment_id, creation_params }) => ({
-            user: creation_params.user,
-            invoice_id: creation_params.invoice_id,
-            payment_id: creation_params.payment_id,
-            adjustment_id
-        }));
+        const captureParams = this.createResult.map(
+            ({
+                adjustmentId: adjustment_id,
+                creationParams: { user, invoice_id, payment_id }
+            }) => ({
+                user,
+                invoice_id,
+                payment_id,
+                adjustment_id
+            })
+        );
         this.createResult = [];
         this.batchAdjustmentService.capture(captureParams).subscribe(
             () => {},
@@ -91,10 +96,15 @@ export class CreateActionsComponent implements OnInit {
 
     cancelPending() {
         const cancelParams = this.failedPending.map(
-            ({ operationScope: { creation_params, adjustment_id } }) => ({
-                user: creation_params.user,
-                invoice_id: creation_params.invoice_id,
-                payment_id: creation_params.payment_id,
+            ({
+                operationScope: {
+                    adjustmentId: adjustment_id,
+                    creationParams: { user, invoice_id, payment_id }
+                }
+            }) => ({
+                user,
+                invoice_id,
+                payment_id,
                 adjustment_id
             })
         );
@@ -105,7 +115,7 @@ export class CreateActionsComponent implements OnInit {
     }
 
     retryFailedInternal() {
-        const createParams = this.failedInternal.map(item => item.operationScope.creation_params);
+        const createParams = this.failedInternal.map(item => item.operationScope.creationParams);
         this.failedInternal = [];
         this.batchAdjustmentService.create(createParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments create');
