@@ -35,14 +35,9 @@ export class ProviderComponent {
         );
     }
 
-    removeTerminal(terminalId, providerId) {
+    removeTerminal(terminalID: number, providerID: number) {
         this.isLoading = true;
-        const params = {
-            partyID: this.partyID,
-            shopID: this.shopID,
-            terminalID: terminalId,
-            providerID: providerId
-        };
+        const params = this.getModalData(terminalID, providerID);
         this.dtm.removeTerminalFromShop(params).subscribe(
             () => {
                 this.isLoading = false;
@@ -64,12 +59,7 @@ export class ProviderComponent {
 
     editPriority(terminalID: number, providerID: number) {
         const config = {
-            data: {
-                shopID: this.shopID,
-                partyID: this.partyID,
-                terminalID,
-                providerID
-            },
+            data: this.getModalData(terminalID, providerID),
             width: '300px',
             disableClose: true
         };
@@ -84,12 +74,7 @@ export class ProviderComponent {
 
     editWeight(terminalID: number, providerID: number) {
         const config = {
-            data: {
-                shopID: this.shopID,
-                partyID: this.partyID,
-                terminalID,
-                providerID
-            },
+            data: this.getModalData(terminalID, providerID),
             width: '300px',
             disableClose: true
         };
@@ -100,5 +85,14 @@ export class ProviderComponent {
             .subscribe(() => {
                 this.terminalChanged.emit();
             });
+    }
+
+    private getModalData(terminalID: number, providerID: number) {
+        return {
+            shopID: this.shopID,
+            partyID: this.partyID,
+            terminalID,
+            providerID
+        };
     }
 }
