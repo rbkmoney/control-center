@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ProviderInfo } from '../shop-details.service';
+import { PredicateType } from '../extract-terminal-info';
+import { DomainTypedManager } from '../../../thrift';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
+import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'cc-provider',
@@ -11,9 +17,87 @@ export class ProviderComponent {
     @Input() providerInfo: ProviderInfo[];
     @Input() partyID: string;
     @Input() shopID: string;
-    @Output() terminalRemovedEvent: EventEmitter<void> = new EventEmitter();
+    @Output() terminalChanged: EventEmitter<void> = new EventEmitter();
 
-    terminalRemoved() {
-        this.terminalRemovedEvent.emit();
+    isLoading = false;
+
+    constructor(
+        private dtm: DomainTypedManager,
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog
+    ) {}
+
+    isRemovable(predicateType: PredicateType) {
+        return (
+            (predicateType === PredicateType.condition || predicateType === PredicateType.any_of) &&
+            !this.isLoading
+        );
+    }
+
+    removeTerminal(terminalId, providerId) {
+        this.isLoading = true;
+        const params = {
+            partyID: this.partyID,
+            shopID: this.shopID,
+            terminalID: terminalId,
+            providerID: providerId
+        };
+        this.dtm.removeTerminalFromShop(params).subscribe(
+            () => {
+                this.isLoading = false;
+                this.snackBar.open('Terminal successfully removed from shop', 'OK', {
+                    duration: 3000
+                });
+                this.terminalChanged.emit();
+            },
+            e => {
+                this.isLoading = false;
+                this.snackBar.open(
+                    'An error occurred while while removing terminal from shop',
+                    'OK'
+                );
+                console.error(e);
+            }
+        );
+    }
+
+    editPriority(terminalID: number, providerID: number) {
+        const config = {
+            data: {
+                shopID: this.shopID,
+                partyID: this.partyID,
+                terminalID,
+                providerID
+            },
+            width: '300px',
+            disableClose: true
+        };
+        const dialog = this.dialog.open(EditTerminalDecisionPriorityComponent, config);
+        dialog
+            .afterClosed()
+            .pipe(filter(result => result))
+            .subscribe(() => {
+                this.terminalChanged.emit();
+            });
+    }
+
+    editWeight(terminalID: number, providerID: number) {
+        const config = {
+            data: {
+                shopID: this.shopID,
+                partyID: this.partyID,
+                terminalID,
+                providerID
+            },
+            width: '300px',
+            disableClose: true
+        };
+        const dialog = this.dialog.open(EditTerminalDecisionWeightComponent, config);
+        dialog
+            .afterClosed()
+            .pipe(filter(result => result))
+            .subscribe(() => {
+                this.terminalChanged.emit();
+            });
     }
 }

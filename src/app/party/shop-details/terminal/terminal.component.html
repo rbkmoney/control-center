@@ -8,6 +8,12 @@
             <mat-chip [selected]="!terminalInfo.disabled">{{
                 !terminalInfo.disabled | ccIsActive
             }}</mat-chip>
+            <mat-chip [selected]="!terminalInfo.disabled"
+                >Priority: {{ terminalInfo.priority.toNumber() + '' }}</mat-chip
+            >
+            <mat-chip [selected]="!terminalInfo.disabled"
+                >Weight: {{ terminalInfo.weight + '' }}</mat-chip
+            >
         </mat-chip-list>
         <button mat-icon-button [matMenuTriggerFor]="appMenu">
             <mat-icon>more_vert</mat-icon>

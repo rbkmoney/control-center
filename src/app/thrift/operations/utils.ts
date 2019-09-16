@@ -1,6 +1,6 @@
 import sortBy from 'lodash-es/sortBy';
 import transform from 'lodash-es/transform';
-import { Domain } from '../../gen-damsel/domain';
+import { Domain, TerminalSelector } from '../../gen-damsel/domain';
 
 export const generateID = (domainObjects: any[]): number => {
     const objWithMaxId = sortBy(domainObjects, obj => obj.ref.id)[domainObjects.length - 1];
@@ -29,4 +29,12 @@ export const findDomainObjects = (domain: Domain, fieldName: string): any[] => {
         }
     });
     return result;
+};
+
+export const checkSelector = (selector: TerminalSelector) => {
+    if (selector.value) {
+        throw new Error(
+            'Wrong ProviderObject terminal selector: "value". Expected ProviderObject with terminal decisions'
+        );
+    }
 };

@@ -1,22 +1,150 @@
-<mat-accordion multi="true">
-    <mat-expansion-panel *ngFor="let info of providerInfo">
-        <mat-expansion-panel-header fxLayout fxLayoutAlign="space-between center">
-            <mat-panel-title fxFlex="40"> {{ info?.provider.data.name }} </mat-panel-title>
-            <mat-panel-description> {{ info?.provider.data.description }} </mat-panel-description>
-        </mat-expansion-panel-header>
-        <ng-template matExpansionPanelContent>
-            <mat-list *ngIf="info.terminalInfos">
-                <h3 mat-subheader>Terminals</h3>
-                <mat-list-item *ngFor="let terminalInfo of info.terminalInfos">
-                    <cc-terminal
-                        [terminalInfo]="terminalInfo"
-                        [providerID]="info.provider.ref.id"
-                        [shopID]="shopID"
-                        [partyID]="partyID"
-                        (terminalRemovedEvent)="terminalRemoved()"
-                    ></cc-terminal>
-                </mat-list-item>
-            </mat-list>
-        </ng-template>
-    </mat-expansion-panel>
-</mat-accordion>
+<!--<mat-accordion multi="true">-->
+<!--    <mat-expansion-panel *ngFor="let info of providerInfo">-->
+<!--        <mat-expansion-panel-header fxLayout fxLayoutAlign="space-between center">-->
+<!--            <mat-panel-title fxFlex="40"> {{ info?.provider.data.name }} </mat-panel-title>-->
+<!--            <mat-panel-description> {{ info?.provider.data.description }}</mat-panel-description>-->
+<!--        </mat-expansion-panel-header>-->
+<!--        <ng-template matExpansionPanelContent>-->
+<!--            <mat-list *ngIf="info.terminalInfos">-->
+<!--                <h3 mat-subheader>Terminals</h3>-->
+<!--                <mat-list-item *ngFor="let terminalInfo of info.terminalInfos">-->
+<!--                    <cc-terminal-->
+<!--                        [terminalInfo]="terminalInfo"-->
+<!--                        [providerID]="info.provider.ref.id"-->
+<!--                        [shopID]="shopID"-->
+<!--                        [partyID]="partyID"-->
+<!--                        (terminalRemovedEvent)="terminalRemoved()"-->
+<!--                    ></cc-terminal>-->
+<!--                </mat-list-item>-->
+<!--            </mat-list>-->
+<!--        </ng-template>-->
+<!--    </mat-expansion-panel>-->
+<!--</mat-accordion>-->
+<mat-card *ngFor="let info of providerInfo">
+    <mat-card-content fxLayout="column">
+        <mat-card-subtitle> {{ info.provider.data.name }} </mat-card-subtitle>
+        <table mat-table [dataSource]="info.terminalInfos">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let terminalInfo">
+                    {{ terminalInfo.terminal.data.name }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let terminalInfo">
+                    {{ terminalInfo.terminal.data.description }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>Type</th>
+                <td mat-cell *matCellDef="let terminalInfo">{{ terminalInfo.predicateType }}</td>
+            </ng-container>
+            <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef>Priority</th>
+                <td mat-cell *matCellDef="let terminalInfo">{{ terminalInfo.priority }}</td>
+            </ng-container>
+            <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef>Weight</th>
+                <td mat-cell *matCellDef="let terminalInfo">{{ terminalInfo.weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let terminalInfo">
+                    <mat-chip-list>
+                        <mat-chip [selected]="!terminalInfo.disabled">{{
+                            !terminalInfo.disabled | ccIsActive
+                        }}</mat-chip>
+                    </mat-chip-list>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let terminalInfo">
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #appMenu="matMenu">
+                        <button
+                            mat-menu-item
+                            (click)="
+                                editPriority(terminalInfo.terminal.ref.id, info.provider.ref.id)
+                            "
+                            [disabled]="isLoading"
+                        >
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit priority</span>
+                        </button>
+                        <button
+                            mat-menu-item
+                            (click)="editWeight(terminalInfo.terminal.ref.id, info.provider.ref.id)"
+                            [disabled]="isLoading"
+                        >
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit weight</span>
+                        </button>
+                        <button
+                            mat-menu-item
+                            (click)="
+                                removeTerminal(terminalInfo.terminal.ref.id, info.provider.ref.id)
+                            "
+                            [disabled]="!isRemovable(terminalInfo.predicateType)"
+                        >
+                            <mat-icon>delete</mat-icon>
+                            <span>Remove</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <tr
+                mat-header-row
+                *matHeaderRowDef="[
+                    'name',
+                    'description',
+                    'type',
+                    'priority',
+                    'weight',
+                    'status',
+                    'actions'
+                ]"
+            ></tr>
+            <tr
+                mat-row
+                *matRowDef="
+                    let row;
+                    columns: [
+                        'name',
+                        'description',
+                        'type',
+                        'priority',
+                        'weight',
+                        'status',
+                        'actions'
+                    ]
+                "
+            ></tr>
+
+            <!--            <thead>-->
+            <!--            <tr>-->
+            <!--                <td>Name</td>-->
+            <!--                <td>Description</td>-->
+            <!--                <td>Type</td>-->
+            <!--                <td>Priority</td>-->
+            <!--                <td>Weight</td>-->
+            <!--                <td>Actions</td>-->
+            <!--            </tr>-->
+            <!--            </thead>-->
+            <!--            <tbody>-->
+            <!--            <tr *ngFor="let terminalInfo of info.terminalInfos">-->
+            <!--                <td>{{terminalInfo.terminal.data.name}}</td>-->
+            <!--                <td>{{terminalInfo.terminal.data.description}}</td>-->
+            <!--                <td>{{terminalInfo.predicateType}}</td>-->
+            <!--                <td>{{terminalInfo.priority}}</td>-->
+            <!--                <td>{{terminalInfo.weight}}</td>-->
+            <!--                <td></td>-->
+            <!--            </tr>-->
+            <!--            </tbody>-->
+        </table>
+    </mat-card-content>
+</mat-card>

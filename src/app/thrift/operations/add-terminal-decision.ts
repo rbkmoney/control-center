@@ -9,6 +9,7 @@ import {
     TerminalRef
 } from '../../gen-damsel/domain';
 import { toGenTerminalDecision } from '../converters';
+import { checkSelector } from './utils';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision => ({
     if_: {
@@ -37,14 +38,6 @@ const addDecision = (
         result = dropRight(decisions).concat([newDecision, last(decisions)]);
     }
     return result;
-};
-
-const checkSelector = (selector: TerminalSelector) => {
-    if (selector.value) {
-        throw new Error(
-            'Wrong ProviderObject terminal selector: "value". Expected ProviderObject with terminal decisions'
-        );
-    }
 };
 
 export const addTerminalDecision = (
