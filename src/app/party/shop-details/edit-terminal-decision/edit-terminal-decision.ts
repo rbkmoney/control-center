@@ -1,8 +1,9 @@
-import { EditTerminalDecisionPropertyParams } from '../../../thrift/operations/edit-terminal-decision-property-params';
 import { FormGroup } from '@angular/forms';
-import { DomainTypedManager } from '../../../thrift';
 import { MatSnackBar } from '@angular/material';
 import { Subject } from 'rxjs';
+
+import { DomainTypedManager } from '../../../thrift';
+import { EditTerminalDecisionPropertyParams } from '../../../thrift/operations/edit-terminal-decision-property-params';
 import { EditPriorityData } from './edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 
 export class EditTerminalDecision {

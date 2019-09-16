@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EditTerminalDecision } from '../edit-terminal-decision';
-import { DomainTypedManager } from '../../../../thrift';
 import { MatSnackBar } from '@angular/material';
+
+import { DomainTypedManager } from '../../../../thrift';
+import { EditTerminalDecision } from '../edit-terminal-decision';
 
 @Injectable()
 export class EditTerminalDecisionPriorityService extends EditTerminalDecision {

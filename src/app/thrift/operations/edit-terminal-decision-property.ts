@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash-es/cloneDeep';
-import { ProviderObject, TerminalDecision, TerminalSelector } from '../../gen-damsel/domain';
+
+import { ProviderObject, TerminalDecision } from '../../gen-damsel/domain';
 import { EditTerminalDecisionPropertyParams } from './edit-terminal-decision-property-params';
 import { checkSelector } from './utils';
 

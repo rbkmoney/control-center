@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { EditTerminalDecisionWeightService } from './edit-terminal-decision-weight.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
+
+import { EditTerminalDecisionWeightService } from './edit-terminal-decision-weight.service';
 
 export interface EditWeightData {
     partyID: string;

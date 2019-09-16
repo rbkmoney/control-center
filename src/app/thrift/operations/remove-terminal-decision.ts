@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash-es/cloneDeep';
-import { ProviderObject, TerminalDecision, TerminalSelector } from '../../gen-damsel/domain';
+
+import { ProviderObject, TerminalDecision } from '../../gen-damsel/domain';
 import { checkSelector } from './utils';
 
 const checkCondition = (condition: any, partyID: string, shopID: string): boolean => {

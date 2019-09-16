@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { filter } from 'rxjs/operators';
 
+import { DomainTypedManager } from '../../../thrift';
 import { ProviderInfo } from '../shop-details.service';
 import { PredicateType } from '../extract-terminal-info';
-import { DomainTypedManager } from '../../../thrift';
-import { MatDialog, MatSnackBar } from '@angular/material';
 import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
-import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'cc-provider',
@@ -19,6 +19,7 @@ export class ProviderComponent {
     @Input() shopID: string;
     @Output() terminalChanged: EventEmitter<void> = new EventEmitter();
 
+    columns = ['name', 'description', 'type', 'priority', 'weight', 'status', 'actions'];
     isLoading = false;
 
     constructor(

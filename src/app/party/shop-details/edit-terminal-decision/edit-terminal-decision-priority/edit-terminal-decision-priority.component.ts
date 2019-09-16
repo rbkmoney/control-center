@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { EditTerminalDecisionPriorityService } from './edit-terminal-decision-priority.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
+
+import { EditTerminalDecisionPriorityService } from './edit-terminal-decision-priority.service';
 
 export interface EditPriorityData {
     partyID: string;

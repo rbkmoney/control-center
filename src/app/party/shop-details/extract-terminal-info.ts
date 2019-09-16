@@ -1,7 +1,7 @@
 import get from 'lodash-es/get';
+import Int64 from 'thrift-ts/lib/int64';
 
 import { Condition, Predicate, TerminalObject, TerminalRef } from '../../gen-damsel/domain';
-import Int64 from 'thrift-ts/lib/int64';
 
 interface PredicateInfo {
     shopPartyContain: boolean;
