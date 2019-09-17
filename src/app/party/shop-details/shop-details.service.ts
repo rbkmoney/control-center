@@ -75,7 +75,6 @@ export class ShopDetailsService {
                 return r;
             }
             const infos = extractTerminalInfo(decisions, terminalObjects, shopID, partyID);
-            // console.log(infos)
             if (infos.length === 0) {
                 return r;
             }

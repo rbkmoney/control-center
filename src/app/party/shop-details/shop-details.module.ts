@@ -39,6 +39,7 @@ import { CategoryComponent } from './shop-info/category/category.component';
 import { SharedModule } from '../../shared/shared.module';
 import { EditTerminalDecisionPriorityComponent } from './edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 import { EditTerminalDecisionWeightComponent } from './edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
+import { TerminalsComponent } from './terminals/terminals.component';
 
 @NgModule({
     imports: [
@@ -81,7 +82,8 @@ import { EditTerminalDecisionWeightComponent } from './edit-terminal-decision/ed
         IsActivePipe,
         CategoryComponent,
         EditTerminalDecisionPriorityComponent,
-        EditTerminalDecisionWeightComponent
+        EditTerminalDecisionWeightComponent,
+        TerminalsComponent
     ],
     entryComponents: [
         AddProviderComponent,
