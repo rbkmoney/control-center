@@ -30,6 +30,9 @@ export class EditTerminalDecisionWeightComponent implements OnInit {
         const { isLoading, form } = this.editWeightService;
         this.isLoading = isLoading;
         this.form = form;
+        this.editWeightService.terminalChanged.subscribe(() => {
+            this.dialogRef.close(true);
+        });
     }
 
     edit() {

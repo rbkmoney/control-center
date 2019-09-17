@@ -6,7 +6,7 @@
             [partyID]="partyID"
             [shopID]="shopID"
             [providerID]="info.provider.ref.id"
-            (terminalChanged)="(terminalChanged)"
+            (terminalChanged)="terminalChanged.emit()"
         ></cc-terminals>
     </mat-card-content>
 </mat-card>

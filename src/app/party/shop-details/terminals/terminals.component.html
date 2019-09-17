@@ -1,5 +1,5 @@
 <div fxLayout="column">
-    <table mat-table [dataSource]="terminalInfos">
+    <table mat-table [dataSource]="infos">
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let terminalInfo">{{ terminalInfo.terminal.data.name }}</td>
@@ -16,7 +16,11 @@
         </ng-container>
         <ng-container matColumnDef="priority">
             <th mat-header-cell *matHeaderCellDef>Priority</th>
-            <td mat-cell *matCellDef="let terminalInfo">{{ terminalInfo.priority }}</td>
+            <td mat-cell *matCellDef="let terminalInfo; let i = index">
+                <button mat-icon-button (click)="changePriority('plus', i)" [disabled]="isLoading | async"><mat-icon>keyboard_arrow_up</mat-icon></button>
+                {{ terminalInfo.priority }}
+                <button mat-icon-button (click)="changePriority('minus', i)" [disabled]="isLoading | async"><mat-icon>keyboard_arrow_down</mat-icon></button>
+            </td>
         </ng-container>
         <ng-container matColumnDef="weight">
             <th mat-header-cell *matHeaderCellDef>Weight</th>
@@ -35,14 +39,14 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let terminalInfo">
-                <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                <button mat-icon-button [matMenuTriggerFor]="appMenu" [disabled]="isLoading | async">
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #appMenu="matMenu">
                     <button
                         mat-menu-item
                         (click)="editPriority(terminalInfo.terminal.ref.id)"
-                        [disabled]="isLoading"
+                        [disabled]="!isEditable(terminalInfo.predicateType, (isLoading | async))"
                     >
                         <mat-icon>edit</mat-icon>
                         <span>Edit priority</span>
@@ -50,7 +54,7 @@
                     <button
                         mat-menu-item
                         (click)="editWeight(terminalInfo.terminal.ref.id)"
-                        [disabled]="isLoading"
+                        [disabled]="!isEditable(terminalInfo.predicateType, (isLoading | async))"
                     >
                         <mat-icon>edit</mat-icon>
                         <span>Edit weight</span>
@@ -58,7 +62,7 @@
                     <button
                         mat-menu-item
                         (click)="removeTerminal(terminalInfo.terminal.ref.id)"
-                        [disabled]="!isRemovable(terminalInfo.predicateType)"
+                        [disabled]="!isEditable(terminalInfo.predicateType, (isLoading | async))"
                     >
                         <mat-icon>delete</mat-icon>
                         <span>Remove</span>

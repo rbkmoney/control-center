@@ -30,6 +30,9 @@ export class EditTerminalDecisionPriorityComponent implements OnInit {
         const { isLoading, form } = this.editPriorityService;
         this.isLoading = isLoading;
         this.form = form;
+        this.editPriorityService.terminalChanged.subscribe(() => {
+            this.dialogRef.close(true);
+        });
     }
 
     edit() {

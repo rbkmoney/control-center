@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
@@ -6,12 +6,14 @@ import { DomainTypedManager } from '../../../thrift';
 import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
+import { EditTerminalDecisionPriorityService } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.service';
 
 @Component({
     selector: 'cc-terminals',
-    templateUrl: 'terminals.component.html'
+    templateUrl: 'terminals.component.html',
+    providers: [EditTerminalDecisionPriorityService]
 })
-export class TerminalsComponent {
+export class TerminalsComponent implements OnChanges, OnInit {
     @Input() terminalInfos: TerminalInfo[];
     @Input() partyID: string;
     @Input() shopID: string;
@@ -19,18 +21,31 @@ export class TerminalsComponent {
     @Output() terminalChanged: EventEmitter<void> = new EventEmitter();
 
     columns = ['name', 'description', 'type', 'priority', 'weight', 'status', 'actions'];
-    isLoading = false;
+    isLoading;
+    infos: TerminalInfo[];
 
     constructor(
         private dtm: DomainTypedManager,
         private snackBar: MatSnackBar,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private editPriorityService: EditTerminalDecisionPriorityService
     ) {}
 
-    isRemovable(predicateType: PredicateType) {
+    ngOnInit(): void {
+        this.editPriorityService.terminalChanged.subscribe(() => {
+            this.terminalChanged.emit();
+        });
+        this.isLoading = this.editPriorityService.isLoading;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.infos = this.sortInfos(changes.terminalInfos.currentValue);
+    }
+
+    isEditable(predicateType: PredicateType, isLoading: boolean) {
         return (
             (predicateType === PredicateType.condition || predicateType === PredicateType.any_of) &&
-            !this.isLoading
+            !isLoading
         );
     }
 
@@ -86,6 +101,22 @@ export class TerminalsComponent {
             });
     }
 
+    changePriority(op: string, i: number) {
+        const terminalID = this.infos[i].terminal.ref.id;
+        const basePriority = this.infos[i].priority.toNumber();
+        const prevInfo = this.infos[i - 1];
+        const nexInfo = this.infos[i + 1];
+
+        let diffPlus50;
+        if (op === 'plus') {
+            diffPlus50 = prevInfo ? prevInfo.priority.toNumber() + 50 : basePriority + 50;
+            this.editPriorityService.edit(this.getModalData(terminalID), {property: 'priority', value: diffPlus50})
+        } else if (op === 'minus') {
+            diffPlus50 = nexInfo ? nexInfo.priority.toNumber() - 50 : 0;
+            this.editPriorityService.edit(this.getModalData(terminalID), {property: 'priority', value: diffPlus50})
+        }
+    }
+
     private getModalData(terminalID: number) {
         return {
             shopID: this.shopID,
@@ -93,5 +124,17 @@ export class TerminalsComponent {
             providerID: this.providerID,
             terminalID
         };
+    }
+
+    private sortInfos(infos: TerminalInfo[]): TerminalInfo[] {
+        return infos.sort((a, b) => {
+            const aPriority = a.priority.toNumber();
+            const bPriority = b.priority.toNumber();
+            if (aPriority !== bPriority) {
+                return bPriority - aPriority;
+            } else {
+                return b.weight - a.weight;
+            }
+        })
     }
 }
