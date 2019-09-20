@@ -1,4 +1,5 @@
 import get from 'lodash-es/get';
+import Int64 from 'thrift-ts/lib/int64';
 
 import { Condition, Predicate, TerminalObject, TerminalRef } from '../../gen-damsel/domain';
 
@@ -10,6 +11,8 @@ interface PredicateInfo {
 
 interface TerminalInfoGroup {
     terminalIds: number[];
+    weights: number[];
+    priorities: Int64[];
     disabled: boolean;
     predicateType: PredicateType;
 }
@@ -18,6 +21,8 @@ interface FlattenTerminalInfoGroup {
     terminalId: number;
     disabled: boolean;
     predicateType: PredicateType;
+    priority: Int64;
+    weight: number;
 }
 
 export enum PredicateType {
@@ -31,6 +36,8 @@ export interface TerminalInfo {
     terminal: TerminalObject;
     disabled: boolean;
     predicateType: PredicateType;
+    weight: number;
+    priority: Int64;
 }
 
 function inPredicates(predicates: Predicate[], shopID: string, partyID: string): boolean {
@@ -114,6 +121,18 @@ function extractIds({ decisions, value }: any): number[] {
     }
 }
 
+function extractWeights({ value }: any): number {
+    if (value) {
+        return value.map(val => val.weight);
+    }
+}
+
+function extractPriorities({ value }: any): Int64 {
+    if (value) {
+        return value.map(val => val.priority);
+    }
+}
+
 const extractTerminalInfoGroup = (
     decisions: any[],
     shopID: string,
@@ -129,7 +148,9 @@ const extractTerminalInfoGroup = (
             r = r.concat({
                 terminalIds: extractIds(then_),
                 disabled,
-                predicateType
+                predicateType,
+                weights: extractWeights(then_),
+                priorities: extractPriorities(then_)
             });
         }
         return r;
@@ -137,13 +158,15 @@ const extractTerminalInfoGroup = (
 
 const flattenGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
     group.reduce(
-        (r, { terminalIds, disabled, predicateType }) =>
+        (r, { terminalIds, disabled, predicateType, weights, priorities }) =>
             (r = [
                 ...r,
-                ...terminalIds.map(terminalId => ({
+                ...terminalIds.map((terminalId, idx) => ({
                     terminalId,
                     disabled,
-                    predicateType
+                    predicateType,
+                    weight: weights[idx],
+                    priority: priorities[idx]
                 }))
             ]),
         []
@@ -152,12 +175,17 @@ const flattenGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
 const enrichWithTerminal = (
     groups: FlattenTerminalInfoGroup[],
     terminalObjects: TerminalObject[]
-): TerminalInfo[] =>
-    groups.map(group => ({
-        terminal: terminalObjects.find(({ ref: { id } }) => group.terminalId === id),
-        disabled: group.disabled,
-        predicateType: group.predicateType
-    }));
+): TerminalInfo[] => {
+    return groups.map(group => {
+        return {
+            terminal: terminalObjects.find(({ ref: { id } }) => group.terminalId === id),
+            disabled: group.disabled,
+            predicateType: group.predicateType,
+            weight: group.weight,
+            priority: group.priority
+        };
+    });
+};
 
 // Need TerminalDecision with if_ then_
 export function extractTerminalInfo(

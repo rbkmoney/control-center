@@ -1,5 +1,7 @@
 import cloneDeep from 'lodash-es/cloneDeep';
-import { ProviderObject, TerminalDecision, TerminalSelector } from '../../gen-damsel/domain';
+
+import { ProviderObject, TerminalDecision } from '../../gen-damsel/domain';
+import { checkSelector } from './utils';
 
 const checkCondition = (condition: any, partyID: string, shopID: string): boolean => {
     const isPartyEquals = condition.party.id === partyID;
@@ -44,14 +46,6 @@ const removeDecision = (
         }
         return acc.concat(decision);
     }, []);
-
-const checkSelector = (selector: TerminalSelector) => {
-    if (selector.value) {
-        throw new Error(
-            'Wrong ProviderObject terminal selector: "value". Expected ProviderObject with terminal decisions'
-        );
-    }
-};
 
 export const removeTerminalDecision = (
     providerObject: ProviderObject,

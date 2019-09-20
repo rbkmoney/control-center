@@ -37,6 +37,9 @@ import { SelectProviderComponent } from './add-provider/select-provider/select-p
 import { IsActivePipe } from './is-active.pipe';
 import { CategoryComponent } from './shop-info/category/category.component';
 import { SharedModule } from '../../shared/shared.module';
+import { EditTerminalDecisionPriorityComponent } from './edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
+import { EditTerminalDecisionWeightComponent } from './edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
+import { TerminalsComponent } from './terminals/terminals.component';
 
 @NgModule({
     imports: [
@@ -77,8 +80,15 @@ import { SharedModule } from '../../shared/shared.module';
         SelectProviderComponent,
         SelectTerminalComponent,
         IsActivePipe,
-        CategoryComponent
+        CategoryComponent,
+        EditTerminalDecisionPriorityComponent,
+        EditTerminalDecisionWeightComponent,
+        TerminalsComponent
     ],
-    entryComponents: [AddProviderComponent]
+    entryComponents: [
+        AddProviderComponent,
+        EditTerminalDecisionPriorityComponent,
+        EditTerminalDecisionWeightComponent
+    ]
 })
 export class ShopDetailsModule {}

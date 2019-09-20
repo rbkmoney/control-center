@@ -1,0 +1,95 @@
+<div fxLayout="column">
+    <table mat-table [dataSource]="infos">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let terminalInfo">{{ terminalInfo.terminal.data.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let terminalInfo">
+                {{ terminalInfo.terminal.data.description }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let terminalInfo">{{ terminalInfo.predicateType }}</td>
+        </ng-container>
+        <ng-container matColumnDef="priority">
+            <th mat-header-cell *matHeaderCellDef>Priority</th>
+            <td mat-cell *matCellDef="let terminalInfo; let i = index">
+                <button
+                    mat-icon-button
+                    (click)="changePriority('plus', i)"
+                    [disabled]="isLoading | async"
+                >
+                    <mat-icon>keyboard_arrow_up</mat-icon>
+                </button>
+                {{ terminalInfo.priority }}
+                <button
+                    mat-icon-button
+                    (click)="changePriority('minus', i)"
+                    [disabled]="isLoading | async"
+                >
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef>Weight</th>
+            <td mat-cell *matCellDef="let terminalInfo">{{ terminalInfo.weight }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let terminalInfo">
+                <mat-chip-list>
+                    <mat-chip [selected]="!terminalInfo.disabled">{{
+                        !terminalInfo.disabled | ccIsActive
+                    }}</mat-chip>
+                </mat-chip-list>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let terminalInfo">
+                <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="appMenu"
+                    [disabled]="isLoading | async"
+                >
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #appMenu="matMenu">
+                    <button
+                        mat-menu-item
+                        (click)="editPriority(terminalInfo.terminal.ref.id)"
+                        [disabled]="!isEditable(terminalInfo.predicateType, isLoading | async)"
+                    >
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit priority</span>
+                    </button>
+                    <button
+                        mat-menu-item
+                        (click)="editWeight(terminalInfo.terminal.ref.id)"
+                        [disabled]="!isEditable(terminalInfo.predicateType, isLoading | async)"
+                    >
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit weight</span>
+                    </button>
+                    <button
+                        mat-menu-item
+                        (click)="removeTerminal(terminalInfo.terminal.ref.id)"
+                        [disabled]="!isEditable(terminalInfo.predicateType, isLoading | async)"
+                    >
+                        <mat-icon>delete</mat-icon>
+                        <span>Remove</span>
+                    </button>
+                </mat-menu>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+
+    <mat-progress-bar *ngIf="(isLoading | async)" mode="indeterminate"></mat-progress-bar>
+</div>

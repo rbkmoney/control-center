@@ -47,7 +47,7 @@ export class ShopDetailsComponent implements OnInit {
             .subscribe(() => this.getData());
     }
 
-    terminalRemoved() {
+    terminalChanged() {
         this.getData();
     }
 

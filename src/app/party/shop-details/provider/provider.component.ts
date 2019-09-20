@@ -11,9 +11,5 @@ export class ProviderComponent {
     @Input() providerInfo: ProviderInfo[];
     @Input() partyID: string;
     @Input() shopID: string;
-    @Output() terminalRemovedEvent: EventEmitter<void> = new EventEmitter();
-
-    terminalRemoved() {
-        this.terminalRemovedEvent.emit();
-    }
+    @Output() terminalChanged: EventEmitter<void> = new EventEmitter();
 }

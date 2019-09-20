@@ -11,7 +11,7 @@
             <mat-accordion fxFlex="50">
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                        <mat-panel-title> Contract details </mat-panel-title>
+                        <mat-panel-title> Contract details</mat-panel-title>
                     </mat-expansion-panel-header>
 
                     <cc-pretty-json [object]="contract"></cc-pretty-json>
@@ -20,7 +20,7 @@
             <mat-accordion fxFlex="50">
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                        <mat-panel-title> Payout tool details </mat-panel-title>
+                        <mat-panel-title> Payout tool details</mat-panel-title>
                     </mat-expansion-panel-header>
 
                     <cc-pretty-json [object]="payoutTool"></cc-pretty-json>
@@ -43,7 +43,7 @@
                 [providerInfo]="providerInfo"
                 [partyID]="partyID"
                 [shopID]="shop.id"
-                (terminalRemovedEvent)="terminalRemoved()"
+                (terminalChanged)="terminalChanged()"
             ></cc-provider>
         </div>
     </div>

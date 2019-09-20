@@ -1,22 +1,12 @@
-<mat-accordion multi="true">
-    <mat-expansion-panel *ngFor="let info of providerInfo">
-        <mat-expansion-panel-header fxLayout fxLayoutAlign="space-between center">
-            <mat-panel-title fxFlex="40"> {{ info?.provider.data.name }} </mat-panel-title>
-            <mat-panel-description> {{ info?.provider.data.description }} </mat-panel-description>
-        </mat-expansion-panel-header>
-        <ng-template matExpansionPanelContent>
-            <mat-list *ngIf="info.terminalInfos">
-                <h3 mat-subheader>Terminals</h3>
-                <mat-list-item *ngFor="let terminalInfo of info.terminalInfos">
-                    <cc-terminal
-                        [terminalInfo]="terminalInfo"
-                        [providerID]="info.provider.ref.id"
-                        [shopID]="shopID"
-                        [partyID]="partyID"
-                        (terminalRemovedEvent)="terminalRemoved()"
-                    ></cc-terminal>
-                </mat-list-item>
-            </mat-list>
-        </ng-template>
-    </mat-expansion-panel>
-</mat-accordion>
+<mat-card *ngFor="let info of providerInfo">
+    <mat-card-content>
+        <mat-card-subtitle> {{ info.provider.data.name }} </mat-card-subtitle>
+        <cc-terminals
+            [terminalInfos]="info.terminalInfos"
+            [partyID]="partyID"
+            [shopID]="shopID"
+            [providerID]="info.provider.ref.id"
+            (terminalChanged)="terminalChanged.emit()"
+        ></cc-terminals>
+    </mat-card-content>
+</mat-card>
