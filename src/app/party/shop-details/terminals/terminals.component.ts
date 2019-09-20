@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
@@ -110,10 +118,16 @@ export class TerminalsComponent implements OnChanges, OnInit {
         let diffPlus50;
         if (op === 'plus') {
             diffPlus50 = prevInfo ? prevInfo.priority.toNumber() + 50 : basePriority + 50;
-            this.editPriorityService.edit(this.getModalData(terminalID), {property: 'priority', value: diffPlus50})
+            this.editPriorityService.edit(this.getModalData(terminalID), {
+                property: 'priority',
+                value: diffPlus50
+            });
         } else if (op === 'minus') {
             diffPlus50 = nexInfo ? nexInfo.priority.toNumber() - 50 : 0;
-            this.editPriorityService.edit(this.getModalData(terminalID), {property: 'priority', value: diffPlus50})
+            this.editPriorityService.edit(this.getModalData(terminalID), {
+                property: 'priority',
+                value: diffPlus50
+            });
         }
     }
 
@@ -135,6 +149,6 @@ export class TerminalsComponent implements OnChanges, OnInit {
             } else {
                 return b.weight - a.weight;
             }
-        })
+        });
     }
 }
