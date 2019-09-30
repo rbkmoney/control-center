@@ -1,10 +1,12 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { MatIconModule, MatMenuModule } from '@angular/material';
 
 xdescribe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [AppComponent]
+            declarations: [AppComponent],
+            imports: [MatIconModule, MatMenuModule]
         }).compileComponents();
     }));
     it('should create the app', async(() => {

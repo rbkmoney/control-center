@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 export interface AppConfig {
     papiEndpoint: string;
+    wapiEndpoint: string;
 }
 
 @Injectable()
