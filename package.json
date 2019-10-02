@@ -30,7 +30,6 @@
     "@angular/platform-browser": "^8.2.8",
     "@angular/platform-browser-dynamic": "^8.2.8",
     "@angular/platform-server": "^8.2.8",
-    "@angular/router": "^8.2.8",
     "angular2-prettyjson": "3.0.1",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
