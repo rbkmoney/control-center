@@ -42,7 +42,7 @@
     "machinegun_proto": "git+ssh://git@github.com/rbkmoney/machinegun_proto.git#ebae56fe2b3e79e4eb34afc8cb55c9012ae989f8",
     "moment": "^2.22.2",
     "monaco-editor": "^0.15.6",
-    "rxjs": "^6.3.3",
+    "rxjs": "^6.5.3",
     "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#a5e3830ad30d5717e5e627ddcefa8f4d8918b174",
     "uuid": "^3.3.2",
     "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#d2c90a54861593fa794afe3b09c4febb9d6e37d0",
