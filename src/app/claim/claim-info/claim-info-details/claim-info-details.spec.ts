@@ -11,7 +11,6 @@ describe('ClaimInfoDetailsComponent', () => {
             .then(() => {
                 const fixture = TestBed.createComponent(ClaimInfoDetailsComponent);
                 const rendered = fixture.debugElement.componentInstance;
-                console.log('kek', rendered);
             });
     }));
     it('should create component', async(() => {
@@ -22,7 +21,6 @@ describe('ClaimInfoDetailsComponent', () => {
     it('should render reason', async(() => {
         const fixture = TestBed.createComponent(ClaimInfoDetailsComponent);
         const rendered = fixture.debugElement.componentInstance;
-        // console.log('kek', rendered);
         expect(rendered).toBeTruthy();
     }));
 });

@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppAuthGuardService } from '../app-auth-guard.service';
-import { WithdrawalsComponent } from './withdrawals.component';
+import { DepositsComponent } from './deposits.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
-                path: 'withdrawals',
-                component: WithdrawalsComponent,
+                path: 'deposits',
+                component: DepositsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: []
@@ -19,4 +19,4 @@ import { WithdrawalsComponent } from './withdrawals.component';
     ],
     exports: [RouterModule]
 })
-export class WithdrawalsRoutingModule {}
+export class DepositsRoutingModule {}

@@ -1,6 +1,6 @@
 <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
     <mat-form-field fxFlex>
-        <input matInput placeholder="Wallet" formControlName="wallet" required />
+        <input matInput placeholder="Source" formControlName="source" required />
     </mat-form-field>
     <mat-form-field fxFlex>
         <input matInput placeholder="Destination" formControlName="destination" required />
@@ -11,5 +11,5 @@
     <mat-form-field fxFlex>
         <input matInput placeholder="Currency" formControlName="currency" required />
     </mat-form-field>
-    <button [disabled]="form.invalid" mat-button color="primary" (click)="createWithdrawal()">Create withdrawal</button>
+    <button [disabled]="form.invalid" mat-button color="primary" (click)="createDeposit()">Create deposit</button>
 </form>

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: 'withdrawals.component.html'
+    templateUrl: 'deposits.component.html'
 })
-export class WithdrawalsComponent {
+export class DepositsComponent {
     isLoading = false;
 
     constructor() {}

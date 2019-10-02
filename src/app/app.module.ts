@@ -29,7 +29,7 @@ import { PartiesModule } from './parties/parties.module';
 import { PartyModule } from './party/party.module';
 import { DomainModule } from './domain';
 import { RepairingModule } from './repairing/repairing.module';
-import { WithdrawalsModule } from './withdrawals/withdrawals.module';
+import { DepositsModule } from './deposits/deposits.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -52,7 +52,7 @@ import { WithdrawalsModule } from './withdrawals/withdrawals.module';
         PartyModule,
         DomainModule,
         RepairingModule,
-        WithdrawalsModule
+        DepositsModule
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
