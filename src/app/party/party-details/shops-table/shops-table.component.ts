@@ -11,7 +11,7 @@ import { Shop } from '../../../gen-damsel/domain';
 })
 export class ShopsTableComponent implements OnChanges {
     @Input() shops: Shop[];
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
     dataSource: MatTableDataSource<Shop> = new MatTableDataSource();
     displayedColumns = ['id', 'name', 'url', 'shopDetailButton'];
