@@ -16,4 +16,5 @@
     <button [disabled]="form.invalid" mat-button color="primary" (click)="createDeposit()">
         Create deposit
     </button>
+    <mat-progress-bar mode="indeterminate" *ngIf="(isLoading$ | async)"></mat-progress-bar>
 </form>

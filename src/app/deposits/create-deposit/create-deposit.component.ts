@@ -1,26 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import * as uuid from 'uuid/v4';
+import { FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
-import { CreateDepositService } from './create-deposit.service';
-import { DepositParams } from '../../fistful/gen-model/fistful';
-import { toMajor } from '../to-major-amount';
-import { KeycloakService } from 'keycloak-angular';
-
-interface CurrencySource {
-    source: string;
-    currency: string;
-}
-
-const currencies: CurrencySource[] = [
-    { source: '3', currency: 'RUB' },
-    { source: '5', currency: 'UAH' },
-    { source: 'eskin1', currency: 'USD' },
-    { source: 'eskin2', currency: 'EUR' },
-    { source: 'eskin3', currency: 'KZT' },
-    { source: 'eskin5', currency: 'BYN' }
-];
+import { CreateDepositService, CurrencySource } from './create-deposit.service';
 
 @Component({
     selector: 'cc-create-deposit',
@@ -29,49 +11,19 @@ const currencies: CurrencySource[] = [
 export class CreateDepositComponent implements OnInit {
     form: FormGroup;
 
-    isLoading = false;
+    currencies: CurrencySource[];
 
-    currencies = currencies;
+    isLoading$: BehaviorSubject<boolean>;
 
-    constructor(
-        private createDepositService: CreateDepositService,
-        private keycloakService: KeycloakService,
-        private snackBar: MatSnackBar,
-        private fb: FormBuilder
-    ) {}
+    constructor(private createDepositService: CreateDepositService) {}
 
     ngOnInit() {
-        this.form = this.fb.group({
-            destination: ['', Validators.required],
-            amount: ['', Validators.required],
-            currency: [currencies[0], Validators.required]
-        });
+        this.form = this.createDepositService.getForm();
+        this.currencies = this.createDepositService.getCurrencies();
+        this.isLoading$ = this.createDepositService.isLoading$;
     }
 
     createDeposit() {
-        this.isLoading = true;
-        const { destination, amount, currency } = this.form.value;
-        const params: DepositParams = {
-            id: `${this.keycloakService.getUsername()}-${uuid()}`,
-            source: currency.source,
-            destination,
-            body: {
-                amount: toMajor(amount),
-                currency: {
-                    symbolic_code: currency.currency
-                }
-            }
-        };
-        this.createDepositService.createDeposit(params).subscribe(
-            () => {
-                this.isLoading = false;
-                this.snackBar.open('Deposit successfully created', 'OK', { duration: 3000 });
-            },
-            e => {
-                this.isLoading = false;
-                this.snackBar.open('An error occurred while deposit create', 'OK');
-                console.error(e);
-            }
-        );
+        this.createDepositService.createDeposit();
     }
 }
