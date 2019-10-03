@@ -6,11 +6,9 @@ import { FistfulAdminService } from '../../fistful/fistful-admin.service';
 
 @Injectable()
 export class CreateDepositService {
-
     constructor(private fistfulAdminService: FistfulAdminService) {}
 
     createDeposit(params: DepositParams): Observable<void> {
         return this.fistfulAdminService.createDeposit(params);
     }
-
 }

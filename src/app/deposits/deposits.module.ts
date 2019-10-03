@@ -7,6 +7,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DepositsRoutingModule } from './deposits-routing.module';
@@ -26,15 +27,10 @@ import { FistfulAdminService } from '../fistful/fistful-admin.service';
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSelectModule
     ],
-    declarations: [
-        DepositsComponent,
-        CreateDepositComponent
-    ],
-    providers: [
-        CreateDepositService,
-        FistfulAdminService
-    ]
+    declarations: [DepositsComponent, CreateDepositComponent],
+    providers: [CreateDepositService, FistfulAdminService]
 })
 export class DepositsModule {}

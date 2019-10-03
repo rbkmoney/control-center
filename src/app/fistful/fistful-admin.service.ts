@@ -15,5 +15,4 @@ export class FistfulAdminService extends ThriftService {
     createDeposit(params: DepositParams): Observable<void> {
         return this.toObservableAction('CreateDeposit')(new DepositParamsObject(params));
     }
-
 }

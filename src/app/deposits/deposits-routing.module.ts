@@ -12,7 +12,7 @@ import { DepositsComponent } from './deposits.component';
                 component: DepositsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: []
+                    roles: ['deposit:write']
                 }
             }
         ])
