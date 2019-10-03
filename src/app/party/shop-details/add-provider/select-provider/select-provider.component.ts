@@ -22,7 +22,7 @@ export class SelectProviderComponent implements OnInit, OnChanges {
     @Input() providers: ProviderObject[];
     @Output() providerIdSelected: EventEmitter<number> = new EventEmitter();
 
-    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     displayedColumns: string[] = ['select', 'id', 'name', 'description'];
     dataSource: MatTableDataSource<ProviderObject> = new MatTableDataSource([]);
