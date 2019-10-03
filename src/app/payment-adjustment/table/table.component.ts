@@ -30,7 +30,7 @@ export class TableComponent implements OnInit, OnChanges {
 
     selection = new SelectionModel<StatPayment>(true, []);
 
-    @ViewChild(MatPaginator)
+    @ViewChild(MatPaginator, { static: false })
     paginator: MatPaginator;
 
     cols = ['select', 'revision', 'invoiceId', 'createdAt', 'ownerId', 'shopId'];

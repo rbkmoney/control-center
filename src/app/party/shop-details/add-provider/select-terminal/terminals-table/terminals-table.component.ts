@@ -19,7 +19,7 @@ import { TerminalObject } from '../../../../../gen-damsel/domain';
     styleUrls: ['../../add-provider.component.scss']
 })
 export class TerminalsTableComponent implements OnInit, OnChanges {
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
     @Input() terminals: TerminalObject[];
     @Output() terminalIdSelected: EventEmitter<number> = new EventEmitter();
 
