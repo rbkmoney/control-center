@@ -31,7 +31,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     roles: string[];
     selection = new SelectionModel<Payout>(true, []);
 
-    @ViewChild(MatPaginator, { static: false })
+    @ViewChild(MatPaginator, { static: true })
     paginator: MatPaginator;
 
     displayedColumns = [
