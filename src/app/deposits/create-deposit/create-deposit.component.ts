@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { CreateDepositService, CurrencySource } from './create-deposit.service';
 
@@ -13,7 +13,7 @@ export class CreateDepositComponent implements OnInit {
 
     currencies: CurrencySource[];
 
-    isLoading$: BehaviorSubject<boolean>;
+    isLoading$: Observable<boolean>;
 
     constructor(private createDepositService: CreateDepositService) {}
 
