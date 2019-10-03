@@ -42,9 +42,8 @@ export class CreateDepositComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            source: ['3', Validators.required],
-            destination: ['859', Validators.required],
-            amount: ['1', Validators.required],
+            destination: ['', Validators.required],
+            amount: ['', Validators.required],
             currency: [currencies[0], Validators.required]
         });
     }
