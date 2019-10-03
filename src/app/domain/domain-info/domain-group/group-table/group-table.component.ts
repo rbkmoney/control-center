@@ -17,8 +17,8 @@ import { DetailsContainerService } from '../../../domain-info/details-container.
 export class GroupTableComponent implements OnInit, OnChanges {
     @Input() group: DomainGroup[];
 
-    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: false }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
 
     dataSource: MatTableDataSource<TableDataSource> = new MatTableDataSource();
     cols = ['name', 'ref', 'data', 'details'];

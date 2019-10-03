@@ -14,7 +14,7 @@ import { DomainInfoService } from './domain-info.service';
 export class DomainInfoComponent implements OnInit {
     initialized = false;
     isLoading: boolean;
-    @ViewChild('domainObjDetails', { static: false }) detailsContainer: MatSidenav;
+    @ViewChild('domainObjDetails', { static: true }) detailsContainer: MatSidenav;
 
     private detailedObjRef: any;
 
