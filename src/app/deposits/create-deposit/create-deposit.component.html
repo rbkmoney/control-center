@@ -1,0 +1,25 @@
+<form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
+    <mat-form-field>
+        <input matInput placeholder="Destination" formControlName="destination" required />
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="number" placeholder="Amount" formControlName="amount" required />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Currency</mat-label>
+        <mat-select formControlName="currency" required>
+            <mat-option *ngFor="let currency of currencies" [value]="currency">
+                {{ currency.currency }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button
+        [disabled]="(isLoading$ | async) || form.invalid"
+        mat-button
+        color="primary"
+        (click)="createDeposit()"
+    >
+        Create deposit
+    </button>
+    <mat-progress-bar mode="indeterminate" *ngIf="(isLoading$ | async)"></mat-progress-bar>
+</form>
