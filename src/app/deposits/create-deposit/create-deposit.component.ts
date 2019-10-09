@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { CreateDepositService, CurrencySource } from './create-deposit.service';
@@ -15,7 +16,10 @@ export class CreateDepositComponent implements OnInit {
 
     isLoading$: Observable<boolean>;
 
-    constructor(private createDepositService: CreateDepositService) {}
+    constructor(
+        private createDepositService: CreateDepositService,
+        private dialogRef: MatDialogRef<CreateDepositComponent>
+    ) {}
 
     ngOnInit() {
         this.form = this.createDepositService.getForm();
@@ -24,6 +28,10 @@ export class CreateDepositComponent implements OnInit {
     }
 
     createDeposit() {
-        this.createDepositService.createDeposit();
+        this.createDepositService.createDeposit(this.dialogRef);
+    }
+
+    closeDialog() {
+        this.dialogRef.close();
     }
 }

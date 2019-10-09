@@ -1,31 +1,23 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { ClaimInfo } from '../../papi/model';
-import { ClaimActionType } from '../../claim/claim-action-type';
+import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
 
 @Component({
     selector: 'cc-deposits-table',
-    templateUrl: 'deposits-table.component.html'
+    templateUrl: 'deposits-table.component.html',
+    styleUrls: ['deposits-table.component.css']
 })
 export class DepositsTableComponent {
     @Input()
-    claims: ClaimInfo[];
+    deposits: StatDeposit[];
 
     displayedColumns = [
-        'partyID',
-        'claimID',
-        'status',
-        'revision',
+        'id',
         'createdAt',
-        'updatedAt',
-        'claimDetailButton'
+        'destinationID',
+        'amount',
+        'currency',
+        'status'
     ];
 
-    constructor(private router: Router) {}
-
-    navigateToClaim(claim: ClaimInfo) {
-        const c = claim as any;
-        this.router.navigate([`/claims/${c.partyId}/${ClaimActionType.edit}/${c.claimId}`]);
-    }
 }

@@ -23,6 +23,8 @@ import { SearchFormService } from './search-form/search-form.service';
 import { DepositsService } from './deposits.service';
 import { FistfulStatisticsService } from '../fistful/fistful-stat.service';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { DepositStatusPipe } from './deposit-status.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     imports: [
@@ -38,13 +40,15 @@ import { SearchFormComponent } from './search-form/search-form.component';
         ReactiveFormsModule,
         MatSelectModule,
         MatProgressBarModule,
-        MatTableModule
+        MatTableModule,
+        MatDialogModule
     ],
     declarations: [
         DepositsComponent,
         CreateDepositComponent,
         DepositsTableComponent,
-        SearchFormComponent
+        SearchFormComponent,
+        DepositStatusPipe
     ],
     providers: [
         CreateDepositService,
@@ -53,6 +57,9 @@ import { SearchFormComponent } from './search-form/search-form.component';
         SearchFormService,
         DepositsService,
         FistfulStatisticsService
+    ],
+    entryComponents: [
+        CreateDepositComponent
     ]
 })
 export class DepositsModule {}

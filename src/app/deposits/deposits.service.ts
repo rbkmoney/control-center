@@ -1,49 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { QueryDSL } from '../query-dsl';
 
 import { StatDeposit, StatResponse } from '../fistful/gen-model/fistful_stat';
-import { DomainService } from '../domain';
 import { FistfulStatisticsService } from '../fistful/fistful-stat.service';
 import { SearchFormParams } from './search-form/search-form-params';
 
 @Injectable()
 export class DepositsService {
-    searchDepositChanges$: Subject<StatDeposit[]> = new Subject<StatDeposit[]>();
+    deposits$ = new BehaviorSubject<StatDeposit[]>([]);
 
-    version: number;
+    continuationToken$ = new BehaviorSubject<string>(null);
 
-    constructor(
-        private fistfulStatisticsService: FistfulStatisticsService,
-        private domainService: DomainService
-    ) {
-        this.domainService.version$.subscribe(version => (this.version = version));
-    }
+    private limit = 20;
 
-    fetchDeposits(params: SearchFormParams): Observable<StatDeposit[]> {
-        return this.getAllDeposits(params);
-    }
+    constructor(private fistfulStatisticsService: FistfulStatisticsService) {}
 
-    private getAllDeposits(
-        params: SearchFormParams,
-        continuationToken?: string,
-        payments: StatDeposit[] = []
-    ): Observable<StatDeposit[]> {
-        return this.getDeposits(params, continuationToken).pipe(
-            mergeMap(res => {
-                const mergedDeposits = [...payments, ...res.data.deposits];
-                this.searchDepositChanges$.next(mergedDeposits);
-                return res.continuation_token
-                    ? this.getAllDeposits(params, res.continuation_token, mergedDeposits)
-                    : of(mergedDeposits);
-            })
-        );
+    fetchDeposits(params: SearchFormParams) {
+        this.getDeposits(params).pipe(take(1)).subscribe((res) => {
+            this.deposits$.next(this.deposits$.value.concat(res.data.deposits));
+            this.continuationToken$.next(res.continuation_token);
+        });
     }
 
     private getDeposits(
-        params: SearchFormParams,
-        continuationToken?: string
+        params: SearchFormParams
     ): Observable<StatResponse> {
         const {
             fromTime,
@@ -70,11 +52,12 @@ export class DepositsService {
                         ...(partyId ? { party_id: partyId } : {}),
                         ...(sourceId ? { source_id: sourceId } : {}),
                         ...(status ? { status } : {}),
-                        ...(walletId ? { wallet_d: walletId } : {})
+                        ...(walletId ? { wallet_d: walletId } : {}),
+                        size: this.limit.toString()
                     }
                 }
             } as QueryDSL),
-            ...(continuationToken ? { continuation_token: continuationToken } : {})
+            ...(this.continuationToken$.value ? { continuation_token: this.continuationToken$.value } : {})
         });
     }
 }
