@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DepositParams } from './gen-model/fistful';
+import { DepositParams } from './gen-model/fistful_admin';
 import { DepositParams as DepositParamsObject } from './gen-nodejs/fistful_types';
 import { ThriftService } from '../thrift';
 import * as FistfulAdmin from './gen-nodejs/FistfulAdmin';

@@ -24,7 +24,7 @@ const currencies: CurrencySource[] = [
 ];
 
 @Injectable()
-export class CreateDepositService {
+export class DepositsTableService {
     form: FormGroup;
 
     isLoading$ = new BehaviorSubject(false);
