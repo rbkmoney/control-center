@@ -2,19 +2,44 @@
     <mat-card>
         <mat-card-subtitle>
             <div fxLayout fxLayoutAlign="space-between stretch" fxLayoutGap="0" fxLayoutGap.xs="10px">
-                <div>Deposits</div>
-                <button mat-button color="primary" (click)="createDepositDialog()">
+                <div>Search deposits params</div>
+                <button mat-button color="primary" (click)="createDeposit()">
                     Create deposit
                 </button>
             </div>
-
         </mat-card-subtitle>
+        <mat-card-content>
+            <cc-search-form
+                    (valueChanges)="formValueChanges($event)"
+                    (statusChanges)="formStatusChanges($event)"
+            ></cc-search-form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button [disabled]="!formValid || isLoading" mat-button color="primary" (click)="search()">
+                SEARCH
+            </button>
+        </mat-card-actions>
+        <mat-card-footer *ngIf="isLoading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+    <mat-card>
         <mat-card-content fxLayout="column">
-            <cc-deposits-table [deposits]="deposits | async"></cc-deposits-table>
+            <div fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
+                <div>Found: {{ (deposits$ | async)?.length }}</div>
+                <button
+                        mat-button
+                        color="primary"
+                        (click)="createDeposit()"
+                >
+                    CREATE
+                </button>
+            </div>
+            <cc-deposits-table [deposits]="(deposits$ | async)"></cc-deposits-table>
             <button
                     *ngIf="continuationToken$ | async"
                     mat-button
-                    (click)="fetchDeposits()">
+                    (click)="fetchMore()">
                 Show more
             </button>
         </mat-card-content>

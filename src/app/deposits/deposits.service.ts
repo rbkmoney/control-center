@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { QueryDSL } from '../query-dsl';
 
 import { StatDeposit, StatResponse } from '../fistful/gen-model/fistful_stat';
@@ -9,19 +9,31 @@ import { SearchFormParams } from './search-form/search-form-params';
 
 @Injectable()
 export class DepositsService {
+
     deposits$ = new BehaviorSubject<StatDeposit[]>([]);
 
     continuationToken$ = new BehaviorSubject<string>(null);
+
+    private params: SearchFormParams;
 
     private limit = 20;
 
     constructor(private fistfulStatisticsService: FistfulStatisticsService) {}
 
-    fetchDeposits(params: SearchFormParams) {
-        this.getDeposits(params).pipe(take(1)).subscribe((res) => {
-            this.deposits$.next(this.deposits$.value.concat(res.data.deposits));
-            this.continuationToken$.next(res.continuation_token);
-        });
+    search(params: SearchFormParams): Observable<StatResponse> {
+        this.continuationToken$.next(null);
+        this.deposits$.next([]);
+        this.params = params;
+        return this.fetchMore();
+    }
+
+    fetchMore(): Observable<StatResponse> {
+        return this.getDeposits(this.params).pipe(map((res) => {
+            const { data: { deposits }, continuation_token } = res;
+            this.deposits$.next([...this.deposits$.value, ...deposits]);
+            this.continuationToken$.next(continuation_token);
+            return res;
+        }));
     }
 
     private getDeposits(

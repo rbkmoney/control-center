@@ -15,7 +15,7 @@
     </mat-form-field>
     <mat-dialog-actions>
         <button
-                [disabled]="(isLoading$ | async) || form.invalid"
+                [disabled]="isLoading$ | async"
                 mat-button
                 color="warn"
                 (click)="closeDialog()"

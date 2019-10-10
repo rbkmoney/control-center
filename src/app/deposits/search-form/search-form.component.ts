@@ -2,8 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
-import { ClaimSearchParams } from '../../papi/params';
-import { debounceTime } from 'rxjs/internal/operators';
+import { SearchFormParams } from './search-form-params';
 
 @Component({
     selector: 'cc-search-form',
@@ -12,20 +11,40 @@ import { debounceTime } from 'rxjs/internal/operators';
 })
 export class SearchFormComponent implements OnInit {
     @Output()
-    valueChanges: EventEmitter<ClaimSearchParams> = new EventEmitter();
+    valueChanges: EventEmitter<SearchFormParams> = new EventEmitter();
+
+    @Output()
+    statusChanges: EventEmitter<string> = new EventEmitter();
 
     form: FormGroup;
 
-    claimStatuses: string[];
+    depositStatuses = [
+        'Pending',
+        'Succeeded',
+        'Failed'
+    ];
 
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        const { claimStatuses, form, formValueToSearchParams } = this.searchFormService;
-        this.claimStatuses = claimStatuses;
-        this.form = form;
-        this.form.valueChanges
-            .pipe(debounceTime(300))
-            .subscribe(value => this.valueChanges.emit(formValueToSearchParams(value)));
+        this.form = this.searchFormService.form;
+        this.form.valueChanges.subscribe((value) => {
+                console.log(value);
+                this.valueChanges.emit(this.formValueToSearchParams(value))
+            }
+        );
+        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
+        this.form.updateValueAndValidity();
     }
+
+    private formValueToSearchParams(value: any): SearchFormParams {
+        const { fromTime, toTime, amountTo } = value;
+        return {
+            ...value,
+            fromTime: fromTime ? fromTime.startOf('day').toISOString() : '',
+            toTime: toTime ? toTime.endOf('day').toISOString() : '',
+            amountTo: amountTo ? Math.round(amountTo * 100) : amountTo
+        };
+    }
+
 }

@@ -25,6 +25,7 @@ import { FistfulStatisticsService } from '../fistful/fistful-stat.service';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { DepositStatusPipe } from './deposit-status.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatSelectModule,
         MatProgressBarModule,
         MatTableModule,
-        MatDialogModule
+        MatDialogModule,
+        MatDatepickerModule
     ],
     declarations: [
         DepositsComponent,
