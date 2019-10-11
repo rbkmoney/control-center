@@ -1,27 +1,27 @@
 <form fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" [formGroup]="form">
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
         <input
-                matInput
-                formControlName="fromTime"
-                [matDatepicker]="fromTimePicker"
-                placeholder="From time"
-                required
+            matInput
+            formControlName="fromTime"
+            [matDatepicker]="fromTimePicker"
+            placeholder="From time"
+            required
         />
         <mat-datepicker-toggle matSuffix [for]="fromTimePicker"></mat-datepicker-toggle>
         <mat-datepicker #fromTimePicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
         <input
-                matInput
-                formControlName="toTime"
-                [matDatepicker]="toTimePicker"
-                placeholder="To time"
-                required
+            matInput
+            formControlName="toTime"
+            [matDatepicker]="toTimePicker"
+            placeholder="To time"
+            required
         />
         <mat-datepicker-toggle matSuffix [for]="toTimePicker"></mat-datepicker-toggle>
         <mat-datepicker #toTimePicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
         <mat-select placeholder="Deposit status" formControlName="status">
             <mat-option [value]="null">any</mat-option>
             <mat-option *ngFor="let status of depositStatuses" [value]="status">{{
@@ -29,22 +29,22 @@
             }}</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
-        <input matInput type="number" placeholder="Amount to" formControlName="amountTo"/>
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
+        <input matInput type="number" placeholder="Amount to" formControlName="amountTo" />
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
-        <input matInput placeholder="Currency code" formControlName="currencyCode"/>
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
+        <input matInput placeholder="Currency code" formControlName="currencyCode" />
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
-        <input matInput placeholder="Deposit ID" formControlName="depositId"/>
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
+        <input matInput placeholder="Deposit ID" formControlName="depositId" />
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
-        <input matInput placeholder="Identity ID" formControlName="identityId"/>
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
+        <input matInput placeholder="Identity ID" formControlName="identityId" />
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
-        <input matInput placeholder="Party ID" formControlName="partyId"/>
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
+        <input matInput placeholder="Party ID" formControlName="partyId" />
     </mat-form-field>
-    <mat-form-field fxFlex="30" fxFlex.sm="50">
-        <input matInput placeholder="Wallet ID" formControlName="walletId"/>
+    <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
+        <input matInput placeholder="Wallet ID" formControlName="walletId" />
     </mat-form-field>
 </form>

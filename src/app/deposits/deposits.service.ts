@@ -9,7 +9,6 @@ import { SearchFormParams } from './search-form/search-form-params';
 
 @Injectable()
 export class DepositsService {
-
     deposits$ = new BehaviorSubject<StatDeposit[]>([]);
 
     continuationToken$ = new BehaviorSubject<string>(null);
@@ -28,17 +27,20 @@ export class DepositsService {
     }
 
     fetchMore(): Observable<StatResponse> {
-        return this.getDeposits(this.params).pipe(map((res) => {
-            const { data: { deposits }, continuation_token } = res;
-            this.deposits$.next([...this.deposits$.value, ...deposits]);
-            this.continuationToken$.next(continuation_token);
-            return res;
-        }));
+        return this.getDeposits(this.params).pipe(
+            map(res => {
+                const {
+                    data: { deposits },
+                    continuation_token
+                } = res;
+                this.deposits$.next([...this.deposits$.value, ...deposits]);
+                this.continuationToken$.next(continuation_token);
+                return res;
+            })
+        );
     }
 
-    private getDeposits(
-        params: SearchFormParams
-    ): Observable<StatResponse> {
+    private getDeposits(params: SearchFormParams): Observable<StatResponse> {
         const {
             fromTime,
             toTime,
@@ -69,7 +71,9 @@ export class DepositsService {
                     }
                 }
             } as QueryDSL),
-            ...(this.continuationToken$.value ? { continuation_token: this.continuationToken$.value } : {})
+            ...(this.continuationToken$.value
+                ? { continuation_token: this.continuationToken$.value }
+                : {})
         });
     }
 }

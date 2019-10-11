@@ -60,8 +60,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
         DepositsService,
         FistfulStatisticsService
     ],
-    entryComponents: [
-        CreateDepositComponent
-    ]
+    entryComponents: [CreateDepositComponent]
 })
 export class DepositsModule {}

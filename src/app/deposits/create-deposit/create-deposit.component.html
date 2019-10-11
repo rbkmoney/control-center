@@ -14,19 +14,14 @@
         </mat-select>
     </mat-form-field>
     <mat-dialog-actions>
-        <button
-                [disabled]="isLoading$ | async"
-                mat-button
-                color="warn"
-                (click)="closeDialog()"
-        >
+        <button [disabled]="isLoading$ | async" mat-button color="warn" (click)="closeDialog()">
             Cancel
         </button>
         <button
-                [disabled]="(isLoading$ | async) || form.invalid"
-                mat-button
-                color="primary"
-                (click)="createDeposit()"
+            [disabled]="(isLoading$ | async) || form.invalid"
+            mat-button
+            color="primary"
+            (click)="createDeposit()"
         >
             Create deposit
         </button>

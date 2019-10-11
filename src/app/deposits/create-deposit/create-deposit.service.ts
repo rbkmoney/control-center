@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject } from 'rxjs';
+import * as moment from 'moment';
 import * as uuid from 'uuid/v4';
 
 import { FistfulAdminService } from '../../fistful/fistful-admin.service';
 import { toMajor } from '../to-major-amount';
 import { DepositParams } from '../../fistful/gen-model/fistful_admin';
-import { MatDialogRef } from '@angular/material/dialog';
 import { CreateDepositComponent } from './create-deposit.component';
+import { DepositsService } from '../deposits.service';
+import { SearchFormParams } from '../search-form/search-form-params';
+import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
+import { depositStatus } from '../deposit-status';
 
 export interface CurrencySource {
     source: string;
@@ -33,6 +38,7 @@ export class CreateDepositService {
 
     constructor(
         private fistfulAdminService: FistfulAdminService,
+        private depositsService: DepositsService,
         private keycloakService: KeycloakService,
         private snackBar: MatSnackBar,
         private fb: FormBuilder
@@ -49,16 +55,45 @@ export class CreateDepositService {
         const params = this.getParams();
         this.fistfulAdminService.createDeposit(params).subscribe(
             () => {
-                this.isLoading$.next(false);
-                this.snackBar.open('Deposit successfully created', 'OK', { duration: 3000 });
+                const newDepositParams: SearchFormParams = {
+                    fromTime: moment()
+                        .startOf('day')
+                        .toISOString(),
+                    toTime: moment()
+                        .endOf('day')
+                        .toISOString(),
+                    depositId: params.id
+                };
+                this.pollCreatedDeposit(newDepositParams).then(res => {
+                    this.isLoading$.next(false);
+                    const status = res.length > 0 ? depositStatus(res[0].status) : 'pending';
+                    this.snackBar.open(`Deposit status is ${status}`, 'OK', { duration: 3000 });
+                    dialogRef.close();
+                });
             },
-            e => {
+            () => {
                 this.isLoading$.next(false);
                 this.snackBar.open('An error occurred while deposit create', 'OK');
-                console.error(e);
+                dialogRef.close();
             }
         );
-        dialogRef.close();
+    }
+
+    private async pollCreatedDeposit(params: SearchFormParams): Promise<StatDeposit[]> {
+        let retries = 0;
+        const result: StatDeposit[] = [];
+        while (result.length === 0 && retries < 10) {
+            await new Promise(r => setTimeout(r, 3000));
+            const res = await this.depositsService.search(params).toPromise();
+            if (
+                res.data.deposits.length > 0 &&
+                depositStatus(res.data.deposits[0].status) !== 'pending'
+            ) {
+                result.push(res.data.deposits[0]);
+            }
+            retries++;
+        }
+        return result;
     }
 
     getCurrencies(): CurrencySource[] {

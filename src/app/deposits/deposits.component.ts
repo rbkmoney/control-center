@@ -12,7 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     templateUrl: 'deposits.component.html'
 })
 export class DepositsComponent implements OnInit {
-
     searchParams: SearchFormParams;
 
     formValid: boolean;
@@ -69,7 +68,6 @@ export class DepositsComponent implements OnInit {
     }
 
     createDeposit() {
-        this.dialog.open(CreateDepositComponent);
+        this.dialog.open(CreateDepositComponent, { disableClose: true });
     }
-
 }

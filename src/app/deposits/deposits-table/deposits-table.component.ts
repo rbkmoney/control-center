@@ -11,13 +11,5 @@ export class DepositsTableComponent {
     @Input()
     deposits: StatDeposit[];
 
-    displayedColumns = [
-        'id',
-        'createdAt',
-        'destinationID',
-        'amount',
-        'currency',
-        'status'
-    ];
-
+    displayedColumns = ['id', 'createdAt', 'destinationID', 'amount', 'currency', 'status'];
 }

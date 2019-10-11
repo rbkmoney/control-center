@@ -13,7 +13,7 @@ export class SearchFormService {
             fromTime: [moment().subtract(1, 'd'), Validators.required],
             toTime: [moment(), Validators.required],
             status: null,
-            amountTo: '',
+            amountTo: ['', [Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
             currencyCode: '',
             depositId: '',
             identityId: '',

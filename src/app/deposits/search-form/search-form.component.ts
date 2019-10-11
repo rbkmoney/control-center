@@ -18,22 +18,16 @@ export class SearchFormComponent implements OnInit {
 
     form: FormGroup;
 
-    depositStatuses = [
-        'Pending',
-        'Succeeded',
-        'Failed'
-    ];
+    depositStatuses = ['Pending', 'Succeeded', 'Failed'];
 
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
         this.form = this.searchFormService.form;
-        this.form.valueChanges.subscribe((value) => {
-                console.log(value);
-                this.valueChanges.emit(this.formValueToSearchParams(value))
-            }
-        );
-        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
+        this.form.valueChanges.subscribe(value => {
+            this.valueChanges.emit(this.formValueToSearchParams(value));
+        });
+        this.form.statusChanges.subscribe(status => this.statusChanges.emit(status));
         this.form.updateValueAndValidity();
     }
 
@@ -46,5 +40,4 @@ export class SearchFormComponent implements OnInit {
             amountTo: amountTo ? Math.round(amountTo * 100) : amountTo
         };
     }
-
 }

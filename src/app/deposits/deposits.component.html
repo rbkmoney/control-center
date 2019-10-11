@@ -1,21 +1,19 @@
 <cc-card-container>
     <mat-card>
-        <mat-card-subtitle>
-            <div fxLayout fxLayoutAlign="space-between stretch" fxLayoutGap="0" fxLayoutGap.xs="10px">
-                <div>Search deposits params</div>
-                <button mat-button color="primary" (click)="createDeposit()">
-                    Create deposit
-                </button>
-            </div>
-        </mat-card-subtitle>
+        <mat-card-subtitle> Search deposits params </mat-card-subtitle>
         <mat-card-content>
             <cc-search-form
-                    (valueChanges)="formValueChanges($event)"
-                    (statusChanges)="formStatusChanges($event)"
+                (valueChanges)="formValueChanges($event)"
+                (statusChanges)="formStatusChanges($event)"
             ></cc-search-form>
         </mat-card-content>
         <mat-card-actions>
-            <button [disabled]="!formValid || isLoading" mat-button color="primary" (click)="search()">
+            <button
+                [disabled]="!formValid || isLoading"
+                mat-button
+                color="primary"
+                (click)="search()"
+            >
                 SEARCH
             </button>
         </mat-card-actions>
@@ -27,19 +25,10 @@
         <mat-card-content fxLayout="column">
             <div fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
                 <div>Found: {{ (deposits$ | async)?.length }}</div>
-                <button
-                        mat-button
-                        color="primary"
-                        (click)="createDeposit()"
-                >
-                    CREATE
-                </button>
+                <button mat-button color="primary" (click)="createDeposit()">CREATE DEPOSIT</button>
             </div>
-            <cc-deposits-table [deposits]="(deposits$ | async)"></cc-deposits-table>
-            <button
-                    *ngIf="continuationToken$ | async"
-                    mat-button
-                    (click)="fetchMore()">
+            <cc-deposits-table [deposits]="deposits$ | async"></cc-deposits-table>
+            <button *ngIf="(continuationToken$ | async)" mat-button (click)="fetchMore()">
                 Show more
             </button>
         </mat-card-content>
