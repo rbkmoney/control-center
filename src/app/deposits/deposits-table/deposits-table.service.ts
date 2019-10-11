@@ -41,43 +41,4 @@ export class DepositsTableService {
             currency: [currencies[0], Validators.required]
         });
     }
-
-    createDeposit() {
-        this.isLoading$.next(true);
-        const params = this.getParams();
-        // this.fistfulAdminService.createDeposit(params).subscribe(
-        //     () => {
-        //         this.isLoading$.next(false);
-        //         this.snackBar.open('Deposit successfully created', 'OK', { duration: 3000 });
-        //     },
-        //     e => {
-        //         this.isLoading$.next(false);
-        //         this.snackBar.open('An error occurred while deposit create', 'OK');
-        //         console.error(e);
-        //     }
-        // );
-    }
-
-    getCurrencies(): CurrencySource[] {
-        return currencies;
-    }
-
-    getForm(): FormGroup {
-        return this.form;
-    }
-
-    private getParams(): DepositParams {
-        const { destination, amount, currency } = this.form.value;
-        return {
-            id: `${this.keycloakService.getUsername()}-${uuid()}`,
-            source: currency.source,
-            destination,
-            body: {
-                amount: toMajor(amount),
-                currency: {
-                    symbolic_code: currency.currency
-                }
-            }
-        };
-    }
 }
