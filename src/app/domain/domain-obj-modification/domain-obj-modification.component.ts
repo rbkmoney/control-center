@@ -27,6 +27,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
 
     private model: DomainModificationModel;
     private initSub: Subscription;
+    private domainTypeProvider = new DomainObjCodeLensProvider();
 
     constructor(
         private router: Router,
@@ -38,8 +39,8 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.initSub = this.initialize();
-        this.codeLensProviders = [new DomainObjCodeLensProvider()];
-        this.completionProviders = [new DomainObjCompletionProvider()];
+        // this.completionProviders = [new DomainObjCompletionProvider()];
+        this.codeLensProviders = [this.domainTypeProvider];
     }
 
     ngOnDestroy() {
@@ -52,6 +53,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
         const modified = this.domainObjModService.modify(this.model.original, content);
         this.valid = !!modified;
         this.model.modified = modified;
+        this.domainTypeProvider.setMeta(modified.meta);
     }
 
     reviewChanges() {

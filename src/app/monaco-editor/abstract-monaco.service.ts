@@ -1,5 +1,5 @@
 import { ElementRef, NgZone } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import {
     map,
     takeUntil,
@@ -132,9 +132,9 @@ export abstract class AbstractMonacoService {
     }
 
     private registerCodeLensListener() {
-        this.bufferEditorInitialized(this.codeLensService.providers).subscribe(providers =>
-            this.codeLensService.register(providers)
-        );
+        this.bufferEditorInitialized(this.codeLensService.providers).subscribe(providers => {
+            this.codeLensService.register(providers);
+        });
     }
 
     private bufferEditorInitialized<T>(o: Observable<T[]>): Observable<T[]> {

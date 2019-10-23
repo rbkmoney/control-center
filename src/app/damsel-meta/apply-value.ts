@@ -23,7 +23,7 @@ import {
 import { PrimitiveType } from './model';
 
 export interface ApplyPayload {
-    applied: MetaStruct | MetaUnion;
+    applied: MetaTyped;
     errors: string[];
 }
 
@@ -151,21 +151,37 @@ function applyToPrimitive(meta: MetaPrimitive, nodeValue: ASTNode): MetaPrimitiv
 }
 
 function applyToMeta(meta: MetaTyped, value: ASTNode): MetaTyped {
+    let result;
     switch (meta.type) {
         case MetaType.struct:
-            return applyToStruct(meta as MetaStruct, value);
+            result = applyToStruct(meta as MetaStruct, value);
+            break;
         case MetaType.union:
-            return applyToUnion(meta as MetaUnion, value);
+            result = applyToUnion(meta as MetaUnion, value);
+            break;
         case MetaType.collection:
-            return applyToCollection(meta as MetaCollection, value);
+            result = applyToCollection(meta as MetaCollection, value);
+            break;
         case MetaType.map:
-            return applyToMap(meta as MetaMap, value);
+            result = applyToMap(meta as MetaMap, value);
+            break;
         case MetaType.enum:
-            return applyToEnum(meta as MetaEnum, value);
+            result = applyToEnum(meta as MetaEnum, value);
+            break;
         case MetaType.primitive:
-            return applyToPrimitive(meta as MetaPrimitive, value);
+            result = applyToPrimitive(meta as MetaPrimitive, value);
+            break;
     }
-    throw new Error(`Unsupported meta type ${meta.type}`);
+    if (!result) {
+        throw new Error(`Unsupported meta type ${meta.type}`);
+    }
+    return {
+        ...result,
+        position: {
+            start: value.start,
+            end: value.end
+        }
+    };
 }
 
 function applyToField(field: MetaField, properties: PropertyASTNode[]): MetaField {
@@ -217,28 +233,10 @@ function applyToStruct(subject: MetaStruct, value: ASTNode): MetaStruct {
     };
 }
 
-export function applyValue(subject: MetaStruct | MetaUnion, value: ObjectASTNode): ApplyPayload {
+export function applyValue(subject: MetaStruct | MetaUnion, value: ASTNode): ApplyPayload {
     const result = { applied: null, errors: [] };
     try {
-        if (value.type !== 'object') {
-            throw new Error('Apply value must be ObjectASTNode');
-        }
-        let applied;
-        switch (subject.type) {
-            case MetaType.struct:
-                applied = applyToStruct(subject as MetaStruct, value);
-                break;
-            case MetaType.union:
-                applied = applyToUnion(subject as MetaUnion, value);
-                break;
-            default:
-                throw new Error(
-                    `Applied meta type should be struct or union. Current meta type is ${
-                        subject.type
-                    }`
-                );
-        }
-        return { ...result, applied };
+        return { ...result, applied: applyToMeta(subject, value) };
     } catch (ex) {
         console.error(ex);
         return { ...result, errors: [ex.message] };

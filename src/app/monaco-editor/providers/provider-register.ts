@@ -16,11 +16,14 @@ export abstract class ProviderRegister<T extends LanguageProvider> {
     }
 
     add(providers: T[]) {
+        if (!providers) {
+            return;
+        }
         this.providers$.next(providers);
     }
 
     register(providers: T[]) {
-        if (!providers) {
+        if (!providers || providers.length === 0) {
             return;
         }
         let disposes = [];

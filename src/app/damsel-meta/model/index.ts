@@ -1,5 +1,11 @@
+export interface JsonPosition {
+    start: number;
+    end: number;
+}
+
 export interface MetaTyped {
     type: MetaType;
+    position?: JsonPosition;
 }
 
 export interface MetaObject {
