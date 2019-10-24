@@ -33,7 +33,12 @@
         <input matInput type="number" placeholder="Amount to" formControlName="amountTo" />
     </mat-form-field>
     <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
-        <input matInput placeholder="Currency code" formControlName="currencyCode" />
+        <mat-select placeholder="Currency code" formControlName="currencyCode">
+            <mat-option [value]="null">any</mat-option>
+            <mat-option *ngFor="let currency of currencies" [value]="currency.currency">{{
+                currency.currency
+            }}</mat-option>
+        </mat-select>
     </mat-form-field>
     <mat-form-field fxFlex="30" fxFlex.lt-md="45" fxFlex.lt-sm="100">
         <input matInput placeholder="Deposit ID" formControlName="depositId" />

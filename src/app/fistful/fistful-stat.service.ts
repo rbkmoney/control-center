@@ -1,10 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { ThriftService } from '../thrift';
+import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
-import { StatRequest, StatResponse } from './gen-model/fistful_stat';
+import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
+import { FetchResult } from '../partial-fetcher';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
@@ -12,6 +14,14 @@ export class FistfulStatisticsService extends ThriftService {
         super(zone, '/fistful/stat', FistfulStatistics);
     }
 
-    getDeposits = (req: StatRequest): Observable<StatResponse> =>
-        this.toObservableAction('GetDeposits')(new ThriftStatRequest(req));
+    getDeposits(req: StatRequest): Observable<FetchResult<StatDeposit>> {
+        return this.toObservableAction('GetDeposits')(new ThriftStatRequest(req)).pipe(
+            map(res => {
+                return {
+                    result: res.data.deposits,
+                    continuationToken: res.continuation_token
+                };
+            })
+        );
+    }
 }

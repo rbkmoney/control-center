@@ -1,36 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { DepositsService } from './deposits.service';
 import { CreateDepositComponent } from './create-deposit/create-deposit.component';
-import { StatDeposit } from '../fistful/gen-model/fistful_stat';
-import { BehaviorSubject } from 'rxjs';
 import { SearchFormParams } from './search-form/search-form-params';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     templateUrl: 'deposits.component.html'
 })
-export class DepositsComponent implements OnInit {
+export class DepositsComponent implements AfterViewInit {
     searchParams: SearchFormParams;
 
     formValid: boolean;
 
-    deposits$: BehaviorSubject<StatDeposit[]>;
+    deposits$ = this.depositsService.searchResult$;
 
-    continuationToken$: BehaviorSubject<string>;
+    hasMore$ = this.depositsService.hasMore$;
 
-    isLoading = false;
+    isLoading$ = this.depositsService.isLoading$;
 
-    constructor(
-        private depositsService: DepositsService,
-        private dialog: MatDialog,
-        private snackBar: MatSnackBar
-    ) {}
+    constructor(private depositsService: DepositsService, private dialog: MatDialog) {}
 
-    ngOnInit() {
-        this.deposits$ = this.depositsService.deposits$;
-        this.continuationToken$ = this.depositsService.continuationToken$;
+    ngAfterViewInit() {
+        if (this.searchParams) {
+            this.depositsService.search(this.searchParams);
+        }
     }
 
     formValueChanges(params: SearchFormParams) {
@@ -42,29 +36,13 @@ export class DepositsComponent implements OnInit {
     }
 
     search() {
-        this.isLoading = true;
-        this.depositsService.search(this.searchParams).subscribe(
-            () => {
-                this.isLoading = false;
-            },
-            () => {
-                this.isLoading = false;
-                this.snackBar.open('An error occurred while deposit search', 'OK');
-            }
-        );
+        if (this.searchParams) {
+            this.depositsService.search(this.searchParams);
+        }
     }
 
     fetchMore() {
-        this.isLoading = true;
-        this.depositsService.fetchMore().subscribe(
-            () => {
-                this.isLoading = false;
-            },
-            () => {
-                this.isLoading = false;
-                this.snackBar.open('An error occurred while deposit search', 'OK');
-            }
-        );
+        this.depositsService.search(this.searchParams);
     }
 
     createDeposit() {

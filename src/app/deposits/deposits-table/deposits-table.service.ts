@@ -3,18 +3,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject } from 'rxjs';
-import * as uuid from 'uuid/v4';
 
 import { FistfulAdminService } from '../../fistful/fistful-admin.service';
-import { toMajor } from '../to-major-amount';
-import { DepositParams } from '../../fistful/gen-model/fistful_admin';
 
 export interface CurrencySource {
     source: string;
     currency: string;
 }
 
-const currencies: CurrencySource[] = [
+export const currencies: CurrencySource[] = [
     { source: '3', currency: 'RUB' },
     { source: '5', currency: 'UAH' },
     { source: 'eskin1', currency: 'USD' },

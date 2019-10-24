@@ -9,7 +9,7 @@
         </mat-card-content>
         <mat-card-actions>
             <button
-                [disabled]="!formValid || isLoading"
+                [disabled]="!formValid || (isLoading$ | async)"
                 mat-button
                 color="primary"
                 (click)="search()"
@@ -17,7 +17,7 @@
                 SEARCH
             </button>
         </mat-card-actions>
-        <mat-card-footer *ngIf="isLoading">
+        <mat-card-footer *ngIf="(isLoading$ | async)">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </mat-card-footer>
     </mat-card>
@@ -28,9 +28,7 @@
                 <button mat-button color="primary" (click)="createDeposit()">CREATE DEPOSIT</button>
             </div>
             <cc-deposits-table [deposits]="deposits$ | async"></cc-deposits-table>
-            <button *ngIf="(continuationToken$ | async)" mat-button (click)="fetchMore()">
-                Show more
-            </button>
+            <button *ngIf="(hasMore$ | async)" mat-button (click)="fetchMore()">Show more</button>
         </mat-card-content>
     </mat-card>
 </cc-card-container>

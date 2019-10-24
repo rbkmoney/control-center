@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
 import { SearchFormParams } from './search-form-params';
+import { currencies } from '../deposits-table/deposits-table.service';
 
 @Component({
     selector: 'cc-search-form',
@@ -19,6 +20,8 @@ export class SearchFormComponent implements OnInit {
     form: FormGroup;
 
     depositStatuses = ['Pending', 'Succeeded', 'Failed'];
+
+    currencies = currencies;
 
     constructor(private searchFormService: SearchFormService) {}
 

@@ -3,7 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, merge, Observable, of, timer } from 'rxjs';
+import { filter, mergeMap, switchMap, take, takeLast, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import * as uuid from 'uuid/v4';
 
@@ -13,7 +14,6 @@ import { DepositParams } from '../../fistful/gen-model/fistful_admin';
 import { CreateDepositComponent } from './create-deposit.component';
 import { DepositsService } from '../deposits.service';
 import { SearchFormParams } from '../search-form/search-form-params';
-import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
 import { depositStatus } from '../deposit-status';
 
 export interface CurrencySource {
@@ -43,57 +43,30 @@ export class CreateDepositService {
         private snackBar: MatSnackBar,
         private fb: FormBuilder
     ) {
-        this.form = this.fb.group({
-            destination: ['', Validators.required],
-            amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
-            currency: [currencies[0], Validators.required]
-        });
+        this.resetForm();
     }
 
     createDeposit(dialogRef: MatDialogRef<CreateDepositComponent>) {
         this.isLoading$.next(true);
         const params = this.getParams();
-        this.fistfulAdminService.createDeposit(params).subscribe(
-            () => {
-                const newDepositParams: SearchFormParams = {
-                    fromTime: moment()
-                        .startOf('day')
-                        .toISOString(),
-                    toTime: moment()
-                        .endOf('day')
-                        .toISOString(),
-                    depositId: params.id
-                };
-                this.pollCreatedDeposit(newDepositParams).then(res => {
+        this.fistfulAdminService
+            .createDeposit(params)
+            .pipe(take(1))
+            .subscribe(
+                () => {
+                    this.pollCreatedDeposit(params.id).subscribe(res => {
+                        this.isLoading$.next(false);
+                        const status = res.length > 0 ? depositStatus(res[0].status) : 'pending';
+                        this.snackBar.open(`Deposit status is ${status}`, 'OK', { duration: 3000 });
+                        dialogRef.close();
+                    });
+                },
+                () => {
                     this.isLoading$.next(false);
-                    const status = res.length > 0 ? depositStatus(res[0].status) : 'pending';
-                    this.snackBar.open(`Deposit status is ${status}`, 'OK', { duration: 3000 });
+                    this.snackBar.open('An error occurred while deposit create', 'OK');
                     dialogRef.close();
-                });
-            },
-            () => {
-                this.isLoading$.next(false);
-                this.snackBar.open('An error occurred while deposit create', 'OK');
-                dialogRef.close();
-            }
-        );
-    }
-
-    private async pollCreatedDeposit(params: SearchFormParams): Promise<StatDeposit[]> {
-        let retries = 0;
-        const result: StatDeposit[] = [];
-        while (result.length === 0 && retries < 10) {
-            await new Promise(r => setTimeout(r, 3000));
-            const res = await this.depositsService.search(params).toPromise();
-            if (
-                res.data.deposits.length > 0 &&
-                depositStatus(res.data.deposits[0].status) !== 'pending'
-            ) {
-                result.push(res.data.deposits[0]);
-            }
-            retries++;
-        }
-        return result;
+                }
+            );
     }
 
     getCurrencies(): CurrencySource[] {
@@ -102,6 +75,53 @@ export class CreateDepositService {
 
     getForm(): FormGroup {
         return this.form;
+    }
+
+    resetForm() {
+        this.form = this.fb.group({
+            destination: ['', Validators.required],
+            amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
+            currency: [currencies[0], Validators.required]
+        });
+    }
+
+    private pollCreatedDeposit(depositId: string) {
+        return this.startPollingDeposit(depositId)
+            .pipe(
+                takeUntil(
+                    merge(
+                        this.depositsService.searchResult$.pipe(
+                            filter(
+                                res =>
+                                    res[0] &&
+                                    res[0].id === depositId &&
+                                    depositStatus(res[0].status) !== 'pending'
+                            )
+                        ),
+                        timer(30000)
+                    )
+                ),
+                takeLast(1)
+            )
+            .pipe(
+                mergeMap(() => this.depositsService.searchResult$),
+                take(1)
+            );
+    }
+
+    private startPollingDeposit(depositId: string, pollingInterval = 3000): Observable<void> {
+        const newDepositParams: SearchFormParams = {
+            fromTime: moment()
+                .startOf('d')
+                .toISOString(),
+            toTime: moment()
+                .endOf('d')
+                .toISOString(),
+            depositId: depositId
+        };
+        return timer(0, pollingInterval).pipe(
+            switchMap(() => of(this.depositsService.search(newDepositParams)))
+        );
     }
 
     private getParams(): DepositParams {

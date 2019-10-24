@@ -25,6 +25,7 @@ export class CreateDepositComponent implements OnInit {
         this.form = this.createDepositService.getForm();
         this.currencies = this.createDepositService.getCurrencies();
         this.isLoading$ = this.createDepositService.isLoading$;
+        this.dialogRef.afterClosed().subscribe(() => this.createDepositService.resetForm());
     }
 
     createDeposit() {
