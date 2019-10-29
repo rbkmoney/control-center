@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject } from 'rxjs';
 
 import { FistfulAdminService } from '../../fistful/fistful-admin.service';
 
@@ -23,8 +22,6 @@ export const currencies: CurrencySource[] = [
 @Injectable()
 export class DepositsTableService {
     form: FormGroup;
-
-    isLoading$ = new BehaviorSubject(false);
 
     constructor(
         private fistfulAdminService: FistfulAdminService,

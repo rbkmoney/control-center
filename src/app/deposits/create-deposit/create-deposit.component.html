@@ -14,11 +14,11 @@
         </mat-select>
     </mat-form-field>
     <mat-dialog-actions>
-        <button [disabled]="isLoading$ | async" mat-button color="warn" (click)="closeDialog()">
+        <button [disabled]="isLoading" mat-button color="warn" (click)="closeDialog()">
             Cancel
         </button>
         <button
-            [disabled]="(isLoading$ | async) || form.invalid"
+            [disabled]="isLoading || form.invalid"
             mat-button
             color="primary"
             (click)="createDeposit()"
@@ -26,5 +26,5 @@
             Create deposit
         </button>
     </mat-dialog-actions>
-    <mat-progress-bar mode="indeterminate" *ngIf="(isLoading$ | async)"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </form>
