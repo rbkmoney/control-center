@@ -7,23 +7,6 @@ import { DepositStatus, StatDeposit } from './gen-model/fistful_stat';
 import Int64 from 'thrift-ts/lib/int64';
 import { DepositParams } from './gen-model/fistful_admin';
 
-@Injectable()
-export class MockedFistfulService {
-    private requests = 0;
-
-    createDeposit(params: DepositParams): Observable<void> {
-        return of(null);
-    }
-
-    getDeposits(
-        params: SearchFormParams,
-        continuationToken?: string
-    ): Observable<FetchResult<StatDeposit>> {
-        this.requests++;
-        return of({ result: this.requests % 3 === 0 ? [mockedDeposit] : [], continuationToken });
-    }
-}
-
 const mockedStatus: DepositStatus = {
     succeeded: { failure: {} }
 };
@@ -39,3 +22,20 @@ const mockedDeposit: StatDeposit = {
     currency_symbolic_code: 'RUB',
     status: mockedStatus
 };
+
+@Injectable()
+export class MockedFistfulService {
+    private requests = 0;
+
+    createDeposit(params: DepositParams): Observable<void> {
+        return of(null);
+    }
+
+    getDeposits(
+        params: SearchFormParams,
+        continuationToken?: string
+    ): Observable<FetchResult<StatDeposit>> {
+        this.requests++;
+        return of({ result: this.requests % 4 === 0 ? [mockedDeposit] : [], continuationToken });
+    }
+}
