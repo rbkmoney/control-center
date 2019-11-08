@@ -22,13 +22,12 @@
         </mat-card-footer>
     </mat-card>
     <mat-card>
-        <mat-card-content fxLayout="column">
-            <div fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
-                <div>Found: {{ (deposits$ | async)?.length }}</div>
+        <mat-card-content fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout fxLayoutAlign="start center">
                 <button mat-button color="primary" (click)="createDeposit()">CREATE DEPOSIT</button>
             </div>
             <cc-deposits-table [deposits]="deposits$ | async"></cc-deposits-table>
-            <button *ngIf="(hasMore$ | async)" mat-button (click)="fetchMore()">Show more</button>
+            <button *ngIf="(hasMore$ | async)" mat-button (click)="fetchMore()">SHOW MORE</button>
         </mat-card-content>
     </mat-card>
 </cc-card-container>

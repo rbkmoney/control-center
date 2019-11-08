@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
-import * as moment from 'moment';
 import * as uuid from 'uuid/v4';
 
-import { FistfulAdminService } from '../../fistful/fistful-admin.service';
 import { toMajor } from '../to-major-amount';
 import { DepositsService } from '../deposits.service';
-import { SearchFormParams } from '../search-form/search-form-params';
-import { FistfulStatisticsService } from '../../fistful/fistful-stat.service';
-import { depositStatus } from '../deposit-status';
 import { DepositParams } from '../../fistful/gen-model/fistful_admin';
+import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
+import { MockedFistfulService } from '../../fistful/mocked-fistful.service';
+import { poll } from '../../custom-operators/poll';
+import { SearchFormParams } from '../search-form/search-form-params';
+import * as moment from 'moment';
+import { depositStatus } from '../deposit-status';
 
 export interface CurrencySource {
     source: string;
@@ -30,52 +29,36 @@ export const currencies: CurrencySource[] = [
 
 @Injectable()
 export class CreateDepositService {
-    form: FormGroup;
-
-    isLoading$ = new BehaviorSubject(false);
+    form = this.initForm();
 
     constructor(
-        private fistfulAdminService: FistfulAdminService,
-        private fistfulStatisticsService: FistfulStatisticsService,
+        private fistfulAdminService: MockedFistfulService,
+        private fistfulStatisticsService: MockedFistfulService,
         private depositsService: DepositsService,
         private keycloakService: KeycloakService,
         private fb: FormBuilder
-    ) {
-        this.initForm();
-    }
+    ) {}
 
-    createDeposit(): Observable<string> {
-        this.isLoading$.next(true);
+    createDeposit() {
         const params = this.getParams();
-        return this.fistfulAdminService.createDeposit(params).pipe(
-            mergeMap(() => {
-                return this.fistfulStatisticsService.pollCreatedDeposit(params.id).pipe(
-                    mergeMap(res => {
-                        const polledDepositParams: SearchFormParams = {
-                            fromTime: moment()
-                                .startOf('d')
-                                .toISOString(),
-                            toTime: moment()
-                                .endOf('d')
-                                .toISOString(),
-                            depositId: params.id
-                        };
-                        this.depositsService.search(polledDepositParams);
-                        return of(
-                            res.result.length > 0 ? depositStatus(res.result[0].status) : 'pending'
-                        );
-                    })
-                );
-            })
-        );
+        const pollingParams = this.getPollingSearchFormParams(params);
+        return this.fistfulAdminService
+            .createDeposit(params)
+            .pipe(
+                poll(
+                    this.fistfulStatisticsService.getDeposits.bind(this.fistfulStatisticsService),
+                    pollingParams,
+                    this.stopPollingCondition
+                )
+            );
     }
 
-    getForm(): FormGroup {
-        return this.form;
+    private stopPollingCondition(deposit: StatDeposit): boolean {
+        return !!deposit && depositStatus(deposit.status) !== 'pending';
     }
 
-    private initForm() {
-        this.form = this.fb.group({
+    private initForm(): FormGroup {
+        return this.fb.group({
             destination: ['', Validators.required],
             amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
             currency: [currencies[0], Validators.required]
@@ -94,6 +77,18 @@ export class CreateDepositService {
                     symbolic_code: currency.currency
                 }
             }
+        };
+    }
+
+    private getPollingSearchFormParams(params: DepositParams): SearchFormParams {
+        return {
+            fromTime: moment()
+                .startOf('d')
+                .toISOString(),
+            toTime: moment()
+                .endOf('d')
+                .toISOString(),
+            depositId: params.id
         };
     }
 }

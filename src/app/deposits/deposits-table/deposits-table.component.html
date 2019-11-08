@@ -17,11 +17,6 @@
         <th fxHide.sm fxHide.xs mat-header-cell *matHeaderCellDef>Amount</th>
         <td fxHide.sm fxHide.xs mat-cell *matCellDef="let deposit">
             {{ deposit.amount | ccThriftInt64 | ccFormatAmount }}
-        </td>
-    </ng-container>
-    <ng-container matColumnDef="currency">
-        <th fxHide.sm fxHide.xs mat-header-cell *matHeaderCellDef>Currency</th>
-        <td fxHide.sm fxHide.xs mat-cell *matCellDef="let deposit">
             {{ deposit.currency_symbolic_code | ccCurrency }}
         </td>
     </ng-container>

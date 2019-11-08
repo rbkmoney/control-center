@@ -1,7 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { merge, Observable, Subject, timer } from 'rxjs';
-import { map, mergeMap, takeLast, takeUntil, tap } from 'rxjs/operators';
-import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ThriftService } from '../thrift';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
@@ -10,15 +9,13 @@ import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
 import { FetchResult } from '../partial-fetcher';
 import { SearchFormParams } from '../deposits/search-form/search-form-params';
 import { QueryDSL } from '../query-dsl';
-import { depositStatus } from '../deposits/deposit-status';
+import { MockedFistfulService } from './mocked-fistful.service';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
     private readonly searchLimit = 20;
 
-    private stopPolling$ = new Subject<boolean>();
-
-    constructor(zone: NgZone) {
+    constructor(private mockedDepositsService: MockedFistfulService, zone: NgZone) {
         super(zone, '/fistful/stat', FistfulStatistics);
     }
 
@@ -33,36 +30,6 @@ export class FistfulStatisticsService extends ThriftService {
                 continuationToken: res.continuation_token
             }))
         );
-    }
-
-    pollCreatedDeposit(depositId: string): Observable<FetchResult<StatDeposit>> {
-        return this.startPollingDeposit(depositId).pipe(
-            takeUntil(merge(this.stopPolling$, timer(30000))),
-            takeLast(1)
-        );
-    }
-
-    private startPollingDeposit(
-        depositId: string,
-        pollingInterval = 3000
-    ): Observable<FetchResult<StatDeposit>> {
-        const newDepositParams: SearchFormParams = {
-            fromTime: moment()
-                .startOf('d')
-                .toISOString(),
-            toTime: moment()
-                .endOf('d')
-                .toISOString(),
-            depositId
-        };
-        return timer(0, pollingInterval).pipe(
-            mergeMap(() => this.getDeposits(newDepositParams)),
-            tap(res => this.stopPollingCondition(res.result[0]))
-        );
-    }
-
-    private stopPollingCondition(deposit: StatDeposit): boolean {
-        return !!deposit && depositStatus(deposit.status) !== 'pending';
     }
 
     private searchParamsToRequest(
@@ -94,7 +61,7 @@ export class FistfulStatisticsService extends ThriftService {
                         ...(partyId ? { party_id: partyId } : {}),
                         ...(sourceId ? { source_id: sourceId } : {}),
                         ...(status ? { status } : {}),
-                        ...(walletId ? { wallet_d: walletId } : {}),
+                        ...(walletId ? { wallet_id: walletId } : {}),
                         size: this.searchLimit.toString()
                     }
                 }

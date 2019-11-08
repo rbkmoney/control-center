@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 import { CreateDepositService, currencies } from './create-deposit.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { depositStatus } from '../deposit-status';
 
 @Component({
     selector: 'cc-create-deposit',
@@ -23,7 +24,7 @@ export class CreateDepositComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.form = this.createDepositService.getForm();
+        this.form = this.createDepositService.form;
         this.dialogRef
             .afterClosed()
             .subscribe(() => this.form.reset({ currency: this.currencies[0] }));
@@ -33,13 +34,14 @@ export class CreateDepositComponent implements OnInit {
         this.isLoading = true;
         this.form.disable();
         this.createDepositService.createDeposit().subscribe(
-            status => {
+            () => {
                 this.isLoading = false;
                 this.form.enable();
-                this.snackBar.open(`Deposit status is ${status}`, 'OK', { duration: 3000 });
+                this.snackBar.open(`Deposit status successfully created`, 'OK', { duration: 3000 });
                 this.dialogRef.close();
             },
-            () => {
+            e => {
+                console.error(e);
                 this.isLoading = false;
                 this.form.enable();
                 this.snackBar.open('An error occurred while deposit create', 'OK');
