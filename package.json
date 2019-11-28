@@ -48,7 +48,8 @@
     "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#a5e3830ad30d5717e5e627ddcefa8f4d8918b174",
     "uuid": "^3.3.2",
     "woody_js": "file:../woody_js",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "@rbkmoney/partial-fetcher": "^1.0.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.6",

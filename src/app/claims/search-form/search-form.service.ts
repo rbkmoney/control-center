@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import values from 'lodash-es/values';
-
 import { ClaimStatus } from '../../papi/model/claim-statuses';
 
 @Injectable()
@@ -19,7 +18,7 @@ export class SearchFormService {
     private prepareForm(): FormGroup {
         return this.fb.group({
             statuses: '',
-            party_id: ['0369a0e7-70fb-4c04-9ac1-97068df65815', Validators.required]
+            party_id: ['7eb065b9-787a-41bd-a29b-e93c9e8fbb19', Validators.required]
         });
     }
 }

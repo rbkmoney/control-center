@@ -26,7 +26,7 @@ import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
 import { CreateClaimComponent } from './create-claim/create-claim.component';
 import { SharedModule } from '../shared/shared.module';
 import { ClaimsService } from './claims.service';
-import { ClaimsService as ClaimManagementService } from '../thrift/claims.service';
+import { ClaimManagementService as ClaimManagementService } from '../thrift/claim-management.service';
 
 @NgModule({
     imports: [

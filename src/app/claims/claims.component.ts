@@ -18,8 +18,8 @@ export class ClaimsComponent {
         this.claims$ = this.claimService.claims$;
     }
 
-    search(params: SearchFormValue) {
-        this.claimService.search(params);
+    search(searchFormValue: SearchFormValue) {
+        this.claimService.search(searchFormValue);
     }
 
     fetchMore() {
