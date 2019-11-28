@@ -44,13 +44,6 @@ export class ThriftService {
                                 observer.complete();
                             })
                         );
-                        // this.createClient(msg => {
-                        //     observer.error(msg);
-                        //     observer.complete();
-                        // })[name](...args, (ex: Exception, result) => {
-                        //     ex ? observer.error(ex) : observer.next(result);
-                        //     observer.complete();
-                        // });
                     } catch (e) {
                         observer.error(e);
                         observer.complete();
