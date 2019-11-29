@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ThriftService } from '../thrift';
 import * as ClaimManagement from './gen-nodejs/ClaimManagement';
-import { ClaimSearchQuery } from '../gen-damsel/claim_management';
+import { ClaimSearchResponse } from '../gen-damsel/claim_management';
 import { ClaimSearchQuery as ClaimSearchQueryType } from './gen-nodejs/claim_management_types';
 import { KeycloakService } from 'keycloak-angular';
 
@@ -13,7 +13,9 @@ export class ClaimManagementService extends ThriftService {
         super(zone, keycloakService, '/v1/cm', ClaimManagement);
     }
 
-    getClaims = (query: ClaimSearchQuery): Observable<any> => {
+    // `any` because thrift need unions in statuses, not ClaimStatus[] from ClaimSearchQuery.
+    // TODO: need converter???
+    getClaims = (query: any): Observable<ClaimSearchResponse> => {
         return this.toObservableAction('SearchClaims')(new ClaimSearchQueryType(query));
     };
 }

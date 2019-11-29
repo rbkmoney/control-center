@@ -5,14 +5,13 @@ import { catchError, shareReplay } from 'rxjs/operators';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 
 import { ClaimManagementService as ClaimManagementService } from '../thrift/claim-management.service';
-import { ClaimInfo } from '../papi/model';
 import { SearchFormValue } from './search-form/search-form-value';
 import { booleanDebounceTime } from '../shared/operators';
 import { convertFormValueToParams } from './convert-form-value-to-params';
-import { ClaimSearchQuery } from '../gen-damsel/claim_management';
+import { Claim } from '../gen-damsel/claim_management';
 
 @Injectable()
-export class ClaimsService extends PartialFetcher<ClaimInfo[], SearchFormValue> {
+export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
     private readonly searchLimit = 20;
 
     claims$: Observable<any> = this.searchResult$.pipe(
@@ -34,11 +33,11 @@ export class ClaimsService extends PartialFetcher<ClaimInfo[], SearchFormValue> 
         super();
     }
 
-    protected fetch(searchFormValue: SearchFormValue, continuationToken: string): Observable<FetchResult<any>> {
+    protected fetch(searchFormValue: SearchFormValue, continuationToken: string): Observable<FetchResult<Claim>> {
         return this.claimManagementService.getClaims({
             ...convertFormValueToParams(searchFormValue),
             continuationToken,
             limit: this.searchLimit
-        } as ClaimSearchQuery);
+        });
     }
 }

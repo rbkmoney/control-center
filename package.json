@@ -31,9 +31,10 @@
     "@angular/platform-browser-dynamic": "^8.2.8",
     "@angular/platform-server": "^8.2.8",
     "@angular/router": "^8.2.8",
+    "@rbkmoney/partial-fetcher": "^1.0.4",
     "angular2-prettyjson": "3.0.1",
     "core-js": "^2.5.4",
-    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#cdb9559ca8697ee0b921cee333d8ab8207371215",
+    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#f7d518b9aef905db6e3928f7d7b13386a1adf6a8",
     "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#59b72ba54ec0e7f1af1d9b83aba10883ac985019",
     "hammerjs": "^2.0.8",
     "jsonc-parser": "^2.0.2",
@@ -48,8 +49,7 @@
     "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#a5e3830ad30d5717e5e627ddcefa8f4d8918b174",
     "uuid": "^3.3.2",
     "woody_js": "file:../woody_js",
-    "zone.js": "~0.8.26",
-    "@rbkmoney/partial-fetcher": "^1.0.3"
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.6",
