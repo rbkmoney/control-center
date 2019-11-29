@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 
-import { ClaimManagementService as ClaimManagementService } from '../thrift/claim-management.service';
+import { ClaimManagementService } from '../thrift/claim-management.service';
 import { SearchFormValue } from './search-form/search-form-value';
 import { booleanDebounceTime } from '../shared/operators';
 import { convertFormValueToParams } from './convert-form-value-to-params';
@@ -33,7 +33,10 @@ export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
         super();
     }
 
-    protected fetch(searchFormValue: SearchFormValue, continuationToken: string): Observable<FetchResult<Claim>> {
+    protected fetch(
+        searchFormValue: SearchFormValue,
+        continuationToken: string
+    ): Observable<FetchResult<Claim>> {
         return this.claimManagementService.getClaims({
             ...convertFormValueToParams(searchFormValue),
             continuationToken,

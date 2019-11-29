@@ -5,7 +5,7 @@ export const convertFormValueToParams = (params: SearchFormValue) => {
     for (const k in params) {
         if (params.hasOwnProperty(k)) {
             if (k === 'statuses') {
-                result[k] = (params[k] as string[]).reduce((acc, cv) => ({...acc, [cv]: {}}), {});
+                result[k] = (params[k] as string[]).reduce((acc, cv) => ({ ...acc, [cv]: {} }), {});
             } else {
                 result[k] = params[k];
             }

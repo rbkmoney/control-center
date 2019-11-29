@@ -16,6 +16,8 @@
     </mat-card>
     <div class="mat-elevation-z2" fxLayout="column" fxLayoutGap="20px">
         <cc-claims-table [claims]="claims$ | async"></cc-claims-table>
-        <button mat-raised-button *ngIf="hasMore$ | async" [disabled]="isLoading$ | async">Load more...</button>
+        <button mat-raised-button *ngIf="(hasMore$ | async)" [disabled]="isLoading$ | async">
+            Load more...
+        </button>
     </div>
 </cc-card-container>
