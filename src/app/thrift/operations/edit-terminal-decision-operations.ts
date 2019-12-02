@@ -1,13 +1,16 @@
 import { ProviderObject } from '../../gen-damsel/domain';
 import { UpdateOp } from '../../gen-damsel/domain_config';
 import { toGenDomainObject } from '../converters';
-import { editTerminalDecisionProperty } from './edit-terminal-decision-property';
+import { editTerminalDecisionPropertyForShop } from './edit-terminal-decision-property-for-shop';
 import { EditTerminalDecisionPropertyParams } from './edit-terminal-decision-property-params';
 
-export const editTerminalDecisionPropertyOperation = (
+export const editTerminalDecisionPropertyForShopOperation = (
     providerObject: ProviderObject,
     params: EditTerminalDecisionPropertyParams
 ): UpdateOp => ({
     old_object: toGenDomainObject(providerObject, 'provider'),
-    new_object: toGenDomainObject(editTerminalDecisionProperty(providerObject, params), 'provider')
+    new_object: toGenDomainObject(
+        editTerminalDecisionPropertyForShop(providerObject, params),
+        'provider'
+    )
 });

@@ -43,7 +43,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
         this.editPriorityService.terminalChanged.subscribe(() => {
             this.terminalChanged.emit();
         });
-        this.isLoading = this.editPriorityService.isLoading;
+        this.isLoading = this.editPriorityService.isLoading$;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -129,6 +129,10 @@ export class TerminalsComponent implements OnChanges, OnInit {
                 value: diffPlus50
             });
         }
+    }
+
+    isWeightOrPriorityEditable(predicate: PredicateType): boolean {
+        return predicate === PredicateType.condition;
     }
 
     private getModalData(terminalID: number) {
