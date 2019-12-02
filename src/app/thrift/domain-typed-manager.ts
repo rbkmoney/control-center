@@ -18,7 +18,7 @@ import { DomainCacheService } from './domain-cache.service';
 import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
 import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
 import { Version } from '../gen-damsel/domain_config';
-import { editTerminalDecisionPropertyCommit } from './operations/edit-terminal-decision-property-commit';
+import { editTerminalDecisionPropertyForShopCommit } from './operations/edit-terminal-decision-property-for-shop-commit';
 import { EditTerminalDecisionPropertyParams } from './operations/edit-terminal-decision-property-params';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
@@ -70,15 +70,14 @@ export class DomainTypedManager {
         );
     }
 
-    editTerminalDecisionProperty(params: EditTerminalDecisionPropertyParams) {
+    editTerminalDecisionPropertyForShop(params: EditTerminalDecisionPropertyParams) {
         return combineLatest(this.getLastVersion(), this.getProviderObject(params.providerID)).pipe(
-            switchMap(([version, provider]) => {
-                editTerminalDecisionPropertyCommit(provider, params);
-                return this.dmtService.commit(
+            switchMap(([version, provider]) =>
+                this.dmtService.commit(
                     version,
-                    editTerminalDecisionPropertyCommit(provider, params)
-                );
-            }),
+                    editTerminalDecisionPropertyForShopCommit(provider, params)
+                )
+            ),
             tap(() => this.dmtCacheService.forceReload())
         );
     }

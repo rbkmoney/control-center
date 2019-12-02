@@ -14,7 +14,7 @@ export interface EditTerminalDecisionFormValues {
 
 export class EditTerminalDecision {
     form: FormGroup;
-    isLoading: Subject<boolean> = new Subject();
+    isLoading$: Subject<boolean> = new Subject();
     terminalChanged: EventEmitter<void> = new EventEmitter();
 
     constructor(public dtm: DomainTypedManager, public snackBar: MatSnackBar) {}
@@ -25,17 +25,17 @@ export class EditTerminalDecision {
             ...this.form.getRawValue(),
             ...formValues
         } as EditTerminalDecisionPropertyParams;
-        this.isLoading.next(true);
-        this.dtm.editTerminalDecisionProperty(params).subscribe(
+        this.isLoading$.next(true);
+        this.dtm.editTerminalDecisionPropertyForShop(params).subscribe(
             () => {
                 this.terminalChanged.emit();
-                this.isLoading.next(false);
+                this.isLoading$.next(false);
                 this.snackBar.open('Terminal decision successfully edited', 'OK', {
                     duration: 3000
                 });
             },
             e => {
-                this.isLoading.next(false);
+                this.isLoading$.next(false);
                 this.snackBar.open('An error occurred while while editing terminal decision', 'OK');
                 console.error(e);
             }
