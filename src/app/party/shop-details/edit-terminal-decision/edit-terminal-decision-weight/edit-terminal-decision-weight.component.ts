@@ -16,7 +16,7 @@ export interface EditWeightData {
     providers: [EditTerminalDecisionWeightService]
 })
 export class EditTerminalDecisionWeightComponent implements OnInit {
-    isLoading;
+    isLoading$;
     form: FormGroup;
 
     constructor(
@@ -27,8 +27,8 @@ export class EditTerminalDecisionWeightComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        const { isLoading, form } = this.editWeightService;
-        this.isLoading = isLoading;
+        const { isLoading$, form } = this.editWeightService;
+        this.isLoading$ = isLoading$;
         this.form = form;
         this.editWeightService.terminalChanged.subscribe(() => {
             this.dialogRef.close(true);
