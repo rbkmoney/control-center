@@ -23,6 +23,7 @@ import { CoreModule } from './core/core.module';
 import { ClaimsModule } from './claims/claims.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ClaimModule } from './claim/claim.module';
+import { ClaimModule as NewClaimModule } from './newClaim/claim.module';
 import { PayoutsModule } from './payouts/payouts.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PartiesModule } from './parties/parties.module';
@@ -46,6 +47,7 @@ import { DepositsModule } from './deposits/deposits.module';
         MatListModule,
         ClaimsModule,
         ClaimModule,
+        NewClaimModule,
         PayoutsModule,
         PaymentAdjustmentModule,
         PartiesModule,

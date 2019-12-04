@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { ClaimCreated, ClaimInfo, PartyModificationUnit } from './model';
 import { ConfigService } from '../core/config.service';
 import { decode, encode } from '../shared/java-thrift-formatter';
-import { ClaimAcceptParams, ClaimDenyParams, ClaimSearchParams } from './params';
+import { ClaimAcceptParams, ClaimDenyParams } from './params';
 import { ClaimSearchQuery } from '../gen-damsel/claim_management';
 
 @Injectable()

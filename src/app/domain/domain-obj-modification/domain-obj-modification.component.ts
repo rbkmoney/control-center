@@ -3,7 +3,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { MonacoFile, CodeLensProvider, CompletionProvider } from '../../monaco-editor/model';
+import { MonacoFile, CodeLensProvider, CompletionProvider } from '../../monaco-editor';
 import { DomainObjModificationService } from './domain-obj-modification.service';
 import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
 import { DomainObjCompletionProvider } from './domain-obj-completion-provider';

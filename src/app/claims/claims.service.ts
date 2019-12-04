@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
+import { catchError, map, shareReplay } from 'rxjs/operators';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 
 import { ClaimManagementService } from '../thrift/claim-management.service';
@@ -30,17 +30,24 @@ export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
         private claimManagementService: ClaimManagementService,
         private snackBar: MatSnackBar
     ) {
-        super();
+        super(0);
     }
 
     protected fetch(
         searchFormValue: SearchFormValue,
         continuationToken: string
     ): Observable<FetchResult<Claim>> {
-        return this.claimManagementService.getClaims({
-            ...convertFormValueToParams(searchFormValue),
-            continuationToken,
-            limit: this.searchLimit
-        });
+        return this.claimManagementService
+            .getClaims({
+                ...convertFormValueToParams(searchFormValue),
+                continuationToken,
+                limit: this.searchLimit
+            })
+            .pipe(
+                map(r => ({
+                    result: r.result,
+                    continuationToken: r.continuation_token
+                }))
+            );
     }
 }
