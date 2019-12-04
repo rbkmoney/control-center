@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ClaimInfo } from '../../papi/model';
-import { ClaimActionType } from '../../claim/claim-action-type';
+import { Claim, ClaimStatus } from '../../gen-damsel/claim_management';
+import { extractClaimStatus } from '../../shared/extract-claim-status';
 
 @Component({
     selector: 'cc-claims-table',
@@ -11,10 +11,9 @@ import { ClaimActionType } from '../../claim/claim-action-type';
 })
 export class ClaimsTableComponent {
     @Input()
-    claims: ClaimInfo[];
+    claims: Claim[];
 
     displayedColumns = [
-        'partyID',
         'claimID',
         'status',
         'revision',
@@ -25,8 +24,11 @@ export class ClaimsTableComponent {
 
     constructor(private router: Router) {}
 
-    navigateToClaim(claim: ClaimInfo) {
-        const c = claim as any;
-        this.router.navigate([`/claims/${c.partyId}/${ClaimActionType.edit}/${c.claimId}`]);
+    navigateToClaim(id: string) {
+        this.router.navigate([`/claim/${id}`]);
+    }
+
+    getClaimStatus(status: ClaimStatus) {
+        return extractClaimStatus(status);
     }
 }
