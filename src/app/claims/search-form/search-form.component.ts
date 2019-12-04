@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
 import { debounceTime } from 'rxjs/internal/operators';
-import { ClaimSearchQuery } from '../../gen-damsel/claim_management';
+import { SearchFormValue } from './search-form-value';
 
 @Component({
     selector: 'cc-search-form',
@@ -12,7 +12,7 @@ import { ClaimSearchQuery } from '../../gen-damsel/claim_management';
 })
 export class SearchFormComponent implements OnInit {
     @Output()
-    valueChanges: EventEmitter<ClaimSearchQuery> = new EventEmitter();
+    valueChanges: EventEmitter<SearchFormValue> = new EventEmitter();
 
     form: FormGroup;
 
