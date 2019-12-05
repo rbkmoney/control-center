@@ -25,6 +25,8 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
 import { CreateClaimComponent } from './create-claim/create-claim.component';
 import { SharedModule } from '../shared/shared.module';
+import { ClaimsService } from './claims.service';
+import { ClaimManagementService } from '../thrift/claim-management.service';
 
 @NgModule({
     imports: [
@@ -54,6 +56,7 @@ import { SharedModule } from '../shared/shared.module';
         ClaimActionsComponent,
         CreateClaimComponent
     ],
-    entryComponents: [CreateClaimComponent]
+    entryComponents: [CreateClaimComponent],
+    providers: [ClaimsService, ClaimManagementService]
 })
 export class ClaimsModule {}

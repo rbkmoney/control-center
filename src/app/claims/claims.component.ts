@@ -1,39 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { HttpErrorResponse } from '@angular/common/http';
 
-import { ClaimService } from '../papi/claim.service';
-import { ClaimSearchParams } from '../papi/params';
-import { ClaimInfo } from '../papi/model';
+import { ClaimsService } from './claims.service';
+import { SearchFormValue } from './search-form/search-form-value';
+import { ClaimStatus } from '../papi/model/claim-statuses';
 
 @Component({
     templateUrl: 'claims.component.html',
     styleUrls: []
 })
 export class ClaimsComponent implements OnInit {
-    isLoading = false;
+    isLoading$ = this.claimService.isLoading$;
+    claims$ = this.claimService.claims$;
+    hasMore$ = this.claimService.hasMore$;
 
-    claims: ClaimInfo[];
+    constructor(private claimService: ClaimsService) {}
 
-    constructor(private claimService: ClaimService, private snackBar: MatSnackBar) {}
-
-    ngOnInit() {
-        this.search({ claimStatus: 'pending' });
+    ngOnInit(): void {
+        this.search({ statuses: [ClaimStatus.pending] });
     }
 
-    search(params: ClaimSearchParams) {
-        this.isLoading = true;
-        this.claimService.getClaims(params).subscribe(
-            claims => {
-                this.isLoading = false;
-                this.claims = claims.reverse();
-            },
-            (error: HttpErrorResponse) => {
-                this.isLoading = false;
-                this.snackBar.open(`${error.status}: ${error.message}`, 'OK', {
-                    duration: 1500
-                });
-            }
-        );
+    search(searchFormValue: SearchFormValue) {
+        this.claimService.search(searchFormValue);
+    }
+
+    fetchMore() {
+        this.claimService.fetchMore();
     }
 }

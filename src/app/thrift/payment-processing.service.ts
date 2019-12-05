@@ -16,11 +16,12 @@ import { ThriftService } from './thrift-service';
 import * as Invoicing from './gen-nodejs/Invoicing';
 import { InvoiceID } from '../gen-damsel/domain';
 import { share, switchMap, first } from 'rxjs/operators';
+import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {
-    constructor(zone: NgZone) {
-        super(zone, '/v1/processing/invoicing', Invoicing);
+    constructor(zone: NgZone, keycloakService: KeycloakService) {
+        super(zone, keycloakService, '/v1/processing/invoicing', Invoicing);
     }
 
     getPaymentAdjustment = (
