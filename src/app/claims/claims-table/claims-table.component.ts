@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Claim, ClaimStatus } from '../../gen-damsel/claim_management';
@@ -14,6 +14,7 @@ export class ClaimsTableComponent {
     claims: Claim[];
 
     displayedColumns = [
+        'partyID',
         'claimID',
         'status',
         'revision',
@@ -24,8 +25,8 @@ export class ClaimsTableComponent {
 
     constructor(private router: Router) {}
 
-    navigateToClaim(id: string) {
-        this.router.navigate([`/claim/${id}`]);
+    navigateToClaim(partyID: string, claimID: number) {
+        this.router.navigate([`party/${partyID}/claim/${claimID}`]);
     }
 
     getClaimStatus(status: ClaimStatus) {
