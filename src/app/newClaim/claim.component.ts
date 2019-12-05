@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClaimService } from './claim.service';
-import { MatSnackBar } from '@angular/material';
-import { map, switchMap } from 'rxjs/operators';
 
 @Component({
     templateUrl: 'claim.component.html',
@@ -10,15 +8,10 @@ import { map, switchMap } from 'rxjs/operators';
 })
 export class ClaimComponent {
     claim$ = this.claimService.claim$;
-    // .pipe(map(r => {
-    //     console.log(r);
-    //     return r;
-    // }))
 
     constructor(
         private route: ActivatedRoute,
-        private claimService: ClaimService,
-        private snackBar: MatSnackBar
+        private claimService: ClaimService
     ) {
         this.route.params.subscribe(params => {
             const { party_id, claim_id } = params;

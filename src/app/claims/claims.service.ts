@@ -38,7 +38,7 @@ export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
         continuationToken: string
     ): Observable<FetchResult<Claim>> {
         return this.claimManagementService
-            .getClaims({
+            .searchClaims({
                 ...convertFormValueToParams(searchFormValue),
                 continuationToken,
                 limit: this.searchLimit
