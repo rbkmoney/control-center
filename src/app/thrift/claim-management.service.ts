@@ -16,7 +16,7 @@ export class ClaimManagementService extends ThriftService {
 
     // `any` because thrift need unions in statuses, not ClaimStatus[] from ClaimSearchQuery.
     // TODO: need converter???
-    getClaims = (query: any): Observable<ClaimSearchResponse> => {
+    searchClaims = (query: any): Observable<ClaimSearchResponse> => {
         return this.toObservableAction('SearchClaims')(new ClaimSearchQueryType(query)).pipe(
             map(r => r)
         );
