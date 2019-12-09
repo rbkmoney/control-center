@@ -8,7 +8,7 @@
             </div>
             <div fxLayout="row" fxLayout.xs="column">
                 <label fxFlex="20">Status:</label>
-                <div>{{ extractClaimStatus(claim.status) }}</div>
+                <div>{{ status }}</div>
             </div>
             <div fxLayout="row" fxLayout.xs="column">
                 <label fxFlex="20">Revision:</label>
@@ -30,4 +30,17 @@
             </div>
         </div>
     </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="end center">
+        <div fxLayout="row" fxLayout.xs="column">
+            <button mat-button color="primary" (click)="accept()" [disabled]="!isCanAcceptOrDeny()">
+                ACCEPT CLAIM
+            </button>
+            <button mat-button color="warn" (click)="deny()" [disabled]="!isCanAcceptOrDeny()">
+                DENY CLAIM
+            </button>
+        </div>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="(isLoading$ | async)">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
 </mat-card>
