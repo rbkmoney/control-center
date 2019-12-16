@@ -40,7 +40,7 @@ export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
         return this.claimManagementService
             .searchClaims({
                 ...convertFormValueToParams(searchFormValue),
-                continuationToken,
+                continuation_token: continuationToken,
                 limit: this.searchLimit
             })
             .pipe(
