@@ -18,18 +18,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CdkTableModule } from '@angular/cdk/table';
 
 import { ClaimsComponent } from './claims.component';
-import { ClaimsRoutingModule } from './claims-routing.module';
-import { PapiModule } from '../papi/papi.module';
+import { PapiModule } from '../../papi/papi.module';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
 import { CreateClaimComponent } from './create-claim/create-claim.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
+import { ClaimsService } from './claims.service';
+import { ClaimManagementService } from '../../thrift/claim-management.service';
+import { ClaimsRoutingModule } from './claims-routing.module';
 
 @NgModule({
     imports: [
-        CommonModule,
         ClaimsRoutingModule,
+        CommonModule,
         FlexLayoutModule,
         PapiModule,
         ReactiveFormsModule,
@@ -54,6 +56,7 @@ import { SharedModule } from '../shared/shared.module';
         ClaimActionsComponent,
         CreateClaimComponent
     ],
-    entryComponents: [CreateClaimComponent]
+    entryComponents: [CreateClaimComponent],
+    providers: [ClaimsService, ClaimManagementService]
 })
 export class ClaimsModule {}
