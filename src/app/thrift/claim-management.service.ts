@@ -19,4 +19,17 @@ export class ClaimManagementService extends ThriftService {
     getClaim = (partyID: string, claimID: number): Observable<Claim> => {
         return this.toObservableAction('GetClaim')(partyID, claimID);
     };
+
+    acceptClaim = (partyID: string, claimID: number, revision: number): Observable<void> => {
+        return this.toObservableAction('AcceptClaim')(partyID, claimID, revision);
+    };
+
+    denyClaim = (
+        partyID: string,
+        claimID: number,
+        revision: number,
+        reason: string
+    ): Observable<void> => {
+        return this.toObservableAction('DenyClaim')(partyID, claimID, revision, reason);
+    };
 }
