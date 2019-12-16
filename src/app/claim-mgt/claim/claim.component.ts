@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from './claim.service';
 
 @Component({
-    templateUrl: 'claim.component.html'
+    templateUrl: 'claim.component.html',
+    providers: [ClaimService]
 })
 export class ClaimComponent {
     claim$ = this.claimService.claim$;
