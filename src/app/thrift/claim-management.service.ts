@@ -16,20 +16,16 @@ export class ClaimManagementService extends ThriftService {
     searchClaims = (query: ClaimSearchQuery): Observable<ClaimSearchResponse> =>
         this.toObservableAction('SearchClaims')(new ClaimSearchQueryType(query));
 
-    getClaim = (partyID: string, claimID: number): Observable<Claim> => {
-        return this.toObservableAction('GetClaim')(partyID, claimID);
-    };
+    getClaim = (partyID: string, claimID: number): Observable<Claim> =>
+        this.toObservableAction('GetClaim')(partyID, claimID);
 
-    acceptClaim = (partyID: string, claimID: number, revision: number): Observable<void> => {
-        return this.toObservableAction('AcceptClaim')(partyID, claimID, revision);
-    };
+    acceptClaim = (partyID: string, claimID: number, revision: number): Observable<void> =>
+        this.toObservableAction('AcceptClaim')(partyID, claimID, revision);
 
     denyClaim = (
         partyID: string,
         claimID: number,
         revision: number,
         reason: string
-    ): Observable<void> => {
-        return this.toObservableAction('DenyClaim')(partyID, claimID, revision, reason);
-    };
+    ): Observable<void> => this.toObservableAction('DenyClaim')(partyID, claimID, revision, reason);
 }
