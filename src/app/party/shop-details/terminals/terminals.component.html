@@ -20,7 +20,10 @@
                 <button
                     mat-icon-button
                     (click)="changePriority('plus', i)"
-                    [disabled]="isLoading | async"
+                    [disabled]="
+                        !isWeightOrPriorityEditable(terminalInfo.predicateType) ||
+                        (isLoading | async)
+                    "
                 >
                     <mat-icon>keyboard_arrow_up</mat-icon>
                 </button>
@@ -28,7 +31,10 @@
                 <button
                     mat-icon-button
                     (click)="changePriority('minus', i)"
-                    [disabled]="isLoading | async"
+                    [disabled]="
+                        !isWeightOrPriorityEditable(terminalInfo.predicateType) ||
+                        (isLoading | async)
+                    "
                 >
                     <mat-icon>keyboard_arrow_down</mat-icon>
                 </button>
@@ -62,7 +68,10 @@
                     <button
                         mat-menu-item
                         (click)="editPriority(terminalInfo.terminal.ref.id)"
-                        [disabled]="!isEditable(terminalInfo.predicateType, isLoading | async)"
+                        [disabled]="
+                            !isWeightOrPriorityEditable(terminalInfo.predicateType) ||
+                            (isLoading | async)
+                        "
                     >
                         <mat-icon>edit</mat-icon>
                         <span>Edit priority</span>
@@ -70,7 +79,10 @@
                     <button
                         mat-menu-item
                         (click)="editWeight(terminalInfo.terminal.ref.id)"
-                        [disabled]="!isEditable(terminalInfo.predicateType, isLoading | async)"
+                        [disabled]="
+                            !isWeightOrPriorityEditable(terminalInfo.predicateType) ||
+                            (isLoading | async)
+                        "
                     >
                         <mat-icon>edit</mat-icon>
                         <span>Edit weight</span>

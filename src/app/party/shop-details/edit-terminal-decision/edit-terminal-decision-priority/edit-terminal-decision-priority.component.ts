@@ -16,7 +16,7 @@ export interface EditPriorityData {
     providers: [EditTerminalDecisionPriorityService]
 })
 export class EditTerminalDecisionPriorityComponent implements OnInit {
-    isLoading;
+    isLoading$;
     form: FormGroup;
 
     constructor(
@@ -27,8 +27,8 @@ export class EditTerminalDecisionPriorityComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        const { isLoading, form } = this.editPriorityService;
-        this.isLoading = isLoading;
+        const { isLoading$, form } = this.editPriorityService;
+        this.isLoading$ = isLoading$;
         this.form = form;
         this.editPriorityService.terminalChanged.subscribe(() => {
             this.dialogRef.close(true);
