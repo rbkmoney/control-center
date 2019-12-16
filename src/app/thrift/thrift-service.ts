@@ -15,9 +15,6 @@ export class ThriftService {
 
     protected endpoint: string;
     protected service: any;
-    protected email: string;
-    protected username: string;
-    protected partyID: string;
 
     constructor(
         private zone: NgZone,
@@ -32,12 +29,12 @@ export class ThriftService {
     protected toObservableAction<T extends (...A: any[]) => Observable<any>>(name: string): T {
         return ((...args) =>
             Observable.create(observer => {
+                const cb = msg => {
+                    observer.error(msg);
+                    observer.complete();
+                };
                 this.zone.run(() => {
                     try {
-                        const cb = msg => {
-                            observer.error(msg);
-                            observer.complete();
-                        };
                         this.createClient(cb).subscribe(client =>
                             client[name](...args, (ex: Exception, result) => {
                                 ex ? observer.error(ex) : observer.next(result);
@@ -45,8 +42,7 @@ export class ThriftService {
                             })
                         );
                     } catch (e) {
-                        observer.error(e);
-                        observer.complete();
+                        cb(e);
                     }
                 });
             }).pipe(timeout(60000))) as any;

@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { ClaimComponent } from './claim.component';
-import { AppAuthGuardService } from '../app-auth-guard.service';
+import { ClaimsComponent } from './claims.component';
+import { AppAuthGuardService } from '../../app-auth-guard.service';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
-                path: 'party/:party_id/claim/:claim_id',
-                component: ClaimComponent,
+                path: '',
+                component: ClaimsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['claim:get']
@@ -19,4 +18,4 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
     ],
     exports: [RouterModule]
 })
-export class ClaimRoutingModule {}
+export class ClaimsRoutingModule {}

@@ -4,17 +4,17 @@ import { Observable } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 
-import { ClaimManagementService } from '../thrift/claim-management.service';
+import { ClaimManagementService } from '../../thrift/claim-management.service';
 import { SearchFormValue } from './search-form/search-form-value';
-import { booleanDebounceTime } from '../shared/operators';
+import { booleanDebounceTime } from '../../shared/operators';
 import { convertFormValueToParams } from './convert-form-value-to-params';
-import { Claim } from '../gen-damsel/claim_management';
+import { Claim } from '../../gen-damsel/claim_management';
 
 @Injectable()
 export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
     private readonly searchLimit = 20;
 
-    claims$: Observable<any> = this.searchResult$.pipe(
+    claims$: Observable<Claim> = this.searchResult$.pipe(
         catchError(() => {
             this.snackBar.open('An error occurred while processing your search', 'OK');
             return [];
@@ -30,7 +30,7 @@ export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
         private claimManagementService: ClaimManagementService,
         private snackBar: MatSnackBar
     ) {
-        super(0);
+        super();
     }
 
     protected fetch(

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ClaimsService } from './claims.service';
 import { SearchFormValue } from './search-form/search-form-value';
-import { ClaimStatus } from '../papi/model/claim-statuses';
+import { ClaimStatus } from '../../papi/model/claim-statuses';
 
 @Component({
     templateUrl: 'claims.component.html',

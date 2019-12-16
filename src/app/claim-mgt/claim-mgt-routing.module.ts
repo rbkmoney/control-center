@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { ClaimsComponent } from './claims.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
 
 @NgModule({
@@ -9,7 +7,15 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
         RouterModule.forChild([
             {
                 path: 'claims',
-                component: ClaimsComponent,
+                loadChildren: () => import('./claims').then(m => m.ClaimsModule),
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['claim:get']
+                }
+            },
+            {
+                path: 'party',
+                loadChildren: () => import('./claim').then(m => m.ClaimModule),
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['claim:get']
@@ -19,4 +25,4 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
     ],
     exports: [RouterModule]
 })
-export class ClaimsRoutingModule {}
+export class ClaimMgtRouting {}

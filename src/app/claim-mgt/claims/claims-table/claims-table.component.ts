@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Claim, ClaimStatus } from '../../gen-damsel/claim_management';
-import { extractClaimStatus } from '../../shared/extract-claim-status';
+import { Claim, ClaimStatus } from '../../../gen-damsel/claim_management';
+import { extractClaimStatus } from '../../../shared/extract-claim-status';
 
 @Component({
     selector: 'cc-claims-table',
