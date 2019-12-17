@@ -34,17 +34,17 @@ export class CreateDepositComponent implements OnInit {
         this.form.disable();
         this.createDepositService.createDeposit().subscribe(
             deposit => {
-                this.isLoading = false;
-                this.form.enable();
                 this.snackBar.open(`Deposit status successfully created`, 'OK', { duration: 3000 });
                 this.dialogRef.close(deposit);
             },
             e => {
                 console.error(e);
-                this.isLoading = false;
-                this.form.enable();
                 this.snackBar.open('An error occurred while deposit create', 'OK');
                 this.dialogRef.close();
+            },
+            () => {
+                this.isLoading = false;
+                this.form.enable();
             }
         );
     }

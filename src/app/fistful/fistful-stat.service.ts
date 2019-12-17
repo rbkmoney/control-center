@@ -10,13 +10,18 @@ import { FetchResult } from '../partial-fetcher';
 import { SearchFormParams } from '../deposits/search-form/search-form-params';
 import { QueryDSL } from '../query-dsl';
 import { MockedFistfulService } from './mocked-fistful.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
     private readonly searchLimit = 20;
 
-    constructor(private mockedDepositsService: MockedFistfulService, zone: NgZone) {
-        super(zone, '/fistful/stat', FistfulStatistics);
+    constructor(
+        private mockedDepositsService: MockedFistfulService,
+        keycloakService: KeycloakService,
+        zone: NgZone
+    ) {
+        super(zone, keycloakService, '/fistful/stat', FistfulStatistics);
     }
 
     getDeposits(

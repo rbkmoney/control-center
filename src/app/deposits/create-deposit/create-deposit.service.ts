@@ -13,6 +13,7 @@ import { depositStatus } from '../deposit-status';
 import { FistfulAdminService } from '../../fistful/fistful-admin.service';
 import { FistfulStatisticsService } from '../../fistful/fistful-stat.service';
 import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 export interface CurrencySource {
     source: string;
@@ -42,18 +43,18 @@ export class CreateDepositService {
     createDeposit(): Observable<StatDeposit> {
         const params = this.getParams();
         const pollingParams = this.getPollingSearchFormParams(params);
-        return this.fistfulAdminService
-            .createDeposit(params)
-            .pipe(
-                poll<StatDeposit>(
-                    this.fistfulStatisticsService.getDeposits.bind(this.fistfulStatisticsService),
-                    pollingParams,
-                    this.stopPollingCondition
+        return this.fistfulAdminService.createDeposit(params).pipe(
+            switchMap(() =>
+                this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
+                    map(res => res.result[0]),
+                    poll<StatDeposit>(this.stopPollingCondition)
                 )
-            );
+            )
+        );
     }
 
     private stopPollingCondition(deposit: StatDeposit): boolean {
+        console.log(deposit);
         return !!deposit && depositStatus(deposit.status) !== 'pending';
     }
 
