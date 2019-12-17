@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { ClaimActionType } from '../../claim/claim-action-type';
+import { ClaimActionType } from '../../../claim/claim-action-type';
 
 @Component({
     templateUrl: 'create-claim.component.html'

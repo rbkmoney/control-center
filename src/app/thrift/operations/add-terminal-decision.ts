@@ -2,12 +2,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import last from 'lodash-es/last';
 import dropRight from 'lodash-es/dropRight';
 
-import {
-    ProviderObject,
-    TerminalSelector,
-    TerminalDecision,
-    TerminalRef
-} from '../../gen-damsel/domain';
+import { ProviderObject, TerminalDecision, TerminalRef } from '../../gen-damsel/domain';
 import { toGenTerminalDecision } from '../converters';
 import { checkSelector } from './utils';
 
