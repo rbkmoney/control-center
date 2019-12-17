@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import values from 'lodash-es/values';
-import { ClaimStatus } from '../../papi/model/claim-statuses';
+import { ClaimStatus } from '../../../papi/model/claim-statuses';
 
 @Injectable()
 export class SearchFormService {
