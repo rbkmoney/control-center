@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash-es/cloneDeep';
+import get from 'lodash-es/get';
 
 import { ProviderObject, TerminalDecision } from '../../gen-damsel/domain';
 import { EditTerminalDecisionPropertyParams } from './edit-terminal-decision-property-params';
@@ -13,16 +14,20 @@ const editDecision = (
     value: any
 ): TerminalDecision[] =>
     decisions.reduce((acc: TerminalDecision[], decision: any) => {
-        const terminalIndex = decision.then_.value
-            ? decision.then_.value.findIndex(item => item.id === terminalID)
-            : -1;
-        if (terminalIndex !== -1) {
-            decision.then_.value[terminalIndex][property] = value;
+        const decisionPredicatePartyID = get(decision, 'if_.condition.party.id');
+        const decisionPredicateShopID = get(decision, 'if_.condition.party.definition.shop_is');
+        if (decisionPredicatePartyID === partyID && decisionPredicateShopID === shopID) {
+            const terminalIndex = decision.then_.value
+                ? decision.then_.value.findIndex(item => item.id === terminalID)
+                : -1;
+            if (terminalIndex !== -1) {
+                decision.then_.value[terminalIndex][property] = value;
+            }
         }
         return acc.concat(decision);
     }, []);
 
-export const editTerminalDecisionProperty = (
+export const editTerminalDecisionPropertyForShop = (
     providerObject: ProviderObject,
     params: EditTerminalDecisionPropertyParams
 ): any => {
