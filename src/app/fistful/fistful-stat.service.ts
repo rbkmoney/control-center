@@ -1,26 +1,21 @@
 import { Injectable, NgZone } from '@angular/core';
+import { FetchResult } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { KeycloakService } from 'keycloak-angular';
 
 import { ThriftService } from '../thrift';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
 import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
-import { FetchResult } from '../partial-fetcher';
 import { SearchFormParams } from '../deposits/search-form/search-form-params';
 import { QueryDSL } from '../query-dsl';
-import { MockedFistfulService } from './mocked-fistful.service';
-import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
     private readonly searchLimit = 20;
 
-    constructor(
-        private mockedDepositsService: MockedFistfulService,
-        keycloakService: KeycloakService,
-        zone: NgZone
-    ) {
+    constructor(keycloakService: KeycloakService, zone: NgZone) {
         super(zone, keycloakService, '/fistful/stat', FistfulStatistics);
     }
 

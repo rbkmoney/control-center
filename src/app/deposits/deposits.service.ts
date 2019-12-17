@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
-import { filter, shareReplay } from 'rxjs/operators';
+import { filter, shareReplay, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { StatDeposit } from '../fistful/gen-model/fistful_stat';
 import { FistfulStatisticsService } from '../fistful/fistful-stat.service';
 import { SearchFormParams } from './search-form/search-form-params';
-import { FetchResult, PartialFetcher } from '../partial-fetcher';
 import { booleanDelay } from '../custom-operators';
 import { CreateDepositComponent } from './create-deposit/create-deposit.component';
 
 @Injectable()
 export class DepositsService extends PartialFetcher<StatDeposit, SearchFormParams> {
-    isLoading$ = this.searchResult$.pipe(
-        booleanDelay(500, this.doAction$),
+    isLoading$ = this.doAction$.pipe(
+        booleanDelay(),
         shareReplay(1)
     );
 
