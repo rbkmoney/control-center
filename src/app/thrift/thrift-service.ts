@@ -60,11 +60,11 @@ export class ThriftService {
                     {
                         headers: {
                             'woody.meta-user-identity.email': email,
-                            'woody.meta-user-identity.realm': 'external',
+                            'woody.meta-user-identity.realm': 'internal',
                             'woody.meta-user-identity.username': preferred_username,
                             'woody.meta-user-identity.id': sub,
                             'x-rbk-meta-user-identity.email': email,
-                            'x-rbk-meta-user-identity.realm': 'external',
+                            'x-rbk-meta-user-identity.realm': 'internal',
                             'x-rbk-meta-user-identity.username': preferred_username,
                             'x-rbk-meta-user-identity.id': sub
                         }
