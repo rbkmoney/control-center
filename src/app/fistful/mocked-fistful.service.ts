@@ -8,7 +8,7 @@ import Int64 from 'thrift-ts/lib/int64';
 import { DepositParams } from './gen-model/fistful_admin';
 
 const mockedStatus: DepositStatus = {
-    succeeded: { failure: {} }
+    succeeded: {}
 };
 
 const mockedDeposit: StatDeposit = {

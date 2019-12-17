@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { filter, shareReplay } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { StatDeposit } from '../fistful/gen-model/fistful_stat';
 import { FistfulStatisticsService } from '../fistful/fistful-stat.service';
 import { SearchFormParams } from './search-form/search-form-params';
 import { FetchResult, PartialFetcher } from '../partial-fetcher';
 import { booleanDelay } from '../custom-operators';
+import { CreateDepositComponent } from './create-deposit/create-deposit.component';
 
 @Injectable()
 export class DepositsService extends PartialFetcher<StatDeposit, SearchFormParams> {
@@ -15,7 +18,10 @@ export class DepositsService extends PartialFetcher<StatDeposit, SearchFormParam
         shareReplay(1)
     );
 
-    constructor(private fistfulStatisticsService: FistfulStatisticsService) {
+    constructor(
+        private fistfulStatisticsService: FistfulStatisticsService,
+        private dialog: MatDialog
+    ) {
         super();
     }
 
@@ -24,5 +30,24 @@ export class DepositsService extends PartialFetcher<StatDeposit, SearchFormParam
         continuationToken: string
     ): Observable<FetchResult<StatDeposit>> {
         return this.fistfulStatisticsService.getDeposits(params, continuationToken);
+    }
+
+    createDeposit() {
+        this.dialog
+            .open(CreateDepositComponent, { disableClose: true })
+            .afterClosed()
+            .pipe(filter(deposit => !!deposit))
+            .subscribe(deposit => {
+                const polledDepositParams: SearchFormParams = {
+                    fromTime: moment()
+                        .startOf('d')
+                        .toISOString(),
+                    toTime: moment()
+                        .endOf('d')
+                        .toISOString(),
+                    depositId: deposit.id
+                };
+                this.search(polledDepositParams);
+            });
     }
 }

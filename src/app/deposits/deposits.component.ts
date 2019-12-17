@@ -1,9 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import * as moment from 'moment';
 
 import { DepositsService } from './deposits.service';
-import { CreateDepositComponent } from './create-deposit/create-deposit.component';
 import { SearchFormParams } from './search-form/search-form-params';
 
 @Component({
@@ -20,7 +17,7 @@ export class DepositsComponent implements AfterViewInit {
 
     isLoading$ = this.depositsService.isLoading$;
 
-    constructor(private depositsService: DepositsService, private dialog: MatDialog) {}
+    constructor(private depositsService: DepositsService) {}
 
     ngAfterViewInit() {
         if (this.searchParams) {
@@ -47,20 +44,6 @@ export class DepositsComponent implements AfterViewInit {
     }
 
     createDeposit() {
-        this.dialog
-            .open(CreateDepositComponent, { disableClose: true })
-            .afterClosed()
-            .subscribe(depositId => {
-                const polledDepositParams: SearchFormParams = {
-                    fromTime: moment()
-                        .startOf('d')
-                        .toISOString(),
-                    toTime: moment()
-                        .endOf('d')
-                        .toISOString(),
-                    depositId
-                };
-                this.depositsService.search(polledDepositParams);
-            });
+        this.depositsService.createDeposit();
     }
 }

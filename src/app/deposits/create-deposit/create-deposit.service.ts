@@ -4,14 +4,15 @@ import { KeycloakService } from 'keycloak-angular';
 import * as uuid from 'uuid/v4';
 
 import { toMajor } from '../to-major-amount';
-import { DepositsService } from '../deposits.service';
 import { DepositParams } from '../../fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
-import { MockedFistfulService } from '../../fistful/mocked-fistful.service';
 import { poll } from '../../custom-operators/poll';
 import { SearchFormParams } from '../search-form/search-form-params';
 import * as moment from 'moment';
 import { depositStatus } from '../deposit-status';
+import { FistfulAdminService } from '../../fistful/fistful-admin.service';
+import { FistfulStatisticsService } from '../../fistful/fistful-stat.service';
+import { Observable } from 'rxjs';
 
 export interface CurrencySource {
     source: string;
@@ -32,20 +33,19 @@ export class CreateDepositService {
     form = this.initForm();
 
     constructor(
-        private fistfulAdminService: MockedFistfulService,
-        private fistfulStatisticsService: MockedFistfulService,
-        private depositsService: DepositsService,
+        private fistfulAdminService: FistfulAdminService,
+        private fistfulStatisticsService: FistfulStatisticsService,
         private keycloakService: KeycloakService,
         private fb: FormBuilder
     ) {}
 
-    createDeposit() {
+    createDeposit(): Observable<StatDeposit> {
         const params = this.getParams();
         const pollingParams = this.getPollingSearchFormParams(params);
         return this.fistfulAdminService
             .createDeposit(params)
             .pipe(
-                poll(
+                poll<StatDeposit>(
                     this.fistfulStatisticsService.getDeposits.bind(this.fistfulStatisticsService),
                     pollingParams,
                     this.stopPollingCondition

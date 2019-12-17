@@ -4,18 +4,17 @@ import { delay, map, repeatWhen, switchMap, takeLast, takeUntil, tap } from 'rxj
 const POLLING_INTERVAL = 3000;
 const POLLING_TIMEOUT = 30000;
 
-export const poll = (
+export const poll = <T>(
     pollFn: (arg: any) => Observable<any>,
     args: any,
     conditionFn: (value) => boolean
-) => (source: Observable<any>) => {
+) => (source: Observable<any>): Observable<T> => {
     const condition$ = new Subject();
     return source.pipe(
         switchMap(() => pollFn(args)),
         map(res => res.result[0]),
-        map(value => conditionFn(value)),
         tap(value => {
-            if (value) {
+            if (conditionFn(value)) {
                 condition$.next(value);
             }
         }),
