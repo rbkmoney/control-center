@@ -1,0 +1,180 @@
+$dark-text: rgba(black, 0.87);
+$light-text: white;
+
+/* 
+How to create palette
+0. Choose base color
+1. Enter in https://material.io/inline-tools/color/ base color - get 50-900 colors
+2. Enter color 500 (gotten at the previous step) into http://mcg.mbitson.com - get A100-A700 colors
+   and find out recommendation when to use a dark font color and in which light
+*/
+
+// base 400
+$dsh-slateblue: (
+    50: #ede8ff,
+    100: #d0c6fe,
+    200: #b0a1fe,
+    300: #8b79ff,
+    400: #695bff,
+    500: #3b3efd,
+    600: #2239f7,
+    700: #0032ee,
+    800: #002de8,
+    900: #0022d9,
+    A100: #ffffff,
+    A200: #fafaff,
+    A400: #c7c7ff,
+    A700: #adaeff,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $dark-text,
+        400: $light-text,
+        500: $light-text,
+        600: $light-text,
+        700: $light-text,
+        800: $light-text,
+        900: $light-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text
+    )
+);
+
+// base 300
+$dsh-palegreen: (
+    50: #e1f6eb,
+    100: #b5e9ce,
+    200: #81dbaf,
+    300: #38cd8f,
+    400: #00c277,
+    500: #00b560,
+    600: #00a655,
+    700: #009348,
+    800: #00823c,
+    900: #006227,
+    A100: #b9ffcd,
+    A200: #86ffa8,
+    A400: #53ff84,
+    A700: #3aff71,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $light-text,
+        400: $light-text,
+        500: $light-text,
+        600: $light-text,
+        700: $light-text,
+        800: $light-text,
+        900: $light-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text
+    )
+);
+
+// base 400
+$dsh-success: (
+    50: #e7f8eb,
+    100: #c5ecce,
+    200: #9fe0af,
+    300: #75d58f,
+    400: #51cb76,
+    500: #25c15c,
+    600: #1ab152,
+    700: #059e46,
+    800: #008d3b,
+    900: #006d27,
+    A100: #cdffd7,
+    A200: #9affae,
+    A400: #67ff85,
+    A700: #4dff71,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $dark-text,
+        400: $dark-text,
+        500: $dark-text,
+        600: $dark-text,
+        700: $light-text,
+        800: $light-text,
+        900: $light-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text
+    )
+);
+
+// base 800
+$dsh-pending: (
+    50: #fff9e6,
+    100: #ffedc0,
+    200: #ffe39a,
+    300: #ffd976,
+    400: #ffcf63,
+    500: #ffc85d,
+    600: #ffbb58,
+    700: #ffaa54,
+    800: #fc9b51,
+    900: #f5824d,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #ffefdb,
+    A700: #ffe4c2,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $dark-text,
+        400: $dark-text,
+        500: $dark-text,
+        600: $dark-text,
+        700: $dark-text,
+        800: $dark-text,
+        900: $dark-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text
+    )
+);
+
+// base 300
+$dsh-warn: (
+    50: #ffecef,
+    100: #ffd0d5,
+    200: #ff9e9e,
+    300: #fb7777,
+    400: #ff5552,
+    500: #ff4436,
+    600: #ff3b37,
+    700: #ec3031,
+    800: #df2929,
+    900: #cf1c1d,
+    A100: #ffffff,
+    A200: #fffcfc,
+    A400: #ffcac9,
+    A700: #ffb1af,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $light-text,
+        400: $light-text,
+        500: $light-text,
+        600: $light-text,
+        700: $light-text,
+        800: $light-text,
+        900: $light-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text
+    )
+);
