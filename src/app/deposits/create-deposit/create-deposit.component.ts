@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CreateDepositService, currencies } from './create-deposit.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { PollingTimeoutError } from '../../custom-operators';
 
 @Component({
     selector: 'cc-create-deposit',
@@ -38,8 +39,12 @@ export class CreateDepositComponent implements OnInit {
                 this.dialogRef.close(deposit);
             },
             e => {
-                console.error(e);
-                this.snackBar.open('An error occurred while deposit create', 'OK');
+                if (e instanceof PollingTimeoutError) {
+                    this.snackBar.open('Polling timeout error', 'OK');
+                } else {
+                    console.error(e);
+                    this.snackBar.open('An error occurred while deposit create', 'OK');
+                }
                 this.dialogRef.close();
             },
             () => {

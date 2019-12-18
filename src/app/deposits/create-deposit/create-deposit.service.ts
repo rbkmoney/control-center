@@ -2,19 +2,17 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import * as uuid from 'uuid/v4';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { toMajor } from '../to-major-amount';
 import { DepositParams } from '../../fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
-import { poll } from '../../custom-operators/poll';
 import { SearchFormParams } from '../search-form/search-form-params';
-import * as moment from 'moment';
-import { depositStatus } from '../deposit-status';
 import { FistfulAdminService } from '../../fistful/fistful-admin.service';
 import { FistfulStatisticsService } from '../../fistful/fistful-stat.service';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { createdDepositStopPollingCondition } from '../../custom-operators/polling-conditions';
+import { createDepositStopPollingCondition, poll } from '../../custom-operators';
 
 export interface CurrencySource {
     source: string;
@@ -48,7 +46,7 @@ export class CreateDepositService {
             switchMap(() =>
                 this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
                     map(res => res.result[0]),
-                    poll<StatDeposit>(createdDepositStopPollingCondition)
+                    poll(createDepositStopPollingCondition)
                 )
             )
         );
