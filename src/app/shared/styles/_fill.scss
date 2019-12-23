@@ -1,0 +1,7 @@
+@mixin fill($color) {
+    color: $color;
+
+    * {
+        fill: $color;
+    }
+}
