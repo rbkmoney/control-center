@@ -9,11 +9,11 @@ import {
     MatExpansionModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { ConversationComponent } from './conversation.component';
 import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
-import { LayoutModule } from '@angular/cdk/layout';
 import { TimelineModule } from '../../../shared/components/timeline';
 import { SharedModule } from '../../../shared/shared.module';
 import { ActionNamePipe } from './action-name.pipe';

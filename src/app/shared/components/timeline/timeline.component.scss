@@ -1,13 +1,9 @@
-@import '../../styles/fill';
 @import '../../styles/light';
 
 $size: 36px;
 $line-size: 2px;
 
 $neutral: map-get($theme, neutral);
-$success-base: map-get($theme, success-base);
-$pending-base: map-get($theme, pending-base);
-$warn-base: map-get($theme, warn-base);
 $line-color: mat-color($neutral, 200);
 
 .cc-timeline {

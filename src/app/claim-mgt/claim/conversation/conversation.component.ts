@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 import { Claim } from '../../../gen-damsel/claim_management';
 import { toTimelineInfo } from './to-timeline-info';
@@ -13,12 +12,12 @@ import { getUnionKey } from '../../../shared/get-union-key';
 export class ConversationComponent implements OnChanges {
     @Input() claim: Claim;
 
-    timelineInfo$ = new BehaviorSubject<TimelineItemInfo[]>([]);
+    timelineInfo: TimelineItemInfo[] = [];
 
     ngOnChanges(changes: SimpleChanges) {
         const { currentValue } = changes.claim;
         if (currentValue) {
-            this.timelineInfo$.next(toTimelineInfo(currentValue.changeset));
+            this.timelineInfo = toTimelineInfo(currentValue.changeset);
         }
     }
 

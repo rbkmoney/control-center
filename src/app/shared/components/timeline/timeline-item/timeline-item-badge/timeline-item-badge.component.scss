@@ -1,14 +1,10 @@
 @import '../timeline-item.scss';
-@import '../../../../styles/fill';
 @import '../../../../styles/light';
 
 $size: 36px;
 $line-size: 2px;
 
 $neutral: map-get($theme, neutral);
-$success-base: map-get($theme, success-base);
-$pending-base: map-get($theme, pending-base);
-$warn-base: map-get($theme, warn-base);
 $line-color: mat-color($neutral, 200);
 .cc-timeline-item-badge {
     position: absolute;
@@ -32,21 +28,4 @@ $line-color: mat-color($neutral, 200);
 
 .cc-timeline-item-badge {
     background-color: $line-color;
-}
-
-.cc-timeline-item-badge {
-    &-success {
-        background-color: $success-base;
-        @include fill(map-get($background, card));
-    }
-
-    &-pending {
-        background-color: $pending-base;
-        @include fill(map-get($background, card));
-    }
-
-    &-warn {
-        background-color: $warn-base;
-        @include fill(map-get($background, card));
-    }
 }

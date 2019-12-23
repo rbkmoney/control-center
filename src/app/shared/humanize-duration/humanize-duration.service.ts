@@ -31,8 +31,6 @@ export class HumanizeDurationService {
         };
     }
 
-    constructor() {}
-
     getDiffMs(value: Value): number {
         return Math.abs(this.isDiff(value) ? value : moment().diff(moment(value)));
     }
