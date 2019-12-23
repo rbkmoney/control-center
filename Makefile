@@ -72,7 +72,7 @@ machinegun-model:
 compile-fistful: fistful-model fistful-client
 
 fistful-client:
-	@$(foreach file,withdrawal_session,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/fistful ./node_modules/fistful-proto/proto/$(file).thrift;)
+	@$(foreach file,withdrawal_session fistful_admin fistful_stat,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/fistful ./node_modules/fistful-proto/proto/$(file).thrift;)
 
 fistful-model:
 	npm run fistful-model
