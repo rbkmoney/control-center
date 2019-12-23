@@ -1,8 +1,33 @@
-<div fxFlex="100" fxLayoutAlign="center">
-    <cc-card-container fxFlex="30">
-        <mat-card>
-            <mat-card-subtitle>Deposits</mat-card-subtitle>
-            <mat-card-content> <cc-create-deposit></cc-create-deposit> </mat-card-content>
-        </mat-card>
-    </cc-card-container>
-</div>
+<cc-card-container>
+    <mat-card>
+        <mat-card-subtitle> Search deposits params </mat-card-subtitle>
+        <mat-card-content>
+            <cc-search-form
+                (valueChanges)="formValueChanges($event)"
+                (statusChanges)="formStatusChanges($event)"
+            ></cc-search-form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button
+                [disabled]="!formValid || (isLoading$ | async)"
+                mat-button
+                color="primary"
+                (click)="search()"
+            >
+                SEARCH
+            </button>
+        </mat-card-actions>
+        <mat-card-footer *ngIf="(isLoading$ | async)">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+    <mat-card>
+        <mat-card-content fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout fxLayoutAlign="start center">
+                <button mat-button color="primary" (click)="createDeposit()">CREATE DEPOSIT</button>
+            </div>
+            <cc-deposits-table [deposits]="deposits$ | async"></cc-deposits-table>
+            <button *ngIf="(hasMore$ | async)" mat-button (click)="fetchMore()">SHOW MORE</button>
+        </mat-card-content>
+    </mat-card>
+</cc-card-container>
