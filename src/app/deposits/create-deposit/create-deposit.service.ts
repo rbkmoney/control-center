@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
-
-import { DepositParams } from '../../fistful/gen-model/fistful';
-import { FistfulAdminService } from '../../fistful/fistful-admin.service';
 import { KeycloakService } from 'keycloak-angular';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import * as uuid from 'uuid/v4';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+
 import { toMajor } from '../to-major-amount';
+import { DepositParams } from '../../fistful/gen-model/fistful_admin';
+import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
+import { SearchFormParams } from '../search-form/search-form-params';
+import { FistfulAdminService } from '../../fistful/fistful-admin.service';
+import { FistfulStatisticsService } from '../../fistful/fistful-stat.service';
+import { createDepositStopPollingCondition, poll } from '../../custom-operators';
 
 export interface CurrencySource {
     source: string;
     currency: string;
 }
 
-const currencies: CurrencySource[] = [
+export const currencies: CurrencySource[] = [
     { source: '3', currency: 'RUB' },
     { source: '5', currency: 'UAH' },
     { source: 'eskin1', currency: 'USD' },
@@ -25,45 +30,34 @@ const currencies: CurrencySource[] = [
 
 @Injectable()
 export class CreateDepositService {
-    form: FormGroup;
-
-    isLoading$ = new BehaviorSubject(false);
+    form = this.initForm();
 
     constructor(
         private fistfulAdminService: FistfulAdminService,
+        private fistfulStatisticsService: FistfulStatisticsService,
         private keycloakService: KeycloakService,
-        private snackBar: MatSnackBar,
         private fb: FormBuilder
-    ) {
-        this.form = this.fb.group({
+    ) {}
+
+    createDeposit(): Observable<StatDeposit> {
+        const params = this.getParams();
+        const pollingParams = this.getPollingSearchFormParams(params);
+        return this.fistfulAdminService.createDeposit(params).pipe(
+            switchMap(() =>
+                this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
+                    map(res => res.result[0]),
+                    poll(createDepositStopPollingCondition)
+                )
+            )
+        );
+    }
+
+    private initForm(): FormGroup {
+        return this.fb.group({
             destination: ['', Validators.required],
             amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
             currency: [currencies[0], Validators.required]
         });
-    }
-
-    createDeposit() {
-        this.isLoading$.next(true);
-        const params = this.getParams();
-        this.fistfulAdminService.createDeposit(params).subscribe(
-            () => {
-                this.isLoading$.next(false);
-                this.snackBar.open('Deposit successfully created', 'OK', { duration: 3000 });
-            },
-            e => {
-                this.isLoading$.next(false);
-                this.snackBar.open('An error occurred while deposit create', 'OK');
-                console.error(e);
-            }
-        );
-    }
-
-    getCurrencies(): CurrencySource[] {
-        return currencies;
-    }
-
-    getForm(): FormGroup {
-        return this.form;
     }
 
     private getParams(): DepositParams {
@@ -78,6 +72,18 @@ export class CreateDepositService {
                     symbolic_code: currency.currency
                 }
             }
+        };
+    }
+
+    private getPollingSearchFormParams(params: DepositParams): SearchFormParams {
+        return {
+            fromTime: moment()
+                .startOf('d')
+                .toISOString(),
+            toTime: moment()
+                .endOf('d')
+                .toISOString(),
+            depositId: params.id
         };
     }
 }
