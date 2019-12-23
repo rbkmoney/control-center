@@ -26,21 +26,8 @@ export class HumanizeDurationService {
     }
 
     get shortEnglishHumanizer(): humanizeDuration.HumanizerOptions {
-        // const getLocalizedUnitFn = (unit: string) => () => this.transloco.translate(`shortTimeUnits.${unit}`);
         return {
             language: 'short'
-            // languages: {
-            //     short: {
-            //         y: 'year',
-            //         mo: 'month',
-            //         w: 'week',
-            //         d: 'day',
-            //         h: 'hour',
-            //         m: 'minute',
-            //         s: 'second',
-            //         ms: 'millisecond'
-            //     }
-            // }
         };
     }
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import { Claim } from '../../../gen-damsel/claim_management';
 import { toTimelineInfo } from './to-timeline-info';
@@ -13,7 +13,7 @@ import { getUnionKey } from '../../../shared/get-union-key';
 export class ConversationComponent implements OnChanges {
     @Input() claim: Claim;
 
-    timelineInfo$: Subject<TimelineItemInfo[]> = new Subject();
+    timelineInfo$ = new BehaviorSubject<TimelineItemInfo[]>([]);
 
     ngOnChanges(changes: SimpleChanges): void {
         const { currentValue } = changes.claim;
@@ -22,7 +22,7 @@ export class ConversationComponent implements OnChanges {
         }
     }
 
-    getKey(m: any): string {
-        return getUnionKey(m);
+    getKey(u: any): string {
+        return getUnionKey(u);
     }
 }

@@ -10,10 +10,10 @@ export class ActionIconPipe implements PipeTransform {
         return ({
             [TimelineAction.statusPending]: 'visibility',
             [TimelineAction.statusReview]: 'forward',
-            [TimelineAction.statusRevoked]: 'circle_slash',
-            [TimelineAction.statusDenied]: 'circle_slash',
-            [TimelineAction.statusAccepted]: 'smile',
-            [TimelineAction.filesAdded]: 'attach',
+            [TimelineAction.statusRevoked]: 'close',
+            [TimelineAction.statusDenied]: 'close',
+            [TimelineAction.statusAccepted]: 'done',
+            [TimelineAction.filesAdded]: 'attach_file',
             [TimelineAction.commentAdded]: 'mode_comment',
             [TimelineAction.changesAdded]: 'add'
         } as const)[action];

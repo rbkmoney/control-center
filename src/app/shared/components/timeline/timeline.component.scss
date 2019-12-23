@@ -14,6 +14,7 @@ $line-color: mat-color($neutral, 200);
     position: relative;
     border-bottom: $line-size solid;
     border-bottom-color: $line-color;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 
     &::after {
         content: '';
