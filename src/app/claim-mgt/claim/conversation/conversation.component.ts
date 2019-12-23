@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { Claim } from '../../../gen-damsel/claim_management';
 import { toTimelineInfo } from './to-timeline-info';
