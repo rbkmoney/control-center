@@ -15,7 +15,7 @@ export class ConversationComponent implements OnChanges {
 
     timelineInfo$ = new BehaviorSubject<TimelineItemInfo[]>([]);
 
-    ngOnChanges(changes: SimpleChanges): void {
+    ngOnChanges(changes: SimpleChanges) {
         const { currentValue } = changes.claim;
         if (currentValue) {
             this.timelineInfo$.next(toTimelineInfo(currentValue.changeset));

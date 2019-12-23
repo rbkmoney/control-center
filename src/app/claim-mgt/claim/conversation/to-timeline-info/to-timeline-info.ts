@@ -61,7 +61,7 @@ const acceptTimelineItem = (
     const result = {
         action,
         user_info,
-        created_at: created_at as any,
+        created_at: created_at as string,
         modifications
     };
     if (acc.length !== 0 && modifications.length !== 0) {
