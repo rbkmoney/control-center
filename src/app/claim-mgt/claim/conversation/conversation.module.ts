@@ -12,7 +12,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { ConversationComponent } from './conversation.component';
-import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
 import { TimelineModule } from '../../../shared/components/timeline';
 import { SharedModule } from '../../../shared/shared.module';
@@ -37,7 +36,7 @@ import { HumanizeDurationModule } from '../../../shared/humanize-duration';
         MonacoEditorModule,
         HumanizeDurationModule
     ],
-    declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, ActionNamePipe],
+    declarations: [ConversationComponent, ActionIconPipe, ActionNamePipe],
     exports: [ConversationComponent]
 })
 export class ConversationModule {}
