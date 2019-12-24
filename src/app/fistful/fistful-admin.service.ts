@@ -5,12 +5,11 @@ import { DepositParams } from './gen-model/fistful_admin';
 import { DepositParams as DepositParamsObject } from './gen-nodejs/fistful_admin_types';
 import { ThriftService } from '../thrift';
 import * as FistfulAdmin from './gen-nodejs/FistfulAdmin';
-import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class FistfulAdminService extends ThriftService {
-    constructor(zone: NgZone, keycloakService: KeycloakService) {
-        super(zone, keycloakService, '/v1/admin', FistfulAdmin);
+    constructor(zone: NgZone) {
+        super(zone, '/v1/admin', FistfulAdmin);
     }
 
     createDeposit(params: DepositParams): Observable<void> {

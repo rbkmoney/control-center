@@ -6,8 +6,7 @@ import { map } from 'rxjs/operators';
 import { ClaimCreated, ClaimInfo, PartyModificationUnit } from './model';
 import { ConfigService } from '../core/config.service';
 import { decode, encode } from '../shared/java-thrift-formatter';
-import { ClaimAcceptParams, ClaimDenyParams } from './params';
-import { ClaimSearchQuery } from '../gen-damsel/claim_management';
+import { ClaimAcceptParams, ClaimDenyParams, ClaimSearchParams } from './params';
 
 @Injectable()
 export class ClaimService {
@@ -17,7 +16,7 @@ export class ClaimService {
         this.papiEndpoint = configService.config.papiEndpoint;
     }
 
-    getClaims(params: ClaimSearchQuery): Observable<ClaimInfo[]> {
+    getClaims(params: ClaimSearchParams): Observable<ClaimInfo[]> {
         return this.http.post<ClaimInfo[]>(`${this.papiEndpoint}/walk/claim/search`, params);
     }
 

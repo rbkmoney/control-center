@@ -5,7 +5,6 @@ import { PaymentProcessingService } from './payment-processing.service';
 import { MerchantStatisticsService } from './merchant-statistics.service';
 import { DomainTypedManager } from './domain-typed-manager';
 import { DomainCacheService } from './domain-cache.service';
-import { ClaimManagementService } from './claim-management.service';
 
 @NgModule({
     providers: [
@@ -13,8 +12,7 @@ import { ClaimManagementService } from './claim-management.service';
         DomainTypedManager,
         PaymentProcessingService,
         MerchantStatisticsService,
-        DomainCacheService,
-        ClaimManagementService
+        DomainCacheService
     ]
 })
 export class ThriftModule {}

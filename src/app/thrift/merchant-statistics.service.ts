@@ -5,12 +5,11 @@ import * as MerchantStatistics from './gen-nodejs/MerchantStatistics';
 import { ThriftService } from './thrift-service';
 import { StatRequest, StatResponse } from '../gen-damsel/merch_stat';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/merch_stat_types';
-import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class MerchantStatisticsService extends ThriftService {
-    constructor(zone: NgZone, keycloakService: KeycloakService) {
-        super(zone, keycloakService, '/stat', MerchantStatistics);
+    constructor(zone: NgZone) {
+        super(zone, '/stat', MerchantStatistics);
     }
 
     getPayments = (req: StatRequest): Observable<StatResponse> =>

@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
+import { ClaimSearchParams } from '../../papi/params';
 import { debounceTime } from 'rxjs/internal/operators';
-import { SearchFormValue } from './search-form-value';
 
 @Component({
     selector: 'cc-search-form',
@@ -12,7 +12,7 @@ import { SearchFormValue } from './search-form-value';
 })
 export class SearchFormComponent implements OnInit {
     @Output()
-    valueChanges: EventEmitter<SearchFormValue> = new EventEmitter();
+    valueChanges: EventEmitter<ClaimSearchParams> = new EventEmitter();
 
     form: FormGroup;
 
@@ -21,11 +21,11 @@ export class SearchFormComponent implements OnInit {
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        const { form, claimStatuses } = this.searchFormService;
+        const { claimStatuses, form, formValueToSearchParams } = this.searchFormService;
         this.claimStatuses = claimStatuses;
         this.form = form;
-        this.form.valueChanges.pipe(debounceTime(300)).subscribe(value => {
-            this.valueChanges.emit(value);
-        });
+        this.form.valueChanges
+            .pipe(debounceTime(300))
+            .subscribe(value => this.valueChanges.emit(formValueToSearchParams(value)));
     }
 }

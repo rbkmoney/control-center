@@ -1,10 +1,11 @@
+import { parse } from '../../jsonc/json-parser';
 import {
     CodeLensProvider,
     ITextModel,
     CancellationToken,
     ICodeLensSymbol,
     ProviderResult
-} from '../../monaco-editor';
+} from '../../monaco-editor/model';
 
 export class DomainObjCodeLensProvider implements CodeLensProvider {
     get language() {

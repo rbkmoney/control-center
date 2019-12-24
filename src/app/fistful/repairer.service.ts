@@ -5,12 +5,11 @@ import { ThriftService } from '../thrift';
 import { RepairScenario, SessionID } from './gen-model/withdrawal_session';
 import { RepairScenario as RepairScenarioObject } from './gen-nodejs/withdrawal_session_types';
 import * as Repairer from './gen-nodejs/Repairer';
-import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class RepairerService extends ThriftService {
-    constructor(zone: NgZone, keycloakService: KeycloakService) {
-        super(zone, keycloakService, '/v1/repair/withdrawal/session', Repairer);
+    constructor(zone: NgZone) {
+        super(zone, '/v1/repair/withdrawal/session', Repairer);
     }
 
     repair = (id: SessionID, scenario: RepairScenario): Observable<void> =>
