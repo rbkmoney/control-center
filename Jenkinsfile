@@ -15,7 +15,9 @@ build('control-center', 'docker-host') {
   def pipeline = {
     runStage('init') {
       withGithubSshCredentials {
-        sh 'make wc_init'
+        withGithubToken {
+          sh 'make wc_init'
+        }
       }
     }
     runStage('build') {

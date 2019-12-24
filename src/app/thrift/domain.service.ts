@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+import { KeycloakService } from 'keycloak-angular';
 
 import * as Repository from './gen-nodejs/Repository';
 import { ThriftService } from './thrift-service';
@@ -7,8 +8,8 @@ import { Reference, Snapshot, Commit, Version, Limit } from '../gen-damsel/domai
 
 @Injectable()
 export class DomainService extends ThriftService {
-    constructor(zone: NgZone) {
-        super(zone, '/v1/domain/repository', Repository);
+    constructor(zone: NgZone, keycloakService: KeycloakService) {
+        super(zone, keycloakService, '/v1/domain/repository', Repository);
     }
 
     checkout: (reference: Reference) => Observable<Snapshot> = this.toObservableAction('Checkout');
