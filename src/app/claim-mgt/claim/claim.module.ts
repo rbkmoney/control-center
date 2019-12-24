@@ -8,17 +8,9 @@ import { ClaimRoutingModule } from './claim-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { ClaimManagementService } from '../../thrift/claim-management.service';
 import { DetailsComponent } from './details/details.component';
-import { ConversationModule } from './conversation/conversation.module';
 
 @NgModule({
-    imports: [
-        ClaimRoutingModule,
-        SharedModule,
-        CommonModule,
-        MatCardModule,
-        FlexModule,
-        ConversationModule
-    ],
+    imports: [ClaimRoutingModule, SharedModule, CommonModule, MatCardModule, FlexModule],
     declarations: [ClaimComponent, DetailsComponent],
     providers: [ClaimManagementService]
 })
