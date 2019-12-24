@@ -5,7 +5,6 @@ import connectClient from 'woody_js';
 import { KeycloakService } from 'keycloak-angular';
 import * as jwtDecode from 'jwt-decode';
 
-
 type Exception<N = string, T = {}> = {
     name: N;
     message: string;
@@ -16,7 +15,12 @@ export class ThriftService {
     protected service: any;
     protected realm = 'internal';
 
-    constructor(private zone: NgZone, private keycloakService: KeycloakService, endpoint: string, thriftService: any) {
+    constructor(
+        private zone: NgZone,
+        private keycloakService: KeycloakService,
+        endpoint: string,
+        thriftService: any
+    ) {
         this.endpoint = endpoint;
         this.service = thriftService;
     }
