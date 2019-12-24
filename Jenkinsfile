@@ -16,7 +16,7 @@ build('control-center', 'docker-host') {
     runStage('init') {
       withGithubSshCredentials {
         withGithubToken {
-          sh 'make wc_init'  
+          sh 'make wc_init'
         }
       }
     }

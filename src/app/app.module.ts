@@ -20,6 +20,7 @@ import {
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { ClaimsModule } from './claims/claims.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ClaimModule } from './claim/claim.module';
 import { PayoutsModule } from './payouts/payouts.module';
@@ -29,7 +30,6 @@ import { PartyModule } from './party/party.module';
 import { DomainModule } from './domain';
 import { RepairingModule } from './repairing/repairing.module';
 import { DepositsModule } from './deposits/deposits.module';
-import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -44,8 +44,8 @@ import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
         MatMenuModule,
         MatSidenavModule,
         MatListModule,
+        ClaimsModule,
         ClaimModule,
-        ClaimMgtModule,
         PayoutsModule,
         PaymentAdjustmentModule,
         PartiesModule,

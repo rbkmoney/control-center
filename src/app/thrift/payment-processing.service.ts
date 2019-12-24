@@ -1,5 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, timer } from 'rxjs';
+import { share, switchMap, first } from 'rxjs/operators';
+import { KeycloakService } from 'keycloak-angular';
 
 import {
     InvoicePaymentAdjustmentParams as InvoicePaymentAdjustmentParamsObject,
@@ -15,8 +17,6 @@ import {
 import { ThriftService } from './thrift-service';
 import * as Invoicing from './gen-nodejs/Invoicing';
 import { InvoiceID } from '../gen-damsel/domain';
-import { share, switchMap, first } from 'rxjs/operators';
-import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MatCheckboxChange, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs';
 
-import { MonacoFile, IDiffEditorOptions } from '../../monaco-editor';
+import { MonacoFile, IDiffEditorOptions } from '../../monaco-editor/model';
 import { toMonacoFile } from '../utils';
 import { DomainModificationModel } from '../domain-modification-model';
 import { DomainObjReviewService } from './domain-obj-review.service';

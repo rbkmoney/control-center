@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+import { KeycloakService } from 'keycloak-angular';
 
 import * as Automaton from './gen-nodejs/Automaton';
 import {
@@ -9,7 +10,6 @@ import {
 import { ThriftService } from '../thrift';
 import { Namespace } from './gen-model/base';
 import { Reference, MachineDescriptor, Machine } from './gen-model/state_processing';
-import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class AutomatonService extends ThriftService {

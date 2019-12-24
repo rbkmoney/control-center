@@ -22,6 +22,7 @@ BUILD_IMAGE_TAG := f3732d29a5e622aabf80542b5138b3631a726adb
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'
 
+
 CALL_W_CONTAINER := init build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
@@ -53,7 +54,7 @@ clean:
 compile-damsel: damsel-client damsel-model damsel-meta
 
 damsel-client:
-	@$(foreach file,domain_config payment_processing merch_stat claim_management,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/$(file).thrift;)
+	@$(foreach file,domain_config payment_processing merch_stat,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/$(file).thrift;)
 
 damsel-meta:
 	npm run damsel-meta

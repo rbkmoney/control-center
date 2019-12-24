@@ -11,10 +11,9 @@ type Exception<N = string, T = {}> = {
 } & T;
 
 export class ThriftService {
-    protected realm = 'internal';
-
     protected endpoint: string;
     protected service: any;
+    protected realm = 'internal';
 
     constructor(
         private zone: NgZone,
@@ -48,7 +47,7 @@ export class ThriftService {
             }).pipe(timeout(60000))) as any;
     }
 
-    private createClient(errorCb: Function): Observable<any> {
+    private createClient(errorCb: Function) {
         return from(this.keycloakService.getToken()).pipe(
             map(token => {
                 const { email, preferred_username, sub } = jwtDecode(token);
