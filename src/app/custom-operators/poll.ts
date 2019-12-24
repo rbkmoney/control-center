@@ -2,7 +2,7 @@ import { merge, Observable, timer } from 'rxjs';
 import { delay, filter, repeatWhen, takeLast, takeUntil, tap } from 'rxjs/operators';
 
 const POLLING_INTERVAL = 3000;
-const POLLING_TIMEOUT = 6000;
+const POLLING_TIMEOUT = 30000;
 
 export class PollingTimeoutError extends Error {
     constructor(props) {
