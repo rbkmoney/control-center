@@ -54,7 +54,7 @@ clean:
 compile-damsel: damsel-client damsel-model damsel-meta
 
 damsel-client:
-	@$(foreach file,domain_config payment_processing merch_stat,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/$(file).thrift;)
+	@$(foreach file,domain_config payment_processing merch_stat claim_management,echo $(file); thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ./src/app/thrift ./node_modules/damsel/proto/$(file).thrift;)
 
 damsel-meta:
 	npm run damsel-meta

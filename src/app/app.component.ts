@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
             { name: 'Domain config', route: '/domain', activateRole: 'dmt:checkout' },
             { name: 'Payouts', route: '/payouts', activateRole: 'payout:read' },
             { name: 'Claims', route: '/claims', activateRole: 'claim:get' },
+            { name: 'Claim-MGT', route: '/claim-mgt', activateRole: 'claim:get' },
             {
                 name: 'Payment adjustment',
                 route: '/payment-adjustment',
