@@ -33,7 +33,7 @@
     "@rbkmoney/partial-fetcher": "^1.0.4",
     "angular2-prettyjson": "3.0.1",
     "core-js": "^2.5.4",
-    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#b563890354447a5e175a9a318b33233a926a5e9c",
+    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#d1d02562b8b431439b7009678523f9c6b17bc891",
     "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#6e653a244e7b2106908604c4692ee5ab4496af09",
     "hammerjs": "^2.0.8",
     "jsonc-parser": "^2.0.2",

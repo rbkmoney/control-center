@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
 import { DomainObjModificationComponent } from './domain-obj-modification.component';
-import { MonacoEditorModule } from '../../monaco-editor/monaco-editor.module';
+import { MonacoEditorModule } from '../../monaco-editor';
 import { SharedModule } from '../../shared/shared.module';
 import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confirm-dialog.component';
 
