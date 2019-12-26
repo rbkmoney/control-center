@@ -1,10 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+import { KeycloakService } from 'keycloak-angular';
 
 import { ThriftService } from '../thrift-service';
 import * as ClaimManagement from './gen-nodejs/ClaimManagement';
 import { ClaimSearchQuery as ClaimSearchQueryType } from './gen-nodejs/claim_management_types';
-import { KeycloakService } from 'keycloak-angular';
 import { Claim, ClaimSearchQuery, ClaimSearchResponse } from './gen-model/claim_management';
 
 @Injectable()
