@@ -4,3 +4,6 @@ export * from './thrift-service';
 export * from './damsel/operations';
 export * from './filters';
 export * from './damsel/get-thrift-instance';
+export * from './ank';
+export * from './file-storage';
+export * from './messages';
