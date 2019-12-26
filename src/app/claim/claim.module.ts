@@ -43,12 +43,12 @@ import { PersistentContainerService } from './persistent-container.service';
 import { CloneClaimComponent } from './clone-claim/clone-claim.component';
 import { PartyModificationContainerService } from './party-modification-container/party-modification-container.service';
 import { RemoveConfirmComponent } from './party-modification-container/remove-confirm/remove-confirm.component';
-import { ThriftModule } from '../thrift-services/thrift.module';
+import { DamselModule } from '../thrift-services/damsel/damsel.module';
 
 @NgModule({
     imports: [
         PapiModule,
-        ThriftModule,
+        DamselModule,
         CommonModule,
         SharedModule,
         ReactiveFormsModule,

@@ -1,4 +1,4 @@
-import { RiskScore } from '../damsel/gen-model/domain';
+import { RiskScore } from '../gen-model/domain';
 
 export class TerminalOption {
     key: string;

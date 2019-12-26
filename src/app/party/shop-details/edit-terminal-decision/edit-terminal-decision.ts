@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { DomainTypedManager } from '../../../thrift-services';
-import { EditTerminalDecisionPropertyParams } from '../../../thrift-services/operations/edit-terminal-decision-property-params';
+import { EditTerminalDecisionPropertyParams } from '../../../thrift-services/damsel/operations/edit-terminal-decision-property-params';
 import { EditPriorityData } from './edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 
 export interface EditTerminalDecisionFormValues {

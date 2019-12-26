@@ -15,7 +15,7 @@ import { DomainInfoComponent } from './domain-info.component';
 import { DomainObjDetailsComponent } from './domain-obj-details';
 import { DomainGroupModule } from './domain-group';
 import { MonacoEditorModule } from '../../monaco-editor';
-import { ThriftModule } from '../../thrift-services/thrift.module';
+import { DamselModule } from '../../thrift-services/damsel/damsel.module';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -32,7 +32,7 @@ import { SharedModule } from '../../shared/shared.module';
         MatInputModule,
         MatProgressSpinnerModule,
         MonacoEditorModule,
-        ThriftModule,
+        DamselModule,
         SharedModule
     ]
 })

@@ -1,6 +1,6 @@
-import * as BaseTypes from './damsel/gen-nodejs/base_types';
-import * as DomainTypes from './damsel/gen-nodejs/domain_types';
-import * as DomainConfigTypes from './damsel/gen-nodejs/domain_config_types';
+import * as BaseTypes from './gen-nodejs/base_types';
+import * as DomainTypes from './gen-nodejs/domain_types';
+import * as DomainConfigTypes from './gen-nodejs/domain_config_types';
 
 export const SupportedNamespaces = {
     base: BaseTypes,

@@ -3,7 +3,7 @@ import get from 'lodash-es/get';
 
 import { EditTerminalDecisionPropertyParams } from './edit-terminal-decision-property-params';
 import { checkSelector } from './utils';
-import { ProviderObject, TerminalDecision } from '../damsel/gen-model/domain';
+import { ProviderObject, TerminalDecision } from '../gen-model/domain';
 
 const editDecision = (
     decisions: TerminalDecision[],

@@ -1,11 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ThriftService } from './thrift-service';
-import * as ClaimManagement from './damsel/gen-nodejs/ClaimManagement';
-import { ClaimSearchQuery as ClaimSearchQueryType } from './damsel/gen-nodejs/claim_management_types';
+import { ThriftService } from '../thrift-service';
+import * as ClaimManagement from './gen-nodejs/ClaimManagement';
+import { ClaimSearchQuery as ClaimSearchQueryType } from './gen-nodejs/claim_management_types';
 import { KeycloakService } from 'keycloak-angular';
-import { Claim, ClaimSearchQuery, ClaimSearchResponse } from './damsel/gen-model/claim_management';
+import { Claim, ClaimSearchQuery, ClaimSearchResponse } from './gen-model/claim_management';
 
 @Injectable()
 export class ClaimManagementService extends ThriftService {

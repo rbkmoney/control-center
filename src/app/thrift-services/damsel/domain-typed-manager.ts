@@ -4,7 +4,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 
 import { findDomainObject, findDomainObjects } from './operations/utils';
 import { getCreateTerminalCommit, CreateTerminalParams } from './operations';
-import { toGenReference } from './converters';
+import { toGenReference } from '../converters';
 import { DomainService } from './domain.service';
 import { addDecisionToProviderCommit, AddDecisionToProvider } from './operations';
 import { DomainCacheService } from './domain-cache.service';
@@ -18,8 +18,8 @@ import {
     PaymentInstitutionObject,
     ProviderObject,
     TerminalObject
-} from './damsel/gen-model/domain';
-import { Version } from './damsel/gen-model/domain_config';
+} from './gen-model/domain';
+import { Version } from './gen-model/domain_config';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');

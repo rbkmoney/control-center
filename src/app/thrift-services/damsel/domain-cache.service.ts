@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { shareReplay, map } from 'rxjs/operators';
 
 import { DomainService } from './domain.service';
-import { toGenReference } from './converters';
-import { Domain } from './damsel/gen-model/domain';
+import { toGenReference } from '../converters';
+import { Domain } from './gen-model/domain';
 
 @Injectable()
 export class DomainCacheService {

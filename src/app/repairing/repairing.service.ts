@@ -10,7 +10,7 @@ import {
 } from '../thrift-services/damsel/gen-model/payment_processing';
 import { execute } from '../shared/execute';
 import { AutomatonService } from '../thrift-services/machinegun/automaton.service';
-import { PaymentProcessingService } from '../thrift-services/payment-processing.service';
+import { PaymentProcessingService } from '../thrift-services/damsel/payment-processing.service';
 import { RepairerService } from '../thrift-services/fistful/repairer.service';
 import { RepairScenario } from '../thrift-services/fistful/gen-model/withdrawal_session';
 

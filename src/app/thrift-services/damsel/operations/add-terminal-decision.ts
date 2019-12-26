@@ -2,9 +2,9 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import last from 'lodash-es/last';
 import dropRight from 'lodash-es/dropRight';
 
-import { toGenTerminalDecision } from '../converters';
+import { toGenTerminalDecision } from '../../converters';
 import { checkSelector } from './utils';
-import { ProviderObject, TerminalDecision, TerminalRef } from '../damsel/gen-model/domain';
+import { ProviderObject, TerminalDecision, TerminalRef } from '../gen-model/domain';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision => ({
     if_: {

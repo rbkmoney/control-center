@@ -17,4 +17,4 @@ import { ClaimManagementService } from './claim-management.service';
         ClaimManagementService
     ]
 })
-export class ThriftModule {}
+export class DamselModule {}

@@ -1,8 +1,8 @@
-import { toGenDomainObject } from '../converters';
+import { toGenDomainObject } from '../../converters';
 import { RemoveTerminalFromShopParams } from './remove-terminal-from-shop-params';
 import { removeTerminalDecision } from './remove-terminal-decision';
-import { ProviderObject } from '../damsel/gen-model/domain';
-import { UpdateOp } from '../damsel/gen-model/domain_config';
+import { ProviderObject } from '../gen-model/domain';
+import { UpdateOp } from '../gen-model/domain_config';
 
 export const createRemoveTerminalFromProviderOperation = (
     providerObject: ProviderObject,

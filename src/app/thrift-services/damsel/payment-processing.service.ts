@@ -7,16 +7,16 @@ import {
     InvoicePaymentAdjustmentParams as InvoicePaymentAdjustmentParamsObject,
     UserInfo as UserInfoObject,
     InvoiceRepairScenario as InvoiceRepairScenarioObject
-} from './damsel/gen-nodejs/payment_processing_types';
-import { ThriftService } from './thrift-service';
-import * as Invoicing from './damsel/gen-nodejs/Invoicing';
-import { InvoiceID } from './damsel/gen-model/domain';
+} from './gen-nodejs/payment_processing_types';
+import { ThriftService } from '../thrift-service';
+import * as Invoicing from './gen-nodejs/Invoicing';
+import { InvoiceID } from './gen-model/domain';
 import {
     InvoicePaymentAdjustment,
     InvoicePaymentAdjustmentParams,
     InvoiceRepairScenario,
     UserInfo
-} from './damsel/gen-model/payment_processing';
+} from './gen-model/payment_processing';
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {

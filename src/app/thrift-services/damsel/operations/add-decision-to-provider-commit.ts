@@ -1,7 +1,7 @@
-import { toGenCommit } from '../converters';
+import { toGenCommit } from '../../converters';
 import { createAddTerminalToProviderOperation } from './create-add-terminal-to-provider-operation';
-import { ProviderObject } from '../damsel/gen-model/domain';
-import { Commit } from '../damsel/gen-model/domain_config';
+import { ProviderObject } from '../gen-model/domain';
+import { Commit } from '../gen-model/domain_config';
 
 export class AddDecisionToProvider {
     partyID: string;

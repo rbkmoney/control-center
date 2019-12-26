@@ -1,6 +1,6 @@
 import sortBy from 'lodash-es/sortBy';
 import transform from 'lodash-es/transform';
-import { Domain, TerminalSelector } from '../damsel/gen-model/domain';
+import { Domain, TerminalSelector } from '../gen-model/domain';
 
 export const generateID = (domainObjects: any[]): number => {
     const objWithMaxId = sortBy(domainObjects, obj => obj.ref.id)[domainObjects.length - 1];

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 
-import { ClaimManagementService } from '../../thrift-services/claim-management.service';
+import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 
 @Injectable()
