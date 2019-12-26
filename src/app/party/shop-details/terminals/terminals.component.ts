@@ -10,7 +10,7 @@ import {
 import { filter } from 'rxjs/operators';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
-import { DomainTypedManager } from '../../../thrift';
+import { DomainTypedManager } from '../../../thrift-services';
 import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';

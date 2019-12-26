@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Shop } from '../../../gen-damsel/domain';
+import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-shop-info',

@@ -11,7 +11,7 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
-import { StatPayment } from '../../gen-damsel/merch_stat';
+import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { i64ToNumber } from '../../shared/i64-to-number';
 
 @Component({

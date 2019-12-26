@@ -2,7 +2,7 @@ import {
     ClaimModification,
     Modification,
     ModificationUnit
-} from '../../../../gen-damsel/claim_management';
+} from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { TimelineAction, TimelineItemInfo } from './model';
 import { sortUnitsByCreatedAtAsc } from '../../../../shared/utils';
 import { getUnionKey } from '../../../../shared/get-union-key';

@@ -1,4 +1,4 @@
-import { Contract, Shop, Contractor } from '../../gen-damsel/domain';
+import { Contract, Shop, Contractor } from '../../thrift-services/damsel/gen-model/domain';
 
 export class SelectableItem {
     id: string;

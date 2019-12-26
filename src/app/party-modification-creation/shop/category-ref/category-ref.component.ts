@@ -8,7 +8,7 @@ import { get } from 'lodash-es';
 
 import { Category } from '../../../papi/model';
 import { CategoryService } from '../../../papi/category.service';
-import { CategoryRef } from '../../../gen-damsel/domain';
+import { CategoryRef } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-category-ref',

@@ -2,7 +2,7 @@ import { Field } from 'thrift-ts';
 
 import { clearNullFields } from '../../../shared/thrift-utils';
 import { DomainGroup } from './domain-group';
-import { Domain } from '../../../gen-damsel/domain';
+import { Domain } from '../../../thrift-services/damsel/gen-model/domain';
 
 function getTypeDef(domainObjDef: Field[]) {
     return domainObjDef.reduce(

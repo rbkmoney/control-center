@@ -4,7 +4,7 @@ import { Observable, combineLatest } from 'rxjs';
 
 import { DomainModificationModel } from '../domain-modification-model';
 import { DomainService } from '../domain.service';
-import { Version } from '../../gen-damsel/domain_config';
+import { Version } from '../../thrift-services/damsel/gen-model/domain_config';
 import { DomainReviewService } from '../domain-review.service';
 import { tap } from 'rxjs/operators';
 

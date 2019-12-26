@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import get from 'lodash-es/get';
 
@@ -9,10 +9,10 @@ import {
     ProviderObject,
     Shop,
     TerminalObject
-} from '../../gen-damsel/domain';
+} from '../../thrift-services/damsel/gen-model/domain';
 import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 import { PartyService } from '../party.service';
-import { DomainTypedManager } from '../../thrift';
+import { DomainTypedManager } from '../../thrift-services';
 
 export interface ProviderInfo {
     provider: ProviderObject;

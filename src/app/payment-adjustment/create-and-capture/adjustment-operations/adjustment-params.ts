@@ -1,4 +1,7 @@
-import { InvoicePaymentAdjustmentParams, UserInfo } from '../../../gen-damsel/payment_processing';
+import {
+    InvoicePaymentAdjustmentParams,
+    UserInfo
+} from '../../../thrift-services/damsel/gen-model/payment_processing';
 
 export interface PaymentAdjustmentCreationParams {
     user: UserInfo;

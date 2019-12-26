@@ -1,4 +1,4 @@
-import { ClaimStatus as UnionClaimStatus } from '../gen-damsel/claim_management';
+import { ClaimStatus as UnionClaimStatus } from '../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatus } from '../papi/model/claim-statuses';
 import { getUnionKey } from './get-union-key';
 

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, Subject, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { DomainObject, Reference } from '../../gen-damsel/domain';
+import { DomainObject, Reference } from '../../thrift-services/damsel/gen-model/domain';
 import { MetadataService } from '../metadata.service';
 import { DomainService } from '../domain.service';
 import { MetaBuilder } from '../../damsel-meta/meta-builder.service';
@@ -12,7 +12,7 @@ import { toMonacoContent, parseRef } from '../utils';
 import { DomainReviewService } from '../domain-review.service';
 import { DomainModificationModel, ModificationItem } from '../domain-modification-model';
 import { ThriftBuilderService } from '../../damsel-meta/thrift-builder.service';
-import { getThriftInstance } from '../../thrift';
+import { getThriftInstance } from '../../thrift-services';
 import { ThriftType } from '../../damsel-meta/thrift-builder';
 
 @Injectable()

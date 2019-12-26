@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Blocking } from '../../../gen-damsel/domain';
+import { Blocking } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Pipe({
     name: 'ccBlockingPipe'

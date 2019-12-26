@@ -8,7 +8,7 @@ import {
     MetaStruct,
     MetaUnion
 } from '../model';
-import { getThriftInstance } from '../../thrift';
+import { getThriftInstance } from '../../thrift-services';
 
 export type ThriftType = any;
 

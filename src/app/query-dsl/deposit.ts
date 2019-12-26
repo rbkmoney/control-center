@@ -1,4 +1,4 @@
-import { DepositStatus } from '../fistful/gen-model/fistful_stat';
+import { DepositStatus } from '../thrift-services/fistful/gen-model/fistful_stat';
 
 export interface Deposit {
     amount_to?: number;

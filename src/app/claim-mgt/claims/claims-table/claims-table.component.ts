@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Claim, ClaimStatus } from '../../../gen-damsel/claim_management';
+import { Claim, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
 
 @Component({

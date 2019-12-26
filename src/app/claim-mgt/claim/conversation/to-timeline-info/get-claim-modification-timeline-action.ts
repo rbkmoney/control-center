@@ -1,5 +1,8 @@
 import { TimelineAction } from './model';
-import { ClaimModification, StatusModificationUnit } from '../../../../gen-damsel/claim_management';
+import {
+    ClaimModification,
+    StatusModificationUnit
+} from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { getUnionKey } from '../../../../shared/get-union-key';
 import { ClaimStatus } from '../../../../papi/model/claim-statuses';
 

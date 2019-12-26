@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
-import { DomainTypedManager } from '../../../thrift';
+import { DomainTypedManager } from '../../../thrift-services';
 import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 
 @Component({

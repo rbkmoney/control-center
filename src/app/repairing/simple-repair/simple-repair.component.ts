@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ExecStateType } from '../../shared/execute';
-import { Machine } from '../../machinegun/gen-model/state_processing';
-import { Namespace } from '../../machinegun/model/namespace';
+import { Machine } from '../../thrift-services/machinegun/gen-model/state_processing';
+import { Namespace } from '../../thrift-services/machinegun/model/namespace';
 import { RepairingService } from '../repairing.service';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 

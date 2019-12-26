@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 
-import { ClaimManagementService } from '../../thrift/claim-management.service';
-import { Claim } from '../../gen-damsel/claim_management';
+import { ClaimManagementService } from '../../thrift-services/claim-management.service';
+import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 
 @Injectable()
 export class ClaimService {

@@ -17,7 +17,7 @@ import { ClaimInfo, PartyModificationUnit } from '../papi/model';
 import { ClaimInfoContainer, ModificationGroup, PersistentContainer } from './model';
 import { PersistentContainerService } from './persistent-container.service';
 import { convert } from './party-modification-group-converter';
-import { PartyModification } from '../gen-damsel/payment_processing';
+import { PartyModification } from '../thrift-services/damsel/gen-model/payment_processing';
 import { ClaimActionType } from './claim-action-type';
 import { ClaimStatus } from '../papi/model/claim-statuses';
 

@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { filter, shareReplay, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { StatDeposit } from '../fistful/gen-model/fistful_stat';
-import { FistfulStatisticsService } from '../fistful/fistful-stat.service';
+import { StatDeposit } from '../thrift-services/fistful/gen-model/fistful_stat';
+import { FistfulStatisticsService } from '../thrift-services/fistful/fistful-stat.service';
 import { SearchFormParams } from './search-form/search-form-params';
 import { booleanDelay } from '../custom-operators';
 import { CreateDepositComponent } from './create-deposit/create-deposit.component';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DomainTypedManager, TerminalOption } from '../../../../../thrift';
+import { DomainTypedManager, TerminalOption } from '../../../../../thrift-services';
 import { Observable } from 'rxjs';
 
 const toFormArray = (fb: FormBuilder, options: TerminalOption[]): FormArray =>

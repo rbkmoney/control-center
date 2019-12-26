@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Suspension } from '../../../gen-damsel/domain';
+import { Suspension } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Pipe({
     name: 'ccSuspensionPipe'

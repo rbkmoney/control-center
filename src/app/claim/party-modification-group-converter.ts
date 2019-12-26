@@ -6,7 +6,10 @@ import {
     PartyModificationUnit,
     PersistentContainer
 } from './model';
-import { ContractModificationUnit, ShopModificationUnit } from '../gen-damsel/payment_processing';
+import {
+    ContractModificationUnit,
+    ShopModificationUnit
+} from '../thrift-services/damsel/gen-model/payment_processing';
 import { UnitName } from '../party-modification-creation/unit-name';
 
 interface PersistentUnit {

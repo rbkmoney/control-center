@@ -37,11 +37,14 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
 /src/assets/meta-damsel.json
-/src/app/thrift/gen-nodejs/
-/src/app/gen-damsel/
-/src/app/machinegun/gen-*
-/src/app/fistful/gen-*
+/src/app/thrift-services/damsel/gen-*
+/src/app/thrift-services/machinegun/gen-*
+/src/app/thrift-services/fistful/gen-*
+/src/app/thrift-services/messages/gen-*
+/src/app/thrift-services/ank/gen-*
+/src/app/thrift-services/file-storage/gen-*
 
 # Sonar
 .scannerwork

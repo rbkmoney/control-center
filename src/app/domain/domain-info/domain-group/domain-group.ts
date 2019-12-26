@@ -1,4 +1,4 @@
-import { Reference } from '../../../gen-damsel/domain_config';
+import { Reference } from '../../../thrift-services/damsel/gen-model/domain_config';
 
 export interface AbstractDomainObject {
     ref: any;

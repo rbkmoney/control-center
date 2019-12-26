@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
+import { StatDeposit } from '../../thrift-services/fistful/gen-model/fistful_stat';
 
 @Component({
     selector: 'cc-deposits-table',

@@ -1,5 +1,8 @@
 import { TimelineAction } from './timeline-action';
-import { Modification, UserInfo } from '../../../../../gen-damsel/claim_management';
+import {
+    Modification,
+    UserInfo
+} from '../../../../../thrift-services/damsel/gen-model/claim_management';
 
 export interface TimelineItemInfo {
     action: TimelineAction;
