@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
-import { filter, shareReplay, tap } from 'rxjs/operators';
+import { filter, shareReplay } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { StatDeposit } from '../thrift-services/fistful/gen-model/fistful_stat';
