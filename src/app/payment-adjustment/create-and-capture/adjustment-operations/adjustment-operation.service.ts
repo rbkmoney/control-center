@@ -4,7 +4,7 @@ import { catchError, map, tap } from 'rxjs/internal/operators';
 import groupBy from 'lodash-es/groupBy';
 
 import { ExecutorService } from '../executor.service';
-import { PaymentProcessingService } from '../../../thrift/payment-processing.service';
+import { PaymentProcessingService } from '../../../thrift-services/damsel/payment-processing.service';
 import { AdjustmentOperationEvent, EventType } from './adjustment-event';
 import { ExecResultGroup } from './exec-result-group';
 

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DepositStatus } from '../fistful/gen-model/fistful_stat';
+import { DepositStatus } from '../thrift-services/fistful/gen-model/fistful_stat';
 import { depositStatus } from './deposit-status';
 
 @Pipe({

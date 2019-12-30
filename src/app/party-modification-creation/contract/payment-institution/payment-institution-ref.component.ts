@@ -5,8 +5,11 @@ import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
 import get from 'lodash-es/get';
 
-import { PaymentInstitutionObject, PaymentInstitutionRef } from '../../../gen-damsel/domain';
-import { DomainTypedManager } from '../../../thrift';
+import {
+    PaymentInstitutionObject,
+    PaymentInstitutionRef
+} from '../../../thrift-services/damsel/gen-model/domain';
+import { DomainTypedManager } from '../../../thrift-services';
 
 @Component({
     selector: 'cc-payment-institution-ref',

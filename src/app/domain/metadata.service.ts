@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { shareReplay, map } from 'rxjs/operators';
 import { JsonAST, Field } from 'thrift-ts';
 
-import { Reference } from '../gen-damsel/domain';
+import { Reference } from '../thrift-services/damsel/gen-model/domain';
 
 export interface Metadata {
     path: string;

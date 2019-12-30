@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import get from 'lodash-es/get';
 
-import { ContractTermination } from '../../../gen-damsel/payment_processing';
+import { ContractTermination } from '../../../thrift-services/damsel/gen-model/payment_processing';
 
 @Component({
     selector: 'cc-termination',

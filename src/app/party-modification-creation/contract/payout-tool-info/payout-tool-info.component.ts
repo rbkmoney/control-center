@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { PayoutToolInfo } from '../../../gen-damsel/domain';
+import { PayoutToolInfo } from '../../../thrift-services/damsel/gen-model/domain';
 import get from 'lodash-es/get';
 
 enum Type {

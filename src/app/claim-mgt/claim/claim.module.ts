@@ -6,7 +6,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { ClaimComponent } from './claim.component';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { ClaimManagementService } from '../../thrift/claim-management.service';
+import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { DetailsComponent } from './details/details.component';
 import { ConversationModule } from './conversation/conversation.module';
 

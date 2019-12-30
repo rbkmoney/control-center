@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { ClaimService } from '../claim.service';
-import { PartyModificationUnit, ModificationGroupType } from '../model';
+import { ModificationGroupType, PartyModificationUnit } from '../model';
 
 @Component({
     selector: 'cc-party-modifications',

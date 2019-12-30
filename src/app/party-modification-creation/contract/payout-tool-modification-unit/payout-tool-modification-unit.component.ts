@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as uuid from 'uuid/v4';
 import get from 'lodash-es/get';
 
-import { PayoutToolModificationUnit } from '../../../gen-damsel/payment_processing';
+import { PayoutToolModificationUnit } from '../../../thrift-services/damsel/gen-model/payment_processing';
 
 @Component({
     selector: 'cc-contract-payout-tool-modification-unit',

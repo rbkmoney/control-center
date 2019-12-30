@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { Claim } from '../../../gen-damsel/claim_management';
+import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { toTimelineInfo } from './to-timeline-info';
 import { TimelineItemInfo } from './to-timeline-info/model';
 import { getUnionKey } from '../../../shared/get-union-key';

@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 
-import { FistfulAdminService } from '../../fistful/fistful-admin.service';
+import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
 
 export interface CurrencySource {
     source: string;

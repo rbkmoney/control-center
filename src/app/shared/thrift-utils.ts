@@ -1,4 +1,4 @@
-import { DomainObject } from '../gen-damsel/domain';
+import { DomainObject } from '../thrift-services/damsel/gen-model/domain';
 
 export function clearNullFields(union: object): object {
     if (!union) {

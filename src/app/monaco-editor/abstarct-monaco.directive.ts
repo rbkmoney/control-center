@@ -4,7 +4,6 @@ import {
     ElementRef,
     Output,
     EventEmitter,
-    Directive,
     OnChanges,
     SimpleChanges,
     HostListener,

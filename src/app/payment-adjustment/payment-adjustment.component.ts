@@ -3,7 +3,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
-import { StatPayment } from '../gen-damsel/merch_stat';
+import { StatPayment } from '../thrift-services/damsel/gen-model/merch_stat';
 import { SearchFormParams } from './search-form/search-form-params';
 
 @Component({

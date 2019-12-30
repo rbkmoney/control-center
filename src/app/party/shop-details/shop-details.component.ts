@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { filter, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 
-import { ShopDetailsService, ProviderInfo } from './shop-details.service';
-import { Contract, PayoutTool, Shop } from '../../gen-damsel/domain';
+import { ProviderInfo, ShopDetailsService } from './shop-details.service';
+import { Contract, PayoutTool, Shop } from '../../thrift-services/damsel/gen-model/domain';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 
 @Component({

@@ -7,9 +7,9 @@ import {
     AddDecisionToProvider,
     DomainTypedManager,
     filterProvidersByTerminalSelector
-} from '../../../thrift';
-import { ProviderObject, TerminalObject } from '../../../gen-damsel/domain';
-import { filterProvidersByCategoryId } from '../../../thrift/filters';
+} from '../../../thrift-services';
+import { ProviderObject, TerminalObject } from '../../../thrift-services/damsel/gen-model/domain';
+import { filterProvidersByCategoryId } from '../../../thrift-services/filters';
 
 @Injectable()
 export class AddProviderService {

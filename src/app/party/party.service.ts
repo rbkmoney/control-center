@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Contract, Party, PayoutTool, Shop } from '../gen-damsel/domain';
+import { Contract, Party, PayoutTool, Shop } from '../thrift-services/damsel/gen-model/domain';
 import { PartyService as PapiPartyService } from '../papi/party.service';
 import { map, tap } from 'rxjs/operators';
 

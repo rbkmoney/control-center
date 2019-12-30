@@ -3,8 +3,8 @@ import { MatSelectChange, MatSnackBar } from '@angular/material';
 import { tap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
 
-import { BusinessScheduleObject } from '../../../gen-damsel/domain';
-import { DomainTypedManager } from '../../../thrift';
+import { BusinessScheduleObject } from '../../../thrift-services/damsel/gen-model/domain';
+import { DomainTypedManager } from '../../../thrift-services';
 
 @Component({
     selector: 'cc-business-schedule-selector',

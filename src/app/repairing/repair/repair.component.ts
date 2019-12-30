@@ -6,7 +6,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ExecStateType } from '../../shared/execute';
 import { RepairingService } from '../repairing.service';
 import { RepairSettingsComponent, DialogData } from './repair-settings/repair-settings.component';
-import { RepairScenario } from '../../fistful/gen-model/withdrawal_session';
+import { RepairScenario } from '../../thrift-services/fistful/gen-model/withdrawal_session';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 
 enum Status {

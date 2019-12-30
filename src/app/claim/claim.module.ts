@@ -23,7 +23,6 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { PapiModule } from '../papi/papi.module';
-import { ThriftModule } from '../thrift/thrift.module';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ClaimInfoComponent } from './claim-info/claim-info.component';
@@ -44,11 +43,12 @@ import { PersistentContainerService } from './persistent-container.service';
 import { CloneClaimComponent } from './clone-claim/clone-claim.component';
 import { PartyModificationContainerService } from './party-modification-container/party-modification-container.service';
 import { RemoveConfirmComponent } from './party-modification-container/remove-confirm/remove-confirm.component';
+import { DamselModule } from '../thrift-services/damsel/damsel.module';
 
 @NgModule({
     imports: [
         PapiModule,
-        ThriftModule,
+        DamselModule,
         CommonModule,
         SharedModule,
         ReactiveFormsModule,
