@@ -1,5 +1,15 @@
+<div style="padding-left: 20px">
+    <mat-form-field>
+        <mat-label>type</mat-label>
+        <mat-select multiple (valueChange)="selectFilter($event)">
+            <mat-option *ngFor="let action of timelineActionTypes" [value]="action">
+                {{ action.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
 <cc-timeline>
-    <cc-timeline-item *ngFor="let item of timelineInfo">
+    <cc-timeline-item *ngFor="let item of filteredTimelineInfo">
         <cc-timeline-item-title>
             <span>
                 {{ item.action | actionName }} by {{ item.user_info.username }} at

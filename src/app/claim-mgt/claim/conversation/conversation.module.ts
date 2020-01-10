@@ -18,6 +18,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ActionNamePipe } from './action-name.pipe';
 import { MonacoEditorModule } from '../../../monaco-editor';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { HumanizeDurationModule } from '../../../shared/humanize-duration';
         SharedModule,
         MatExpansionModule,
         MonacoEditorModule,
-        HumanizeDurationModule
+        HumanizeDurationModule,
+        MatSelectModule
     ],
     declarations: [ConversationComponent, ActionIconPipe, ActionNamePipe],
     exports: [ConversationComponent]

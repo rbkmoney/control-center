@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material';
 import { FlexModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 
 import { ClaimComponent } from './claim.component';
 import { ClaimRoutingModule } from './claim-routing.module';
@@ -17,7 +18,8 @@ import { ConversationModule } from './conversation/conversation.module';
         CommonModule,
         MatCardModule,
         FlexModule,
-        ConversationModule
+        ConversationModule,
+        MatSelectModule
     ],
     declarations: [ClaimComponent, DetailsComponent],
     providers: [ClaimManagementService]
