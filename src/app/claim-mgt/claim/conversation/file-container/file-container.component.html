@@ -1,6 +1,6 @@
 <mat-card *ngIf="fileData$ | async as fileData">
     <mat-card-content fxLayout="row" fxLayoutAlign="space-between">
         <div class="mat-body-1">{{ fileData.file_name }}</div>
-        <mat-icon class="download-icon">cloud_download</mat-icon>
+        <mat-icon class="download-icon" (click)="downloadFile()">cloud_download</mat-icon>
     </mat-card-content>
 </mat-card>

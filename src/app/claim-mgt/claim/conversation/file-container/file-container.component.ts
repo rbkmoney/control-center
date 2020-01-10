@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { FileContainerService } from './file-container.service';
 
-
 @Component({
     selector: 'cc-file-container',
     templateUrl: 'file-container.component.html',
@@ -19,5 +18,9 @@ export class FileContainerComponent implements OnInit {
 
     ngOnInit() {
         this.fileContainerService.getFileInfo(this.fileID);
+    }
+
+    downloadFile() {
+        this.fileContainerService.downloadFile(this.fileID);
     }
 }

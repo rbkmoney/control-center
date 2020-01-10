@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Observable, Subject } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import { FileData, FileNotFound } from '../../../../thrift-services/file-storage/gen-model/file_storage';
 import { booleanDelay } from '../../../../custom-operators';
+import { download } from './download';
 
 @Injectable()
 export class FileContainerService {
@@ -33,11 +35,17 @@ export class FileContainerService {
     }
 
     downloadFile(fileID: string) {
-        // this.fileStorageService
-        //     .generateDownloadUrl(fileID, null)
-        //     .subscribe(
-        //         ({ url }) => download(url),
-        //         () => this.snackBar.open('Download error', 'OK')
-        //     );
+        this.fileStorageService
+            .generateDownloadUrl(fileID, moment().add(1, 'h').toISOString())
+            .subscribe(
+                (url) => {
+                    if (typeof url === 'string') {
+                        download(url)
+                    } else {
+                        this.snackBar.open('File not found', 'OK')
+                    }
+                },
+                () => this.snackBar.open('Download error', 'OK')
+            );
     }
 }
