@@ -26,19 +26,24 @@
             fxLayout="column"
             fxLayoutGap="20px"
         >
-            <mat-expansion-panel *ngFor="let modification of item.modifications">
-                <mat-expansion-panel-header>
-                    <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>
-                    <mat-panel-description>
-                        {{
+            <div *ngFor="let modification of item.modifications">
+                <cc-file-container *ngIf="modification?.claim_modification?.file_modification"
+                                   [fileID]="modification.claim_modification.file_modification.id"
+                ></cc-file-container>
+                <mat-expansion-panel *ngIf="!modification?.claim_modification?.file_modification">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>
+                        <mat-panel-description>
+                            {{
                             modification.claim_modification
                                 ? getKey(modification.claim_modification)
                                 : getKey(modification.party_modification)
-                        }}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <cc-pretty-json [object]="modification"></cc-pretty-json>
-            </mat-expansion-panel>
+                            }}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <cc-pretty-json [object]="modification"></cc-pretty-json>
+                </mat-expansion-panel>
+            </div>
         </cc-timeline-item-content>
     </cc-timeline-item>
 </cc-timeline>

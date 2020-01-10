@@ -19,6 +19,7 @@ import { ActionNamePipe } from './action-name.pipe';
 import { MonacoEditorModule } from '../../../monaco-editor';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { MatSelectModule } from '@angular/material/select';
+import { FileContainerModule } from './file-container';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { MatSelectModule } from '@angular/material/select';
         MatExpansionModule,
         MonacoEditorModule,
         HumanizeDurationModule,
-        MatSelectModule
+        MatSelectModule,
+        FileContainerModule
     ],
     declarations: [ConversationComponent, ActionIconPipe, ActionNamePipe],
     exports: [ConversationComponent]
