@@ -14,7 +14,7 @@ const initializer = (keycloak: KeycloakService, configService: ConfigService) =>
                 checkLoginIframe: true
             },
             enableBearerInterceptor: true,
-            bearerExcludedUrls: ['/assets'],
+            bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
             bearerPrefix: 'Bearer'
         })
     ]);

@@ -1,4 +1,4 @@
-<div style="padding-left: 20px">
+<div style="padding-left: 20px" fxLayout="row">
     <mat-form-field>
         <mat-label>type</mat-label>
         <mat-select multiple (valueChange)="selectFilter($event)">
@@ -7,6 +7,9 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+    <cc-file-uploader>
+        <mat-icon>attach_file</mat-icon>
+    </cc-file-uploader>
 </div>
 <cc-timeline>
     <cc-timeline-item *ngFor="let item of filteredTimelineInfo">

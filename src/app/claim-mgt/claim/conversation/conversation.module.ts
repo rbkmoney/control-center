@@ -1,13 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatExpansionModule
-} from '@angular/material';
+import { MatButtonModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -18,8 +13,8 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ActionNamePipe } from './action-name.pipe';
 import { MonacoEditorModule } from '../../../monaco-editor';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
-import { MatSelectModule } from '@angular/material/select';
 import { FileContainerModule } from './file-container';
+import { FileUploaderModule } from './file-uploader/file-uploader.module';
 
 @NgModule({
     imports: [
@@ -38,7 +33,8 @@ import { FileContainerModule } from './file-container';
         MonacoEditorModule,
         HumanizeDurationModule,
         MatSelectModule,
-        FileContainerModule
+        FileContainerModule,
+        FileUploaderModule
     ],
     declarations: [ConversationComponent, ActionIconPipe, ActionNamePipe],
     exports: [ConversationComponent]
