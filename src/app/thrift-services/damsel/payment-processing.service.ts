@@ -1,7 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { share, switchMap, first } from 'rxjs/operators';
-import { KeycloakService } from 'keycloak-angular';
 
 import {
     InvoicePaymentAdjustmentParams as InvoicePaymentAdjustmentParamsObject,
@@ -17,11 +16,12 @@ import {
     InvoiceRepairScenario,
     UserInfo
 } from './gen-model/payment_processing';
+import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {
-    constructor(zone: NgZone, keycloakService: KeycloakService) {
-        super(zone, keycloakService, '/v1/processing/invoicing', Invoicing);
+    constructor(zone: NgZone, keycloakTokenInfoService: KeycloakTokenInfoService) {
+        super(zone, keycloakTokenInfoService, '/v1/processing/invoicing', Invoicing);
     }
 
     getPaymentAdjustment = (

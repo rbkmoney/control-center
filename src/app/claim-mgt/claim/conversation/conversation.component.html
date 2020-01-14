@@ -1,34 +1,47 @@
-<cc-timeline>
-    <cc-timeline-item *ngFor="let item of timelineInfo">
-        <cc-timeline-item-title>
-            <span>
-                {{ item.action | actionName }} by {{ item.user_info.username }} at
-                {{ item.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
-                    item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
-                }})
-            </span>
-        </cc-timeline-item-title>
-        <cc-timeline-item-badge>
-            <mat-icon>{{ item.action | actionIcon }}</mat-icon>
-        </cc-timeline-item-badge>
-        <cc-timeline-item-content
-            *ngIf="item.modifications.length !== 0"
-            fxLayout="column"
-            fxLayoutGap="20px"
-        >
-            <mat-expansion-panel *ngFor="let modification of item.modifications">
-                <mat-expansion-panel-header>
-                    <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>
-                    <mat-panel-description>
-                        {{
-                            modification.claim_modification
-                                ? getKey(modification.claim_modification)
-                                : getKey(modification.party_modification)
-                        }}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <cc-pretty-json [object]="modification"></cc-pretty-json>
-            </mat-expansion-panel>
-        </cc-timeline-item-content>
-    </cc-timeline-item>
-</cc-timeline>
+<div fxLayout="column" fxLayoutGap="20px">
+    <cc-timeline>
+        <cc-timeline-item *ngFor="let item of timelineInfo">
+            <cc-timeline-item-title>
+                <span>
+                    {{ item.action | actionName }} by {{ item.user_info.username }} at
+                    {{ item.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                        item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
+                    }})
+                </span>
+            </cc-timeline-item-title>
+            <cc-timeline-item-badge>
+                <mat-icon>{{ item.action | actionIcon }}</mat-icon>
+            </cc-timeline-item-badge>
+            <cc-timeline-item-content
+                *ngIf="item.modifications.length !== 0"
+                fxLayout="column"
+                fxLayoutGap="20px"
+            >
+                <ng-container *ngFor="let modification of item.modifications">
+                    <cc-conversation-comment
+                        *ngIf="item.action === timelineAction.commentAdded"
+                        [commentModification]="modification.claim_modification.comment_modification"
+                    ></cc-conversation-comment>
+                </ng-container>
+                <ng-container *ngIf="item.action !== timelineAction.commentAdded">
+                    <mat-expansion-panel *ngFor="let modification of item.modifications">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>
+                            <mat-panel-description>
+                                {{
+                                    modification.claim_modification
+                                        ? getKey(modification.claim_modification)
+                                        : getKey(modification.party_modification)
+                                }}
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <cc-pretty-json [object]="modification"></cc-pretty-json>
+                    </mat-expansion-panel>
+                </ng-container>
+            </cc-timeline-item-content>
+        </cc-timeline-item>
+    </cc-timeline>
+    <dsh-send-comment
+        (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
+    ></dsh-send-comment>
+</div>
