@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subject, of, forkJoin, BehaviorSubject, Observable, merge, from } from 'rxjs';
+import { Subject, of, forkJoin, BehaviorSubject, Observable, merge } from 'rxjs';
 import { switchMap, filter, catchError, pluck, tap } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 import get from 'lodash-es/get';

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import Int64 from 'thrift-ts/lib/int64';
 
 import { ClaimService } from './claim.service';
-import Int64 from 'thrift-ts/lib/int64';
 
 @Component({
     templateUrl: 'claim.component.html',
