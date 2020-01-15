@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
-import { TimelineAction } from './to-timeline-info/model';
-import { ClaimID, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { Observable } from 'rxjs';
-import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+import { Observable, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import get from 'lodash-es/get';
+
+import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
+import { ClaimID, CommentID, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+
 
 @Injectable()
 export class ConversationService {
-    constructor(private claimManagementService: ClaimManagementService) {}
+    timelineInfos$ = new Subject<TimelineItemInfo[]>();
+
+    constructor(private claimManagementService: ClaimManagementService) {
+    }
 
     updateConversation(
         party_id: string,

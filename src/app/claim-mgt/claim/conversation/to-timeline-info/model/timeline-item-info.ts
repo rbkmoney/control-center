@@ -9,4 +9,7 @@ export interface TimelineItemInfo {
     user_info: UserInfo;
     created_at: string;
     modifications: Modification[];
+    canEnrich: boolean;
+    isLoaded?: boolean;
+    data?: any;
 }

@@ -21,6 +21,13 @@ export class SendCommentComponent {
         this.sendCommentService.conversationSaved$.subscribe(id =>
             this.conversationSaved.next(sendCommentService.createModification(id))
         );
+        this.inProgress$.subscribe(inProgress => {
+            if (inProgress) {
+                this.form.controls.comment.disable();
+            } else {
+                this.form.controls.comment.enable();
+            }
+        });
     }
 
     sendComment(comment: string) {

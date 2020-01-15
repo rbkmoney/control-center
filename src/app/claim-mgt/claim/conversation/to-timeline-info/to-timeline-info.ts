@@ -43,11 +43,22 @@ const concatLastItem = (
     acc.map((accItem, accItemIndex) =>
         accItemIndex === acc.length - 1
             ? {
-                  ...updateItem,
-                  modifications: accItem.modifications.concat(updateItem.modifications)
-              }
+                ...updateItem,
+                modifications: accItem.modifications.concat(updateItem.modifications)
+            }
             : accItem
     );
+
+const isCanEnrich = (action: TimelineAction): boolean => {
+    switch (action) {
+        case TimelineAction.commentAdded:
+        // case TimelineAction.changesAdded:
+        // case TimelineAction.filesAdded:
+            return true;
+        default:
+            return false;
+    }
+};
 
 const acceptTimelineItem = (
     acc: TimelineItemInfo[],
@@ -58,11 +69,14 @@ const acceptTimelineItem = (
         return acc;
     }
     const modifications = toTimelineInfoModifications(action, modification);
+    const canEnrich = isCanEnrich(action);
     const result = {
         action,
         user_info,
         created_at: created_at as string,
-        modifications
+        modifications,
+        isLoaded: canEnrich ? false : undefined,
+        canEnrich,
     };
     if (acc.length !== 0 && modifications.length !== 0) {
         const lastItem = acc[acc.length - 1];
