@@ -5,7 +5,7 @@ import { SendCommentService } from './send-comment.service';
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 
 @Component({
-    selector: 'dsh-send-comment',
+    selector: 'cc-send-comment',
     templateUrl: 'send-comment.component.html',
     styleUrls: ['send-comment.component.scss'],
     providers: [SendCommentService]
