@@ -4,13 +4,14 @@ import { Subject, of, forkJoin, BehaviorSubject, Observable, merge } from 'rxjs'
 import { switchMap, filter, catchError, pluck, tap } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 import get from 'lodash-es/get';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
 import { ConversationId, User } from '../../../../thrift-services/messages/gen-model/messages';
 import { MessagesService } from '../../../../thrift-services/messages/messages.service';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { createSingleMessageConversationParams } from '../../../../thrift-services/messages/utils';
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class SendCommentService {
@@ -29,7 +30,8 @@ export class SendCommentService {
     constructor(
         private fb: FormBuilder,
         private messagesService: MessagesService,
-        private keycloakTokenInfoService: KeycloakTokenInfoService
+        private keycloakTokenInfoService: KeycloakTokenInfoService,
+        private snackBar: MatSnackBar
     ) {
         this.form = this.fb.group({
             comment: ['', [Validators.maxLength(1000)]]
@@ -52,6 +54,11 @@ export class SendCommentService {
                         this.messagesService.saveConversations([conversation], user).pipe(
                             catchError(ex => {
                                 console.error(ex);
+                                this.snackBar.open(
+                                    `There was an error sending a comment: ${ex}`,
+                                    'OK',
+                                    { duration: 5000 }
+                                );
                                 const error = { hasError: true, code: 'saveConversationsFailed' };
                                 this.error$.next(error);
                                 return of(error);

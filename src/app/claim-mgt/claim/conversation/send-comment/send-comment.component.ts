@@ -14,7 +14,6 @@ export class SendCommentComponent {
     @Output() conversationSaved: EventEmitter<Modification> = new EventEmitter();
 
     form: FormGroup = this.sendCommentService.form;
-    errorCode$ = this.sendCommentService.errorCode$;
     inProgress$ = this.sendCommentService.inProgress$;
 
     constructor(private sendCommentService: SendCommentService) {

@@ -1,3 +1,5 @@
 <mat-card>
-    <mat-card-content> {{ comment$ | async }} </mat-card-content>
+    <mat-card-content>
+        {{ conversation ? conversation.messages[0].text : "Can't load conversation" }}
+    </mat-card-content>
 </mat-card>

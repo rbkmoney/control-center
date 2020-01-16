@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { CommentService } from './comment.service';
-import { CommentModificationUnit } from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { Conversation } from '../../../../thrift-services/messages/gen-model/messages';
 
 @Component({
     selector: 'cc-conversation-comment',
@@ -9,14 +9,6 @@ import { CommentModificationUnit } from '../../../../thrift-services/damsel/gen-
     styleUrls: ['comment.component.scss'],
     providers: [CommentService]
 })
-export class CommentComponent implements OnInit {
-    @Input() commentModification: CommentModificationUnit;
-
-    comment$ = this.commentService.comment$;
-
-    constructor(private commentService: CommentService) {}
-
-    ngOnInit(): void {
-        // this.commentService.getComment(this.commentModification.id);
-    }
+export class CommentComponent {
+    @Input() conversation: Conversation;
 }

@@ -49,17 +49,6 @@ const concatLastItem = (
             : accItem
     );
 
-const isCanEnrich = (action: TimelineAction): boolean => {
-    switch (action) {
-        case TimelineAction.commentAdded:
-            // case TimelineAction.changesAdded:
-            // case TimelineAction.filesAdded:
-            return true;
-        default:
-            return false;
-    }
-};
-
 const acceptTimelineItem = (
     acc: TimelineItemInfo[],
     { created_at, modification, user_info }: ModificationUnit
@@ -69,14 +58,11 @@ const acceptTimelineItem = (
         return acc;
     }
     const modifications = toTimelineInfoModifications(action, modification);
-    const canEnrich = isCanEnrich(action);
     const result = {
         action,
         user_info,
         created_at: created_at as string,
-        modifications,
-        isLoaded: canEnrich ? false : undefined,
-        canEnrich
+        modifications
     };
     if (acc.length !== 0 && modifications.length !== 0) {
         const lastItem = acc[acc.length - 1];

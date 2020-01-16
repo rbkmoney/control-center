@@ -10,6 +10,7 @@ import {
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatCardModule } from '@angular/material/card';
 
 import { ConversationComponent } from './conversation.component';
 import { ActionIconPipe } from './action-icon.pipe';
@@ -21,7 +22,6 @@ import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SendCommentComponent } from './send-comment';
 import { MessagesModule } from '../../../thrift-services/messages';
 import { CommentComponent } from './comment/comment.component';
-import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [

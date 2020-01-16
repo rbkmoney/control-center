@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { toTimelineInfo } from './to-timeline-info';
-import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
+import { TimelineAction } from './to-timeline-info/model';
 import { getUnionKey } from '../../../shared/get-union-key';
 import { ConversationService } from './conversation.service';
 
@@ -15,7 +14,7 @@ export class ConversationComponent implements OnChanges {
     @Input() claim: Claim;
     @Output() conversationChangedEvent = new EventEmitter();
 
-    timelineInfo: TimelineItemInfo[] = [];
+    timelineInfo$ = this.conversationService.timelineInfos$;
 
     timelineAction = TimelineAction;
 
@@ -24,7 +23,7 @@ export class ConversationComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         const { currentValue } = changes.claim;
         if (currentValue) {
-            this.timelineInfo = toTimelineInfo(currentValue.changeset);
+            this.conversationService.enrichWithData(currentValue.changeset);
         }
     }
 

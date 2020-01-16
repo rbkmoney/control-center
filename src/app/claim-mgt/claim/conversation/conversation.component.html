@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="20px">
-    <cc-timeline>
+    <cc-timeline *ngIf="(timelineInfo$ | async) as timelineInfo">
         <cc-timeline-item *ngFor="let item of timelineInfo">
             <cc-timeline-item-title>
                 <span>
@@ -20,7 +20,7 @@
                 <ng-container *ngFor="let modification of item.modifications">
                     <cc-conversation-comment
                         *ngIf="item.action === timelineAction.commentAdded"
-                        [commentModification]="modification.claim_modification.comment_modification"
+                        [conversation]="item.data"
                     ></cc-conversation-comment>
                 </ng-container>
                 <ng-container *ngIf="item.action !== timelineAction.commentAdded">
