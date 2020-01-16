@@ -13,7 +13,8 @@ export const addCommentsToTimelineInfos = (
                     ? conversations.find(conversation => {
                           return !!info.modifications.find(
                               m =>
-                                  m.claim_modification.comment_modification.id === conversation.conversation_id
+                                  m.claim_modification.comment_modification.id ===
+                                  conversation.conversation_id
                           );
                       })
                     : null
