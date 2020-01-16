@@ -4,11 +4,18 @@ import { switchMap } from 'rxjs/operators';
 import flatten from 'lodash-es/flatten';
 
 import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
-import { ClaimChangeset, ClaimID, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
+import {
+    ClaimChangeset,
+    ClaimID,
+    Modification
+} from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import { toTimelineInfo } from './to-timeline-info';
 import { MessagesService } from '../../../thrift-services/messages/messages.service';
-import { ConversationId, GetConversationResponse } from '../../../thrift-services/messages/gen-model/messages';
+import {
+    ConversationId,
+    GetConversationResponse
+} from '../../../thrift-services/messages/gen-model/messages';
 import { addCommentsToTimelineInfos } from './to-timeline-info';
 
 @Injectable()
@@ -18,8 +25,7 @@ export class ConversationService {
     constructor(
         private claimManagementService: ClaimManagementService,
         private messagesService: MessagesService
-    ) {
-    }
+    ) {}
 
     updateConversation(
         party_id: string,
@@ -51,9 +57,11 @@ export class ConversationService {
         timelineInfos: TimelineItemInfo[]
     ): Promise<TimelineItemInfo[]> {
         const commentAddedIds: ConversationId[] = flatten(
-            timelineInfos.filter(info => info.action === TimelineAction.commentAdded).map((commentInfo: TimelineItemInfo) =>
-                commentInfo.modifications.map(m => m.claim_modification.comment_modification.id)
-            )
+            timelineInfos
+                .filter(info => info.action === TimelineAction.commentAdded)
+                .map((commentInfo: TimelineItemInfo) =>
+                    commentInfo.modifications.map(m => m.claim_modification.comment_modification.id)
+                )
         );
         const conversationsResponse = (await this.messagesService
             .getConversations(commentAddedIds, {})
@@ -61,9 +69,9 @@ export class ConversationService {
             .catch(e => console.error(e))) as GetConversationResponse;
         return conversationsResponse
             ? (addCommentsToTimelineInfos(
-                conversationsResponse.conversations,
-                timelineInfos
-            ) as TimelineItemInfo[])
+                  conversationsResponse.conversations,
+                  timelineInfos
+              ) as TimelineItemInfo[])
             : timelineInfos;
     }
 }
