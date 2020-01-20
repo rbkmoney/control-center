@@ -6,7 +6,6 @@ import {
     ModificationUnitContainer,
     PartyModificationContainer
 } from '../model';
-import { ClaimService } from '../claim.service';
 import { PartyModificationContainerService } from './party-modification-container.service';
 import { CreateModificationComponent } from '../create-modification/create-modification.component';
 import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.component';
@@ -29,7 +28,6 @@ export class PartyModificationContainerComponent implements OnInit {
 
     constructor(
         private dialog: MatDialog,
-        private claimService: ClaimService,
         private partyModificationContainerService: PartyModificationContainerService
     ) {}
 

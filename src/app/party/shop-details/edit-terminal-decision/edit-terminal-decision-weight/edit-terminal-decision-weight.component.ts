@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 
 import { EditTerminalDecisionWeightService } from './edit-terminal-decision-weight.service';
@@ -22,7 +22,6 @@ export class EditTerminalDecisionWeightComponent implements OnInit {
     constructor(
         private dialogRef: MatDialogRef<EditTerminalDecisionWeightComponent>,
         @Inject(MAT_DIALOG_DATA) public data: EditWeightData,
-        private snackBar: MatSnackBar,
         private editWeightService: EditTerminalDecisionWeightService
     ) {}
 

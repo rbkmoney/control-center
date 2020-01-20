@@ -3,7 +3,6 @@ import { MatBottomSheet } from '@angular/material';
 
 import { PartyModificationUnit, ModificationGroupType } from '../model';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
-import { ClaimService } from '../claim.service';
 
 @Component({
     selector: 'cc-party-modification-units',
@@ -11,7 +10,7 @@ import { ClaimService } from '../claim.service';
     styleUrls: ['./party-modification-units.component.css']
 })
 export class PartyModificationUnitsComponent {
-    constructor(private claimService: ClaimService, private bottomSheet: MatBottomSheet) {}
+    constructor(private bottomSheet: MatBottomSheet) {}
 
     @Input()
     type: ModificationGroupType;

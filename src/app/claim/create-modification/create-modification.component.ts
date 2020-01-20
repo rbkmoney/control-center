@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 
 import { ActionType, ModificationAction } from '../modification-action';
@@ -45,7 +45,6 @@ export class CreateModificationComponent implements OnInit {
         private route: ActivatedRoute,
         private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public data: CreateModificationData,
-        private snackBar: MatSnackBar,
         private claimService: ClaimService
     ) {}
 

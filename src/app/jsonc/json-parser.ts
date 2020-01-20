@@ -741,7 +741,7 @@ export class ObjectASTNode extends ASTNode {
         if (Array.isArray(schema.required)) {
             schema.required.forEach((propertyName: string) => {
                 if (!seenKeys[propertyName]) {
-                    const key = this.parent && this.parent && (<PropertyASTNode>this.parent).key;
+                    const key = this.parent && (<PropertyASTNode>this.parent).key;
                     const location = key
                         ? { start: key.start, end: key.end }
                         : { start: this.start, end: this.start + 1 };

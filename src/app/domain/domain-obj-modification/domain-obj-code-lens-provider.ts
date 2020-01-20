@@ -1,4 +1,3 @@
-import { parse } from '../../jsonc/json-parser';
 import {
     CodeLensProvider,
     ITextModel,
