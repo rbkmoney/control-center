@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 
 import { EditTerminalDecisionPriorityService } from './edit-terminal-decision-priority.service';
@@ -22,7 +22,6 @@ export class EditTerminalDecisionPriorityComponent implements OnInit {
     constructor(
         private dialogRef: MatDialogRef<EditTerminalDecisionPriorityComponent>,
         @Inject(MAT_DIALOG_DATA) public data: EditPriorityData,
-        private snackBar: MatSnackBar,
         private editPriorityService: EditTerminalDecisionPriorityService
     ) {}
 

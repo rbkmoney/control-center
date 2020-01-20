@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { ClaimService } from '../../claim.service';
 
@@ -15,8 +14,6 @@ export class RemoveConfirmComponent {
     constructor(
         private dialogRef: MatDialogRef<RemoveConfirmComponent>,
         private claimService: ClaimService,
-        private snackBar: MatSnackBar,
-        private router: Router,
         @Inject(MAT_DIALOG_DATA) private data: RemoveData
     ) {}
 

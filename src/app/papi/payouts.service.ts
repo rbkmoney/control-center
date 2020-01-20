@@ -10,7 +10,7 @@ import { Payout, PayoutsResponse } from './model';
 export class PayoutsService {
     private readonly papiEndpoint: string;
 
-    constructor(private http: HttpClient, private configService: ConfigService) {
+    constructor(private http: HttpClient, configService: ConfigService) {
         this.papiEndpoint = configService.config.papiEndpoint;
     }
 
