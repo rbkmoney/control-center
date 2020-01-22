@@ -5,16 +5,16 @@ import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 
 import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
-import { Actions } from './actions';
+import { Statuses } from './statuses';
 
 class SubmitSubject {
     partyID: string;
     claimID: ClaimID;
-    action: Actions;
+    action: Statuses;
 }
 
 @Injectable()
-export class ActionsService {
+export class StatusChangerService {
     private updateClaim$ = new Subject<SubmitSubject>();
     private inProgress$ = new Subject<boolean>();
 
@@ -25,19 +25,19 @@ export class ActionsService {
         switchMap(({ partyID, claimID, action }) => {
             this.inProgress$.next(true);
             switch (action) {
-                case Actions.denied:
+                case Statuses.denied:
                     return this.claimManagementService.denyClaim(
                         partyID,
                         claimID,
                         this.form.getRawValue().reason
                     );
-                case Actions.pending:
+                case Statuses.pending:
                     return this.claimManagementService.requestClaimChanges(partyID, claimID);
-                case Actions.review:
+                case Statuses.review:
                     return this.claimManagementService.requestClaimReview(partyID, claimID);
-                case Actions.pending_acceptance:
+                case Statuses.pending_acceptance:
                     return this.claimManagementService.acceptClaim(partyID, claimID);
-                case Actions.revoked:
+                case Statuses.revoked:
                     return this.claimManagementService.revokeClaim(
                         partyID,
                         claimID,

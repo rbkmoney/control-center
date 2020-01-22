@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { ActionsService } from './actions.service';
+import { StatusChangerService } from './status-changer.service';
 import { ClaimID, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { Actions } from './actions';
-import { getAvailableClaimActions } from './get-available-claim-actions';
+import { Statuses } from './statuses';
+import { getAvailableClaimStatuses } from './get-available-claim-statuses';
 
 interface ActionsInterface {
     partyID: string;
@@ -13,19 +13,19 @@ interface ActionsInterface {
 }
 
 @Component({
-    templateUrl: 'actions.component.html',
-    providers: [ActionsService],
-    styleUrls: ['actions.component.scss']
+    templateUrl: 'status-changer.component.html',
+    providers: [StatusChangerService],
+    styleUrls: ['status-changer.component.scss']
 })
-export class ActionsComponent {
-    actions = getAvailableClaimActions(this.data.claimStatus);
+export class StatusChangerComponent {
+    actions = getAvailableClaimStatuses(this.data.claimStatus);
 
     form = this.actionsService.form;
     isLoading$ = this.actionsService.isLoading$;
 
     constructor(
-        private dialogRef: MatDialogRef<ActionsComponent>,
-        private actionsService: ActionsService,
+        private dialogRef: MatDialogRef<StatusChangerComponent>,
+        private actionsService: StatusChangerService,
         @Inject(MAT_DIALOG_DATA) private data: ActionsInterface
     ) {
     }
@@ -36,6 +36,6 @@ export class ActionsComponent {
 
     isReasonVisible(): boolean {
         const { type } = this.form.getRawValue();
-        return type === Actions.denied || type === Actions.revoked;
+        return type === Statuses.denied || type === Statuses.revoked;
     }
 }
