@@ -9,6 +9,13 @@ import { SharedModule } from '../../shared/shared.module';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { DetailsComponent } from './details/details.component';
 import { ConversationModule } from './conversation/conversation.module';
+import { MatButtonModule } from '@angular/material/button';
+import { ActionsComponent } from './actions/actions.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
     imports: [
@@ -17,9 +24,16 @@ import { ConversationModule } from './conversation/conversation.module';
         CommonModule,
         MatCardModule,
         FlexModule,
-        ConversationModule
+        ConversationModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatProgressBarModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatInputModule
     ],
-    declarations: [ClaimComponent, DetailsComponent],
+    declarations: [ClaimComponent, DetailsComponent, ActionsComponent],
+    entryComponents: [ActionsComponent],
     providers: [ClaimManagementService]
 })
 export class ClaimModule {}
