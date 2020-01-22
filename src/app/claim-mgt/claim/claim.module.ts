@@ -36,5 +36,4 @@ import { MatInputModule } from '@angular/material/input';
     entryComponents: [StatusChangerComponent],
     providers: [ClaimManagementService]
 })
-export class ClaimModule {
-}
+export class ClaimModule {}

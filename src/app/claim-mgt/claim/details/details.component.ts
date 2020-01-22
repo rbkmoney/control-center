@@ -3,8 +3,8 @@ import { Component, Input } from '@angular/core';
 import { Claim, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
 import { MatDialog } from '@angular/material/dialog';
-import { ActionsComponent } from '../actions/actions.component';
-import { getAvailableClaimActions } from '../actions/get-available-claim-actions';
+import { StatusChangerComponent } from '../status-changer/status-changer.component';
+import { getAvailableClaimStatuses } from '../status-changer/get-available-claim-statuses';
 
 @Component({
     selector: 'cc-claim-details',
@@ -20,7 +20,7 @@ export class DetailsComponent {
     }
 
     editStatus() {
-        this.dialog.open(ActionsComponent, {
+        this.dialog.open(StatusChangerComponent, {
             width: '500px',
             disableClose: true,
             data: {
@@ -32,6 +32,6 @@ export class DetailsComponent {
     }
 
     canChangeStatus(): boolean {
-        return getAvailableClaimActions(this.claim.status).length > 0;
+        return getAvailableClaimStatuses(this.claim.status).length > 0;
     }
 }
