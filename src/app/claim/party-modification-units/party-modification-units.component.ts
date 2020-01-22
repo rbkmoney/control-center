@@ -11,13 +11,16 @@ import { ClaimService } from '../claim.service';
     styleUrls: ['./party-modification-units.component.css']
 })
 export class PartyModificationUnitsComponent {
-    constructor(private bottomSheet: MatBottomSheet, private claimService: ClaimService) {}
-
     @Input()
     type: ModificationGroupType;
 
     @Input()
     units: PartyModificationUnit[];
+
+    isLoading = this.claimService.isLoading;
+    isAddModificationAvailable = this.claimService.isAddModificationAvailable;
+
+    constructor(private bottomSheet: MatBottomSheet, private claimService: ClaimService) {}
 
     add(unitID: string) {
         let type: string;
