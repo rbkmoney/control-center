@@ -10,7 +10,7 @@ import { ClaimManagementService } from '../../thrift-services/damsel/claim-manag
 import { DetailsComponent } from './details/details.component';
 import { ConversationModule } from './conversation/conversation.module';
 import { MatButtonModule } from '@angular/material/button';
-import { ActionsComponent } from './actions/actions.component';
+import { StatusChangerComponent } from './status-changer/status-changer.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
@@ -32,8 +32,9 @@ import { MatInputModule } from '@angular/material/input';
         ReactiveFormsModule,
         MatInputModule
     ],
-    declarations: [ClaimComponent, DetailsComponent, ActionsComponent],
-    entryComponents: [ActionsComponent],
+    declarations: [ClaimComponent, DetailsComponent, StatusChangerComponent],
+    entryComponents: [StatusChangerComponent],
     providers: [ClaimManagementService]
 })
-export class ClaimModule {}
+export class ClaimModule {
+}
