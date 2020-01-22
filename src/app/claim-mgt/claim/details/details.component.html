@@ -31,6 +31,13 @@
         </div>
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="end center">
-        <button mat-raised-button color="primary" (click)="editStatus()" [disabled]="!canChangeStatus()">CHANGE STATUS</button>
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="editStatus()"
+            [disabled]="!canChangeStatus()"
+        >
+            CHANGE STATUS
+        </button>
     </mat-card-actions>
 </mat-card>

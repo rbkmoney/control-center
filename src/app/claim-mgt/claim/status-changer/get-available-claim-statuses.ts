@@ -6,9 +6,19 @@ import { extractClaimStatus } from '../../../shared/extract-claim-status';
 export const getAvailableClaimStatuses = (status: ClaimStatus): Statuses[] => {
     switch (extractClaimStatus(status)) {
         case ClaimStatusEnum.pending:
-            return [Statuses.pending_acceptance, Statuses.review, Statuses.denied, Statuses.revoked];
+            return [
+                Statuses.pending_acceptance,
+                Statuses.review,
+                Statuses.denied,
+                Statuses.revoked
+            ];
         case ClaimStatusEnum.review:
-            return [Statuses.pending_acceptance, Statuses.pending, Statuses.denied, Statuses.revoked];
+            return [
+                Statuses.pending_acceptance,
+                Statuses.pending,
+                Statuses.denied,
+                Statuses.revoked
+            ];
         default:
             return [];
     }

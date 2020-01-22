@@ -9,7 +9,7 @@ import { getAvailableClaimStatuses } from './get-available-claim-statuses';
 interface ActionsInterface {
     partyID: string;
     claimID: ClaimID;
-    claimStatus: ClaimStatus
+    claimStatus: ClaimStatus;
 }
 
 @Component({
@@ -27,8 +27,7 @@ export class StatusChangerComponent {
         private dialogRef: MatDialogRef<StatusChangerComponent>,
         private actionsService: StatusChangerService,
         @Inject(MAT_DIALOG_DATA) private data: ActionsInterface
-    ) {
-    }
+    ) {}
 
     confirm() {
         this.actionsService.updateClaim(this.data.partyID, this.data.claimID);

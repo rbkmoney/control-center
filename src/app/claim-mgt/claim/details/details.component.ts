@@ -13,8 +13,7 @@ import { getAvailableClaimActions } from '../actions/get-available-claim-actions
 export class DetailsComponent {
     @Input() claim: Claim;
 
-    constructor(private dialog: MatDialog) {
-    }
+    constructor(private dialog: MatDialog) {}
 
     extractClaimStatus(status: ClaimStatus) {
         return extractClaimStatus(status);
