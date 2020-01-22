@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { MatBottomSheet } from '@angular/material';
-import { ClaimService } from '../claim.service';
 
 import { PartyModificationUnit, ModificationGroupType } from '../model';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
+import { ClaimService } from '../claim.service';
 
 @Component({
     selector: 'cc-party-modification-units',
