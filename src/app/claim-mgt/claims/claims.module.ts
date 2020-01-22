@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
-    MatDialogModule,
     MatInputModule,
     MatMenuModule,
     MatProgressBarModule,
