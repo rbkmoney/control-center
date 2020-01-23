@@ -72,7 +72,7 @@ export class StatusChangerService {
                 filter(v => {
                     return this.formPrevValue ? v.reason === this.formPrevValue.reason : false;
                 }),
-                tap(v => this.formPrevValue = v)
+                tap(v => this.formPrevValue = v as any)
             )
             .subscribe(v => {
                 const { type } = v;
