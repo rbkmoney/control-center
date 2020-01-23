@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import {
-    catchError,
-    distinctUntilChanged,
-    filter,
-    switchMap,
-    tap
-} from 'rxjs/operators';
+import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
 import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
@@ -72,7 +66,7 @@ export class StatusChangerService {
                 filter(v => {
                     return this.formPrevValue ? v.reason === this.formPrevValue.reason : false;
                 }),
-                tap(v => this.formPrevValue = v as any)
+                tap(v => (this.formPrevValue = v as any))
             )
             .subscribe(v => {
                 const { type } = v;
