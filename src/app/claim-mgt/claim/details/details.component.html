@@ -7,12 +7,20 @@
                 <div>{{ claim.id }}</div>
             </div>
             <div fxLayout="row" fxLayout.xs="column">
+                <label fxFlex="20">Revision:</label>
+                <div>{{ claim.revision }}</div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column">
                 <label fxFlex="20">Status:</label>
                 <div>{{ extractClaimStatus(claim.status) }}</div>
             </div>
-            <div fxLayout="row" fxLayout.xs="column">
-                <label fxFlex="20">Revision:</label>
-                <div>{{ claim.revision }}</div>
+            <div
+                fxLayout="row"
+                fxLayout.xs="column"
+                *ngIf="claim.status.denied || claim.status.revoked"
+            >
+                <label fxFlex="20">Reason:</label>
+                <div>{{ claim.status.revoked?.reason || claim.status.denied?.reason }}</div>
             </div>
         </div>
         <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">

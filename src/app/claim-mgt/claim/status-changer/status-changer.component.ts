@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { StatusChangerService } from './status-changer.service';
@@ -17,9 +17,8 @@ interface ActionsInterface {
     providers: [StatusChangerService],
     styleUrls: ['status-changer.component.scss']
 })
-export class StatusChangerComponent {
+export class StatusChangerComponent implements OnInit {
     actions = getAvailableClaimStatuses(this.data.claimStatus);
-
     form = this.actionsService.form;
     isLoading$ = this.actionsService.isLoading$;
 
@@ -36,5 +35,11 @@ export class StatusChangerComponent {
     isReasonVisible(): boolean {
         const { type } = this.form.getRawValue();
         return type === Statuses.denied || type === Statuses.revoked;
+    }
+
+    ngOnInit(): void {
+        this.actionsService.claim$.subscribe(_ => {
+            this.dialogRef.close(true);
+        });
     }
 }
