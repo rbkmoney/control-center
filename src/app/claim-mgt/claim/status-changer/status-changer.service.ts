@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
+import {
+    catchError,
+    distinctUntilChanged,
+    filter,
+    pairwise,
+    pluck,
+    publish,
+    shareReplay,
+    switchMap,
+    tap
+} from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
 import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import { Statuses } from './statuses';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
-class SubmitSubject {
+class UpdateClaim {
     partyID: string;
     claimID: ClaimID;
     action: Statuses;
@@ -16,16 +27,13 @@ class SubmitSubject {
 
 @Injectable()
 export class StatusChangerService {
-    private updateClaim$ = new Subject<SubmitSubject>();
-    private inProgress$ = new Subject<boolean>();
+    private updateClaim$ = new Subject<UpdateClaim>();
     private formPrevValue = { type: null, reason: null };
 
     form = this.initForm();
-    isLoading$ = this.inProgress$.asObservable();
 
     claim$: Observable<void> = this.updateClaim$.pipe(
         switchMap(({ partyID, claimID, action }) => {
-            this.inProgress$.next(true);
             switch (action) {
                 case Statuses.denied:
                     return this.claimManagementService
@@ -50,7 +58,13 @@ export class StatusChangerService {
                 default:
                     throw new Error('Wrong action type!');
             }
-        })
+        }),
+        shareReplay(1)
+    );
+
+    isLoading$ = progress(this.updateClaim$, this.claim$).pipe(
+        shareReplay(1),
+        publish()
     );
 
     constructor(
@@ -58,18 +72,21 @@ export class StatusChangerService {
         private claimManagementService: ClaimManagementService,
         private snackBar: MatSnackBar
     ) {
+        this.isLoading$.connect();
         this.form.valueChanges
             .pipe(
                 distinctUntilChanged((p, c) => {
                     return p.type === c.type && p.reason === c.reason;
                 }),
-                filter(v => {
-                    return this.formPrevValue ? v.reason === this.formPrevValue.reason : false;
-                }),
-                tap(v => (this.formPrevValue = v as any))
+                pairwise(),
+                filter(([prev, curr]) => prev.reason === curr.reason),
+                pluck(1, 'type')
+                // filter(v => {
+                //     return this.formPrevValue ? v.reason === this.formPrevValue.reason : false;
+                // }),
+                // tap(v => (this.formPrevValue = v as any))
             )
-            .subscribe(v => {
-                const { type } = v;
+            .subscribe(type => {
                 switch (type) {
                     case Statuses.denied:
                     case Statuses.revoked:
@@ -87,7 +104,6 @@ export class StatusChangerService {
     }
 
     private handleError(e: any) {
-        this.inProgress$.next(false);
         this.snackBar.open('Status change error', 'OK', { duration: 5000 });
         console.error(e);
         return [];
