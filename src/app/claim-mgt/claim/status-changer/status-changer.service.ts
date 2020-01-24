@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { ConnectableObservable, Observable, Subject } from 'rxjs';
 import {
     catchError,
     distinctUntilChanged,
@@ -63,7 +63,7 @@ export class StatusChangerService {
     isLoading$ = progress(this.updateClaim$, this.claim$).pipe(
         shareReplay(1),
         publish()
-    );
+    ) as ConnectableObservable<boolean>;
 
     constructor(
         private fb: FormBuilder,
