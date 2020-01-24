@@ -9,8 +9,7 @@ import {
     pluck,
     publish,
     shareReplay,
-    switchMap,
-    tap
+    switchMap
 } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
@@ -28,7 +27,6 @@ class UpdateClaim {
 @Injectable()
 export class StatusChangerService {
     private updateClaim$ = new Subject<UpdateClaim>();
-    private formPrevValue = { type: null, reason: null };
 
     form = this.initForm();
 
@@ -81,10 +79,6 @@ export class StatusChangerService {
                 pairwise(),
                 filter(([prev, curr]) => prev.reason === curr.reason),
                 pluck(1, 'type')
-                // filter(v => {
-                //     return this.formPrevValue ? v.reason === this.formPrevValue.reason : false;
-                // }),
-                // tap(v => (this.formPrevValue = v as any))
             )
             .subscribe(type => {
                 switch (type) {
