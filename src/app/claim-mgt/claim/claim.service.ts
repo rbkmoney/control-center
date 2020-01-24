@@ -19,7 +19,7 @@ export class ClaimService {
             claim => this.claim$.next(claim),
             e => {
                 console.error(e);
-                this.snackBar.open('An error occurred while claim accepting', 'OK');
+                this.snackBar.open('Error loading the claim', 'OK');
             }
         );
     }

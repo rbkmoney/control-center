@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { TimelineAction } from './to-timeline-info/model';
+import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { toTimelineInfo } from './to-timeline-info';
+import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
 import { getUnionKey } from '../../../shared/get-union-key';
 import { ConversationService } from './conversation.service';
 

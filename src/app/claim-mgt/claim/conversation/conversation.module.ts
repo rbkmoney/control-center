@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -22,6 +22,8 @@ import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SendCommentComponent } from './send-comment';
 import { MessagesModule } from '../../../thrift-services/messages';
 import { CommentComponent } from './comment/comment.component';
+import { ReasonComponent } from './reason/reason.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [
@@ -41,6 +43,8 @@ import { CommentComponent } from './comment/comment.component';
         HumanizeDurationModule,
         MessagesModule,
         MatCardModule
+        HumanizeDurationModule,
+        MatCardModule
     ],
     declarations: [
         ConversationComponent,
@@ -49,6 +53,7 @@ import { CommentComponent } from './comment/comment.component';
         ActionNamePipe,
         CommentComponent
     ],
+    declarations: [ConversationComponent, ActionIconPipe, ActionNamePipe, ReasonComponent],
     exports: [ConversationComponent]
 })
 export class ConversationModule {}

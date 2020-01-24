@@ -22,20 +22,6 @@ const getUnitTimelineAction = (modification: Modification): TimelineAction | nul
     }
 };
 
-const toTimelineInfoModifications = (
-    action: TimelineAction,
-    modification: Modification
-): Modification[] => {
-    switch (action) {
-        case 'changesAdded':
-        case 'filesAdded':
-        case 'commentAdded':
-            return [modification];
-        default:
-            return [];
-    }
-};
-
 const concatLastItem = (
     acc: TimelineItemInfo[],
     updateItem: TimelineItemInfo
@@ -57,7 +43,7 @@ const acceptTimelineItem = (
     if (action === null) {
         return acc;
     }
-    const modifications = toTimelineInfoModifications(action, modification);
+    const modifications = [modification];
     const result = {
         action,
         user_info,
