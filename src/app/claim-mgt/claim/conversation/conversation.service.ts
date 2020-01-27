@@ -22,7 +22,8 @@ export class ConversationService {
     constructor(
         private claimManagementService: ClaimManagementService,
         private messagesService: MessagesService
-    ) {}
+    ) {
+    }
 
     updateConversation(
         party_id: string,
@@ -45,8 +46,7 @@ export class ConversationService {
     }
 
     enrichWithData(changeset: ClaimChangeset) {
-        from(this.addCommentsToInfo(toTimelineInfo(changeset))).subscribe(infos =>
-            this.timelineInfos$.next(infos)
+        from(this.addCommentsToInfo(toTimelineInfo(changeset))).subscribe(infos => this.timelineInfos$.next(infos)
         );
     }
 
@@ -65,7 +65,7 @@ export class ConversationService {
             ),
             catchError(e => {
                 console.error(e);
-                return [];
+                return [timelineInfos];
             })
         );
     }
