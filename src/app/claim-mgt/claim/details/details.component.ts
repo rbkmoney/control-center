@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Claim, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { extractClaimStatus } from '../../../shared/extract-claim-status';
+import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { StatusChangerComponent } from '../status-changer/status-changer.component';
 import { getAvailableClaimStatuses } from '../status-changer/get-available-claim-statuses';
 import { filter } from 'rxjs/operators';
@@ -16,10 +15,6 @@ export class DetailsComponent {
     @Input() claim: Claim;
 
     constructor(private dialog: MatDialog, private claimService: ClaimService) {}
-
-    extractClaimStatus(status: ClaimStatus) {
-        return extractClaimStatus(status);
-    }
 
     editStatus() {
         this.dialog
