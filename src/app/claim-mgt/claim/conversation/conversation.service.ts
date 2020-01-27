@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { from, Observable, Subject } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import flatten from 'lodash-es/flatten';
 
 import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
@@ -12,10 +12,7 @@ import {
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import { toTimelineInfo } from './to-timeline-info';
 import { MessagesService } from '../../../thrift-services/messages/messages.service';
-import {
-    ConversationId,
-    GetConversationResponse
-} from '../../../thrift-services/messages/gen-model/messages';
+import { ConversationId } from '../../../thrift-services/messages/gen-model/messages';
 import { addCommentsToTimelineInfos } from './to-timeline-info';
 
 @Injectable()
@@ -47,15 +44,14 @@ export class ConversationService {
             );
     }
 
-    async enrichWithData(changeset: ClaimChangeset) {
+    enrichWithData(changeset: ClaimChangeset) {
         let timelineInfos = toTimelineInfo(changeset);
-        timelineInfos = await this.addCommentsToInfo(timelineInfos);
-        this.timelineInfos$.next(timelineInfos);
+        from(this.addCommentsToInfo(timelineInfos)).subscribe(infos =>
+            this.timelineInfos$.next(infos)
+        );
     }
 
-    private async addCommentsToInfo(
-        timelineInfos: TimelineItemInfo[]
-    ): Promise<TimelineItemInfo[]> {
+    private addCommentsToInfo(timelineInfos: TimelineItemInfo[]): Observable<TimelineItemInfo[]> {
         const commentAddedIds: ConversationId[] = flatten(
             timelineInfos
                 .filter(info => info.action === TimelineAction.commentAdded)
@@ -63,15 +59,15 @@ export class ConversationService {
                     commentInfo.modifications.map(m => m.claim_modification.comment_modification.id)
                 )
         );
-        const conversationsResponse = (await this.messagesService
-            .getConversations(commentAddedIds, {})
-            .toPromise()
-            .catch(e => console.error(e))) as GetConversationResponse;
-        return conversationsResponse
-            ? (addCommentsToTimelineInfos(
-                  conversationsResponse.conversations,
-                  timelineInfos
-              ) as TimelineItemInfo[])
-            : timelineInfos;
+
+        return this.messagesService.getConversations(commentAddedIds, {}).pipe(
+            map(conversationsResponse =>
+                addCommentsToTimelineInfos(conversationsResponse.conversations, timelineInfos)
+            ),
+            catchError(e => {
+                console.error(e);
+                return [];
+            })
+        );
     }
 }
