@@ -45,8 +45,7 @@ export class ConversationService {
     }
 
     enrichWithData(changeset: ClaimChangeset) {
-        let timelineInfos = toTimelineInfo(changeset);
-        from(this.addCommentsToInfo(timelineInfos)).subscribe(infos =>
+        from(this.addCommentsToInfo(toTimelineInfo(changeset))).subscribe(infos =>
             this.timelineInfos$.next(infos)
         );
     }
