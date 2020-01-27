@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { StatusChangerService } from './status-changer.service';
 import { ClaimID, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { Statuses } from './statuses';
+import { ClaimStatuses } from '../claim-statuses';
 import { getAvailableClaimStatuses } from './get-available-claim-statuses';
 
 interface ActionsInterface {
@@ -34,7 +34,7 @@ export class StatusChangerComponent implements OnInit {
 
     isReasonVisible(): boolean {
         const { type } = this.form.getRawValue();
-        return type === Statuses.denied || type === Statuses.revoked;
+        return type === ClaimStatuses.denied || type === ClaimStatuses.revoked;
     }
 
     ngOnInit(): void {

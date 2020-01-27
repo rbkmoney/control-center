@@ -1,9 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KeycloakService } from 'keycloak-angular';
 
 import { ThriftService } from '../thrift-service';
 import * as ClaimManagement from './gen-nodejs/ClaimManagement';
+import { Modification as ModificationType } from './gen-nodejs/claim_management_types';
+import { ClaimRevision, Modification } from './gen-model/claim_management';
+import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ClaimSearchQuery as ClaimSearchQueryType } from './gen-nodejs/claim_management_types';
 import {
     Claim,
@@ -15,8 +17,8 @@ import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class ClaimManagementService extends ThriftService {
-    constructor(zone: NgZone, keycloakService: KeycloakService) {
-        super(zone, keycloakService, '/v1/cm', ClaimManagement);
+    constructor(zone: NgZone, keycloakTokenInfoService: KeycloakTokenInfoService) {
+        super(zone, keycloakTokenInfoService, '/v1/cm', ClaimManagement);
     }
 
     searchClaims = (query: ClaimSearchQuery): Observable<ClaimSearchResponse> =>
@@ -58,5 +60,18 @@ export class ClaimManagementService extends ThriftService {
             switchMap(claim =>
                 this.toObservableAction('RevokeClaim')(partyID, claimID, claim.revision, reason)
             )
+        );
+
+    updateClaim = (
+        partyID: string,
+        claimID: ClaimID,
+        revision: ClaimRevision,
+        changeset: Modification[]
+    ): Observable<void> =>
+        this.toObservableAction('UpdateClaim')(
+            partyID,
+            claimID,
+            revision,
+            changeset.map(m => new ModificationType(m))
         );
 }

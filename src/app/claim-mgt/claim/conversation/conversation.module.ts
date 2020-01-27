@@ -10,6 +10,7 @@ import {
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatCardModule } from '@angular/material/card';
 
 import { ConversationComponent } from './conversation.component';
 import { ActionIconPipe } from './action-icon.pipe';
@@ -18,8 +19,10 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ActionNamePipe } from './action-name.pipe';
 import { MonacoEditorModule } from '../../../monaco-editor';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
+import { SendCommentComponent } from './send-comment';
+import { MessagesModule } from '../../../thrift-services/messages';
+import { CommentComponent } from './comment/comment.component';
 import { ReasonComponent } from './reason/reason.component';
-import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [
@@ -37,9 +40,17 @@ import { MatCardModule } from '@angular/material/card';
         MatExpansionModule,
         MonacoEditorModule,
         HumanizeDurationModule,
+        MessagesModule,
         MatCardModule
     ],
-    declarations: [ConversationComponent, ActionIconPipe, ActionNamePipe, ReasonComponent],
+    declarations: [
+        ConversationComponent,
+        ReasonComponent,
+        SendCommentComponent,
+        ActionIconPipe,
+        ActionNamePipe,
+        CommentComponent
+    ],
     exports: [ConversationComponent]
 })
 export class ConversationModule {}

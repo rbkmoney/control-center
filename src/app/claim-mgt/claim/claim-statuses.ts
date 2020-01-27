@@ -1,4 +1,4 @@
-export enum Statuses {
+export enum ClaimStatuses {
     'pending_acceptance' = 'pending_acceptance',
     'pending' = 'pending',
     'revoked' = 'revoked',
