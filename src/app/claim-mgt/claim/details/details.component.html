@@ -12,7 +12,7 @@
             </div>
             <div fxLayout="row" fxLayout.xs="column">
                 <label fxFlex="20">Status:</label>
-                <div>{{ extractClaimStatus(claim.status) }}</div>
+                <div>{{ claim.status | ccClaimStatus }}</div>
             </div>
             <div
                 fxLayout="row"
