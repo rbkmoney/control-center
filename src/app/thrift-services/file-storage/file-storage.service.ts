@@ -1,5 +1,4 @@
 import { Injectable, NgZone } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
 
 import { ThriftService } from '../thrift-service';
@@ -13,11 +12,12 @@ import {
     URL
 } from './gen-model/file_storage';
 import { Timestamp } from './gen-model/base';
+import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 
 @Injectable()
 export class FileStorageService extends ThriftService {
-    constructor(zone: NgZone, keycloakService: KeycloakService) {
-        super(zone, keycloakService, '/file_storage', FileStorage);
+    constructor(zone: NgZone, keycloakTokenInfoService: KeycloakTokenInfoService) {
+        super(zone, keycloakTokenInfoService, '/file_storage', FileStorage);
     }
 
     createNewFile = (metadata: Metadata, expires_at: Timestamp): Observable<NewFileResult> =>

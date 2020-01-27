@@ -1,52 +1,76 @@
-<div style="padding-left: 20px" fxLayout="row">
-    <mat-form-field>
-        <mat-label>type</mat-label>
-        <mat-select multiple (valueChange)="selectFilter($event)">
-            <mat-option *ngFor="let action of timelineActionTypes" [value]="action">
-                {{ action.name }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <cc-file-uploader>
-        <mat-icon>attach_file</mat-icon>
-    </cc-file-uploader>
+<div fxLayout="column" fxLayoutGap="20px">
+    <div style="padding-left: 20px" fxLayout="row">
+        <mat-form-field>
+            <mat-label>type</mat-label>
+            <mat-select multiple (valueChange)="selectFilter($event)">
+                <mat-option *ngFor="let action of timelineActionTypes" [value]="action">
+                    {{ action.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <cc-file-uploader>
+            <mat-icon>attach_file</mat-icon>
+        </cc-file-uploader>
+    </div>
+    <cc-timeline *ngIf="(timelineInfo$ | async) as timelineInfo">
+        <cc-timeline-item *ngFor="let item of timelineInfo">
+            <cc-timeline-item-title>
+                <span>
+                    {{ item.action | actionName }} by {{ item.user_info.username }} at
+                    {{ item.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                        item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
+                    }})
+                </span>
+            </cc-timeline-item-title>
+            <cc-timeline-item-badge>
+                <mat-icon>{{ item.action | actionIcon }}</mat-icon>
+            </cc-timeline-item-badge>
+            <cc-timeline-item-content
+                *ngIf="item.modifications.length !== 0"
+                fxLayout="column"
+                fxLayoutGap="20px"
+            >
+                <ng-container *ngFor="let m of item.modifications">
+                    <cc-file-container *ngIf="modification?.claim_modification?.file_modification"
+                                       [fileID]="modification.claim_modification.file_modification.id"
+                    ></cc-file-container>
+                    <cc-conversation-comment
+                        *ngIf="item.action === timelineAction.commentAdded"
+                        [conversation]="item.data"
+                    ></cc-conversation-comment>
+                    <cc-reason
+                        *ngIf="
+                            item.action === timelineAction.statusDenied ||
+                            item.action === timelineAction.statusRevoked
+                        "
+                        [statusModificationUnit]="m.claim_modification.status_modification"
+                    ></cc-reason>
+                </ng-container>
+                <!--                <ng-container-->
+                <!--                    *ngIf="-->
+                <!--                        item.action !== timelineAction.statusRevoked ||-->
+                <!--                        item.action !== timelineAction.statusDenied-->
+                <!--                    "-->
+                <!--                >-->
+                <!--                    <mat-expansion-panel *ngFor="let modification of item.modifications">-->
+                <!--                        <mat-expansion-panel-header>-->
+                <!--                            <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>-->
+                <!--                            <mat-panel-description>-->
+                <!--                                {{-->
+                <!--                                    modification.claim_modification-->
+                <!--                                        ? getKey(modification.claim_modification)-->
+                <!--                                        : getKey(modification.party_modification)-->
+                <!--                                }}-->
+                <!--                            </mat-panel-description>-->
+                <!--                        </mat-expansion-panel-header>-->
+                <!--                        <cc-pretty-json [object]="modification"></cc-pretty-json>-->
+                <!--                    </mat-expansion-panel>-->
+                <!--                </ng-container>-->
+            </cc-timeline-item-content>
+        </cc-timeline-item>
+    </cc-timeline>
+    <cc-send-comment
+        *ngIf="claimStatus !== claimStatuses.denied && claimStatus !== claimStatuses.revoked"
+        (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
+    ></cc-send-comment>
 </div>
-<cc-timeline>
-    <cc-timeline-item *ngFor="let item of filteredTimelineInfo">
-        <cc-timeline-item-title>
-            <span>
-                {{ item.action | actionName }} by {{ item.user_info.username }} at
-                {{ item.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
-                    item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
-                }})
-            </span>
-        </cc-timeline-item-title>
-        <cc-timeline-item-badge>
-            <mat-icon>{{ item.action | actionIcon }}</mat-icon>
-        </cc-timeline-item-badge>
-        <cc-timeline-item-content
-            *ngIf="item.modifications.length !== 0"
-            fxLayout="column"
-            fxLayoutGap="20px"
-        >
-            <div *ngFor="let modification of item.modifications">
-                <cc-file-container *ngIf="modification?.claim_modification?.file_modification"
-                                   [fileID]="modification.claim_modification.file_modification.id"
-                ></cc-file-container>
-                <mat-expansion-panel *ngIf="!modification?.claim_modification?.file_modification">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>
-                        <mat-panel-description>
-                            {{
-                            modification.claim_modification
-                                ? getKey(modification.claim_modification)
-                                : getKey(modification.party_modification)
-                            }}
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <cc-pretty-json [object]="modification"></cc-pretty-json>
-                </mat-expansion-panel>
-            </div>
-        </cc-timeline-item-content>
-    </cc-timeline-item>
-</cc-timeline>

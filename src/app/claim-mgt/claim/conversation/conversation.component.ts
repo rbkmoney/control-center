@@ -1,9 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
-import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { toTimelineInfo } from './to-timeline-info';
+import { Modification, Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { ConversationService } from './conversation.service';
+import { extractClaimStatus } from '../../../shared/extract-claim-status';
+import { ClaimStatus } from '../../../papi/model';
 import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
-import { getUnionKey } from '../../../shared/get-union-key';
 
 export interface TimelineActionType {
     name: string;
@@ -28,12 +29,19 @@ const timelineActionTypes: TimelineActionType[] = [
 
 @Component({
     selector: 'cc-claim-conversation',
-    templateUrl: 'conversation.component.html'
+    templateUrl: 'conversation.component.html',
+    providers: [ConversationService]
 })
 export class ConversationComponent implements OnChanges {
     @Input() claim: Claim;
+    @Output() conversationChangedEvent = new EventEmitter();
 
-    timelineInfo: TimelineItemInfo[] = [];
+    timelineInfo$ = this.conversationService.timelineInfos$;
+    timelineAction = TimelineAction;
+    claimStatus: ClaimStatus;
+    claimStatuses = ClaimStatus;
+
+    constructor(private conversationService: ConversationService) {}
 
     filteredTimelineInfo: TimelineItemInfo[] = [];
 
@@ -42,8 +50,8 @@ export class ConversationComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         const { currentValue } = changes.claim;
         if (currentValue) {
-            this.timelineInfo = toTimelineInfo(currentValue.changeset);
-            this.filteredTimelineInfo = this.timelineInfo;
+            this.claimStatus = extractClaimStatus(currentValue.status);
+            this.conversationService.enrichWithData(currentValue.changeset);
         }
     }
 
@@ -60,7 +68,9 @@ export class ConversationComponent implements OnChanges {
         return ([] as TimelineAction[]).concat(...value.map(i => i.actions));
     }
 
-    getKey(u: any): string {
-        return getUnionKey(u);
+    updateConversation(action: TimelineAction, modification: Modification) {
+        this.conversationService
+            .updateConversation(this.claim.party_id, this.claim.id, action, modification)
+            .subscribe(_ => this.conversationChangedEvent.emit());
     }
 }

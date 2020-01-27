@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Claim, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { extractClaimStatus } from '../../../shared/extract-claim-status';
+import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 
 @Component({
     selector: 'cc-claims-table',
@@ -20,16 +19,12 @@ export class ClaimsTableComponent {
         'revision',
         'createdAt',
         'updatedAt',
-        'claimDetailButton'
+        'actions'
     ];
 
     constructor(private router: Router) {}
 
     navigateToClaim(partyID: string, claimID: number) {
         this.router.navigate([`claim-mgt/party/${partyID}/claim/${claimID}`]);
-    }
-
-    getClaimStatus(status: ClaimStatus) {
-        return extractClaimStatus(status);
     }
 }
