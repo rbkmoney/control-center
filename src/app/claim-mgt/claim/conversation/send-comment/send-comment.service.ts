@@ -42,7 +42,7 @@ export class SendCommentService {
                 tap(() => this.error$.next({ hasError: false })),
                 switchMap(text => {
                     const { name, email, sub } = this.keycloakTokenInfoService.decodedUserToken;
-                    const user = { fullname: name, email, user_id: sub } as User;
+                    const user: User = { fullname: name, email, user_id: sub };
                     const conversation_id = uuid();
                     const conversation = createSingleMessageConversationParams(
                         conversation_id,

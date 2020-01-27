@@ -29,10 +29,9 @@ export class MessagesService extends ThriftService {
     ): Observable<GetConversationResponse> =>
         this.toObservableAction('GetConversations')(ids, new ConversationFilterType(filter));
 
-    saveConversations = (conversations: Conversation[], user: User): Observable<void> => {
-        return this.toObservableAction('SaveConversations')(
+    saveConversations = (conversations: Conversation[], user: User): Observable<void> =>
+        this.toObservableAction('SaveConversations')(
             conversations.map(c => new ConversationType(c)),
             new UserType(user)
         );
-    };
 }

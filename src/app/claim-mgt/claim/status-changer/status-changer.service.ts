@@ -16,12 +16,12 @@ import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
 import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
-import { Statuses } from './statuses';
+import { ClaimStatuses } from '../claim-statuses';
 
 class UpdateClaim {
     partyID: string;
     claimID: ClaimID;
-    action: Statuses;
+    action: ClaimStatuses;
 }
 
 @Injectable()
@@ -33,23 +33,23 @@ export class StatusChangerService {
     claim$: Observable<void> = this.updateClaim$.pipe(
         switchMap(({ partyID, claimID, action }) => {
             switch (action) {
-                case Statuses.denied:
+                case ClaimStatuses.denied:
                     return this.claimManagementService
                         .denyClaim(partyID, claimID, this.form.getRawValue().reason)
                         .pipe(catchError(e => this.handleError(e)));
-                case Statuses.pending:
+                case ClaimStatuses.pending:
                     return this.claimManagementService
                         .requestClaimChanges(partyID, claimID)
                         .pipe(catchError(e => this.handleError(e)));
-                case Statuses.review:
+                case ClaimStatuses.review:
                     return this.claimManagementService
                         .requestClaimReview(partyID, claimID)
                         .pipe(catchError(e => this.handleError(e)));
-                case Statuses.pending_acceptance:
+                case ClaimStatuses.pending_acceptance:
                     return this.claimManagementService
                         .acceptClaim(partyID, claimID)
                         .pipe(catchError(e => this.handleError(e)));
-                case Statuses.revoked:
+                case ClaimStatuses.revoked:
                     return this.claimManagementService
                         .revokeClaim(partyID, claimID, this.form.getRawValue().reason)
                         .pipe(catchError(e => this.handleError(e)));
@@ -82,8 +82,8 @@ export class StatusChangerService {
             )
             .subscribe(type => {
                 switch (type) {
-                    case Statuses.denied:
-                    case Statuses.revoked:
+                    case ClaimStatuses.denied:
+                    case ClaimStatuses.revoked:
                         this.form.setControl('reason', this.fb.control(null, Validators.required));
                         break;
                     default:

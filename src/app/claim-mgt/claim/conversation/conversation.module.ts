@@ -23,7 +23,6 @@ import { SendCommentComponent } from './send-comment';
 import { MessagesModule } from '../../../thrift-services/messages';
 import { CommentComponent } from './comment/comment.component';
 import { ReasonComponent } from './reason/reason.component';
-import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [
@@ -43,17 +42,15 @@ import { MatCardModule } from '@angular/material/card';
         HumanizeDurationModule,
         MessagesModule,
         MatCardModule
-        HumanizeDurationModule,
-        MatCardModule
     ],
     declarations: [
         ConversationComponent,
+        ReasonComponent,
         SendCommentComponent,
         ActionIconPipe,
         ActionNamePipe,
         CommentComponent
     ],
-    declarations: [ConversationComponent, ActionIconPipe, ActionNamePipe, ReasonComponent],
     exports: [ConversationComponent]
 })
 export class ConversationModule {}
