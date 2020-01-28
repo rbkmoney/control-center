@@ -1,17 +1,4 @@
 <div fxLayout="column" fxLayoutGap="20px">
-    <div style="padding-left: 20px" fxLayout="row">
-        <mat-form-field>
-            <mat-label>type</mat-label>
-            <mat-select multiple (valueChange)="selectFilter($event)">
-                <mat-option *ngFor="let action of timelineActionTypes" [value]="action">
-                    {{ action.name }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <cc-file-uploader>
-            <mat-icon>attach_file</mat-icon>
-        </cc-file-uploader>
-    </div>
     <cc-timeline *ngIf="(timelineInfo$ | async) as timelineInfo">
         <cc-timeline-item *ngFor="let item of timelineInfo">
             <cc-timeline-item-title>
@@ -31,8 +18,9 @@
                 fxLayoutGap="20px"
             >
                 <ng-container *ngFor="let m of item.modifications">
-                    <cc-file-container *ngIf="modification?.claim_modification?.file_modification"
-                                       [fileID]="modification.claim_modification.file_modification.id"
+                    <cc-file-container
+                        *ngIf="item.action === timelineAction.filesAdded"
+                        [fileID]="m.claim_modification.file_modification.id"
                     ></cc-file-container>
                     <cc-conversation-comment
                         *ngIf="item.action === timelineAction.commentAdded"
@@ -69,8 +57,14 @@
             </cc-timeline-item-content>
         </cc-timeline-item>
     </cc-timeline>
-    <cc-send-comment
-        *ngIf="claimStatus !== claimStatuses.denied && claimStatus !== claimStatuses.revoked"
-        (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
-    ></cc-send-comment>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+        <cc-file-uploader>
+            <button mat-icon-button><mat-icon>attach_file</mat-icon></button>
+        </cc-file-uploader>
+        <cc-send-comment
+            fxFlex="100"
+            *ngIf="claimStatus !== claimStatuses.denied && claimStatus !== claimStatuses.revoked"
+            (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
+        ></cc-send-comment>
+    </div>
 </div>

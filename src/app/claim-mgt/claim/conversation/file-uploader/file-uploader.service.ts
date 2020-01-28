@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { forkJoin, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
@@ -16,7 +16,6 @@ export class FileUploaderService {
     filesUploadingError$ = new Subject<null>();
 
     filesUploaded$ = this.startUploading$.pipe(
-        tap(kek => console.log(kek, 'this is files')),
         switchMap(files =>
             this.uploadFiles(files).pipe(
                 catchError(() => {

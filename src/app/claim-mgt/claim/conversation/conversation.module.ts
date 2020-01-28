@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import {
+    MatButtonModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
+} from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -38,7 +44,7 @@ import { FileUploaderModule } from './file-uploader/file-uploader.module';
         MonacoEditorModule,
         HumanizeDurationModule,
         MessagesModule,
-        MatCardModule
+        MatCardModule,
         HumanizeDurationModule,
         MatSelectModule,
         FileContainerModule,
