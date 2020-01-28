@@ -1,3 +1,5 @@
 <div ngfSelect class="dsh-file-uploader" (filesChange)="startUploading($event)">
-    <ng-content></ng-content>
+    <button mat-icon-button [disabled]="inProgress$ | async">
+        <mat-icon>attach_file</mat-icon>
+    </button>
 </div>

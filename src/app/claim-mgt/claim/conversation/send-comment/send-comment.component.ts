@@ -11,14 +11,14 @@ import { Modification } from '../../../../thrift-services/damsel/gen-model/claim
     providers: [SendCommentService]
 })
 export class SendCommentComponent {
-    @Output() conversationSaved: EventEmitter<Modification> = new EventEmitter();
+    @Output() conversationSaved: EventEmitter<Modification[]> = new EventEmitter();
 
     form: FormGroup = this.sendCommentService.form;
     inProgress$ = this.sendCommentService.inProgress$;
 
     constructor(private sendCommentService: SendCommentService) {
         this.sendCommentService.conversationSaved$.subscribe(id =>
-            this.conversationSaved.next(sendCommentService.createModification(id))
+            this.conversationSaved.next([sendCommentService.createModification(id)])
         );
         this.inProgress$.subscribe(inProgress => {
             if (inProgress) {

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { forkJoin, Observable, of, Subject } from 'rxjs';
+import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import { NewFileResult } from '../../../../thrift-services/file-storage/gen-model/file_storage';
 import { Value } from '../../../../thrift-services/file-storage/gen-model/msgpack';
+import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 
 @Injectable()
 export class FileUploaderService {
@@ -15,7 +17,7 @@ export class FileUploaderService {
 
     filesUploadingError$ = new Subject<null>();
 
-    filesUploaded$ = this.startUploading$.pipe(
+    filesUploaded$: Observable<string[]> = this.startUploading$.pipe(
         switchMap(files =>
             this.uploadFiles(files).pipe(
                 catchError(() => {
@@ -26,6 +28,11 @@ export class FileUploaderService {
         ),
         filter(v => !!v.length),
         shareReplay(1)
+    );
+
+    inProgress$: Observable<boolean> = progress(
+        this.startUploading$,
+        merge(this.filesUploaded$, this.filesUploadingError$)
     );
 
     constructor(
@@ -50,6 +57,19 @@ export class FileUploaderService {
                 )
             )
         );
+    }
+
+    createModification(id: string): Modification {
+        return {
+            claim_modification: {
+                file_modification: {
+                    id,
+                    modification: {
+                        creation: {}
+                    }
+                }
+            }
+        };
     }
 
     private getUploadLink(): Observable<NewFileResult> {

@@ -58,9 +58,9 @@
         </cc-timeline-item>
     </cc-timeline>
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-        <cc-file-uploader>
-            <button mat-icon-button><mat-icon>attach_file</mat-icon></button>
-        </cc-file-uploader>
+        <cc-file-uploader
+            (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"
+        ></cc-file-uploader>
         <cc-send-comment
             fxFlex="100"
             *ngIf="claimStatus !== claimStatuses.denied && claimStatus !== claimStatuses.revoked"

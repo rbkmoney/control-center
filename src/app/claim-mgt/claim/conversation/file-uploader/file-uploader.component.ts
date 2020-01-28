@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 import { FileUploaderService } from './file-uploader.service';
+import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 
 @Component({
     selector: 'cc-file-uploader',
@@ -9,12 +10,15 @@ import { FileUploaderService } from './file-uploader.service';
 })
 export class FileUploaderComponent {
     @Output()
-    filesUploaded = new EventEmitter<string[]>();
+    filesUploaded: EventEmitter<Modification[]> = new EventEmitter();
 
     startUploading$ = this.fileUploaderService.startUploading$;
+    inProgress$ = this.fileUploaderService.inProgress$;
 
     constructor(private fileUploaderService: FileUploaderService) {
-        this.fileUploaderService.filesUploaded$.subscribe(value => this.filesUploaded.emit(value));
+        this.fileUploaderService.filesUploaded$.subscribe(values =>
+            this.filesUploaded.emit(values.map(v => this.fileUploaderService.createModification(v)))
+        );
     }
 
     startUploading(files: File[]) {

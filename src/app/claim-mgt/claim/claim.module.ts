@@ -26,13 +26,11 @@ import { StatusChangerComponent } from './status-changer/status-changer.componen
         CommonModule,
         MatCardModule,
         FlexModule,
-        ConversationModule,
         MatSelectModule,
         ConversationModule,
         MatButtonModule,
         MatDialogModule,
         MatProgressBarModule,
-        MatSelectModule,
         ReactiveFormsModule,
         MatInputModule
     ],

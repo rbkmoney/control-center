@@ -30,9 +30,9 @@ export class ConversationComponent implements OnChanges {
         }
     }
 
-    updateConversation(action: TimelineAction, modification: Modification) {
+    updateConversation(action: TimelineAction, modifications: Modification[]) {
         this.conversationService
-            .updateConversation(this.claim.party_id, this.claim.id, action, modification)
+            .updateConversation(this.claim.party_id, this.claim.id, action, modifications)
             .subscribe(_ => this.conversationChangedEvent.emit());
     }
 }
