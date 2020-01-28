@@ -8,15 +8,8 @@ import { FileContainerComponent } from './file-container.component';
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MatCardModule,
-        FlexModule,
-        MatIconModule
-    ],
-    exports: [
-        FileContainerComponent
-    ],
+    imports: [CommonModule, MatCardModule, FlexModule, MatIconModule],
+    exports: [FileContainerComponent],
     declarations: [FileContainerComponent],
     providers: [FileStorageService]
 })

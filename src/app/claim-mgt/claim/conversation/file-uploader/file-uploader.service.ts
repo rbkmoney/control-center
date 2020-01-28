@@ -40,7 +40,12 @@ export class FileUploaderService {
         return forkJoin(
             files.map(file =>
                 this.getUploadLink().pipe(
-                    switchMap(uploadData => forkJoin(of(uploadData.file_data_id), this.uploadFileToUrl(file, uploadData.upload_url))),
+                    switchMap(uploadData =>
+                        forkJoin(
+                            of(uploadData.file_data_id),
+                            this.uploadFileToUrl(file, uploadData.upload_url)
+                        )
+                    ),
                     map(([fileId]) => fileId)
                 )
             )
@@ -48,7 +53,12 @@ export class FileUploaderService {
     }
 
     private getUploadLink(): Observable<NewFileResult> {
-        return this.fileStorageService.createNewFile(new Map<string, Value>(), moment().add(1, 'h').toISOString());
+        return this.fileStorageService.createNewFile(
+            new Map<string, Value>(),
+            moment()
+                .add(1, 'h')
+                .toISOString()
+        );
     }
 
     private uploadFileToUrl(file: File, url: string): Observable<any> {
