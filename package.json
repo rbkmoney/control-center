@@ -34,7 +34,7 @@
     "@angular/platform-server": "^8.2.8",
     "@angular/router": "^8.2.8",
     "@rbkmoney/partial-fetcher": "^1.0.4",
-    "angular-file": "^2.0.0",
+    "angular-file": "1.3.2",
     "angular2-prettyjson": "3.0.1",
     "ank-proto": "git+ssh://git@github.com:rbkmoney/ank-proto.git#6535945971838d7dfc021aeff3248a9dac4ba28b",
     "core-js": "^2.5.4",
