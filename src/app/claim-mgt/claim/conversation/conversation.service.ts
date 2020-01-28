@@ -28,7 +28,7 @@ export class ConversationService {
         party_id: string,
         claim_id: ClaimID,
         action: TimelineAction,
-        modification: Modification
+        modifications: Modification[]
     ): Observable<void> {
         return this.claimManagementService
             .getClaim(party_id, claim_id)
@@ -38,7 +38,7 @@ export class ConversationService {
                         claim.party_id,
                         claim.id,
                         claim.revision,
-                        [modification]
+                        modifications
                     )
                 )
             );

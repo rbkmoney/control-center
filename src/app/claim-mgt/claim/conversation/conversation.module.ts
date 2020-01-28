@@ -8,6 +8,7 @@ import {
     MatIconModule,
     MatInputModule
 } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +24,8 @@ import { SendCommentComponent } from './send-comment';
 import { MessagesModule } from '../../../thrift-services/messages';
 import { CommentComponent } from './comment/comment.component';
 import { ReasonComponent } from './reason/reason.component';
+import { FileContainerModule } from './file-container';
+import { FileUploaderModule } from './file-uploader/file-uploader.module';
 
 @NgModule({
     imports: [
@@ -41,7 +44,11 @@ import { ReasonComponent } from './reason/reason.component';
         MonacoEditorModule,
         HumanizeDurationModule,
         MessagesModule,
-        MatCardModule
+        MatCardModule,
+        HumanizeDurationModule,
+        MatSelectModule,
+        FileContainerModule,
+        FileUploaderModule
     ],
     declarations: [
         ConversationComponent,

@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { Modification, Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { TimelineAction } from './to-timeline-info/model';
 import { ConversationService } from './conversation.service';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
 import { ClaimStatus } from '../../../papi/model';
+import { TimelineAction } from './to-timeline-info/model';
 
 @Component({
     selector: 'cc-claim-conversation',
@@ -30,9 +30,9 @@ export class ConversationComponent implements OnChanges {
         }
     }
 
-    updateConversation(action: TimelineAction, modification: Modification) {
+    updateConversation(action: TimelineAction, modifications: Modification[]) {
         this.conversationService
-            .updateConversation(this.claim.party_id, this.claim.id, action, modification)
+            .updateConversation(this.claim.party_id, this.claim.id, action, modifications)
             .subscribe(_ => this.conversationChangedEvent.emit());
     }
 }
