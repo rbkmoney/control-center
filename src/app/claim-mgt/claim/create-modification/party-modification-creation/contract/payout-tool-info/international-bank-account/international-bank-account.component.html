@@ -1,0 +1,40 @@
+<cc-form-wrapper name="International bank account">
+    <form [formGroup]="form" fxLayout="column">
+        <mat-form-field>
+            <input matInput placeholder="Number" formControlName="number" />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="IBAN" formControlName="iban" />
+        </mat-form-field>
+        <div fxLayout="column" fxLayoutGap="15px">
+            <section>
+                <mat-checkbox [checked]="isBankDetails" (change)="detailsChange($event.checked)"
+                    >International bank details</mat-checkbox
+                >
+            </section>
+            <cc-international-bank-details
+                *ngIf="isBankDetails"
+                [form]="form.get('bank')"
+                [initialValue]="initialValue?.bank"
+            >
+            </cc-international-bank-details>
+            <section>
+                <mat-checkbox
+                    [checked]="isCorrespondentAccount"
+                    (change)="accountChange($event.checked)"
+                    >Correspondent account</mat-checkbox
+                >
+            </section>
+            <div fxLayout>
+                <div fxFlex="10"></div>
+                <cc-international-bank-account
+                    fxFlex="90"
+                    *ngIf="isCorrespondentAccount"
+                    [form]="form.get('correspondentAccount')"
+                    [initialValue]="initialValue?.correspondent_account"
+                >
+                </cc-international-bank-account>
+            </div>
+        </div>
+    </form>
+</cc-form-wrapper>

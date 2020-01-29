@@ -1,0 +1,18 @@
+<mat-nav-list>
+    <div>
+        <a
+            mat-list-item
+            *ngFor="let contractAction of contractActions"
+            (click)="select(contractAction)"
+        >
+            {{ contractAction | ccContainerName }}
+        </a>
+    </div>
+    <div><mat-divider></mat-divider></div>
+    <div>
+        <a mat-list-item *ngFor="let shopAction of shopActions" (click)="select(shopAction)">
+            {{ shopAction | ccContainerName }}
+        </a>
+    </div>
+    <div><mat-divider></mat-divider></div>
+</mat-nav-list>
