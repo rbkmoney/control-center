@@ -65,13 +65,16 @@ export class ClaimManagementService extends ThriftService {
     updateClaim = (
         partyID: string,
         claimID: ClaimID,
-        revision: ClaimRevision,
         changeset: Modification[]
     ): Observable<void> =>
-        this.toObservableAction('UpdateClaim')(
-            partyID,
-            claimID,
-            revision,
-            changeset.map(m => new ModificationType(m))
+        this.getClaim(partyID, claimID).pipe(
+            switchMap(claim =>
+                this.toObservableAction('UpdateClaim')(
+                    claim.party_id,
+                    claim.id,
+                    claim.revision,
+                    changeset.map(m => new ModificationType(m))
+                )
+            )
         );
 }

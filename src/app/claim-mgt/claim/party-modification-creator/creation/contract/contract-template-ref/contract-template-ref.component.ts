@@ -9,7 +9,7 @@ import {
     ContractTemplate,
     ContractTemplateRef
 } from '../../../../../../thrift-services/damsel/gen-model/domain';
-import { ContractService } from './contract.service';
+import { ContractService } from '../../contract.service';
 
 @Component({
     selector: 'cc-contract-template-ref',

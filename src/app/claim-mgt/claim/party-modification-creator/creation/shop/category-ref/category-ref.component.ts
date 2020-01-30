@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/internal/operators';
 import sortBy from 'lodash-es/sortBy';
 import { get } from 'lodash-es';
-import { Category } from '../../../../../../papi/model';
-import { CategoryRef } from '../../../../../../thrift-services/damsel/gen-model/domain';
+import { Category, CategoryRef } from '../../../../../../thrift-services/damsel/gen-model/domain';
 import { CategoryService } from '../../../../../../papi/category.service';
 
 @Component({

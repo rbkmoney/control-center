@@ -8,18 +8,18 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as uuid from 'uuid/v4';
 
 import { toPartyModification } from './to-party-modification';
 import { filterEmptyStringValues } from './filter-empty-string-value';
+import { ActionType, ModificationAction } from '../modification-action';
 import {
     ContractModification,
-    Modification,
     PartyModification,
     ShopModification
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { ShopModificationName } from '../../add-modification-sheet/shop-modification-name';
-import { ContractModificationName } from '../../add-modification-sheet/contract-modification-name';
-import * as uuid from 'uuid/v4';
+import { ShopModificationName } from '../shop-modification-name';
+import { ContractModificationName } from '../contract-modification-name';
 
 @Component({
     selector: 'cc-party-modification-creation',
@@ -27,7 +27,7 @@ import * as uuid from 'uuid/v4';
 })
 export class PartyModificationCreationComponent implements OnInit, OnChanges {
     @Input()
-    action: ContractModificationName | ShopModificationName;
+    action: ModificationAction;
 
     @Input()
     modification: ShopModification | ContractModification;
@@ -38,17 +38,23 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     @Output()
     statusChanges: EventEmitter<'VALID' | 'INVALID'> = new EventEmitter();
 
+    actionTypes = ActionType;
     shopModificationNames = ShopModificationName;
     contractModificationNames = ContractModificationName;
 
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.form = this.fb.group({
-            unitID: uuid(),
+            unitID: [
+                {
+                    value: uuid(),
+                    disabled: true
+                },
+                Validators.required
+            ],
             modification: this.fb.group({})
         });
         this.form.statusChanges.subscribe(status => this.statusChanges.emit(status));

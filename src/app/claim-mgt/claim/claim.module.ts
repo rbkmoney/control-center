@@ -12,6 +12,7 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { ClaimComponent } from './claim.component';
 import { ClaimRoutingModule } from './claim-routing.module';
@@ -19,13 +20,12 @@ import { SharedModule } from '../../shared/shared.module';
 import { DetailsComponent } from './details/details.component';
 import { ConversationModule } from './conversation/conversation.module';
 import { StatusChangerComponent } from './status-changer/status-changer.component';
-import { AddModificationSheetComponent } from './add-modification-sheet/add-modification-sheet.component';
-import { ContainerNamePipe } from './add-modification-sheet/container-name.pipe';
-import { CreateModificationComponent } from './create-modification/create-modification.component';
-import { MatStepperModule } from '@angular/material/stepper';
 import { PartyModificationTargetModule } from '../../party-modification-target';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
-import { PartyModificationCreationModule } from './create-modification/party-modification-creation';
+import { UnitActionsComponent } from './party-modification-creator/unit-actions/unit-actions.component';
+import { ContainerNamePipe } from './party-modification-creator/container-name.pipe';
+import { PartyModificationCreationModule } from './party-modification-creator/creation';
+import { CreateModificationComponent } from './party-modification-creator/create-modification.component';
 
 @NgModule({
     imports: [
@@ -51,15 +51,11 @@ import { PartyModificationCreationModule } from './create-modification/party-mod
         ClaimComponent,
         DetailsComponent,
         StatusChangerComponent,
-        AddModificationSheetComponent,
         CreateModificationComponent,
-        ContainerNamePipe
+        ContainerNamePipe,
+        UnitActionsComponent
     ],
-    entryComponents: [
-        StatusChangerComponent,
-        AddModificationSheetComponent,
-        CreateModificationComponent
-    ],
+    entryComponents: [StatusChangerComponent, CreateModificationComponent, UnitActionsComponent],
     providers: [ClaimManagementService]
 })
 export class ClaimModule {}
