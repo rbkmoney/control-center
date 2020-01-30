@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable, Subject } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import flatten from 'lodash-es/flatten';
 
 import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';

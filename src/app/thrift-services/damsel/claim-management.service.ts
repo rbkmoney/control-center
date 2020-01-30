@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ThriftService } from '../thrift-service';
 import * as ClaimManagement from './gen-nodejs/ClaimManagement';
 import { Modification as ModificationType } from './gen-nodejs/claim_management_types';
-import { ClaimRevision, Modification } from './gen-model/claim_management';
+import { Modification } from './gen-model/claim_management';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ClaimSearchQuery as ClaimSearchQueryType } from './gen-nodejs/claim_management_types';
 import {

@@ -4,6 +4,7 @@ import { ContractModificationName } from '../contract-modification-name';
 import { ShopModificationName } from '../shop-modification-name';
 import { ActionType } from '../modification-action';
 import { ClaimID } from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { CreateModificationComponent } from '../create-modification.component';
 
 interface UnitActionData {
     type: 'allActions' | 'contractActions' | 'shopActions';
