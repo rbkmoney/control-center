@@ -69,7 +69,7 @@ export function getDocDef(questionary: Questionary): DocDef {
         russian_private_entity: russianPrivateEntity
     } = toOptional(legalOwnerInfo);
     const { fio, contact_info: privateEntityContactInfo } = toOptional(russianPrivateEntity);
-    const documentType = getUnionKey(toOptional(propertyInfoDocumentType));
+    const documentType = getUnionKey(propertyInfoDocumentType);
 
     const url = getShopLocationURL(location);
     const contact = getContactInfo(privateEntityContactInfo);
