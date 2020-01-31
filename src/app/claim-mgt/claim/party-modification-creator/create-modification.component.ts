@@ -9,6 +9,7 @@ import {
 } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ModificationGroupType } from '../../../claim/model';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+import { ClaimService } from '../claim.service';
 
 export interface CreateModificationData {
     action: ModificationAction;
@@ -31,8 +32,10 @@ export class CreateModificationComponent implements OnInit {
     constructor(
         private dialogRef: MatDialogRef<CreateModificationComponent>,
         @Inject(MAT_DIALOG_DATA) public data: CreateModificationData,
-        private claimManagementService: ClaimManagementService
-    ) {}
+        private claimManagementService: ClaimManagementService,
+        private claimService: ClaimService
+    ) {
+    }
 
     ngOnInit() {
         this.action = this.data.action;
@@ -74,6 +77,7 @@ export class CreateModificationComponent implements OnInit {
             .subscribe(
                 _ => {
                     this.isLoading = false;
+                    this.claimService.getClaim(this.data.partyID, this.data.claimID);
                     this.dialogRef.close(true);
                 },
                 e => {

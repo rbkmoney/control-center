@@ -5,7 +5,7 @@ import { PayoutToolModification } from '../../../../../../thrift-services/damsel
 
 enum Type {
     creation = 'creation',
-    infoModification = 'info_modification'
+    info_modification = 'info_modification'
 }
 
 @Component({
@@ -19,7 +19,7 @@ export class PayoutToolModificationComponent implements OnInit {
     @Input()
     initialValue: PayoutToolModification;
 
-    types = [Type.creation, Type.infoModification];
+    types = [Type.creation, Type.info_modification];
 
     selected: Type;
 
@@ -34,7 +34,7 @@ export class PayoutToolModificationComponent implements OnInit {
             this.selected = Type.creation;
         }
         if (infoModification) {
-            this.selected = Type.infoModification;
+            this.selected = Type.info_modification;
         }
         this.select();
         this.form.updateValueAndValidity();
@@ -44,10 +44,10 @@ export class PayoutToolModificationComponent implements OnInit {
         switch (this.selected) {
             case Type.creation:
                 this.form.registerControl(Type.creation, this.fb.group({}));
-                this.form.removeControl(Type.infoModification);
+                this.form.removeControl(Type.info_modification);
                 break;
-            case Type.infoModification:
-                this.form.registerControl(Type.infoModification, this.fb.group({}));
+            case Type.info_modification:
+                this.form.registerControl(Type.info_modification, this.fb.group({}));
                 this.form.removeControl(Type.creation);
                 break;
         }

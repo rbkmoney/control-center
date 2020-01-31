@@ -20,7 +20,8 @@ export class UnitActionsComponent implements OnInit {
         private bottomSheetRef: MatBottomSheetRef,
         private dialog: MatDialog,
         @Inject(MAT_BOTTOM_SHEET_DATA) public data: UnitActionData
-    ) {}
+    ) {
+    }
 
     contractActions = {
         type: ActionType.contractAction,

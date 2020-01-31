@@ -10,14 +10,14 @@
             </mat-select>
         </mat-form-field>
         <cc-russian-legal-entity
-            *ngIf="selected === t.russianLegalEntity"
-            [form]="form.get(t.russianLegalEntity)"
+            *ngIf="selected === t.russian_legal_entity"
+            [form]="form.get(t.russian_legal_entity)"
             [initialValue]="initialValue?.russian_legal_entity"
         >
         </cc-russian-legal-entity>
         <cc-international-legal-entity
-            *ngIf="selected === t.internationalLegalEntity"
-            [form]="form.get(t.internationalLegalEntity)"
+            *ngIf="selected === t.international_legal_entity"
+            [form]="form.get(t.international_legal_entity)"
             [initialValue]="initialValue?.international_legal_entity"
         >
         </cc-international-legal-entity>

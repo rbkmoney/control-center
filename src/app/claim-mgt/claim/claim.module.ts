@@ -26,6 +26,7 @@ import { UnitActionsComponent } from './party-modification-creator/unit-actions/
 import { ContainerNamePipe } from './party-modification-creator/container-name.pipe';
 import { PartyModificationCreationModule } from './party-modification-creator/creation';
 import { CreateModificationComponent } from './party-modification-creator/create-modification.component';
+import { ClaimService } from './claim.service';
 
 @NgModule({
     imports: [
@@ -56,6 +57,6 @@ import { CreateModificationComponent } from './party-modification-creator/create
         UnitActionsComponent
     ],
     entryComponents: [StatusChangerComponent, CreateModificationComponent, UnitActionsComponent],
-    providers: [ClaimManagementService]
+    providers: [ClaimManagementService, ClaimService]
 })
 export class ClaimModule {}
