@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Party } from '../../../gen-damsel/domain';
+import { Party } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-party-info',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, AsyncSubject } from 'rxjs';
+import { AsyncSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { group } from './group-domain-objects';

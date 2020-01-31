@@ -30,6 +30,7 @@ import { PartyModule } from './party/party.module';
 import { DomainModule } from './domain';
 import { RepairingModule } from './repairing/repairing.module';
 import { DepositsModule } from './deposits/deposits.module';
+import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -52,7 +53,8 @@ import { DepositsModule } from './deposits/deposits.module';
         PartyModule,
         DomainModule,
         RepairingModule,
-        DepositsModule
+        DepositsModule,
+        ClaimMgtModule
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },

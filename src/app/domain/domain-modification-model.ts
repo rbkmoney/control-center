@@ -1,4 +1,4 @@
-import { Reference, DomainObject } from '../gen-damsel/domain';
+import { Reference, DomainObject } from '../thrift-services/damsel/gen-model/domain';
 import { MetaStruct, MetaUnion } from '../damsel-meta';
 
 export interface ModificationItem {

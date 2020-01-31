@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { get } from 'lodash-es';
 
-import { ScheduleModification } from '../../../gen-damsel/payment_processing';
+import { ScheduleModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 
 @Component({
     selector: 'cc-shop-schedule-modification',

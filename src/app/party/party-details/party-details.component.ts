@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 
-import { Party, Shop } from '../../gen-damsel/domain';
+import { Party, Shop } from '../../thrift-services/damsel/gen-model/domain';
 import { PartyService } from '../party.service';
 
 @Component({

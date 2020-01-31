@@ -1,6 +1,7 @@
 import { JSONSchema } from './json-schema';
 import * as Json from 'jsonc-parser';
 import * as nls from './nlc';
+
 const localize = nls.loadMessageBundle();
 
 export interface IRange {

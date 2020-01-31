@@ -2,7 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { get } from 'lodash-es';
 
-import { ShopLocation } from '../../../gen-damsel/domain';
+import { ShopLocation } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-shop-location',

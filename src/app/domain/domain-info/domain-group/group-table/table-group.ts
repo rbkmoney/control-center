@@ -1,6 +1,6 @@
 import { DomainGroup } from '../domain-group';
 import { toJson } from '../../../../shared/thrift-json-converter';
-import { TableGroup, TableDataSource } from './model';
+import { TableDataSource, TableGroup } from './model';
 
 function shorten(str: string, limit = 150): string {
     return str.length > limit ? str.slice(0, limit) + '...' : str;

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { RepresentativeDocument } from '../../../gen-damsel/domain';
+import { RepresentativeDocument } from '../../../thrift-services/damsel/gen-model/domain';
 import get from 'lodash-es/get';
 
 enum Type {

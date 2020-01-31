@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatBottomSheet } from '@angular/material';
 
-import { PartyModificationUnit, ModificationGroupType } from '../model';
+import { ModificationGroupType, PartyModificationUnit } from '../model';
 import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 import { ClaimService } from '../claim.service';
 

@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 import { DomainGroup } from '../domain-group';
-import { DomainDetailsService } from '../../../domain-info/domain-details.service';
-import { toTableGroup, toDataSource } from './table-group';
+import { DomainDetailsService } from '../../domain-details.service';
+import { toDataSource, toTableGroup } from './table-group';
 import { sortData } from './sort-table-data';
 import { filterPredicate } from './filter-predicate';
 import { TableDataSource, TableGroup } from './model';
-import { DetailsContainerService } from '../../../domain-info/details-container.service';
+import { DetailsContainerService } from '../../details-container.service';
 
 @Component({
     selector: 'cc-group-table',

@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { toMajor } from '../to-major-amount';
-import { DepositParams } from '../../fistful/gen-model/fistful_admin';
-import { StatDeposit } from '../../fistful/gen-model/fistful_stat';
+import { DepositParams } from '../../thrift-services/fistful/gen-model/fistful_admin';
+import { StatDeposit } from '../../thrift-services/fistful/gen-model/fistful_stat';
 import { SearchFormParams } from '../search-form/search-form-params';
-import { FistfulAdminService } from '../../fistful/fistful-admin.service';
-import { FistfulStatisticsService } from '../../fistful/fistful-stat.service';
+import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
+import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';
 import { createDepositStopPollingCondition, poll } from '../../custom-operators';
 
 export interface CurrencySource {

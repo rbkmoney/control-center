@@ -1,0 +1,56 @@
+<mat-card *ngIf="claim">
+    <mat-card-subtitle>Claim details</mat-card-subtitle>
+    <mat-card-content>
+        <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
+            <div fxLayout="row" fxLayout.xs="column">
+                <label fxFlex="20">Claim ID:</label>
+                <div>{{ claim.id }}</div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column">
+                <label fxFlex="20">Revision:</label>
+                <div>{{ claim.revision }}</div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column">
+                <label fxFlex="20">Status:</label>
+                <div>{{ claim.status | ccClaimStatus }}</div>
+            </div>
+            <div
+                fxLayout="row"
+                fxLayout.xs="column"
+                *ngIf="claim.status.denied || claim.status.revoked"
+            >
+                <label fxFlex="20">Reason:</label>
+                <div>{{ claim.status.revoked?.reason || claim.status.denied?.reason }}</div>
+            </div>
+        </div>
+        <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
+            <div fxLayout="row" fxLayout.xs="column">
+                <label fxFlex="20">Party ID:</label>
+                <div>{{ claim.party_id }}</div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column">
+                <label fxFlex="20">Created At:</label>
+                <div>{{ claim.created_at | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column">
+                <label fxFlex="20">Updated At:</label>
+                <div>{{ claim.updated_at | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="row" fxLayout.xs="column">
+            <button mat-button [disabled]="" (click)="addModification()">ADD MODIFICATION</button>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="editStatus()"
+                [disabled]="!canChangeStatus()"
+            >
+                CHANGE STATUS
+            </button>
+        </div>
+    </mat-card-actions>
+</mat-card>

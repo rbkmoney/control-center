@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { DomainService as ThriftDomainService } from '../thrift/domain.service';
-import { toGenReference, toGenCommit } from '../thrift/converters';
-import { Snapshot, Commit } from '../gen-damsel/domain_config';
-import { Reference, DomainObject } from '../gen-damsel/domain';
+import { DomainService as ThriftDomainService } from '../thrift-services/damsel/domain.service';
+import { toGenReference, toGenCommit } from '../thrift-services/converters';
+import { Snapshot, Commit } from '../thrift-services/damsel/gen-model/domain_config';
+import { Reference, DomainObject } from '../thrift-services/damsel/gen-model/domain';
 import { toJson } from '../shared/thrift-json-converter';
 
 @Injectable()

@@ -1,8 +1,8 @@
-import { Component, Input, OnChanges, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Shop } from '../../../gen-damsel/domain';
+import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-shops-table',

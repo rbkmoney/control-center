@@ -8,7 +8,7 @@ import get from 'lodash-es/get';
 
 import { ContractTemplate } from '../../../papi/model';
 import { ContractService } from '../../../papi/contract.service';
-import { ContractTemplateRef } from '../../../gen-damsel/domain';
+import { ContractTemplateRef } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-contract-template-ref',

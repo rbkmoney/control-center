@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { DomainTypedManager } from '../../../../thrift';
+import { DomainTypedManager } from '../../../../thrift-services';
 import { EditTerminalDecision } from '../edit-terminal-decision';
 
 @Injectable()

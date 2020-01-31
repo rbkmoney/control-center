@@ -10,7 +10,7 @@ import {
     ContractModificationUnit,
     PartyModification,
     ShopModificationUnit
-} from '../../gen-damsel/payment_processing';
+} from '../../thrift-services/damsel/gen-model/payment_processing';
 
 export interface CreateModificationData {
     action: ModificationAction;

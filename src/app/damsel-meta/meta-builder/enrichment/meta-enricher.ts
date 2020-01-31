@@ -157,7 +157,7 @@ export class MetaEnricher {
         return this.enrichTyped(found);
     }
 
-    private findMeta(condition: MetaTypeCondition): MetaTyped & MetaTypeDefined | null {
+    private findMeta(condition: MetaTypeCondition): (MetaTyped & MetaTypeDefined) | null {
         let found = findMeta<MetaTyped & MetaTypeDefined>(condition, this.shallowMetaDef);
         if (found) {
             return found;

@@ -4,8 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 
-import { InvoicePaymentAdjustmentParams, UserInfo } from '../../gen-damsel/payment_processing';
-import { StatPayment } from '../../gen-damsel/merch_stat';
+import {
+    InvoicePaymentAdjustmentParams,
+    UserInfo
+} from '../../thrift-services/damsel/gen-model/payment_processing';
+import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { ExecutorService } from './executor.service';
 import {
     CreateAdjustmentService,

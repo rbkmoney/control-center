@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-    MatCardModule,
-    MatProgressBarModule,
-    MatSnackBarModule,
-    MatSidenavModule,
     MatButtonModule,
+    MatCardModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatSnackBarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -15,7 +15,7 @@ import { DomainInfoComponent } from './domain-info.component';
 import { DomainObjDetailsComponent } from './domain-obj-details';
 import { DomainGroupModule } from './domain-group';
 import { MonacoEditorModule } from '../../monaco-editor';
-import { ThriftModule } from '../../thrift/thrift.module';
+import { DamselModule } from '../../thrift-services/damsel/damsel.module';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -32,7 +32,7 @@ import { SharedModule } from '../../shared/shared.module';
         MatInputModule,
         MatProgressSpinnerModule,
         MonacoEditorModule,
-        ThriftModule,
+        DamselModule,
         SharedModule
     ]
 })

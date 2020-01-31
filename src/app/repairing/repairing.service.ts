@@ -4,12 +4,15 @@ import { KeycloakService } from 'keycloak-angular';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { UserInfo, InvoiceRepairScenario } from '../gen-damsel/payment_processing';
+import {
+    UserInfo,
+    InvoiceRepairScenario
+} from '../thrift-services/damsel/gen-model/payment_processing';
 import { execute } from '../shared/execute';
-import { AutomatonService } from '../machinegun/automaton.service';
-import { PaymentProcessingService } from '../thrift/payment-processing.service';
-import { RepairerService } from '../fistful/repairer.service';
-import { RepairScenario } from '../fistful/gen-model/withdrawal_session';
+import { AutomatonService } from '../thrift-services/machinegun/automaton.service';
+import { PaymentProcessingService } from '../thrift-services/damsel/payment-processing.service';
+import { RepairerService } from '../thrift-services/fistful/repairer.service';
+import { RepairScenario } from '../thrift-services/fistful/gen-model/withdrawal_session';
 
 @Injectable()
 export class RepairingService {

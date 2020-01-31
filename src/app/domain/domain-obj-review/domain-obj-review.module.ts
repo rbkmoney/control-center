@@ -10,7 +10,7 @@ import {
 } from '@angular/material';
 
 import { DomainObjReviewComponent } from './domain-obj-review.component';
-import { MonacoEditorModule } from '../../monaco-editor/monaco-editor.module';
+import { MonacoEditorModule } from '../../monaco-editor';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({

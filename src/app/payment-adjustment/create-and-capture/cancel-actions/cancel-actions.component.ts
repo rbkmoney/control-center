@@ -11,7 +11,7 @@ import {
     OperationFailedPayload,
     PaymentAdjustmentCancelParams
 } from '../adjustment-operations';
-import { InvoicePaymentAdjustmentParams } from '../../../gen-damsel/payment_processing';
+import { InvoicePaymentAdjustmentParams } from '../../../thrift-services/damsel/gen-model/payment_processing';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCancelParams>;
 

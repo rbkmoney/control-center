@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import get from 'lodash-es/get';
 
-import { InternationalBankDetails } from '../../../../../gen-damsel/domain';
+import { InternationalBankDetails } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-international-bank-details',

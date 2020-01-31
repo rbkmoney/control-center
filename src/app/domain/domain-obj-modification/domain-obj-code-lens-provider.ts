@@ -4,7 +4,7 @@ import {
     CancellationToken,
     ICodeLensSymbol,
     ProviderResult
-} from '../../monaco-editor/model';
+} from '../../monaco-editor';
 
 export class DomainObjCodeLensProvider implements CodeLensProvider {
     get language() {
