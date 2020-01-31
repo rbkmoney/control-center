@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { TCreatedPdf } from 'pdfmake/build/pdfmake';
+import { Observable } from 'rxjs';
 
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { QuestionaryDocumentService } from '../../../../questionary-document';
-import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 
 @Component({
     selector: 'cc-questionary',
@@ -10,27 +11,26 @@ import { TCreatedPdf } from 'pdfmake/build/pdfmake';
     styleUrls: ['questionary.component.scss']
 })
 export class QuestionaryComponent {
-    @Input() questionary: Questionary;
+    _questionary: Questionary;
+    beneficialOwnersDocuments$: Observable<TCreatedPdf[]>;
 
-    get beneficialOwnersDocuments$() {
-        return this.questionary
-            ? this.questionaryDocumentService.createBeneficialOwnerDocs(this.questionary)
-            : null;
+    @Input()
+    set questionary(questionary) {
+        this._questionary = questionary;
+        this.beneficialOwnersDocuments$ = this.questionaryDocumentService.createBeneficialOwnerDocs(
+            this.questionary
+        );
     }
-
-    get document$() {
-        return this.questionary
-            ? this.questionaryDocumentService.createDoc(this.questionary)
-            : null;
+    get questionary() {
+        return this._questionary;
     }
 
     constructor(private questionaryDocumentService: QuestionaryDocumentService) {}
 
     downloadDocument() {
-        return (
-            this.document$ ||
-            this.document$.subscribe(doc => doc.download('russian-entity-questionary'))
-        );
+        this.questionaryDocumentService
+            .createDoc(this.questionary)
+            .subscribe(doc => doc.download('russian-entity-questionary'));
     }
 
     downloadBeneficialOwnerDocument(beneficialOwnerDocument: TCreatedPdf) {

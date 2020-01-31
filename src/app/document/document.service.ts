@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap, timeout } from 'rxjs/operators';
+import { map, timeout } from 'rxjs/operators';
 import {
     createPdf,
     TDocumentDefinitions,

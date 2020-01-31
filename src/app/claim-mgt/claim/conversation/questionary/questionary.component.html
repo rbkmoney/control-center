@@ -1,12 +1,12 @@
 <mat-card>
     <mat-card-content>
-        Questionary: <button dsh-button (click)="downloadDocument()">Questionary</button>
+        <button mat-button (click)="downloadDocument()">Download questionary</button>
         <button
-            dsh-button
+            mat-button
             *ngFor="let beneficialOwnerDocument of (beneficialOwnersDocuments$ | async); index as i"
             (click)="downloadBeneficialOwnerDocument(beneficialOwnerDocument)"
         >
-            Beneficial owner questionary #{{ i }}
+            Download beneficial owner questionary #{{ i }}
         </button>
     </mat-card-content>
 </mat-card>

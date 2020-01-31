@@ -1,14 +1,14 @@
 import { Questionary } from '../thrift-services/ank/gen-model/questionary_manager';
 import { BeneficialOwner } from '../thrift-services/ank/gen-model/questionary';
+import get from 'lodash-es/get';
 
-export function getBeneficialOwners(questionary: Questionary): BeneficialOwner[] | null {
-    if (questionary.data.contractor.individual_entity) {
+export function getBeneficialOwners(questionary: Questionary): BeneficialOwner[] {
+    if (get(questionary, ['data', 'contractor', 'individual_entity'])) {
         return questionary.data.contractor.individual_entity.russian_individual_entity
             .beneficial_owners;
-    } else if (questionary.data.contractor.legal_entity) {
+    } else if (get(questionary, ['data', 'contractor', 'legal_entity'])) {
         return questionary.data.contractor.legal_entity.russian_legal_entity.beneficial_owners;
-    } else {
-        console.error('Unknown questionary');
-        return null;
     }
+    console.error('Unknown questionary');
+    return [];
 }

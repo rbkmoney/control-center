@@ -33,8 +33,8 @@ export class QuestionaryDocumentService {
 
     createBeneficialOwnerDocs(questionary: Questionary): Observable<TCreatedPdf[]> {
         const beneficialOwners = getBeneficialOwners(questionary);
-        const { companyName, companyInn } = getCompanyInfo(questionary);
         if (!isEmpty(beneficialOwners)) {
+            const { companyName, companyInn } = getCompanyInfo(questionary);
             const beneficialOwnersDocs = beneficialOwners.map(beneficialOwner =>
                 this.createBeneficialOwnerDoc(beneficialOwner, companyName, companyInn)
             );
