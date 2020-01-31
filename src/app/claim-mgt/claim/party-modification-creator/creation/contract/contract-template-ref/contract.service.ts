@@ -8,8 +8,7 @@ import { ContractTemplate } from '../../../../../../thrift-services/damsel/gen-m
 export class ContractService {
     private readonly papiEndpoint = this.configService.config.papiEndpoint;
 
-    constructor(private http: HttpClient, private configService: ConfigService) {
-    }
+    constructor(private http: HttpClient, private configService: ConfigService) {}
 
     getContractTemplates(): Observable<ContractTemplate[]> {
         return this.http.get<ContractTemplate[]>(`${this.papiEndpoint}/dmt/contract/templates`);
