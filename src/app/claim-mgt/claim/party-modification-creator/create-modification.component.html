@@ -1,0 +1,18 @@
+<div class="mat-dialog-title">
+    {{ action.name | ccContainerName: getContainerType(action.type) }}
+</div>
+<mat-dialog-content>
+    <cc-party-modification-creation
+        [action]="action"
+        (valueChanges)="valueChanges($event)"
+        (statusChanges)="statusChanges($event)"
+    >
+    </cc-party-modification-creation>
+</mat-dialog-content>
+<mat-dialog-actions *ngIf="initialized">
+    <button mat-button [disabled]="isLoading || !valid" color="primary" (click)="apply()">
+        APPLY
+    </button>
+    <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+</mat-dialog-actions>

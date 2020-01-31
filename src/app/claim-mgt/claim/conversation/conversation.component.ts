@@ -5,6 +5,7 @@ import { ConversationService } from './conversation.service';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
 import { ClaimStatus } from '../../../papi/model';
 import { TimelineAction } from './to-timeline-info/model';
+import { getUnionKey } from '../../../shared/get-union-key';
 
 @Component({
     selector: 'cc-claim-conversation',
@@ -34,5 +35,9 @@ export class ConversationComponent implements OnChanges {
         this.conversationService
             .updateConversation(this.claim.party_id, this.claim.id, action, modifications)
             .subscribe(_ => this.conversationChangedEvent.emit());
+    }
+
+    getKey(modification: Modification) {
+        return getUnionKey(modification);
     }
 }

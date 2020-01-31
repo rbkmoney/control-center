@@ -38,14 +38,19 @@
             </div>
         </div>
     </mat-card-content>
-    <mat-card-actions fxLayoutAlign="end center">
-        <button
-            mat-raised-button
-            color="primary"
-            (click)="editStatus()"
-            [disabled]="!canChangeStatus()"
-        >
-            CHANGE STATUS
-        </button>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="row" fxLayout.xs="column">
+            <button mat-button [disabled]="" (click)="addModification()">ADD MODIFICATION</button>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="editStatus()"
+                [disabled]="!canChangeStatus()"
+            >
+                CHANGE STATUS
+            </button>
+        </div>
     </mat-card-actions>
 </mat-card>

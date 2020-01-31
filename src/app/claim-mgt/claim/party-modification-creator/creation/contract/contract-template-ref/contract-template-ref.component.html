@@ -1,0 +1,14 @@
+<form [formGroup]="form" fxLayout="column">
+    <mat-form-field fxFlex>
+        <mat-select placeholder="Select contract template" formControlName="id" required>
+            <mat-option
+                *ngFor="let contract of (contracts$ | async)"
+                [value]="contract.id"
+                required
+            >
+                {{ contract.id }} {{ contract.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+</form>
