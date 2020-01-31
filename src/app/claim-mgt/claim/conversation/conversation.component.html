@@ -38,26 +38,26 @@
                         [questionary]="questionary$ | async"
                     ></cc-questionary>
                 </ng-container>
-                <!--                <ng-container-->
-                <!--                    *ngIf="-->
-                <!--                        item.action !== timelineAction.statusRevoked ||-->
-                <!--                        item.action !== timelineAction.statusDenied-->
-                <!--                    "-->
-                <!--                >-->
-                <!--                    <mat-expansion-panel *ngFor="let modification of item.modifications">-->
-                <!--                        <mat-expansion-panel-header>-->
-                <!--                            <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>-->
-                <!--                            <mat-panel-description>-->
-                <!--                                {{-->
-                <!--                                    modification.claim_modification-->
-                <!--                                        ? getKey(modification.claim_modification)-->
-                <!--                                        : getKey(modification.party_modification)-->
-                <!--                                }}-->
-                <!--                            </mat-panel-description>-->
-                <!--                        </mat-expansion-panel-header>-->
-                <!--                        <cc-pretty-json [object]="modification"></cc-pretty-json>-->
-                <!--                    </mat-expansion-panel>-->
-                <!--                </ng-container>-->
+                <ng-container
+                    *ngIf="
+                        item.action !== timelineAction.statusRevoked ||
+                        item.action !== timelineAction.statusDenied
+                    "
+                >
+                    <mat-expansion-panel *ngFor="let modification of item.modifications">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>
+                            <mat-panel-description>
+                                {{
+                                    modification.claim_modification
+                                        ? getKey(modification.claim_modification)
+                                        : getKey(modification.party_modification)
+                                }}
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <cc-pretty-json [object]="modification"></cc-pretty-json>
+                    </mat-expansion-panel>
+                </ng-container>
             </cc-timeline-item-content>
         </cc-timeline-item>
     </cc-timeline>

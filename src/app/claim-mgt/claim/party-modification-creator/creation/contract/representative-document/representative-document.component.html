@@ -1,0 +1,17 @@
+<div fxLayout="column">
+    <mat-form-field>
+        <mat-select
+            placeholder="Representative document"
+            [(value)]="selected"
+            (selectionChange)="select()"
+        >
+            <mat-option *ngFor="let type of types" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <cc-legal-agreement-binding
+        *ngIf="selected === t.powerOfAttorney"
+        [form]="form.get(t.powerOfAttorney)"
+        [initialValue]="initialValue?.power_of_attorney"
+    >
+    </cc-legal-agreement-binding>
+</div>

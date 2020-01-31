@@ -1,0 +1,98 @@
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
+    <mat-form-field fxFlex>
+        <input matInput placeholder="Unit ID" formControlName="unitID" required />
+    </mat-form-field>
+    <div *ngIf="action.type === actionTypes.contractAction">
+        <cc-contract-params
+            *ngIf="action.name === contractModificationNames.creation"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.creation"
+        >
+        </cc-contract-params>
+        <cc-contract-payout-tool-modification-unit
+            *ngIf="action.name === contractModificationNames.payoutToolModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.payout_tool_modification"
+        >
+        </cc-contract-payout-tool-modification-unit>
+        <cc-legal-agreement-binding
+            *ngIf="action.name === contractModificationNames.legalAgreementBinding"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.legal_agreement_binding"
+        >
+        </cc-legal-agreement-binding>
+        <cc-adjustment-modification-unit
+            *ngIf="action.name === contractModificationNames.adjustmentModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.adjustment_modification"
+        >
+        </cc-adjustment-modification-unit>
+        <cc-report-preferences
+            *ngIf="action.name === contractModificationNames.reportPreferencesModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.report_preferences_modification"
+        >
+        </cc-report-preferences>
+        <cc-termination
+            *ngIf="action.name === contractModificationNames.termination"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.termination"
+        >
+        </cc-termination>
+        <cc-contractor-id
+            *ngIf="action.name === contractModificationNames.contractorModification"
+            [form]="form"
+        >
+        </cc-contractor-id>
+    </div>
+    <div *ngIf="action.type === actionTypes.shopAction">
+        <cc-category-ref
+            *ngIf="action.name === shopModificationNames.categoryModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.category_modification"
+        >
+        </cc-category-ref>
+        <cc-shop-details
+            *ngIf="action.name === shopModificationNames.detailsModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.details_modification"
+        >
+        </cc-shop-details>
+        <cc-shop-location
+            *ngIf="action.name === shopModificationNames.locationModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.location_modification"
+        >
+        </cc-shop-location>
+        <cc-shop-account-creation
+            *ngIf="action.name === shopModificationNames.shopAccountCreation"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.shop_account_creation"
+        >
+        </cc-shop-account-creation>
+        <cc-shop-schedule-modification
+            *ngIf="action.name === shopModificationNames.payoutScheduleModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.payout_schedule_modification"
+        >
+        </cc-shop-schedule-modification>
+        <cc-shop-contract-modification
+            *ngIf="action.name === shopModificationNames.contractModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.contract_modification"
+        >
+        </cc-shop-contract-modification>
+        <cc-shop-payout-tool-modification
+            *ngIf="action.name === shopModificationNames.payoutToolModification"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.payout_tool_modification"
+        >
+        </cc-shop-payout-tool-modification>
+        <cc-shop-params
+            *ngIf="action.name === shopModificationNames.creation"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.creation"
+        >
+        </cc-shop-params>
+    </div>
+</form>
