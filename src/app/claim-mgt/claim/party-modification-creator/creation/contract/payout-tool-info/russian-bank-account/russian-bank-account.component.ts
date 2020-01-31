@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import get from 'lodash-es/get';
-import { RussianBankAccount } from '../../../../../../../thrift-services/ank/gen-model/questionary';
+import { RussianBankAccount } from '../../../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-russian-bank-account',

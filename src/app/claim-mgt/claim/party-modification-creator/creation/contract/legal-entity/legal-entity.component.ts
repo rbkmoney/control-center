@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import get from 'lodash-es/get';
-import { LegalEntity } from '../../../../../../thrift-services/ank/gen-model/questionary';
+import { LegalEntity } from '../../../../../../thrift-services/damsel/gen-model/domain';
 
 enum Type {
     russianLegalEntity = 'russian_legal_entity',

@@ -61,11 +61,7 @@
                 />
             </mat-form-field>
             <cc-nested-form-wrapper caption="russian_bank_account">
-                <cc-russian-bank-account
-                    fxFlex
-                    [form]="form.get('russian_bank_account')"
-                    [initialValue]="initialValue?.russian_bank_account"
-                >
+                <cc-russian-bank-account fxFlex [form]="form.get('russian_bank_account')">
                 </cc-russian-bank-account>
             </cc-nested-form-wrapper>
         </div>

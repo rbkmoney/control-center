@@ -14,4 +14,5 @@
         APPLY
     </button>
     <button [disabled]="isLoading" mat-button [mat-dialog-close]="false">CANCEL</button>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </mat-dialog-actions>

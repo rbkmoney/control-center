@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 
 import { ActionType, ModificationAction } from './modification-action';
 import {
@@ -8,7 +9,6 @@ import {
 } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ModificationGroupType } from '../../../claim/model';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
-import { MatDialogRef } from '@angular/material/dialog';
 
 export interface CreateModificationData {
     action: ModificationAction;
@@ -66,13 +66,20 @@ export class CreateModificationComponent implements OnInit {
     }
 
     private addChange() {
+        this.isLoading = true;
         this.claimManagementService
             .updateClaim(this.data.partyID, this.data.claimID, [
                 { party_modification: this.values }
             ])
-            .subscribe(_ => {
-                this.dialogRef.close();
-            });
-        // this.claimService.addModification(this.values as PartyModification);
+            .subscribe(
+                _ => {
+                    this.isLoading = false;
+                    this.dialogRef.close(true);
+                },
+                e => {
+                    this.isLoading = false;
+                    console.error(e);
+                }
+            );
     }
 }
