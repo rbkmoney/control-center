@@ -34,8 +34,7 @@ export class CreateModificationComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: CreateModificationData,
         private claimManagementService: ClaimManagementService,
         private claimService: ClaimService
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.action = this.data.action;
