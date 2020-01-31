@@ -1,0 +1,18 @@
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="15px">
+    <div fxLayout="column">
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Payout tool ID"
+                formControlName="payout_tool_id"
+                required
+            />
+        </mat-form-field>
+        <div><button (click)="generate()" mat-stroked-button>GENERATE NEW VALUE</button></div>
+    </div>
+    <cc-contract-payout-tool-modification
+        [form]="form.get('modification')"
+        [initialValue]="initialValue?.modification"
+    >
+    </cc-contract-payout-tool-modification>
+</form>

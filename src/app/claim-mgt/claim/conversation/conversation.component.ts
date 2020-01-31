@@ -42,7 +42,7 @@ export class ConversationComponent implements OnChanges {
             .subscribe(_ => this.conversationChangedEvent.emit());
     }
 
-    getKey(m: Modification) {
-        return getUnionKey(m);
+    getKey(modification: Modification) {
+        return getUnionKey(modification);
     }
 }

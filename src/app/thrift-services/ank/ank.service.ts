@@ -21,6 +21,6 @@ export class AnkService extends ThriftService {
     save = (params: QuestionaryParams, version: Version): Observable<Version> =>
         this.toObservableAction('Save')(params, version);
 
-    get = (questionaryId: QuestionaryID): Observable<Snapshot> =>
-        this.toObservableAction('Get')(questionaryId, toGenReference());
+    get = (questionaryId: QuestionaryID, reference = toGenReference()): Observable<Snapshot> =>
+        this.toObservableAction('Get')(questionaryId, reference);
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable, Subject } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import flatten from 'lodash-es/flatten';
 
 import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
@@ -30,18 +30,7 @@ export class ConversationService {
         action: TimelineAction,
         modifications: Modification[]
     ): Observable<void> {
-        return this.claimManagementService
-            .getClaim(party_id, claim_id)
-            .pipe(
-                switchMap(claim =>
-                    this.claimManagementService.updateClaim(
-                        claim.party_id,
-                        claim.id,
-                        claim.revision,
-                        modifications
-                    )
-                )
-            );
+        return this.claimManagementService.updateClaim(party_id, claim_id, modifications);
     }
 
     enrichWithData(changeset: ClaimChangeset) {

@@ -5,8 +5,7 @@ import Int64 from 'thrift-ts/lib/int64';
 import { ClaimService } from './claim.service';
 
 @Component({
-    templateUrl: 'claim.component.html',
-    providers: [ClaimService]
+    templateUrl: 'claim.component.html'
 })
 export class ClaimComponent {
     claim$ = this.claimService.claim$;

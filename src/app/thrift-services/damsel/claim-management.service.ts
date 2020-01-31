@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ThriftService } from '../thrift-service';
 import * as ClaimManagement from './gen-nodejs/ClaimManagement';
 import { Modification as ModificationType } from './gen-nodejs/claim_management_types';
-import { ClaimRevision, Modification } from './gen-model/claim_management';
+import { Modification } from './gen-model/claim_management';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ClaimSearchQuery as ClaimSearchQueryType } from './gen-nodejs/claim_management_types';
 import {
@@ -65,13 +65,16 @@ export class ClaimManagementService extends ThriftService {
     updateClaim = (
         partyID: string,
         claimID: ClaimID,
-        revision: ClaimRevision,
         changeset: Modification[]
     ): Observable<void> =>
-        this.toObservableAction('UpdateClaim')(
-            partyID,
-            claimID,
-            revision,
-            changeset.map(m => new ModificationType(m))
+        this.getClaim(partyID, claimID).pipe(
+            switchMap(claim =>
+                this.toObservableAction('UpdateClaim')(
+                    claim.party_id,
+                    claim.id,
+                    claim.revision,
+                    changeset.map(m => new ModificationType(m))
+                )
+            )
         );
 }
