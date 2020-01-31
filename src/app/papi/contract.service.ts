@@ -9,7 +9,7 @@ import { ContractTemplate } from './model';
 export class ContractService {
     private readonly papiEndpoint: string;
 
-    constructor(private http: HttpClient, private configService: ConfigService) {
+    constructor(private http: HttpClient, configService: ConfigService) {
         this.papiEndpoint = configService.config.papiEndpoint;
     }
 

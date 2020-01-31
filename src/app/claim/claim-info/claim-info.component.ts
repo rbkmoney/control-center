@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatDialog, MatSnackBar } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 import { ClaimService } from '../claim.service';
@@ -21,7 +21,6 @@ export class ClaimInfoComponent implements OnInit {
     claimID: number;
 
     constructor(
-        private route: ActivatedRoute,
         private router: Router,
         private claimService: ClaimService,
         private bottomSheet: MatBottomSheet,

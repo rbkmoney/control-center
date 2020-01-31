@@ -163,17 +163,16 @@ const extractTerminalInfoGroup = (
 
 const flattenGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
     group.reduce(
-        (r, { terminalIds, disabled, predicateType, weights, priorities }) =>
-            (r = [
-                ...r,
-                ...terminalIds.map((terminalId, idx) => ({
-                    terminalId,
-                    disabled,
-                    predicateType,
-                    weight: weights[idx],
-                    priority: priorities[idx]
-                }))
-            ]),
+        (r, { terminalIds, disabled, predicateType, weights, priorities }) => [
+            ...r,
+            ...terminalIds.map((terminalId, idx) => ({
+                terminalId,
+                disabled,
+                predicateType,
+                weight: weights[idx],
+                priority: priorities[idx]
+            }))
+        ],
         []
     );
 

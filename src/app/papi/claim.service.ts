@@ -12,7 +12,7 @@ import { ClaimAcceptParams, ClaimDenyParams, ClaimSearchParams } from './params'
 export class ClaimService {
     private readonly papiEndpoint: string;
 
-    constructor(private http: HttpClient, private configService: ConfigService) {
+    constructor(private http: HttpClient, configService: ConfigService) {
         this.papiEndpoint = configService.config.papiEndpoint;
     }
 

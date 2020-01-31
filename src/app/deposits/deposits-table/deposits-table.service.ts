@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KeycloakService } from 'keycloak-angular';
-
-import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 export interface CurrencySource {
     source: string;
@@ -21,18 +17,11 @@ export const currencies: CurrencySource[] = [
 
 @Injectable()
 export class DepositsTableService {
-    form: FormGroup;
+    form = this.fb.group({
+        destination: ['', Validators.required],
+        amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
+        currency: [currencies[0], Validators.required]
+    });
 
-    constructor(
-        private fistfulAdminService: FistfulAdminService,
-        private keycloakService: KeycloakService,
-        private snackBar: MatSnackBar,
-        private fb: FormBuilder
-    ) {
-        this.form = this.fb.group({
-            destination: ['', Validators.required],
-            amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
-            currency: [currencies[0], Validators.required]
-        });
-    }
+    constructor(private fb: FormBuilder) {}
 }
