@@ -26,6 +26,8 @@ import { CommentComponent } from './comment/comment.component';
 import { ReasonComponent } from './reason/reason.component';
 import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
+import { QuestionaryComponent } from './questionary';
+import { AnkModule } from '../../../thrift-services';
 
 @NgModule({
     imports: [
@@ -48,7 +50,8 @@ import { FileUploaderModule } from './file-uploader/file-uploader.module';
         HumanizeDurationModule,
         MatSelectModule,
         FileContainerModule,
-        FileUploaderModule
+        FileUploaderModule,
+        AnkModule
     ],
     declarations: [
         ConversationComponent,
@@ -56,7 +59,8 @@ import { FileUploaderModule } from './file-uploader/file-uploader.module';
         SendCommentComponent,
         ActionIconPipe,
         ActionNamePipe,
-        CommentComponent
+        CommentComponent,
+        QuestionaryComponent
     ],
     exports: [ConversationComponent]
 })

@@ -33,6 +33,10 @@
                         "
                         [statusModificationUnit]="m.claim_modification.status_modification"
                     ></cc-reason>
+                    <cc-questionary
+                        *ngIf="item.action === timelineAction.changesAdded"
+                        [questionary]="questionary$ | async"
+                    ></cc-questionary>
                 </ng-container>
                 <ng-container
                     *ngIf="
