@@ -1,1 +1,25 @@
-<mat-card> <mat-card-content> Questionary </mat-card-content> </mat-card>
+<div fxLayout="column" fxLayoutGap="20px">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Questionary</mat-panel-title>
+        </mat-expansion-panel-header>
+        <cc-pretty-json [object]="questionary"></cc-pretty-json>
+    </mat-expansion-panel>
+    <mat-card>
+        <mat-card-content fxLayout="row wrap" fxLayoutGap="10px">
+            <button mat-button (click)="downloadDocument()">Download questionary</button>
+            <button
+                mat-button
+                *ngFor="
+                    let beneficialOwnerDocument of (beneficialOwnersDocuments$ | async);
+                    index as i
+                "
+                (click)="downloadBeneficialOwnerDocument(beneficialOwnerDocument)"
+            >
+                Download beneficial owner questionary{{
+                    (beneficialOwnersDocuments$ | async)?.length > 1 ? ' #' + (i + 1) : ''
+                }}
+            </button>
+        </mat-card-content>
+    </mat-card>
+</div>

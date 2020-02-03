@@ -38,12 +38,7 @@
                         [questionary]="questionary$ | async"
                     ></cc-questionary>
                 </ng-container>
-                <ng-container
-                    *ngIf="
-                        item.action !== timelineAction.statusRevoked ||
-                        item.action !== timelineAction.statusDenied
-                    "
-                >
+                <ng-container *ngIf="item.action === timelineAction.partyModification">
                     <mat-expansion-panel *ngFor="let modification of item.modifications">
                         <mat-expansion-panel-header>
                             <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>

@@ -1,1 +1,19 @@
-export const getUnionKey = (union: any) => Object.entries(union).find(([, v]) => !!v)[0];
+import get from 'lodash-es/get';
+
+export function getUnionKeys<T extends object>(obj: T): (keyof T)[] {
+    return obj ? (Object.keys(obj) as any) : [];
+}
+
+export function getUnionKeyValue<T extends object>(
+    obj: T
+): { [K in keyof T]: [K, T[K]] }[keyof T] | null {
+    return obj ? (Object.entries(obj).find(([k, v]) => v) as any) : null;
+}
+
+export function getUnionKey<T extends object>(obj: T): keyof T | null {
+    return get(getUnionKeyValue(obj), 0, null);
+}
+
+export function getUnionValue<T extends object>(obj: T): T[keyof T] | null {
+    return get(getUnionKeyValue(obj), 1, null);
+}

@@ -28,6 +28,7 @@ import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
 import { QuestionaryComponent } from './questionary';
 import { AnkModule } from '../../../thrift-services';
+import { QuestionaryDocumentModule } from '../../../questionary-document';
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import { AnkModule } from '../../../thrift-services';
         MatSelectModule,
         FileContainerModule,
         FileUploaderModule,
-        AnkModule
+        AnkModule,
+        QuestionaryDocumentModule
     ],
     declarations: [
         ConversationComponent,
