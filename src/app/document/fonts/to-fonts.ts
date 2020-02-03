@@ -13,7 +13,8 @@ function familyToFonts(familyName: string | number, family: TFontFamilyTypes): F
 
 export function toFonts(pdfMakeFonts: { [name in string | number]: TFontFamilyTypes }): Font[] {
     return Object.entries(pdfMakeFonts).reduce(
-        (accFonts, [familyName, familyFonts]) => accFonts.concat(familyToFonts(familyName, familyFonts)),
+        (accFonts, [familyName, familyFonts]) =>
+            accFonts.concat(familyToFonts(familyName, familyFonts)),
         [] as Font[]
     );
 }

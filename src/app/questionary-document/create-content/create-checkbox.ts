@@ -38,7 +38,11 @@ export function createInlineCheckbox<T extends any>(itemsSrc: Items<T>, activeKe
     return { text };
 }
 
-export function createInlineCheckboxWithTitle<T extends any>(title: string, items: Items<T>, activeKey?: T): Content {
+export function createInlineCheckboxWithTitle<T extends any>(
+    title: string,
+    items: Items<T>,
+    activeKey?: T
+): Content {
     const inlineCheckbox = createInlineCheckbox(items, activeKey);
     return { ...inlineCheckbox, text: [`${title}:    `, ...inlineCheckbox.text] };
 }
@@ -48,12 +52,18 @@ export function createVerticalCheckbox<T extends any>(itemsSrc: Items<T>, active
         layout: Layout.noBorders,
         table: {
             widths: ['*'],
-            body: itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) => [createCheckbox(value, isActive)])
+            body: itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) => [
+                createCheckbox(value, isActive)
+            ])
         }
     };
 }
 
-export function createVerticalCheckboxWithTitle<T extends any>(title: string, items: Items<T>, activeKey?: T): Content {
+export function createVerticalCheckboxWithTitle<T extends any>(
+    title: string,
+    items: Items<T>,
+    activeKey?: T
+): Content {
     const verticalCheckbox = createVerticalCheckbox(items, activeKey);
     const { table } = verticalCheckbox;
     return {
@@ -66,9 +76,14 @@ export function createVerticalCheckboxWithTitle<T extends any>(title: string, it
     };
 }
 
-export function createHorizontalCheckbox<T extends any>(itemsSrc: Items<T>, activeKey?: T): Content {
+export function createHorizontalCheckbox<T extends any>(
+    itemsSrc: Items<T>,
+    activeKey?: T
+): Content {
     return createGrid(
-        itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) => createCheckbox(value, isActive)),
+        itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) =>
+            createCheckbox(value, isActive)
+        ),
         0.25
     );
 }

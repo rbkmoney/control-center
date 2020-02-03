@@ -19,7 +19,10 @@ function getTableCell(i: Item): Content {
 }
 
 export function createGrid(items: Item[], gapCm: number = 0): Content {
-    const row = items.map((i, idx) => ({ ...getTableCell(i), margin: getMargin(idx, items.length, gapCm) }));
+    const row = items.map((i, idx) => ({
+        ...getTableCell(i),
+        margin: getMargin(idx, items.length, gapCm)
+    }));
     return {
         layout: Layout.wrapper,
         table: {

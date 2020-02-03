@@ -17,13 +17,18 @@ export class FontsService {
     loadFonts(fontsUrls: FontsData['fonts']): Observable<FontsData> {
         const fonts = toFonts(fontsUrls);
         return (this.fontsData$ = forkJoin(fonts.map(({ url }) => this.loadFont(url))).pipe(
-            map(fontsBase64 => ({ vfs: this.getVFS(fonts, fontsBase64), fonts: this.getFonts(fonts) })),
+            map(fontsBase64 => ({
+                vfs: this.getVFS(fonts, fontsBase64),
+                fonts: this.getFonts(fonts)
+            })),
             shareReplay(1)
         ));
     }
 
     private loadFont(url: string): Observable<string> {
-        return this.http.get(url, { responseType: 'blob' }).pipe(switchMap(blob => blobToBase64(blob)));
+        return this.http
+            .get(url, { responseType: 'blob' })
+            .pipe(switchMap(blob => blobToBase64(blob)));
     }
 
     private getFonts(fonts: Font[]): FontsData['fonts'] {

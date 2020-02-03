@@ -20,7 +20,14 @@ export function createFooter({
                 content,
                 {
                     canvas: [
-                        { type: 'line', x1: 0, y1: -lineOffsetIn, x2: lineSizeIn, y2: -lineOffsetIn, lineWidth: 0.5 }
+                        {
+                            type: 'line',
+                            x1: 0,
+                            y1: -lineOffsetIn,
+                            x2: lineSizeIn,
+                            y2: -lineOffsetIn,
+                            lineWidth: 0.5
+                        }
                     ]
                 },
                 {
