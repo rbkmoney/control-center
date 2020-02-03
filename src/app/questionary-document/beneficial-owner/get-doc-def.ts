@@ -29,31 +29,26 @@ export function getDocDef(
     companyInn: string
 ): DocDef {
     const {
-        russian_private_entity: russianPrivateEntity,
-        migration_card_info: migrationCardInfo,
-        residence_approve: residenceApprove,
-        ownership_percentage: ownershipPercentage,
+        russian_private_entity,
+        migration_card_info,
+        residence_approve,
+        ownership_percentage,
         inn,
         snils,
-        pdl_relation_degree: pdlRelationDegree,
-        pdl_category: pdlCategory,
-        residency_info: residencyInfo,
-        identity_document: identityDocument
+        pdl_relation_degree,
+        pdl_category,
+        residency_info,
+        identity_document
     } = toOptional(beneficialOwner);
-    const {
-        birth_date: birthDate,
-        fio,
-        birth_place: birthPlace,
-        citizenship,
-        actual_address: actualAddress,
-        contact_info: contactInfo
-    } = toOptional(russianPrivateEntity);
-    const optionalMigrationCardInfo = toOptional(migrationCardInfo);
-    const optionalResidenceApprove = toOptional(residenceApprove);
+    const { birth_date, fio, birth_place, citizenship, actual_address, contact_info } = toOptional(
+        russian_private_entity
+    );
+    const optionalMigrationCardInfo = toOptional(migration_card_info);
+    const optionalResidenceApprove = toOptional(residence_approve);
 
-    const identityDocumentInfo = getIdentityDocument(identityDocument);
-    const { usaTaxResident, exceptUsaTaxResident } = getIndividualResidencyInfo(residencyInfo);
-    const contact = getContactInfo(contactInfo);
+    const identityDocumentInfo = getIdentityDocument(identity_document);
+    const { usaTaxResident, exceptUsaTaxResident } = getIndividualResidencyInfo(residency_info);
+    const contact = getContactInfo(contact_info);
 
     return {
         content: [
@@ -73,11 +68,11 @@ export function getDocDef(
             ]),
             createInlineParagraph(
                 '2. Процент владения капиталом юридического лица',
-                getPercent(ownershipPercentage) || EMPTY
+                getPercent(ownership_percentage) || EMPTY
             ),
             createInlineParagraph('3. Фамилия, Имя, Отчество (при наличии)', fio || EMPTY),
-            createInlineParagraph('4. Дата рождения', getDate(birthDate) || EMPTY),
-            createInlineParagraph('5. Место рождения', birthPlace || EMPTY),
+            createInlineParagraph('4. Дата рождения', getDate(birth_date) || EMPTY),
+            createInlineParagraph('5. Место рождения', birth_place || EMPTY),
             createInlineParagraph('6. Гражданство', citizenship || 'РФ'), // TODO: move to questionary input
             createInlineParagraph('7. ИНН (при наличии)', inn || EMPTY),
             createInlineParagraph('8. Реквизиты документа, удостоверяющего личность', [
@@ -122,7 +117,7 @@ export function getDocDef(
             ),
             createInlineParagraph(
                 '11. Адрес места жительства (регистрации) или места пребывания',
-                actualAddress || EMPTY
+                actual_address || EMPTY
             ),
             createInlineParagraph('12. СНИЛС (при наличии)', snils || EMPTY),
             createInlineParagraph('13. Контактная информация (телефон/email)', contact || EMPTY),
@@ -133,16 +128,16 @@ export function getDocDef(
                         createInlineCheckboxWithTitle(
                             '14.1. Принадлежность к категории ПДЛ²',
                             simpleYesNo,
-                            toYesNo(pdlCategory)
+                            toYesNo(pdl_category)
                         )
                     ],
                     [
                         createInlineCheckboxWithTitle(
                             '14.2. Является родственником ПДЛ',
                             simpleYesNo,
-                            toYesNo(!!pdlRelationDegree)
+                            toYesNo(!!pdl_relation_degree)
                         ),
-                        `14.3. Степень родства: ${pdlRelationDegree || EMPTY}`
+                        `14.3. Степень родства: ${pdl_relation_degree || EMPTY}`
                     ],
                     [
                         createInlineCheckboxWithTitle(

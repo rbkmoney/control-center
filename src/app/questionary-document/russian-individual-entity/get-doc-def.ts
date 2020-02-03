@@ -26,48 +26,47 @@ const EMPTY = '';
 
 export function getDocDef(questionary: Questionary): DocDef {
     const { data } = toOptional(questionary);
-    const { contractor, shop_info: shopInfo, contact_info: contactInfo } = toOptional(data);
+    const { contractor, shop_info, contact_info } = toOptional(data);
     const {
-        individual_entity: { russian_individual_entity: individualEntity }
+        individual_entity: { russian_individual_entity }
     } = toOptional(contractor);
-    const { location, details } = toOptional(shopInfo);
+    const { location, details } = toOptional(shop_info);
     const { name: brandName } = toOptional(details);
-    const { phone_number: phoneNumber, email } = toOptional(contactInfo);
+    const { phone_number, email } = toOptional(contact_info);
     const {
-        additional_info: additionalInfo,
-        russian_private_entity: russianPrivateEntity,
-        registration_info: { individual_registration_info: registrationInfo },
+        additional_info,
+        russian_private_entity,
+        registration_info: { individual_registration_info },
         inn,
         snils,
-        property_info_document_type: propertyInfoDocumentType,
-        individual_person_categories: individualPersonCategories,
-        beneficial_owners: beneficialOwners,
-        residency_info: { individual_residency_info: residencyInfo }
-    } = toOptional(individualEntity);
+        property_info_document_type,
+        individual_person_categories,
+        beneficial_owners,
+        residency_info: { individual_residency_info }
+    } = toOptional(russian_individual_entity);
     const {
-        NKO_relation_target: nkoRelationTarget,
-        relationship_with_NKO: relationshipWithNko,
-        month_operation_sum: monthOperationSum,
-        month_operation_count: monthOperationCount,
-        benefit_third_parties: benefitThirdParties,
-        relation_individual_entity: relationIndividualEntity
-    } = toOptional(additionalInfo);
-    const { fio } = toOptional(russianPrivateEntity);
-    const { registration_place: registrationPlace } = toOptional(registrationInfo);
-    const documentType = getUnionKey(propertyInfoDocumentType);
-    const {
-        foreign_public_person: foreignPublicPerson,
-        foreign_relative_person: foreignRelativePerson
-    } = toOptional(individualPersonCategories);
-    const { usa_tax_resident: usaTaxResident } = toOptional(residencyInfo);
+        NKO_relation_target,
+        relationship_with_NKO,
+        month_operation_sum,
+        month_operation_count,
+        benefit_third_parties,
+        relation_individual_entity
+    } = toOptional(additional_info);
+    const { fio } = toOptional(russian_private_entity);
+    const { registration_place: registrationPlace } = toOptional(individual_registration_info);
+    const documentType = getUnionKey(property_info_document_type);
+    const { foreign_public_person, foreign_relative_person } = toOptional(
+        individual_person_categories
+    );
+    const { usa_tax_resident } = toOptional(individual_residency_info);
 
     const name = getIndividualEntityName(fio);
     const url = getShopLocationURL(location);
     const { hasChiefAccountant, staffCount, accountingOrgInn, accounting } = getBusinessInfo(
-        additionalInfo
+        additional_info
     );
     const pdlRelationDegree = EMPTY; // TODO
-    const hasBeneficialOwner = !isEmpty(beneficialOwners);
+    const hasBeneficialOwner = !isEmpty(beneficial_owners);
 
     return {
         content: [
@@ -84,7 +83,7 @@ export function getDocDef(questionary: Questionary): DocDef {
             ]),
             createVerticalParagraph('2. Контактная информация', [
                 [
-                    `2.1. Телефон: ${phoneNumber || EMPTY}`,
+                    `2.1. Телефон: ${phone_number || EMPTY}`,
                     `2.2. Сайт (Url): ${url || EMPTY}`,
                     `2.3. Email: ${email || EMPTY}`
                 ]
@@ -93,9 +92,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                 '3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО',
                 [
                     [
-                        `3.1. Цели установления отношений: ${nkoRelationTarget ||
+                        `3.1. Цели установления отношений: ${NKO_relation_target ||
                             'подключение интернет-эквайринга'}`,
-                        `3.2. Характер отношений: ${relationshipWithNko || 'долгосрочный'}`
+                        `3.2. Характер отношений: ${relationship_with_NKO || 'долгосрочный'}`
                     ]
                 ]
             ),
@@ -108,7 +107,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                             [MonthOperationCount.btw_ten_to_fifty, '10 - 50'],
                             [MonthOperationCount.gt_fifty, 'свыше 50']
                         ],
-                        monthOperationCount
+                        month_operation_count
                     ),
                     createVerticalCheckboxWithTitle(
                         '4.2. Сумма операций:',
@@ -120,7 +119,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                             ],
                             [MonthOperationSum.gt_one_million, 'свыше 1 000 000']
                         ],
-                        monthOperationSum
+                        month_operation_sum
                     )
                 ]
             ]),
@@ -179,7 +178,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                             ...createInlineCheckboxWithTitle(
                                 '8.1. Принадлежность к категории ПДЛ¹',
                                 simpleYesNo,
-                                toYesNo(foreignPublicPerson)
+                                toYesNo(foreign_public_person)
                             ),
                             colSpan: 2
                         }
@@ -188,7 +187,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                         createInlineCheckboxWithTitle(
                             '8.2. Является родственником ПДЛ',
                             simpleYesNo,
-                            toYesNo(foreignRelativePerson)
+                            toYesNo(foreign_relative_person)
                         ),
                         `8.3. Степень родства: ${pdlRelationDegree || EMPTY}`
                     ]
@@ -204,7 +203,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                                 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)'
                             ]
                         ],
-                        toYesNo(benefitThirdParties)
+                        toYesNo(benefit_third_parties)
                     )
                 ]
             ]),
@@ -224,11 +223,11 @@ export function getDocDef(questionary: Questionary): DocDef {
             ]),
             createVerticalParagraph(
                 '11. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве',
-                [[createInlineCheckbox(simpleYesNo, toYesNo(!!relationIndividualEntity))]]
+                [[createInlineCheckbox(simpleYesNo, toYesNo(!!relation_individual_entity))]]
             ),
             createVerticalParagraph(
                 '12. Являетесь ли Вы налоговым резидентом США или иного иностранного государства',
-                [[createInlineCheckbox(simpleYesNo, toYesNo(usaTaxResident))]]
+                [[createInlineCheckbox(simpleYesNo, toYesNo(usa_tax_resident))]]
             )
         ],
         prefooter: createEnding(),
