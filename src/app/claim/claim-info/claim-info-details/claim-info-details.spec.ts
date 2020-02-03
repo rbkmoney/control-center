@@ -7,10 +7,7 @@ describe('ClaimInfoDetailsComponent', () => {
             declarations: [ClaimInfoDetailsComponent]
         })
             .compileComponents()
-            .then(() => {
-                const fixture = TestBed.createComponent(ClaimInfoDetailsComponent);
-                const rendered = fixture.debugElement.componentInstance;
-            });
+            .then();
     }));
     it('should create component', async(() => {
         const fixture = TestBed.createComponent(ClaimInfoDetailsComponent);
