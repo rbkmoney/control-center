@@ -6,7 +6,9 @@
             *ngFor="let beneficialOwnerDocument of (beneficialOwnersDocuments$ | async); index as i"
             (click)="downloadBeneficialOwnerDocument(beneficialOwnerDocument)"
         >
-            Download beneficial owner questionary #{{ i }}
+            Download beneficial owner questionary{{
+                (beneficialOwnersDocuments$ | async)?.length > 1 ? ' #' + (i + 1) : ''
+            }}
         </button>
     </mat-card-content>
 </mat-card>

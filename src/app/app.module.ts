@@ -17,6 +17,7 @@ import {
     MAT_MOMENT_DATE_FORMATS,
     MomentDateAdapter
 } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -31,6 +32,13 @@ import { DomainModule } from './domain';
 import { RepairingModule } from './repairing/repairing.module';
 import { DepositsModule } from './deposits/deposits.module';
 import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
+
+/**
+ * For use in specific locations (for example, questionary PDF document)
+ */
+import 'moment/locale/ru';
+
+moment.locale('en');
 
 @NgModule({
     declarations: [AppComponent],
@@ -60,7 +68,7 @@ import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_LOCALE, useValue: 'ru' }
+        { provide: MAT_DATE_LOCALE, useValue: 'en' }
     ],
     bootstrap: [AppComponent]
 })

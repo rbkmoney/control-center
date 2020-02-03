@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { QuestionaryDocumentService } from '../../../../questionary-document';
@@ -17,9 +17,9 @@ export class QuestionaryComponent {
     @Input()
     set questionary(questionary) {
         this._questionary = questionary;
-        this.beneficialOwnersDocuments$ = this.questionaryDocumentService.createBeneficialOwnerDocs(
-            this.questionary
-        );
+        this.beneficialOwnersDocuments$ = questionary
+            ? this.questionaryDocumentService.createBeneficialOwnerDocs(this.questionary)
+            : of([]);
     }
     get questionary() {
         return this._questionary;
