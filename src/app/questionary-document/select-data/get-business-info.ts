@@ -6,7 +6,7 @@ import {
     WithoutChiefAccountant
 } from '../../thrift-services/ank/gen-model/questionary';
 import get from 'lodash-es/get';
-import { getUnionKey } from '../../shared/get-union-key';
+import { getUnionKey } from '../../shared/utils';
 
 export interface BusinessInfo {
     hasChiefAccountant: YesNo;

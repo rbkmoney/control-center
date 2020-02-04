@@ -1,0 +1,62 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <cc-russian-private-entity-info
+        [russianPrivateEntity]="legalOwnerInfo.russian_private_entity"
+    ></cc-russian-private-entity-info>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout fxLayoutGap="10px">
+        <cc-details-item title="INN" fxFlex>{{
+            legalOwnerInfo.inn | emptyDefault
+        }}</cc-details-item>
+        <cc-details-item title="SNILS" fxFlex>{{
+            legalOwnerInfo.snils | emptyDefault
+        }}</cc-details-item>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout fxLayoutGap="10px">
+        <cc-details-item title="Head position" fxFlex>{{
+            legalOwnerInfo.head_position | emptyDefault
+        }}</cc-details-item>
+        <cc-details-item title="Term of office" fxFlex>{{
+            legalOwnerInfo.term_of_office | emptyDefault
+        }}</cc-details-item>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout fxLayoutGap="10px">
+        <cc-details-item title="PDL category" fxFlex>{{
+            legalOwnerInfo.pdl_category | yesNo | emptyDefault
+        }}</cc-details-item>
+        <cc-details-item title="PDL relation degree" fxFlex>{{
+            legalOwnerInfo.pdl_relation_degree | emptyDefault
+        }}</cc-details-item>
+    </div>
+
+    <cc-details-item title="PDL relation degree" fxFlex>{{
+        legalOwnerInfo.authority_confirming_document?.type
+            | authorityConfirmingDocumentTitle
+            | emptyDefault
+    }}</cc-details-item>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout fxLayoutGap="10px">
+        <cc-details-item title="Series number" fxFlex>{{
+            legalOwnerInfo.identity_document?.russian_domestic_password?.series_number
+                | emptyDefault
+        }}</cc-details-item>
+        <cc-details-item title="Issuer code" fxFlex>{{
+            legalOwnerInfo.identity_document?.russian_domestic_password?.issuer_code | emptyDefault
+        }}</cc-details-item>
+    </div>
+    <cc-details-item title="Issued at" fxFlex>{{
+        legalOwnerInfo.identity_document?.russian_domestic_password?.issued_at | emptyDefault
+    }}</cc-details-item>
+    <cc-details-item title="Issuer" fxFlex>{{
+        legalOwnerInfo.identity_document?.russian_domestic_password?.issuer | emptyDefault
+    }}</cc-details-item>
+</div>

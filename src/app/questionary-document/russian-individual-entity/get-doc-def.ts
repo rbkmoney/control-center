@@ -12,7 +12,7 @@ import {
 } from '../create-content';
 import { YesNo, getShopLocationURL, getBusinessInfo, toYesNo, simpleYesNo } from '../select-data';
 import { getIndividualEntityName } from './get-individual-entity-name';
-import { toOptional } from '../../shared/utils';
+import { toOptional, getUnionKey } from '../../shared/utils';
 import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
 import {
     MonthOperationCount,
@@ -20,7 +20,6 @@ import {
     PropertyInfoDocumentType,
     WithoutChiefAccountant
 } from '../../thrift-services/ank/gen-model/questionary';
-import { getUnionKey } from '../../shared/get-union-key';
 
 const EMPTY = '';
 

@@ -19,8 +19,7 @@ import {
 import { DocDef } from '../create-questionary';
 import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
 import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
-import { toOptional } from '../../shared/utils';
-import { getUnionKey } from '../../shared/get-union-key';
+import { toOptional, getUnionKey } from '../../shared/utils';
 import {
     MonthOperationCount,
     MonthOperationSum,

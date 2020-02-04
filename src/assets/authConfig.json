@@ -1,6 +1,6 @@
 {
     "realm": "internal",
-    "auth-server-url": "http://auth.rbk.test:8080/auth/",
+    "auth-server-url": "https://auth.rbk.money/auth/",
     "ssl-required": "external",
     "resource": "control-center",
     "public-client": true

@@ -27,12 +27,9 @@ import { CommentComponent } from './comment/comment.component';
 import { ReasonComponent } from './reason/reason.component';
 import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
-import { QuestionaryComponent, DetailsItemComponent } from './questionary';
 import { AnkModule } from '../../../thrift-services';
 import { QuestionaryDocumentModule } from '../../../questionary-document';
-import { OrganizationInfoComponent } from './questionary/organization-info';
-import { YesNoPipe } from './questionary/yes-no.pipe';
-import { IsNotNilPipe } from './questionary/is-not-nil.pipe';
+import { QuestionaryModule } from './questionary/questionary.module';
 
 @NgModule({
     imports: [
@@ -58,7 +55,8 @@ import { IsNotNilPipe } from './questionary/is-not-nil.pipe';
         FileUploaderModule,
         AnkModule,
         QuestionaryDocumentModule,
-        MatListModule
+        MatListModule,
+        QuestionaryModule
     ],
     declarations: [
         ConversationComponent,
@@ -66,12 +64,7 @@ import { IsNotNilPipe } from './questionary/is-not-nil.pipe';
         SendCommentComponent,
         ActionIconPipe,
         ActionNamePipe,
-        CommentComponent,
-        QuestionaryComponent,
-        DetailsItemComponent,
-        OrganizationInfoComponent,
-        YesNoPipe,
-        IsNotNilPipe
+        CommentComponent
     ],
     exports: [ConversationComponent]
 })

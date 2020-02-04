@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import {
     RussianLegalEntity,
     RussianIndividualEntity,
     WithoutChiefAccountant
 } from '../../../../../thrift-services/ank/gen-model/questionary';
-import { getUnionKey } from '../../../../../shared/get-union-key';
+import { getUnionKey } from '../../../../../shared/utils/get-union-key';
 
 const WithoutChiefAccountantTitles: { [name in keyof WithoutChiefAccountant]: string } = {
     accounting_organization: 'Accounting organization',
@@ -15,7 +15,7 @@ const WithoutChiefAccountantTitles: { [name in keyof WithoutChiefAccountant]: st
 @Component({
     selector: 'cc-organization-info',
     templateUrl: 'organization-info.component.html',
-    styleUrls: ['organization-info.component.scss']
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrganizationInfoComponent {
     @Input() contractor: RussianLegalEntity | RussianIndividualEntity;
@@ -57,7 +57,7 @@ export class OrganizationInfoComponent {
         return this.contractor.additional_info.accountant_info.without_chief_accountant
             ? this.contractor.additional_info.accountant_info.without_chief_accountant
                   .accounting_organization.inn
-            : '';
+            : null;
     }
 
     get hasBeneficiary() {

@@ -1,2 +1,1 @@
-
-export * from './organization-info.component'
+export * from './organization-info.component';

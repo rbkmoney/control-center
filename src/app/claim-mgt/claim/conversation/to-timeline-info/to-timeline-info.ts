@@ -4,8 +4,7 @@ import {
     ModificationUnit
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { TimelineAction, TimelineItemInfo } from './model';
-import { sortUnitsByCreatedAtAsc } from '../../../../shared/utils';
-import { getUnionKey } from '../../../../shared/get-union-key';
+import { sortUnitsByCreatedAtAsc, getUnionKey } from '../../../../shared/utils';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 
 const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean =>

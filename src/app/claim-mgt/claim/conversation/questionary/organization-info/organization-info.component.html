@@ -1,54 +1,46 @@
 <div class="cc-organization-info" fxLayout="column" fxLayoutGap="10px">
-    <div gdAuto gdGap="10px 10px" gdColumns="1fr">
-        <cc-details-item title="Name">{{ nameWithInn }}</cc-details-item>
-        <cc-details-item title="Registration address">{{ registrationAddress }}</cc-details-item>
-    </div>
+    <cc-details-item title="Name">{{ nameWithInn | emptyDefault }}</cc-details-item>
+    <cc-details-item title="Registration address">{{
+        registrationAddress | emptyDefault
+    }}</cc-details-item>
 
     <mat-divider></mat-divider>
 
-    <div gdAuto gdGap="10px 10px" gdColumns="1fr">
-        <cc-details-item title="Staff count">{{ staffCount }}</cc-details-item>
-
-        <div fxLayout>
-            <cc-details-item title="With chief accountant" fxFlex>{{
-                withChiefAccountant | yesNo
-            }}</cc-details-item>
-            <cc-details-item title="Accounting carries out" *ngIf="accountantType" fxFlex>{{
-                accountantType
-            }}</cc-details-item>
-            <cc-details-item title="Accountant organization INN" *ngIf="accountantInn" fxFlex>{{
-                accountantInn
-            }}</cc-details-item>
-        </div>
+    <cc-details-item title="Staff count">{{ staffCount }}</cc-details-item>
+    <div fxLayout>
+        <cc-details-item title="With chief accountant" fxFlex>{{
+            withChiefAccountant | yesNo | emptyDefault
+        }}</cc-details-item>
+        <cc-details-item title="Accounting carries out" fxFlex>{{
+            accountantType | emptyDefault
+        }}</cc-details-item>
+        <cc-details-item
+            title="Accountant organization INN"
+            fxFlex
+            *ngIf="(accountantInn | isNotNil)"
+            >{{ accountantInn }}</cc-details-item
+        >
     </div>
 
     <mat-divider></mat-divider>
 
     <div fxLayout>
-        <cc-details-item fxFlex *ngIf="(hasBeneficiary | isNotNil)" title="Has beneficiary">
-            {{ hasBeneficiary | yesNo }}
+        <cc-details-item fxFlex title="Has beneficiary">
+            {{ hasBeneficiary | yesNo | emptyDefault }}
         </cc-details-item>
-        <cc-details-item
-            fxFlex
-            *ngIf="(hasLiquidationProcess | isNotNil)"
-            title="Has liquidation process"
-        >
-            {{ hasLiquidationProcess | yesNo }}
+        <cc-details-item fxFlex title="Has liquidation process">
+            {{ hasLiquidationProcess | yesNo | emptyDefault }}
         </cc-details-item>
     </div>
 
     <mat-divider></mat-divider>
 
-    <div fxLayout="row">
-        <cc-details-item
-            fxFlex
-            *ngIf="(monthOperationCount | isNotNil)"
-            title="Month operation count"
-        >
-            {{ monthOperationCount }}
+    <div fxLayout>
+        <cc-details-item fxFlex title="Month operation count">
+            {{ monthOperationCount | emptyDefault }}
         </cc-details-item>
-        <cc-details-item fxFlex *ngIf="(monthOperationSum | isNotNil)" title="Month operation sum">
-            {{ monthOperationSum }}
+        <cc-details-item fxFlex title="Month operation sum">
+            {{ monthOperationSum | emptyDefault }}
         </cc-details-item>
     </div>
 </div>

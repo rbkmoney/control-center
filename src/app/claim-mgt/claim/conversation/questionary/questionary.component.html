@@ -2,26 +2,25 @@
     <mat-accordion *ngIf="questionary">
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>Organization</mat-panel-title>
+                <mat-panel-title>Organization info</mat-panel-title>
                 <mat-panel-description>{{ contractor.name }}</mat-panel-description>
             </mat-expansion-panel-header>
-            <div fxLayout="column" fxLayoutGap="10px">
-                <cc-organization-info [contractor]="contractor"></cc-organization-info>
-            </div>
+            <cc-organization-info [contractor]="contractor"></cc-organization-info>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="legalOwnerInfo">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Legal owner info</mat-panel-title>
+            </mat-expansion-panel-header>
+            <cc-legal-owner-info [legalOwnerInfo]="legalOwnerInfo"></cc-legal-owner-info>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>Legal owner</mat-panel-title>
+                <mat-panel-title>Individual entity info</mat-panel-title>
             </mat-expansion-panel-header>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>Individual entity</mat-panel-title>
-            </mat-expansion-panel-header>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>Shop</mat-panel-title>
+                <mat-panel-title>Shop info</mat-panel-title>
             </mat-expansion-panel-header>
         </mat-expansion-panel>
         <mat-expansion-panel>
@@ -31,7 +30,7 @@
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>Contact</mat-panel-title>
+                <mat-panel-title>Contact info</mat-panel-title>
             </mat-expansion-panel-header>
         </mat-expansion-panel>
     </mat-accordion>

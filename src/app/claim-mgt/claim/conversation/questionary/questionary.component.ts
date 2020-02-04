@@ -31,6 +31,12 @@ export class QuestionaryComponent {
             : this.questionary.data.contractor.legal_entity.russian_legal_entity;
     }
 
+    get legalOwnerInfo() {
+        return this.questionary.data.contractor.legal_entity
+            ? this.questionary.data.contractor.legal_entity.russian_legal_entity.legal_owner_info
+            : null;
+    }
+
     constructor(private questionaryDocumentService: QuestionaryDocumentService) {}
 
     downloadDocument() {
