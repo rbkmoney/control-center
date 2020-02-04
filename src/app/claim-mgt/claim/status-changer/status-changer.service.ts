@@ -45,7 +45,7 @@ export class StatusChangerService {
                     return this.claimManagementService
                         .requestClaimReview(partyID, claimID)
                         .pipe(catchError(e => this.handleError(e)));
-                case ClaimStatuses.pending_acceptance:
+                case ClaimStatuses.accepted:
                     return this.claimManagementService
                         .acceptClaim(partyID, claimID)
                         .pipe(catchError(e => this.handleError(e)));

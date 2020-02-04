@@ -1,7 +1,8 @@
 export enum ClaimStatuses {
-    'pending_acceptance' = 'pending_acceptance',
-    'pending' = 'pending',
-    'revoked' = 'revoked',
-    'denied' = 'denied',
-    'review' = 'review'
+    pending = 'pending',
+    review = 'review',
+    pending_acceptance = 'pending_acceptance',
+    accepted = 'accepted',
+    denied = 'denied',
+    revoked = 'revoked'
 }
