@@ -25,16 +25,21 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>Shop info</mat-panel-title>
             </mat-expansion-panel-header>
+            <cc-shop-info [shopInfo]="questionary.data.shop_info"></cc-shop-info>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>Bank account</mat-panel-title>
             </mat-expansion-panel-header>
+            <cc-bank-account-info
+                [bankAccount]="questionary.data.bank_account"
+            ></cc-bank-account-info>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>Contact info</mat-panel-title>
             </mat-expansion-panel-header>
+            <cc-contact-info [contactInfo]="questionary.data.contact_info"></cc-contact-info>
         </mat-expansion-panel>
     </mat-accordion>
 

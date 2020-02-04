@@ -16,6 +16,9 @@ import { EmptyDefaultPipe } from './empty-default.pipe';
 import { AuthorityConfirmingDocumentTitlePipe } from './authority-confirming-document-title.pipe';
 import { IndividualEntityInfoComponent } from './individual-entity-info';
 import { IdentityDocumentInfoComponent } from './identity-document-info';
+import { BankAccountInfoComponent } from './bank-account-info';
+import { ShopInfoComponent } from './shop-info';
+import { ContactInfoComponent } from './contact-info';
 
 @NgModule({
     imports: [
@@ -38,7 +41,10 @@ import { IdentityDocumentInfoComponent } from './identity-document-info';
         EmptyDefaultPipe,
         AuthorityConfirmingDocumentTitlePipe,
         IndividualEntityInfoComponent,
-        IdentityDocumentInfoComponent
+        IdentityDocumentInfoComponent,
+        BankAccountInfoComponent,
+        ShopInfoComponent,
+        ContactInfoComponent
     ],
     exports: [QuestionaryComponent]
 })
