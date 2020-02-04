@@ -6,7 +6,8 @@ import {
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule
 } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -26,9 +27,12 @@ import { CommentComponent } from './comment/comment.component';
 import { ReasonComponent } from './reason/reason.component';
 import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
-import { QuestionaryComponent } from './questionary';
+import { QuestionaryComponent, DetailsItemComponent } from './questionary';
 import { AnkModule } from '../../../thrift-services';
 import { QuestionaryDocumentModule } from '../../../questionary-document';
+import { OrganizationInfoComponent } from './questionary/organization-info';
+import { YesNoPipe } from './questionary/yes-no.pipe';
+import { IsNotNilPipe } from './questionary/is-not-nil.pipe';
 
 @NgModule({
     imports: [
@@ -53,7 +57,8 @@ import { QuestionaryDocumentModule } from '../../../questionary-document';
         FileContainerModule,
         FileUploaderModule,
         AnkModule,
-        QuestionaryDocumentModule
+        QuestionaryDocumentModule,
+        MatListModule
     ],
     declarations: [
         ConversationComponent,
@@ -62,7 +67,11 @@ import { QuestionaryDocumentModule } from '../../../questionary-document';
         ActionIconPipe,
         ActionNamePipe,
         CommentComponent,
-        QuestionaryComponent
+        QuestionaryComponent,
+        DetailsItemComponent,
+        OrganizationInfoComponent,
+        YesNoPipe,
+        IsNotNilPipe
     ],
     exports: [ConversationComponent]
 })

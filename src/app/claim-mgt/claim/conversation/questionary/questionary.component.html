@@ -1,11 +1,42 @@
 <div fxLayout="column" fxLayoutGap="20px">
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>Questionary</mat-panel-title>
-        </mat-expansion-panel-header>
-        <cc-pretty-json [object]="questionary"></cc-pretty-json>
-    </mat-expansion-panel>
-    <mat-card>
+    <mat-accordion *ngIf="questionary">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Organization</mat-panel-title>
+                <mat-panel-description>{{ contractor.name }}</mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxLayout="column" fxLayoutGap="10px">
+                <cc-organization-info [contractor]="contractor"></cc-organization-info>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Legal owner</mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Individual entity</mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Shop</mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Bank account</mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Contact</mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-card *ngIf="questionary">
         <mat-card-content fxLayout="row wrap" fxLayoutGap="10px">
             <button mat-button (click)="downloadDocument()">Download questionary</button>
             <button
