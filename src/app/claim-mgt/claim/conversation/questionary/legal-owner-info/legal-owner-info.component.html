@@ -44,19 +44,7 @@
 
     <mat-divider></mat-divider>
 
-    <div fxLayout fxLayoutGap="10px">
-        <cc-details-item title="Series number" fxFlex>{{
-            legalOwnerInfo.identity_document?.russian_domestic_password?.series_number
-                | emptyDefault
-        }}</cc-details-item>
-        <cc-details-item title="Issuer code" fxFlex>{{
-            legalOwnerInfo.identity_document?.russian_domestic_password?.issuer_code | emptyDefault
-        }}</cc-details-item>
-    </div>
-    <cc-details-item title="Issued at" fxFlex>{{
-        legalOwnerInfo.identity_document?.russian_domestic_password?.issued_at | emptyDefault
-    }}</cc-details-item>
-    <cc-details-item title="Issuer" fxFlex>{{
-        legalOwnerInfo.identity_document?.russian_domestic_password?.issuer | emptyDefault
-    }}</cc-details-item>
+    <cc-identity-document-info
+        [identityDocument]="legalOwnerInfo.identity_document?.russian_domestic_password"
+    ></cc-identity-document-info>
 </div>

@@ -14,6 +14,8 @@ import { RussianPrivateEntityInfoComponent } from './legal-owner-info/russian-pr
 import { LegalOwnerInfoComponent } from './legal-owner-info';
 import { EmptyDefaultPipe } from './empty-default.pipe';
 import { AuthorityConfirmingDocumentTitlePipe } from './authority-confirming-document-title.pipe';
+import { IndividualEntityInfoComponent } from './individual-entity-info';
+import { IdentityDocumentInfoComponent } from './identity-document-info';
 
 @NgModule({
     imports: [
@@ -34,7 +36,9 @@ import { AuthorityConfirmingDocumentTitlePipe } from './authority-confirming-doc
         LegalOwnerInfoComponent,
         RussianPrivateEntityInfoComponent,
         EmptyDefaultPipe,
-        AuthorityConfirmingDocumentTitlePipe
+        AuthorityConfirmingDocumentTitlePipe,
+        IndividualEntityInfoComponent,
+        IdentityDocumentInfoComponent
     ],
     exports: [QuestionaryComponent]
 })

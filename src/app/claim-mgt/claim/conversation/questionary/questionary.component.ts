@@ -37,6 +37,12 @@ export class QuestionaryComponent {
             : null;
     }
 
+    get individualEntity() {
+        return this.questionary.data.contractor.individual_entity
+            ? this.questionary.data.contractor.individual_entity.russian_individual_entity
+            : null;
+    }
+
     constructor(private questionaryDocumentService: QuestionaryDocumentService) {}
 
     downloadDocument() {
