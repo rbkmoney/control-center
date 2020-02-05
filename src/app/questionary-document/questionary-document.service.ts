@@ -32,13 +32,15 @@ export class QuestionaryDocumentService {
     }
 
     createBeneficialOwnerDocs(questionary: Questionary): Observable<TCreatedPdf[]> {
-        const beneficialOwners = getBeneficialOwners(questionary);
-        if (!isEmpty(beneficialOwners)) {
-            const { companyName, companyInn } = getCompanyInfo(questionary);
-            const beneficialOwnersDocs = beneficialOwners.map(beneficialOwner =>
-                this.createBeneficialOwnerDoc(beneficialOwner, companyName, companyInn)
-            );
-            return combineLatest(beneficialOwnersDocs);
+        if (questionary) {
+            const beneficialOwners = getBeneficialOwners(questionary);
+            if (!isEmpty(beneficialOwners)) {
+                const { companyName, companyInn } = getCompanyInfo(questionary);
+                const beneficialOwnersDocs = beneficialOwners.map(beneficialOwner =>
+                    this.createBeneficialOwnerDoc(beneficialOwner, companyName, companyInn)
+                );
+                return combineLatest(beneficialOwnersDocs);
+            }
         }
         return of([]);
     }

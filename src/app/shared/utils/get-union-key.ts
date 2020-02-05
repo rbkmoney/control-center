@@ -1,4 +1,5 @@
 import get from 'lodash-es/get';
+import { ValuesType } from 'utility-types';
 
 export function getUnionKeys<T extends object>(obj: T): (keyof T)[] {
     return obj ? (Object.keys(obj) as any) : [];
@@ -14,6 +15,6 @@ export function getUnionKey<T extends object>(obj: T): keyof T | null {
     return get(getUnionKeyValue(obj), 0, null);
 }
 
-export function getUnionValue<T extends object>(obj: T): T[keyof T] | null {
+export function getUnionValue<T extends object>(obj: T): ValuesType<T> | null {
     return get(getUnionKeyValue(obj), 1, null);
 }

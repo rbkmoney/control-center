@@ -10,7 +10,6 @@ import { YesNoPipe } from './yes-no.pipe';
 import { OrganizationInfoComponent } from './organization-info';
 import { QuestionaryComponent } from './questionary.component';
 import { DetailsItemModule } from '../../../../shared/components/details-item';
-import { RussianPrivateEntityInfoComponent } from './legal-owner-info/russian-private-entity-info.component';
 import { LegalOwnerInfoComponent } from './legal-owner-info';
 import { EmptyDefaultPipe } from './empty-default.pipe';
 import { AuthorityConfirmingDocumentTitlePipe } from './authority-confirming-document-title.pipe';
@@ -19,6 +18,9 @@ import { IdentityDocumentInfoComponent } from './identity-document-info';
 import { BankAccountInfoComponent } from './bank-account-info';
 import { ShopInfoComponent } from './shop-info';
 import { ContactInfoComponent } from './contact-info';
+import { OrganizationNamePipe } from './organization-name.pipe';
+import { BankInfoPipe } from './bank-info.pipe';
+import { PrivateEntityInfoComponent } from './private-entity-info';
 
 @NgModule({
     imports: [
@@ -37,14 +39,16 @@ import { ContactInfoComponent } from './contact-info';
         YesNoPipe,
         IsNotNilPipe,
         LegalOwnerInfoComponent,
-        RussianPrivateEntityInfoComponent,
         EmptyDefaultPipe,
         AuthorityConfirmingDocumentTitlePipe,
         IndividualEntityInfoComponent,
         IdentityDocumentInfoComponent,
         BankAccountInfoComponent,
         ShopInfoComponent,
-        ContactInfoComponent
+        ContactInfoComponent,
+        OrganizationNamePipe,
+        BankInfoPipe,
+        PrivateEntityInfoComponent
     ],
     exports: [QuestionaryComponent]
 })

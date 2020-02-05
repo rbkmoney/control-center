@@ -1,7 +1,6 @@
 <div fxLayout="column" fxLayoutGap="10px">
     <cc-details-item title="Bank info">
-        {{ bankAccount?.bank_name | emptyDefault }} ({{ bankAccount?.bank_bik | emptyDefault }} /
-        {{ bankAccount?.bank_post_account | emptyDefault }})
+        {{ bankAccount | bankInfo | emptyDefault }}
     </cc-details-item>
     <cc-details-item title="Account"> {{ bankAccount?.account | emptyDefault }} </cc-details-item>
 </div>
