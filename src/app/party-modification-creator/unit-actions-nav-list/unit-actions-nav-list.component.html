@@ -5,8 +5,7 @@
             *ngFor="let contractAction of contractActions.names"
             (click)="select(contractActions.type, contractAction)"
         >
-            {{ contractAction }}
-            <!-- {{ contractAction | ccModificationName: 'ContractUnitContainer' }} -->
+            {{ contractAction | ccModificationName: 'ContractUnitContainer' }}
         </a>
     </div>
     <div *ngIf="data.type === 'allActions'"><mat-divider></mat-divider></div>
@@ -16,8 +15,7 @@
             *ngFor="let shopAction of shopActions.names"
             (click)="select(shopActions.type, shopAction)"
         >
-            <!-- {{ shopAction | ccContainerName: 'ShopUnitContainer' }} -->
-            {{ shopAction }}
+            {{ shopAction | ccModificationName: 'ShopUnitContainer' }}
         </a>
     </div>
     <div *ngIf="data.type === 'allActions'"><mat-divider></mat-divider></div>

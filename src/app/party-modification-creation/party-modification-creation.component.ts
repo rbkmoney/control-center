@@ -9,7 +9,10 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ContractModificationName, ShopModificationName } from '../claim/model';
+import {
+    ShopModificationName,
+    ContractModificationName
+} from '../party-modification-creator/model';
 import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../claim/modification-action';
 import { filterEmptyStringValues } from './filter-empty-string-value';

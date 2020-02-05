@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ContractModificationName, ModificationGroupType, ShopModificationName } from './model';
+import { ContractModificationName, ModificationGroupType, ShopModificationName } from '../model';
 
 @Pipe({
-    name: 'ccContainerName'
+    name: 'ccModificationName'
 })
-export class ContainerNamePipe implements PipeTransform {
+export class ModificationNamePipe implements PipeTransform {
     transform(value: any, ...args: any[]): any {
         if (args.length < 1) {
             return value;

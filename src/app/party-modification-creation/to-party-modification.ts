@@ -1,6 +1,6 @@
 import { ActionType, ModificationAction } from '../claim/modification-action';
-import { ContractModificationName, ShopModificationName } from '../claim/model';
 import { UnitName } from './unit-name';
+import { ShopModificationName, ContractModificationName } from '../party-modification-creator';
 
 const toModification = (
     unitID: string,

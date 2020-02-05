@@ -6,7 +6,6 @@ import { CreateModificationDialogModule } from './create-modification-dialog';
 
 @NgModule({
     imports: [UnitActionsNavListModule, CreateModificationDialogModule],
-    // declarations: [ContainerNamePipe],
     providers: [PartyModificationEmitter]
 })
 export class PartyModificationCreatorModule {}

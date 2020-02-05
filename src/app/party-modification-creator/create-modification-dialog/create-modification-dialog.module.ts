@@ -5,6 +5,8 @@ import { MatDialogModule, MatStepperModule, MatButtonModule } from '@angular/mat
 import { CreateModificationDialogComponent } from './create-modification-dialog.component';
 import { PartyModificationCreationModule } from '../../party-modification-creation';
 import { PartyModificationTargetModule } from '../../party-modification-target';
+import { ModificationNameModule } from '../modification-name';
+import { PartyModificationEmitter } from '../party-modification-emitter.service';
 
 @NgModule({
     imports: [
@@ -13,9 +15,11 @@ import { PartyModificationTargetModule } from '../../party-modification-target';
         MatStepperModule,
         MatButtonModule,
         PartyModificationCreationModule,
-        PartyModificationTargetModule
+        PartyModificationTargetModule,
+        ModificationNameModule
     ],
     declarations: [CreateModificationDialogComponent],
-    entryComponents: [CreateModificationDialogComponent]
+    entryComponents: [CreateModificationDialogComponent],
+    providers: [PartyModificationEmitter]
 })
 export class CreateModificationDialogModule {}
