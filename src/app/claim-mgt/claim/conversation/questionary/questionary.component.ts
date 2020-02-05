@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { QuestionaryDocumentService } from '../../../../questionary-document';
 import { getUnionValue } from '../../../../shared/utils';
+import { BeneficialOwner } from '../../../../thrift-services/ank/gen-model/questionary';
+import { getCompanyInfo } from '../../../../questionary-document/select-data';
 
 @Component({
     selector: 'cc-questionary',
@@ -12,19 +14,10 @@ import { getUnionValue } from '../../../../shared/utils';
     styleUrls: ['questionary.component.scss']
 })
 export class QuestionaryComponent {
-    private _questionary: Questionary;
     beneficialOwnersDocuments$: Observable<TCreatedPdf[]>;
 
     @Input()
-    set questionary(questionary) {
-        this._questionary = questionary;
-        this.beneficialOwnersDocuments$ = this.questionaryDocumentService.createBeneficialOwnerDocs(
-            this.questionary
-        );
-    }
-    get questionary() {
-        return this._questionary;
-    }
+    questionary: Questionary;
 
     get entity() {
         return getUnionValue(getUnionValue(this.questionary.data.contractor));
@@ -38,7 +31,10 @@ export class QuestionaryComponent {
             .subscribe(doc => doc.download('russian-entity-questionary'));
     }
 
-    downloadBeneficialOwnerDocument(beneficialOwnerDocument: TCreatedPdf) {
-        beneficialOwnerDocument.download('beneficial-owner-questionary');
+    downloadBeneficialOwnerDocument(beneficialOwner: BeneficialOwner) {
+        const { companyName, companyInn } = getCompanyInfo(this.questionary);
+        this.questionaryDocumentService
+            .createBeneficialOwnerDoc(beneficialOwner, companyName, companyInn)
+            .subscribe(doc => doc.download('beneficial-owner-questionary'));
     }
 }

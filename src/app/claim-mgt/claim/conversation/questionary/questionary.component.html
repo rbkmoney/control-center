@@ -3,19 +3,12 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>Organization info</mat-panel-title>
-                <mat-panel-description>{{
-                    entity | organizationName | emptyDefault
-                }}</mat-panel-description>
             </mat-expansion-panel-header>
             <cc-organization-info [contractor]="questionary.data.contractor"></cc-organization-info>
         </mat-expansion-panel>
         <mat-expansion-panel *ngIf="questionary.data.contractor.legal_entity">
             <mat-expansion-panel-header>
                 <mat-panel-title>Legal owner info</mat-panel-title>
-                <mat-panel-description>{{
-                    questionary.data.contractor.legal_entity.russian_legal_entity.legal_owner_info
-                        ?.russian_private_entity?.fio
-                }}</mat-panel-description>
             </mat-expansion-panel-header>
             <cc-legal-owner-info
                 [legalOwnerInfo]="
@@ -26,10 +19,6 @@
         <mat-expansion-panel *ngIf="questionary.data.contractor.individual_entity">
             <mat-expansion-panel-header>
                 <mat-panel-title>Individual entity info</mat-panel-title>
-                <mat-panel-description>{{
-                    questionary.data.contractor.individual_entity.russian_individual_entity
-                        ?.russian_private_entity?.fio
-                }}</mat-panel-description>
             </mat-expansion-panel-header>
             <cc-individual-entity-info
                 [individualEntity]="
@@ -40,18 +29,12 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>Shop info</mat-panel-title>
-                <mat-panel-description>{{
-                    questionary.data.shop_info.details?.name
-                }}</mat-panel-description>
             </mat-expansion-panel-header>
             <cc-shop-info [shopInfo]="questionary.data.shop_info"></cc-shop-info>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>Bank account</mat-panel-title>
-                <mat-panel-description>{{
-                    questionary.data.bank_account | bankInfo
-                }}</mat-panel-description>
             </mat-expansion-panel-header>
             <cc-bank-account-info
                 [bankAccount]="questionary.data.bank_account"
@@ -60,11 +43,20 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>Contact info</mat-panel-title>
-                <mat-panel-description>{{
-                    questionary.data.contact_info.phone_number
-                }}</mat-panel-description>
             </mat-expansion-panel-header>
             <cc-contact-info [contactInfo]="questionary.data.contact_info"></cc-contact-info>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion *ngIf="entity.beneficial_owners">
+        <mat-expansion-panel *ngFor="let beneficialOwner of entity.beneficial_owners; index as i">
+            <mat-expansion-panel-header>
+                <mat-panel-title
+                    >Beneficial owner{{
+                        entity.beneficial_owners?.length > 1 ? ' #' + (i + 1) : ''
+                    }}</mat-panel-title
+                >
+            </mat-expansion-panel-header>
         </mat-expansion-panel>
     </mat-accordion>
 
@@ -73,14 +65,11 @@
             <button mat-button (click)="downloadDocument()">Download questionary</button>
             <button
                 mat-button
-                *ngFor="
-                    let beneficialOwnerDocument of (beneficialOwnersDocuments$ | async);
-                    index as i
-                "
-                (click)="downloadBeneficialOwnerDocument(beneficialOwnerDocument)"
+                *ngFor="let beneficialOwner of entity.beneficial_owners; index as i"
+                (click)="downloadBeneficialOwnerDocument(beneficialOwner)"
             >
                 Download beneficial owner questionary{{
-                    (beneficialOwnersDocuments$ | async)?.length > 1 ? ' #' + (i + 1) : ''
+                    entity.beneficial_owners?.length > 1 ? ' #' + (i + 1) : ''
                 }}
             </button>
         </mat-card-content>
