@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="20px">
-    <mat-accordion *ngIf="questionary">
+    <mat-accordion *ngIf="questionary" multi>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>Organization info</mat-panel-title>
@@ -51,7 +51,7 @@
         </mat-expansion-panel>
     </mat-accordion>
 
-    <mat-accordion *ngIf="entity?.beneficial_owners?.length">
+    <mat-accordion *ngIf="entity?.beneficial_owners?.length" multi>
         <mat-expansion-panel *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i">
             <mat-expansion-panel-header>
                 <mat-panel-title
