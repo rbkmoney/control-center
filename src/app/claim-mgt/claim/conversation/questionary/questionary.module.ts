@@ -21,6 +21,9 @@ import { ContactInfoComponent } from './contact-info';
 import { OrganizationNamePipe } from './organization-name.pipe';
 import { BankInfoPipe } from './bank-info.pipe';
 import { PrivateEntityInfoComponent } from './private-entity-info';
+import { SerialNumberPipe } from './serial-number.pipe';
+import { BeneficialOwnerInfoComponent } from './beneficial-owner-info';
+import { PdlInfoComponent } from './pdl-info';
 
 @NgModule({
     imports: [
@@ -48,7 +51,10 @@ import { PrivateEntityInfoComponent } from './private-entity-info';
         ContactInfoComponent,
         OrganizationNamePipe,
         BankInfoPipe,
-        PrivateEntityInfoComponent
+        PrivateEntityInfoComponent,
+        SerialNumberPipe,
+        BeneficialOwnerInfoComponent,
+        PdlInfoComponent
     ],
     exports: [QuestionaryComponent]
 })

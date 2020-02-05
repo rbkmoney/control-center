@@ -9,12 +9,5 @@
 
     <mat-divider></mat-divider>
 
-    <div fxLayout fxLayoutGap="10px">
-        <cc-details-item title="PDL category" fxFlex>{{
-            individualEntity?.pdl_category | emptyDefault
-        }}</cc-details-item>
-        <cc-details-item title="PDL category degree" fxFlex>{{
-            individualEntity?.pdl_relation_degree | emptyDefault
-        }}</cc-details-item>
-    </div>
+    <cc-pdl-info [pdl]="individualEntity"></cc-pdl-info>
 </div>

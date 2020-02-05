@@ -6,6 +6,6 @@ import isNil from 'lodash-es/isNil';
 })
 export class EmptyDefaultPipe implements PipeTransform {
     transform(value: any): string {
-        return isNil(value) ? '-' : value;
+        return isNil(value) || value === '' ? '-' : value;
     }
 }

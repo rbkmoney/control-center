@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import get from 'lodash-es/get';
 
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { QuestionaryDocumentService } from '../../../../questionary-document';
@@ -20,7 +21,7 @@ export class QuestionaryComponent {
     questionary: Questionary;
 
     get entity() {
-        return getUnionValue(getUnionValue(this.questionary.data.contractor));
+        return getUnionValue(getUnionValue(get(this.questionary, ['data', 'contractor'])));
     }
 
     constructor(private questionaryDocumentService: QuestionaryDocumentService) {}

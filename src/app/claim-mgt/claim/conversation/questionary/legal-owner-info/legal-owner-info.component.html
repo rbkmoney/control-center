@@ -27,17 +27,10 @@
 
     <mat-divider></mat-divider>
 
-    <div fxLayout fxLayoutGap="10px">
-        <cc-details-item title="PDL category" fxFlex>{{
-            legalOwnerInfo.pdl_category | yesNo | emptyDefault
-        }}</cc-details-item>
-        <cc-details-item title="PDL relation degree" fxFlex>{{
-            legalOwnerInfo.pdl_relation_degree | emptyDefault
-        }}</cc-details-item>
-    </div>
+    <cc-pdl-info [pdl]="legalOwnerInfo"></cc-pdl-info>
 
-    <cc-details-item title="PDL relation degree" fxFlex>{{
-        legalOwnerInfo.authority_confirming_document?.type
+    <cc-details-item title="Authority confirming document" fxFlex>{{
+        legalOwnerInfo?.authority_confirming_document?.type
             | authorityConfirmingDocumentTitle
             | emptyDefault
     }}</cc-details-item>
