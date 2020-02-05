@@ -7,8 +7,8 @@ import {
     PartyModificationContainer
 } from '../model';
 import { PartyModificationContainerService } from './party-modification-container.service';
-import { CreateModificationComponent } from '../create-modification/create-modification.component';
 import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.component';
+import { CreateModificationDialogComponent } from '../../party-modification-creator';
 
 @Component({
     selector: 'cc-party-modification-container',
@@ -21,6 +21,9 @@ export class PartyModificationContainerComponent implements OnInit {
 
     @Input()
     type: ModificationGroupType;
+
+    @Input()
+    partyID: string;
 
     modifications: ModificationUnitContainer[];
 
@@ -49,9 +52,13 @@ export class PartyModificationContainerComponent implements OnInit {
         const config = this.partyModificationContainerService.getDialogConfig(
             this.activeUnit.modificationUnit,
             this.container.name,
-            this.type
+            this.type,
+            this.partyID
         );
-        this.dialog.open<CreateModificationComponent>(CreateModificationComponent, config);
+        this.dialog.open<CreateModificationDialogComponent>(
+            CreateModificationDialogComponent,
+            config
+        );
     }
 
     onChangeTabIndex(index) {

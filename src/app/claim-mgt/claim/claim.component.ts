@@ -3,9 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import Int64 from 'thrift-ts/lib/int64';
 
 import { ClaimService } from './claim.service';
+import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 
 @Component({
-    templateUrl: 'claim.component.html'
+    templateUrl: 'claim.component.html',
+    providers: [ClaimManagementService, ClaimService]
 })
 export class ClaimComponent {
     claim$ = this.claimService.claim$;
