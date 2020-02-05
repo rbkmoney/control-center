@@ -1,6 +1,5 @@
-import { ContractModificationName } from './contract-modification-name';
-import { ShopModificationName } from './shop-modification-name';
 import { ModificationUnitContainer } from './modification-unit-container';
+import { ContractModificationName, ShopModificationName } from '../../party-modification-creator';
 
 export class PartyModificationContainer {
     name: ContractModificationName | ShopModificationName;

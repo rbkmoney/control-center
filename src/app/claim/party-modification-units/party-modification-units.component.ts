@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { MatBottomSheet } from '@angular/material';
 
 import { ModificationGroupType, PartyModificationUnit } from '../model';
-import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 import { ClaimService } from '../claim.service';
+import { UnitActionsNavListComponent } from '../../party-modification-creator';
 
 @Component({
     selector: 'cc-party-modification-units',
@@ -16,6 +16,9 @@ export class PartyModificationUnitsComponent {
 
     @Input()
     units: PartyModificationUnit[];
+
+    @Input()
+    partyID: string;
 
     isLoading = this.claimService.isLoading;
     isAddModificationAvailable = this.claimService.isAddModificationAvailable;
@@ -35,6 +38,8 @@ export class PartyModificationUnitsComponent {
                 type = 'allActions';
                 break;
         }
-        this.bottomSheet.open(UnitActionsComponent, { data: { type, unitID } });
+        this.bottomSheet.open(UnitActionsNavListComponent, {
+            data: { type, unitID, partyID: this.partyID }
+        });
     }
 }

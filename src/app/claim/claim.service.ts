@@ -20,6 +20,7 @@ import { convert } from './party-modification-group-converter';
 import { PartyModification } from '../thrift-services/damsel/gen-model/payment_processing';
 import { ClaimActionType } from './claim-action-type';
 import { ClaimStatus } from '../papi/model/claim-statuses';
+import { PartyModificationEmitter } from '../party-modification-creator';
 
 @Injectable()
 export class ClaimService {
@@ -45,12 +46,16 @@ export class ClaimService {
 
     constructor(
         private papiClaimService: ClaimPapi,
-        private persistentContainerService: PersistentContainerService
+        private persistentContainerService: PersistentContainerService,
+        private partyModificationEmitter: PartyModificationEmitter
     ) {
         this.persistentContainerService.containers$.subscribe(containers => {
             this.containers = containers;
             this.modificationGroups$.next(convert(containers));
         });
+        this.partyModificationEmitter.modification$.subscribe(modification =>
+            this.persistentContainerService.add(modification)
+        );
     }
 
     resolveClaimInfo(type: ClaimActionType, partyId: string, claimId?: string): Observable<void> {
@@ -88,10 +93,6 @@ export class ClaimService {
                 );
         }
         return throwError('Unsupported claim action type');
-    }
-
-    addModification(modification: PartyModification) {
-        this.persistentContainerService.add(modification);
     }
 
     removeModification(typeHash: string) {
