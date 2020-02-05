@@ -17,7 +17,7 @@ export class BankInfoPipe implements PipeTransform {
                 bank_bik || bank_post_account
                     ? [bank_bik || '-', bank_post_account].filter(i => i).join(' / ')
                     : null;
-            return [name, additionalInfo].filter(i => i).join(' ');
+            return [name, additionalInfo && `(${additionalInfo})`].filter(i => i).join(' ');
         }
     }
 }
