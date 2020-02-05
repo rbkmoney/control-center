@@ -4,6 +4,7 @@ import {
     Contractor
 } from '../../../../../thrift-services/ank/gen-model/questionary';
 import { getUnionKey, getUnionValue } from '../../../../../shared/utils/get-union-key';
+import get from 'lodash-es/get';
 
 const WithoutChiefAccountantTitles: { [name in keyof WithoutChiefAccountant]: string } = {
     accounting_organization: 'Accounting organization',
@@ -34,7 +35,9 @@ export class OrganizationInfoComponent {
 
     get accountantType() {
         return WithoutChiefAccountantTitles[
-            getUnionKey(this.entity.additional_info.accountant_info.without_chief_accountant)
+            getUnionKey(
+                get(this.entity, ['additional_info', 'accountant_info', 'without_chief_accountant'])
+            )
         ];
     }
 }

@@ -51,7 +51,7 @@
         </mat-expansion-panel>
     </mat-accordion>
 
-    <mat-accordion *ngIf="entity?.beneficial_owners">
+    <mat-accordion *ngIf="entity?.beneficial_owners?.length">
         <mat-expansion-panel *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i">
             <mat-expansion-panel-header>
                 <mat-panel-title

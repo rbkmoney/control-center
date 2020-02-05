@@ -7,11 +7,11 @@
     <mat-divider></mat-divider>
 
     <cc-details-item title="Staff count">{{
-        entity.additional_info.staff_count | emptyDefault
+        entity?.additional_info?.staff_count | emptyDefault
     }}</cc-details-item>
-    <div fxLayout>
+    <div fxLayout fxLayoutGap="10px">
         <cc-details-item title="With chief accountant" fxFlex>{{
-            !!entity.additional_info.accountant_info.with_chief_accountant | yesNo | emptyDefault
+            !!entity?.additional_info?.accountant_info?.with_chief_accountant | yesNo | emptyDefault
         }}</cc-details-item>
         <cc-details-item title="Accounting carries out" fxFlex>{{
             accountantType | emptyDefault
@@ -20,35 +20,35 @@
             title="Accountant organization INN"
             fxFlex
             *ngIf="
-                entity.additional_info.accountant_info.without_chief_accountant
+                entity?.additional_info?.accountant_info?.without_chief_accountant
                     ?.accounting_organization
             "
             >{{
-                entity.additional_info.accountant_info.without_chief_accountant
-                    .accounting_organization.inn | emptyDefault
+                entity?.additional_info?.accountant_info?.without_chief_accountant
+                    ?.accounting_organization?.inn | emptyDefault
             }}</cc-details-item
         >
     </div>
 
     <mat-divider></mat-divider>
 
-    <div fxLayout>
+    <div fxLayout fxLayoutGap="10px">
         <cc-details-item fxFlex title="Has beneficiary">
-            {{ entity.additional_info.has_beneficiary | yesNo | emptyDefault }}
+            {{ entity?.additional_info?.has_beneficiary | yesNo | emptyDefault }}
         </cc-details-item>
         <cc-details-item fxFlex title="Has liquidation process">
-            {{ entity.additional_info.has_liquidation_process | yesNo | emptyDefault }}
+            {{ entity?.additional_info?.has_liquidation_process | yesNo | emptyDefault }}
         </cc-details-item>
     </div>
 
     <mat-divider></mat-divider>
 
-    <div fxLayout>
+    <div fxLayout fxLayoutGap="10px">
         <cc-details-item fxFlex title="Month operation count">
-            {{ entity.additional_info.month_operation_count | emptyDefault }}
+            {{ entity?.additional_info?.month_operation_count | emptyDefault }}
         </cc-details-item>
         <cc-details-item fxFlex title="Month operation sum">
-            {{ entity.additional_info.month_operation_sum | emptyDefault }}
+            {{ entity?.additional_info?.month_operation_sum | emptyDefault }}
         </cc-details-item>
     </div>
 </div>

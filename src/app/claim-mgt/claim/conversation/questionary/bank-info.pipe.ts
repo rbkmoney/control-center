@@ -1,18 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { toOptional } from '../../../../shared/utils';
 
 @Pipe({
     name: 'bankInfo'
 })
 export class BankInfoPipe implements PipeTransform {
-    transform({
-        bank_name,
-        bank_bik,
-        bank_post_account
-    }: {
-        bank_name: string;
-        bank_bik: string;
-        bank_post_account: string;
+    transform(bankInfo: {
+        bank_name?: string;
+        bank_bik?: string;
+        bank_post_account?: string;
     }): string {
+        const { bank_name, bank_bik, bank_post_account } = toOptional(bankInfo);
         if (bank_name || bank_bik || bank_post_account) {
             const name = bank_name || '-';
             const additionalInfo =
