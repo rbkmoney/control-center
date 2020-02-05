@@ -10,7 +10,7 @@ import {
     ContractModificationUnit,
     ShopModificationUnit
 } from '../thrift-services/damsel/gen-model/payment_processing';
-import { UnitName } from '../party-modification-creation/unit-name';
+import { UnitName } from '../party-modification-creator/party-modification-creation/unit-name';
 
 interface PersistentUnit {
     modificationUnit: ShopModificationUnit | ContractModificationUnit;

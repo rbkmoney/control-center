@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { pluck, first, shareReplay } from 'rxjs/operators';
 
 import { ClaimService } from '../claim.service';
 import { ModificationGroupType, PartyModificationUnit } from '../model';
@@ -13,7 +16,17 @@ export class PartyModificationsComponent implements OnInit {
 
     contractUnits: PartyModificationUnit[] = [];
 
-    constructor(private claimService: ClaimService, private snackBar: MatSnackBar) {}
+    partyID$: Observable<string> = this.route.params.pipe(
+        pluck('party_id'),
+        first(),
+        shareReplay(1)
+    );
+
+    constructor(
+        private claimService: ClaimService,
+        private snackBar: MatSnackBar,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.claimService.modificationGroups$.subscribe(groups => {

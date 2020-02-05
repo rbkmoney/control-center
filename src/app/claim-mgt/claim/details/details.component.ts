@@ -7,7 +7,7 @@ import { Claim } from '../../../thrift-services/damsel/gen-model/claim_managemen
 import { StatusChangerComponent } from '../status-changer/status-changer.component';
 import { getAvailableClaimStatuses } from '../status-changer/get-available-claim-statuses';
 import { ClaimService } from '../claim.service';
-import { UnitActionsComponent } from '../party-modification-creator/unit-actions/unit-actions.component';
+import { UnitActionsNavListComponent } from '../../../party-modification-creator';
 
 @Component({
     selector: 'cc-claim-details',
@@ -45,11 +45,10 @@ export class DetailsComponent {
     }
 
     addModification() {
-        this.bottomSheet.open(UnitActionsComponent, {
+        this.bottomSheet.open(UnitActionsNavListComponent, {
             data: {
-                partyID: this.claim.party_id,
-                claimID: this.claim.id,
-                type: 'allActions'
+                type: 'allActions',
+                partyID: this.claim.party_id
             }
         });
     }

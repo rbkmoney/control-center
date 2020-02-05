@@ -1,4 +1,4 @@
-import { ContractModificationName, ShopModificationName } from './model';
+import { ContractModificationName, ShopModificationName } from '../party-modification-creator';
 
 export enum ActionType {
     contractAction = 'contractAction',

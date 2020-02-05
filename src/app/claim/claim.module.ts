@@ -29,21 +29,20 @@ import { ClaimInfoComponent } from './claim-info/claim-info.component';
 import { ClaimInfoDetailsComponent } from './claim-info/claim-info-details/claim-info-details.component';
 import { PartyModificationsComponent } from './party-modifications/party-modifications.component';
 import { PartyModificationContainerComponent } from './party-modification-container/party-modification-container.component';
-import { UnitActionsComponent } from './unit-actions/unit-actions.component';
 import { ClaimService } from './claim.service';
 import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
 import { DenyClaimComponent } from './deny-claim/deny-claim.component';
 import { SharedModule } from '../shared/shared.module';
-import { ContainerNamePipe } from './container-name.pipe';
 import { PartyModificationUnitsComponent } from './party-modification-units/party-modification-units.component';
-import { PartyModificationCreationModule } from '../party-modification-creation';
-import { CreateModificationComponent } from './create-modification/create-modification.component';
-import { PartyModificationTargetModule } from '../party-modification-target';
 import { PersistentContainerService } from './persistent-container.service';
 import { CloneClaimComponent } from './clone-claim/clone-claim.component';
 import { PartyModificationContainerService } from './party-modification-container/party-modification-container.service';
 import { RemoveConfirmComponent } from './party-modification-container/remove-confirm/remove-confirm.component';
 import { DamselModule } from '../thrift-services/damsel/damsel.module';
+import {
+    PartyModificationCreatorModule,
+    ModificationNameModule
+} from '../party-modification-creator';
 
 @NgModule({
     imports: [
@@ -73,8 +72,8 @@ import { DamselModule } from '../thrift-services/damsel/damsel.module';
         MatStepperModule,
         FormsModule,
         ReactiveFormsModule,
-        PartyModificationCreationModule,
-        PartyModificationTargetModule
+        PartyModificationCreatorModule,
+        ModificationNameModule
     ],
     declarations: [
         ClaimComponent,
@@ -82,21 +81,16 @@ import { DamselModule } from '../thrift-services/damsel/damsel.module';
         ClaimInfoDetailsComponent,
         PartyModificationsComponent,
         PartyModificationContainerComponent,
-        UnitActionsComponent,
         CloneClaimComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
         PartyModificationUnitsComponent,
-        ContainerNamePipe,
-        CreateModificationComponent,
         RemoveConfirmComponent
     ],
     entryComponents: [
-        UnitActionsComponent,
         CloneClaimComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
-        CreateModificationComponent,
         RemoveConfirmComponent
     ],
     providers: [ClaimService, PersistentContainerService, PartyModificationContainerService]

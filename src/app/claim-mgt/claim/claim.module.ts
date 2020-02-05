@@ -20,13 +20,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { DetailsComponent } from './details/details.component';
 import { ConversationModule } from './conversation/conversation.module';
 import { StatusChangerComponent } from './status-changer/status-changer.component';
-import { PartyModificationTargetModule } from '../../party-modification-target';
-import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
-import { UnitActionsComponent } from './party-modification-creator/unit-actions/unit-actions.component';
-import { ContainerNamePipe } from './party-modification-creator/container-name.pipe';
-import { PartyModificationCreationModule } from './party-modification-creator/creation';
-import { CreateModificationComponent } from './party-modification-creator/create-modification.component';
-import { ClaimService } from './claim.service';
+import { PartyModificationCreatorModule } from '../../party-modification-creator';
 
 @NgModule({
     imports: [
@@ -45,18 +39,9 @@ import { ClaimService } from './claim.service';
         MatListModule,
         MatBottomSheetModule,
         MatStepperModule,
-        PartyModificationTargetModule,
-        PartyModificationCreationModule
+        PartyModificationCreatorModule
     ],
-    declarations: [
-        ClaimComponent,
-        DetailsComponent,
-        StatusChangerComponent,
-        CreateModificationComponent,
-        ContainerNamePipe,
-        UnitActionsComponent
-    ],
-    entryComponents: [StatusChangerComponent, CreateModificationComponent, UnitActionsComponent],
-    providers: [ClaimManagementService, ClaimService]
+    declarations: [ClaimComponent, DetailsComponent, StatusChangerComponent],
+    entryComponents: [StatusChangerComponent]
 })
 export class ClaimModule {}

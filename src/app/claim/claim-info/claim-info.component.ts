@@ -8,8 +8,8 @@ import { ClaimInfoContainer } from '../model';
 import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
 import { ClaimActionType } from '../claim-action-type';
-import { UnitActionsComponent } from '../unit-actions/unit-actions.component';
 import { CloneClaimComponent } from '../clone-claim/clone-claim.component';
+import { UnitActionsNavListComponent } from '../../party-modification-creator';
 
 @Component({
     selector: 'cc-claim-info',
@@ -64,7 +64,9 @@ export class ClaimInfoComponent implements OnInit {
     }
 
     add() {
-        this.bottomSheet.open(UnitActionsComponent, { data: { type: 'allActions' } });
+        this.bottomSheet.open(UnitActionsNavListComponent, {
+            data: { type: 'allActions', partyID: this.partyID }
+        });
     }
 
     cloneClaim() {
