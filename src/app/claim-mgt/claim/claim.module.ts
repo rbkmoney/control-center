@@ -20,7 +20,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { DetailsComponent } from './details/details.component';
 import { ConversationModule } from './conversation/conversation.module';
 import { StatusChangerComponent } from './status-changer/status-changer.component';
-import { PartyModificationCreatorModule } from '../../party-modification-creator';
 
 @NgModule({
     imports: [
@@ -38,8 +37,7 @@ import { PartyModificationCreatorModule } from '../../party-modification-creator
         MatInputModule,
         MatListModule,
         MatBottomSheetModule,
-        MatStepperModule,
-        PartyModificationCreatorModule
+        MatStepperModule
     ],
     declarations: [ClaimComponent, DetailsComponent, StatusChangerComponent],
     entryComponents: [StatusChangerComponent]

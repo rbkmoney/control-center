@@ -1,8 +1,9 @@
 <div fxLayout="column" fxLayoutGap="20px">
+    <h2 class="mat-title">Changeset</h2>
     <cc-timeline *ngIf="(timelineInfo$ | async) as timelineInfo">
         <cc-timeline-item *ngFor="let item of timelineInfo">
             <cc-timeline-item-title>
-                <span>
+                <span class="mat-caption">
                     {{ item.action | actionName }} by {{ item.user_info.username }} at
                     {{ item.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
                         item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
@@ -56,14 +57,25 @@
             </cc-timeline-item-content>
         </cc-timeline-item>
     </cc-timeline>
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-        <cc-file-uploader
-            (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"
-        ></cc-file-uploader>
-        <cc-send-comment
-            fxFlex="100"
-            *ngIf="claimStatus !== claimStatuses.denied && claimStatus !== claimStatuses.revoked"
-            (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
-        ></cc-send-comment>
-    </div>
+    <cc-unsaved-party-modifications
+        *ngIf="(hasUnsavedPartyModifications$ | async)"
+        [partyModifications]="unsavedPartyModifications$ | async"
+    ></cc-unsaved-party-modifications>
+    <mat-card>
+        <mat-card-content fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+            <cc-file-uploader
+                (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"
+            ></cc-file-uploader>
+            <cc-send-comment
+                fxFlex="100"
+                *ngIf="
+                    claimStatus !== claimStatuses.denied && claimStatus !== claimStatuses.revoked
+                "
+                (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
+            ></cc-send-comment>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="addPartyModification()">ADD PARTY MODIFICATION</button>
+        </mat-card-actions>
+    </mat-card>
 </div>

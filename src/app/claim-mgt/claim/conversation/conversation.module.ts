@@ -29,6 +29,8 @@ import { FileUploaderModule } from './file-uploader/file-uploader.module';
 import { QuestionaryComponent } from './questionary';
 import { AnkModule } from '../../../thrift-services';
 import { QuestionaryDocumentModule } from '../../../questionary-document';
+import { UnsavedPartyModificationsModule } from '../unsaved-party-modifications';
+import { PartyModificationCreatorModule } from '../../../party-modification-creator';
 
 @NgModule({
     imports: [
@@ -42,7 +44,6 @@ import { QuestionaryDocumentModule } from '../../../questionary-document';
         SharedModule,
         CommonModule,
         ReactiveFormsModule,
-        SharedModule,
         MatExpansionModule,
         MonacoEditorModule,
         HumanizeDurationModule,
@@ -53,7 +54,9 @@ import { QuestionaryDocumentModule } from '../../../questionary-document';
         FileContainerModule,
         FileUploaderModule,
         AnkModule,
-        QuestionaryDocumentModule
+        QuestionaryDocumentModule,
+        UnsavedPartyModificationsModule,
+        PartyModificationCreatorModule
     ],
     declarations: [
         ConversationComponent,
