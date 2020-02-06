@@ -7,6 +7,7 @@ import { ClaimManagementService } from '../../thrift-services/damsel/claim-manag
 
 @Component({
     templateUrl: 'claim.component.html',
+    styleUrls: ['claim.component.css'],
     providers: [ClaimManagementService, ClaimService]
 })
 export class ClaimComponent {
