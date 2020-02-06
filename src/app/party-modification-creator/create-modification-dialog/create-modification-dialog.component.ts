@@ -7,7 +7,7 @@ import {
     ContractModificationUnit,
     PartyModification,
     ShopModificationUnit
-} from '../../thrift-services/damsel/gen-model/payment_processing';
+} from '../../thrift-services/damsel/gen-model/claim_management';
 import { PartyModificationEmitter } from '../party-modification-emitter.service';
 
 export interface CreateModificationData {
