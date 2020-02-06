@@ -54,10 +54,9 @@
     <mat-accordion *ngIf="entity?.beneficial_owners?.length" multi>
         <mat-expansion-panel *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i">
             <mat-expansion-panel-header>
-                <mat-panel-title
-                    >Beneficial owner
-                    {{ i | serialNumber: entity?.beneficial_owners?.length }}</mat-panel-title
-                >
+                <mat-panel-title>
+                    Beneficial owner {{ i | serialNumber: entity?.beneficial_owners?.length }}
+                </mat-panel-title>
             </mat-expansion-panel-header>
             <cc-beneficial-owner-info
                 [beneficialOwner]="beneficialOwner"
@@ -67,13 +66,13 @@
 
     <mat-card *ngIf="questionary">
         <mat-card-content fxLayout="row wrap" fxLayoutGap="10px">
-            <button mat-button (click)="downloadDocument()">Download questionary</button>
+            <button mat-button (click)="downloadDocument()">DOWNLOAD QUESTIONARY</button>
             <button
                 mat-button
                 *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i"
                 (click)="downloadBeneficialOwnerDocument(beneficialOwner)"
             >
-                Download beneficial owner questionary
+                DOWNLOAD BENEFICIAL OWNER QUESTIONARY
                 {{ i | serialNumber: entity?.beneficial_owners?.length }}
             </button>
         </mat-card-content>
