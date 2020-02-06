@@ -57,10 +57,23 @@
             </cc-timeline-item-content>
         </cc-timeline-item>
     </cc-timeline>
-    <cc-unsaved-party-modifications
-        *ngIf="(hasUnsavedPartyModifications$ | async)"
-        [partyModifications]="unsavedPartyModifications$ | async"
-    ></cc-unsaved-party-modifications>
+    <div *ngIf="(hasUnsavedModifications$ | async)" fxLayout="column" fxLayoutGap="10px">
+        <cc-unsaved-party-modifications
+            [partyModifications]="unsavedModifications$ | async"
+            (partyModificationsChanged)="partyModificationsChanged($event)"
+        ></cc-unsaved-party-modifications>
+        <div>
+            <button
+                mat-button
+                color="primary"
+                [disabled]="isSaving$ | async"
+                (click)="saveModifications()"
+            >
+                SAVE
+            </button>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
     <mat-card>
         <mat-card-content fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
             <cc-file-uploader

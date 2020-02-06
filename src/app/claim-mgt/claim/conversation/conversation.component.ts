@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { MatBottomSheet } from '@angular/material';
-import { map } from 'rxjs/operators';
 
 import { Modification, Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ConversationService } from './conversation.service';
@@ -10,12 +9,13 @@ import { TimelineAction } from './to-timeline-info/model';
 import { QuestionaryService } from './questionary.service';
 import { getUnionKey } from '../../../shared/get-union-key';
 import { UnitActionsNavListComponent } from '../../../party-modification-creator';
-import { PartyModificationsPreSaver } from '../party-modifications-pre-saver';
+import { SavePartyModificationsService } from './save-party-modifications.service';
+import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 
 @Component({
     selector: 'cc-claim-conversation',
     templateUrl: 'conversation.component.html',
-    providers: [ConversationService, QuestionaryService, PartyModificationsPreSaver]
+    providers: [ConversationService, QuestionaryService, SavePartyModificationsService]
 })
 export class ConversationComponent implements OnChanges {
     @Input() claim: Claim;
@@ -27,14 +27,15 @@ export class ConversationComponent implements OnChanges {
     claimStatus: ClaimStatus;
     claimStatuses = ClaimStatus;
 
-    unsavedPartyModifications$ = this.partyModificationsPreSaver.partyModifications$;
-    hasUnsavedPartyModifications$ = this.unsavedPartyModifications$.pipe(map(m => m.length > 0));
+    unsavedModifications$ = this.savePartyModService.unsavedModifications$;
+    hasUnsavedModifications$ = this.savePartyModService.hasUnsavedModifications$;
+    isSaving$ = this.savePartyModService.isSaving$;
 
     constructor(
         private conversationService: ConversationService,
         private questionaryService: QuestionaryService,
         private bottomSheet: MatBottomSheet,
-        private partyModificationsPreSaver: PartyModificationsPreSaver
+        private savePartyModService: SavePartyModificationsService
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
@@ -43,6 +44,14 @@ export class ConversationComponent implements OnChanges {
             this.claimStatus = extractClaimStatus(currentValue.status);
             this.conversationService.enrichWithData(currentValue.changeset);
         }
+    }
+
+    partyModificationsChanged(m: PartyModification[]) {
+        this.savePartyModService.partyModificationsChanged(m);
+    }
+
+    saveModifications() {
+        this.savePartyModService.save();
     }
 
     updateConversation(action: TimelineAction, modifications: Modification[]) {

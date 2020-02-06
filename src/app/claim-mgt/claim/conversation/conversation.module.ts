@@ -6,7 +6,8 @@ import {
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatDividerModule
 } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -56,7 +57,8 @@ import { PartyModificationCreatorModule } from '../../../party-modification-crea
         AnkModule,
         QuestionaryDocumentModule,
         UnsavedPartyModificationsModule,
-        PartyModificationCreatorModule
+        PartyModificationCreatorModule,
+        MatDividerModule
     ],
     declarations: [
         ConversationComponent,

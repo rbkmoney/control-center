@@ -2,7 +2,7 @@
     <h2 class="mat-title">Unsaved party modifications</h2>
     <mat-accordion multi="true">
         <mat-expansion-panel
-            *ngFor="let modification of partyModifications; let i = index"
+            *ngFor="let modification of (unsavedPartyModifications$ | async); let i = index"
             expanded="true"
         >
             <mat-expansion-panel-header>
@@ -10,10 +10,8 @@
             </mat-expansion-panel-header>
             <cc-pretty-json [object]="modification"></cc-pretty-json>
             <mat-action-row>
-                <button mat-button color="warn" (click)="onRemove(i)">REMOVE</button>
+                <button mat-button color="warn" (click)="remove(i)">REMOVE</button>
             </mat-action-row>
         </mat-expansion-panel>
     </mat-accordion>
-    <div><button mat-button color="primary" (click)="onSave()">SAVE</button></div>
-    <mat-divider></mat-divider>
 </div>
