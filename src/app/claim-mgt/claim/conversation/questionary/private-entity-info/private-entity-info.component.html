@@ -1,22 +1,22 @@
 <div fxLayout="column" fxLayoutGap="10px">
     <div fxLayout fxLayoutGap="10px">
-        <cc-details-item title="FIO" fxFlex>{{
+        <cc-details-item title="ФИО" fxFlex>{{
             privateEntity?.fio | emptyDefault
         }}</cc-details-item>
-        <cc-details-item title="Birth date" fxFlex>{{
+        <cc-details-item title="Дата рождения" fxFlex>{{
             privateEntity?.birth_date | date | emptyDefault
         }}</cc-details-item>
     </div>
-    <cc-details-item title="Birth place">{{
+    <cc-details-item title="Место рождения">{{
         privateEntity?.birth_place | emptyDefault
     }}</cc-details-item>
-    <cc-details-item title="Residence address">{{
+    <cc-details-item title="Адрес регистрации">{{
         privateEntity?.residence_address | emptyDefault
     }}</cc-details-item>
-    <cc-details-item title="Citizenship">{{
+    <cc-details-item title="Гражданство">{{
         privateEntity?.citizenship | emptyDefault
     }}</cc-details-item>
-    <cc-details-item title="Actual address">{{
+    <cc-details-item title="Адрес места жительства или места пребывания">{{
         privateEntity?.actual_address | emptyDefault
     }}</cc-details-item>
 </div>

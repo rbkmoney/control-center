@@ -7,9 +7,9 @@ import { getUnionKey, getUnionValue } from '../../../../../shared/utils/get-unio
 import get from 'lodash-es/get';
 
 const WithoutChiefAccountantTitles: { [name in keyof WithoutChiefAccountant]: string } = {
-    accounting_organization: 'Accounting organization',
-    head_accounting: 'Head accounting',
-    individual_accountant: 'Individual accountant'
+    accounting_organization: 'Организация ведущая бухгалтерский учет',
+    head_accounting: 'Руководитель организации',
+    individual_accountant: 'Бухгалтер - индивидуальный специалист'
 };
 
 @Component({

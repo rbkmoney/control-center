@@ -5,7 +5,6 @@ import { MatButtonModule, MatExpansionModule, MatListModule } from '@angular/mat
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatCardModule } from '@angular/material/card';
 
-import { IsNotNilPipe } from './is-not-nil.pipe';
 import { YesNoPipe } from './yes-no.pipe';
 import { OrganizationInfoComponent } from './organization-info';
 import { QuestionaryComponent } from './questionary.component';
@@ -18,8 +17,6 @@ import { IdentityDocumentInfoComponent } from './identity-document-info';
 import { BankAccountInfoComponent } from './bank-account-info';
 import { ShopInfoComponent } from './shop-info';
 import { ContactInfoComponent } from './contact-info';
-import { OrganizationNamePipe } from './organization-name.pipe';
-import { BankInfoPipe } from './bank-info.pipe';
 import { PrivateEntityInfoComponent } from './private-entity-info';
 import { SerialNumberPipe } from './serial-number.pipe';
 import { BeneficialOwnerInfoComponent } from './beneficial-owner-info';
@@ -40,7 +37,6 @@ import { PdlInfoComponent } from './pdl-info';
         QuestionaryComponent,
         OrganizationInfoComponent,
         YesNoPipe,
-        IsNotNilPipe,
         LegalOwnerInfoComponent,
         EmptyDefaultPipe,
         AuthorityConfirmingDocumentTitlePipe,
@@ -49,8 +45,6 @@ import { PdlInfoComponent } from './pdl-info';
         BankAccountInfoComponent,
         ShopInfoComponent,
         ContactInfoComponent,
-        OrganizationNamePipe,
-        BankInfoPipe,
         PrivateEntityInfoComponent,
         SerialNumberPipe,
         BeneficialOwnerInfoComponent,

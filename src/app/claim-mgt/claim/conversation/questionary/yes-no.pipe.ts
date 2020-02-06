@@ -8,6 +8,6 @@ export class YesNoPipe implements PipeTransform {
         if (typeof bool !== 'boolean') {
             return null;
         }
-        return bool ? 'Yes' : 'No';
+        return bool ? 'Да' : 'Нет';
     }
 }

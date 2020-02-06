@@ -2,7 +2,7 @@
     <mat-accordion *ngIf="questionary" multi>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>Organization info</mat-panel-title>
+                <mat-panel-title>Сведения об организации</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-organization-info
                 [contractor]="questionary?.data?.contractor"
@@ -10,7 +10,7 @@
         </mat-expansion-panel>
         <mat-expansion-panel *ngIf="questionary?.data?.contractor?.legal_entity">
             <mat-expansion-panel-header>
-                <mat-panel-title>Legal owner info</mat-panel-title>
+                <mat-panel-title>Сведения о юридическом лице</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-legal-owner-info
                 [legalOwnerInfo]="
@@ -21,7 +21,7 @@
         </mat-expansion-panel>
         <mat-expansion-panel *ngIf="questionary?.data?.contractor?.individual_entity">
             <mat-expansion-panel-header>
-                <mat-panel-title>Individual entity info</mat-panel-title>
+                <mat-panel-title>Сведения о физическом лице</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-individual-entity-info
                 [individualEntity]="
@@ -31,13 +31,13 @@
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>Shop info</mat-panel-title>
+                <mat-panel-title>Сведения о магазине</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-shop-info [shopInfo]="questionary?.data?.shop_info"></cc-shop-info>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>Bank account</mat-panel-title>
+                <mat-panel-title>Банковские реквизиты для вывода денежных средств</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-bank-account-info
                 [bankAccount]="questionary?.data?.bank_account?.russian_bank_account"
@@ -45,7 +45,7 @@
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>Contact info</mat-panel-title>
+                <mat-panel-title>Контактная информация</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-contact-info [contactInfo]="questionary?.data?.contact_info"></cc-contact-info>
         </mat-expansion-panel>
