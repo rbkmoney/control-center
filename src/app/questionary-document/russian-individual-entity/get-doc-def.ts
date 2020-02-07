@@ -20,29 +20,27 @@ import {
     PropertyInfoDocumentType,
     WithoutChiefAccountant
 } from '../../thrift-services/ank/gen-model/questionary';
+import get from 'lodash-es/get';
 
 const EMPTY = '';
 
 export function getDocDef(questionary: Questionary): DocDef {
     const { data } = toOptional(questionary);
     const { contractor, shop_info, contact_info } = toOptional(data);
-    const {
-        individual_entity: { russian_individual_entity }
-    } = toOptional(contractor);
     const { location, details } = toOptional(shop_info);
     const { name: brandName } = toOptional(details);
     const { phone_number, email } = toOptional(contact_info);
     const {
         additional_info,
         russian_private_entity,
-        registration_info: { individual_registration_info },
+        registration_info,
         inn,
         snils,
         property_info_document_type,
         individual_person_categories,
         beneficial_owners,
-        residency_info: { individual_residency_info }
-    } = toOptional(russian_individual_entity);
+        residency_info
+    } = toOptional(get(contractor, ['individual_entity', 'russian_individual_entity']));
     const {
         NKO_relation_target,
         relationship_with_NKO,
@@ -52,12 +50,15 @@ export function getDocDef(questionary: Questionary): DocDef {
         relation_individual_entity
     } = toOptional(additional_info);
     const { fio } = toOptional(russian_private_entity);
-    const { registration_place: registrationPlace } = toOptional(individual_registration_info);
+    const registration_place = get(registration_info, [
+        'individual_registration_info',
+        'registration_place'
+    ]);
     const documentType = getUnionKey(property_info_document_type);
     const { foreign_public_person, foreign_relative_person } = toOptional(
         individual_person_categories
     );
-    const { usa_tax_resident } = toOptional(individual_residency_info);
+    const usa_tax_resident = get(residency_info, ['individual_residency_info', 'usa_tax_resident']);
 
     const name = getIndividualEntityName(fio);
     const url = getShopLocationURL(location);
@@ -124,7 +125,7 @@ export function getDocDef(questionary: Questionary): DocDef {
             ]),
             createVerticalParagraph(
                 '5. Адрес фактического осуществления (ведения) деятельности',
-                registrationPlace || EMPTY
+                registration_place || EMPTY
             ),
             createVerticalParagraph(
                 '6. Тип документа, подтверждающий право нахождения по фактическому адресу',

@@ -3,7 +3,7 @@ import { IdentityDocument } from '../../thrift-services/ank/gen-model/questionar
 export function getIdentityDocument(
     identityDocument: IdentityDocument
 ): { name?: string; seriesNumber?: string; issuer?: string; issuedAt?: string } | null {
-    if (identityDocument.russian_domestic_password) {
+    if (identityDocument && identityDocument.russian_domestic_password) {
         const {
             series_number,
             issuer,

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { get } from 'lodash-es';
+import get from 'lodash-es/get';
 
 import { ShopLocation } from '../../../../thrift-services/damsel/gen-model/domain';
 
