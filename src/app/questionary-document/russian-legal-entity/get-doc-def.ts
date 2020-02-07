@@ -26,18 +26,17 @@ import {
     PropertyInfoDocumentType,
     WithoutChiefAccountant
 } from '../../thrift-services/ank/gen-model/questionary';
+import get from 'lodash-es/get';
 
 const EMPTY = '';
 
 export function getDocDef(questionary: Questionary): DocDef {
     const { data } = toOptional(questionary);
-    const { contractor, shop_info: shopInfo, contact_info: contactInfo } = toOptional(data);
-    const { location, details } = toOptional(shopInfo);
+    const { contractor, shop_info, contact_info } = toOptional(data);
+    const { location, details } = toOptional(shop_info);
     const { name } = toOptional(details);
-    const { phone_number, email } = toOptional(contactInfo);
-    const {
-        legal_entity: { russian_legal_entity }
-    } = toOptional(contractor);
+    const { phone_number, email } = toOptional(contact_info);
+    const russian_legal_entity = get(contractor, ['legal_entity', 'russian_legal_entity']);
     const {
         additional_info,
         inn,
@@ -45,11 +44,16 @@ export function getDocDef(questionary: Questionary): DocDef {
         legal_owner_info,
         beneficial_owners,
         property_info_document_type,
-        registration_info: { legal_registration_info },
-        residency_info: { legal_residency_info }
+        registration_info,
+        residency_info
     } = toOptional(russian_legal_entity);
-    const { registration_place } = toOptional(legal_registration_info);
-    const { tax_resident, fatca, owner_resident } = toOptional(legal_residency_info);
+    const registration_place = get(registration_info, [
+        'legal_registration_info',
+        'registration_place'
+    ]);
+    const { tax_resident, fatca, owner_resident } = toOptional(
+        get(residency_info, 'legal_residency_info')
+    );
     const {
         relation_individual_entity,
         benefit_third_parties,
@@ -65,11 +69,11 @@ export function getDocDef(questionary: Questionary): DocDef {
         authority_confirming_document,
         russian_private_entity
     } = toOptional(legal_owner_info);
-    const { fio, contact_info } = toOptional(russian_private_entity);
+    const { fio, contact_info: privateContactInfo } = toOptional(russian_private_entity);
     const documentType = getUnionKey(property_info_document_type);
 
     const url = getShopLocationURL(location);
-    const contact = getContactInfo(contact_info);
+    const contact = getContactInfo(privateContactInfo);
     const authorityConfirmingDocumentInfo = getAuthorityConfirmingDocument(
         authority_confirming_document
     );

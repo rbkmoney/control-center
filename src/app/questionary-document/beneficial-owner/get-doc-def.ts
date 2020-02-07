@@ -20,6 +20,7 @@ import { getIndividualResidencyInfo } from './get-individual-residency-info';
 import { createCompanyHeader } from './create-company-header';
 import { BeneficialOwner } from '../../thrift-services/ank/gen-model/questionary';
 import { toOptional } from '../../shared/utils';
+import get from 'lodash-es/get';
 
 const EMPTY = '';
 
@@ -76,41 +77,44 @@ export function getDocDef(
             createInlineParagraph('6. Гражданство', citizenship || 'РФ'), // TODO: move to questionary input
             createInlineParagraph('7. ИНН (при наличии)', inn || EMPTY),
             createInlineParagraph('8. Реквизиты документа, удостоверяющего личность', [
-                [`8.1. Вид документа: ${identityDocumentInfo.name || EMPTY}`],
-                [`8.2. Серия и номер: ${identityDocumentInfo.seriesNumber || EMPTY}`],
+                [`8.1. Вид документа: ${get(identityDocumentInfo, 'name') || EMPTY}`],
+                [`8.2. Серия и номер: ${get(identityDocumentInfo, 'seriesNumber') || EMPTY}`],
                 [
                     `8.3. Наименование органа, выдавшего документ, код подразделения (при наличии): ${identityDocumentInfo.issuer ||
                         EMPTY}`
                 ],
-                [`8.4. Дата выдачи: ${getDate(identityDocumentInfo.issuedAt) || EMPTY}`]
+                [`8.4. Дата выдачи: ${getDate(get(identityDocumentInfo, 'issuedAt')) || EMPTY}`]
             ]),
             createInlineParagraph('9. Данные миграционной карты¹', [
-                [`9.1. Номер карты: ${optionalMigrationCardInfo.card_number || EMPTY}`],
+                [`9.1. Номер карты: ${get(optionalMigrationCardInfo, 'card_number') || EMPTY}`],
                 [
                     `9.2. Дата начала срока пребывания в РФ: ${getDate(
-                        optionalMigrationCardInfo.beginning_date
+                        get(optionalMigrationCardInfo, 'beginning_date')
                     ) || EMPTY}`
                 ],
                 [
                     `9.3. Дата окончания срока пребывания в РФ: ${getDate(
-                        optionalMigrationCardInfo.expiration_date
+                        get(optionalMigrationCardInfo, 'expiration_date')
                     ) || EMPTY}`
                 ]
             ]),
             createInlineParagraph(
                 '10. Данные документа, подтверждающего право иностранного гражданина или лица без гражданства на пребывание (проживание) в РФ¹',
                 [
-                    [`10.1. Вид документа: ${optionalResidenceApprove.name || EMPTY}`],
-                    [`10.2. Серия (при наличии): ${optionalResidenceApprove.series || EMPTY}`],
-                    [`10.3. Номер документа: ${optionalResidenceApprove.number || EMPTY}`],
+                    [`10.1. Вид документа: ${get(optionalResidenceApprove, 'name') || EMPTY}`],
+                    [
+                        `10.2. Серия (при наличии): ${get(optionalResidenceApprove, 'series') ||
+                            EMPTY}`
+                    ],
+                    [`10.3. Номер документа: ${get(optionalResidenceApprove, 'number') || EMPTY}`],
                     [
                         `10.4. Дата начала срока действия: ${getDate(
-                            optionalResidenceApprove.beginning_date
+                            get(optionalResidenceApprove, 'beginning_date')
                         ) || EMPTY}`
                     ],
                     [
                         `10.5. Дата окончания срока действия: ${getDate(
-                            optionalResidenceApprove.expiration_date
+                            get(optionalResidenceApprove, 'expiration_date')
                         ) || EMPTY}`
                     ]
                 ]
