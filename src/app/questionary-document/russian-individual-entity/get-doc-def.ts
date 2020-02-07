@@ -20,7 +20,7 @@ import {
     PropertyInfoDocumentType,
     WithoutChiefAccountant
 } from '../../thrift-services/ank/gen-model/questionary';
-import { get } from 'lodash-es';
+import get from 'lodash-es/get';
 
 const EMPTY = '';
 

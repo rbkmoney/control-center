@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/internal/operators';
 import sortBy from 'lodash-es/sortBy';
-import { get } from 'lodash-es';
+import get from 'lodash-es/get';
 
 import { Category } from '../../../../papi/model';
 import { CategoryService } from '../../../../papi/category.service';
