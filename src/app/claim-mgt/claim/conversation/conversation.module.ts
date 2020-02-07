@@ -7,6 +7,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatDividerModule
 } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,9 +28,9 @@ import { CommentComponent } from './comment/comment.component';
 import { ReasonComponent } from './reason/reason.component';
 import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
-import { QuestionaryComponent } from './questionary';
 import { AnkModule } from '../../../thrift-services';
 import { QuestionaryDocumentModule } from '../../../questionary-document';
+import { QuestionaryModule } from './questionary/questionary.module';
 import { UnsavedPartyModificationsModule } from '../unsaved-party-modifications';
 import { PartyModificationCreatorModule } from '../../../party-modification-creator';
 
@@ -56,6 +57,8 @@ import { PartyModificationCreatorModule } from '../../../party-modification-crea
         FileUploaderModule,
         AnkModule,
         QuestionaryDocumentModule,
+        MatListModule,
+        QuestionaryModule,
         UnsavedPartyModificationsModule,
         PartyModificationCreatorModule,
         MatDividerModule
@@ -66,8 +69,7 @@ import { PartyModificationCreatorModule } from '../../../party-modification-crea
         SendCommentComponent,
         ActionIconPipe,
         ActionNamePipe,
-        CommentComponent,
-        QuestionaryComponent
+        CommentComponent
     ],
     exports: [ConversationComponent]
 })

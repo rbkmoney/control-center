@@ -1,9 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import get from 'lodash-es/get';
 
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { QuestionaryDocumentService } from '../../../../questionary-document';
+import { getUnionValue } from '../../../../shared/utils';
+import { BeneficialOwner } from '../../../../thrift-services/ank/gen-model/questionary';
+import { getCompanyInfo } from '../../../../questionary-document/select-data';
 
 @Component({
     selector: 'cc-questionary',
@@ -11,18 +15,13 @@ import { QuestionaryDocumentService } from '../../../../questionary-document';
     styleUrls: ['questionary.component.scss']
 })
 export class QuestionaryComponent {
-    _questionary: Questionary;
     beneficialOwnersDocuments$: Observable<TCreatedPdf[]>;
 
     @Input()
-    set questionary(questionary) {
-        this._questionary = questionary;
-        this.beneficialOwnersDocuments$ = questionary
-            ? this.questionaryDocumentService.createBeneficialOwnerDocs(this.questionary)
-            : of([]);
-    }
-    get questionary() {
-        return this._questionary;
+    questionary: Questionary;
+
+    get entity() {
+        return getUnionValue(getUnionValue(get(this.questionary, ['data', 'contractor'])));
     }
 
     constructor(private questionaryDocumentService: QuestionaryDocumentService) {}
@@ -33,7 +32,10 @@ export class QuestionaryComponent {
             .subscribe(doc => doc.download('russian-entity-questionary'));
     }
 
-    downloadBeneficialOwnerDocument(beneficialOwnerDocument: TCreatedPdf) {
-        beneficialOwnerDocument.download('beneficial-owner-questionary');
+    downloadBeneficialOwnerDocument(beneficialOwner: BeneficialOwner) {
+        const { companyName, companyInn } = getCompanyInfo(this.questionary);
+        this.questionaryDocumentService
+            .createBeneficialOwnerDoc(beneficialOwner, companyName, companyInn)
+            .subscribe(doc => doc.download('beneficial-owner-questionary'));
     }
 }

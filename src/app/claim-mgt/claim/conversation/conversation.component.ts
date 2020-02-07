@@ -7,7 +7,7 @@ import { extractClaimStatus } from '../../../shared/extract-claim-status';
 import { ClaimStatus } from '../../../papi/model';
 import { TimelineAction } from './to-timeline-info/model';
 import { QuestionaryService } from './questionary.service';
-import { getUnionKey } from '../../../shared/get-union-key';
+import { getUnionKey } from '../../../shared/utils';
 import { UnitActionsNavListComponent } from '../../../party-modification-creator';
 import { SavePartyModificationsService } from './save-party-modifications.service';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';

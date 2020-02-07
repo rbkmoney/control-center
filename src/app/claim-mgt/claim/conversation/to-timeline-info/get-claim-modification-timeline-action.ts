@@ -3,7 +3,7 @@ import {
     ClaimModification,
     StatusModificationUnit
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { getUnionKey } from '../../../../shared/get-union-key';
+import { getUnionKey } from '../../../../shared/utils';
 import { ClaimStatus } from '../../../../papi/model/claim-statuses';
 
 function getStatusModificationTimelineAction(unit: StatusModificationUnit): TimelineAction | null {
