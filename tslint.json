@@ -5,7 +5,7 @@
         "callable-types": true,
         "class-name": true,
         "forin": true,
-        "import-blacklist": [true, "rxjs/Rx"],
+        "import-blacklist": [true, "rxjs/Rx", "lodash", "lodash-es"],
         "interface-over-type-literal": true,
         "label-position": true,
         "member-access": false,
