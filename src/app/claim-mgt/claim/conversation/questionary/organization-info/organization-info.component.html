@@ -1,7 +1,7 @@
 <div class="cc-organization-info" fxLayout="column" fxLayoutGap="10px">
     <div fxLayout fxLayoutGap="10px">
-        <cc-details-item title="Имя" fxFlex>{{ entity.name | emptyDefault }}</cc-details-item>
-        <cc-details-item title="ИНН" fxFlex>{{ entity.inn | emptyDefault }}</cc-details-item>
+        <cc-details-item title="Имя" fxFlex>{{ entity?.name | emptyDefault }}</cc-details-item>
+        <cc-details-item title="ИНН" fxFlex>{{ entity?.inn | emptyDefault }}</cc-details-item>
     </div>
     <cc-details-item title="Адрес регистрации">
         {{ registrationAddress | emptyDefault }}
