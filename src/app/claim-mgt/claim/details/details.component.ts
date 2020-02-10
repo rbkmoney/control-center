@@ -15,6 +15,8 @@ import { RecreateClaimService } from '../recreate-claim';
 export class DetailsComponent {
     @Input() claim: Claim;
 
+    recreateClaimInProcess$ = this.recreateClaimService.isInProcess$;
+
     constructor(
         private dialog: MatDialog,
         private claimService: ClaimService,

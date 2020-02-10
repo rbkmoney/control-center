@@ -7,9 +7,10 @@ import {
     SimpleChanges,
     OnInit
 } from '@angular/core';
-import { MatBottomSheet } from '@angular/material';
+import { MatBottomSheet, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { map, scan } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { map, scan, switchMap } from 'rxjs/operators';
 
 import { Modification, Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ConversationService } from './conversation.service';
@@ -52,7 +53,8 @@ export class ConversationComponent implements OnChanges, OnInit {
         private bottomSheet: MatBottomSheet,
         private savePartyModService: SavePartyModificationsService,
         private recreateClaimService: RecreateClaimService,
-        private partyModEmitter: PartyModificationEmitter
+        private partyModEmitter: PartyModificationEmitter,
+        private snackBar: MatSnackBar
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
@@ -64,15 +66,32 @@ export class ConversationComponent implements OnChanges, OnInit {
     }
 
     ngOnInit() {
-        this.recreateClaimService.recreated$.subscribe(({ party_id, id }) =>
-            this.router.navigate(['claim-mgt', 'party', party_id, 'claim', id.toString()])
-        );
-        this.recreateClaimService.extractedPartyModifications$.subscribe(m =>
-            this.savePartyModService.partyModificationsChanged(m)
-        );
+        this.recreateClaimService.recreated$
+            .pipe(
+                switchMap(({ party_id, id }) =>
+                    from(
+                        this.router.navigate([
+                            'claim-mgt',
+                            'party',
+                            party_id,
+                            'claim',
+                            id.toString()
+                        ])
+                    )
+                )
+            )
+            .subscribe(() =>
+                this.snackBar.open('Claim recreated successfully', 'OK', { duration: 2000 })
+            );
+        this.recreateClaimService.extractedModifications$
+            .pipe(map(mods => mods.map(modification => modification.party_modification)))
+            .subscribe(m => this.savePartyModService.partyModificationsChanged(m));
         this.partyModEmitter.modification$
             .pipe(scan((acc, curr) => [...acc, curr], []))
             .subscribe(m => this.savePartyModService.partyModificationsChanged(m));
+        this.recreateClaimService.extractError$.subscribe(() =>
+            this.snackBar.open('An error occurred while claim recreated', 'OK')
+        );
     }
 
     partyModificationsChanged(m: PartyModification[]) {

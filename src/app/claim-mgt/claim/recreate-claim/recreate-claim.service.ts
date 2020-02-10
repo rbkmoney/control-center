@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Subject, Observable, forkJoin, of } from 'rxjs';
-import { map, tap, switchMap, filter } from 'rxjs/operators';
+import { Subject, Observable, forkJoin, of, BehaviorSubject } from 'rxjs';
+import { map, tap, switchMap, filter, catchError, shareReplay, switchMapTo } from 'rxjs/operators';
+import negate from 'lodash-es/negate';
+import isEmpty from 'lodash-es/isEmpty';
+import head from 'lodash-es/head';
 
-import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
+import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
+import { extractModificationsReducer, extractSeed } from './extract-modifications-reducer';
 
 @Injectable()
 export class RecreateClaimService {
-    private _extractedPartyModifications$: Subject<PartyModification[]> = new Subject();
+    private extracted$: Subject<Modification[]> = new Subject();
     private recreate$: Subject<Claim> = new Subject();
+    private error$: Subject<any> = new Subject();
+    private inProcess$: Subject<boolean> = new BehaviorSubject(false);
 
-    extractedPartyModifications$: Observable<
-        PartyModification[]
-    > = this._extractedPartyModifications$.asObservable();
-
+    extractError$ = this.error$.asObservable();
+    isInProcess$ = this.inProcess$.asObservable();
+    extractedModifications$: Observable<Modification[]> = this.extracted$.asObservable();
     recreated$: Observable<Claim> = this.recreate$.pipe(
         switchMap(targetClaim =>
             forkJoin(
@@ -27,56 +31,50 @@ export class RecreateClaimService {
                     .pipe(filter(r => r === 'confirm'))
             )
         ),
-        map(([{ id, party_id, changeset }]) => {
-            const { claimModifications, partyModifications } = changeset
-                .map(unit => unit.modification)
-                .reduce(
-                    (acc, curr) => {
-                        if (curr.claim_modification) {
-                            acc.claimModifications = [...acc.claimModifications, curr];
-                        }
-                        if (curr.party_modification) {
-                            acc.partyModifications = [
-                                ...acc.partyModifications,
-                                curr.party_modification
-                            ];
-                        }
-                        return acc;
-                    },
-                    { claimModifications: [], partyModifications: [] }
-                );
-            return {
-                clonedClaimId: id,
-                partyId: party_id,
-                claimModifications,
-                partyModifications
-            };
-        }),
-        switchMap(cloneContext => {
-            const clonedClaim$ = this.claimManagementService.createClaim(
-                cloneContext.partyId,
-                cloneContext.claimModifications
-            );
-            return forkJoin(of(cloneContext), clonedClaim$);
-        }),
-        switchMap(([cloneContext, clonedClaim]) => {
-            const revoked = this.claimManagementService.revokeClaim(
-                cloneContext.partyId,
-                cloneContext.clonedClaimId,
-                `Claim recreated with ID: ${clonedClaim.id}`
-            );
-            return forkJoin(of(clonedClaim), of(cloneContext.partyModifications), revoked);
-        }),
-        tap(([, partyModifications]) =>
-            this._extractedPartyModifications$.next(partyModifications)
+        switchMap(([{ id, party_id, changeset }]) =>
+            forkJoin(
+                of(id),
+                of(party_id),
+                of(
+                    changeset
+                        .map(unit => unit.modification)
+                        .reduce(extractModificationsReducer, extractSeed)
+                )
+            )
         ),
-        map(([createdClaim]) => createdClaim)
+        switchMap(([claimId, partyId, { recreateModifications, extractedModifications }]) => {
+            const createNewClaim$ = this.claimMgtService
+                .createClaim(partyId, recreateModifications)
+                .pipe(
+                    catchError(err => {
+                        console.error(err);
+                        this.error$.next(err);
+                        this.inProcess$.next(false);
+                        return of(null);
+                    }),
+                    filter(negate(isEmpty))
+                );
+            const revokeCurrentClaim$ = this.claimMgtService
+                .revokeClaim(partyId, claimId, `Claim recreated with ID: ${claimId}`)
+                .pipe(
+                    catchError(err => {
+                        console.error(err);
+                        return of(true);
+                    })
+                );
+            return of(true).pipe(
+                tap(() => this.inProcess$.next(true)),
+                switchMapTo(createNewClaim$),
+                switchMap(recreated => forkJoin(of(recreated), revokeCurrentClaim$)),
+                map(head),
+                tap(() => this.extracted$.next(extractedModifications)),
+                tap(() => this.inProcess$.next(false))
+            );
+        }),
+        shareReplay(1)
     );
 
-    constructor(
-        private dialog: MatDialog,
-        private claimManagementService: ClaimManagementService
-    ) {}
+    constructor(private dialog: MatDialog, private claimMgtService: ClaimManagementService) {}
 
     recreate(claim: Claim) {
         this.recreate$.next(claim);
