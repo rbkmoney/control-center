@@ -20,6 +20,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { DetailsComponent } from './details/details.component';
 import { ConversationModule } from './conversation/conversation.module';
 import { StatusChangerComponent } from './status-changer/status-changer.component';
+import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { StatusChangerComponent } from './status-changer/status-changer.componen
         MatInputModule,
         MatListModule,
         MatBottomSheetModule,
-        MatStepperModule
+        MatStepperModule,
+        ConfirmActionDialogModule
     ],
     declarations: [ClaimComponent, DetailsComponent, StatusChangerComponent],
     entryComponents: [StatusChangerComponent]

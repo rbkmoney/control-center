@@ -41,5 +41,11 @@
         <button mat-button color="primary" (click)="editStatus()" [disabled]="!canChangeStatus()">
             CHANGE STATUS
         </button>
+        <button mat-button (click)="recreate()" [disabled]="recreateClaimInProcess$ | async">
+            RECREATE
+        </button>
     </mat-card-actions>
+    <mat-card-footer *ngIf="(recreateClaimInProcess$ | async)">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
 </mat-card>

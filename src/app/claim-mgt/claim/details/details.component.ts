@@ -6,6 +6,7 @@ import { Claim } from '../../../thrift-services/damsel/gen-model/claim_managemen
 import { StatusChangerComponent } from '../status-changer/status-changer.component';
 import { getAvailableClaimStatuses } from '../status-changer/get-available-claim-statuses';
 import { ClaimService } from '../claim.service';
+import { RecreateClaimService } from '../recreate-claim';
 
 @Component({
     selector: 'cc-claim-details',
@@ -14,7 +15,13 @@ import { ClaimService } from '../claim.service';
 export class DetailsComponent {
     @Input() claim: Claim;
 
-    constructor(private dialog: MatDialog, private claimService: ClaimService) {}
+    recreateClaimInProcess$ = this.recreateClaimService.isInProcess$;
+
+    constructor(
+        private dialog: MatDialog,
+        private claimService: ClaimService,
+        private recreateClaimService: RecreateClaimService
+    ) {}
 
     editStatus() {
         this.dialog
@@ -36,5 +43,9 @@ export class DetailsComponent {
 
     canChangeStatus(): boolean {
         return getAvailableClaimStatuses(this.claim.status).length > 0;
+    }
+
+    recreate() {
+        this.recreateClaimService.recreate(this.claim);
     }
 }

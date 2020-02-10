@@ -1,23 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ClaimsService } from './claims.service';
 import { SearchFormValue } from './search-form/search-form-value';
-import { ClaimStatus } from '../../papi/model/claim-statuses';
 
 @Component({
-    templateUrl: 'claims.component.html',
-    styleUrls: []
+    templateUrl: 'claims.component.html'
 })
-export class ClaimsComponent implements OnInit {
+export class ClaimsComponent {
     isLoading$ = this.claimService.isLoading$;
     claims$ = this.claimService.claims$;
     hasMore$ = this.claimService.hasMore$;
 
     constructor(private claimService: ClaimsService) {}
-
-    ngOnInit(): void {
-        this.search({ statuses: [ClaimStatus.pending] });
-    }
 
     search(searchFormValue: SearchFormValue) {
         this.claimService.search(searchFormValue);
