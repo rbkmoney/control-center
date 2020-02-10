@@ -21,6 +21,9 @@ export class ClaimManagementService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/v1/cm', ClaimManagement);
     }
 
+    createClaim = (partyID: string, changeset: Modification[]): Observable<Claim> =>
+        this.toObservableAction('CreateClaim')(partyID, changeset);
+
     searchClaims = (query: ClaimSearchQuery): Observable<ClaimSearchResponse> =>
         this.toObservableAction('SearchClaims')(new ClaimSearchQueryType(query));
 

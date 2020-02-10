@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, BehaviorSubject, Subject, forkJoin, of } from 'rxjs';
+import { Observable, Subject, forkJoin, of, ReplaySubject } from 'rxjs';
 import {
     shareReplay,
     map,
@@ -14,7 +14,6 @@ import {
 import isEqual from 'lodash-es/isEqual';
 import Int64 from 'thrift-ts/lib/int64';
 
-import { PartyModificationEmitter } from '../../../party-modification-creator';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
@@ -22,7 +21,7 @@ import { ClaimService } from '../claim.service';
 
 @Injectable()
 export class SavePartyModificationsService {
-    private unsaved$: BehaviorSubject<PartyModification[]> = new BehaviorSubject([]);
+    private unsaved$: Subject<PartyModification[]> = new ReplaySubject(1);
     private save$ = new Subject();
     private saving$: Subject<boolean> = new Subject();
 
@@ -30,19 +29,14 @@ export class SavePartyModificationsService {
         distinctUntilChanged(isEqual),
         shareReplay(1)
     );
-
     hasUnsavedModifications$ = this.unsaved$.pipe(map(m => m.length > 0));
     isSaving$ = this.saving$.asObservable();
 
     constructor(
-        private partyModEmitter: PartyModificationEmitter,
         private route: ActivatedRoute,
         private claimManagementService: ClaimManagementService,
         private claimService: ClaimService
     ) {
-        this.partyModEmitter.modification$.subscribe(m => {
-            this.unsaved$.next([...this.unsaved$.value, m]);
-        });
         const partyId$ = this.route.params.pipe(
             pluck('party_id'),
             first()
