@@ -24,20 +24,23 @@ export class AppComponent implements OnInit {
 
     private getMenuItems() {
         const menuItems = [
-            { name: 'Domain config', route: '/domain', activateRole: 'dmt:checkout' },
-            { name: 'Payouts', route: '/payouts', activateRole: 'payout:read' },
-            { name: 'Claims', route: '/claims', activateRole: 'claim:get' },
-            { name: 'Claim-MGT', route: '/claim-mgt', activateRole: 'claim:get' },
+            { name: 'Domain config', route: '/domain', activateRoles: ['dmt:checkout'] },
+            { name: 'Payouts', route: '/payouts', activateRoles: ['payout:read'] },
+            { name: 'Claims', route: '/claims', activateRoles: ['claim:get'] },
+            { name: 'Claim-MGT', route: '/claim-mgt', activateRoles: ['get_claims'] },
+            { name: 'Party-MGT', route: '/party-mgt', activateRoles: ['get_claims'] },
             {
                 name: 'Payment adjustment',
                 route: '/payment-adjustment',
-                activateRole: 'adjustment:create'
+                activateRoles: ['adjustment:create']
             },
-            { name: 'Parties', route: '/parties', activateRole: 'party:get' },
-            { name: 'Repairing', route: '/repairing', activateRole: 'party:get' },
-            { name: 'Deposits', route: '/deposits', activateRole: 'deposit:write' }
+            { name: 'Parties', route: '/parties', activateRoles: ['party:get'] },
+            { name: 'Repairing', route: '/repairing', activateRoles: ['party:get'] },
+            { name: 'Deposits', route: '/deposits', activateRoles: ['deposit:write'] }
         ];
-        const roles = this.keycloakService.getUserRoles();
-        return menuItems.filter(item => roles.includes(item.activateRole));
+        const userRoles = this.keycloakService.getUserRoles();
+        return menuItems.filter(
+            item => item.activateRoles.filter(role => userRoles.includes(role)).length > 0
+        );
     }
 }

@@ -1,0 +1,26 @@
+<cc-card-container>
+    <mat-card>
+        <mat-card-subtitle> Search Party</mat-card-subtitle>
+        <mat-card-content>
+            <form fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" [formGroup]="form">
+                <mat-form-field fxFlex="30" fxFlex.sm="70">
+                    <input matInput placeholder="Party ID" formControlName="partyId" />
+                </mat-form-field>
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="goToParty()"
+                    [disabled]="!form.valid"
+                >
+                    <span *ngIf="!isLoading">Go</span>
+                    <mat-progress-spinner
+                        *ngIf="isLoading"
+                        color="accent"
+                        mode="indeterminate"
+                        diameter="30"
+                    ></mat-progress-spinner>
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</cc-card-container>

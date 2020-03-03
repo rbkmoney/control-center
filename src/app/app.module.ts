@@ -31,7 +31,8 @@ import { PartyModule } from './party/party.module';
 import { DomainModule } from './domain';
 import { RepairingModule } from './repairing/repairing.module';
 import { DepositsModule } from './deposits/deposits.module';
-import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
+import { ClaimMgtModule } from './sections/claim-mgt/claim-mgt.module';
+import { PartyMgtModule } from './sections/party-mgt/party-mgt.module';
 
 /**
  * For use in specific locations (for example, questionary PDF document)
@@ -62,7 +63,8 @@ moment.locale('en');
         DomainModule,
         RepairingModule,
         DepositsModule,
-        ClaimMgtModule
+        ClaimMgtModule,
+        PartyMgtModule
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
