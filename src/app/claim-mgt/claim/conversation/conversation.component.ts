@@ -26,6 +26,7 @@ import {
 import { SavePartyModificationsService } from './save-party-modifications.service';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import { RecreateClaimService } from '../recreate-claim';
+import { AppAuthGuardService } from '../../../app-auth-guard.service';
 
 @Component({
     selector: 'cc-claim-conversation',
@@ -46,6 +47,9 @@ export class ConversationComponent implements OnChanges, OnInit {
     hasUnsavedModifications$ = this.savePartyModService.hasUnsavedModifications$;
     isSaving$ = this.savePartyModService.isSaving$;
 
+    canAddClaimMod = this.appAuthGuardService.userHasRoles(['add_claim_mod']);
+    canAddPartyMod = this.appAuthGuardService.userHasRoles(['add_party_mod']);
+
     constructor(
         private router: Router,
         private conversationService: ConversationService,
@@ -54,7 +58,8 @@ export class ConversationComponent implements OnChanges, OnInit {
         private savePartyModService: SavePartyModificationsService,
         private recreateClaimService: RecreateClaimService,
         private partyModEmitter: PartyModificationEmitter,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private appAuthGuardService: AppAuthGuardService
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
