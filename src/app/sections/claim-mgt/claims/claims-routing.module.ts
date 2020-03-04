@@ -12,7 +12,7 @@ import { AppAuthGuardService } from '../../../app-auth-guard.service';
                 component: ClaimsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['claim:get']
+                    roles: ['get_claims']
                 }
             }
         ])

@@ -5,6 +5,7 @@ import { StatusChangerService } from './status-changer.service';
 import { ClaimID, ClaimStatus } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatuses } from '../claim-statuses';
 import { getAvailableClaimStatuses } from './get-available-claim-statuses';
+import { AppAuthGuardService } from '../../../app-auth-guard.service';
 
 interface ActionsInterface {
     partyID: string;
@@ -14,17 +15,20 @@ interface ActionsInterface {
 
 @Component({
     templateUrl: 'status-changer.component.html',
-    providers: [StatusChangerService],
+    providers: [StatusChangerService, AppAuthGuardService],
     styleUrls: ['status-changer.component.scss']
 })
 export class StatusChangerComponent implements OnInit {
-    actions = getAvailableClaimStatuses(this.data.claimStatus);
+    actions = getAvailableClaimStatuses(this.data.claimStatus).filter(status =>
+        this.statusFilter(status)
+    );
     form = this.actionsService.form;
     isLoading$ = this.actionsService.isLoading$;
 
     constructor(
         private dialogRef: MatDialogRef<StatusChangerComponent>,
         private actionsService: StatusChangerService,
+        private appAuthGuardService: AppAuthGuardService,
         @Inject(MAT_DIALOG_DATA) private data: ActionsInterface
     ) {}
 
@@ -41,5 +45,22 @@ export class StatusChangerComponent implements OnInit {
         this.actionsService.claim$.subscribe(_ => {
             this.dialogRef.close(true);
         });
+    }
+
+    private statusFilter(status: ClaimStatuses): boolean {
+        switch (status) {
+            case ClaimStatuses.accepted:
+                return this.appAuthGuardService.userHasRoles(['accept_claim']);
+            case ClaimStatuses.denied:
+                return this.appAuthGuardService.userHasRoles(['deny_claim']);
+            case ClaimStatuses.review:
+                return this.appAuthGuardService.userHasRoles(['request_claim_review']);
+            case ClaimStatuses.revoked:
+                return this.appAuthGuardService.userHasRoles(['revoke_claim']);
+            case ClaimStatuses.pending:
+                return this.appAuthGuardService.userHasRoles(['request_claim_changes']);
+            default:
+                return false;
+        }
     }
 }

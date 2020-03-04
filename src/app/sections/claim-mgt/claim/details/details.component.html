@@ -38,10 +38,21 @@
         </div>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between stretch">
-        <button mat-button color="primary" (click)="editStatus()" [disabled]="!canChangeStatus()">
+        <button
+            mat-button
+            color="primary"
+            (click)="editStatus()"
+            [disabled]="!canChangeStatus()"
+            *ngIf="canAddClaimMod"
+        >
             CHANGE STATUS
         </button>
-        <button mat-button (click)="recreate()" [disabled]="recreateClaimInProcess$ | async">
+        <button
+            mat-button
+            (click)="recreate()"
+            [disabled]="recreateClaimInProcess$ | async"
+            *ngIf="canRecreate"
+        >
             RECREATE
         </button>
     </mat-card-actions>
