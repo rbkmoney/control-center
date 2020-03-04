@@ -50,15 +50,15 @@ export class StatusChangerComponent implements OnInit {
     private statusFilter(status: ClaimStatuses): boolean {
         switch (status) {
             case ClaimStatuses.accepted:
-                return this.appAuthGuardService.userHasRole(['accept_claim']);
+                return this.appAuthGuardService.userHasRoles(['accept_claim']);
             case ClaimStatuses.denied:
-                return this.appAuthGuardService.userHasRole(['deny_claim']);
+                return this.appAuthGuardService.userHasRoles(['deny_claim']);
             case ClaimStatuses.review:
-                return this.appAuthGuardService.userHasRole(['request_claim_review']);
+                return this.appAuthGuardService.userHasRoles(['request_claim_review']);
             case ClaimStatuses.revoked:
-                return this.appAuthGuardService.userHasRole(['revoke_claim']);
+                return this.appAuthGuardService.userHasRoles(['revoke_claim']);
             case ClaimStatuses.pending:
-                return this.appAuthGuardService.userHasRole(['request_claim_changes']);
+                return this.appAuthGuardService.userHasRoles(['request_claim_changes']);
             default:
                 return false;
         }

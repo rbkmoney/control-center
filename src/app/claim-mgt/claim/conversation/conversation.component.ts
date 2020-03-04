@@ -47,8 +47,8 @@ export class ConversationComponent implements OnChanges, OnInit {
     hasUnsavedModifications$ = this.savePartyModService.hasUnsavedModifications$;
     isSaving$ = this.savePartyModService.isSaving$;
 
-    canAddClaimMod = this.appAuthGuardService.userHasRole(['add_claim_mod']);
-    canAddPartyMod = this.appAuthGuardService.userHasRole(['add_party_mod']);
+    canAddClaimMod = this.appAuthGuardService.userHasRoles(['add_claim_mod']);
+    canAddPartyMod = this.appAuthGuardService.userHasRoles(['add_party_mod']);
 
     constructor(
         private router: Router,

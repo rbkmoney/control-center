@@ -18,8 +18,8 @@ export class DetailsComponent {
 
     recreateClaimInProcess$ = this.recreateClaimService.isInProcess$;
 
-    canRecreate = this.appAuthGuardService.userHasRole(['create_claim']);
-    canAddClaimMod = this.appAuthGuardService.userHasRole(['add_claim_mod']);
+    canRecreate = this.appAuthGuardService.userHasRoles(['create_claim']);
+    canAddClaimMod = this.appAuthGuardService.userHasRoles(['add_claim_mod']);
 
     constructor(
         private dialog: MatDialog,
