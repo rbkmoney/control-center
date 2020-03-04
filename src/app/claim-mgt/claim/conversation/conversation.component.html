@@ -74,20 +74,27 @@
         </div>
         <mat-divider></mat-divider>
     </div>
-    <mat-card>
-        <mat-card-content fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+    <mat-card *ngIf="canAddClaimMod || canAddPartyMod">
+        <mat-card-content
+            fxLayout="row"
+            fxLayoutGap="10px"
+            fxLayoutAlign="space-between center"
+            *ngIf="canAddClaimMod"
+        >
             <cc-file-uploader
                 (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"
             ></cc-file-uploader>
             <cc-send-comment
                 fxFlex="100"
                 *ngIf="
-                    claimStatus !== claimStatuses.denied && claimStatus !== claimStatuses.revoked
+                    claimStatus !== claimStatuses.denied &&
+                    claimStatus !== claimStatuses.revoked &&
+                    canAddClaimMod
                 "
                 (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
             ></cc-send-comment>
         </mat-card-content>
-        <mat-card-actions>
+        <mat-card-actions *ngIf="canAddPartyMod">
             <button mat-button (click)="addPartyModification()">ADD PARTY MODIFICATION</button>
         </mat-card-actions>
     </mat-card>

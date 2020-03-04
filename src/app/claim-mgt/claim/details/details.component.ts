@@ -7,6 +7,7 @@ import { StatusChangerComponent } from '../status-changer/status-changer.compone
 import { getAvailableClaimStatuses } from '../status-changer/get-available-claim-statuses';
 import { ClaimService } from '../claim.service';
 import { RecreateClaimService } from '../recreate-claim';
+import { AppAuthGuardService } from '../../../app-auth-guard.service';
 
 @Component({
     selector: 'cc-claim-details',
@@ -17,10 +18,14 @@ export class DetailsComponent {
 
     recreateClaimInProcess$ = this.recreateClaimService.isInProcess$;
 
+    canRecreate = this.appAuthGuardService.userHasRole(['create_claim']);
+    canAddClaimMod = this.appAuthGuardService.userHasRole(['add_claim_mod']);
+
     constructor(
         private dialog: MatDialog,
         private claimService: ClaimService,
-        private recreateClaimService: RecreateClaimService
+        private recreateClaimService: RecreateClaimService,
+        private appAuthGuardService: AppAuthGuardService
     ) {}
 
     editStatus() {

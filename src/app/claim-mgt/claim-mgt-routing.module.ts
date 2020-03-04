@@ -11,7 +11,7 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
                 loadChildren: () => import('./claims').then(m => m.ClaimsModule),
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['claim:get']
+                    roles: ['get_claims']
                 }
             },
             {
@@ -19,7 +19,7 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
                 loadChildren: () => import('./claim').then(m => m.ClaimModule),
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['claim:get']
+                    roles: ['get_claims']
                 }
             }
         ])
