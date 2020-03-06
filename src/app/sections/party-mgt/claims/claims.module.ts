@@ -6,6 +6,4 @@ import { ClaimsComponent } from './claims.component';
     imports: [ClaimsRoutingModule],
     declarations: [ClaimsComponent]
 })
-export class ClaimsModule {
-
-}
+export class ClaimsModule {}

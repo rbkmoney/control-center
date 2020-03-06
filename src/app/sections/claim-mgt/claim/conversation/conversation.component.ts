@@ -26,7 +26,7 @@ import {
 import { SavePartyModificationsService } from './save-party-modifications.service';
 import { PartyModification } from '../../../../thrift-services/damsel/gen-model/payment_processing';
 import { RecreateClaimService } from '../recreate-claim';
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
+import { AppAuthGuardService } from '../../../../app-auth-guard.service';
 
 @Component({
     selector: 'cc-claim-conversation',

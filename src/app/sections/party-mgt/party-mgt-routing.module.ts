@@ -18,22 +18,27 @@ import { PartyMgtComponent } from './party-mgt.component';
             {
                 path: 'party-mgt/:partyID',
                 component: PartyMgtComponent,
-                canActivate: [AppAuthGuardService],
-                data: {
-                    roles: ['get_claims']
-                }
-            },
-            {
-                path: 'party-mgt/:partyID/claims',
-                loadChildren: () => import('./claims').then(m => m.ClaimsModule),
-                canActivate: [AppAuthGuardService],
-                data: {
-                    roles: ['get_claims']
-                }
+                children: [
+                    {
+                        path: 'claims',
+                        loadChildren: () => import('./claims').then(m => m.ClaimsModule),
+                        canActivate: [AppAuthGuardService],
+                        data: {
+                            roles: ['get_claims']
+                        }
+                    },
+                    {
+                        path: 'shops',
+                        loadChildren: () => import('./shops').then(m => m.ShopsModule),
+                        canActivate: [AppAuthGuardService],
+                        data: {
+                            roles: ['get_claims']
+                        }
+                    }
+                ]
             }
         ])
     ],
     exports: [RouterModule]
 })
-export class PartyMgtRouting {
-}
+export class PartyMgtRouting {}

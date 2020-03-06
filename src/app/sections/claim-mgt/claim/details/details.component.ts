@@ -7,7 +7,7 @@ import { StatusChangerComponent } from '../status-changer/status-changer.compone
 import { getAvailableClaimStatuses } from '../status-changer/get-available-claim-statuses';
 import { ClaimService } from '../claim.service';
 import { RecreateClaimService } from '../recreate-claim';
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
+import { AppAuthGuardService } from '../../../../app-auth-guard.service';
 
 @Component({
     selector: 'cc-claim-details',

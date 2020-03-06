@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class ClaimsService {
-
-}
+export class ClaimsService {}
