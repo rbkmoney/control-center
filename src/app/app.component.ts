@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
             { name: 'Payouts', route: '/payouts', activateRoles: ['payout:read'] },
             { name: 'Claims', route: '/claims', activateRoles: ['claim:get'] },
             { name: 'Claim-MGT', route: '/claim-mgt', activateRoles: ['get_claims'] },
-            { name: 'Party-MGT', route: '/party-mgt', activateRoles: ['get_claims'] },
+            { name: 'Party', route: '/party', activateRoles: ['get_claims'] },
             {
                 name: 'Payment adjustment',
                 route: '/payment-adjustment',

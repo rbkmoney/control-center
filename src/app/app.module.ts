@@ -27,12 +27,12 @@ import { ClaimModule } from './claim/claim.module';
 import { PayoutsModule } from './payouts/payouts.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PartiesModule } from './parties/parties.module';
-import { PartyModule } from './party/party.module';
 import { DomainModule } from './domain';
 import { RepairingModule } from './repairing/repairing.module';
 import { DepositsModule } from './deposits/deposits.module';
 import { ClaimMgtModule } from './sections/claim-mgt/claim-mgt.module';
-import { PartyMgtModule } from './sections/party-mgt/party-mgt.module';
+import { PartyModule as OldPartyModule } from './party/party.module';
+import { PartyModule } from './sections/party/party.module';
 
 /**
  * For use in specific locations (for example, questionary PDF document)
@@ -64,7 +64,8 @@ moment.locale('en');
         RepairingModule,
         DepositsModule,
         ClaimMgtModule,
-        PartyMgtModule
+        PartyModule,
+        OldPartyModule
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
@@ -74,4 +75,5 @@ moment.locale('en');
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

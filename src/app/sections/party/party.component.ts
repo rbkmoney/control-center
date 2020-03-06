@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
-    templateUrl: 'party-mgt.component.html',
-    styleUrls: ['party-mgt.component.scss']
+    templateUrl: 'party.component.html',
+    styleUrls: ['party.component.scss']
 })
-export class PartyMgtComponent implements OnInit {
+export class PartyComponent implements OnInit {
     links = [{ name: 'Claims', url: 'claims' }, { name: 'Shops', url: 'shops' }];
 
     partyID: string;

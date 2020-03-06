@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { PartyMgtRouting } from './party-mgt-routing.module';
-import { PartyMgtComponent } from './party-mgt.component';
+import { PartyMgtRouting } from './party-routing.module';
+import { PartyComponent } from './party.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
@@ -9,6 +9,6 @@ import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     imports: [PartyMgtRouting, CommonModule, MatTabsModule, SharedModule],
-    declarations: [PartyMgtComponent]
+    declarations: [PartyComponent]
 })
-export class PartyMgtModule {}
+export class PartyModule {}

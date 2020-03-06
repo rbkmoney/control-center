@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppAuthGuardService } from '../../app-auth-guard.service';
-import { PartyMgtComponent } from './party-mgt.component';
+import { PartyComponent } from './party.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
-            { path: 'party-mgt', redirectTo: 'party-mgt/search', pathMatch: 'full' },
+            { path: 'party', redirectTo: 'party/search', pathMatch: 'full' },
             {
-                path: 'party-mgt/search',
+                path: 'party/search',
                 loadChildren: () => import('./party-search').then(m => m.PartySearchModule),
                 canActivate: [AppAuthGuardService],
                 data: {
@@ -16,8 +16,8 @@ import { PartyMgtComponent } from './party-mgt.component';
                 }
             },
             {
-                path: 'party-mgt/:partyID',
-                component: PartyMgtComponent,
+                path: 'party/:partyID',
+                component: PartyComponent,
                 children: [
                     {
                         path: 'claims',
@@ -34,6 +34,9 @@ import { PartyMgtComponent } from './party-mgt.component';
                         data: {
                             roles: ['get_claims']
                         }
+                    },
+                    {
+                        path: '', redirectTo: 'claims', pathMatch: 'full'
                     }
                 ]
             }
@@ -41,4 +44,5 @@ import { PartyMgtComponent } from './party-mgt.component';
     ],
     exports: [RouterModule]
 })
-export class PartyMgtRouting {}
+export class PartyMgtRouting {
+}

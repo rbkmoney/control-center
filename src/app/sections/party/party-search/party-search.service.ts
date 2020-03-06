@@ -25,7 +25,7 @@ export class PartySearchService {
         this.partyService.getParty(partyId).subscribe(
             () => {
                 this.isLoading = false;
-                this.router.navigate(['party-mgt', partyId, 'claims']);
+                this.router.navigate(['party', partyId, 'claims']);
             },
             err => {
                 console.log(err);
