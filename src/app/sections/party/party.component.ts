@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: 'party.component.html',
@@ -10,7 +10,7 @@ export class PartyComponent implements OnInit {
 
     partyID: string;
 
-    constructor(private route: ActivatedRoute, private router: Router) {}
+    constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.route.params.subscribe(({ partyID }) => (this.partyID = partyID));
