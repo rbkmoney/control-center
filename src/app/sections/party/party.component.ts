@@ -13,6 +13,6 @@ export class PartyComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit(): void {
-        this.route.params.subscribe(({ partyID }) => this.partyID = partyID);
+        this.route.params.subscribe(({ partyID }) => (this.partyID = partyID));
     }
 }

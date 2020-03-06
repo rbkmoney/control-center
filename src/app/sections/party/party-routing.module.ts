@@ -36,7 +36,9 @@ import { PartyComponent } from './party.component';
                         }
                     },
                     {
-                        path: '', redirectTo: 'claims', pathMatch: 'full'
+                        path: '',
+                        redirectTo: 'claims',
+                        pathMatch: 'full'
                     }
                 ]
             }
@@ -44,5 +46,4 @@ import { PartyComponent } from './party.component';
     ],
     exports: [RouterModule]
 })
-export class PartyMgtRouting {
-}
+export class PartyMgtRouting {}
