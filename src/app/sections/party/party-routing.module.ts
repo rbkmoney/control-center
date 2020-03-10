@@ -31,7 +31,8 @@ import { PartyComponent } from './party.component';
                         data: {
                             roles: ['get_claims']
                         }
-                    }
+                    },
+                    { path: '', redirectTo: 'claims', pathMatch: 'full' },
                 ]
             }
         ])
