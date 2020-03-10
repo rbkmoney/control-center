@@ -30,7 +30,7 @@ import { PartiesModule } from './parties/parties.module';
 import { DomainModule } from './domain';
 import { RepairingModule } from './repairing/repairing.module';
 import { DepositsModule } from './deposits/deposits.module';
-import { ClaimMgtModule } from './sections/claim-mgt/claim-mgt.module';
+import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
 import { PartyModule as OldPartyModule } from './party/party.module';
 import { PartyModule } from './sections/party/party.module';
 

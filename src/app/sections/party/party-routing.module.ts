@@ -6,22 +6,18 @@ import { PartyComponent } from './party.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
-            { path: 'party', redirectTo: 'party/search', pathMatch: 'full' },
-            {
-                path: 'party/search',
-                loadChildren: () => import('./party-search').then(m => m.PartySearchModule),
-                canActivate: [AppAuthGuardService],
-                data: {
-                    roles: ['get_claims']
-                }
-            },
             {
                 path: 'party/:partyID',
                 component: PartyComponent,
+                canActivate: [AppAuthGuardService],
+                data: {
+                    roles: ['get_claims']
+                },
                 children: [
                     {
                         path: 'claims',
-                        loadChildren: () => import('./claims').then(m => m.ClaimsModule),
+                        loadChildren: () =>
+                            import('../party-claims').then(m => m.PartyClaimsModule),
                         canActivate: [AppAuthGuardService],
                         data: {
                             roles: ['get_claims']
@@ -29,16 +25,11 @@ import { PartyComponent } from './party.component';
                     },
                     {
                         path: 'shops',
-                        loadChildren: () => import('./shops').then(m => m.ShopsModule),
+                        loadChildren: () => import('../party-shops').then(m => m.PartyShopsModule),
                         canActivate: [AppAuthGuardService],
                         data: {
                             roles: ['get_claims']
                         }
-                    },
-                    {
-                        path: '',
-                        redirectTo: 'claims',
-                        pathMatch: 'full'
                     }
                 ]
             }
