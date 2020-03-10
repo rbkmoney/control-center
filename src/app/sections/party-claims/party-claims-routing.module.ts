@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { RouterModule } from '@angular/router';
+
+import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { PartyClaimsComponent } from './party-claims.component';
 
 @NgModule({
