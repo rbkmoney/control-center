@@ -32,7 +32,7 @@ import { PartyComponent } from './party.component';
                             roles: ['get_claims']
                         }
                     },
-                    { path: '', redirectTo: 'claims', pathMatch: 'full' },
+                    { path: '', redirectTo: 'claims', pathMatch: 'full' }
                 ]
             }
         ])
