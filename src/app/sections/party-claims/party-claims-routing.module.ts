@@ -7,7 +7,7 @@ import { PartyClaimsComponent } from './party-claims.component';
     imports: [
         RouterModule.forChild([
             {
-                path: 'party/:partyID/claims',
+                path: '',
                 component: PartyClaimsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {

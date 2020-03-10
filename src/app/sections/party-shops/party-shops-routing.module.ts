@@ -7,7 +7,7 @@ import { PartyShopsComponent } from './party-shops.component';
     imports: [
         RouterModule.forChild([
             {
-                path: 'party/:partyID/shops',
+                path: '',
                 component: PartyShopsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
