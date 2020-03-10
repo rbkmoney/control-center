@@ -33,7 +33,7 @@ export class PartiesComponent implements OnInit {
         this.partyService.getParty(partyId).subscribe(
             () => {
                 this.isLoading = false;
-                this.router.navigate(['party', partyId]);
+                this.router.navigate(['party-old', partyId]);
             },
             err => {
                 this.isLoading = false;

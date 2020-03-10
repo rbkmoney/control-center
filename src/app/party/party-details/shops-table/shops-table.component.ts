@@ -40,6 +40,6 @@ export class ShopsTableComponent implements OnChanges {
     }
 
     navigateToShop(shopID: string) {
-        this.router.navigate([`/party/${this.partyId}/shop/${shopID}`]);
+        this.router.navigate([`/party-old/${this.partyId}/shop/${shopID}`]);
     }
 }

@@ -15,7 +15,7 @@ interface ActionsInterface {
 
 @Component({
     templateUrl: 'status-changer.component.html',
-    providers: [StatusChangerService, AppAuthGuardService],
+    providers: [StatusChangerService],
     styleUrls: ['status-changer.component.scss']
 })
 export class StatusChangerComponent implements OnInit {
