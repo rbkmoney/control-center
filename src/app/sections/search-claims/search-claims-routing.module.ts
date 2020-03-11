@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { SearchClaimsComponent } from './search-claims.component';
-import { ClaimsComponent } from '../../claims/claims.component';
 
 @NgModule({
     imports: [
