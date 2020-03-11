@@ -26,7 +26,11 @@ export class AppComponent implements OnInit {
         const menuItems = [
             { name: 'Domain config', route: '/domain', activateRoles: ['dmt:checkout'] },
             { name: 'Payouts', route: '/payouts', activateRoles: ['payout:read'] },
-            { name: 'Claims-Deprecated', route: '/claims-deprecated', activateRoles: ['claim:get'] },
+            {
+                name: 'Claims-Deprecated',
+                route: '/claims-deprecated',
+                activateRoles: ['claim:get']
+            },
             { name: 'Claims', route: '/claims', activateRoles: ['claim:get'] },
             { name: 'Claim-MGT', route: '/claim-mgt', activateRoles: ['get_claims'] },
             {

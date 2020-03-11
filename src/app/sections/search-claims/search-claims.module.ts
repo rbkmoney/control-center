@@ -4,10 +4,7 @@ import { SearchClaimsComponent } from './search-claims.component';
 import { SearchClaimsComponentRouting } from './search-claims-routing.module';
 
 @NgModule({
-  declarations: [SearchClaimsComponent],
-  imports: [
-    CommonModule,
-    SearchClaimsComponentRouting
-  ]
+    declarations: [SearchClaimsComponent],
+    imports: [CommonModule, SearchClaimsComponentRouting]
 })
-export class SearchClaimsModule { }
+export class SearchClaimsModule {}
