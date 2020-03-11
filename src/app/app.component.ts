@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
                 route: '/claims-deprecated',
                 activateRoles: ['claim:get']
             },
-            { name: 'Claims', route: '/claims', activateRoles: ['claim:get'] },
+            { name: 'Claims', route: '/claims', activateRoles: ['get_claims'] },
             { name: 'Claim-MGT', route: '/claim-mgt', activateRoles: ['get_claims'] },
             {
                 name: 'Payment adjustment',

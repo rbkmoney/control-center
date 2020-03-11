@@ -12,7 +12,7 @@ import { SearchClaimsComponent } from './search-claims.component';
                 component: SearchClaimsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['claim:get']
+                    roles: ['get_claims']
                 }
             }
         ])
