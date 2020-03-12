@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { PartyClaimsService } from './party-claims.service';
 
@@ -10,13 +11,15 @@ export class PartyClaimsComponent implements OnInit {
     claims$ = this.partyClaimsService.claims$;
     hasMore$ = this.partyClaimsService.hasMore$;
 
-    constructor(private partyClaimsService: PartyClaimsService) {}
+    constructor(private partyClaimsService: PartyClaimsService, private route: ActivatedRoute) {}
 
     fetchMore() {
         this.partyClaimsService.fetchMore();
     }
 
     ngOnInit(): void {
-        this.partyClaimsService.search({});
+        this.route.params.subscribe(({ partyID }) => {
+            this.partyClaimsService.search({ party_id: partyID });
+        });
     }
 }
