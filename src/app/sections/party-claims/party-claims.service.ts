@@ -7,7 +7,7 @@ import { catchError, map, shareReplay } from 'rxjs/operators';
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 import { booleanDebounceTime } from '../../shared/operators';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
-import { SearchFormValue } from '../../claim-mgt/claims/search-form/search-form-value';
+import { SearchFormValue } from './search-form-value';
 import { convertFormValueToParams } from '../../claim-mgt/claims/convert-form-value-to-params';
 
 @Injectable()
