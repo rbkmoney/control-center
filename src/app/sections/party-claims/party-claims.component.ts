@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PartyClaimsService } from './party-claims.service';
 
 @Component({
-    templateUrl: 'party-claims.component.html'
+    templateUrl: 'party-claims.component.html',
+    providers: [PartyClaimsService]
 })
 export class PartyClaimsComponent implements OnInit {
     isLoading$ = this.partyClaimsService.isLoading$;
@@ -18,8 +19,6 @@ export class PartyClaimsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.params.subscribe(({ partyID }) => {
-            this.partyClaimsService.search({ party_id: partyID });
-        });
+        this.partyClaimsService.search({});
     }
 }
