@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
