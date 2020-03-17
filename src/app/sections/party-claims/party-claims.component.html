@@ -1,1 +1,7 @@
 <div class="mat-headline">Party claims</div>
+
+<mat-card>
+    <mat-card-content>
+        <cc-claims-table [claims]="claims$ | async"></cc-claims-table>
+    </mat-card-content>
+</mat-card>
