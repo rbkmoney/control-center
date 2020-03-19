@@ -10,7 +10,7 @@ export const convertFormValueToParams = (params: SearchFormValue) => {
                 if (params[k] === '') {
                     break;
                 }
-                result[k] = params[k].trim();
+                result[k] = params[k];
             }
         }
     }
