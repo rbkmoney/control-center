@@ -36,7 +36,7 @@
     "@rbkmoney/partial-fetcher": "~1.0.4",
     "angular-file": "1.3.2",
     "angular2-prettyjson": "3.0.1",
-    "ank-proto": "git+ssh://git@github.com:rbkmoney/ank-proto.git#9563a08d94c7691ec8f9166f78c05d68ae1e761d",
+    "ank-proto": "git+ssh://git@github.com:rbkmoney/ank-proto.git#21edf79b702e704ccc207bf7e03be1bbf830eed6",
     "core-js": "~2.5.4",
     "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#e76b0f7cb5bbd82a779e12a116d837abcd6f417e",
     "file-storage-proto": "git+ssh://git@github.com:rbkmoney/file-storage-proto.git#281e1ca4cea9bf32229a6c389f0dcf5d49c05a0b",

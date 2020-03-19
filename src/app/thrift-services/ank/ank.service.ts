@@ -11,6 +11,7 @@ import {
 } from './gen-model/questionary_manager';
 import { Observable } from 'rxjs';
 import { toGenReference } from '../converters';
+import { PartyID } from '../damsel/gen-model/domain';
 
 @Injectable()
 export class AnkService extends ThriftService {
@@ -21,6 +22,9 @@ export class AnkService extends ThriftService {
     save = (params: QuestionaryParams, version: Version): Observable<Version> =>
         this.toObservableAction('Save')(params, version);
 
-    get = (questionaryId: QuestionaryID, reference = toGenReference()): Observable<Snapshot> =>
-        this.toObservableAction('Get')(questionaryId, reference);
+    get = (
+        quest_id: QuestionaryID,
+        party_id: PartyID,
+        reference = toGenReference()
+    ): Observable<Snapshot> => this.toObservableAction('Get')(quest_id, party_id, reference);
 }
