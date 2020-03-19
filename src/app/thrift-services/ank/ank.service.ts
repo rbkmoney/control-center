@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { ThriftService } from '../thrift-service';
 import * as QuestionaryManager from './gen-nodejs/QuestionaryManager';
@@ -9,7 +10,6 @@ import {
     QuestionaryID,
     Snapshot
 } from './gen-model/questionary_manager';
-import { Observable } from 'rxjs';
 import { toGenReference } from '../converters';
 import { PartyID } from '../damsel/gen-model/domain';
 
