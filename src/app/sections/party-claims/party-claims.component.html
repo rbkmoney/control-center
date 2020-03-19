@@ -1,7 +1,18 @@
 <div class="mat-headline">Party claims</div>
 
-<mat-card>
-    <mat-card-content>
-        <cc-claims-table [claims]="claims$ | async"></cc-claims-table>
-    </mat-card-content>
-</mat-card>
+<div fxLayout="column" fxLayoutGap="20px">
+    <mat-card>
+        <mat-card-content>
+            <cc-search-form (valueChanges)="search($event)"></cc-search-form>
+        </mat-card-content>
+        <mat-card-footer *ngIf="(isLoading$ | async)">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+            <cc-claims-table [claims]="claims$ | async"></cc-claims-table>
+        </mat-card-content>
+    </mat-card>
+</div>

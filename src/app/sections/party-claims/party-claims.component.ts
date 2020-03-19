@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PartyClaimsService } from './party-claims.service';
+import { SearchFormValue } from './search-form-value';
 
 @Component({
     templateUrl: 'party-claims.component.html',
     providers: [PartyClaimsService]
 })
-export class PartyClaimsComponent implements OnInit {
+export class PartyClaimsComponent {
     isLoading$ = this.partyClaimsService.isLoading$;
     claims$ = this.partyClaimsService.claims$;
     hasMore$ = this.partyClaimsService.hasMore$;
@@ -17,7 +18,7 @@ export class PartyClaimsComponent implements OnInit {
         this.partyClaimsService.fetchMore();
     }
 
-    ngOnInit(): void {
-        this.partyClaimsService.search({});
+    search($event: SearchFormValue) {
+        this.partyClaimsService.search($event);
     }
 }

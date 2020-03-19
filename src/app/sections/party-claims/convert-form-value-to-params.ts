@@ -1,4 +1,4 @@
-import { SearchFormValue } from './search-form/search-form-value';
+import { SearchFormValue } from './search-form-value';
 
 export const convertFormValueToParams = (params: SearchFormValue) => {
     const result = {};

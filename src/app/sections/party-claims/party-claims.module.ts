@@ -6,10 +6,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
+import { MatInputModule, MatProgressBarModule, MatSelectModule } from '@angular/material';
+import { SearchFormComponent } from './search-form/search-form.component';
 
 @NgModule({
     imports: [
@@ -20,8 +23,12 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
         FlexLayoutModule,
         MatMenuModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressBarModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule
     ],
-    declarations: [PartyClaimsComponent, ClaimsTableComponent]
+    declarations: [PartyClaimsComponent, ClaimsTableComponent, SearchFormComponent]
 })
 export class PartyClaimsModule {}
