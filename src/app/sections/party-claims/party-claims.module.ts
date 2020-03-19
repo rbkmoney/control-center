@@ -7,11 +7,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule, MatProgressBarModule, MatSelectModule } from '@angular/material';
 
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
-import { MatInputModule, MatProgressBarModule, MatSelectModule } from '@angular/material';
 import { SearchFormComponent } from './search-form/search-form.component';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatProgressBarModule,
         MatInputModule,
         MatSelectModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatProgressSpinnerModule
     ],
     declarations: [PartyClaimsComponent, ClaimsTableComponent, SearchFormComponent]
 })
