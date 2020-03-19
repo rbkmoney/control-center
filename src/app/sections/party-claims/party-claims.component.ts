@@ -4,6 +4,7 @@ import { PartyClaimsService } from './party-claims.service';
 
 @Component({
     templateUrl: 'party-claims.component.html',
+    styleUrls: ['party-claims.component.scss'],
     providers: [PartyClaimsService]
 })
 export class PartyClaimsComponent implements OnInit {

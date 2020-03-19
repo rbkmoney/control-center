@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
         FlexLayoutModule,
         MatMenuModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressSpinnerModule
     ],
     declarations: [PartyClaimsComponent, ClaimsTableComponent]
 })
