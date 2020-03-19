@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { PartyClaimsService } from './party-claims.service';
 import { SearchFormValue } from './search-form-value';
