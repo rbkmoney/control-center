@@ -13,6 +13,9 @@ import { MatInputModule, MatProgressBarModule, MatSelectModule } from '@angular/
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
+import { ClaimSourcePipe } from './claims-table/claim-source.pipe';
+import { ClaimStatusPipe } from './claims-table/claim-status.pipe';
+import { SharedModule } from '../../shared/shared.module';
 import { SearchFormComponent } from './search-form/search-form.component';
 
 @NgModule({
@@ -30,7 +33,10 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatSelectModule,
         ReactiveFormsModule,
         MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        SharedModule
     ],
     declarations: [PartyClaimsComponent, ClaimsTableComponent, SearchFormComponent]
+    declarations: [PartyClaimsComponent, ClaimsTableComponent, ClaimSourcePipe, ClaimStatusPipe]
 })
 export class PartyClaimsModule {}
