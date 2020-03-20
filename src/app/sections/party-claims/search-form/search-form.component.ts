@@ -5,6 +5,7 @@ import { debounceTime } from 'rxjs/internal/operators';
 import { SearchFormService } from './search-form.service';
 import { SearchFormValue } from '../search-form-value';
 import { ClaimStatus } from '../../../papi/model';
+import { formValueToSearchParams } from './form-value-to-search-params';
 
 @Component({
     selector: 'cc-search-form',
@@ -22,7 +23,7 @@ export class SearchFormComponent implements OnInit {
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        const { claimStatuses, form, formValueToSearchParams } = this.searchFormService;
+        const { claimStatuses, form } = this.searchFormService;
         this.claimStatuses = claimStatuses;
         this.form = form;
         this.form.valueChanges

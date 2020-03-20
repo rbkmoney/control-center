@@ -12,21 +12,13 @@
 
     <mat-card>
         <mat-card-content>
-            <ng-container *ngIf="!(isLoading$ | async)">
-                <ng-container *ngIf="(claims$ | async) as claims">
-                    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="claims.length === 0">
-                        <h3 class="mat-display-1 empty-result">Search result is empty</h3>
-                    </div>
+            <ng-container *ngIf="(claims$ | async) as claims">
+                <ng-container *ngIf="claims.length === 0">
+                    <cc-search-result-empty></cc-search-result-empty>
                 </ng-container>
             </ng-container>
-            <cc-claims-table
-                *ngIf="(claims$ | async) as claims"
-                [claims]="claims"
-            ></cc-claims-table>
-            <ng-container *ngIf="!(hasMore$ | async)">
-                <div *ngIf="(isLoading$ | async)" fxLayout fxLayoutAlign="center stretch">
-                    <mat-spinner diameter="40"></mat-spinner>
-                </div>
+            <ng-container *ngIf="(claims$ | async) as claims">
+                <cc-claims-table *ngIf="claims.length > 0" [claims]="claims"></cc-claims-table>
             </ng-container>
             <div
                 fxLayout="row"
@@ -35,39 +27,9 @@
                 *ngIf="(hasMore$ | async)"
             >
                 <button mat-button (click)="fetchMore()" [disabled]="isLoading$ | async">
-                    <span *ngIf="!(isLoading$ | async)">SHOW MORE</span>
-                    <span *ngIf="(isLoading$ | async)">LOADING...</span>
+                    {{ (isLoading$ | async) ? 'LOADING...' : 'SHOW MORE' }}
                 </button>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
-<mat-card>
-    <mat-card-content>
-        <ng-container *ngIf="!(isLoading$ | async)">
-            <ng-container *ngIf="(claims$ | async) as claims">
-                <ng-container *ngIf="claims.length === 0">
-                    <cc-search-result-empty></cc-search-result-empty>
-                </ng-container>
-            </ng-container>
-        </ng-container>
-        <ng-container *ngIf="(claims$ | async) as claims">
-            <cc-claims-table *ngIf="claims.length > 0" [claims]="claims"></cc-claims-table>
-        </ng-container>
-        <ng-container *ngIf="!(hasMore$ | async)">
-            <div *ngIf="(isLoading$ | async)" fxLayout fxLayoutAlign="center stretch">
-                <mat-spinner diameter="40"></mat-spinner>
-            </div>
-        </ng-container>
-        <div
-            fxLayout="row"
-            class="fetch-more"
-            fxLayoutAlign="center center"
-            *ngIf="(hasMore$ | async)"
-        >
-            <button mat-button (click)="fetchMore()" [disabled]="isLoading$ | async">
-                {{ (isLoading$ | async) ? 'LOADING...' : 'SHOW MORE' }}
-            </button>
-        </div>
-    </mat-card-content>
-</mat-card>

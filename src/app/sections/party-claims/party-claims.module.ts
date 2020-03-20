@@ -32,11 +32,15 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatInputModule,
         MatSelectModule,
         ReactiveFormsModule,
-        MatProgressSpinnerModule
         MatProgressSpinnerModule,
         SharedModule
     ],
-    declarations: [PartyClaimsComponent, ClaimsTableComponent, SearchFormComponent]
-    declarations: [PartyClaimsComponent, ClaimsTableComponent, ClaimSourcePipe, ClaimStatusPipe]
+    declarations: [
+        PartyClaimsComponent,
+        ClaimsTableComponent,
+        ClaimSourcePipe,
+        ClaimStatusPipe,
+        SearchFormComponent
+    ]
 })
 export class PartyClaimsModule {}

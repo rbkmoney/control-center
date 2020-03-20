@@ -1,6 +1,6 @@
 <form fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" [formGroup]="form">
-    <mat-form-field fxFlex="15" fxFlex.sm="30">
-        <mat-select placeholder="Claim status" formControlName="statuses" multiple>
+    <mat-form-field fxFlex="30" fxFlex.sm="30">
+        <mat-select placeholder="Claim statuses" formControlName="statuses" multiple>
             <mat-option *ngFor="let status of claimStatuses" [value]="status">{{
                 status
             }}</mat-option>
