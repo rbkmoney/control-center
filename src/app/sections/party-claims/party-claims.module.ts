@@ -14,6 +14,7 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { ClaimSourcePipe } from './claims-table/claim-source.pipe';
 import { ClaimStatusPipe } from './claims-table/claim-status.pipe';
 import { SharedModule } from '../../shared/shared.module';
+import { ClaimStatusBeautifierPipe } from './claim-status-beautifier.pipe';
 
 @NgModule({
     imports: [
@@ -28,6 +29,6 @@ import { SharedModule } from '../../shared/shared.module';
         MatProgressSpinnerModule,
         SharedModule
     ],
-    declarations: [PartyClaimsComponent, ClaimsTableComponent, ClaimSourcePipe, ClaimStatusPipe]
+    declarations: [PartyClaimsComponent, ClaimsTableComponent, ClaimSourcePipe, ClaimStatusPipe, ClaimStatusBeautifierPipe]
 })
 export class PartyClaimsModule {}
