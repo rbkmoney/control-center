@@ -6,6 +6,8 @@ import { CurrencyPipe, FormatAmountPipe, ThriftViewPipe, ClaimStatusPipe } from 
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
 import { PrettyJsonComponent } from './components/pretty-json/pretty-json.component';
 import { CardContainerComponent } from './components/card-container/card-container.component';
+import { SearchComponentEmptyComponent } from './components/search-component-empty/search-component-empty.component';
+import { FlexModule } from '@angular/flex-layout';
 
 const declarations = [
     CurrencyPipe,
@@ -14,11 +16,12 @@ const declarations = [
     ThriftViewPipe,
     ClaimStatusPipe,
     PrettyJsonComponent,
-    CardContainerComponent
+    CardContainerComponent,
+    SearchComponentEmptyComponent
 ];
 
 @NgModule({
-    imports: [CommonModule, PrettyJsonModule],
+    imports: [CommonModule, PrettyJsonModule, FlexModule],
     declarations,
     exports: declarations
 })

@@ -13,13 +13,13 @@ import { convertFormValueToParams } from '../../claim-mgt/claims/convert-form-va
 
 @Injectable()
 export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
-    private readonly searchLimit = 1;
+    private readonly searchLimit = 20;
 
     claims$: Observable<Claim[]> = this.searchResult$;
 
     isLoading$: Observable<boolean> = this.doAction$.pipe(
         startWith(true),
-        booleanDebounceTime(),
+        booleanDebounceTime(0),
         shareReplay(1)
     );
 

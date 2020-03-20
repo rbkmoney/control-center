@@ -34,8 +34,4 @@ export class ClaimsTableComponent {
     navigateToClaim(partyID: PartyID, claimID: ClaimID) {
         console.log(partyID, claimID.toNumber(), '===========>>>');
     }
-
-    getSource(claim: Claim) {
-        return getClaimSource(claim);
-    }
 }

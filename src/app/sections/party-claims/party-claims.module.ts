@@ -11,6 +11,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
+import { ClaimSourcePipe } from './claims-table/claim-source.pipe';
+import { ClaimStatusPipe } from './claims-table/claim-status.pipe';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -22,8 +25,9 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        SharedModule
     ],
-    declarations: [PartyClaimsComponent, ClaimsTableComponent]
+    declarations: [PartyClaimsComponent, ClaimsTableComponent, ClaimSourcePipe, ClaimStatusPipe]
 })
 export class PartyClaimsModule {}
