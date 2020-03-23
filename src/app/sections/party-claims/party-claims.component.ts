@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { PartyClaimsService } from './party-claims.service';
 import { SearchFormValue } from './search-form-value';
@@ -8,7 +8,7 @@ import { SearchFormValue } from './search-form-value';
     styleUrls: ['party-claims.component.scss'],
     providers: [PartyClaimsService]
 })
-export class PartyClaimsComponent {
+export class PartyClaimsComponent implements OnInit {
     isLoading$ = this.partyClaimsService.isLoading$;
     claims$ = this.partyClaimsService.claims$;
     hasMore$ = this.partyClaimsService.hasMore$;
@@ -21,5 +21,9 @@ export class PartyClaimsComponent {
 
     search($event: SearchFormValue) {
         this.partyClaimsService.search($event);
+    }
+
+    ngOnInit(): void {
+        this.partyClaimsService.search({});
     }
 }

@@ -23,10 +23,10 @@
                 <cc-claims-table *ngIf="claims.length > 0" [claims]="claims"></cc-claims-table>
             </ng-container>
             <div
-                    fxLayout="row"
-                    class="fetch-more"
-                    fxLayoutAlign="center center"
-                    *ngIf="(hasMore$ | async)"
+                fxLayout="row"
+                class="fetch-more"
+                fxLayoutAlign="center center"
+                *ngIf="(hasMore$ | async)"
             >
                 <button mat-button (click)="fetchMore()" [disabled]="isLoading$ | async">
                     {{ (isLoading$ | async) ? 'LOADING...' : 'SHOW MORE' }}

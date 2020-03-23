@@ -6,7 +6,7 @@ import { ClaimStatus } from '../../papi/model';
     name: 'ccClaimStatusBeautifier'
 })
 export class ClaimStatusBeautifierPipe implements PipeTransform {
-    transform(status: ClaimStatus): string {
+    transform(status: ClaimStatus | string): string {
         switch (status) {
             case ClaimStatus.review:
                 return 'Review';

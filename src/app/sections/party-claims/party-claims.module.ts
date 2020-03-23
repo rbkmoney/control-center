@@ -41,14 +41,8 @@ import { SearchFormComponent } from './search-form/search-form.component';
         ClaimsTableComponent,
         ClaimSourcePipe,
         ClaimStatusPipe,
+        ClaimStatusBeautifierPipe,
         SearchFormComponent
-    ]
-    declarations: [
-        PartyClaimsComponent,
-        ClaimsTableComponent,
-        ClaimSourcePipe,
-        ClaimStatusPipe,
-        ClaimStatusBeautifierPipe
     ]
 })
 export class PartyClaimsModule {}
