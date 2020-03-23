@@ -6,7 +6,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
@@ -26,9 +25,14 @@ import { ClaimStatusBeautifierPipe } from './claim-status-beautifier.pipe';
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
-        MatProgressSpinnerModule,
         SharedModule
     ],
-    declarations: [PartyClaimsComponent, ClaimsTableComponent, ClaimSourcePipe, ClaimStatusPipe, ClaimStatusBeautifierPipe]
+    declarations: [
+        PartyClaimsComponent,
+        ClaimsTableComponent,
+        ClaimSourcePipe,
+        ClaimStatusPipe,
+        ClaimStatusBeautifierPipe
+    ]
 })
 export class PartyClaimsModule {}

@@ -12,11 +12,6 @@
         <ng-container *ngIf="(claims$ | async) as claims">
             <cc-claims-table *ngIf="claims.length > 0" [claims]="claims"></cc-claims-table>
         </ng-container>
-        <ng-container *ngIf="!(hasMore$ | async)">
-            <div *ngIf="(isLoading$ | async)" fxLayout fxLayoutAlign="center stretch">
-                <mat-spinner diameter="40"></mat-spinner>
-            </div>
-        </ng-container>
         <div
             fxLayout="row"
             class="fetch-more"
