@@ -5,7 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule,
     MatCardModule,
-    MatDialogModule, MatExpansionModule,
+    MatDialogModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -41,9 +42,6 @@ import { SharedModule } from '../../shared/shared.module';
         SharedModule,
         MatExpansionModule
     ],
-    declarations: [
-        SearchClaimsComponent,
-        SearchFormComponent
-    ]
+    declarations: [SearchClaimsComponent, SearchFormComponent]
 })
 export class SearchClaimsModule {}
