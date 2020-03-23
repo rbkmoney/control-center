@@ -5,7 +5,6 @@ import { SearchFormValue } from './search-form-value';
 
 @Component({
     templateUrl: 'party-claims.component.html',
-    styleUrls: ['party-claims.component.scss'],
     providers: [PartyClaimsService]
 })
 export class PartyClaimsComponent implements OnInit {

@@ -13,8 +13,6 @@ import { MatInputModule, MatProgressBarModule, MatSelectModule } from '@angular/
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
-import { ClaimSourcePipe } from './claims-table/claim-source.pipe';
-import { ClaimStatusPipe } from './claims-table/claim-status.pipe';
 import { SharedModule } from '../../shared/shared.module';
 import { ClaimStatusBeautifierPipe } from './claim-status-beautifier.pipe';
 import { SearchFormComponent } from './search-form/search-form.component';
@@ -39,8 +37,6 @@ import { SearchFormComponent } from './search-form/search-form.component';
     declarations: [
         PartyClaimsComponent,
         ClaimsTableComponent,
-        ClaimSourcePipe,
-        ClaimStatusPipe,
         ClaimStatusBeautifierPipe,
         SearchFormComponent
     ]
