@@ -12,19 +12,21 @@
 
     <mat-card>
         <mat-card-content>
-            <ng-container *ngIf="(claims$ | async) as claims">
-                <ng-container *ngIf="claims.length === 0">
-                    <cc-search-result-empty></cc-search-result-empty>
+            <ng-container *ngIf="!(isLoading$ | async)">
+                <ng-container *ngIf="(claims$ | async) as claims">
+                    <ng-container *ngIf="claims.length === 0">
+                        <cc-search-result-empty></cc-search-result-empty>
+                    </ng-container>
                 </ng-container>
             </ng-container>
             <ng-container *ngIf="(claims$ | async) as claims">
                 <cc-claims-table *ngIf="claims.length > 0" [claims]="claims"></cc-claims-table>
             </ng-container>
             <div
-                fxLayout="row"
-                class="fetch-more"
-                fxLayoutAlign="center center"
-                *ngIf="(hasMore$ | async)"
+                    fxLayout="row"
+                    class="fetch-more"
+                    fxLayoutAlign="center center"
+                    *ngIf="(hasMore$ | async)"
             >
                 <button mat-button (click)="fetchMore()" [disabled]="isLoading$ | async">
                     {{ (isLoading$ | async) ? 'LOADING...' : 'SHOW MORE' }}

@@ -16,6 +16,7 @@ import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { ClaimSourcePipe } from './claims-table/claim-source.pipe';
 import { ClaimStatusPipe } from './claims-table/claim-status.pipe';
 import { SharedModule } from '../../shared/shared.module';
+import { ClaimStatusBeautifierPipe } from './claim-status-beautifier.pipe';
 import { SearchFormComponent } from './search-form/search-form.component';
 
 @NgModule({
@@ -41,6 +42,13 @@ import { SearchFormComponent } from './search-form/search-form.component';
         ClaimSourcePipe,
         ClaimStatusPipe,
         SearchFormComponent
+    ]
+    declarations: [
+        PartyClaimsComponent,
+        ClaimsTableComponent,
+        ClaimSourcePipe,
+        ClaimStatusPipe,
+        ClaimStatusBeautifierPipe
     ]
 })
 export class PartyClaimsModule {}
