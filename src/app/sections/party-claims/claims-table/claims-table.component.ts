@@ -14,7 +14,7 @@ export class ClaimsTableComponent {
 
     displayedColumns: string[] = [
         'claimID',
-        'source',
+        // 'source',
         'status',
         'createdAt',
         'updatedAt',

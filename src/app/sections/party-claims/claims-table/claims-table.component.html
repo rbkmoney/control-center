@@ -6,14 +6,12 @@
 
     <ng-container matColumnDef="source">
         <th mat-header-cell *matHeaderCellDef>Source</th>
-        <td mat-cell *matCellDef="let claim">{{ claim | ccClaimSource }}</td>
+        <td mat-cell *matCellDef="let claim">{{ claim }}</td>
     </ng-container>
 
     <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let claim">
-            {{ claim.status | ccClaimStatus | ccClaimStatusBeautifier }}
-        </td>
+        <td mat-cell *matCellDef="let claim">{{ claim.status | ccClaimStatus }}</td>
     </ng-container>
 
     <ng-container matColumnDef="createdAt">
