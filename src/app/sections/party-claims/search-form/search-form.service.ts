@@ -6,7 +6,7 @@ import { ClaimStatus } from '../../../papi/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchFormValue } from '../search-form-value';
 import { Observable } from 'rxjs';
-import { filter, map, shareReplay, startWith, take, tap } from 'rxjs/operators';
+import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import { removeEmptyProperties } from '../../../shared/operators';
 import { toFormValue, toQueryParams } from '../../../shared/utils';

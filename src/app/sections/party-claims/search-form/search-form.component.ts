@@ -19,8 +19,7 @@ export class SearchFormComponent implements OnInit {
 
     claimStatuses: string[];
 
-    constructor(private searchFormService: SearchFormService) {
-    }
+    constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
         const { claimStatuses, form } = this.searchFormService;
