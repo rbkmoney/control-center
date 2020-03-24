@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 import { booleanDebounceTime } from '../../shared/operators';
@@ -18,6 +18,7 @@ export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
     claims$: Observable<Claim[]> = this.searchResult$;
 
     isLoading$: Observable<boolean> = this.doAction$.pipe(
+        startWith(true),
         booleanDebounceTime(),
         shareReplay(1)
     );
@@ -42,7 +43,7 @@ export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
             pluck('partyID'),
             switchMap(party_id =>
                 this.claimManagementService.searchClaims({
-                    party_id,
+                    party_id: 'party_id',
                     ...convertFormValueToParams(searchFormValue),
                     continuation_token: continuationToken,
                     limit: this.searchLimit
