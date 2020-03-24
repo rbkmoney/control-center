@@ -1,8 +1,10 @@
-<cc-card-container>
-    <mat-card>
-        <mat-card-content>
-            <mat-card-subtitle> Claims </mat-card-subtitle>
-            <cc-search-form (valueChanges)="search($event)"></cc-search-form>
-        </mat-card-content>
-    </mat-card>
-</cc-card-container>
+<div class="search-claims-container">
+    <cc-card-container>
+        <h1 class="mat-headline">Claims</h1>
+        <mat-card>
+            <mat-card-content>
+                <cc-search-form (valueChanges)="search($event)"></cc-search-form>
+            </mat-card-content>
+        </mat-card>
+    </cc-card-container>
+</div>
