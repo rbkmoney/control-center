@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/internal/operators';
+import { debounceTime, map, tap } from 'rxjs/internal/operators';
 
 import { SearchFormService } from './search-form.service';
 import { SearchFormValue } from '../search-form-value';
-import { formValueToSearchParams } from './form-value-to-search-params';
+import { formValueToSearchParams } from '../../../shared/utils';
 
 @Component({
     selector: 'cc-search-form',
@@ -19,14 +19,19 @@ export class SearchFormComponent implements OnInit {
 
     claimStatuses: string[];
 
-    constructor(private searchFormService: SearchFormService) {}
+    constructor(private searchFormService: SearchFormService) {
+    }
 
     ngOnInit() {
         const { claimStatuses, form } = this.searchFormService;
         this.claimStatuses = claimStatuses;
         this.form = form;
         this.form.valueChanges
-            .pipe(debounceTime(300))
-            .subscribe(value => this.valueChanges.emit(formValueToSearchParams(value)));
+            .pipe(
+                debounceTime(300),
+                map(v => formValueToSearchParams<SearchFormValue>(v)),
+                tap(q => console.log(q))
+            )
+            .subscribe(v => this.valueChanges.emit(v));
     }
 }

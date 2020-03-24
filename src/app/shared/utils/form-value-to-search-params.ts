@@ -1,8 +1,7 @@
-import { SearchFormValue } from '../search-form-value';
 import mapValues from 'lodash-es/mapValues';
 
-export const formValueToSearchParams = (formValue): SearchFormValue =>
-    mapValues(formValue, value => {
+export const formValueToSearchParams = <T>(formValue): T => {
+    return mapValues(formValue, value => {
         let result = value;
         if (value === '') {
             result = null;
@@ -11,3 +10,4 @@ export const formValueToSearchParams = (formValue): SearchFormValue =>
         }
         return result;
     });
+};

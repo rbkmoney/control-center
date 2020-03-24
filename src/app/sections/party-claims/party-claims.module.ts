@@ -14,7 +14,6 @@ import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { SharedModule } from '../../shared/shared.module';
-import { ClaimStatusBeautifierPipe } from './claim-status-beautifier.pipe';
 import { SearchFormComponent } from './search-form/search-form.component';
 
 @NgModule({
@@ -34,11 +33,6 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatProgressSpinnerModule,
         SharedModule
     ],
-    declarations: [
-        PartyClaimsComponent,
-        ClaimsTableComponent,
-        ClaimStatusBeautifierPipe,
-        SearchFormComponent
-    ]
+    declarations: [PartyClaimsComponent, ClaimsTableComponent, SearchFormComponent]
 })
 export class PartyClaimsModule {}

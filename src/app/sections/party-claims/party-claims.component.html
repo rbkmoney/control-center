@@ -19,11 +19,11 @@
                 <mat-card-content fxLayout="column" fxLayoutGap="20px">
                     <cc-claims-table [claims]="claims"></cc-claims-table>
                     <button
-                            fxFlex="100"
-                            mat-button
-                            *ngIf="(hasMore$ | async)"
-                            (click)="fetchMore()"
-                            [disabled]="isLoading$ | async"
+                        fxFlex="100"
+                        mat-button
+                        *ngIf="(hasMore$ | async)"
+                        (click)="fetchMore()"
+                        [disabled]="isLoading$ | async"
                     >
                         {{ (isLoading$ | async) ? 'LOADING...' : 'SHOW MORE' }}
                     </button>
