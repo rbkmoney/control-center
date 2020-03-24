@@ -5,13 +5,16 @@ import { AppAuthGuardService } from './app-auth-guard.service';
 
 @NgModule({
     imports: [
-        RouterModule.forRoot([
-            {
-                path: '',
-                redirectTo: '/payouts',
-                pathMatch: 'full'
-            }
-        ])
+        RouterModule.forRoot(
+            [
+                {
+                    path: '',
+                    redirectTo: '/payouts',
+                    pathMatch: 'full'
+                }
+            ],
+            { paramsInheritanceStrategy: 'always' }
+        )
     ],
     providers: [AppAuthGuardService],
     exports: [RouterModule]

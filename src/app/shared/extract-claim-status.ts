@@ -1,6 +1,6 @@
 import { ClaimStatus as UnionClaimStatus } from '../thrift-services/damsel/gen-model/claim_management';
-import { ClaimStatus } from '../papi/model/claim-statuses';
-import { getUnionKey } from './utils/get-union-key';
+import { ClaimStatus } from '../papi/model';
+import { getUnionKey } from './utils';
 
 export const claimStatusByUnionClaimStatus: { [name in keyof UnionClaimStatus]-?: ClaimStatus } = {
     accepted: ClaimStatus.accepted,
