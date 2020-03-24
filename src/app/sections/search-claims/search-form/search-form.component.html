@@ -1,0 +1,15 @@
+<form fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" [formGroup]="form">
+    <mat-form-field fxFlex="33%" fxFlex.sm="30">
+        <mat-select placeholder="Claim status" formControlName="statuses" multiple>
+            <mat-option *ngFor="let status of claimStatuses" [value]="status">{{
+                status
+            }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="33%" fxFlex.sm="70">
+        <input matInput placeholder="Party ID" formControlName="party_id" />
+    </mat-form-field>
+    <mat-form-field fxFlex="33%" fxFlex.sm="70">
+        <input matInput placeholder="Claim ID" formControlName="claim_id" />
+    </mat-form-field>
+</form>
