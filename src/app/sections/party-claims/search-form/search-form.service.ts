@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import values from 'lodash-es/values';
+import isEmpty from 'lodash-es/isEmpty';
+import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
 
 import { ClaimStatus } from '../../../papi/model';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SearchFormValue } from '../search-form-value';
-import { Observable } from 'rxjs';
-import { filter, map, shareReplay, startWith, take, tap } from 'rxjs/operators';
-import { isEmpty } from 'lodash-es';
 import { removeEmptyProperties } from '../../../shared/operators';
 import { toFormValue } from './to-form-value';
-// import { toQueryParams } from './to-query-params';
 
 @Injectable()
 export class SearchFormService {
@@ -29,7 +28,6 @@ export class SearchFormService {
 
     constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
         this.claimStatuses = values(ClaimStatus);
-
         this.formValueChanges$.subscribe(formValues =>
             this.router.navigate([location.pathname], { queryParams: formValues })
         );
@@ -41,7 +39,7 @@ export class SearchFormService {
             .pipe(
                 take(1),
                 filter(queryParams => !isEmpty(queryParams)),
-                map(queryParams => toFormValue(queryParams)),
+                map(queryParams => toFormValue(queryParams))
             )
             .subscribe(formValue => this.form.patchValue(formValue));
     }
