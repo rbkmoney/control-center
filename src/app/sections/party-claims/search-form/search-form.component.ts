@@ -19,7 +19,8 @@ export class SearchFormComponent implements OnInit {
 
     claimStatuses: string[];
 
-    constructor(private searchFormService: SearchFormService) {}
+    constructor(private searchFormService: SearchFormService) {
+    }
 
     ngOnInit() {
         const { claimStatuses, form } = this.searchFormService;
@@ -29,7 +30,6 @@ export class SearchFormComponent implements OnInit {
             .pipe(
                 debounceTime(300),
                 map(v => formValueToSearchParams<SearchFormValue>(v)),
-                tap(q => console.log(q))
             )
             .subscribe(v => this.valueChanges.emit(v));
     }

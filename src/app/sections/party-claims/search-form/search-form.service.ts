@@ -6,10 +6,11 @@ import { ClaimStatus } from '../../../papi/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchFormValue } from '../search-form-value';
 import { Observable } from 'rxjs';
-import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
+import { filter, map, shareReplay, startWith, take, tap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import { removeEmptyProperties } from '../../../shared/operators';
-import { toFormValue, toQueryParams } from '../../../shared/utils';
+import { toFormValue } from './to-form-value';
+// import { toQueryParams } from './to-query-params';
 
 @Injectable()
 export class SearchFormService {
@@ -30,7 +31,7 @@ export class SearchFormService {
         this.claimStatuses = values(ClaimStatus);
 
         this.formValueChanges$.subscribe(formValues =>
-            this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
+            this.router.navigate([location.pathname], { queryParams: formValues })
         );
         this.pathFormByQueryParams();
     }
@@ -40,7 +41,7 @@ export class SearchFormService {
             .pipe(
                 take(1),
                 filter(queryParams => !isEmpty(queryParams)),
-                map(queryParams => toFormValue(queryParams))
+                map(queryParams => toFormValue(queryParams)),
             )
             .subscribe(formValue => this.form.patchValue(formValue));
     }
