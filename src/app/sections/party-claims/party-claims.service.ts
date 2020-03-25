@@ -43,7 +43,7 @@ export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
             pluck('partyID'),
             switchMap(party_id =>
                 this.claimManagementService.searchClaims({
-                    party_id,
+                    party_id: 'party_id',
                     ...convertFormValueToParams(searchFormValue),
                     continuation_token: continuationToken,
                     limit: this.searchLimit
