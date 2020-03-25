@@ -2,7 +2,7 @@
     <mat-form-field fxFlex="30">
         <mat-select placeholder="Claim statuses" formControlName="statuses" multiple>
             <mat-option *ngFor="let status of claimStatuses" [value]="status">{{
-                status
+                status | ccClaimStatusFromString
             }}</mat-option>
         </mat-select>
     </mat-form-field>
