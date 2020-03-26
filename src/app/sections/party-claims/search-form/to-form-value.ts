@@ -6,9 +6,9 @@ export const toFormValue = (q: Params) => {
         if (q.hasOwnProperty(k)) {
             if (k === 'statuses' && typeof q[k] === 'string') {
                 result[k] = [q[k]];
-                break;
+            } else {
+                result[k] = q[k];
             }
-            result[k] = q[k];
         }
     }
     return result;
