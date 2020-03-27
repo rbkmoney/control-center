@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SearchFormValue } from './search-form/search-form-value';
+import { SearchClaimsService } from './search-claims.service';
 
 @Component({
     templateUrl: './search-claims.component.html',
     styleUrls: ['./search-claims.component.scss']
 })
-export class SearchClaimsComponent implements OnInit {
-    constructor() {}
+export class SearchClaimsComponent {
+    isLoading$ = this.searchClaimService.isLoading$;
+    claims$ = this.searchClaimService.claims$;
+    hasMore$ = this.searchClaimService.hasMore$;
 
-    ngOnInit() {}
+    constructor(private searchClaimService: SearchClaimsService) {}
 
     search(searchFormValue: SearchFormValue) {
-        console.log(searchFormValue);
+        this.searchClaimService.search(searchFormValue);
+    }
+
+    fetchMore() {
+        this.searchClaimService.fetchMore();
     }
 }

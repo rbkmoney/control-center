@@ -21,6 +21,9 @@ import { SearchClaimsComponent } from './search-claims.component';
 import { SearchClaimsComponentRouting } from './search-claims-routing.module';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { SharedModule } from '../../shared/shared.module';
+import { SearchTableComponent } from './search-table/search-table.component';
+import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
+import { SearchClaimsService } from './search-claims.service';
 
 @NgModule({
     imports: [
@@ -42,6 +45,7 @@ import { SharedModule } from '../../shared/shared.module';
         SharedModule,
         MatExpansionModule
     ],
-    declarations: [SearchClaimsComponent, SearchFormComponent]
+    declarations: [SearchClaimsComponent, SearchFormComponent, SearchTableComponent],
+    providers: [SearchClaimsService, ClaimManagementService]
 })
 export class SearchClaimsModule {}

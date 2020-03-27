@@ -4,5 +4,19 @@
         <mat-card-content>
             <cc-search-form (valueChanges)="search($event)"></cc-search-form>
         </mat-card-content>
+        <mat-card-footer *ngIf="(isLoading$ | async)">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
     </mat-card>
+    <div class="mat-elevation-z2" fxLayout="column">
+        <cc-search-table [claims]="claims$ | async"></cc-search-table>
+        <button
+                mat-raised-button
+                *ngIf="(hasMore$ | async)"
+                (click)="fetchMore()"
+                [disabled]="isLoading$ | async"
+        >
+            Load more
+        </button>
+    </div>
 </div>
