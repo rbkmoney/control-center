@@ -1,57 +1,38 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { map, pluck, switchMap } from 'rxjs/operators';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
-import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
-import { booleanDebounceTime } from '../../shared/operators';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
-import { SearchFormValue } from './search-form-value';
-import { convertFormValueToParams } from './convert-form-value-to-params';
+import { SearchFormValue } from '../claim-search-form';
+
+const SEARCH_LIMIT = 20;
 
 @Injectable()
 export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
-    private readonly searchLimit = 20;
-
-    claims$: Observable<Claim[]> = this.searchResult$;
-
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        startWith(true),
-        booleanDebounceTime(),
-        shareReplay(1)
-    );
-
     constructor(
         private claimManagementService: ClaimManagementService,
-        private snackBar: MatSnackBar,
         private route: ActivatedRoute
     ) {
         super();
-
-        this.errors$.subscribe(e => {
-            this.snackBar.open(`An error occurred while search claim (${e})`, 'OK');
-        });
     }
 
-    protected fetch(
-        searchFormValue: SearchFormValue,
-        continuationToken: string
-    ): Observable<FetchResult<Claim>> {
+    protected fetch(params: any, continuationToken: string): Observable<FetchResult<Claim>> {
         return this.route.params.pipe(
             pluck('partyID'),
             switchMap(party_id =>
                 this.claimManagementService.searchClaims({
                     party_id,
-                    ...convertFormValueToParams(searchFormValue),
+                    ...params,
                     continuation_token: continuationToken,
-                    limit: this.searchLimit
+                    limit: SEARCH_LIMIT
                 })
             ),
-            map(r => ({
-                result: r.result,
-                continuationToken: r.continuation_token
+            map(({ result, continuation_token }) => ({
+                result,
+                continuationToken: continuation_token
             }))
         );
     }

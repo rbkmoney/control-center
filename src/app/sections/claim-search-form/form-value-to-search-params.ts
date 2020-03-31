@@ -1,4 +1,4 @@
-export const convertFormValueToParams = (params: {}) => {
+export const formValueToSearchParams = (params: {}) => {
     const result = {};
     for (const k in params) {
         if (params.hasOwnProperty(k)) {

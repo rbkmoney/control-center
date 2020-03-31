@@ -1,12 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { Claim, ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
-    templateUrl: 'claims-table.component.html',
     selector: 'cc-claims-table',
-    styleUrls: ['claims-table.component.scss']
+    templateUrl: 'claims-table.component.html',
+    styleUrls: ['claims-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClaimsTableComponent {
     @Input()

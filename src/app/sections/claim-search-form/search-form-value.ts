@@ -3,5 +3,6 @@ import { ClaimStatus } from '../../papi/model';
 
 export interface SearchFormValue {
     claim_id?: ClaimID;
+    party_id?: string;
     statuses?: ClaimStatus[];
 }

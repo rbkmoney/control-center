@@ -8,8 +8,9 @@ import {
     CurrencyPipe,
     FormatAmountPipe,
     ThriftViewPipe,
-    ClaimStatusPipe,
-    ClaimSourcePipe
+    ClaimStatusThriftPipe,
+    ClaimSourcePipe,
+    ClaimStatusPipe
 } from './pipes';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
 import { PrettyJsonComponent } from './components/pretty-json/pretty-json.component';
@@ -21,6 +22,7 @@ const declarations = [
     FormatAmountPipe,
     ThriftInt64Pipe,
     ThriftViewPipe,
+    ClaimStatusThriftPipe,
     ClaimStatusPipe,
     PrettyJsonComponent,
     CardContainerComponent,
