@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { PartyClaimsService } from './party-claims.service';
-import { SearchFormValue } from './search-form-value';
+import { SearchFormValue } from '../claim-search-form';
 
 @Component({
     templateUrl: 'party-claims.component.html',
