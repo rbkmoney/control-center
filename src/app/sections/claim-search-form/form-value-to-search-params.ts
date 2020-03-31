@@ -1,6 +1,4 @@
-import { SearchFormValue } from './search-form/search-form-value';
-
-export const convertFormValueToParams = (params: SearchFormValue) => {
+export const formValueToSearchParams = (params: {}) => {
     const result = {};
     for (const k in params) {
         if (params.hasOwnProperty(k)) {
@@ -10,7 +8,7 @@ export const convertFormValueToParams = (params: SearchFormValue) => {
                 if (params[k] === '') {
                     break;
                 }
-                result[k] = params[k].trim();
+                result[k] = params[k];
             }
         }
     }
