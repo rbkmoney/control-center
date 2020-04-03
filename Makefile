@@ -39,7 +39,8 @@ $(SUBTARGETS): %/.git: %
 submodules: $(SUBTARGETS)
 
 init:
-	npm install
+	echo -e "npm config set //npm.pkg.github.com/ _authToken=\${NPM_TOKEN}" >> .npmrc
+	npm ci
 
 compile: compile-damsel compile-machinegun compile-fistful compile-messages compile-file-storage compile-ank
 
