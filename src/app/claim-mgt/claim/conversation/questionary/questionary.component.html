@@ -70,7 +70,7 @@
             <button
                 mat-button
                 *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i"
-                (click)="downloadBeneficialOwnerDocument(beneficialOwner)"
+                (click)="downloadBeneficialOwnerDocument(beneficialOwner, i)"
             >
                 DOWNLOAD BENEFICIAL OWNER QUESTIONARY
                 {{ i | serialNumber: entity?.beneficial_owners?.length }}

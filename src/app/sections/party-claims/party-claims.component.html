@@ -1,23 +1,29 @@
 <div class="mat-headline">Party claims</div>
-
-<ng-container *ngIf="(claims$ | async) as claims">
-    <ng-container *ngIf="claims.length === 0">
-        <cc-empty-search-result></cc-empty-search-result>
-    </ng-container>
-    <ng-container *ngIf="claims.length > 0">
-        <mat-card>
-            <mat-card-content fxLayout="column" fxLayoutGap="20px">
-                <cc-claims-table [claims]="claims"></cc-claims-table>
-                <button
-                    fxFlex="100"
-                    mat-button
-                    *ngIf="(hasMore$ | async)"
-                    (click)="fetchMore()"
-                    [disabled]="isLoading$ | async"
-                >
-                    {{ (isLoading$ | async) ? 'LOADING...' : 'SHOW MORE' }}
-                </button>
-            </mat-card-content>
+<div fxLayout="column" fxLayoutGap="20px">
+    <mat-card>
+        <mat-card-content>
+            <cc-claim-search-form
+                hidePartyId="true"
+                (valueChanges)="search($event)"
+            ></cc-claim-search-form>
+        </mat-card-content>
+        <mat-card-footer *ngIf="(doAction$ | async)">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+    <ng-container *ngIf="(claims$ | async) as claims">
+        <cc-empty-search-result *ngIf="claims.length === 0"></cc-empty-search-result>
+        <mat-card *ngIf="claims.length > 0" fxLayout="column" fxLayoutGap="20px">
+            <cc-claims-table [claims]="claims"></cc-claims-table>
+            <button
+                fxFlex="100"
+                mat-button
+                *ngIf="(hasMore$ | async)"
+                (click)="fetchMore()"
+                [disabled]="doAction$ | async"
+            >
+                {{ (doAction$ | async) ? 'LOADING...' : 'SHOW MORE' }}
+            </button>
         </mat-card>
     </ng-container>
-</ng-container>
+</div>
