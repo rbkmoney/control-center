@@ -6,11 +6,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule, MatProgressBarModule, MatSelectModule } from '@angular/material';
 
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ClaimSearchFormModule } from '../claim-search-form';
 
 @NgModule({
     imports: [
@@ -22,7 +26,13 @@ import { SharedModule } from '../../shared/shared.module';
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
-        SharedModule
+        MatProgressBarModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        SharedModule,
+        ClaimSearchFormModule
     ],
     declarations: [PartyClaimsComponent, ClaimsTableComponent]
 })

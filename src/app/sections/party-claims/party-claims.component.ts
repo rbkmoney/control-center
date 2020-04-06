@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 import { PartyClaimsService } from './party-claims.service';
+import { SearchFormValue } from '../claim-search-form';
 
 @Component({
     templateUrl: 'party-claims.component.html',
-    providers: [PartyClaimsService]
+    providers: [PartyClaimsService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartyClaimsComponent implements OnInit {
-    isLoading$ = this.partyClaimsService.isLoading$;
-    claims$ = this.partyClaimsService.claims$;
+    doAction$ = this.partyClaimsService.doAction$;
+    claims$ = this.partyClaimsService.searchResult$;
     hasMore$ = this.partyClaimsService.hasMore$;
 
-    constructor(private partyClaimsService: PartyClaimsService) {}
+    constructor(private partyClaimsService: PartyClaimsService, private snackBar: MatSnackBar) {}
+
+    ngOnInit() {
+        this.partyClaimsService.errors$.subscribe(e =>
+            this.snackBar.open(`An error occurred while search claim (${e})`, 'OK')
+        );
+    }
 
     fetchMore() {
         this.partyClaimsService.fetchMore();
     }
 
-    ngOnInit(): void {
-        this.partyClaimsService.search({});
+    search(v: SearchFormValue) {
+        this.partyClaimsService.search(v);
     }
 }
