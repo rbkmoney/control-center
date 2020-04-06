@@ -2,11 +2,15 @@
   "name": "control-center",
   "version": "0.0.0",
   "scripts": {
-    "ng": "./node_modules/.bin/ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 7000",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "prettier-preset": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg,huskyrc}\"",
+    "prettier": "npm run prettier-preset -- --list-different",
+    "prettier:fix": "npm run prettier-preset -- --write",
+    "fix": "npm run lint:fix; npm run prettier:fix",
     "e2e": "ng e2e",
     "damsel-model": "thrift-ts node_modules/damsel/proto -o src/app/thrift-services/damsel/gen-model -d false",
     "damsel-meta": "thrift-ts node_modules/damsel/proto -o src/assets/meta-damsel.json --json --pack --prettify",
@@ -14,9 +18,7 @@
     "fistful-model": "thrift-ts node_modules/fistful-proto/proto -o src/app/thrift-services/fistful/gen-model -d false",
     "messages-model": "thrift-ts node_modules/messages-proto/proto -o src/app/thrift-services/messages/gen-model -d false",
     "file-storage-model": "thrift-ts node_modules/file-storage-proto/proto -o src/app/thrift-services/file-storage/gen-model -d false",
-    "ank-model": "thrift-ts node_modules/ank-proto/proto -o src/app/thrift-services/ank/gen-model -d false",
-    "prettier": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --write",
-    "check": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --list-different"
+    "ank-model": "thrift-ts node_modules/ank-proto/proto -o src/app/thrift-services/ank/gen-model -d false"
   },
   "private": true,
   "dependencies": {

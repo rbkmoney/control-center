@@ -107,4 +107,4 @@ lint:
 	npm run lint
 
 check:
-	npm run check	
+	npm run prettier	
