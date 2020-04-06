@@ -25,8 +25,8 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
     codeLensProviders: CodeLensProvider[];
     completionProviders: CompletionProvider[];
     modifiedFile: MonacoFile;
+    model: DomainModificationModel;
 
-    private model: DomainModificationModel;
     private initSub: Subscription;
 
     constructor(

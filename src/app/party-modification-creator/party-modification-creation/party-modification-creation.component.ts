@@ -34,7 +34,7 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     unitIDDisabled;
 
     @Input()
-    modification: ShopModification | ContractModification;
+    modification: ShopModification & ContractModification; // TODO: bad type, should be '|' instead '&'
 
     @Output()
     valueChanges: EventEmitter<PartyModification> = new EventEmitter();

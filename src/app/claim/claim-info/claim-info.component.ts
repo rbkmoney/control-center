@@ -24,7 +24,7 @@ export class ClaimInfoComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private claimService: ClaimService,
+        public claimService: ClaimService,
         private bottomSheet: MatBottomSheet,
         private snackBar: MatSnackBar,
         private dialog: MatDialog

@@ -9,7 +9,7 @@
                 mat-button
                 [disabled]="
                     (claimService.isLoading | async) ||
-                    (!claimService.isAddModificationAvailable | async)
+                    !(claimService.isAddModificationAvailable | async)
                 "
                 (click)="add()"
             >
