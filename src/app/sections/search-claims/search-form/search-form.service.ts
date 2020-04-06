@@ -22,7 +22,7 @@ export class SearchFormService {
         return this.fb.group({
             statuses: '',
             party_id: '',
-            claim_id: ''
+            claim_id: undefined
         });
     }
 }

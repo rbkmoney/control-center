@@ -4,6 +4,7 @@ import { debounceTime } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { SearchFormValue } from './search-form-value';
+import { mapClaimStatus } from './map-claim-status';
 
 @Component({
     selector: 'cc-search-form',
@@ -25,7 +26,9 @@ export class SearchFormComponent implements OnInit {
         this.claimStatuses = claimStatuses;
         this.form = form;
         this.form.valueChanges.pipe(debounceTime(300)).subscribe(value => {
-            this.valueChanges.emit(value);
+            const searchFormValue = value as SearchFormValue;
+            searchFormValue.statuses = searchFormValue.statuses.map(mapClaimStatus);
+            this.valueChanges.emit(searchFormValue);
         });
     }
 }

@@ -8,7 +8,6 @@ import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { SearchFormValue } from './search-form/search-form-value';
-import { convertFormValueToParams } from './convert-form-value-to-params';
 
 @Injectable()
 export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> {
@@ -39,10 +38,9 @@ export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> 
   ): Observable<FetchResult<Claim>> {
     return this.claimManagementService
         .searchClaims({
-          party_id: searchFormValue.party_id,
+          party_id: searchFormValue.party_id === '' ? undefined : searchFormValue.party_id,
           claim_id: searchFormValue.claim_id,
-          statuses: searchFormValue.statuses.reduce((acc, cv) => [...acc, { [cv]: {} }], []),
-          // ...convertFormValueToParams(searchFormValue),
+          statuses: searchFormValue.statuses.map((cv) => ({ [cv]: {} })),
           continuation_token: continuationToken,
           limit: this.searchLimit
         })
