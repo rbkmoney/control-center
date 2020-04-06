@@ -6,7 +6,10 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['party.component.scss']
 })
 export class PartyComponent implements OnInit {
-    links = [{ name: 'Claims', url: 'claims' }, { name: 'Shops', url: 'shops' }];
+    links = [
+        { name: 'Claims', url: 'claims' },
+        { name: 'Shops', url: 'shops' }
+    ];
 
     partyID: string;
 

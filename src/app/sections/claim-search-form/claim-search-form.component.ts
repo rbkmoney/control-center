@@ -35,20 +35,12 @@ export class ClaimSearchFormComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.form.valueChanges
-            .pipe(
-                debounceTime(300),
-                map(removeEmptyProperties)
-            )
-            .subscribe(v => {
-                this.router.navigate([location.pathname], { queryParams: v });
-                this.valueChanges.emit(formValueToSearchParams(v));
-            });
+        this.form.valueChanges.pipe(debounceTime(300), map(removeEmptyProperties)).subscribe(v => {
+            this.router.navigate([location.pathname], { queryParams: v });
+            this.valueChanges.emit(formValueToSearchParams(v));
+        });
         this.route.queryParams
-            .pipe(
-                take(1),
-                map(queryParamsToFormValue)
-            )
+            .pipe(take(1), map(queryParamsToFormValue))
             .subscribe(v => this.form.patchValue(v));
     }
 }

@@ -21,10 +21,7 @@ export class FileContainerService {
         shareReplay(1)
     );
 
-    isLoading$ = this.fileData$.pipe(
-        booleanDelay(),
-        shareReplay(1)
-    );
+    isLoading$ = this.fileData$.pipe(booleanDelay(), shareReplay(1));
 
     constructor(private fileStorageService: FileStorageService, private snackBar: MatSnackBar) {
         this.fileData$.subscribe();

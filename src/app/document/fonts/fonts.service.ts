@@ -32,23 +32,17 @@ export class FontsService {
     }
 
     private getFonts(fonts: Font[]): FontsData['fonts'] {
-        return fonts.reduce(
-            (accFonts, { family, type, hash }) => {
-                if (accFonts[family]) accFonts[family][type] = hash;
-                else accFonts[family] = { [type]: hash };
-                return accFonts;
-            },
-            {} as FontsData['fonts']
-        );
+        return fonts.reduce((accFonts, { family, type, hash }) => {
+            if (accFonts[family]) accFonts[family][type] = hash;
+            else accFonts[family] = { [type]: hash };
+            return accFonts;
+        }, {} as FontsData['fonts']);
     }
 
     private getVFS(fonts: Font[], fontsBase64: string[]): FontsData['vfs'] {
-        return fonts.reduce(
-            (accVFS, font, idx) => {
-                accVFS[font.hash] = fontsBase64[idx];
-                return accVFS;
-            },
-            {} as FontsData['vfs']
-        );
+        return fonts.reduce((accVFS, font, idx) => {
+            accVFS[font.hash] = fontsBase64[idx];
+            return accVFS;
+        }, {} as FontsData['vfs']);
     }
 }

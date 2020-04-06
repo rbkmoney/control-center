@@ -56,7 +56,10 @@ export class SimpleRepairComponent {
     }
 
     add(addedIds: string[]) {
-        const ids = this.repairingService.combineIds(addedIds, this.dataSource.map(({ id }) => id));
+        const ids = this.repairingService.combineIds(
+            addedIds,
+            this.dataSource.map(({ id }) => id)
+        );
         const ns = this.nsControl.value;
         this.dataSource = this.dataSource.concat(
             ids.map(id => ({ id, ns, status: Status.update }))

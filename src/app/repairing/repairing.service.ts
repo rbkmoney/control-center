@@ -64,7 +64,10 @@ export class RepairingService {
     remove<E>(currentElements: E[], elements: E[]) {
         const resultDataSource = currentElements.slice();
         for (const element of elements) {
-            resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
+            resultDataSource.splice(
+                resultDataSource.findIndex(e => e === element),
+                1
+            );
         }
         return resultDataSource;
     }

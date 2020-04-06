@@ -18,19 +18,13 @@ export class BatchPaymentAdjustmentService {
         this.createAdjustmentService.progress$,
         this.cancelAdjustmentService.progress$,
         this.captureAdjustmentService.progress$
-    ).pipe(
-        mergeAll(),
-        share()
-    );
+    ).pipe(mergeAll(), share());
 
     events$: Observable<AdjustmentOperationEvent> = of(
         this.createAdjustmentService.events$,
         this.cancelAdjustmentService.events$,
         this.captureAdjustmentService.events$
-    ).pipe(
-        mergeAll(),
-        share()
-    );
+    ).pipe(mergeAll(), share());
 
     constructor(
         private createAdjustmentService: CreateAdjustmentService,

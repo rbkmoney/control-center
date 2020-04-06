@@ -21,10 +21,7 @@ export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
         })
     );
 
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
-    );
+    isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     constructor(
         private claimManagementService: ClaimManagementService,

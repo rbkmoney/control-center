@@ -13,10 +13,7 @@ import { CreateDepositComponent } from './create-deposit/create-deposit.componen
 
 @Injectable()
 export class DepositsService extends PartialFetcher<StatDeposit, SearchFormParams> {
-    isLoading$ = this.doAction$.pipe(
-        booleanDelay(),
-        shareReplay(1)
-    );
+    isLoading$ = this.doAction$.pipe(booleanDelay(), shareReplay(1));
 
     constructor(
         private fistfulStatisticsService: FistfulStatisticsService,

@@ -48,7 +48,10 @@ export class RepairComponent {
     }
 
     add(addedIds: string[]) {
-        const ids = this.repairingService.combineIds(addedIds, this.dataSource.map(({ id }) => id));
+        const ids = this.repairingService.combineIds(
+            addedIds,
+            this.dataSource.map(({ id }) => id)
+        );
         this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.unknown })));
     }
 

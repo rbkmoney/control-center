@@ -56,7 +56,7 @@
             RECREATE
         </button>
     </mat-card-actions>
-    <mat-card-footer *ngIf="(recreateClaimInProcess$ | async)">
+    <mat-card-footer *ngIf="recreateClaimInProcess$ | async">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
 </mat-card>

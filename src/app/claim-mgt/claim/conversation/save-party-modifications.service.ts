@@ -37,10 +37,7 @@ export class SavePartyModificationsService {
         private claimManagementService: ClaimManagementService,
         private claimService: ClaimService
     ) {
-        const partyId$ = this.route.params.pipe(
-            pluck('party_id'),
-            first()
-        );
+        const partyId$ = this.route.params.pipe(pluck('party_id'), first());
         const claimId$ = this.route.params.pipe(
             pluck('claim_id'),
             map(claimId => new Int64(Number(claimId))),

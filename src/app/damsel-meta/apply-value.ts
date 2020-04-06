@@ -30,9 +30,7 @@ export interface ApplyPayload {
 function applyToCollection(meta: MetaCollection, nodeValue: ASTNode): MetaCollection {
     if (nodeValue.type !== 'array') {
         throw new Error(
-            `Applied to collection node value should be array type. Current type is ${
-                nodeValue.type
-            }`
+            `Applied to collection node value should be array type. Current type is ${nodeValue.type}`
         );
     }
     const { items } = nodeValue as ArrayASTNode;
@@ -53,17 +51,13 @@ function applyToMap(meta: MetaMap, nodeValue: ASTNode): MetaMap {
     for (const nodeItem of items) {
         if (nodeItem.type !== 'object') {
             throw new Error(
-                `Applied to map item node value should be object type. Current type is ${
-                    nodeItem.type
-                }`
+                `Applied to map item node value should be object type. Current type is ${nodeItem.type}`
             );
         }
         const keyValueProps = (nodeItem as ObjectASTNode).properties;
         if (keyValueProps.length !== 2) {
             throw new Error(
-                `Applied to map object props should has length 2 (key, value). Current length is ${
-                    keyValueProps.length
-                }`
+                `Applied to map object props should has length 2 (key, value). Current length is ${keyValueProps.length}`
             );
         }
         const [keyProp, valueProp] = keyValueProps;
@@ -124,9 +118,7 @@ function applyToPrimitive(meta: MetaPrimitive, nodeValue: ASTNode): MetaPrimitiv
         nodeValue.type !== 'null'
     ) {
         throw new Error(
-            `Applied to primitive node value should be number, string, boolean or null type. Current type is ${
-                nodeValue.type
-            }`
+            `Applied to primitive node value should be number, string, boolean or null type. Current type is ${nodeValue.type}`
         );
     }
     let value;
@@ -191,9 +183,7 @@ function applyToUnion(subject: MetaUnion, value: ASTNode): MetaUnion {
     const properties = (value as ObjectASTNode).properties;
     if (properties.length !== 1) {
         throw new Error(
-            `Applied to union node properties length should be 1. Current properties length is ${
-                properties.length
-            }`
+            `Applied to union node properties length should be 1. Current properties length is ${properties.length}`
         );
     }
     return {
@@ -233,9 +223,7 @@ export function applyValue(subject: MetaStruct | MetaUnion, value: ObjectASTNode
                 break;
             default:
                 throw new Error(
-                    `Applied meta type should be struct or union. Current meta type is ${
-                        subject.type
-                    }`
+                    `Applied meta type should be struct or union. Current meta type is ${subject.type}`
                 );
         }
         return { ...result, applied };
