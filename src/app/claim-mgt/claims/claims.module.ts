@@ -1,5 +1,8 @@
-import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -11,20 +14,17 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CdkTableModule } from '@angular/cdk/table';
 
 import { PapiModule } from '../../papi/papi.module';
-import { ClaimsComponent } from './claims.component';
-import { ClaimsRoutingModule } from './claims-routing.module';
-import { SearchFormComponent } from './search-form/search-form.component';
-import { ClaimsTableComponent } from './claims-table/claims-table.component';
-import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
-import { CreateClaimComponent } from './create-claim/create-claim.component';
-import { ClaimsService } from './claims.service';
-import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { SharedModule } from '../../shared/shared.module';
+import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
+import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
+import { ClaimsRoutingModule } from './claims-routing.module';
+import { ClaimsTableComponent } from './claims-table/claims-table.component';
+import { ClaimsComponent } from './claims.component';
+import { ClaimsService } from './claims.service';
+import { CreateClaimComponent } from './create-claim/create-claim.component';
+import { SearchFormComponent } from './search-form/search-form.component';
 
 @NgModule({
     imports: [

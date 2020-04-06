@@ -1,4 +1,3 @@
-import * as DomainTypes from '../damsel/gen-nodejs/domain_types';
 import {
     Condition,
     PartyCondition,
@@ -8,6 +7,7 @@ import {
     TerminalRef,
     TerminalSelector
 } from '../damsel/gen-model/domain';
+import * as DomainTypes from '../damsel/gen-nodejs/domain_types';
 
 const toPartyConditionDefinitionGen = (definition: PartyConditionDefinition) => {
     const definitionGen = new DomainTypes.PartyConditionDefinition();

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Claim, ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';

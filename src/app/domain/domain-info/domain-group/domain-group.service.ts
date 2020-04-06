@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { AsyncSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { group } from './group-domain-objects';
-import { DomainGroup } from './domain-group';
 import { DomainInfoService } from '../domain-info.service';
+import { DomainGroup } from './domain-group';
+import { group } from './group-domain-objects';
 
 @Injectable()
 export class DomainGroupService {

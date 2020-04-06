@@ -1,11 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DepositParams } from './gen-model/fistful_admin';
-import { DepositParams as DepositParamsObject } from './gen-nodejs/fistful_admin_types';
-import { ThriftService } from '../thrift-service';
-import * as FistfulAdmin from './gen-nodejs/FistfulAdmin';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
+import { ThriftService } from '../thrift-service';
+import { DepositParams } from './gen-model/fistful_admin';
+import * as FistfulAdmin from './gen-nodejs/FistfulAdmin';
+import { DepositParams as DepositParamsObject } from './gen-nodejs/fistful_admin_types';
 
 @Injectable()
 export class FistfulAdminService extends ThriftService {

@@ -1,13 +1,13 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { SelectionModel } from '@angular/cdk/collections';
 
 import { ExecStateType } from '../../shared/execute';
-import { RepairingService } from '../repairing.service';
-import { RepairSettingsComponent, DialogData } from './repair-settings/repair-settings.component';
 import { RepairScenario } from '../../thrift-services/fistful/gen-model/withdrawal_session';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
+import { RepairingService } from '../repairing.service';
+import { DialogData, RepairSettingsComponent } from './repair-settings/repair-settings.component';
 
 enum Status {
     repaired = 'machine repaired',
@@ -78,7 +78,7 @@ export class RepairComponent {
     getScenario(scenario: string, code: string): RepairScenario {
         return {
             [scenario]: {
-                result: { failed: { failure: { code: code } } }
+                result: { failed: { failure: { code } } }
             }
         };
     }

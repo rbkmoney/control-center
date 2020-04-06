@@ -1,26 +1,26 @@
+import get from 'lodash-es/get';
 import isEmpty from 'lodash-es/isEmpty';
 
-import { DocDef } from '../create-questionary';
-import {
-    createVerticalCheckboxWithTitle,
-    createInlineCheckboxWithTitle,
-    createInlineCheckbox,
-    createVerticalParagraph,
-    createHeader,
-    createHeadline,
-    createEnding
-} from '../create-content';
-import { YesNo, getShopLocationURL, getBusinessInfo, toYesNo, simpleYesNo } from '../select-data';
-import { getIndividualEntityName } from './get-individual-entity-name';
-import { toOptional, getUnionKey } from '../../shared/utils';
-import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
+import { getUnionKey, toOptional } from '../../shared/utils';
 import {
     MonthOperationCount,
     MonthOperationSum,
     PropertyInfoDocumentType,
     WithoutChiefAccountant
 } from '../../thrift-services/ank/gen-model/questionary';
-import get from 'lodash-es/get';
+import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
+import {
+    createEnding,
+    createHeader,
+    createHeadline,
+    createInlineCheckbox,
+    createInlineCheckboxWithTitle,
+    createVerticalCheckboxWithTitle,
+    createVerticalParagraph
+} from '../create-content';
+import { DocDef } from '../create-questionary';
+import { getBusinessInfo, getShopLocationURL, simpleYesNo, toYesNo, YesNo } from '../select-data';
+import { getIndividualEntityName } from './get-individual-entity-name';
 
 const EMPTY = '';
 

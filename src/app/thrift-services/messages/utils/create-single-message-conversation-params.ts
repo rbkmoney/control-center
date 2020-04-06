@@ -1,5 +1,5 @@
-import * as uuid from 'uuid/v4';
 import * as moment from 'moment';
+import * as uuid from 'uuid/v4';
 
 import { Conversation, ConversationStatus } from '../gen-model/messages';
 

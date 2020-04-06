@@ -1,14 +1,14 @@
-import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 
+import { CreateModificationDialogComponent } from '../create-modification-dialog';
 import {
     ActionType,
     ContractModificationName,
     ShopModificationName,
     UnitActionData
 } from '../model';
-import { CreateModificationDialogComponent } from '../create-modification-dialog';
 
 @Component({
     templateUrl: 'unit-actions-nav-list.component.html',

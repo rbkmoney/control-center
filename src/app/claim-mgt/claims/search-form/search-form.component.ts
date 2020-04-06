@@ -2,9 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
-import { SearchFormService } from './search-form.service';
-import { SearchFormValue } from './search-form-value';
 import { ClaimStatus } from '../../../papi/model';
+import { SearchFormValue } from './search-form-value';
+import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'cc-search-form',

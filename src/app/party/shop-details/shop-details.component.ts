@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { filter, switchMap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
 
-import { ProviderInfo, ShopDetailsService } from './shop-details.service';
 import { Contract, PayoutTool, Shop } from '../../thrift-services/damsel/gen-model/domain';
 import { AddProviderComponent } from './add-provider/add-provider.component';
+import { ProviderInfo, ShopDetailsService } from './shop-details.service';
 
 @Component({
     templateUrl: 'shop-details.component.html',

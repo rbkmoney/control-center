@@ -1,4 +1,3 @@
-import { AdjustmentOperationService } from './adjustment-operation.service';
 import { ExecErrorResult, ExecResultType } from '../executor.service';
 import {
     AdjustmentOperationEvent,
@@ -6,9 +5,10 @@ import {
     OperationError,
     OperationFailedPayload
 } from './adjustment-event';
+import { AdjustmentOperationService } from './adjustment-operation.service';
+import { PaymentAdjustmentCaptureParams } from './adjustment-params';
 import { CapturePaymentAdjustmentErrorCodes } from './error-codes';
 import { ExecResultGroup } from './exec-result-group';
-import { PaymentAdjustmentCaptureParams } from './adjustment-params';
 
 export class CaptureAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(captureParams: any[]): any[] {

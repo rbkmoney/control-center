@@ -3,14 +3,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 
 import { PartyService } from '../../../papi/party.service';
-import { SelectableItem } from './selectable-item';
-import { PartyTarget } from '../party-target';
 import {
     Contract,
     Contractor,
     Party,
     Shop
 } from '../../../thrift-services/damsel/gen-model/domain';
+import { PartyTarget } from '../party-target';
+import { SelectableItem } from './selectable-item';
 
 @Injectable()
 export class PartyTargetService {

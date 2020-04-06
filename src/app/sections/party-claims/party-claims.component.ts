@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { PartyClaimsService } from './party-claims.service';
 import { SearchFormValue } from '../claim-search-form';
+import { PartyClaimsService } from './party-claims.service';
 
 @Component({
     templateUrl: 'party-claims.component.html',

@@ -1,14 +1,14 @@
+import { getThriftInstance } from '../../thrift-services';
 import {
-    MetaPrimitive,
-    MetaEnum,
     MetaCollection,
+    MetaEnum,
     MetaMap,
-    MetaTyped,
-    MetaType,
+    MetaPrimitive,
     MetaStruct,
+    MetaType,
+    MetaTyped,
     MetaUnion
 } from '../model';
-import { getThriftInstance } from '../../thrift-services';
 
 export type ThriftType = any;
 

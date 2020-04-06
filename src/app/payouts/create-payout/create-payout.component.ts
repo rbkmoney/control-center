@@ -3,8 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CreatePayoutService } from './create-payout.service';
 import { PayoutsService } from '../payouts.service';
+import { CreatePayoutService } from './create-payout.service';
 
 @Component({
     templateUrl: 'create-payout.component.html',

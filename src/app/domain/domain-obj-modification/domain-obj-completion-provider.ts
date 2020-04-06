@@ -1,10 +1,10 @@
 import {
-    CompletionProvider,
-    ITextModel,
     CancellationToken,
-    Position,
     CompletionContext,
     CompletionList,
+    CompletionProvider,
+    ITextModel,
+    Position,
     ProviderResult
 } from '../../monaco-editor/model';
 

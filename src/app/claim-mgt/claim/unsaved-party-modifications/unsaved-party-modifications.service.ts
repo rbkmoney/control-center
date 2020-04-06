@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, Observable, forkJoin, of } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
 
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';

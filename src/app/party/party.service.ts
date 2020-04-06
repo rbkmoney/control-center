@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { Contract, Party, PayoutTool, Shop } from '../thrift-services/damsel/gen-model/domain';
-import { PartyService as PapiPartyService } from '../papi/party.service';
 import { map, tap } from 'rxjs/operators';
+
+import { PartyService as PapiPartyService } from '../papi/party.service';
+import { Contract, Party, PayoutTool, Shop } from '../thrift-services/damsel/gen-model/domain';
 
 @Injectable()
 export class PartyService {

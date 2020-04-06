@@ -9,15 +9,15 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ShopModificationName, ContractModificationName } from '../model';
-import { toPartyModification } from './to-party-modification';
 import { ActionType, ModificationAction } from '../../claim/modification-action';
-import { filterEmptyStringValues } from './filter-empty-string-value';
 import {
     ContractModification,
     PartyModification,
     ShopModification
 } from '../../thrift-services/damsel/gen-model/payment_processing';
+import { ContractModificationName, ShopModificationName } from '../model';
+import { filterEmptyStringValues } from './filter-empty-string-value';
+import { toPartyModification } from './to-party-modification';
 
 @Component({
     selector: 'cc-party-modification-creation',

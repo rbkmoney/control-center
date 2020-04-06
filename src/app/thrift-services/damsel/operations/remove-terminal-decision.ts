@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 
-import { checkSelector } from './utils';
 import { ProviderObject, TerminalDecision } from '../gen-model/domain';
+import { checkSelector } from './utils';
 
 const checkCondition = (condition: any, partyID: string, shopID: string): boolean => {
     const isPartyEquals = condition.party.id === partyID;

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { SearchFormService } from './search-form.service';
-import { SearchFormParams } from './search-form-params';
 import { currencies } from '../deposits-table/deposits-table.service';
+import { SearchFormParams } from './search-form-params';
+import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'cc-search-form',

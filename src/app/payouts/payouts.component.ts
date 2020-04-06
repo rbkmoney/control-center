@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Payout } from '../papi/model';
+import { PayoutSearchParams } from '../papi/params';
 import { PayoutsService } from './payouts.service';
 import { SearchFormService } from './search-form/search-form.service';
-import { PayoutSearchParams } from '../papi/params';
 
 @Component({
     templateUrl: 'payouts.component.html',

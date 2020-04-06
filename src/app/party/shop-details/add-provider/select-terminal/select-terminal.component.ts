@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { TerminalObject } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({

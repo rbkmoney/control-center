@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -15,22 +17,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { ReactiveFormsModule } from '@angular/forms';
 
-import { SimpleRepairComponent } from './simple-repair/simple-repair.component';
-import { RepairingComponent } from './repairing.component';
-import { RepairingService } from './repairing.service';
-import { RepairingRoutingModule } from './repairing-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { FistfulModule } from '../thrift-services/fistful/fistful.module';
 import { MachinegunModule } from '../thrift-services/machinegun/machinegun.module';
+import { AddIdsInputComponent } from './add-ids-input/add-ids-input.component';
 import { RepairWithScenarioComponent } from './repair-with-scenario/repair-wirh-scenario.component';
 import { RepairWithScenarioSettingsComponent } from './repair-with-scenario/repair-with-scenario-settings/repair-with-scenario-settings.component';
-import { FistfulModule } from '../thrift-services/fistful/fistful.module';
-import { RepairComponent } from './repair/repair.component';
 import { RepairSettingsComponent } from './repair/repair-settings/repair-settings.component';
-import { AddIdsInputComponent } from './add-ids-input/add-ids-input.component';
+import { RepairComponent } from './repair/repair.component';
+import { RepairingRoutingModule } from './repairing-routing.module';
 import { RepairingStatusComponent } from './repairing-status/repairing-status.component';
+import { RepairingComponent } from './repairing.component';
+import { RepairingService } from './repairing.service';
+import { SimpleRepairComponent } from './simple-repair/simple-repair.component';
 
 @NgModule({
     imports: [

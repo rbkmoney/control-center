@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import * as moment from 'moment';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
-import * as moment from 'moment';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
+import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import { NewFileResult } from '../../../../thrift-services/file-storage/gen-model/file_storage';
 import { Value } from '../../../../thrift-services/file-storage/gen-model/msgpack';
-import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 
 @Injectable()
 export class FileUploaderService {

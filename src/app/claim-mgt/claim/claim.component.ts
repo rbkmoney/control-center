@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Int64 from 'thrift-ts/lib/int64';
 
-import { ClaimService } from './claim.service';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
+import { ClaimService } from './claim.service';
 import { RecreateClaimService } from './recreate-claim';
 
 @Component({

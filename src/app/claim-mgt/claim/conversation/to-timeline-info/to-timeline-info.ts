@@ -1,11 +1,11 @@
+import { getUnionKey, sortUnitsByCreatedAtAsc } from '../../../../shared/utils';
 import {
     ClaimModification,
     Modification,
     ModificationUnit
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { TimelineAction, TimelineItemInfo } from './model';
-import { sortUnitsByCreatedAtAsc, getUnionKey } from '../../../../shared/utils';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
+import { TimelineAction, TimelineItemInfo } from './model';
 
 const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean =>
     x.action === y.action && x.user_info.type === y.user_info.type;

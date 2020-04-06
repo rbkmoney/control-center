@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CancelPayoutService } from './cancel-payout.service';
 import { PayoutsService } from '../payouts.service';
+import { CancelPayoutService } from './cancel-payout.service';
 
 @Component({
     templateUrl: './cancel-payout.component.html',

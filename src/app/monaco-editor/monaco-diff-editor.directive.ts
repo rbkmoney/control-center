@@ -1,8 +1,8 @@
-import { Input, ElementRef, Directive, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, SimpleChanges } from '@angular/core';
 
+import { AbstractMonacoDirective } from './abstarct-monaco.directive';
 import { MonacoFile } from './model';
 import { MonacoDiffEditorService } from './monaco-diff-editor.service';
-import { AbstractMonacoDirective } from './abstarct-monaco.directive';
 
 @Directive({
     selector: 'cc-monaco-diff-editor,[ccMonacoDiffEditor]'

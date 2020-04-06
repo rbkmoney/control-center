@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { PartiesService } from './parties.service';
 import { PartyService } from '../party/party.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { PartiesService } from './parties.service';
 
 @Component({
     templateUrl: 'parties.component.html',

@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import { switchMap, map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { blobToBase64 } from './blob-to-base64';
-import { toFonts } from './to-fonts';
 import { Font } from './font';
 import { FontsData } from './fonts-data';
+import { toFonts } from './to-fonts';
 
 @Injectable()
 export class FontsService {

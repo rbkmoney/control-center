@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import values from 'lodash-es/values';
-import mapValues from 'lodash-es/mapValues';
 import isString from 'lodash-es/isString';
+import mapValues from 'lodash-es/mapValues';
+import values from 'lodash-es/values';
 
 import { ClaimStatus } from '../../papi/model';
 import { ClaimSearchParams } from '../../papi/params';

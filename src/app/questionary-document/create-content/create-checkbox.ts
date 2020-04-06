@@ -1,7 +1,7 @@
-import { icons } from './icons';
 import { Content } from '../../document';
 import { Layout } from '../create-questionary';
 import { createGrid } from './create-grid';
+import { icons } from './icons';
 
 type Items<T extends any> = string[] | [T, string][];
 

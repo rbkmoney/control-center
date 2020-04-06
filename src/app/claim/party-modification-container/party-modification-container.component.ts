@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+import { CreateModificationDialogComponent } from '../../party-modification-creator';
 import {
     ModificationGroupType,
     ModificationUnitContainer,
@@ -8,7 +9,6 @@ import {
 } from '../model';
 import { PartyModificationContainerService } from './party-modification-container.service';
 import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.component';
-import { CreateModificationDialogComponent } from '../../party-modification-creator';
 
 @Component({
     selector: 'cc-party-modification-container',

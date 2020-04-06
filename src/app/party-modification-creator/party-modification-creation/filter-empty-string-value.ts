@@ -1,5 +1,5 @@
-import isDate from 'lodash-es/isDate';
 import isArray from 'lodash-es/isArray';
+import isDate from 'lodash-es/isDate';
 import isObject from 'lodash-es/isObject';
 import reduce from 'lodash-es/reduce';
 import * as moment from 'moment';

@@ -7,15 +7,15 @@ import {
     Output,
     SimpleChanges
 } from '@angular/core';
-import { filter } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { filter } from 'rxjs/operators';
 
 import { DomainTypedManager } from '../../../thrift-services';
-import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
-import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
 import { EditTerminalDecisionPriorityService } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.service';
+import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
+import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 
 @Component({
     selector: 'cc-terminals',

@@ -1,7 +1,10 @@
-import { NgModule } from '@angular/core';
+import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,28 +12,25 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatCardModule } from '@angular/material/card';
 
-import { ConversationComponent } from './conversation.component';
-import { ActionIconPipe } from './action-icon.pipe';
-import { TimelineModule } from '../../../shared/components/timeline';
-import { SharedModule } from '../../../shared/shared.module';
-import { ActionNamePipe } from './action-name.pipe';
 import { MonacoEditorModule } from '../../../monaco-editor';
+import { PartyModificationCreatorModule } from '../../../party-modification-creator';
+import { QuestionaryDocumentModule } from '../../../questionary-document';
+import { TimelineModule } from '../../../shared/components/timeline';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
-import { SendCommentComponent } from './send-comment';
+import { SharedModule } from '../../../shared/shared.module';
+import { AnkModule } from '../../../thrift-services';
 import { MessagesModule } from '../../../thrift-services/messages';
+import { UnsavedPartyModificationsModule } from '../unsaved-party-modifications';
+import { ActionIconPipe } from './action-icon.pipe';
+import { ActionNamePipe } from './action-name.pipe';
 import { CommentComponent } from './comment/comment.component';
-import { ReasonComponent } from './reason/reason.component';
+import { ConversationComponent } from './conversation.component';
 import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
-import { AnkModule } from '../../../thrift-services';
-import { QuestionaryDocumentModule } from '../../../questionary-document';
 import { QuestionaryModule } from './questionary/questionary.module';
-import { UnsavedPartyModificationsModule } from '../unsaved-party-modifications';
-import { PartyModificationCreatorModule } from '../../../party-modification-creator';
+import { ReasonComponent } from './reason/reason.component';
+import { SendCommentComponent } from './send-comment';
 
 @NgModule({
     imports: [

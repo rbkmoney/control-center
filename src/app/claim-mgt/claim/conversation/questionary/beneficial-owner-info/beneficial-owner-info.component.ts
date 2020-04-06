@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { BeneficialOwner } from '../../../../../thrift-services/ank/gen-model/questionary';
 

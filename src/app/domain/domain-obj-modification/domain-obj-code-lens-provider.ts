@@ -1,8 +1,8 @@
 import {
-    CodeLensProvider,
-    ITextModel,
     CancellationToken,
+    CodeLensProvider,
     ICodeLensSymbol,
+    ITextModel,
     ProviderResult
 } from '../../monaco-editor';
 

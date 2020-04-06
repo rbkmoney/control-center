@@ -1,27 +1,27 @@
 import { ElementRef, NgZone } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import flatten from 'lodash-es/flatten';
+import { Observable, Subject } from 'rxjs';
 import {
-    map,
-    takeUntil,
-    take,
     buffer,
-    distinctUntilChanged,
     debounceTime,
+    distinctUntilChanged,
+    map,
     skipUntil,
+    take,
+    takeUntil,
     tap
 } from 'rxjs/operators';
-import flatten from 'lodash-es/flatten';
 
-import {
-    IEditorOptions,
-    MonacoFile,
-    CodeLensProvider,
-    IDisposable,
-    CompletionProvider,
-    ITextModel
-} from './model';
-import { fromDisposable } from './from-disposable';
 import { bootstrap$ } from './bootstrap';
+import { fromDisposable } from './from-disposable';
+import {
+    CodeLensProvider,
+    CompletionProvider,
+    IDisposable,
+    IEditorOptions,
+    ITextModel,
+    MonacoFile
+} from './model';
 import { CodeLensService } from './providers/code-lens.service';
 import { CompletionService } from './providers/completion.service';
 

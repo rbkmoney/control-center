@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { LegalOwnerInfo } from '../../../../../thrift-services/ank/gen-model/questionary';
 
 @Component({

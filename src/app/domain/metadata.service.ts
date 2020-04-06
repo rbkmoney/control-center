@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { shareReplay, map } from 'rxjs/operators';
-import { JsonAST, Field } from 'thrift-ts';
+import { map, shareReplay } from 'rxjs/operators';
+import { Field, JsonAST } from 'thrift-ts';
 
 import { Reference } from '../thrift-services/damsel/gen-model/domain';
 

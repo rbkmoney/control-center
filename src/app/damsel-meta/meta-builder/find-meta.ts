@@ -1,5 +1,5 @@
-import { MetaTypeDefined, MetaTyped, MetaObject } from '../model';
-import { MetaTypeCondition, MetaGroup } from './model';
+import { MetaObject, MetaTyped, MetaTypeDefined } from '../model';
+import { MetaGroup, MetaTypeCondition } from './model';
 
 export function findMeta<T extends MetaTypeDefined | MetaTyped | MetaObject>(
     condition: MetaTypeCondition,

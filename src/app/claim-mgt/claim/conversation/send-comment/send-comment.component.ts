@@ -1,8 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { SendCommentService } from './send-comment.service';
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { SendCommentService } from './send-comment.service';
 
 @Component({
     selector: 'cc-send-comment',

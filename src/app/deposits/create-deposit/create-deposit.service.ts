@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import * as uuid from 'uuid/v4';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import * as uuid from 'uuid/v4';
 
-import { toMajor } from '../to-major-amount';
+import { createDepositStopPollingCondition, poll } from '../../custom-operators';
+import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
+import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';
 import { DepositParams } from '../../thrift-services/fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../thrift-services/fistful/gen-model/fistful_stat';
 import { SearchFormParams } from '../search-form/search-form-params';
-import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
-import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';
-import { createDepositStopPollingCondition, poll } from '../../custom-operators';
+import { toMajor } from '../to-major-amount';
 
 export interface CurrencySource {
     source: string;

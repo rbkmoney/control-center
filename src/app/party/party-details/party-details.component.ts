@@ -18,7 +18,7 @@ export class PartyDetailsComponent implements OnInit {
 
     constructor(private partyService: PartyService, private route: ActivatedRoute) {
         this.route.params.subscribe(params => {
-            this.partyID = params['partyID'];
+            this.partyID = params.partyID;
         });
     }
 

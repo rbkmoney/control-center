@@ -1,15 +1,15 @@
 import isString from 'lodash-es/isString';
 
-import { registerError } from '../utils';
 import {
-    MetaStruct,
-    MetaUnion,
+    MetaCollection,
     MetaField,
-    MetaTyped,
-    MetaType,
     MetaMap,
-    MetaCollection
+    MetaStruct,
+    MetaType,
+    MetaTyped,
+    MetaUnion
 } from '../../model';
+import { registerError } from '../utils';
 
 export interface ResolveLoopResult {
     resolved: MetaStruct | MetaUnion;

@@ -1,6 +1,7 @@
-import { Questionary } from '../thrift-services/ank/gen-model/questionary_manager';
-import { BeneficialOwner } from '../thrift-services/ank/gen-model/questionary';
 import get from 'lodash-es/get';
+
+import { BeneficialOwner } from '../thrift-services/ank/gen-model/questionary';
+import { Questionary } from '../thrift-services/ank/gen-model/questionary_manager';
 
 export function getBeneficialOwners(questionary: Questionary): BeneficialOwner[] {
     if (get(questionary, ['data', 'contractor', 'individual_entity'])) {

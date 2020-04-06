@@ -5,13 +5,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { ClaimService } from '../claim.service';
-import { ClaimInfoContainer } from '../model';
-import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
-import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
-import { ClaimActionType } from '../claim-action-type';
-import { CloneClaimComponent } from '../clone-claim/clone-claim.component';
 import { UnitActionsNavListComponent } from '../../party-modification-creator';
+import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
+import { ClaimActionType } from '../claim-action-type';
+import { ClaimService } from '../claim.service';
+import { CloneClaimComponent } from '../clone-claim/clone-claim.component';
+import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
+import { ClaimInfoContainer } from '../model';
 
 @Component({
     selector: 'cc-claim-info',

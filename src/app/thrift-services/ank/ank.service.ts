@@ -1,17 +1,17 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ThriftService } from '../thrift-service';
-import * as QuestionaryManager from './gen-nodejs/QuestionaryManager';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import {
-    Version,
-    QuestionaryParams,
-    QuestionaryID,
-    Snapshot
-} from './gen-model/questionary_manager';
 import { toGenReference } from '../converters';
 import { PartyID } from '../damsel/gen-model/domain';
+import { ThriftService } from '../thrift-service';
+import {
+    QuestionaryID,
+    QuestionaryParams,
+    Snapshot,
+    Version
+} from './gen-model/questionary_manager';
+import * as QuestionaryManager from './gen-nodejs/QuestionaryManager';
 
 @Injectable()
 export class AnkService extends ThriftService {

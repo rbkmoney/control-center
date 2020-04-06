@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { tap, map } from 'rxjs/internal/operators';
-import sortBy from 'lodash-es/sortBy';
 import get from 'lodash-es/get';
+import sortBy from 'lodash-es/sortBy';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/internal/operators';
 
-import { ContractTemplate } from '../../../../papi/model';
 import { ContractService } from '../../../../papi/contract.service';
+import { ContractTemplate } from '../../../../papi/model';
 import { ContractTemplateRef } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({

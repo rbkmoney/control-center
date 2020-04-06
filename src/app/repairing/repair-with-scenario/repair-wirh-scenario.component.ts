@@ -1,16 +1,16 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { SelectionModel } from '@angular/cdk/collections';
 
 import { ExecStateType } from '../../shared/execute';
-import { RepairingService } from '../repairing.service';
-import {
-    RepairWithScenarioSettingsComponent,
-    DialogData
-} from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 import { InvoiceRepairScenario } from '../../thrift-services/damsel/gen-model/payment_processing';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
+import { RepairingService } from '../repairing.service';
+import {
+    DialogData,
+    RepairWithScenarioSettingsComponent
+} from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 
 enum Status {
     repaired = 'machine repaired',

@@ -3,13 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { DomainGroup } from '../domain-group';
+import { DetailsContainerService } from '../../details-container.service';
 import { DomainDetailsService } from '../../domain-details.service';
-import { toDataSource, toTableGroup } from './table-group';
-import { sortData } from './sort-table-data';
+import { DomainGroup } from '../domain-group';
 import { filterPredicate } from './filter-predicate';
 import { TableDataSource, TableGroup } from './model';
-import { DetailsContainerService } from '../../details-container.service';
+import { sortData } from './sort-table-data';
+import { toDataSource, toTableGroup } from './table-group';
 
 @Component({
     selector: 'cc-group-table',

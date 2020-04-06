@@ -1,4 +1,4 @@
-import { FontFamily, Content } from '../../document';
+import { Content, FontFamily } from '../../document';
 
 interface SourceIcons {
     [name: string]: string;

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
-import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 
-import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
-import { SearchFormValue } from './search-form/search-form-value';
 import { booleanDebounceTime } from '../../shared/operators';
-import { convertFormValueToParams } from './convert-form-value-to-params';
+import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
+import { convertFormValueToParams } from './convert-form-value-to-params';
+import { SearchFormValue } from './search-form/search-form-value';
 
 @Injectable()
 export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {

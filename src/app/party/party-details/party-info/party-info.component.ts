@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { Party } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({

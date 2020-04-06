@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { MonacoFile, IDiffEditorOptions } from '../../monaco-editor';
-import { toMonacoFile } from '../utils';
+import { IDiffEditorOptions, MonacoFile } from '../../monaco-editor';
 import { DomainModificationModel } from '../domain-modification-model';
+import { toMonacoFile } from '../utils';
 import { DomainObjReviewService } from './domain-obj-review.service';
 
 @Component({

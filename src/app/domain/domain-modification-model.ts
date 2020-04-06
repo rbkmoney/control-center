@@ -1,5 +1,5 @@
-import { Reference, DomainObject } from '../thrift-services/damsel/gen-model/domain';
 import { MetaStruct, MetaUnion } from '../damsel-meta';
+import { DomainObject, Reference } from '../thrift-services/damsel/gen-model/domain';
 
 export interface ModificationItem {
     monacoContent: string;

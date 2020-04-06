@@ -1,7 +1,7 @@
-import { ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatus as ClaimStatusEnum } from '../../../papi/model';
-import { ClaimStatuses } from '../claim-statuses';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
+import { ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { ClaimStatuses } from '../claim-statuses';
 
 export const getAvailableClaimStatuses = (status: ClaimStatus): ClaimStatuses[] => {
     switch (extractClaimStatus(status)) {

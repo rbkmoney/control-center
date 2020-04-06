@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,29 +19,28 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { PapiModule } from '../papi/papi.module';
+import {
+    ModificationNameModule,
+    PartyModificationCreatorModule
+} from '../party-modification-creator';
+import { SharedModule } from '../shared/shared.module';
+import { DamselModule } from '../thrift-services/damsel/damsel.module';
+import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
+import { ClaimInfoDetailsComponent } from './claim-info/claim-info-details/claim-info-details.component';
+import { ClaimInfoComponent } from './claim-info/claim-info.component';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
-import { ClaimInfoComponent } from './claim-info/claim-info.component';
-import { ClaimInfoDetailsComponent } from './claim-info/claim-info-details/claim-info-details.component';
-import { PartyModificationsComponent } from './party-modifications/party-modifications.component';
-import { PartyModificationContainerComponent } from './party-modification-container/party-modification-container.component';
 import { ClaimService } from './claim.service';
-import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
-import { DenyClaimComponent } from './deny-claim/deny-claim.component';
-import { SharedModule } from '../shared/shared.module';
-import { PartyModificationUnitsComponent } from './party-modification-units/party-modification-units.component';
-import { PersistentContainerService } from './persistent-container.service';
 import { CloneClaimComponent } from './clone-claim/clone-claim.component';
+import { DenyClaimComponent } from './deny-claim/deny-claim.component';
+import { PartyModificationContainerComponent } from './party-modification-container/party-modification-container.component';
 import { PartyModificationContainerService } from './party-modification-container/party-modification-container.service';
 import { RemoveConfirmComponent } from './party-modification-container/remove-confirm/remove-confirm.component';
-import { DamselModule } from '../thrift-services/damsel/damsel.module';
-import {
-    PartyModificationCreatorModule,
-    ModificationNameModule
-} from '../party-modification-creator';
+import { PartyModificationUnitsComponent } from './party-modification-units/party-modification-units.component';
+import { PartyModificationsComponent } from './party-modifications/party-modifications.component';
+import { PersistentContainerService } from './persistent-container.service';
 
 @NgModule({
     imports: [

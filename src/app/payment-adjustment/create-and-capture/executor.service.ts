@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { forkJoin, Observable, of, Subject } from 'rxjs';
 import flatten from 'lodash-es/flatten';
+import { forkJoin, Observable, of, Subject } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 export enum ExecResultType {
     success = 'success',

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,11 +10,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { PartyModificationTargetComponent } from './party-modification-target.component';
-import { FillInUnitIdComponent } from './fill-in-unit-id/fill-in-unit-id.component';
-import { PartyTargetComponent } from './party-target/party-target.component';
 import { SharedModule } from '../../shared/shared.module';
+import { FillInUnitIdComponent } from './fill-in-unit-id/fill-in-unit-id.component';
 import { PartyItemNamePipe } from './party-item-name.pipe';
+import { PartyModificationTargetComponent } from './party-modification-target.component';
+import { PartyTargetComponent } from './party-target/party-target.component';
 
 @NgModule({
     imports: [

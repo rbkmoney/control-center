@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { shareReplay, map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
-import { DomainService } from './domain.service';
 import { toGenReference } from '../converters';
+import { DomainService } from './domain.service';
 import { Domain } from './gen-model/domain';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import get from 'lodash-es/get';
 
-import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
 import { getUnionValue } from '../../shared/utils';
+import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
 
 export function getCompanyInfo(
     questionary: Questionary

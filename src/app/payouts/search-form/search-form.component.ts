@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { PayoutSearchParams } from '../../papi/params';
 import { SearchFormService } from './search-form.service';
 import { formValueToSearchParams } from './to-search-params';
-import { PayoutSearchParams } from '../../papi/params';
 
 @Component({
     selector: 'cc-payouts-search-form',

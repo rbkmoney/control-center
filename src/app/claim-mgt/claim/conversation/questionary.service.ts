@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, ConnectableObservable, of } from 'rxjs';
+import { map, pluck, publishReplay, switchMap } from 'rxjs/operators';
 
-import { ConversationService } from './conversation.service';
-import { switchMap, pluck, map, publishReplay } from 'rxjs/operators';
 import { AnkService } from '../../../thrift-services/ank/ank.service';
-import { TimelineAction } from './to-timeline-info/model';
 import { Questionary } from '../../../thrift-services/ank/gen-model/questionary_manager';
+import { ConversationService } from './conversation.service';
+import { TimelineAction } from './to-timeline-info/model';
 
 @Injectable()
 export class QuestionaryService {

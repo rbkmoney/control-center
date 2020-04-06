@@ -1,23 +1,23 @@
 import {
-    OnInit,
-    Input,
     ElementRef,
-    Output,
     EventEmitter,
-    OnChanges,
-    SimpleChanges,
     HostListener,
-    OnDestroy
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges
 } from '@angular/core';
 
-import {
-    MonacoFile,
-    IEditorOptions,
-    CodeLensProvider,
-    IDisposable,
-    CompletionProvider
-} from './model';
 import { AbstractMonacoService } from './abstract-monaco.service';
+import {
+    CodeLensProvider,
+    CompletionProvider,
+    IDisposable,
+    IEditorOptions,
+    MonacoFile
+} from './model';
 
 export abstract class AbstractMonacoDirective implements OnInit, OnChanges, OnDestroy {
     @Input() options: IEditorOptions;

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -9,10 +9,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 
-import { PartyDetailsComponent } from './party-details.component';
-import { ShopsTableComponent } from './shops-table/shops-table.component';
-import { PartyInfoComponent } from './party-info/party-info.component';
 import { SharedModule } from '../../shared/shared.module';
+import { PartyDetailsComponent } from './party-details.component';
+import { PartyInfoComponent } from './party-info/party-info.component';
+import { ShopsTableComponent } from './shops-table/shops-table.component';
 
 @NgModule({
     imports: [

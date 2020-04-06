@@ -1,5 +1,8 @@
-import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,22 +20,19 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { CdkTableModule } from '@angular/cdk/table';
 
-import { PayoutsComponent } from './payouts.component';
-import { PayoutsRoutingModule } from './payouts-routing.module';
-import { SearchFormComponent } from './search-form/search-form.component';
 import { PapiModule } from '../papi/papi.module';
-import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
 import { SharedModule } from '../shared/shared.module';
-import { CreatePayoutComponent } from './create-payout/create-payout.component';
 import { CancelPayoutComponent } from './cancel-payout/cancel-payout.component';
-import { PayoutsService } from './payouts.service';
-import { PayPayoutsComponent } from './pay-payouts/pay-payouts.component';
 import { ConfirmPayoutsComponent } from './confirm-payouts/confirm-payouts.component';
+import { CreatePayoutComponent } from './create-payout/create-payout.component';
+import { PayPayoutsComponent } from './pay-payouts/pay-payouts.component';
 import { PayoutsActionsComponent } from './payouts-actions/payouts-actions.component';
+import { PayoutsRoutingModule } from './payouts-routing.module';
+import { PayoutsTableComponent } from './payouts-table/payouts-table.component';
+import { PayoutsComponent } from './payouts.component';
+import { PayoutsService } from './payouts.service';
+import { SearchFormComponent } from './search-form/search-form.component';
 
 @NgModule({
     imports: [

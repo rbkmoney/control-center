@@ -21,7 +21,7 @@ export class ShopsTableComponent implements OnChanges {
 
     constructor(private router: Router, private route: ActivatedRoute) {
         this.route.params.subscribe(params => {
-            this.partyId = params['partyID'];
+            this.partyId = params.partyID;
         });
     }
 

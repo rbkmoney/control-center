@@ -1,32 +1,32 @@
+import get from 'lodash-es/get';
 import isEmpty from 'lodash-es/isEmpty';
 
-import {
-    createInlineCheckboxWithTitle,
-    createVerticalParagraph,
-    createHeader,
-    createHeadline,
-    createEnding
-} from '../create-content';
-import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
-import {
-    YesNo,
-    getShopLocationURL,
-    getContactInfo,
-    getBusinessInfo,
-    toYesNo,
-    simpleYesNo
-} from '../select-data';
-import { DocDef } from '../create-questionary';
-import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
-import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
-import { toOptional, getUnionKey } from '../../shared/utils';
+import { getUnionKey, toOptional } from '../../shared/utils';
 import {
     MonthOperationCount,
     MonthOperationSum,
     PropertyInfoDocumentType,
     WithoutChiefAccountant
 } from '../../thrift-services/ank/gen-model/questionary';
-import get from 'lodash-es/get';
+import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
+import {
+    createEnding,
+    createHeader,
+    createHeadline,
+    createInlineCheckboxWithTitle,
+    createVerticalParagraph
+} from '../create-content';
+import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
+import { DocDef } from '../create-questionary';
+import {
+    getBusinessInfo,
+    getContactInfo,
+    getShopLocationURL,
+    simpleYesNo,
+    toYesNo,
+    YesNo
+} from '../select-data';
+import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
 
 const EMPTY = '';
 

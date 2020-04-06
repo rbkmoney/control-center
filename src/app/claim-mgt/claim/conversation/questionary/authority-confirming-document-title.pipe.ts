@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { AuthorityConfirmingDocumentType } from '../../../../model/questionary';
 
 const authorityConfirmingDocumentTitleByType: { [N in AuthorityConfirmingDocumentType]: string } = {

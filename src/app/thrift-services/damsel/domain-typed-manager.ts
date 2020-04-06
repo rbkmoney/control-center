@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
-import { findDomainObject, findDomainObjects } from './operations/utils';
-import { getCreateTerminalCommit, CreateTerminalParams } from './operations';
 import { toGenReference } from '../converters';
-import { DomainService } from './domain.service';
-import { addDecisionToProviderCommit, AddDecisionToProvider } from './operations';
 import { DomainCacheService } from './domain-cache.service';
-import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
-import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
-import { editTerminalDecisionPropertyForShopCommit } from './operations/edit-terminal-decision-property-for-shop-commit';
-import { EditTerminalDecisionPropertyParams } from './operations/edit-terminal-decision-property-params';
+import { DomainService } from './domain.service';
 import {
     BusinessScheduleObject,
     Domain,
@@ -20,6 +13,13 @@ import {
     TerminalObject
 } from './gen-model/domain';
 import { Version } from './gen-model/domain_config';
+import { AddDecisionToProvider, addDecisionToProviderCommit } from './operations';
+import { CreateTerminalParams, getCreateTerminalCommit } from './operations';
+import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
+import { editTerminalDecisionPropertyForShopCommit } from './operations/edit-terminal-decision-property-for-shop-commit';
+import { EditTerminalDecisionPropertyParams } from './operations/edit-terminal-decision-property-params';
+import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
+import { findDomainObject, findDomainObjects } from './operations/utils';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
     findDomainObjects(domain, 'business_schedule');

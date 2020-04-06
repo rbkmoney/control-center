@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { RepairingComponent } from './repairing.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
+import { RepairingComponent } from './repairing.component';
 
 @NgModule({
     imports: [

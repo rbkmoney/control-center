@@ -1,25 +1,25 @@
 import Int64 from 'thrift-ts/lib/int64';
 
 import {
-    MetaStruct,
-    MetaUnion,
-    MetaField,
-    MetaTyped,
-    MetaType,
-    MetaPrimitive,
-    MetaEnum,
-    MetaCollection,
-    MetaMap
-} from './model';
-import {
+    ArrayASTNode,
+    ASTNode,
+    BooleanASTNode,
+    NumberASTNode,
     ObjectASTNode,
     PropertyASTNode,
-    ASTNode,
-    NumberASTNode,
-    ArrayASTNode,
-    StringASTNode,
-    BooleanASTNode
+    StringASTNode
 } from '../jsonc';
+import {
+    MetaCollection,
+    MetaEnum,
+    MetaField,
+    MetaMap,
+    MetaPrimitive,
+    MetaStruct,
+    MetaType,
+    MetaTyped,
+    MetaUnion
+} from './model';
 import { PrimitiveType } from './model';
 
 export interface ApplyPayload {

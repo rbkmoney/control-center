@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Category } from '../../../../thrift-services/damsel/gen-model/domain';
+
 import { CategoryService } from '../../../../papi/category.service';
+import { Category } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     templateUrl: 'category.component.html',

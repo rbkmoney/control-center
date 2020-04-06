@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { MetaStruct, MetaUnion } from './model';
-import { DefinitionService } from './definition.service';
 import { buildInitialMeta, findMeta, MetaEnricher } from '.';
-import { MetaErrorEmitter, ErrorObservable } from './meta-error-emitter';
+import { DefinitionService } from './definition.service';
+import { ErrorObservable, MetaErrorEmitter } from './meta-error-emitter';
+import { MetaStruct, MetaUnion } from './model';
 
 @Injectable()
 export class MetaBuilder implements ErrorObservable {

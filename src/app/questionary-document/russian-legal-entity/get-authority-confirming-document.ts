@@ -1,7 +1,7 @@
-import { getDate } from '../select-data';
-import { AuthorityConfirmingDocument } from '../../thrift-services/ank/gen-model/questionary';
-import { toOptional } from '../../shared/utils';
 import { AuthorityConfirmingDocumentType } from '../../model/questionary';
+import { toOptional } from '../../shared/utils';
+import { AuthorityConfirmingDocument } from '../../thrift-services/ank/gen-model/questionary';
+import { getDate } from '../select-data';
 
 const mapAuthorityConfirmingDocumentType: { [name in AuthorityConfirmingDocumentType]: string } = {
     solePartyDecision: 'Решение единственного участника',

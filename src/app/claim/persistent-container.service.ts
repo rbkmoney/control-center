@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import remove from 'lodash-es/remove';
+import { Subject } from 'rxjs';
 
-import { PersistentContainer } from './model';
 import { PartyModification } from '../thrift-services/damsel/gen-model/payment_processing';
+import { PersistentContainer } from './model';
 
 @Injectable()
 export class PersistentContainerService {

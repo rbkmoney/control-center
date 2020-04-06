@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
+import flatten from 'lodash-es/flatten';
 import { from, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import flatten from 'lodash-es/flatten';
 
-import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
+import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import {
     ClaimChangeset,
     ClaimID,
     Modification
 } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
-import { toTimelineInfo } from './to-timeline-info';
-import { MessagesService } from '../../../thrift-services/messages/messages.service';
 import { ConversationId } from '../../../thrift-services/messages/gen-model/messages';
+import { MessagesService } from '../../../thrift-services/messages/messages.service';
+import { toTimelineInfo } from './to-timeline-info';
 import { addCommentsToTimelineInfos } from './to-timeline-info';
+import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
 
 @Injectable()
 export class ConversationService {

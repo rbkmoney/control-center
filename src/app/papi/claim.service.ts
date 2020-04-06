@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ClaimCreated, ClaimInfo, PartyModificationUnit } from './model';
 import { ConfigService } from '../core/config.service';
 import { decode, encode } from '../shared/java-thrift-formatter';
+import { ClaimCreated, ClaimInfo, PartyModificationUnit } from './model';
 import { ClaimAcceptParams, ClaimDenyParams, ClaimSearchParams } from './params';
 
 @Injectable()

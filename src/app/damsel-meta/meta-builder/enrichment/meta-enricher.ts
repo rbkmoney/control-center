@@ -1,19 +1,19 @@
 import {
-    MetaTyped,
     MetaCollection,
     MetaMap,
-    MetaType,
     MetaStruct,
-    MetaUnion,
-    MetaTypeDefined,
+    MetaType,
+    MetaTyped,
     MetaTypedef,
+    MetaTypeDefined,
+    MetaUnion,
     PrimitiveType
 } from '../../model';
-import { MetaTypeCondition, MetaGroup } from '../model';
 import { findMeta } from '../find-meta';
-import { MetaLoopResolver } from './meta-loop-resolver';
-import { isObjectRefType, registerError, isPrimitiveType } from '../utils';
+import { MetaGroup, MetaTypeCondition } from '../model';
 import { resolvePrimitive } from '../resolve-ast-value-type';
+import { isObjectRefType, isPrimitiveType, registerError } from '../utils';
+import { MetaLoopResolver } from './meta-loop-resolver';
 
 type MetaLoop = string;
 type ObjectRef = string;

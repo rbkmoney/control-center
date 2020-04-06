@@ -1,16 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { MonacoFile, CodeLensProvider, CompletionProvider } from '../../monaco-editor';
-import { DomainObjModificationService } from './domain-obj-modification.service';
-import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
-import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
+import { CodeLensProvider, CompletionProvider, MonacoFile } from '../../monaco-editor';
+import { DomainModificationModel } from '../domain-modification-model';
 import { DomainReviewService } from '../domain-review.service';
 import { toMonacoFile } from '../utils';
-import { DomainModificationModel } from '../domain-modification-model';
+import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
+import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
+import { DomainObjModificationService } from './domain-obj-modification.service';
 import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confirm-dialog.component';
 
 @Component({

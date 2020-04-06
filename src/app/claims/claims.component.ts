@@ -1,10 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpErrorResponse } from '@angular/common/http';
 
 import { ClaimService } from '../papi/claim.service';
-import { ClaimSearchParams } from '../papi/params';
 import { ClaimInfo } from '../papi/model';
+import { ClaimSearchParams } from '../papi/params';
 
 @Component({
     templateUrl: 'claims.component.html',

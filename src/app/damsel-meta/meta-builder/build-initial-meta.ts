@@ -1,18 +1,18 @@
-import { JsonAST, Enums, Field, Structs, Unions, TypeDefs } from 'thrift-ts';
+import { Enums, Field, JsonAST, Structs, TypeDefs, Unions } from 'thrift-ts';
 
 import {
     ASTDefinition,
-    MetaTyped,
     MetaEnum,
-    MetaType,
     MetaField,
     MetaStruct,
-    MetaUnion,
-    MetaTypedef
+    MetaType,
+    MetaTyped,
+    MetaTypedef,
+    MetaUnion
 } from '../model';
-import { isRef } from './utils';
-import { resolveAstValueType } from './resolve-ast-value-type';
 import { MetaGroup } from './model';
+import { resolveAstValueType } from './resolve-ast-value-type';
+import { isRef } from './utils';
 
 const resolveAstField = ({ option, name, type }: Field): MetaField => ({
     required: option ? option === 'required' : false,

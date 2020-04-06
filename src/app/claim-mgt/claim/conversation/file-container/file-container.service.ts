@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
-import * as moment from 'moment';
 
+import { booleanDelay } from '../../../../custom-operators';
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import {
     FileData,
     FileNotFound
 } from '../../../../thrift-services/file-storage/gen-model/file_storage';
-import { booleanDelay } from '../../../../custom-operators';
 import { download } from './download';
 
 @Injectable()

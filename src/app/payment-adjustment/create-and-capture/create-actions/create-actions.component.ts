@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import groupBy from 'lodash-es/groupBy';
 import forEach from 'lodash-es/forEach';
+import groupBy from 'lodash-es/groupBy';
 
 import {
-    EventType,
-    OperationFailedPayload,
     AdjustmentOperationEvent,
     BatchPaymentAdjustmentService,
+    EventType,
+    OperationFailedPayload,
     PaymentAdjustmentCreationScope
 } from '../adjustment-operations';
 import { CreatePaymentAdjustmentErrorCodes } from '../adjustment-operations';

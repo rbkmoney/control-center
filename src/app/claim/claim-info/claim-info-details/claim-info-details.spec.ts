@@ -1,4 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
+
 import { ClaimInfoDetailsComponent } from './claim-info-details.component';
 
 describe('ClaimInfoDetailsComponent', () => {

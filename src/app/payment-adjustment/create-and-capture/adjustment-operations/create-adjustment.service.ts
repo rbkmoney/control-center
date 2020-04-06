@@ -1,15 +1,15 @@
+import { PaymentAdjustmentCreationParams } from '.';
 import { ExecErrorResult, ExecResultType, ExecSuccessResult } from '../executor.service';
-import { AdjustmentOperationService } from './adjustment-operation.service';
 import {
     AdjustmentOperationEvent,
     EventType,
     OperationError,
     OperationFailedPayload
 } from './adjustment-event';
+import { AdjustmentOperationService } from './adjustment-operation.service';
 import { CreatePaymentAdjustmentErrorCodes } from './error-codes';
 import { ExecResultGroup } from './exec-result-group';
 import { PaymentAdjustmentCreationScope } from './payment-adjustment-creation-scope';
-import { PaymentAdjustmentCreationParams } from '.';
 
 export class CreateAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(creationParams: any[]): any[] {

@@ -1,12 +1,12 @@
 import {
-    Component,
     ChangeDetectionStrategy,
-    Input,
-    Output,
+    Component,
     EventEmitter,
+    Input,
     OnChanges,
-    SimpleChanges,
-    OnInit
+    OnInit,
+    Output,
+    SimpleChanges
 } from '@angular/core';
 import isEqual from 'lodash-es/isEqual';
 

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import get from 'lodash-es/get';
 import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import get from 'lodash-es/get';
 
+import { DomainTypedManager } from '../../thrift-services';
 import {
     Contract,
     PayoutTool,
@@ -10,9 +11,8 @@ import {
     Shop,
     TerminalObject
 } from '../../thrift-services/damsel/gen-model/domain';
-import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 import { PartyService } from '../party.service';
-import { DomainTypedManager } from '../../thrift-services';
+import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 
 export interface ProviderInfo {
     provider: ProviderObject;

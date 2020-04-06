@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject, Observable, forkJoin, of, BehaviorSubject } from 'rxjs';
-import { map, tap, switchMap, filter, catchError, shareReplay, switchMapTo } from 'rxjs/operators';
-import negate from 'lodash-es/negate';
-import isEmpty from 'lodash-es/isEmpty';
 import head from 'lodash-es/head';
+import isEmpty from 'lodash-es/isEmpty';
+import negate from 'lodash-es/negate';
+import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
+import { catchError, filter, map, shareReplay, switchMap, switchMapTo, tap } from 'rxjs/operators';
 
-import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
+import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { extractModificationsReducer, extractSeed } from './extract-modifications-reducer';
 
 @Injectable()

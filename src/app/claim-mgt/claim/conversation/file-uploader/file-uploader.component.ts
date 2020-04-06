@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
-import { FileUploaderService } from './file-uploader.service';
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { FileUploaderService } from './file-uploader.service';
 
 @Component({
     selector: 'cc-file-uploader',

@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 
-import { AddProviderService } from './add-provider.service';
 import { ProviderObject, TerminalObject } from '../../../thrift-services/damsel/gen-model/domain';
+import { AddProviderService } from './add-provider.service';
 
 interface AddProviderData {
     partyID: string;

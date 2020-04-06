@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { KeycloakService } from 'keycloak-angular';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import {
-    UserInfo,
-    InvoiceRepairScenario
-} from '../thrift-services/damsel/gen-model/payment_processing';
 import { execute } from '../shared/execute';
-import { AutomatonService } from '../thrift-services/machinegun/automaton.service';
+import {
+    InvoiceRepairScenario,
+    UserInfo
+} from '../thrift-services/damsel/gen-model/payment_processing';
 import { PaymentProcessingService } from '../thrift-services/damsel/payment-processing.service';
-import { RepairerService } from '../thrift-services/fistful/repairer.service';
 import { RepairScenario } from '../thrift-services/fistful/gen-model/withdrawal_session';
+import { RepairerService } from '../thrift-services/fistful/repairer.service';
+import { AutomatonService } from '../thrift-services/machinegun/automaton.service';
 
 @Injectable()
 export class RepairingService {

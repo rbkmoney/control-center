@@ -1,15 +1,15 @@
-import { ValueType, SetType, ListType, MapType } from 'thrift-ts';
 import isString from 'lodash-es/isString';
+import { ListType, MapType, SetType, ValueType } from 'thrift-ts';
 
 import {
-    PrimitiveType,
-    MetaPrimitive,
-    MetaType,
     CollectionType,
     MetaCollection,
-    MetaMap
+    MetaMap,
+    MetaPrimitive,
+    MetaType,
+    PrimitiveType
 } from '../model';
-import { isPrimitiveType, isComplexType } from './utils';
+import { isComplexType, isPrimitiveType } from './utils';
 
 const resolveCollection = (
     collectionType: CollectionType,

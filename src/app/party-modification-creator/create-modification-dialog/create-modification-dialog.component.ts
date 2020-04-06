@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ModificationGroupType, ModificationAction, ActionType } from '../model';
-import { PartyTarget } from '../party-modification-target';
 import {
     ContractModificationUnit,
     PartyModification,
     ShopModificationUnit
 } from '../../thrift-services/damsel/gen-model/claim_management';
+import { ActionType, ModificationAction, ModificationGroupType } from '../model';
 import { PartyModificationEmitter } from '../party-modification-emitter.service';
+import { PartyTarget } from '../party-modification-target';
 
 export interface CreateModificationData {
     action: ModificationAction;

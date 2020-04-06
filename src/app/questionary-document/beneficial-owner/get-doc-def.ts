@@ -1,26 +1,27 @@
-import { DocDef } from '../create-questionary';
+import get from 'lodash-es/get';
+
+import { toOptional } from '../../shared/utils';
+import { BeneficialOwner } from '../../thrift-services/ank/gen-model/questionary';
 import {
-    createVerticalParagraph,
+    createEnding,
     createHeader,
     createHeadline,
-    createEnding,
+    createHorizontalCheckbox,
     createInlineCheckboxWithTitle,
     createInlineParagraph,
-    createHorizontalCheckbox
+    createVerticalParagraph
 } from '../create-content';
+import { DocDef } from '../create-questionary';
 import {
     getContactInfo,
-    toYesNo,
-    getIdentityDocument,
     getDate,
+    getIdentityDocument,
     getPercent,
-    simpleYesNo
+    simpleYesNo,
+    toYesNo
 } from '../select-data';
-import { getIndividualResidencyInfo } from './get-individual-residency-info';
 import { createCompanyHeader } from './create-company-header';
-import { BeneficialOwner } from '../../thrift-services/ank/gen-model/questionary';
-import { toOptional } from '../../shared/utils';
-import get from 'lodash-es/get';
+import { getIndividualResidencyInfo } from './get-individual-residency-info';
 
 const EMPTY = '';
 

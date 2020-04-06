@@ -1,9 +1,9 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 import get from 'lodash-es/get';
 
+import { ProviderObject, TerminalDecision } from '../gen-model/domain';
 import { EditTerminalDecisionPropertyParams } from './edit-terminal-decision-property-params';
 import { checkSelector } from './utils';
-import { ProviderObject, TerminalDecision } from '../gen-model/domain';
 
 const editDecision = (
     decisions: TerminalDecision[],

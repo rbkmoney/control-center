@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs/internal/operators';
 import { KeycloakService } from 'keycloak-angular';
+import { filter } from 'rxjs/internal/operators';
 
-import { PayPayoutsComponent } from '../pay-payouts/pay-payouts.component';
+import { Payout, PayoutStatus } from '../../papi/model';
 import { ConfirmPayoutsComponent } from '../confirm-payouts/confirm-payouts.component';
 import { CreatePayoutComponent } from '../create-payout/create-payout.component';
-import { Payout, PayoutStatus } from '../../papi/model';
+import { PayPayoutsComponent } from '../pay-payouts/pay-payouts.component';
 
 @Component({
     selector: 'cc-payouts-actions',

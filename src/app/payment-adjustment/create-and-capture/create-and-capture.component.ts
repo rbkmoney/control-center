@@ -1,23 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
+import { Observable } from 'rxjs';
 
+import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import {
     InvoicePaymentAdjustmentParams,
     UserInfo
 } from '../../thrift-services/damsel/gen-model/payment_processing';
-import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
-import { ExecutorService } from './executor.service';
 import {
-    CreateAdjustmentService,
+    BatchPaymentAdjustmentService,
     CancelAdjustmentService,
     CaptureAdjustmentService,
-    BatchPaymentAdjustmentService,
+    CreateAdjustmentService,
     EventType
 } from './adjustment-operations';
+import { ExecutorService } from './executor.service';
 
 @Component({
     selector: 'cc-create-and-capture-payment-adjustment',

@@ -1,5 +1,6 @@
-import { JSONSchema } from './json-schema';
 import * as Json from 'jsonc-parser';
+
+import { JSONSchema } from './json-schema';
 import * as nls from './nlc';
 
 const localize = nls.loadMessageBundle();
@@ -166,7 +167,7 @@ export class ASTNode {
         }
 
         if (Array.isArray(schema.type)) {
-            if ((<string[]>schema.type).indexOf(this.type) === -1) {
+            if ((schema.type as string[]).indexOf(this.type) === -1) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
                     message:
@@ -174,7 +175,7 @@ export class ASTNode {
                         localize(
                             'typeArrayMismatchWarning',
                             'Incorrect type. Expected one of {0}',
-                            (<string[]>schema.type).join(', ')
+                            (schema.type as string[]).join(', ')
                         )
                 });
             }
@@ -317,7 +318,7 @@ export class ASTNode {
         }
 
         if (matchingSchemas !== null) {
-            matchingSchemas.push({ node: this, schema: schema });
+            matchingSchemas.push({ node: this, schema });
         }
     }
 }
@@ -389,7 +390,7 @@ export class ArrayASTNode extends ASTNode {
         super.validate(schema, validationResult, matchingSchemas, offset);
 
         if (Array.isArray(schema.items)) {
-            const subSchemas = <JSONSchema[]>schema.items;
+            const subSchemas = schema.items as JSONSchema[];
             subSchemas.forEach((subSchema, index) => {
                 const itemValidationResult = new ValidationResult();
                 const item = this.items[index];
@@ -488,7 +489,7 @@ export class NumberASTNode extends ASTNode {
         let typeIsInteger = false;
         if (
             schema.type === 'integer' ||
-            (Array.isArray(schema.type) && (<string[]>schema.type).indexOf('integer') !== -1)
+            (Array.isArray(schema.type) && (schema.type as string[]).indexOf('integer') !== -1)
         ) {
             typeIsInteger = true;
         }
@@ -742,12 +743,12 @@ export class ObjectASTNode extends ASTNode {
         if (Array.isArray(schema.required)) {
             schema.required.forEach((propertyName: string) => {
                 if (!seenKeys[propertyName]) {
-                    const key = this.parent && (<PropertyASTNode>this.parent).key;
+                    const key = this.parent && (this.parent as PropertyASTNode).key;
                     const location = key
                         ? { start: key.start, end: key.end }
                         : { start: this.start, end: this.start + 1 };
                     validationResult.warnings.push({
-                        location: location,
+                        location,
                         message: localize(
                             'MissingRequiredPropWarning',
                             'Missing property "{0}"',
@@ -820,7 +821,7 @@ export class ObjectASTNode extends ASTNode {
                 unprocessedProperties.forEach((propertyName: string) => {
                     const child = seenKeys[propertyName];
                     if (child) {
-                        const propertyNode = <PropertyASTNode>child.parent;
+                        const propertyNode = child.parent as PropertyASTNode;
 
                         validationResult.warnings.push({
                             location: { start: propertyNode.key.start, end: propertyNode.key.end },
@@ -998,7 +999,7 @@ export function parse(text: string, config?: JSONDocumentConfig): JSONDocument {
         ) {
             // ignore multiple errors on the same offset
             const error = {
-                message: message,
+                message,
                 location: {
                     start: _scanner.getTokenOffset(),
                     end: _scanner.getTokenOffset() + _scanner.getTokenLength()

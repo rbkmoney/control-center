@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DomainDetailsService } from '../domain-details.service';
 import { IEditorOptions, MonacoFile } from '../../../monaco-editor';
+import { DomainDetailsService } from '../domain-details.service';
 
 @Component({
     selector: 'cc-domain-obj-details',

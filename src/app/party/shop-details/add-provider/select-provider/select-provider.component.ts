@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
     Component,
     EventEmitter,
@@ -10,7 +11,6 @@ import {
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
 
 import { ProviderObject } from '../../../../thrift-services/damsel/gen-model/domain';
 

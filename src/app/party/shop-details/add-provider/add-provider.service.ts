@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {
     AddDecisionToProvider,
@@ -33,8 +33,8 @@ export class AddProviderService {
         const params = {
             partyID,
             shopID,
-            terminalID: this.terminalForm.value['id'],
-            providerID: this.providerForm.value['id']
+            terminalID: this.terminalForm.value.id,
+            providerID: this.providerForm.value.id
         } as AddDecisionToProvider;
         return this.dtm.addProviderDecision(params);
     }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { InternationalLegalEntity } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({

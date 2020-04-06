@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { StatusChangerService } from './status-changer.service';
+import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimID, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatuses } from '../claim-statuses';
 import { getAvailableClaimStatuses } from './get-available-claim-statuses';
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
+import { StatusChangerService } from './status-changer.service';
 
 interface ActionsInterface {
     partyID: string;

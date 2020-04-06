@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { PayoutsComponent } from './payouts.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
+import { PayoutsComponent } from './payouts.component';
 
 @NgModule({
     imports: [

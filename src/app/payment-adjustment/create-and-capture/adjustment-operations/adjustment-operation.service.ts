@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import groupBy from 'lodash-es/groupBy';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/internal/operators';
-import groupBy from 'lodash-es/groupBy';
 
-import { ExecutorService } from '../executor.service';
 import { PaymentProcessingService } from '../../../thrift-services/damsel/payment-processing.service';
+import { ExecutorService } from '../executor.service';
 import { AdjustmentOperationEvent, EventType } from './adjustment-event';
 import { ExecResultGroup } from './exec-result-group';
 

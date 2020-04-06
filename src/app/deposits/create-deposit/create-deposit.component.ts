@@ -3,8 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CreateDepositService, currencies } from './create-deposit.service';
 import { PollingTimeoutError } from '../../custom-operators';
+import { CreateDepositService, currencies } from './create-deposit.service';
 
 @Component({
     selector: 'cc-create-deposit',

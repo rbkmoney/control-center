@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, forkJoin, of, ReplaySubject } from 'rxjs';
+import isEqual from 'lodash-es/isEqual';
+import { forkJoin, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import {
-    shareReplay,
-    map,
-    distinctUntilChanged,
-    switchMap,
-    first,
-    pluck,
     debounceTime,
+    distinctUntilChanged,
+    first,
+    map,
+    pluck,
+    shareReplay,
+    switchMap,
     tap
 } from 'rxjs/operators';
-import isEqual from 'lodash-es/isEqual';
 import Int64 from 'thrift-ts/lib/int64';
 
-import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
-import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import { ClaimService } from '../claim.service';
 
 @Injectable()

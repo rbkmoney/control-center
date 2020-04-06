@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { pluck, first, shareReplay } from 'rxjs/operators';
+import { first, pluck, shareReplay } from 'rxjs/operators';
 
 import { ClaimService } from '../claim.service';
 import { ModificationGroupType, PartyModificationUnit } from '../model';

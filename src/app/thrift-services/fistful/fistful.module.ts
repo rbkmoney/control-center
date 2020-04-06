@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { RepairerService } from './repairer.service';
 import { FistfulAdminService } from './fistful-admin.service';
+import { RepairerService } from './repairer.service';
 
 @NgModule({
     providers: [RepairerService, FistfulAdminService]

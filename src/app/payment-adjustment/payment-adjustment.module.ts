@@ -1,5 +1,8 @@
-import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,24 +20,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CdkTableModule } from '@angular/cdk/table';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
-import { PaymentAdjustmentComponent } from './payment-adjustment.component';
-import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
-import { TableComponent } from './table/table.component';
-import { SearchFormComponent } from './search-form/search-form.component';
-import { PaymentAdjustmentService } from './payment-adjustment.service';
+import { DomainModule } from '../domain';
 import { PapiModule } from '../papi/papi.module';
+import { SharedModule } from '../shared/shared.module';
 import { DamselModule } from '../thrift-services/damsel/damsel.module';
 import { ActionItemComponent } from './create-and-capture/action-item/action-item.component';
-import { CreateActionsComponent } from './create-and-capture/create-actions/create-actions.component';
 import { CancelActionsComponent } from './create-and-capture/cancel-actions/cancel-actions.component';
 import { CaptureActionsComponent } from './create-and-capture/capture-actions/capture-actions.component';
-import { SharedModule } from '../shared/shared.module';
-import { DomainModule } from '../domain';
+import { CreateActionsComponent } from './create-and-capture/create-actions/create-actions.component';
+import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
+import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
+import { PaymentAdjustmentComponent } from './payment-adjustment.component';
+import { PaymentAdjustmentService } from './payment-adjustment.service';
+import { SearchFormComponent } from './search-form/search-form.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
     imports: [

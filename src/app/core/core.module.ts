@@ -1,9 +1,9 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
-import { ConfigService } from './config.service';
 import { KeycloakTokenInfoService } from '../keycloak-token-info.service';
+import { ConfigService } from './config.service';
 
 const initializer = (
     keycloak: KeycloakService,

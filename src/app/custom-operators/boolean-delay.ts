@@ -1,4 +1,4 @@
-import { Observable, Subscription, Subscriber, timer, of } from 'rxjs';
+import { Observable, of, Subscriber, Subscription, timer } from 'rxjs';
 
 const emitWithDelay = (ms: number, observer: Subscriber<boolean>): Subscription =>
     timer(ms).subscribe(() => observer.next(true));

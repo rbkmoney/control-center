@@ -1,8 +1,8 @@
-import { createTerminalObject } from './create-terminal-object';
-import { CreateTerminalParams } from './create-terminal-params';
 import { toGenCommit, toGenDomainObject } from '../../converters';
 import { TerminalObject } from '../gen-model/domain';
 import { Commit } from '../gen-model/domain_config';
+import { createTerminalObject } from './create-terminal-object';
+import { CreateTerminalParams } from './create-terminal-params';
 
 export interface GetCreateTerminalCommit {
     commit: Commit;

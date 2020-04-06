@@ -1,5 +1,6 @@
 import sortBy from 'lodash-es/sortBy';
 import transform from 'lodash-es/transform';
+
 import { Domain, TerminalSelector } from '../gen-model/domain';
 
 export const generateID = (domainObjects: any[]): number => {

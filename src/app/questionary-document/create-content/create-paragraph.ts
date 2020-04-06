@@ -1,9 +1,9 @@
-import { Content, Table, cmMarginsToIn } from '../../document';
+import { cmMarginsToIn, Content, Table } from '../../document';
 import { Layout } from '../create-questionary';
-import { createTableBody } from './create-table-body';
 import { PRIMARY_COLOR } from '../create-questionary';
-import { getColumnsCount } from './get-columns-count';
 import { createGrid } from './create-grid';
+import { createTableBody } from './create-table-body';
+import { getColumnsCount } from './get-columns-count';
 
 const MARGIN = cmMarginsToIn(0, 0.1);
 

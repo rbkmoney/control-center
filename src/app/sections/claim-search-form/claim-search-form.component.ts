@@ -1,18 +1,18 @@
 import {
-    Component,
     ChangeDetectionStrategy,
-    OnInit,
-    Output,
+    Component,
     EventEmitter,
-    Input
+    Input,
+    OnInit,
+    Output
 } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, map, take } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '../../shared/utils';
-import { queryParamsToFormValue } from './query-params-to-form-value';
 import { formValueToSearchParams } from './form-value-to-search-params';
+import { queryParamsToFormValue } from './query-params-to-form-value';
 import { SearchFormValue } from './search-form-value';
 
 @Component({

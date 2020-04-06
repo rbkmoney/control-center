@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import forEach from 'lodash-es/forEach';
+import groupBy from 'lodash-es/groupBy';
+
 import {
     BatchPaymentAdjustmentService,
     CancelPaymentAdjustmentErrorCodes,
@@ -7,8 +10,6 @@ import {
     OperationFailedPayload,
     PaymentAdjustmentCaptureParams
 } from '../adjustment-operations';
-import forEach from 'lodash-es/forEach';
-import groupBy from 'lodash-es/groupBy';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCaptureParams>;
 

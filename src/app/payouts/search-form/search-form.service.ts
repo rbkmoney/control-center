@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as moment from 'moment';
 import values from 'lodash-es/values';
+import * as moment from 'moment';
 
 import { PayoutStatus, PayoutTypes } from '../../papi/model';
 

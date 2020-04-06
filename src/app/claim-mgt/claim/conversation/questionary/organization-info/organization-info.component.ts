@@ -1,10 +1,11 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import {
-    WithoutChiefAccountant,
-    Contractor
-} from '../../../../../thrift-services/ank/gen-model/questionary';
-import { getUnionKey, getUnionValue } from '../../../../../shared/utils/get-union-key';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import get from 'lodash-es/get';
+
+import { getUnionKey, getUnionValue } from '../../../../../shared/utils/get-union-key';
+import {
+    Contractor,
+    WithoutChiefAccountant
+} from '../../../../../thrift-services/ank/gen-model/questionary';
 
 const WithoutChiefAccountantTitles: { [name in keyof WithoutChiefAccountant]: string } = {
     accounting_organization: 'Организация ведущая бухгалтерский учет',

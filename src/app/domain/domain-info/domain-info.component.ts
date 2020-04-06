@@ -3,8 +3,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { DomainDetailsService } from './domain-details.service';
 import { DetailsContainerService } from './details-container.service';
+import { DomainDetailsService } from './domain-details.service';
 import { DomainInfoService } from './domain-info.service';
 
 @Component({

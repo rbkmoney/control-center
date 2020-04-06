@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { PaymentAdjustmentComponent } from './payment-adjustment.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
+import { PaymentAdjustmentComponent } from './payment-adjustment.component';
 
 const routes: Routes = [
     {

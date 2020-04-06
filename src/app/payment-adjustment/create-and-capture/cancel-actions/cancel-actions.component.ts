@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import forEach from 'lodash-es/forEach';
 import groupBy from 'lodash-es/groupBy';
 
+import { InvoicePaymentAdjustmentParams } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import {
     AdjustmentOperationEvent,
     BatchPaymentAdjustmentService,
@@ -11,7 +12,6 @@ import {
     OperationFailedPayload,
     PaymentAdjustmentCancelParams
 } from '../adjustment-operations';
-import { InvoicePaymentAdjustmentParams } from '../../../thrift-services/damsel/gen-model/payment_processing';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCancelParams>;
 

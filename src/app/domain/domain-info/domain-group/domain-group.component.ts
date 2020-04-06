@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs/operators';
 
-import { DomainGroupService } from './domain-group.service';
 import { DomainGroup } from './domain-group';
+import { DomainGroupService } from './domain-group.service';
 
 @Component({
     selector: 'cc-domain-group',

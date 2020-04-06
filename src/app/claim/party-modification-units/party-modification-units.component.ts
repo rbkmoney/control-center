@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
-import { ModificationGroupType, PartyModificationUnit } from '../model';
-import { ClaimService } from '../claim.service';
 import { UnitActionsNavListComponent } from '../../party-modification-creator';
+import { ClaimService } from '../claim.service';
+import { ModificationGroupType, PartyModificationUnit } from '../model';
 
 @Component({
     selector: 'cc-party-modification-units',

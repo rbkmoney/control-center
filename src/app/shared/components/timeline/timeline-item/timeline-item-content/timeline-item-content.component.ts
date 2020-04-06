@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'cc-timeline-item-content, [cc-timeline-item-content]',

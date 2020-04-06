@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { ConnectableObservable, Observable, Subject } from 'rxjs';
 import {
     catchError,
@@ -11,11 +13,9 @@ import {
     shareReplay,
     switchMap
 } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
-import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatuses } from '../claim-statuses';
 
 class UpdateClaim {

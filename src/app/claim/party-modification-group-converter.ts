@@ -1,16 +1,17 @@
 import groupBy from 'lodash-es/groupBy';
 import map from 'lodash-es/map';
+
+import { UnitName } from '../party-modification-creator/party-modification-creation/unit-name';
+import {
+    ContractModificationUnit,
+    ShopModificationUnit
+} from '../thrift-services/damsel/gen-model/payment_processing';
 import {
     ModificationGroup,
     ModificationGroupType,
     PartyModificationUnit,
     PersistentContainer
 } from './model';
-import {
-    ContractModificationUnit,
-    ShopModificationUnit
-} from '../thrift-services/damsel/gen-model/payment_processing';
-import { UnitName } from '../party-modification-creator/party-modification-creation/unit-name';
 
 interface PersistentUnit {
     modificationUnit: ShopModificationUnit | ContractModificationUnit;

@@ -1,7 +1,8 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { async, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+
+import { AppComponent } from './app.component';
 
 xdescribe('AppComponent', () => {
     beforeEach(async(() => {

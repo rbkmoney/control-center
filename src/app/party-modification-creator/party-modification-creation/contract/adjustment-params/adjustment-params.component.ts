@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+
 import { ContractAdjustmentParams } from '../../../../thrift-services/damsel/gen-model/payment_processing';
 
 @Component({

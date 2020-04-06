@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { tap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/internal/operators';
 
-import { BusinessScheduleObject } from '../../../../thrift-services/damsel/gen-model/domain';
 import { DomainTypedManager } from '../../../../thrift-services';
+import { BusinessScheduleObject } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-business-schedule-selector',

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { SearchFormParams } from './search-form/search-form-params';
-import { MerchantStatisticsService } from '../thrift-services/damsel/merchant-statistics.service';
-import { StatPayment, StatResponse } from '../thrift-services/damsel/gen-model/merch_stat';
-import { QueryDSL } from '../query-dsl';
 import { DomainService } from '../domain';
+import { QueryDSL } from '../query-dsl';
+import { StatPayment, StatResponse } from '../thrift-services/damsel/gen-model/merch_stat';
+import { MerchantStatisticsService } from '../thrift-services/damsel/merchant-statistics.service';
+import { SearchFormParams } from './search-form/search-form-params';
 
 @Injectable()
 export class PaymentAdjustmentService {

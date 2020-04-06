@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import isEqual from 'lodash-es/isEqual';
+import toNumber from 'lodash-es/toNumber';
 import { BehaviorSubject, Observable, of, Subject, throwError } from 'rxjs';
 import {
     delay,
@@ -9,18 +11,16 @@ import {
     takeWhile,
     tap
 } from 'rxjs/internal/operators';
-import isEqual from 'lodash-es/isEqual';
-import toNumber from 'lodash-es/toNumber';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, PartyModificationUnit } from '../papi/model';
-import { ClaimInfoContainer, ModificationGroup, PersistentContainer } from './model';
-import { PersistentContainerService } from './persistent-container.service';
-import { convert } from './party-modification-group-converter';
-import { PartyModification } from '../thrift-services/damsel/gen-model/payment_processing';
-import { ClaimActionType } from './claim-action-type';
 import { ClaimStatus } from '../papi/model/claim-statuses';
 import { PartyModificationEmitter } from '../party-modification-creator';
+import { PartyModification } from '../thrift-services/damsel/gen-model/payment_processing';
+import { ClaimActionType } from './claim-action-type';
+import { ClaimInfoContainer, ModificationGroup, PersistentContainer } from './model';
+import { convert } from './party-modification-group-converter';
+import { PersistentContainerService } from './persistent-container.service';
 
 @Injectable()
 export class ClaimService {
@@ -132,7 +132,7 @@ export class ClaimService {
                 this.papiClaimService
                     .acceptClaim({
                         partyId,
-                        claimId: claimId,
+                        claimId,
                         revision: claimInfo.revision
                     })
                     .pipe(map(() => claimInfo.revision))

@@ -1,6 +1,6 @@
+import { EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { DomainTypedManager } from '../../../thrift-services';
