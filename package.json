@@ -39,7 +39,6 @@
     "angular-file": "3.0.1",
     "angular2-prettyjson": "3.0.1",
     "ank-proto": "git+ssh://git@github.com:rbkmoney/ank-proto.git#21edf79b702e704ccc207bf7e03be1bbf830eed6",
-    "core-js": "~2.5.4",
     "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#e76b0f7cb5bbd82a779e12a116d837abcd6f417e",
     "file-storage-proto": "git+ssh://git@github.com:rbkmoney/file-storage-proto.git#281e1ca4cea9bf32229a6c389f0dcf5d49c05a0b",
     "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#c2113c853ed71a34bb6468b9a6cf9b468967af84",
@@ -86,7 +85,8 @@
     "prettier": "~1.19.1",
     "protractor": "~5.4.3",
     "ts-node": "~8.8.2",
-    "tslint": "~5.9.1",
+    "tslint": "~6.1.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.8.3",
     "vsc-base": "^0.9.10"
   }

@@ -1,56 +1,30 @@
 {
-    "rulesDirectory": ["node_modules/codelyzer"],
+    "extends": ["./tslint.angular.json", "tslint-config-prettier"],
     "rules": {
-        "arrow-return-shorthand": true,
-        "callable-types": true,
-        "class-name": true,
-        "forin": true,
+        "directive-selector": [true, ["attribute", "element"], "cc", ["camelCase", "kebab-case"]],
+        "component-selector": [true, ["attribute", "element"], "cc", "kebab-case"],
+        "template-no-negated-async": false,
         "import-blacklist": [true, "rxjs/Rx", "lodash", "lodash-es"],
-        "interface-over-type-literal": true,
-        "label-position": true,
-        "member-access": false,
-        "member-ordering": [
+        "no-unused-variable": [true, { "ignore-pattern": "^_" }],
+        "variable-name": {
+            "options": [
+                "allow-leading-underscore",
+                "ban-keywords",
+                "check-format",
+                "allow-pascal-case"
+            ]
+        },
+        "ordered-imports": [
             true,
             {
-                "order": ["static-field", "instance-field", "static-method", "instance-method"]
+                "grouped-imports": true,
+                "groups": [
+                    { "name": "node_modules", "match": "^(?![.]|@dsh/)", "order": 10 },
+                    { "name": "project", "match": "^@dsh/", "order": 20 },
+                    { "name": "current", "match": "^[.]", "order": 30 }
+                ]
             }
         ],
-        "no-arg": true,
-        "no-bitwise": true,
-        "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
-        "no-construct": true,
-        "no-debugger": true,
-        "no-duplicate-super": true,
-        "no-empty": false,
-        "no-empty-interface": true,
-        "no-eval": true,
-        "no-inferrable-types": [true, "ignore-params"],
-        "no-misused-new": true,
-        "no-non-null-assertion": true,
-        "no-shadowed-variable": true,
-        "no-string-literal": false,
-        "no-string-throw": true,
-        "no-switch-case-fall-through": true,
-        "no-unnecessary-initializer": true,
-        "no-unused-expression": true,
-        "no-use-before-declare": true,
-        "no-var-keyword": true,
-        "object-literal-sort-keys": false,
-        "prefer-const": true,
-        "radix": true,
-        "triple-equals": [true, "allow-null-check"],
-        "unified-signatures": true,
-        "variable-name": false,
-        "no-output-on-prefix": true,
-        "no-inputs-metadata-property": true,
-        "no-outputs-metadata-property": true,
-        "no-host-metadata-property": true,
-        "no-input-rename": true,
-        "no-output-rename": true,
-        "use-life-cycle-interface": true,
-        "use-pipe-transform-interface": true,
-        "component-class-suffix": true,
-        "directive-class-suffix": true,
-        "no-unused-variable": [true, { "ignore-pattern": "^_" }]
+        "no-duplicate-imports": [true, { "allow-namespace-imports": true }]
     }
 }
