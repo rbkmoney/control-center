@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { PartiesService } from './parties.service';
 import { PartyService } from '../party/party.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     templateUrl: 'parties.component.html',

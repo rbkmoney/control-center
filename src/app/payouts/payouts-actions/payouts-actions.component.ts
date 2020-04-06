@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/internal/operators';
 import { KeycloakService } from 'keycloak-angular';
 

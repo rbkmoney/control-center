@@ -8,7 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatInputModule, MatProgressBarModule, MatSelectModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatCheckboxChange, MatSnackBar } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PartyTarget } from '../party-target';
 import { PartyTargetService } from './party-target.service';

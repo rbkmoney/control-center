@@ -7,7 +7,8 @@ import {
     SimpleChanges,
     OnInit
 } from '@angular/core';
-import { MatBottomSheet, MatSnackBar } from '@angular/material';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
 import { map, scan, switchMap } from 'rxjs/operators';

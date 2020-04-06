@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DomainTypedManager } from '../../../thrift-services';
 import { PredicateType, TerminalInfo } from '../extract-terminal-info';

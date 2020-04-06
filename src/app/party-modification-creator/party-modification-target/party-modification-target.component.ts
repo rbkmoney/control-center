@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatRadioChange } from '@angular/material';
+import { MatRadioChange } from '@angular/material/radio';
 
 import { PartyTarget } from './party-target';
 import { TargetType } from './targe-type';

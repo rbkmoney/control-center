@@ -8,7 +8,8 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { filter } from 'rxjs/operators';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DomainTypedManager } from '../../../thrift-services';
 import { PredicateType, TerminalInfo } from '../extract-terminal-info';

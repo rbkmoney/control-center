@@ -9,7 +9,9 @@ import {
     ViewChild
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { KeycloakService } from 'keycloak-angular';
 
 import { Payout } from '../../papi/model';

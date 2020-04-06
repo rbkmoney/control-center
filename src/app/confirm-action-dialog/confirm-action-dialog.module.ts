@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
-import {
-    MatDialogModule,
-    MatButtonModule,
-    MAT_DIALOG_DEFAULT_OPTIONS,
-    MatDialogConfig
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ConfirmActionDialogComponent } from './confirm-action-dialog.component';

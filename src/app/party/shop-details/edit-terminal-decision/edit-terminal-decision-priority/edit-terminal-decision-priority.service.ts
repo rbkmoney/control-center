@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DomainTypedManager } from '../../../../thrift-services';
 import { EditTerminalDecision } from '../edit-terminal-decision';

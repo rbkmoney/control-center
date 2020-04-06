@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import forEach from 'lodash-es/forEach';
 import groupBy from 'lodash-es/groupBy';
 

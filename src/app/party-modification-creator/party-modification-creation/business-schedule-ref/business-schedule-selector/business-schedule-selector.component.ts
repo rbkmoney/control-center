@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatSelectChange, MatSnackBar } from '@angular/material';
+import { MatSelectChange } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
 

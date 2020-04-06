@@ -9,7 +9,8 @@ import {
     ViewChild
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { i64ToNumber } from '../../shared/i64-to-number';

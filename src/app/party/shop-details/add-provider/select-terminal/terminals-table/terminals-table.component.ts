@@ -8,7 +8,8 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { TerminalObject } from '../../../../../thrift-services/damsel/gen-model/domain';

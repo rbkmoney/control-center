@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet, MatDialog, MatSnackBar } from '@angular/material';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
