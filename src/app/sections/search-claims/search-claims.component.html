@@ -11,10 +11,10 @@
     <div class="mat-elevation-z2" fxLayout="column">
         <cc-search-table [claims]="claims$ | async"></cc-search-table>
         <button
-                mat-raised-button
-                *ngIf="(hasMore$ | async)"
-                (click)="fetchMore()"
-                [disabled]="isLoading$ | async"
+            mat-raised-button
+            *ngIf="(hasMore$ | async)"
+            (click)="fetchMore()"
+            [disabled]="isLoading$ | async"
         >
             Load more
         </button>

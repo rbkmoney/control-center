@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { SearchFormValue } from './search-form/search-form-value';
 import { SearchClaimsService } from './search-claims.service';

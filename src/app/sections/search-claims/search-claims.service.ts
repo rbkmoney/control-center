@@ -11,44 +11,44 @@ import { SearchFormValue } from './search-form/search-form-value';
 
 @Injectable()
 export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> {
-  private readonly searchLimit = 20;
+    private readonly searchLimit = 20;
 
-  claims$: Observable<Claim[]> = this.searchResult$.pipe(
-      catchError(() => {
-        this.snackBar.open('An error occurred while processing your search', 'OK');
-        return [];
-      })
-  );
-
-  isLoading$: Observable<boolean> = this.doAction$.pipe(
-      booleanDebounceTime(),
-      shareReplay(1)
-  );
-
-  constructor(
-      private claimManagementService: ClaimManagementService,
-      private snackBar: MatSnackBar
-  ) {
-    super();
-  }
-
-  protected fetch(
-      searchFormValue: SearchFormValue,
-      continuationToken: string
-  ): Observable<FetchResult<Claim>> {
-    return this.claimManagementService
-        .searchClaims({
-          party_id: searchFormValue.party_id === '' ? undefined : searchFormValue.party_id,
-          claim_id: searchFormValue.claim_id,
-          statuses: searchFormValue.statuses.map((cv) => ({ [cv]: {} })),
-          continuation_token: continuationToken,
-          limit: this.searchLimit
+    claims$: Observable<Claim[]> = this.searchResult$.pipe(
+        catchError(() => {
+            this.snackBar.open('An error occurred while processing your search', 'OK');
+            return [];
         })
-        .pipe(
-            map(r => ({
-              result: r.result,
-              continuationToken: r.continuation_token
-            }))
-        );
-  }
+    );
+
+    isLoading$: Observable<boolean> = this.doAction$.pipe(
+        booleanDebounceTime(),
+        shareReplay(1)
+    );
+
+    constructor(
+        private claimManagementService: ClaimManagementService,
+        private snackBar: MatSnackBar
+    ) {
+        super();
+    }
+
+    protected fetch(
+        searchFormValue: SearchFormValue,
+        continuationToken: string
+    ): Observable<FetchResult<Claim>> {
+        return this.claimManagementService
+            .searchClaims({
+                party_id: searchFormValue.party_id === '' ? undefined : searchFormValue.party_id,
+                claim_id: searchFormValue.claim_id,
+                statuses: searchFormValue.statuses.map(cv => ({ [cv]: {} })),
+                continuation_token: continuationToken,
+                limit: this.searchLimit
+            })
+            .pipe(
+                map(r => ({
+                    result: r.result,
+                    continuationToken: r.continuation_token
+                }))
+            );
+    }
 }
