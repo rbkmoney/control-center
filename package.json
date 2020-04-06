@@ -45,7 +45,7 @@
     "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#c2113c853ed71a34bb6468b9a6cf9b468967af84",
     "humanize-duration": "~3.21.0",
     "jsonc-parser": "~2.0.2",
-    "keycloak-angular": "6.0.0",
+    "keycloak-angular": "^7.2.0",
     "keycloak-js": "4.5.0",
     "lodash-es": "~4.17.15",
     "machinegun_proto": "git+ssh://git@github.com/rbkmoney/machinegun_proto.git#eac772bb8446fcd2f439232bf10fa086c336aca6",
