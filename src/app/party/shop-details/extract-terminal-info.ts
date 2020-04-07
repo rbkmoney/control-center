@@ -59,7 +59,7 @@ function inPartyCondition({ party }: Condition, shopID: string, partyID: string)
 }
 
 function isDisabled(all_of: any[]): boolean {
-    const constant = all_of.find(pre => pre.constant !== null);
+    const constant = all_of.find((pre) => pre.constant !== null);
     return !!constant ? constant.constant : false;
 }
 
@@ -101,7 +101,7 @@ function extractPredicateInfo(
     };
 }
 
-const extractIdsFromValue = (value: TerminalRef[]): number[] => value.map(v => v.id);
+const extractIdsFromValue = (value: TerminalRef[]): number[] => value.map((v) => v.id);
 
 // Need TerminalDecision with if_ then_
 function extractIdsFromDecisions(decisions: any[]): number[] {
@@ -128,13 +128,13 @@ function extractIds({ decisions, value }: any): number[] {
 
 function extractWeights({ value }: any): number {
     if (value) {
-        return value.map(val => val.weight);
+        return value.map((val) => val.weight);
     }
 }
 
 function extractPriorities({ value }: any): Int64 {
     if (value) {
-        return value.map(val => val.priority);
+        return value.map((val) => val.priority);
     }
 }
 
@@ -180,7 +180,7 @@ const enrichWithTerminal = (
     groups: FlattenTerminalInfoGroup[],
     terminalObjects: TerminalObject[]
 ): TerminalInfo[] => {
-    return groups.map(group => {
+    return groups.map((group) => {
         return {
             terminal: terminalObjects.find(({ ref: { id } }) => group.terminalId === id),
             disabled: group.disabled,

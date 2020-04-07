@@ -33,32 +33,22 @@ export class QuestionaryComponent {
     downloadDocument() {
         this.questionaryDocumentService
             .createDoc(this.questionary)
-            .subscribe(doc => doc.download(this.createFilename('Russian entity questionary')));
+            .subscribe((doc) => doc.download(this.createFilename('Russian entity questionary')));
     }
 
     downloadBeneficialOwnerDocument(beneficialOwner: BeneficialOwner, idx: number) {
         const { companyName, companyInn } = getCompanyInfo(this.questionary);
         this.questionaryDocumentService
             .createBeneficialOwnerDoc(beneficialOwner, companyName, companyInn)
-            .subscribe(doc =>
+            .subscribe((doc) =>
                 doc.download(this.createFilename(`Beneficial owner questionary N${idx}`))
             );
     }
 
     createFilename(name: string) {
         const { companyName, companyInn } = getCompanyInfo(this.questionary);
-        return slugify(
-            [
-                name,
-                moment()
-                    .utc()
-                    .format(),
-                companyInn,
-                companyName
-            ].join('-'),
-            {
-                separator: '_'
-            }
-        ).slice(0, FILENAME_LENGTH);
+        return slugify([name, moment().utc().format(), companyInn, companyName].join('-'), {
+            separator: '_'
+        }).slice(0, FILENAME_LENGTH);
     }
 }

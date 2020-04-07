@@ -42,9 +42,9 @@ export class ExecutorService {
             );
             if (container) {
                 const { fn, context, params } = container;
-                const args = Object.entries(params).map(e => (e.length > 0 ? e[1] : null));
+                const args = Object.entries(params).map((e) => (e.length > 0 ? e[1] : null));
                 return fn.apply(context, args).pipe(
-                    catchError(exception =>
+                    catchError((exception) =>
                         of({
                             type: ExecResultType.error,
                             container,
@@ -69,7 +69,7 @@ export class ExecutorService {
             return of(results);
         };
         const execs = new Array(execCount).fill([]).map(executor);
-        return forkJoin(execs).pipe(map(res => flatten(res) as ExecResult[]));
+        return forkJoin(execs).pipe(map((res) => flatten(res) as ExecResult[]));
     }
 
     private updateProgress(length: number, value: number) {

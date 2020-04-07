@@ -74,6 +74,6 @@ export function execute(funcs: Fn[], execCount = 4): Observable<ExecState> {
     }
     Promise.all(execs)
         .then(() => result$.complete())
-        .catch(e => result$.error(e));
+        .catch((e) => result$.error(e));
     return result$;
 }

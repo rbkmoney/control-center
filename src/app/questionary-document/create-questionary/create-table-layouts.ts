@@ -37,7 +37,7 @@ export function createTableLayouts(): { [name in Layout]: TableLayoutFunctions }
             ...noBorders
         },
         [Layout.underline]: {
-            hLineWidth: idx => (idx === 1 ? 0.5 : 0),
+            hLineWidth: (idx) => (idx === 1 ? 0.5 : 0),
             vLineWidth: () => 0,
             paddingLeft: () => 0,
             paddingRight: () => 0,

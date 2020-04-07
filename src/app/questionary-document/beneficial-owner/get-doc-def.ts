@@ -81,22 +81,23 @@ export function getDocDef(
                 [`8.1. Вид документа: ${get(identityDocumentInfo, 'name') || EMPTY}`],
                 [`8.2. Серия и номер: ${get(identityDocumentInfo, 'seriesNumber') || EMPTY}`],
                 [
-                    `8.3. Наименование органа, выдавшего документ, код подразделения (при наличии): ${identityDocumentInfo.issuer ||
-                        EMPTY}`
+                    `8.3. Наименование органа, выдавшего документ, код подразделения (при наличии): ${
+                        identityDocumentInfo.issuer || EMPTY
+                    }`
                 ],
                 [`8.4. Дата выдачи: ${getDate(get(identityDocumentInfo, 'issuedAt')) || EMPTY}`]
             ]),
             createInlineParagraph('9. Данные миграционной карты¹', [
                 [`9.1. Номер карты: ${get(optionalMigrationCardInfo, 'card_number') || EMPTY}`],
                 [
-                    `9.2. Дата начала срока пребывания в РФ: ${getDate(
-                        get(optionalMigrationCardInfo, 'beginning_date')
-                    ) || EMPTY}`
+                    `9.2. Дата начала срока пребывания в РФ: ${
+                        getDate(get(optionalMigrationCardInfo, 'beginning_date')) || EMPTY
+                    }`
                 ],
                 [
-                    `9.3. Дата окончания срока пребывания в РФ: ${getDate(
-                        get(optionalMigrationCardInfo, 'expiration_date')
-                    ) || EMPTY}`
+                    `9.3. Дата окончания срока пребывания в РФ: ${
+                        getDate(get(optionalMigrationCardInfo, 'expiration_date')) || EMPTY
+                    }`
                 ]
             ]),
             createInlineParagraph(
@@ -104,19 +105,20 @@ export function getDocDef(
                 [
                     [`10.1. Вид документа: ${get(optionalResidenceApprove, 'name') || EMPTY}`],
                     [
-                        `10.2. Серия (при наличии): ${get(optionalResidenceApprove, 'series') ||
-                            EMPTY}`
+                        `10.2. Серия (при наличии): ${
+                            get(optionalResidenceApprove, 'series') || EMPTY
+                        }`
                     ],
                     [`10.3. Номер документа: ${get(optionalResidenceApprove, 'number') || EMPTY}`],
                     [
-                        `10.4. Дата начала срока действия: ${getDate(
-                            get(optionalResidenceApprove, 'beginning_date')
-                        ) || EMPTY}`
+                        `10.4. Дата начала срока действия: ${
+                            getDate(get(optionalResidenceApprove, 'beginning_date')) || EMPTY
+                        }`
                     ],
                     [
-                        `10.5. Дата окончания срока действия: ${getDate(
-                            get(optionalResidenceApprove, 'expiration_date')
-                        ) || EMPTY}`
+                        `10.5. Дата окончания срока действия: ${
+                            getDate(get(optionalResidenceApprove, 'expiration_date')) || EMPTY
+                        }`
                     ]
                 ]
             ),

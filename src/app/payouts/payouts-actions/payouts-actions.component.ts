@@ -33,7 +33,7 @@ export class PayoutsActionsComponent implements OnInit {
                 data: this.getIds(this.selectedPayouts)
             })
             .afterClosed()
-            .pipe(filter(result => result === 'success'))
+            .pipe(filter((result) => result === 'success'))
             .subscribe(() => this.doAction.emit());
     }
 
@@ -43,7 +43,7 @@ export class PayoutsActionsComponent implements OnInit {
                 data: this.getIds(this.selectedPayouts)
             })
             .afterClosed()
-            .pipe(filter(result => result === 'success'))
+            .pipe(filter((result) => result === 'success'))
             .subscribe(() => this.doAction.emit());
     }
 
@@ -54,7 +54,7 @@ export class PayoutsActionsComponent implements OnInit {
                 disableClose: true
             })
             .afterClosed()
-            .pipe(filter(result => result === 'success'))
+            .pipe(filter((result) => result === 'success'))
             .subscribe(() => this.doAction.emit());
     }
 
@@ -63,16 +63,16 @@ export class PayoutsActionsComponent implements OnInit {
     }
 
     isCanPay(): boolean {
-        const unpaid = this.selectedPayouts.filter(p => p.status === PayoutStatus.unpaid);
+        const unpaid = this.selectedPayouts.filter((p) => p.status === PayoutStatus.unpaid);
         return this.selectedPayouts.length === unpaid.length && unpaid.length > 0;
     }
 
     isCanConfirm(): boolean {
-        const paid = this.selectedPayouts.filter(p => p.status === PayoutStatus.paid);
+        const paid = this.selectedPayouts.filter((p) => p.status === PayoutStatus.paid);
         return this.selectedPayouts.length === paid.length && paid.length > 0;
     }
 
     private getIds(payouts: Payout[]): string[] {
-        return payouts.map(p => p.id);
+        return payouts.map((p) => p.id);
     }
 }

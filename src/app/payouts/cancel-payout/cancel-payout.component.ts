@@ -35,7 +35,7 @@ export class CancelPayoutComponent implements OnInit {
                 this.dialogRef.close();
                 this.snackBar.open('Successfully cancelled', 'OK', { duration: 3000 });
             },
-            error => {
+            (error) => {
                 this.isLoading = false;
                 this.snackBar.open('An error occurred while payout cancel.', 'OK');
                 console.error(error);

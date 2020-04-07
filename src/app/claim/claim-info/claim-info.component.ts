@@ -32,8 +32,8 @@ export class ClaimInfoComponent implements OnInit {
 
     ngOnInit() {
         this.claimService.claimInfoContainer$
-            .pipe(filter(container => container !== null))
-            .subscribe(container => {
+            .pipe(filter((container) => container !== null))
+            .subscribe((container) => {
                 this.claimInfoContainer = container;
                 this.partyID = container.partyId;
                 this.claimID = container.claimId;
@@ -49,16 +49,16 @@ export class ClaimInfoComponent implements OnInit {
             case ClaimActionType.edit:
                 this.claimService.saveChanges().subscribe(
                     () => this.success(),
-                    e => this.failed(e)
+                    (e) => this.failed(e)
                 );
                 break;
             case ClaimActionType.create:
                 this.claimService.createClaim().subscribe(
-                    claimInfo => {
+                    (claimInfo) => {
                         const editEndpoint = `/claims/${claimInfo.party_id}/${ClaimActionType.edit}/${claimInfo.claim_id}`;
                         this.router.navigate([editEndpoint]).then(() => this.success());
                     },
-                    e => this.failed(e)
+                    (e) => this.failed(e)
                 );
                 break;
         }

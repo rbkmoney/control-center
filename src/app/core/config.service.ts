@@ -12,8 +12,8 @@ export class ConfigService {
     constructor(private http: HttpClient) {}
 
     load() {
-        return new Promise(resolve => {
-            this.http.get<AppConfig>('assets/appConfig.json').subscribe(config => {
+        return new Promise((resolve) => {
+            this.http.get<AppConfig>('assets/appConfig.json').subscribe((config) => {
                 this.config = config;
                 resolve();
             });

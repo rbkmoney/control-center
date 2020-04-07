@@ -103,8 +103,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                 '3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО',
                 [
                     [
-                        `3.1. Цели установления отношений: ${NKO_relation_target ||
-                            'подключение интернет-эквайринга'}`,
+                        `3.1. Цели установления отношений: ${
+                            NKO_relation_target || 'подключение интернет-эквайринга'
+                        }`,
                         `3.2. Характер отношений: ${relationship_with_NKO || 'долгосрочный'}`
                     ]
                 ]
@@ -145,8 +146,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                     ],
                     [
                         {
-                            text: `5.2. Действует на основании: ${authorityConfirmingDocumentInfo ||
-                                EMPTY}`,
+                            text: `5.2. Действует на основании: ${
+                                authorityConfirmingDocumentInfo || EMPTY
+                            }`,
                             colSpan: 2
                         }
                     ],

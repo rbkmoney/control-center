@@ -20,7 +20,7 @@ interface PersistentUnit {
 }
 
 const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
-    const grouped = groupBy(persistentUnits, item => {
+    const grouped = groupBy(persistentUnits, (item) => {
         const modificationNames = Object.keys(item.modificationUnit.modification);
         if (modificationNames.length !== 1) {
             return 'unknown';
@@ -38,10 +38,10 @@ const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
 };
 
 const isHasUnsaved = (units: PersistentUnit[], unitID: string): boolean =>
-    units.filter(i => !i.saved && i.modificationUnit.id === unitID).length > 0;
+    units.filter((i) => !i.saved && i.modificationUnit.id === unitID).length > 0;
 
 const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentUnits, item => item.modificationUnit.id);
+    const grouped = groupBy(persistentUnits, (item) => item.modificationUnit.id);
     return map(grouped, (units, unitID) => ({
         unitID,
         hasUnsaved: isHasUnsaved(units, unitID),
@@ -66,7 +66,7 @@ const toGroup = (
 };
 
 export const convert = (containers: PersistentContainer[]): ModificationGroup[] => {
-    const grouped = groupBy(containers, item => {
+    const grouped = groupBy(containers, (item) => {
         const { shop_modification, contract_modification } = item.modification;
         if (shop_modification) {
             return ModificationGroupType.ShopUnitContainer;

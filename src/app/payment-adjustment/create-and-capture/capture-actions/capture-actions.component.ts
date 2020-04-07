@@ -34,7 +34,7 @@ export class CaptureActionsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.batchAdjustmentService.events$.subscribe(event => {
+        this.batchAdjustmentService.events$.subscribe((event) => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCaptured:
                     this.snackBar.open(

@@ -62,9 +62,9 @@ export class SimpleRepairComponent {
         );
         const ns = this.nsControl.value;
         this.dataSource = this.dataSource.concat(
-            ids.map(id => ({ id, ns, status: Status.update }))
+            ids.map((id) => ({ id, ns, status: Status.update }))
         );
-        this.updateStatus(this.dataSource.filter(el => ids.includes(el.id)));
+        this.updateStatus(this.dataSource.filter((el) => ids.includes(el.id)));
     }
 
     remove(elements: Element[] = this.selection.selected) {
@@ -81,7 +81,7 @@ export class SimpleRepairComponent {
             return;
         }
         this.setStatus(elements);
-        this.repairingService.executeGetMachine(elements).subscribe(result => {
+        this.repairingService.executeGetMachine(elements).subscribe((result) => {
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.statusByError(result.error);
@@ -112,7 +112,7 @@ export class SimpleRepairComponent {
             return;
         }
         this.setStatus(elements, Status.update);
-        this.repairingService.executeSimpleRepair(elements).subscribe(result => {
+        this.repairingService.executeSimpleRepair(elements).subscribe((result) => {
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.statusByError(result.error);

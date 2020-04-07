@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { DomainTypedManager, TerminalOption } from '../../../../../thrift-services';
 
 const toFormArray = (fb: FormBuilder, options: TerminalOption[]): FormArray =>
-    fb.array(options.map(option => fb.group(option)));
+    fb.array(options.map((option) => fb.group(option)));
 
 @Injectable()
 export class CreateTerminalFormService {

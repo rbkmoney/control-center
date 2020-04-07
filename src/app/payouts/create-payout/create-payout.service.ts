@@ -22,9 +22,7 @@ export class CreatePayoutService {
     }
 
     private convertDate(date: string): string {
-        return moment(date, this.dateFormat)
-            .utc()
-            .format();
+        return moment(date, this.dateFormat).utc().format();
     }
 
     private prepareForm(): FormGroup {

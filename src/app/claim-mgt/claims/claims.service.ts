@@ -41,7 +41,7 @@ export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
                 limit: this.searchLimit
             })
             .pipe(
-                map(r => ({
+                map((r) => ({
                     result: r.result,
                     continuationToken: r.continuation_token
                 }))

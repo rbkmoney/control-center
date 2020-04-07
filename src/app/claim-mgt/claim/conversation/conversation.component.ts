@@ -90,11 +90,11 @@ export class ConversationComponent implements OnChanges, OnInit {
                 this.snackBar.open('Claim recreated successfully', 'OK', { duration: 2000 })
             );
         this.recreateClaimService.extractedModifications$
-            .pipe(map(mods => mods.map(modification => modification.party_modification)))
-            .subscribe(m => this.savePartyModService.partyModificationsChanged(m));
+            .pipe(map((mods) => mods.map((modification) => modification.party_modification)))
+            .subscribe((m) => this.savePartyModService.partyModificationsChanged(m));
         this.partyModEmitter.modification$
             .pipe(scan((acc, curr) => [...acc, curr], []))
-            .subscribe(m => this.savePartyModService.partyModificationsChanged(m));
+            .subscribe((m) => this.savePartyModService.partyModificationsChanged(m));
         this.recreateClaimService.extractError$.subscribe(() =>
             this.snackBar.open('An error occurred while claim recreated', 'OK')
         );
@@ -111,7 +111,7 @@ export class ConversationComponent implements OnChanges, OnInit {
     updateConversation(action: TimelineAction, modifications: Modification[]) {
         this.conversationService
             .updateConversation(this.claim.party_id, this.claim.id, action, modifications)
-            .subscribe(_ => this.conversationChangedEvent.emit());
+            .subscribe((_) => this.conversationChangedEvent.emit());
     }
 
     getKey(modification: Modification) {

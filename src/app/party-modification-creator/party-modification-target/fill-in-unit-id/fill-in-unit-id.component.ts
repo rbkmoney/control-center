@@ -21,7 +21,7 @@ export class FillInUnitIdComponent implements OnInit {
         this.form = this.fb.group({
             unitID: this.unitID
         });
-        this.form.valueChanges.subscribe(value => this.valueChanges.emit(value.unitID));
+        this.form.valueChanges.subscribe((value) => this.valueChanges.emit(value.unitID));
     }
 
     generate() {

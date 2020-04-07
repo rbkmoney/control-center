@@ -25,7 +25,7 @@ export class ClaimComponent implements OnInit {
     }
 
     private getClaim() {
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params) => {
             const { party_id, claim_id } = params;
             this.claimService.getClaim(party_id, new Int64(Number(claim_id)));
         });

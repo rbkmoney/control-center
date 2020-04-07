@@ -47,7 +47,7 @@ export class CategoryRefComponent implements OnInit {
             )
         );
         this.categories$ = this.categoryService.getCategories().pipe(
-            map(categories => sortBy(categories, 'id')),
+            map((categories) => sortBy(categories, 'id')),
             tap(
                 () => {
                     this.form.controls.id.enable();

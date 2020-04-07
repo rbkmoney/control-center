@@ -13,7 +13,7 @@ import { PaymentAdjustmentCreationScope } from './payment-adjustment-creation-sc
 
 export class CreateAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(creationParams: any[]): any[] {
-        return creationParams.map(params => ({
+        return creationParams.map((params) => ({
             fn: this.manager.createPaymentAdjustment,
             context: this.manager,
             params
@@ -51,7 +51,7 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
     private toErrorPayload(
         result: ExecErrorResult[]
     ): OperationFailedPayload<string, PaymentAdjustmentCreationScope>[] {
-        return result.map(error => {
+        return result.map((error) => {
             const {
                 exception,
                 container: { params }

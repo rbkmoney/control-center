@@ -39,7 +39,8 @@ const removeDecision = (
 ): TerminalDecision[] =>
     decisions.reduce((acc: TerminalDecision[], decision: any) => {
         const isTerminalMatched =
-            decision.then_.value && decision.then_.value.map(item => item.id).includes(terminalID);
+            decision.then_.value &&
+            decision.then_.value.map((item) => item.id).includes(terminalID);
         if (isTerminalMatched) {
             const newDecision = filterDecision(decision, partyID, shopID);
             return newDecision ? acc.concat(newDecision) : acc;

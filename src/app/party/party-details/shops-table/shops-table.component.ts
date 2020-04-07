@@ -20,7 +20,7 @@ export class ShopsTableComponent implements OnChanges {
     private partyId: string;
 
     constructor(private router: Router, private route: ActivatedRoute) {
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params) => {
             this.partyId = params.partyID;
         });
     }
@@ -29,9 +29,7 @@ export class ShopsTableComponent implements OnChanges {
         if (shops.currentValue) {
             this.dataSource.data = shops.currentValue;
             this.dataSource.filterPredicate = (shop: Shop, filter: string) =>
-                JSON.stringify(shop)
-                    .toLowerCase()
-                    .includes(filter);
+                JSON.stringify(shop).toLowerCase().includes(filter);
             this.dataSource.paginator = this.paginator;
         }
     }

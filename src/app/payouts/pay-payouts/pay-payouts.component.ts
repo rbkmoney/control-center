@@ -26,7 +26,7 @@ export class PayPayoutsComponent {
                 this.dialogRef.close('success');
                 this.snackBar.open('Successfully payed', 'OK', { duration: 3000 });
             },
-            error => {
+            (error) => {
                 this.isLoading = false;
                 this.snackBar.open('An error occurred while payout pay', 'OK');
                 console.error(error);

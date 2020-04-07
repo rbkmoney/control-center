@@ -92,8 +92,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                 '3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО',
                 [
                     [
-                        `3.1. Цели установления отношений: ${NKO_relation_target ||
-                            'подключение интернет-эквайринга'}`,
+                        `3.1. Цели установления отношений: ${
+                            NKO_relation_target || 'подключение интернет-эквайринга'
+                        }`,
                         `3.2. Характер отношений: ${relationship_with_NKO || 'долгосрочный'}`
                     ]
                 ]
@@ -159,8 +160,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                                 ['head_accounting', 'ИП лично'],
                                 [
                                     'accounting_organization',
-                                    `Организация ведущая бух. учет: ИНН: ${accountingOrgInn ||
-                                        EMPTY}`
+                                    `Организация ведущая бух. учет: ИНН: ${
+                                        accountingOrgInn || EMPTY
+                                    }`
                                 ],
                                 ['individual_accountant', 'Бухгалтер – индивидуальный специалист']
                             ],

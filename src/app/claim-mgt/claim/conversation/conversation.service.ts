@@ -34,7 +34,7 @@ export class ConversationService {
     }
 
     enrichWithData(changeset: ClaimChangeset) {
-        from(this.addCommentsToInfo(toTimelineInfo(changeset))).subscribe(infos =>
+        from(this.addCommentsToInfo(toTimelineInfo(changeset))).subscribe((infos) =>
             this.timelineInfos$.next(infos)
         );
     }
@@ -42,17 +42,19 @@ export class ConversationService {
     private addCommentsToInfo(timelineInfos: TimelineItemInfo[]): Observable<TimelineItemInfo[]> {
         const commentAddedIds: ConversationId[] = flatten(
             timelineInfos
-                .filter(info => info.action === TimelineAction.commentAdded)
+                .filter((info) => info.action === TimelineAction.commentAdded)
                 .map((commentInfo: TimelineItemInfo) =>
-                    commentInfo.modifications.map(m => m.claim_modification.comment_modification.id)
+                    commentInfo.modifications.map(
+                        (m) => m.claim_modification.comment_modification.id
+                    )
                 )
         );
 
         return this.messagesService.getConversations(commentAddedIds, {}).pipe(
-            map(conversationsResponse =>
+            map((conversationsResponse) =>
                 addCommentsToTimelineInfos(conversationsResponse.conversations, timelineInfos)
             ),
-            catchError(e => {
+            catchError((e) => {
                 console.error(e);
                 return [timelineInfos];
             })

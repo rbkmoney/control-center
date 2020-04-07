@@ -13,9 +13,8 @@ export function createEnding(): Content {
                     'М.П.',
                     {
                         text:
-                            moment()
-                                .locale('ru')
-                                .format('LL') + '\n\n\n_____________________/______________/',
+                            moment().locale('ru').format('LL') +
+                            '\n\n\n_____________________/______________/',
                         style: { alignment: 'right' }
                     }
                 ]

@@ -9,11 +9,11 @@ const MARGIN = cmMarginsToIn(0, 0.1);
 
 function prepareBody(body: Table['body'] | string): Table['body'] {
     body = typeof body === 'string' ? [[body]] : body;
-    return body.map(i => i.map(j => j || ''));
+    return body.map((i) => i.map((j) => j || ''));
 }
 
 function setBodyColSpans(body: Table['body'], columnsCount: number): Table['body'] {
-    return body.map(row => {
+    return body.map((row) => {
         const rowColumnsCount = row.reduce(
             (sum, col) => sum + (typeof col === 'object' ? col.colSpan || 1 : 1),
             0

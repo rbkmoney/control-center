@@ -44,7 +44,7 @@ export class GroupTableComponent implements OnInit, OnChanges {
         this.dataSource.sort = this.sort;
         this.dataSource.filterPredicate = filterPredicate;
         this.dataSource.sortData = sortData;
-        this.detailsContainerService.opened$.subscribe(opened => (this.detailsOpened = opened));
+        this.detailsContainerService.opened$.subscribe((opened) => (this.detailsOpened = opened));
     }
 
     openDetails({ pair }: TableDataSource, index: number) {

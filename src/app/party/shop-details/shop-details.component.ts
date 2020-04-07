@@ -43,7 +43,7 @@ export class ShopDetailsComponent implements OnInit {
         const dialog = this.dialog.open(AddProviderComponent, config);
         dialog
             .afterClosed()
-            .pipe(filter(result => result))
+            .pipe(filter((result) => result))
             .subscribe(() => this.getData());
     }
 

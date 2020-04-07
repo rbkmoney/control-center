@@ -38,6 +38,6 @@ export class MetaApplicator implements ErrorObservable {
     }
 
     private emitMonacoErrors(errors: IError[]) {
-        this.errorEmitter.emitErrors(errors.map(e => e.message));
+        this.errorEmitter.emitErrors(errors.map((e) => e.message));
     }
 }

@@ -40,8 +40,8 @@ export class DetailsComponent {
                 }
             })
             .afterClosed()
-            .pipe(filter(r => r))
-            .subscribe(_ => {
+            .pipe(filter((r) => r))
+            .subscribe((_) => {
                 this.claimService.getClaim(this.claim.party_id, this.claim.id);
             });
     }

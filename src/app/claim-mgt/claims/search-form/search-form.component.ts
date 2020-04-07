@@ -25,7 +25,7 @@ export class SearchFormComponent implements OnInit {
         const { form, claimStatuses } = this.searchFormService;
         this.claimStatuses = claimStatuses;
         this.form = form;
-        this.form.valueChanges.pipe(debounceTime(300)).subscribe(value => {
+        this.form.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
             this.valueChanges.emit(value);
         });
         this.form.patchValue({ statuses: [ClaimStatus.review, ClaimStatus.pending] });

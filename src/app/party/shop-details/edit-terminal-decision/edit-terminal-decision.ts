@@ -34,7 +34,7 @@ export class EditTerminalDecision {
                     duration: 3000
                 });
             },
-            e => {
+            (e) => {
                 this.isLoading$.next(false);
                 this.snackBar.open('An error occurred while while editing terminal decision', 'OK');
                 console.error(e);

@@ -16,8 +16,8 @@ export class ClaimService {
 
     getClaim(partyID: string, claimID: ClaimID) {
         this.claimManagementService.getClaim(partyID, claimID).subscribe(
-            claim => this.claim$.next(claim),
-            e => {
+            (claim) => this.claim$.next(claim),
+            (e) => {
                 console.error(e);
                 this.snackBar.open('Error loading the claim', 'OK');
             }

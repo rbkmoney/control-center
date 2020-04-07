@@ -35,7 +35,7 @@ export class CreatePayoutComponent implements OnInit {
                     this.isLoading = false;
                     this.snackBar.open('Successfully created', 'OK', { duration: 3000 });
                 },
-                error => {
+                (error) => {
                     this.isLoading = false;
                     const message = error.message;
                     this.snackBar.open(

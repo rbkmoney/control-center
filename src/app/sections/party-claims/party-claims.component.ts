@@ -17,7 +17,7 @@ export class PartyClaimsComponent implements OnInit {
     constructor(private partyClaimsService: PartyClaimsService, private snackBar: MatSnackBar) {}
 
     ngOnInit() {
-        this.partyClaimsService.errors$.subscribe(e =>
+        this.partyClaimsService.errors$.subscribe((e) =>
             this.snackBar.open(`An error occurred while search claim (${e})`, 'OK')
         );
     }

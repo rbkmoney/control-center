@@ -60,7 +60,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.roles = this.keycloakService.getUserRoles();
-        this.selection.changed.subscribe(e => this.valueChanges.emit(e.source.selected));
+        this.selection.changed.subscribe((e) => this.valueChanges.emit(e.source.selected));
         this.dataSource.paginator = this.paginator;
     }
 

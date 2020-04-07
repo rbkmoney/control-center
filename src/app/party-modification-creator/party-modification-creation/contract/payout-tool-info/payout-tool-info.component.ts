@@ -65,7 +65,7 @@ export class PayoutToolInfoComponent implements OnInit {
     }
 
     private clearControl() {
-        this.types.forEach(type => {
+        this.types.forEach((type) => {
             this.form.removeControl(type);
         });
     }

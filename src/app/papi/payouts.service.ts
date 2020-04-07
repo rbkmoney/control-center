@@ -17,7 +17,7 @@ export class PayoutsService {
     getPayouts(params?: PayoutSearchParams): Observable<PayoutsResponse> {
         let searchParams = new HttpParams();
         if (params) {
-            Object.keys(params).forEach(key => {
+            Object.keys(params).forEach((key) => {
                 searchParams = params[key] ? searchParams.set(key, params[key]) : searchParams;
             });
         }

@@ -21,7 +21,7 @@ export class MetaBuilder implements ErrorObservable {
 
     build(type: string, namespace: string): Observable<MetaStruct | MetaUnion | null> {
         return this.definitionService.astDefinition.pipe(
-            map(astDef => {
+            map((astDef) => {
                 const initial = buildInitialMeta(astDef);
                 const target = findMeta<MetaStruct | MetaUnion>({ namespace, type }, initial);
                 if (!target) {

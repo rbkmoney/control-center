@@ -35,7 +35,7 @@ export class CreateActionsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.batchAdjustmentService.events$.subscribe(event => {
+        this.batchAdjustmentService.events$.subscribe((event) => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCreated:
                     this.createResult = this.createResult.concat(
@@ -115,7 +115,7 @@ export class CreateActionsComponent implements OnInit {
     }
 
     retryFailedInternal() {
-        const createParams = this.failedInternal.map(item => item.operationScope.creationParams);
+        const createParams = this.failedInternal.map((item) => item.operationScope.creationParams);
         this.failedInternal = [];
         this.batchAdjustmentService.create(createParams).subscribe(null, () => {
             this.snackBar.open('An error occurred while adjustments create');

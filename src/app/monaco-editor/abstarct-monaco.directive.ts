@@ -57,13 +57,13 @@ export abstract class AbstractMonacoDirective implements OnInit, OnChanges, OnDe
         this.monacoEditorService
             .init(this.editorRef, this.options)
             .subscribe(() => this.ready.emit());
-        this.monacoEditorService.fileChange.subscribe(file => this.fileChange.emit(file));
+        this.monacoEditorService.fileChange.subscribe((file) => this.fileChange.emit(file));
         this.monacoEditorService
             .codeLensProviderRegistered()
-            .subscribe(disposible => this.codeLensProviderRegistered.emit(disposible));
+            .subscribe((disposible) => this.codeLensProviderRegistered.emit(disposible));
         this.monacoEditorService
             .completionProviderRegistered()
-            .subscribe(disposible => this.completionProviderRegistered.emit(disposible));
+            .subscribe((disposible) => this.completionProviderRegistered.emit(disposible));
     }
 
     ngOnDestroy() {

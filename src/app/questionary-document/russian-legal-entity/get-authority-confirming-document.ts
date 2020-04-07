@@ -17,7 +17,7 @@ export function getAuthorityConfirmingDocument(
         const printedType = mapAuthorityConfirmingDocumentType[type] || type;
         const printedNumber = number ? `№${number}` : null;
         const printedDate = date ? `от ${getDate(date)}` : null;
-        return [printedType, printedNumber, printedDate].filter(i => i).join(' ');
+        return [printedType, printedNumber, printedDate].filter((i) => i).join(' ');
     }
     return null;
 }

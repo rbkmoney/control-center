@@ -39,4 +39,4 @@ export function filterValues(value: any, filter: Filter): any {
     return value;
 }
 
-export const filterEmptyStringValues = (value: any) => filterValues(value, v => v !== '');
+export const filterEmptyStringValues = (value: any) => filterValues(value, (v) => v !== '');

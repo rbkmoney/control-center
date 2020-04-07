@@ -22,13 +22,13 @@ export class RecreateClaimService {
     isInProcess$ = this.inProcess$.asObservable();
     extractedModifications$: Observable<Modification[]> = this.extracted$.asObservable();
     recreated$: Observable<Claim> = this.recreate$.pipe(
-        switchMap(targetClaim =>
+        switchMap((targetClaim) =>
             forkJoin(
                 of(targetClaim),
                 this.dialog
                     .open(ConfirmActionDialogComponent)
                     .afterClosed()
-                    .pipe(filter(r => r === 'confirm'))
+                    .pipe(filter((r) => r === 'confirm'))
             )
         ),
         switchMap(([{ id, party_id, changeset }]) =>
@@ -37,7 +37,7 @@ export class RecreateClaimService {
                 of(party_id),
                 of(
                     changeset
-                        .map(unit => unit.modification)
+                        .map((unit) => unit.modification)
                         .reduce(extractModificationsReducer, extractSeed)
                 )
             )
@@ -46,7 +46,7 @@ export class RecreateClaimService {
             const createNewClaim$ = this.claimMgtService
                 .createClaim(partyId, recreateModifications)
                 .pipe(
-                    catchError(err => {
+                    catchError((err) => {
                         console.error(err);
                         this.error$.next(err);
                         this.inProcess$.next(false);
@@ -57,7 +57,7 @@ export class RecreateClaimService {
             const revokeCurrentClaim$ = this.claimMgtService
                 .revokeClaim(partyId, claimId, `Claim recreated with ID: ${claimId}`)
                 .pipe(
-                    catchError(err => {
+                    catchError((err) => {
                         console.error(err);
                         return of(true);
                     })
@@ -65,7 +65,7 @@ export class RecreateClaimService {
             return of(true).pipe(
                 tap(() => this.inProcess$.next(true)),
                 switchMapTo(createNewClaim$),
-                switchMap(recreated => forkJoin(of(recreated), revokeCurrentClaim$)),
+                switchMap((recreated) => forkJoin(of(recreated), revokeCurrentClaim$)),
                 map(head),
                 tap(() => this.extracted$.next(extractedModifications)),
                 tap(() => this.inProcess$.next(false))

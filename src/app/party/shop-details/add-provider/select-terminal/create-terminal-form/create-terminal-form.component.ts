@@ -45,13 +45,13 @@ export class CreateTerminalFormComponent implements OnInit {
     save() {
         this.isLoading = true;
         this.createTerminalFormService.saveTerminal().subscribe(
-            terminalID => {
+            (terminalID) => {
                 this.terminalIdSelected.emit(terminalID);
                 this.isLoading = false;
                 this.saved = true;
                 this.snackBar.open('Terminal successfully added', 'OK', { duration: 3000 });
             },
-            e => {
+            (e) => {
                 this.isLoading = false;
                 this.saved = false;
                 this.snackBar.open('An error occurred while while adding provider', 'OK');

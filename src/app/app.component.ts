@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
         ];
         const userRoles = this.keycloakService.getUserRoles();
         return menuItems.filter(
-            item => item.activateRoles.filter(role => userRoles.includes(role)).length > 0
+            (item) => item.activateRoles.filter((role) => userRoles.includes(role)).length > 0
         );
     }
 }

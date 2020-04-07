@@ -58,7 +58,7 @@ export class MetaEnricher {
     }
 
     private enrichStructUnion(meta: MetaStruct | MetaUnion): MetaStruct | MetaUnion {
-        const fields = meta.fields.map(f => ({
+        const fields = meta.fields.map((f) => ({
             ...f,
             meta: this.enrichObjectMeta(f.meta)
         }));
@@ -207,7 +207,7 @@ export class MetaEnricher {
     }
 
     private registerExternalNamespace(namespace: string): void {
-        const found = this.externalNamespaces.find(n => n === namespace);
+        const found = this.externalNamespaces.find((n) => n === namespace);
         if (!found) {
             this.externalNamespaces = this.externalNamespaces.concat(namespace);
         }

@@ -17,10 +17,10 @@ export class SendCommentComponent {
     inProgress$ = this.sendCommentService.inProgress$;
 
     constructor(private sendCommentService: SendCommentService) {
-        this.sendCommentService.conversationSaved$.subscribe(id =>
+        this.sendCommentService.conversationSaved$.subscribe((id) =>
             this.conversationSaved.next([sendCommentService.createModification(id)])
         );
-        this.inProgress$.subscribe(inProgress => {
+        this.inProgress$.subscribe((inProgress) => {
             if (inProgress) {
                 this.form.controls.comment.disable();
             } else {

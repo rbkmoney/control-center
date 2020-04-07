@@ -18,7 +18,7 @@ export class FileUploaderService {
     filesUploadingError$ = new Subject<null>();
 
     filesUploaded$: Observable<string[]> = this.startUploading$.pipe(
-        switchMap(files =>
+        switchMap((files) =>
             this.uploadFiles(files).pipe(
                 catchError(() => {
                     this.filesUploadingError$.next(null);
@@ -26,7 +26,7 @@ export class FileUploaderService {
                 })
             )
         ),
-        filter(v => !!v.length),
+        filter((v) => !!v.length),
         shareReplay(1)
     );
 
@@ -45,9 +45,9 @@ export class FileUploaderService {
 
     uploadFiles(files: File[]): Observable<string[]> {
         return forkJoin(
-            files.map(file =>
+            files.map((file) =>
                 this.getUploadLink().pipe(
-                    switchMap(uploadData =>
+                    switchMap((uploadData) =>
                         forkJoin(
                             of(uploadData.file_data_id),
                             this.uploadFileToUrl(file, uploadData.upload_url)
@@ -75,9 +75,7 @@ export class FileUploaderService {
     private getUploadLink(): Observable<NewFileResult> {
         return this.fileStorageService.createNewFile(
             new Map<string, Value>(),
-            moment()
-                .add(1, 'h')
-                .toISOString()
+            moment().add(1, 'h').toISOString()
         );
     }
 

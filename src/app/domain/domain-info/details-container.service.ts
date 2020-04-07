@@ -10,7 +10,7 @@ export class DetailsContainerService {
 
     set container(sidenav: MatSidenav) {
         this.detailsContainer = sidenav;
-        this.detailsContainer.openedChange.subscribe(opened => this.opened$.next(opened));
+        this.detailsContainer.openedChange.subscribe((opened) => this.opened$.next(opened));
     }
 
     open() {

@@ -12,7 +12,7 @@ import { ExecResultGroup } from './exec-result-group';
 
 export class CancelAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(cancelParams: any[]): any[] {
-        return cancelParams.map(params => ({
+        return cancelParams.map((params) => ({
             fn: this.manager.cancelPaymentAdjustment,
             context: this.manager,
             params
@@ -38,7 +38,7 @@ export class CancelAdjustmentService extends AdjustmentOperationService {
     }
 
     private toErrorPayload(result: ExecErrorResult[]): OperationFailedPayload[] {
-        return result.map(error => {
+        return result.map((error) => {
             const {
                 exception,
                 container: { params }

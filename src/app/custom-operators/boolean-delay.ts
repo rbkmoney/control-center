@@ -6,7 +6,7 @@ const emitWithDelay = (ms: number, observer: Subscriber<boolean>): Subscription 
 export const booleanDelay = (ms: number = 500, emitTrigger: Observable<any> = of(true)) => <T>(
     source: Observable<T>
 ) =>
-    new Observable<boolean>(observer => {
+    new Observable<boolean>((observer) => {
         let emitterSub = Subscription.EMPTY;
         const triggerSub = emitTrigger.subscribe(() => {
             emitterSub.unsubscribe();

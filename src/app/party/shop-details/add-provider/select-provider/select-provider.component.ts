@@ -39,9 +39,7 @@ export class SelectProviderComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (provider: ProviderObject, filter: string) =>
-            JSON.stringify(provider)
-                .toLowerCase()
-                .includes(filter);
+            JSON.stringify(provider).toLowerCase().includes(filter);
         this.selection.changed.subscribe(() => {
             const providerSelection = Array.from(this.selection.selected.values());
             if (providerSelection.length > 0) {

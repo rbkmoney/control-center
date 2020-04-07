@@ -20,17 +20,17 @@ const resolveAstField = ({ option, name, type }: Field): MetaField => ({
     meta: resolveAstValueType(type)
 });
 
-const resolveAstFields = (fields: Field[]): MetaField[] => fields.map(f => resolveAstField(f));
+const resolveAstFields = (fields: Field[]): MetaField[] => fields.map((f) => resolveAstField(f));
 
 const resolveAstEnums = (ast: Enums): MetaEnum[] =>
-    Object.keys(ast).map(name => ({
+    Object.keys(ast).map((name) => ({
         type: MetaType.enum,
         name,
         items: ast[name].items
     }));
 
 const resolveAstStructs = (ast: Structs, namespace: string): MetaStruct[] =>
-    Object.keys(ast).map(name => ({
+    Object.keys(ast).map((name) => ({
         type: MetaType.struct,
         name,
         fields: resolveAstFields(ast[name]),
@@ -40,7 +40,7 @@ const resolveAstStructs = (ast: Structs, namespace: string): MetaStruct[] =>
     }));
 
 const resolveAstUnion = (ast: Unions, namespace: string): MetaUnion[] =>
-    Object.keys(ast).map(name => ({
+    Object.keys(ast).map((name) => ({
         type: MetaType.union,
         name,
         fields: resolveAstFields(ast[name]),
@@ -50,7 +50,7 @@ const resolveAstUnion = (ast: Unions, namespace: string): MetaUnion[] =>
     }));
 
 const resolveAstTypedef = (ast: TypeDefs): MetaTypedef[] =>
-    Object.keys(ast).map(name => ({
+    Object.keys(ast).map((name) => ({
         type: MetaType.typedef,
         name,
         meta: resolveAstValueType(ast[name].type)

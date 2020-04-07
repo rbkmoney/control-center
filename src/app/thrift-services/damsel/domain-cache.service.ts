@@ -15,7 +15,7 @@ export class DomainCacheService {
     get domain(): Observable<Domain> {
         if (!this.cache$) {
             this.cache$ = this.dmtService.checkout(toGenReference()).pipe(
-                map(s => s.domain),
+                map((s) => s.domain),
                 shareReplay(1)
             );
         }

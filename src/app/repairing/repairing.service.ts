@@ -31,7 +31,7 @@ export class RepairingService {
     }
 
     get isLoading$(): Observable<boolean> {
-        return this._progress$.pipe(map(progress => progress !== 1));
+        return this._progress$.pipe(map((progress) => progress !== 1));
     }
 
     combineIds(addedIds: string[], currentIds: string[] = []) {
@@ -65,7 +65,7 @@ export class RepairingService {
         const resultDataSource = currentElements.slice();
         for (const element of elements) {
             resultDataSource.splice(
-                resultDataSource.findIndex(e => e === element),
+                resultDataSource.findIndex((e) => e === element),
                 1
             );
         }

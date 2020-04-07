@@ -66,7 +66,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
                 width: '300px'
             })
             .afterClosed()
-            .subscribe(result => {
+            .subscribe((result) => {
                 if (!result) {
                     return;
                 }
@@ -79,7 +79,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
     private initialize(): Subscription {
         this.isLoading = true;
         return this.domainObjModService.init().subscribe(
-            model => {
+            (model) => {
                 this.isLoading = false;
                 this.model = model;
                 this.modifiedFile = toMonacoFile(model.modified.monacoContent);
@@ -88,7 +88,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
                     this.initSub.unsubscribe();
                 }
             },
-            err => {
+            (err) => {
                 console.error(err);
                 this.isLoading = false;
                 this.snackBar.open(`An error occurred while initializing: ${err}`, 'OK');

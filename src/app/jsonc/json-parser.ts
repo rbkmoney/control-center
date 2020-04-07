@@ -36,7 +36,7 @@ export class ValidationResult {
     }
 
     public mergeAll(validationResults: ValidationResult[]): void {
-        validationResults.forEach(validationResult => {
+        validationResults.forEach((validationResult) => {
             this.merge(validationResult);
         });
     }
@@ -194,7 +194,7 @@ export class ASTNode {
             }
         }
         if (Array.isArray(schema.allOf)) {
-            schema.allOf.forEach(subSchema => {
+            schema.allOf.forEach((subSchema) => {
                 this.validate(subSchema, validationResult, matchingSchemas, offset);
             });
         }
@@ -209,7 +209,7 @@ export class ASTNode {
                 });
             }
             if (matchingSchemas) {
-                subMatchingSchemas.forEach(ms => {
+                subMatchingSchemas.forEach((ms) => {
                     ms.inverted = !ms.inverted;
                     matchingSchemas.push(ms);
                 });
@@ -225,7 +225,7 @@ export class ASTNode {
                 validationResult: ValidationResult;
                 matchingSchemas: IApplicableSchema[];
             } = null;
-            alternatives.forEach(subSchema => {
+            alternatives.forEach((subSchema) => {
                 const subValidationResult = new ValidationResult();
                 const subMatchingSchemas: IApplicableSchema[] = [];
                 this.validate(subSchema, subValidationResult, subMatchingSchemas);
@@ -359,7 +359,7 @@ export class ArrayASTNode extends ASTNode {
     }
 
     public getValue(): any {
-        return this.items.map(v => v.getValue());
+        return this.items.map((v) => v.getValue());
     }
 
     public addItem(item: ASTNode): boolean {
@@ -415,7 +415,7 @@ export class ArrayASTNode extends ASTNode {
                 validationResult.propertiesValueMatches += this.items.length - subSchemas.length;
             }
         } else if (schema.items) {
-            this.items.forEach(item => {
+            this.items.forEach((item) => {
                 const itemValidationResult = new ValidationResult();
                 item.validate((schema as any).items, itemValidationResult, matchingSchemas, offset);
                 validationResult.mergePropertyMatch(itemValidationResult);
@@ -445,7 +445,7 @@ export class ArrayASTNode extends ASTNode {
         }
 
         if (schema.uniqueItems === true) {
-            const values = this.items.map(node => {
+            const values = this.items.map((node) => {
                 return node.getValue();
             });
             const duplicates = values.some((value, index) => {
@@ -699,12 +699,12 @@ export class ObjectASTNode extends ASTNode {
     }
 
     public getKeyList(): string[] {
-        return this.properties.map(p => p.key.getValue());
+        return this.properties.map((p) => p.key.getValue());
     }
 
     public getValue(): any {
         const value: any = {};
-        this.properties.forEach(p => {
+        this.properties.forEach((p) => {
             const v = p.value && p.value.getValue();
             if (v) {
                 value[p.key.getValue()] = v;
@@ -734,7 +734,7 @@ export class ObjectASTNode extends ASTNode {
         super.validate(schema, validationResult, matchingSchemas, offset);
         const seenKeys: { [key: string]: ASTNode } = {};
         const unprocessedProperties: string[] = [];
-        this.properties.forEach(node => {
+        this.properties.forEach((node) => {
             const key = node.key.value;
             seenKeys[key] = node.value;
             unprocessedProperties.push(key);

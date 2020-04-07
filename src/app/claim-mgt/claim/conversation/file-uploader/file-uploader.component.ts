@@ -16,8 +16,10 @@ export class FileUploaderComponent {
     inProgress$ = this.fileUploaderService.inProgress$;
 
     constructor(private fileUploaderService: FileUploaderService) {
-        this.fileUploaderService.filesUploaded$.subscribe(values =>
-            this.filesUploaded.emit(values.map(v => this.fileUploaderService.createModification(v)))
+        this.fileUploaderService.filesUploaded$.subscribe((values) =>
+            this.filesUploaded.emit(
+                values.map((v) => this.fileUploaderService.createModification(v))
+            )
         );
     }
 

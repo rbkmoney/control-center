@@ -27,10 +27,10 @@ export class SearchFormComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.searchFormService.form;
-        this.form.valueChanges.subscribe(value => {
+        this.form.valueChanges.subscribe((value) => {
             this.valueChanges.emit(this.searchFormService.formValueToSearchParams(value));
         });
-        this.form.statusChanges.subscribe(status => this.statusChanges.emit(status));
+        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
         this.form.updateValueAndValidity();
     }
 }

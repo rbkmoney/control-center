@@ -38,35 +38,37 @@ export class DomainTypedManager {
     constructor(private dmtService: DomainService, private dmtCacheService: DomainCacheService) {}
 
     getBusinessScheduleObjects(): Observable<BusinessScheduleObject[]> {
-        return this.dmtCacheService.domain.pipe(map(domain => findBusinessScheduleObjects(domain)));
+        return this.dmtCacheService.domain.pipe(
+            map((domain) => findBusinessScheduleObjects(domain))
+        );
     }
 
     getBusinessScheduleObject(id: number): Observable<BusinessScheduleObject> {
         return this.dmtCacheService.domain.pipe(
-            map(domain => findBusinessScheduleObjects(domain)),
-            map(objects => findDomainObject(objects, id))
+            map((domain) => findBusinessScheduleObjects(domain)),
+            map((objects) => findDomainObject(objects, id))
         );
     }
 
     getProviderObjects(): Observable<ProviderObject[]> {
-        return this.dmtCacheService.domain.pipe(map(domain => findProviderObjects(domain)));
+        return this.dmtCacheService.domain.pipe(map((domain) => findProviderObjects(domain)));
     }
 
     getProviderObject(id: number): Observable<ProviderObject> {
         return this.dmtCacheService.domain.pipe(
-            map(domain => findProviderObjects(domain)),
-            map(objects => findDomainObject(objects, id))
+            map((domain) => findProviderObjects(domain)),
+            map((objects) => findDomainObject(objects, id))
         );
     }
 
     getTerminalObjects(): Observable<TerminalObject[]> {
-        return this.dmtCacheService.domain.pipe(map(domain => findTerminalObjects(domain)));
+        return this.dmtCacheService.domain.pipe(map((domain) => findTerminalObjects(domain)));
     }
 
     getTerminalObject(id: number): Observable<TerminalObject> {
         return this.dmtCacheService.domain.pipe(
-            map(domain => findTerminalObjects(domain)),
-            map(objects => findDomainObject(objects, id))
+            map((domain) => findTerminalObjects(domain)),
+            map((objects) => findDomainObject(objects, id))
         );
     }
 
@@ -117,10 +119,10 @@ export class DomainTypedManager {
     }
 
     getLastVersion(): Observable<any> {
-        return this.dmtService.checkout(toGenReference()).pipe(map(snapshot => snapshot.version));
+        return this.dmtService.checkout(toGenReference()).pipe(map((snapshot) => snapshot.version));
     }
 
     getPaymentInstitutions(): Observable<PaymentInstitutionObject[]> {
-        return this.dmtCacheService.domain.pipe(map(domain => findPaymentInstitutions(domain)));
+        return this.dmtCacheService.domain.pipe(map((domain) => findPaymentInstitutions(domain)));
     }
 }

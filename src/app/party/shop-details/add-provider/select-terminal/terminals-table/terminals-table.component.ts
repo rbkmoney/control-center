@@ -31,9 +31,7 @@ export class TerminalsTableComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (terminal: TerminalObject, filter: string) =>
-            JSON.stringify(terminal)
-                .toLowerCase()
-                .includes(filter);
+            JSON.stringify(terminal).toLowerCase().includes(filter);
         this.selection.changed.subscribe(() => {
             const terminalSelection = Array.from(this.selection.selected.values());
             if (terminalSelection.length > 0) {

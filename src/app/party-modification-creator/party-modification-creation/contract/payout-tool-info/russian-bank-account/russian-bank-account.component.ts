@@ -18,7 +18,7 @@ export class RussianBankAccountComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const control = value => this.fb.control(value, Validators.required);
+        const control = (value) => this.fb.control(value, Validators.required);
         const account = get(this, 'initialValue.account', '');
         const bankName = get(this, 'initialValue.bank_name', '');
         const bankPostAccount = get(this, 'initialValue.bank_post_account', '');

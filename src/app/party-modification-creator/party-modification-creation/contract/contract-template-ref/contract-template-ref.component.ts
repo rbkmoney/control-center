@@ -48,7 +48,7 @@ export class ContractTemplateRefComponent implements OnInit {
         );
         this.form.updateValueAndValidity();
         this.contracts$ = this.contractService.getContractTemplates().pipe(
-            map(contracts => sortBy(contracts, 'id')),
+            map((contracts) => sortBy(contracts, 'id')),
             tap(
                 () => {
                     this.form.controls.id.enable();

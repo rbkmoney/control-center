@@ -34,11 +34,11 @@ export class CreateDepositComponent implements OnInit {
         this.isLoading = true;
         this.form.disable();
         this.createDepositService.createDeposit().subscribe(
-            deposit => {
+            (deposit) => {
                 this.snackBar.open(`Deposit status successfully created`, 'OK', { duration: 3000 });
                 this.dialogRef.close(deposit);
             },
-            e => {
+            (e) => {
                 if (e instanceof PollingTimeoutError) {
                     this.snackBar.open('Polling timeout error', 'OK');
                 } else {

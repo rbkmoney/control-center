@@ -27,8 +27,8 @@ export class ThriftService {
 
     protected toObservableAction<T extends (...A: any[]) => Observable<any>>(name: string): T {
         return ((...args) =>
-            Observable.create(observer => {
-                const cb = msg => {
+            Observable.create((observer) => {
+                const cb = (msg) => {
                     observer.error(msg);
                     observer.complete();
                 };

@@ -59,7 +59,7 @@ export class CreateAndCaptureComponent implements OnInit {
             reason: ['', Validators.required]
         });
         this.progress$ = this.batchAdjustmentService.progress$;
-        this.batchAdjustmentService.events$.subscribe(event => {
+        this.batchAdjustmentService.events$.subscribe((event) => {
             switch (event.type) {
                 case EventType.BatchOperationStarted:
                     this.isLoading = true;

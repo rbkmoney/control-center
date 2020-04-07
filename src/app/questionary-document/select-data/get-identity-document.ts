@@ -13,7 +13,7 @@ export function getIdentityDocument(
         return {
             name: 'Паспорт РФ',
             seriesNumber: series_number,
-            issuer: [issuer, issuer_code].filter(i => !!i).join(', '),
+            issuer: [issuer, issuer_code].filter((i) => !!i).join(', '),
             issuedAt: issued_at
         };
     }

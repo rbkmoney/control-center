@@ -57,7 +57,7 @@ export class RepairWithScenarioComponent {
             addedIds,
             this.dataSource.map(({ id }) => id)
         );
-        this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.unknown })));
+        this.dataSource = this.dataSource.concat(ids.map((id) => ({ id, status: Status.unknown })));
     }
 
     remove(elements: Element[] = this.selection.selected) {
@@ -100,7 +100,7 @@ export class RepairWithScenarioComponent {
             return;
         }
         this.setStatus(elements, Status.update);
-        this.repairingService.executeRepairWithScenario(elements, scenario).subscribe(result => {
+        this.repairingService.executeRepairWithScenario(elements, scenario).subscribe((result) => {
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.getStatusByError(result.error);

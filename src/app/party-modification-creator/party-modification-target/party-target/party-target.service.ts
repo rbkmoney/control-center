@@ -18,7 +18,7 @@ export class PartyTargetService {
 
     getSelectableItems(partyID: string, targetName: PartyTarget): Observable<SelectableItem[]> {
         return this.partyService.getParty(partyID).pipe(
-            map(party => {
+            map((party) => {
                 const result = [];
                 const target = this.getTarget(party, targetName);
                 target.forEach((item, id) => result.push({ item, id }));

@@ -20,7 +20,9 @@ export class SendCommentService {
     private sendComment$: Subject<string> = new Subject();
 
     form: FormGroup;
-    conversationSaved$: Observable<ConversationId> = this.conversationId$.pipe(filter(id => !!id));
+    conversationSaved$: Observable<ConversationId> = this.conversationId$.pipe(
+        filter((id) => !!id)
+    );
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
     inProgress$: Observable<boolean> = progress(
         this.sendComment$,
@@ -40,7 +42,7 @@ export class SendCommentService {
         this.sendComment$
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
-                switchMap(text => {
+                switchMap((text) => {
                     const { name, email, sub } = this.keycloakTokenInfoService.decodedUserToken;
                     const user: User = { fullname: name, email, user_id: sub };
                     const conversation_id = uuid();
@@ -52,7 +54,7 @@ export class SendCommentService {
                     return forkJoin(
                         of(conversation_id),
                         this.messagesService.saveConversations([conversation], user).pipe(
-                            catchError(ex => {
+                            catchError((ex) => {
                                 console.error(ex);
                                 this.snackBar.open(
                                     `There was an error sending a comment: ${ex}`,

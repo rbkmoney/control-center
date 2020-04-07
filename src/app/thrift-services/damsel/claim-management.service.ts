@@ -32,35 +32,35 @@ export class ClaimManagementService extends ThriftService {
 
     acceptClaim = (partyID: string, claimID: ClaimID): Observable<void> =>
         this.getClaim(partyID, claimID).pipe(
-            switchMap(claim =>
+            switchMap((claim) =>
                 this.toObservableAction('AcceptClaim')(partyID, claimID, claim.revision)
             )
         );
 
     requestClaimReview = (partyID: string, claimID: ClaimID): Observable<void> =>
         this.getClaim(partyID, claimID).pipe(
-            switchMap(claim =>
+            switchMap((claim) =>
                 this.toObservableAction('RequestClaimReview')(partyID, claimID, claim.revision)
             )
         );
 
     requestClaimChanges = (partyID: string, claimID: ClaimID): Observable<void> =>
         this.getClaim(partyID, claimID).pipe(
-            switchMap(claim =>
+            switchMap((claim) =>
                 this.toObservableAction('RequestClaimChanges')(partyID, claimID, claim.revision)
             )
         );
 
     denyClaim = (partyID: string, claimID: ClaimID, reason: string): Observable<void> =>
         this.getClaim(partyID, claimID).pipe(
-            switchMap(claim =>
+            switchMap((claim) =>
                 this.toObservableAction('DenyClaim')(partyID, claimID, claim.revision, reason)
             )
         );
 
     revokeClaim = (partyID: string, claimID: ClaimID, reason: string): Observable<void> =>
         this.getClaim(partyID, claimID).pipe(
-            switchMap(claim =>
+            switchMap((claim) =>
                 this.toObservableAction('RevokeClaim')(partyID, claimID, claim.revision, reason)
             )
         );
@@ -71,12 +71,12 @@ export class ClaimManagementService extends ThriftService {
         changeset: Modification[]
     ): Observable<void> =>
         this.getClaim(partyID, claimID).pipe(
-            switchMap(claim =>
+            switchMap((claim) =>
                 this.toObservableAction('UpdateClaim')(
                     claim.party_id,
                     claim.id,
                     claim.revision,
-                    changeset.map(m => new ModificationType(m))
+                    changeset.map((m) => new ModificationType(m))
                 )
             )
         );

@@ -55,7 +55,7 @@ export class AddProviderComponent implements OnInit {
                 this.snackBar.open('Provider successfully added', 'OK', { duration: 3000 });
                 this.dialogRef.close(true);
             },
-            e => {
+            (e) => {
                 this.isLoading = false;
                 this.snackBar.open('An error occurred while while adding provider', 'OK');
                 console.error(e);

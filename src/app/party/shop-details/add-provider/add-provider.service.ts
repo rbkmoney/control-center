@@ -24,8 +24,8 @@ export class AddProviderService {
 
     getProviders(categoryId: number): Observable<ProviderObject[]> {
         return this.dtm.getProviderObjects().pipe(
-            map(objects => filterProvidersByTerminalSelector(objects, 'decisions')),
-            map(objects => filterProvidersByCategoryId(objects, categoryId))
+            map((objects) => filterProvidersByTerminalSelector(objects, 'decisions')),
+            map((objects) => filterProvidersByCategoryId(objects, categoryId))
         );
     }
 

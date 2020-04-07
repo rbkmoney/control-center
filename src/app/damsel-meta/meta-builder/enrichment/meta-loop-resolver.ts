@@ -85,11 +85,13 @@ export class MetaLoopResolver {
     }
 
     private isResolved(meta: MetaUnion | MetaStruct): boolean {
-        return !!this.resolved.find(i => i.name === meta.name);
+        return !!this.resolved.find((i) => i.name === meta.name);
     }
 
     private findResolved(looped: string): MetaUnion | MetaStruct {
-        const found = this.resolveContainer.find(i => i.name === looped.replace(this.loopSign, ''));
+        const found = this.resolveContainer.find(
+            (i) => i.name === looped.replace(this.loopSign, '')
+        );
         if (!found) {
             this.registerError('Resolved meta not found');
         }

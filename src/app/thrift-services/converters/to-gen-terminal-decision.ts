@@ -47,7 +47,7 @@ const toTerminalRefGen = (ref: TerminalRef) => {
 const toTerminalSelectorGen = (selector: TerminalSelector) => {
     const selectorGen = new DomainTypes.TerminalSelector();
     if (selector.value) {
-        selectorGen.value = Array.from(selector.value).map(ref => toTerminalRefGen(ref));
+        selectorGen.value = Array.from(selector.value).map((ref) => toTerminalRefGen(ref));
     }
     return selectorGen;
 };

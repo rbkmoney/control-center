@@ -33,15 +33,11 @@ export class DepositsService extends PartialFetcher<StatDeposit, SearchFormParam
         this.dialog
             .open(CreateDepositComponent, { disableClose: true })
             .afterClosed()
-            .pipe(filter(deposit => !!deposit))
-            .subscribe(deposit => {
+            .pipe(filter((deposit) => !!deposit))
+            .subscribe((deposit) => {
                 const polledDepositParams: SearchFormParams = {
-                    fromTime: moment()
-                        .startOf('d')
-                        .toISOString(),
-                    toTime: moment()
-                        .endOf('d')
-                        .toISOString(),
+                    fromTime: moment().startOf('d').toISOString(),
+                    toTime: moment().endOf('d').toISOString(),
                     depositId: deposit.id
                 };
                 this.search(polledDepositParams);

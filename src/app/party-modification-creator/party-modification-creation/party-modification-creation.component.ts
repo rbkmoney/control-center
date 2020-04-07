@@ -61,7 +61,7 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
             ],
             modification: this.fb.group({})
         });
-        this.form.statusChanges.subscribe(status => this.statusChanges.emit(status));
+        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
         this.form.valueChanges.subscribe(() => {
             const filtered = filterEmptyStringValues(this.form.getRawValue());
             const modification = toPartyModification(this.action, filtered);

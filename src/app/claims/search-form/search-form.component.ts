@@ -26,6 +26,6 @@ export class SearchFormComponent implements OnInit {
         this.form = form;
         this.form.valueChanges
             .pipe(debounceTime(300))
-            .subscribe(value => this.valueChanges.emit(formValueToSearchParams(value)));
+            .subscribe((value) => this.valueChanges.emit(formValueToSearchParams(value)));
     }
 }

@@ -30,8 +30,8 @@ export class SearchFormComponent implements OnInit {
         this.form = form;
         this.payoutStatuses = payoutStatuses;
         this.payoutTypes = payoutTypes;
-        this.form.valueChanges.subscribe(value => this.emitValue(value));
-        this.form.statusChanges.subscribe(status => this.emitStatus(status));
+        this.form.valueChanges.subscribe((value) => this.emitValue(value));
+        this.form.statusChanges.subscribe((status) => this.emitStatus(status));
         this.emitValue(this.form.value);
         this.emitStatus(this.form.status);
     }

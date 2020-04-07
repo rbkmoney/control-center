@@ -126,13 +126,13 @@ export abstract class AbstractMonacoService {
     }
 
     private registerCompletionListener() {
-        this.bufferEditorInitialized(this.completionService.providers).subscribe(providers =>
+        this.bufferEditorInitialized(this.completionService.providers).subscribe((providers) =>
             this.completionService.register(providers)
         );
     }
 
     private registerCodeLensListener() {
-        this.bufferEditorInitialized(this.codeLensService.providers).subscribe(providers =>
+        this.bufferEditorInitialized(this.codeLensService.providers).subscribe((providers) =>
             this.codeLensService.register(providers)
         );
     }
@@ -140,7 +140,7 @@ export abstract class AbstractMonacoService {
     private bufferEditorInitialized<T>(o: Observable<T[]>): Observable<T[]> {
         return o.pipe(
             buffer(this.editorInitialized$),
-            map(buffered => flatten(buffered).filter(i => i !== null))
+            map((buffered) => flatten(buffered).filter((i) => i !== null))
         );
     }
 
@@ -173,6 +173,6 @@ export abstract class AbstractMonacoService {
                 debounceTime(50),
                 takeUntil(this.destroy$)
             )
-            .subscribe(dimension => this.editor.layout(dimension));
+            .subscribe((dimension) => this.editor.layout(dimension));
     }
 }

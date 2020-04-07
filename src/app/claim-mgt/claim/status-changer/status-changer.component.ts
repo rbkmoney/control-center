@@ -19,7 +19,7 @@ interface ActionsInterface {
     styleUrls: ['status-changer.component.scss']
 })
 export class StatusChangerComponent implements OnInit {
-    actions = getAvailableClaimStatuses(this.data.claimStatus).filter(status =>
+    actions = getAvailableClaimStatuses(this.data.claimStatus).filter((status) =>
         this.statusFilter(status)
     );
     form = this.actionsService.form;
@@ -42,7 +42,7 @@ export class StatusChangerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.actionsService.claim$.subscribe(_ => {
+        this.actionsService.claim$.subscribe((_) => {
             this.dialogRef.close(true);
         });
     }

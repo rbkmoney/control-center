@@ -36,23 +36,23 @@ export class StatusChangerService {
                 case ClaimStatuses.denied:
                     return this.claimManagementService
                         .denyClaim(partyID, claimID, this.form.getRawValue().reason)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 case ClaimStatuses.pending:
                     return this.claimManagementService
                         .requestClaimChanges(partyID, claimID)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 case ClaimStatuses.review:
                     return this.claimManagementService
                         .requestClaimReview(partyID, claimID)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 case ClaimStatuses.accepted:
                     return this.claimManagementService
                         .acceptClaim(partyID, claimID)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 case ClaimStatuses.revoked:
                     return this.claimManagementService
                         .revokeClaim(partyID, claimID, this.form.getRawValue().reason)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 default:
                     throw new Error('Wrong action type!');
             }
@@ -80,7 +80,7 @@ export class StatusChangerService {
                 filter(([prev, curr]) => prev.reason === curr.reason),
                 pluck(1, 'type')
             )
-            .subscribe(type => {
+            .subscribe((type) => {
                 switch (type) {
                     case ClaimStatuses.denied:
                     case ClaimStatuses.revoked:

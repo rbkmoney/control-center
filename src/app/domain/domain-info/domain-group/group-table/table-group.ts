@@ -10,7 +10,7 @@ export function toTableGroup(domainGroup: DomainGroup[]): TableGroup[] {
     return domainGroup.map(({ name, pairs }) => {
         return {
             name,
-            tableItems: pairs.map(p => {
+            tableItems: pairs.map((p) => {
                 const pair = toJson(p);
                 const stringifiedRef = JSON.stringify(pair.object.ref);
                 const stringifiedData = JSON.stringify(pair.object.data);

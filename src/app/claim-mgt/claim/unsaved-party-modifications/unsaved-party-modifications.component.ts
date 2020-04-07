@@ -28,7 +28,7 @@ export class UnsavedPartyModificationsComponent implements OnChanges, OnInit {
     constructor(private unsavedPartyModService: UnsavedPartyModificationService) {}
 
     ngOnInit() {
-        this.unsavedPartyModifications$.subscribe(m => this.partyModificationsChanged.emit(m));
+        this.unsavedPartyModifications$.subscribe((m) => this.partyModificationsChanged.emit(m));
     }
 
     ngOnChanges({ partyModifications }: SimpleChanges) {

@@ -32,11 +32,11 @@ export class DomainObjModificationService {
         private domainReviewService: DomainReviewService,
         private thriftBuilderService: ThriftBuilderService
     ) {
-        this.metaBuilder.errors.subscribe(e => {
+        this.metaBuilder.errors.subscribe((e) => {
             this.errors$.next(e);
             console.error('Build meta error:', e);
         });
-        this.metaApplicator.errors.subscribe(e => console.log('Apply meta error:', e));
+        this.metaApplicator.errors.subscribe((e) => console.log('Apply meta error:', e));
     }
 
     init(namespace = 'domain'): Observable<DomainModificationModel> {
@@ -93,7 +93,7 @@ export class DomainObjModificationService {
             throw new Error('Domain object not found');
         }
         return this.metaBuilder.build(objectType, namespace).pipe(
-            map(initialMeta => {
+            map((initialMeta) => {
                 if (!initialMeta) {
                     throw new Error('Build initial meta failed');
                 }
@@ -120,7 +120,7 @@ export class DomainObjModificationService {
 
     private formNewDomainObj(source: DomainObject, thrift: ThriftType): DomainObject {
         const result = getThriftInstance('domain', 'DomainObject');
-        const filtered = Object.keys(source).filter(k => !!source[k]);
+        const filtered = Object.keys(source).filter((k) => !!source[k]);
         if (filtered.length !== 1) {
             throw new Error('Should be only one field in DomainObject');
         }

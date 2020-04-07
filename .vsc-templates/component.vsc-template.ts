@@ -26,12 +26,12 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
         template: [
             {
                 type: 'folder',
-                name: inputs => vsc.toKebabCase(inputs.name),
+                name: (inputs) => vsc.toKebabCase(inputs.name),
                 children: [
                     {
                         type: 'file',
-                        name: inputs => `${getComponentPath(inputs.name)}.html`,
-                        content: inputs => `
+                        name: (inputs) => `${getComponentPath(inputs.name)}.html`,
+                        content: (inputs) => `
 <div class="${PREFIX}-${vsc.toKebabCase(inputs.name)}">
     <ng-content></ng-content>
 </div>
@@ -39,16 +39,16 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
                     },
                     {
                         type: 'file',
-                        name: inputs => `${getComponentPath(inputs.name)}.scss`,
-                        content: inputs => `
+                        name: (inputs) => `${getComponentPath(inputs.name)}.scss`,
+                        content: (inputs) => `
 .${PREFIX}-${vsc.toKebabCase(inputs.name)} {
 }
 `
                     },
                     {
                         type: 'file',
-                        name: inputs => `${getComponentPath(inputs.name)}.ts`,
-                        content: inputs => `
+                        name: (inputs) => `${getComponentPath(inputs.name)}.ts`,
+                        content: (inputs) => `
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
@@ -63,8 +63,8 @@ export class ${getComponentName(inputs.name)} {
                     },
                     {
                         type: 'file',
-                        name: inputs => `index.ts`,
-                        content: inputs => `
+                        name: (inputs) => `index.ts`,
+                        content: (inputs) => `
 export * from './${getComponentPath(inputs.name)}'
 `
                     }

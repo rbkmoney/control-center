@@ -36,7 +36,7 @@ export class TerminalComponent {
                 });
                 this.terminalRemovedEvent.emit();
             },
-            e => {
+            (e) => {
                 this.isLoading = false;
                 this.snackBar.open(
                     'An error occurred while while removing terminal from shop',

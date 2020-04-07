@@ -32,7 +32,7 @@ export class PaymentAdjustmentComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.paymentAdjustmentService.searchPaymentChanges$.subscribe(payments => {
+        this.paymentAdjustmentService.searchPaymentChanges$.subscribe((payments) => {
             this.payments = payments;
         });
     }
@@ -66,7 +66,7 @@ export class PaymentAdjustmentComponent implements OnInit {
                 this.selectedPayments = [];
                 this.isLoading = false;
             },
-            e => {
+            (e) => {
                 this.snackBar.open(`${e.message || 'Error'}`, 'OK');
                 this.isLoading = false;
                 console.error(e);

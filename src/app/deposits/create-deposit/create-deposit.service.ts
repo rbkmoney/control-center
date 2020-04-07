@@ -45,7 +45,7 @@ export class CreateDepositService {
         return this.fistfulAdminService.createDeposit(params).pipe(
             switchMap(() =>
                 this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
-                    map(res => res.result[0]),
+                    map((res) => res.result[0]),
                     poll(createDepositStopPollingCondition)
                 )
             )
@@ -77,12 +77,8 @@ export class CreateDepositService {
 
     private getPollingSearchFormParams(params: DepositParams): SearchFormParams {
         return {
-            fromTime: moment()
-                .startOf('d')
-                .toISOString(),
-            toTime: moment()
-                .endOf('d')
-                .toISOString(),
+            fromTime: moment().startOf('d').toISOString(),
+            toTime: moment().endOf('d').toISOString(),
             depositId: params.id
         };
     }

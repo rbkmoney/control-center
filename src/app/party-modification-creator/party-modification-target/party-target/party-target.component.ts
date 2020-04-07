@@ -38,7 +38,7 @@ export class PartyTargetComponent implements OnInit {
 
     ngOnInit() {
         this.partyTargetService.getSelectableItems(this.partyID, this.partyTarget).subscribe(
-            items => {
+            (items) => {
                 this.loading = false;
                 this.items = items;
             },

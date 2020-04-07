@@ -29,7 +29,7 @@ export class PartyModificationsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.claimService.modificationGroups$.subscribe(groups => {
+        this.claimService.modificationGroups$.subscribe((groups) => {
             this.shopUnits = [];
             this.contractUnits = [];
             for (const group of groups) {

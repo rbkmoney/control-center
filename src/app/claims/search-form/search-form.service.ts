@@ -19,7 +19,7 @@ export class SearchFormService {
     }
 
     formValueToSearchParams(formValue): ClaimSearchParams {
-        return mapValues(formValue, value => {
+        return mapValues(formValue, (value) => {
             let result = value;
             if (value === '') {
                 result = null;

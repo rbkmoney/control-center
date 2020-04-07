@@ -38,7 +38,7 @@ export class RepairWithScenarioSettingsComponent {
         });
         this.autocompleteCodes$ = this.formGroup.valueChanges.pipe(
             map(({ code }) =>
-                code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
+                code ? this.codes.filter((c) => c.toLowerCase().indexOf(code) !== -1) : this.codes
             )
         );
     }

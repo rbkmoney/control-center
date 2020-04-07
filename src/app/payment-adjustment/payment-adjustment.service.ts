@@ -18,7 +18,7 @@ export class PaymentAdjustmentService {
         private merchantStatisticsService: MerchantStatisticsService,
         private domainService: DomainService
     ) {
-        this.domainService.version$.subscribe(version => (this.version = version));
+        this.domainService.version$.subscribe((version) => (this.version = version));
     }
 
     fetchPayments(params: SearchFormParams): Observable<StatPayment[]> {
@@ -31,7 +31,7 @@ export class PaymentAdjustmentService {
         payments: StatPayment[] = []
     ): Observable<StatPayment[]> {
         return this.getPayments(params, continuationToken).pipe(
-            mergeMap(res => {
+            mergeMap((res) => {
                 const mergedPayments = [...payments, ...res.data.payments];
                 this.searchPaymentChanges$.next(mergedPayments);
                 return res.continuation_token

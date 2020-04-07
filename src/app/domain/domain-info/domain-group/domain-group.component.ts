@@ -22,7 +22,7 @@ export class DomainGroupComponent implements OnInit {
             this.version = version;
         });
         this.groupService.undefDetectionStatus$
-            .pipe(filter(s => s === 'detected'))
+            .pipe(filter((s) => s === 'detected'))
             .subscribe(() =>
                 this.snackBar.open(
                     'Detected undefined domain types. Need to bump damsel version.',

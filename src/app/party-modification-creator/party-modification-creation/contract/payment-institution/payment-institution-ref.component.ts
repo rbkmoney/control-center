@@ -33,8 +33,8 @@ export class PaymentInstitutionRefComponent implements OnInit {
         this.paymentInstitutions$ = this.dtm
             .getPaymentInstitutions()
             .pipe(
-                map(paymentInstitutions =>
-                    sortBy(paymentInstitutions, paymentInstitution => paymentInstitution.ref.id)
+                map((paymentInstitutions) =>
+                    sortBy(paymentInstitutions, (paymentInstitution) => paymentInstitution.ref.id)
                 )
             );
         const paymentInstitutionId = get(this, 'initialValue.id', '');

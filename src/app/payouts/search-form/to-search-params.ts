@@ -14,10 +14,7 @@ export const formValueToSearchParams = (formValues: any): PayoutSearchParams => 
                 return value
                     ? {
                           ...acc,
-                          [key]: moment(value)
-                              .startOf('day')
-                              .utc()
-                              .format()
+                          [key]: moment(value).startOf('day').utc().format()
                       }
                     : acc;
             }
@@ -25,10 +22,7 @@ export const formValueToSearchParams = (formValues: any): PayoutSearchParams => 
                 return value
                     ? {
                           ...acc,
-                          [key]: moment(value)
-                              .endOf('day')
-                              .utc()
-                              .format()
+                          [key]: moment(value).endOf('day').utc().format()
                       }
                     : acc;
             }
@@ -37,11 +31,7 @@ export const formValueToSearchParams = (formValues: any): PayoutSearchParams => 
                     ? {
                           ...acc,
                           [key]:
-                              toNumber(
-                                  toString(value)
-                                      .replace(/\s/g, '')
-                                      .replace(/,/g, '.')
-                              ) * 100
+                              toNumber(toString(value).replace(/\s/g, '').replace(/,/g, '.')) * 100
                       }
                     : acc;
             }

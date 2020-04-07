@@ -25,11 +25,11 @@ export abstract class AdjustmentOperationService {
         const execParams = this.toExecParams(params);
         this.events$.next({ type: EventType.BatchOperationStarted });
         return this.executorService.exec(execParams).pipe(
-            map(res => groupBy(res, 'type')),
+            map((res) => groupBy(res, 'type')),
             tap(this.handleExecResult.bind(this)),
             tap(() => this.events$.next({ type: EventType.BatchOperationFinished })),
             map(() => null),
-            catchError(err => {
+            catchError((err) => {
                 this.events$.next({ type: EventType.BatchOperationFailed });
                 return throwError(err);
             })

@@ -25,7 +25,7 @@ export class FistfulStatisticsService extends ThriftService {
     ): Observable<FetchResult<StatDeposit>> {
         const request: StatRequest = this.searchParamsToRequest(params, continuationToken);
         return this.toObservableAction('GetDeposits')(new ThriftStatRequest(request)).pipe(
-            map(res => ({
+            map((res) => ({
                 result: res.data.deposits,
                 continuationToken: res.continuation_token
             }))

@@ -17,7 +17,7 @@ export class FileContainerService {
     private getFileInfo$ = new Subject<string>();
 
     fileData$: Observable<FileData | FileNotFound> = this.getFileInfo$.pipe(
-        switchMap(fileID => this.fileStorageService.getFileData(fileID)),
+        switchMap((fileID) => this.fileStorageService.getFileData(fileID)),
         shareReplay(1)
     );
 
@@ -33,14 +33,9 @@ export class FileContainerService {
 
     downloadFile(fileID: string) {
         this.fileStorageService
-            .generateDownloadUrl(
-                fileID,
-                moment()
-                    .add(1, 'h')
-                    .toISOString()
-            )
+            .generateDownloadUrl(fileID, moment().add(1, 'h').toISOString())
             .subscribe(
-                url => {
+                (url) => {
                     if (typeof url === 'string') {
                         download(url);
                     } else {

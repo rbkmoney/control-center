@@ -9,11 +9,11 @@ export class AppAuthGuardService extends KeycloakAuthGuard {
     }
 
     async isAccessAllowed(route: ActivatedRouteSnapshot): Promise<boolean> {
-        return Array.isArray(this.roles) && route.data.roles.every(v => this.roles.includes(v));
+        return Array.isArray(this.roles) && route.data.roles.every((v) => this.roles.includes(v));
     }
 
     userHasRoles(roles: string[]): boolean {
         const userRoles = this.keycloakAngular.getUserRoles();
-        return roles.some(role => userRoles.includes(role));
+        return roles.some((role) => userRoles.includes(role));
     }
 }

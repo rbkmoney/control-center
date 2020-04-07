@@ -24,7 +24,7 @@ export class ClaimService {
         const params = new HttpParams().set('partyId', partyID).set('claimId', claimID.toString());
         return this.http
             .get<ClaimInfo>(`${this.papiEndpoint}/walk/claim`, { params })
-            .pipe(map(claim => decode(claim)));
+            .pipe(map((claim) => decode(claim)));
     }
 
     createClaim(partyID: string, unit: PartyModificationUnit): Observable<ClaimCreated> {

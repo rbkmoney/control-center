@@ -69,7 +69,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
                 });
                 this.terminalChanged.emit();
             },
-            e => {
+            (e) => {
                 this.isLoading = false;
                 this.snackBar.open(
                     'An error occurred while while removing terminal from shop',
@@ -89,7 +89,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
         const dialog = this.dialog.open(EditTerminalDecisionPriorityComponent, config);
         dialog
             .afterClosed()
-            .pipe(filter(result => result))
+            .pipe(filter((result) => result))
             .subscribe(() => {
                 this.terminalChanged.emit();
             });
@@ -104,7 +104,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
         const dialog = this.dialog.open(EditTerminalDecisionWeightComponent, config);
         dialog
             .afterClosed()
-            .pipe(filter(result => result))
+            .pipe(filter((result) => result))
             .subscribe(() => {
                 this.terminalChanged.emit();
             });

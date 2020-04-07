@@ -16,8 +16,8 @@ export const poll = <T>(conditionFn: (value) => boolean) => (
 ): Observable<T> => {
     let condition = false;
     return source.pipe(
-        tap(value => (condition = conditionFn(value))),
-        repeatWhen(notifications =>
+        tap((value) => (condition = conditionFn(value))),
+        repeatWhen((notifications) =>
             notifications.pipe(
                 delay(POLLING_INTERVAL),
                 takeUntil(

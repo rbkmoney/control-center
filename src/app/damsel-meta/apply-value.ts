@@ -36,7 +36,7 @@ function applyToCollection(meta: MetaCollection, nodeValue: ASTNode): MetaCollec
     const { items } = nodeValue as ArrayASTNode;
     return {
         ...meta,
-        value: items.map(i => applyToMeta(meta.itemMeta as MetaTyped, i))
+        value: items.map((i) => applyToMeta(meta.itemMeta as MetaTyped, i))
     };
 }
 
@@ -171,7 +171,7 @@ function applyToField(field: MetaField, properties: PropertyASTNode[]): MetaFiel
 }
 
 function applyToFields(fields: MetaField[], values: PropertyASTNode[]): MetaField[] {
-    return fields.map(f => applyToField(f, values));
+    return fields.map((f) => applyToField(f, values));
 }
 
 function applyToUnion(subject: MetaUnion, value: ASTNode): MetaUnion {

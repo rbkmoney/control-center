@@ -25,7 +25,7 @@ describe('FontsService', () => {
         const { service, httpMock } = createDocumentFontsServiceService();
         const blob = new Blob([new Uint8Array(2)]);
         service.loadFonts(fonts);
-        service.fontsData$.subscribe(result => {
+        service.fontsData$.subscribe((result) => {
             expect(result).toEqual({
                 vfs: { serif_normal: 'AAA=' },
                 fonts: { serif: { normal: 'serif_normal' } }

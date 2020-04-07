@@ -19,6 +19,6 @@ export class PartyService {
     getParty(partyId: string): Observable<Party> {
         return this.http
             .get<ContractTemplate[]>(`${this.papiEndpoint}/parties/${partyId}`)
-            .pipe(map(party => decode(party)));
+            .pipe(map((party) => decode(party)));
     }
 }

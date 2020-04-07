@@ -26,7 +26,7 @@ export class DomainGroupService {
     }
 
     private detectUndefGroup(domainGroup: DomainGroup[]) {
-        const undef = domainGroup.find(g => g.name === 'undef');
+        const undef = domainGroup.find((g) => g.name === 'undef');
         if (undef) {
             this.undefDetectionStatus$.next('detected');
         }
@@ -34,6 +34,6 @@ export class DomainGroupService {
     }
 
     private filterUndef(domainGroup: DomainGroup[]) {
-        return domainGroup.filter(g => g.name !== 'undef');
+        return domainGroup.filter((g) => g.name !== 'undef');
     }
 }

@@ -63,7 +63,7 @@ export class DomainObjReviewComponent implements OnInit, OnDestroy {
                 });
                 this.router.navigate(['domain', this.ref]);
             },
-            ex => {
+            (ex) => {
                 this.isLoading = false;
                 console.error(ex);
                 this.snackBar.open(`An error occured while commit: ${ex}`, 'OK');

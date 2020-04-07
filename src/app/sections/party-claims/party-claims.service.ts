@@ -22,7 +22,7 @@ export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
     protected fetch(params: any, continuationToken: string): Observable<FetchResult<Claim>> {
         return this.route.params.pipe(
             pluck('partyID'),
-            switchMap(party_id =>
+            switchMap((party_id) =>
                 this.claimManagementService.searchClaims({
                     party_id,
                     ...params,
