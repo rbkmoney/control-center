@@ -121,5 +121,8 @@
             }
         }
     },
-    "defaultProject": "control-center"
+    "defaultProject": "control-center",
+    "cli": {
+        "analytics": false
+    }
 }
