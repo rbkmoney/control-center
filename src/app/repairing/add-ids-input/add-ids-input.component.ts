@@ -25,10 +25,11 @@ export class AddIdsInputComponent {
     execIdsFromStr(str: string) {
         const ids: string[] = [];
         const selectIds = /[a-z0-9-]+/gi;
-        let execId: string[];
-        while ((execId = selectIds.exec(str))) {
+        let execId = selectIds.exec(str);
+        while (execId) {
             const id = execId[0];
             ids.push(id);
+            execId = selectIds.exec(str);
         }
         return ids;
     }

@@ -51,7 +51,7 @@ export class SendCommentService {
                         text,
                         sub
                     );
-                    return forkJoin(
+                    return forkJoin([
                         of(conversation_id),
                         this.messagesService.saveConversations([conversation], user).pipe(
                             catchError((ex) => {
@@ -66,7 +66,7 @@ export class SendCommentService {
                                 return of(error);
                             })
                         )
-                    );
+                    ]);
                 }),
                 filter(([, res]) => get(res, ['hasError']) !== true)
             )

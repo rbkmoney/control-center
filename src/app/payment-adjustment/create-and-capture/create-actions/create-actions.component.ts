@@ -6,11 +6,11 @@ import groupBy from 'lodash-es/groupBy';
 import {
     AdjustmentOperationEvent,
     BatchPaymentAdjustmentService,
+    CreatePaymentAdjustmentErrorCodes,
     EventType,
     OperationFailedPayload,
     PaymentAdjustmentCreationScope
 } from '../adjustment-operations';
-import { CreatePaymentAdjustmentErrorCodes } from '../adjustment-operations';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCreationScope>;
 
@@ -109,16 +109,20 @@ export class CreateActionsComponent implements OnInit {
             })
         );
         this.failedPending = [];
-        this.batchAdjustmentService.cancel(cancelParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments cancel');
+        this.batchAdjustmentService.cancel(cancelParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments cancel');
+            }
         });
     }
 
     retryFailedInternal() {
         const createParams = this.failedInternal.map((item) => item.operationScope.creationParams);
         this.failedInternal = [];
-        this.batchAdjustmentService.create(createParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments create');
+        this.batchAdjustmentService.create(createParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments create');
+            }
         });
     }
 }

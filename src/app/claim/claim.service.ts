@@ -226,7 +226,7 @@ export class ClaimService {
         const { partyId, claimId, status } = container;
         const currentPair = { status, revision };
         let newPair = {};
-        return Observable.create((observer) => {
+        return new Observable((observer) => {
             this.papiClaimService
                 .getClaim(partyId, claimId)
                 .pipe(
@@ -234,7 +234,7 @@ export class ClaimService {
                         return notifications.pipe(
                             delay(delayMs),
                             takeWhile(
-                                (value, retries) =>
+                                (_, retries) =>
                                     isEqual(newPair, currentPair) && retries <= retryCount
                             )
                         );
@@ -262,7 +262,7 @@ export class ClaimService {
         delayMs = 2000,
         retryCount = 15
     ): Observable<ClaimInfo> {
-        return Observable.create((observer) => {
+        return new Observable<ClaimInfo>((observer) => {
             this.papiClaimService
                 .getClaim(partyId, claimId)
                 .pipe(

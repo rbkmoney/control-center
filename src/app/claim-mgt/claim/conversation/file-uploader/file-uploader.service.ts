@@ -48,10 +48,10 @@ export class FileUploaderService {
             files.map((file) =>
                 this.getUploadLink().pipe(
                     switchMap((uploadData) =>
-                        forkJoin(
+                        forkJoin([
                             of(uploadData.file_data_id),
                             this.uploadFileToUrl(file, uploadData.upload_url)
-                        )
+                        ])
                     ),
                     map(([fileId]) => fileId)
                 )

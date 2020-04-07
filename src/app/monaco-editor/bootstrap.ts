@@ -3,7 +3,7 @@ import { shareReplay } from 'rxjs/operators';
 
 declare const window: any;
 
-export const bootstrap$ = Observable.create((observer) => {
+export const bootstrap$ = new Observable((observer) => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'libs/vs/loader.js';

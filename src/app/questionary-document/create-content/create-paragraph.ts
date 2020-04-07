@@ -1,6 +1,5 @@
 import { cmMarginsToIn, Content, Table } from '../../document';
-import { Layout } from '../create-questionary';
-import { PRIMARY_COLOR } from '../create-questionary';
+import { Layout, PRIMARY_COLOR } from '../create-questionary';
 import { createGrid } from './create-grid';
 import { createTableBody } from './create-table-body';
 import { getColumnsCount } from './get-columns-count';

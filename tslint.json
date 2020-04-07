@@ -11,7 +11,8 @@
                 "allow-leading-underscore",
                 "ban-keywords",
                 "check-format",
-                "allow-pascal-case"
+                "allow-pascal-case",
+                "allow-snake-case"
             ]
         },
         "ordered-imports": [

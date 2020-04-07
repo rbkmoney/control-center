@@ -48,8 +48,8 @@ export class TableComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.selection.changed.subscribe((e) => this.changeSelected.emit(e.source.selected));
         this.dataSource.filterPredicate = ({ domain_revision }, filter) => {
-            const number = i64ToNumber(domain_revision.buffer, domain_revision.offset);
-            return filter === number.toString();
+            const num = i64ToNumber(domain_revision.buffer, domain_revision.offset);
+            return filter === num.toString();
         };
         this.dataSource.paginator = this.paginator;
     }

@@ -45,8 +45,8 @@ async function exec(
     result$: Subject<ExecState>,
     progress: Progress
 ): Promise<void> {
-    let func: [number, Fn];
-    while ((func = funcs.pop())) {
+    let func = funcs.pop();
+    while (func) {
         const result: any = {
             func: func[1],
             idx: func[0]
@@ -61,6 +61,7 @@ async function exec(
             result.progress = progress.decrease();
             result$.next(result as SuccessExecState | ErrorExecState);
         }
+        func = funcs.pop();
     }
 }
 

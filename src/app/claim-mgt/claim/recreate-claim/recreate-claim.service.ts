@@ -23,16 +23,16 @@ export class RecreateClaimService {
     extractedModifications$: Observable<Modification[]> = this.extracted$.asObservable();
     recreated$: Observable<Claim> = this.recreate$.pipe(
         switchMap((targetClaim) =>
-            forkJoin(
+            forkJoin([
                 of(targetClaim),
                 this.dialog
                     .open(ConfirmActionDialogComponent)
                     .afterClosed()
                     .pipe(filter((r) => r === 'confirm'))
-            )
+            ])
         ),
         switchMap(([{ id, party_id, changeset }]) =>
-            forkJoin(
+            forkJoin([
                 of(id),
                 of(party_id),
                 of(
@@ -40,7 +40,7 @@ export class RecreateClaimService {
                         .map((unit) => unit.modification)
                         .reduce(extractModificationsReducer, extractSeed)
                 )
-            )
+            ])
         ),
         switchMap(([claimId, partyId, { recreateModifications, extractedModifications }]) => {
             const createNewClaim$ = this.claimMgtService
@@ -65,7 +65,7 @@ export class RecreateClaimService {
             return of(true).pipe(
                 tap(() => this.inProcess$.next(true)),
                 switchMapTo(createNewClaim$),
-                switchMap((recreated) => forkJoin(of(recreated), revokeCurrentClaim$)),
+                switchMap((recreated) => forkJoin([of(recreated), revokeCurrentClaim$])),
                 map(head),
                 tap(() => this.extracted$.next(extractedModifications)),
                 tap(() => this.inProcess$.next(false))

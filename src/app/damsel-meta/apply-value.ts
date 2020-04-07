@@ -18,9 +18,9 @@ import {
     MetaStruct,
     MetaType,
     MetaTyped,
-    MetaUnion
+    MetaUnion,
+    PrimitiveType
 } from './model';
-import { PrimitiveType } from './model';
 
 export interface ApplyPayload {
     applied: MetaStruct | MetaUnion;

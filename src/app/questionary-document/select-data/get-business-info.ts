@@ -1,7 +1,6 @@
 import get from 'lodash-es/get';
 
-import { toOptional } from '../../shared/utils';
-import { getUnionKey } from '../../shared/utils';
+import { getUnionKey, toOptional } from '../../shared/utils';
 import {
     AdditionalInfo,
     WithoutChiefAccountant

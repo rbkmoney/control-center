@@ -690,9 +690,9 @@ export class ObjectASTNode extends ASTNode {
     }
 
     public getFirstProperty(key: string): PropertyASTNode {
-        for (let i = 0; i < this.properties.length; i++) {
-            if (this.properties[i].key.value === key) {
-                return this.properties[i];
+        for (const prop of this.properties) {
+            if (prop.key.value === key) {
+                return prop;
             }
         }
         return null;

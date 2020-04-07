@@ -40,16 +40,16 @@ export class DomainObjModificationService {
     }
 
     init(namespace = 'domain'): Observable<DomainModificationModel> {
-        return combineLatest(this.route.params, this.domainReviewService.reviewModel).pipe(
+        return combineLatest([this.route.params, this.domainReviewService.reviewModel]).pipe(
             switchMap(([routeParams, model]) => {
                 if (model && JSON.stringify(model.ref) === routeParams.ref) {
                     return of(model);
                 }
                 const ref = parseRef(routeParams.ref);
-                return combineLatest(
+                return combineLatest([
                     this.metadataService.getDomainObjectType(ref),
                     this.domainService.getDomainObject(ref)
-                ).pipe(
+                ]).pipe(
                     switchMap(([objectType, domainObj]) =>
                         this.build(ref, objectType, domainObj, namespace)
                     )

@@ -43,7 +43,7 @@ export class SavePartyModificationsService {
             map((claimId) => new Int64(Number(claimId))),
             first()
         );
-        const claim$ = forkJoin(partyId$, claimId$).pipe(
+        const claim$ = forkJoin([partyId$, claimId$]).pipe(
             switchMap(([partyId, claimId]) =>
                 this.claimManagementService.getClaim(partyId, claimId)
             )
@@ -56,7 +56,7 @@ export class SavePartyModificationsService {
                 map((modifications) =>
                     modifications.map((party_modification) => ({ party_modification }))
                 ),
-                switchMap((changeset) => forkJoin(partyId$, claimId$, of(changeset))),
+                switchMap((changeset) => forkJoin([partyId$, claimId$, of(changeset)])),
                 switchMap(([partyId, claimId, changeset]) =>
                     this.claimManagementService.updateClaim(
                         partyId,

@@ -13,8 +13,12 @@ import {
     TerminalObject
 } from './gen-model/domain';
 import { Version } from './gen-model/domain_config';
-import { AddDecisionToProvider, addDecisionToProviderCommit } from './operations';
-import { CreateTerminalParams, getCreateTerminalCommit } from './operations';
+import {
+    AddDecisionToProvider,
+    addDecisionToProviderCommit,
+    CreateTerminalParams,
+    getCreateTerminalCommit
+} from './operations';
 import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
 import { editTerminalDecisionPropertyForShopCommit } from './operations/edit-terminal-decision-property-for-shop-commit';
 import { EditTerminalDecisionPropertyParams } from './operations/edit-terminal-decision-property-params';
@@ -73,7 +77,10 @@ export class DomainTypedManager {
     }
 
     editTerminalDecisionPropertyForShop(params: EditTerminalDecisionPropertyParams) {
-        return combineLatest(this.getLastVersion(), this.getProviderObject(params.providerID)).pipe(
+        return combineLatest([
+            this.getLastVersion(),
+            this.getProviderObject(params.providerID)
+        ]).pipe(
             switchMap(([version, provider]) =>
                 this.dmtService.commit(
                     version,
@@ -85,7 +92,10 @@ export class DomainTypedManager {
     }
 
     removeTerminalFromShop(params: RemoveTerminalFromShopParams) {
-        return combineLatest(this.getLastVersion(), this.getProviderObject(params.providerID)).pipe(
+        return combineLatest([
+            this.getLastVersion(),
+            this.getProviderObject(params.providerID)
+        ]).pipe(
             switchMap(([version, provider]) => {
                 return this.dmtService.commit(
                     version,
@@ -98,7 +108,7 @@ export class DomainTypedManager {
 
     createTerminal(params: CreateTerminalParams): Observable<number> {
         let newTerminalID = null;
-        return combineLatest(this.getLastVersion(), this.getTerminalObjects()).pipe(
+        return combineLatest([this.getLastVersion(), this.getTerminalObjects()]).pipe(
             switchMap(([version, terminalObjects]) => {
                 const { commit, id } = getCreateTerminalCommit(terminalObjects, params);
                 newTerminalID = id;
@@ -110,7 +120,10 @@ export class DomainTypedManager {
     }
 
     addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
-        return combineLatest(this.getLastVersion(), this.getProviderObject(params.providerID)).pipe(
+        return combineLatest([
+            this.getLastVersion(),
+            this.getProviderObject(params.providerID)
+        ]).pipe(
             switchMap(([version, providerObject]) =>
                 this.dmtService.commit(version, addDecisionToProviderCommit(providerObject, params))
             ),

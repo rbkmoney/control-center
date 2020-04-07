@@ -13,7 +13,7 @@ export class PartyService {
 
     getParty(partyID: string): Observable<Party> {
         if (this.party && this.party.id === partyID) {
-            return Observable.create((observer) => {
+            return new Observable<Party>((observer) => {
                 observer.next(this.party);
                 observer.complete();
             });

@@ -33,6 +33,6 @@ export class DomainObjReviewService {
     }
 
     initialize() {
-        return combineLatest(this.route.params, this.domainReviewService.reviewModel);
+        return combineLatest([this.route.params, this.domainReviewService.reviewModel]);
     }
 }

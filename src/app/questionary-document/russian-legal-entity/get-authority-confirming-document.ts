@@ -12,10 +12,10 @@ const mapAuthorityConfirmingDocumentType: { [name in AuthorityConfirmingDocument
 export function getAuthorityConfirmingDocument(
     authorityConfirmingDocument: AuthorityConfirmingDocument
 ): string {
-    const { type, number, date } = toOptional(authorityConfirmingDocument);
-    if (type || number || date) {
+    const { type, number: num, date } = toOptional(authorityConfirmingDocument);
+    if (type || num || date) {
         const printedType = mapAuthorityConfirmingDocumentType[type] || type;
-        const printedNumber = number ? `№${number}` : null;
+        const printedNumber = num ? `№${num}` : null;
         const printedDate = date ? `от ${getDate(date)}` : null;
         return [printedType, printedNumber, printedDate].filter((i) => i).join(' ');
     }

@@ -11,8 +11,7 @@ import {
 } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ConversationId } from '../../../thrift-services/messages/gen-model/messages';
 import { MessagesService } from '../../../thrift-services/messages/messages.service';
-import { toTimelineInfo } from './to-timeline-info';
-import { addCommentsToTimelineInfos } from './to-timeline-info';
+import { addCommentsToTimelineInfos, toTimelineInfo } from './to-timeline-info';
 import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
 
 @Injectable()

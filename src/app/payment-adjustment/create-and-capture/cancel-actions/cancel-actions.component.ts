@@ -93,16 +93,20 @@ export class CancelActionsComponent implements OnInit {
             params: this.adjustmentParams
         }));
         this.cancelResult = [];
-        this.batchAdjustmentService.create(createParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments create');
+        this.batchAdjustmentService.create(createParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments create');
+            }
         });
     }
 
     retry() {
         const cancelParams = this.failedInternal.map(({ operationScope }) => operationScope);
         this.failedInternal = [];
-        this.batchAdjustmentService.cancel(cancelParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments cancel');
+        this.batchAdjustmentService.cancel(cancelParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments cancel');
+            }
         });
     }
 }

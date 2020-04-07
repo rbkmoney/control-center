@@ -84,8 +84,10 @@ export class CaptureActionsComponent implements OnInit {
     retry() {
         const captureParams = this.failedInternal.map(({ operationScope }) => operationScope);
         this.failedInternal = [];
-        this.batchAdjustmentService.capture(captureParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments capture');
+        this.batchAdjustmentService.capture(captureParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments capture');
+            }
         });
     }
 }

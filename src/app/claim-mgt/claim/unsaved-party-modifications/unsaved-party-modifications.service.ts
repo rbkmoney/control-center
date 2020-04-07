@@ -16,7 +16,7 @@ export class UnsavedPartyModificationService {
     constructor() {
         this.remove$
             .pipe(
-                switchMap((pos) => forkJoin(of(pos), this.unsaved$.pipe(first()))),
+                switchMap((pos) => forkJoin([of(pos), this.unsaved$.pipe(first())])),
                 map(([pos, modifications]) => modifications.filter((_, i) => pos !== i))
             )
             .subscribe((modifications) => this.unsaved$.next(modifications));

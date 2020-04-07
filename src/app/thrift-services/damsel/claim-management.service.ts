@@ -4,16 +4,18 @@ import { switchMap } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../thrift-service';
-import { Modification } from './gen-model/claim_management';
 import {
     Claim,
     ClaimID,
     ClaimSearchQuery,
-    ClaimSearchResponse
+    ClaimSearchResponse,
+    Modification
 } from './gen-model/claim_management';
 import * as ClaimManagement from './gen-nodejs/ClaimManagement';
-import { Modification as ModificationType } from './gen-nodejs/claim_management_types';
-import { ClaimSearchQuery as ClaimSearchQueryType } from './gen-nodejs/claim_management_types';
+import {
+    ClaimSearchQuery as ClaimSearchQueryType,
+    Modification as ModificationType
+} from './gen-nodejs/claim_management_types';
 
 @Injectable()
 export class ClaimManagementService extends ThriftService {

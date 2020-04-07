@@ -13,10 +13,11 @@ import {
     createEnding,
     createHeader,
     createHeadline,
+    createInlineCheckbox,
     createInlineCheckboxWithTitle,
+    createVerticalCheckboxWithTitle,
     createVerticalParagraph
 } from '../create-content';
-import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
 import { DocDef } from '../create-questionary';
 import {
     getBusinessInfo,

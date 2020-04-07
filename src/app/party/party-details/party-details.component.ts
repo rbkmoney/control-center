@@ -24,10 +24,10 @@ export class PartyDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.isLoading = true;
-        combineLatest(
+        combineLatest([
             this.partyService.getParty(this.partyID),
             this.partyService.getShops(this.partyID)
-        ).subscribe(([party, shops]) => {
+        ]).subscribe(([party, shops]) => {
             this.isLoading = false;
             this.party = party;
             this.shops = shops;

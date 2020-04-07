@@ -88,10 +88,12 @@ export class CreateAndCaptureComponent implements OnInit {
             payment_id: id,
             params: this.adjustmentParams
         }));
-        this.batchAdjustmentService.create(createParams).subscribe(null, () => {
-            this.form.enable();
-            this.createStarted = false;
-            this.snackBar.open('An error occurred while adjustments creating');
+        this.batchAdjustmentService.create(createParams).subscribe({
+            error: () => {
+                this.form.enable();
+                this.createStarted = false;
+                this.snackBar.open('An error occurred while adjustments creating');
+            }
         });
     }
 
