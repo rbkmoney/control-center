@@ -23,7 +23,7 @@ const initializer = (
                 bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
                 bearerPrefix: 'Bearer'
             })
-            .then((_) => {
+            .then(() => {
                 return keycloak.getToken();
             })
             .then((token) => {

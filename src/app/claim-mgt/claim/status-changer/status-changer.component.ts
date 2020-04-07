@@ -42,7 +42,7 @@ export class StatusChangerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.actionsService.claim$.subscribe((_) => {
+        this.actionsService.claim$.subscribe(() => {
             this.dialogRef.close(true);
         });
     }

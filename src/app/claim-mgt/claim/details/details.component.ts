@@ -41,7 +41,7 @@ export class DetailsComponent {
             })
             .afterClosed()
             .pipe(filter((r) => r))
-            .subscribe((_) => {
+            .subscribe(() => {
                 this.claimService.getClaim(this.claim.party_id, this.claim.id);
             });
     }

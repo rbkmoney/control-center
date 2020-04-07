@@ -111,7 +111,7 @@ export class ConversationComponent implements OnChanges, OnInit {
     updateConversation(action: TimelineAction, modifications: Modification[]) {
         this.conversationService
             .updateConversation(this.claim.party_id, this.claim.id, action, modifications)
-            .subscribe((_) => this.conversationChangedEvent.emit());
+            .subscribe(() => this.conversationChangedEvent.emit());
     }
 
     getKey(modification: Modification) {
