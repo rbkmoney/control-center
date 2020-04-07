@@ -4,7 +4,7 @@ import values from 'lodash-es/values';
 import mapValues from 'lodash-es/mapValues';
 import isString from 'lodash-es/isString';
 
-import { ClaimStatus } from '../../papi/model/claim-statuses';
+import { ClaimStatus } from '../../papi/model';
 import { ClaimSearchParams } from '../../papi/params';
 
 @Injectable()
