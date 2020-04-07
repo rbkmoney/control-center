@@ -39,8 +39,9 @@ $(SUBTARGETS): %/.git: %
 submodules: $(SUBTARGETS)
 
 init:
+	export NG_CLI_ANALYTICS=false
 	echo -e "//npm.pkg.github.com/:_authToken=$(NPM_TOKEN)" >> .npmrc
-	NG_CLI_ANALYTICS=false npm ci
+	npm ci
 
 compile: compile-damsel compile-machinegun compile-fistful compile-messages compile-file-storage compile-ank
 
