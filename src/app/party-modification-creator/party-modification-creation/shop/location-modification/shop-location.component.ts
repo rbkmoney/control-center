@@ -6,7 +6,7 @@ import { ShopLocation } from '../../../../thrift-services/damsel/gen-model/domai
 
 @Component({
     selector: 'cc-shop-location',
-    templateUrl: 'shop-location.component.html'
+    templateUrl: 'shop-location.component.html',
 })
 export class ShopLocationComponent implements OnChanges {
     @Input()

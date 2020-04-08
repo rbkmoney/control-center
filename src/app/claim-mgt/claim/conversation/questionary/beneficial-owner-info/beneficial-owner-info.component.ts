@@ -5,7 +5,7 @@ import { BeneficialOwner } from '../../../../../thrift-services/ank/gen-model/qu
 @Component({
     selector: 'cc-beneficial-owner-info',
     templateUrl: 'beneficial-owner-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BeneficialOwnerInfoComponent {
     @Input() beneficialOwner: BeneficialOwner;

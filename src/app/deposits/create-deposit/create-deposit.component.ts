@@ -8,7 +8,7 @@ import { CreateDepositService, currencies } from './create-deposit.service';
 
 @Component({
     selector: 'cc-create-deposit',
-    templateUrl: 'create-deposit.component.html'
+    templateUrl: 'create-deposit.component.html',
 })
 export class CreateDepositComponent implements OnInit {
     form: FormGroup;

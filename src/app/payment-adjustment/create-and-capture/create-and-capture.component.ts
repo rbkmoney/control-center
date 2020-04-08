@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import {
     InvoicePaymentAdjustmentParams,
-    UserInfo
+    UserInfo,
 } from '../../thrift-services/damsel/gen-model/payment_processing';
 import {
     BatchPaymentAdjustmentService,
     CancelAdjustmentService,
     CaptureAdjustmentService,
     CreateAdjustmentService,
-    EventType
+    EventType,
 } from './adjustment-operations';
 import { ExecutorService } from './executor.service';
 
@@ -27,8 +27,8 @@ import { ExecutorService } from './executor.service';
         BatchPaymentAdjustmentService,
         CreateAdjustmentService,
         CancelAdjustmentService,
-        CaptureAdjustmentService
-    ]
+        CaptureAdjustmentService,
+    ],
 })
 export class CreateAndCaptureComponent implements OnInit {
     form: FormGroup;
@@ -56,7 +56,7 @@ export class CreateAndCaptureComponent implements OnInit {
     ngOnInit() {
         this.form = this.fb.group({
             revision: ['', Validators.required],
-            reason: ['', Validators.required]
+            reason: ['', Validators.required],
         });
         this.progress$ = this.batchAdjustmentService.progress$;
         this.batchAdjustmentService.events$.subscribe((event) => {
@@ -74,11 +74,11 @@ export class CreateAndCaptureComponent implements OnInit {
 
     create() {
         const {
-            value: { revision, reason }
+            value: { revision, reason },
         } = this.form;
         this.adjustmentParams = {
             domain_revision: revision,
-            reason
+            reason,
         } as InvoicePaymentAdjustmentParams;
         this.createStarted = true;
         this.form.disable();
@@ -86,21 +86,21 @@ export class CreateAndCaptureComponent implements OnInit {
             user: this.getUser(),
             invoice_id,
             payment_id: id,
-            params: this.adjustmentParams
+            params: this.adjustmentParams,
         }));
         this.batchAdjustmentService.create(createParams).subscribe({
             error: () => {
                 this.form.enable();
                 this.createStarted = false;
                 this.snackBar.open('An error occurred while adjustments creating');
-            }
+            },
         });
     }
 
     private getUser(): UserInfo {
         return {
             id: this.keycloakService.getUsername(),
-            type: { internal_user: {} }
+            type: { internal_user: {} },
         };
     }
 }

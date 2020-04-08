@@ -9,7 +9,7 @@ export function clearNullFields(union: object): object {
     for (const [key, val] of filtered) {
         result = {
             ...result,
-            [key]: val
+            [key]: val,
         };
     }
     return result;

@@ -8,6 +8,6 @@ export function getCompanyInfo(
 ): { companyName: string; companyInn: string } {
     return {
         companyName: get(questionary, ['data', 'shop_info', 'details', 'name'], ''),
-        companyInn: getUnionValue(getUnionValue(questionary.data.contractor)).inn
+        companyInn: getUnionValue(getUnionValue(questionary.data.contractor)).inn,
     };
 }

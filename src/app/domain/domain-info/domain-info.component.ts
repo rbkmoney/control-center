@@ -10,7 +10,7 @@ import { DomainInfoService } from './domain-info.service';
 @Component({
     templateUrl: './domain-info.component.html',
     styleUrls: ['./domain-info.component.scss'],
-    providers: [DomainInfoService, DomainDetailsService, DetailsContainerService]
+    providers: [DomainInfoService, DomainDetailsService, DetailsContainerService],
 })
 export class DomainInfoComponent implements OnInit {
     initialized = false;

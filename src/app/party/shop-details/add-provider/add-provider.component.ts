@@ -16,7 +16,7 @@ interface AddProviderData {
 @Component({
     templateUrl: 'add-provider.component.html',
     styleUrls: ['add-provider.component.scss'],
-    providers: [AddProviderService]
+    providers: [AddProviderService],
 })
 export class AddProviderComponent implements OnInit {
     terminals$: Observable<TerminalObject[]>;

@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
     selector: 'cc-add-ids-input',
     templateUrl: 'add-ids-input.component.html',
     styleUrls: [],
-    providers: []
+    providers: [],
 })
 export class AddIdsInputComponent {
     @Input()

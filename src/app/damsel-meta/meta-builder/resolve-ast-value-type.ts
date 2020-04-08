@@ -7,7 +7,7 @@ import {
     MetaMap,
     MetaPrimitive,
     MetaType,
-    PrimitiveType
+    PrimitiveType,
 } from '../model';
 import { isComplexType, isPrimitiveType } from './utils';
 
@@ -17,18 +17,18 @@ const resolveCollection = (
 ): MetaCollection => ({
     type: MetaType.collection,
     collectionType,
-    itemMeta: resolveAstValueType(itemType)
+    itemMeta: resolveAstValueType(itemType),
 });
 
 const resolveMap = (keyType: ValueType, valueType: ValueType): MetaMap => ({
     type: MetaType.map,
     keyMeta: resolveAstValueType(keyType),
-    valueMeta: resolveAstValueType(valueType)
+    valueMeta: resolveAstValueType(valueType),
 });
 
 export const resolvePrimitive = (primitiveType: PrimitiveType): MetaPrimitive => ({
     type: MetaType.primitive,
-    primitiveType
+    primitiveType,
 });
 
 export function resolveAstValueType(

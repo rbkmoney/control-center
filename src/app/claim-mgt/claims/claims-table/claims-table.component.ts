@@ -6,7 +6,7 @@ import { Claim } from '../../../thrift-services/damsel/gen-model/claim_managemen
 @Component({
     selector: 'cc-claims-table',
     templateUrl: 'claims-table.component.html',
-    styleUrls: ['./claims-table.component.css']
+    styleUrls: ['./claims-table.component.css'],
 })
 export class ClaimsTableComponent {
     @Input()
@@ -19,7 +19,7 @@ export class ClaimsTableComponent {
         'revision',
         'createdAt',
         'updatedAt',
-        'actions'
+        'actions',
     ];
 
     constructor(private router: Router) {}

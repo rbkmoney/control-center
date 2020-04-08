@@ -5,7 +5,7 @@ import { Contractor } from '../../../../thrift-services/damsel/gen-model/domain'
 
 @Component({
     selector: 'cc-contractor',
-    templateUrl: 'contractor.component.html'
+    templateUrl: 'contractor.component.html',
 })
 export class ContractorComponent implements OnInit {
     @Input()

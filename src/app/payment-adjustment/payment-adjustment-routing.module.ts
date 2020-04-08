@@ -10,13 +10,13 @@ const routes: Routes = [
         component: PaymentAdjustmentComponent,
         canActivate: [AppAuthGuardService],
         data: {
-            roles: ['adjustment:create']
-        }
-    }
+            roles: ['adjustment:create'],
+        },
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PaymentAdjustmentRoutingModule {}

@@ -17,10 +17,10 @@ export function toTableGroup(domainGroup: DomainGroup[]): TableGroup[] {
                 const stringified = stringifiedRef + stringifiedData;
                 const view = {
                     ref: shorten(stringifiedRef),
-                    data: shorten(stringifiedData)
+                    data: shorten(stringifiedData),
                 };
                 return { stringified, pair, view };
-            })
+            }),
         };
     });
 }
@@ -36,7 +36,7 @@ export function toDataSource(group: TableGroup[], selectedTypes: string[]): Tabl
                         ref,
                         data,
                         pair,
-                        stringified
+                        stringified,
                     }))
                 ),
             []

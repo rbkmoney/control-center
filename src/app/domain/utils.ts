@@ -16,7 +16,7 @@ export function parseRef(ref: string): Reference {
 export const toMonacoFile = (content: string): MonacoFile => ({
     uri: `${uuid()}.json`,
     language: 'json',
-    content
+    content,
 });
 
 export const toMonacoContent = (domainObj: DomainObject): string =>

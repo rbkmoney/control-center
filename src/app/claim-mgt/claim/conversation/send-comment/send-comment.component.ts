@@ -8,7 +8,7 @@ import { SendCommentService } from './send-comment.service';
     selector: 'cc-send-comment',
     templateUrl: 'send-comment.component.html',
     styleUrls: ['send-comment.component.scss'],
-    providers: [SendCommentService]
+    providers: [SendCommentService],
 })
 export class SendCommentComponent {
     @Output() conversationSaved: EventEmitter<Modification[]> = new EventEmitter();

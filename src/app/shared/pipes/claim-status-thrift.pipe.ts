@@ -4,7 +4,7 @@ import { ClaimStatus as UnionClaimStatus } from '../../thrift-services/damsel/ge
 import { extractClaimStatus } from '../extract-claim-status';
 
 @Pipe({
-    name: 'ccClaimStatusThrift'
+    name: 'ccClaimStatusThrift',
 })
 export class ClaimStatusThriftPipe implements PipeTransform {
     transform(value: UnionClaimStatus): string {

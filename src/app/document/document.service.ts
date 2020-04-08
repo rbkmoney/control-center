@@ -3,7 +3,7 @@ import {
     createPdf,
     TableLayoutFunctions,
     TCreatedPdf,
-    TDocumentDefinitions
+    TDocumentDefinitions,
 } from 'pdfmake/build/pdfmake';
 import { Observable } from 'rxjs';
 import { map, timeout } from 'rxjs/operators';

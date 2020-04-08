@@ -9,10 +9,10 @@ export const createRemoveTerminalFromShopCommit = (
     params: RemoveTerminalFromShopParams
 ): Commit => {
     const updateProvider = {
-        update: createRemoveTerminalFromProviderOperation(providerObject, params)
+        update: createRemoveTerminalFromProviderOperation(providerObject, params),
     };
     const commit = {
-        ops: [updateProvider]
+        ops: [updateProvider],
     };
     return toGenCommit(commit);
 };

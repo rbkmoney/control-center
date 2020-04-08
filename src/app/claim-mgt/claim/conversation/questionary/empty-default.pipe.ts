@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import isNil from 'lodash-es/isNil';
 
 @Pipe({
-    name: 'emptyDefault'
+    name: 'emptyDefault',
 })
 export class EmptyDefaultPipe implements PipeTransform {
     transform(value: any): string {

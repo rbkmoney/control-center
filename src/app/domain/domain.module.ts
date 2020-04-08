@@ -15,8 +15,8 @@ import { MetadataService } from './metadata.service';
         DomainInfoModule,
         DomainObjModificationModule,
         DomainObjReviewModule,
-        DamselMetaModule
+        DamselMetaModule,
     ],
-    providers: [DomainService, MetadataService, DomainReviewService]
+    providers: [DomainService, MetadataService, DomainReviewService],
 })
 export class DomainModule {}

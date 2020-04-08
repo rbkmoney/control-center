@@ -6,6 +6,6 @@ import { MetaBuilder } from './meta-builder.service';
 import { ThriftBuilderService } from './thrift-builder.service';
 
 @NgModule({
-    providers: [DefinitionService, MetaBuilder, MetaApplicator, ThriftBuilderService]
+    providers: [DefinitionService, MetaBuilder, MetaApplicator, ThriftBuilderService],
 })
 export class DamselMetaModule {}

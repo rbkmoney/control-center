@@ -11,9 +11,9 @@ const toModification = (
     [unitName]: {
         id: unitID,
         modification: {
-            [modificationName]: modification
-        }
-    }
+            [modificationName]: modification,
+        },
+    },
 });
 
 export const toPartyModification = (action: ModificationAction, formValue: any) => {

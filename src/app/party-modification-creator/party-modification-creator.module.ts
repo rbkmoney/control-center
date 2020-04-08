@@ -6,6 +6,6 @@ import { UnitActionsNavListModule } from './unit-actions-nav-list';
 
 @NgModule({
     imports: [UnitActionsNavListModule, CreateModificationDialogModule],
-    providers: [PartyModificationEmitter]
+    providers: [PartyModificationEmitter],
 })
 export class PartyModificationCreatorModule {}

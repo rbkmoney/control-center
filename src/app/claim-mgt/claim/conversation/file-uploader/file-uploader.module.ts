@@ -12,6 +12,6 @@ import { FileUploaderService } from './file-uploader.service';
     imports: [FlexModule, ngfModule, CommonModule, MatIconModule, MatButtonModule],
     exports: [FileUploaderComponent],
     declarations: [FileUploaderComponent],
-    providers: [FileUploaderService]
+    providers: [FileUploaderService],
 })
 export class FileUploaderModule {}

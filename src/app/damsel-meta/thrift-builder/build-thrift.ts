@@ -7,7 +7,7 @@ import {
     MetaStruct,
     MetaType,
     MetaTyped,
-    MetaUnion
+    MetaUnion,
 } from '../model';
 
 export type ThriftType = any;
@@ -53,7 +53,7 @@ export function buildStructUnion({
     namespace,
     name,
     fields,
-    virgin
+    virgin,
 }: MetaStruct | MetaUnion): ThriftType {
     if (virgin) {
         return;

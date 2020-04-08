@@ -8,7 +8,7 @@ import { CreateTerminalFormService } from './create-terminal-form.service';
     selector: 'cc-create-terminal-form',
     templateUrl: 'create-terminal-form.component.html',
     styleUrls: ['../../add-provider.component.scss'],
-    providers: [CreateTerminalFormService]
+    providers: [CreateTerminalFormService],
 })
 export class CreateTerminalFormComponent implements OnInit {
     @Output() terminalIdSelected: EventEmitter<number> = new EventEmitter();

@@ -6,7 +6,7 @@ import { ScheduleModification } from '../../../../thrift-services/damsel/gen-mod
 
 @Component({
     selector: 'cc-shop-schedule-modification',
-    templateUrl: 'shop-payout-schedule-modification.component.html'
+    templateUrl: 'shop-payout-schedule-modification.component.html',
 })
 export class ShopPayoutScheduleModificationComponent implements OnInit {
     @Input()

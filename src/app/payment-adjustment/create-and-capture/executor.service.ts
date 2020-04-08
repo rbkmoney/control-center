@@ -5,7 +5,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 
 export enum ExecResultType {
     success = 'success',
-    error = 'error'
+    error = 'error',
 }
 
 export interface ExecResult {
@@ -48,7 +48,7 @@ export class ExecutorService {
                         of({
                             type: ExecResultType.error,
                             container,
-                            exception
+                            exception,
                         })
                     ),
                     switchMap((nextRes: any) => {
@@ -60,8 +60,8 @@ export class ExecutorService {
                             {
                                 type: ExecResultType.success,
                                 container,
-                                data: nextRes
-                            } as ExecSuccessResult
+                                data: nextRes,
+                            } as ExecSuccessResult,
                         ]);
                     })
                 );

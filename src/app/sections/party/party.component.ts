@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: 'party.component.html',
-    styleUrls: ['party.component.scss']
+    styleUrls: ['party.component.scss'],
 })
 export class PartyComponent implements OnInit {
     links = [
         { name: 'Claims', url: 'claims' },
-        { name: 'Shops', url: 'shops' }
+        { name: 'Shops', url: 'shops' },
     ];
 
     partyID: string;

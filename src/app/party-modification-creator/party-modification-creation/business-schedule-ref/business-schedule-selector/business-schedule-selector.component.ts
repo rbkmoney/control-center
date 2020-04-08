@@ -9,7 +9,7 @@ import { BusinessScheduleObject } from '../../../../thrift-services/damsel/gen-m
 
 @Component({
     selector: 'cc-business-schedule-selector',
-    templateUrl: 'business-schedule-selector.component.html'
+    templateUrl: 'business-schedule-selector.component.html',
 })
 export class BusinessScheduleSelectorComponent implements OnInit {
     @Input()

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import round from 'lodash-es/round';
 
 @Pipe({
-    name: 'ccFormatAmount'
+    name: 'ccFormatAmount',
 })
 export class FormatAmountPipe implements PipeTransform {
     public transform(input: number): number {

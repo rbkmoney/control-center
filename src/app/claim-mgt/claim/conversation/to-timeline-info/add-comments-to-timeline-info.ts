@@ -17,7 +17,7 @@ export const addCommentsToTimelineInfos = (
                                   conversation.conversation_id
                           );
                       })
-                    : null
+                    : null,
             };
         } else {
             return info;

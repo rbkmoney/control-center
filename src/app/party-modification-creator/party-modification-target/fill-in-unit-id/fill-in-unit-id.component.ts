@@ -4,7 +4,7 @@ import * as uuid from 'uuid/v4';
 
 @Component({
     selector: 'cc-fill-in-unit-id',
-    templateUrl: 'fill-in-unit-id.component.html'
+    templateUrl: 'fill-in-unit-id.component.html',
 })
 export class FillInUnitIdComponent implements OnInit {
     @Input()
@@ -19,7 +19,7 @@ export class FillInUnitIdComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            unitID: this.unitID
+            unitID: this.unitID,
         });
         this.form.valueChanges.subscribe((value) => this.valueChanges.emit(value.unitID));
     }

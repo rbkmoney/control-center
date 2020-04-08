@@ -14,16 +14,16 @@ export class CreateTerminalFormService {
     riskCoverages = [
         {
             name: 'low',
-            value: 0
+            value: 0,
         },
         {
             name: 'high',
-            value: 100
+            value: 100,
         },
         {
             name: 'fatal',
-            value: 9999
-        }
+            value: 9999,
+        },
     ];
 
     constructor(private fb: FormBuilder, private dtm: DomainTypedManager) {
@@ -48,7 +48,7 @@ export class CreateTerminalFormService {
     private getOption(): FormGroup {
         return this.fb.group({
             key: '',
-            value: ''
+            value: '',
         });
     }
 
@@ -57,7 +57,7 @@ export class CreateTerminalFormService {
             terminalName: ['', Validators.required],
             terminalDescription: ['', Validators.required],
             riskCoverage: ['', Validators.required],
-            options: toFormArray(this.fb, [{ key: '', value: '' }])
+            options: toFormArray(this.fb, [{ key: '', value: '' }]),
         });
     }
 }

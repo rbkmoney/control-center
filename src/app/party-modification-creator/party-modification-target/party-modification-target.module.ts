@@ -28,14 +28,14 @@ import { PartyTargetComponent } from './party-target/party-target.component';
         MatProgressSpinnerModule,
         MatSnackBarModule,
         MatCheckboxModule,
-        SharedModule
+        SharedModule,
     ],
     declarations: [
         PartyModificationTargetComponent,
         FillInUnitIdComponent,
         PartyTargetComponent,
-        PartyItemNamePipe
+        PartyItemNamePipe,
     ],
-    exports: [PartyModificationTargetComponent]
+    exports: [PartyModificationTargetComponent],
 })
 export class PartyModificationTargetModule {}

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 enum Scenario {
     // add_events = 'add_events',
-    set_session_result = 'set_session_result'
+    set_session_result = 'set_session_result',
 }
 
 export interface DialogData {
@@ -17,7 +17,7 @@ export interface DialogData {
 @Component({
     templateUrl: 'repair-settings.component.html',
     styleUrls: [],
-    providers: []
+    providers: [],
 })
 export class RepairSettingsComponent {
     scenarios = Object.values(Scenario);
@@ -32,7 +32,7 @@ export class RepairSettingsComponent {
     ) {
         this.formGroup = fb.group({
             scenario: [Scenario.set_session_result],
-            code: [this.codes[0]]
+            code: [this.codes[0]],
         });
         this.autocompleteCodes$ = this.formGroup.valueChanges.pipe(
             map(({ code }) =>
@@ -48,7 +48,7 @@ export class RepairSettingsComponent {
     getData(): DialogData {
         return {
             scenario: this.formGroup.value.scenario,
-            code: this.formGroup.value.code
+            code: this.formGroup.value.code,
         };
     }
 }

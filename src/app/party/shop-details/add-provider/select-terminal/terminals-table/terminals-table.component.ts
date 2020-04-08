@@ -7,7 +7,7 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,7 +17,7 @@ import { TerminalObject } from '../../../../../thrift-services/damsel/gen-model/
 @Component({
     selector: 'cc-terminals-table',
     templateUrl: 'terminals-table.component.html',
-    styleUrls: ['../../add-provider.component.scss']
+    styleUrls: ['../../add-provider.component.scss'],
 })
 export class TerminalsTableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

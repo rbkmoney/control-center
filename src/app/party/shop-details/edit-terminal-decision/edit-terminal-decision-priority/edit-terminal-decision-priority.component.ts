@@ -13,7 +13,7 @@ export interface EditPriorityData {
 
 @Component({
     templateUrl: 'edit-terminal-decision-priority.component.html',
-    providers: [EditTerminalDecisionPriorityService]
+    providers: [EditTerminalDecisionPriorityService],
 })
 export class EditTerminalDecisionPriorityComponent implements OnInit {
     isLoading$;

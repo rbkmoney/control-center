@@ -176,7 +176,7 @@ export class ASTNode {
                             'typeArrayMismatchWarning',
                             'Incorrect type. Expected one of {0}',
                             (schema.type as string[]).join(', ')
-                        )
+                        ),
                 });
             }
         } else if (schema.type) {
@@ -189,7 +189,7 @@ export class ASTNode {
                             'typeMismatchWarning',
                             'Incorrect type. Expected "{0}"',
                             schema.type
-                        )
+                        ),
                 });
             }
         }
@@ -205,7 +205,7 @@ export class ASTNode {
             if (!subValidationResult.hasErrors()) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
-                    message: localize('notSchemaWarning', 'Matches a schema that is not allowed.')
+                    message: localize('notSchemaWarning', 'Matches a schema that is not allowed.'),
                 });
             }
             if (matchingSchemas) {
@@ -236,7 +236,7 @@ export class ASTNode {
                     bestMatch = {
                         schema: subSchema,
                         validationResult: subValidationResult,
-                        matchingSchemas: subMatchingSchemas
+                        matchingSchemas: subMatchingSchemas,
                     };
                 } else {
                     if (
@@ -262,7 +262,7 @@ export class ASTNode {
                             bestMatch = {
                                 schema: subSchema,
                                 validationResult: subValidationResult,
-                                matchingSchemas: subMatchingSchemas
+                                matchingSchemas: subMatchingSchemas,
                             };
                         } else if (compareResult === 0) {
                             // there's already a best matching but we are as good
@@ -281,7 +281,7 @@ export class ASTNode {
                     message: localize(
                         'oneOfWarning',
                         'Matches multiple schemas when only one must validate.'
-                    )
+                    ),
                 });
             }
             if (bestMatch !== null) {
@@ -310,7 +310,7 @@ export class ASTNode {
                         'enumWarning',
                         'Value is not an accepted value. Valid values: {0}',
                         JSON.stringify(schema.enum)
-                    )
+                    ),
                 });
             } else {
                 validationResult.enumValueMatch = true;
@@ -409,7 +409,7 @@ export class ArrayASTNode extends ASTNode {
                         'additionalItemsWarning',
                         'Array has too many items according to schema. Expected {0} or fewer',
                         subSchemas.length
-                    )
+                    ),
                 });
             } else if (this.items.length >= subSchemas.length) {
                 validationResult.propertiesValueMatches += this.items.length - subSchemas.length;
@@ -429,7 +429,7 @@ export class ArrayASTNode extends ASTNode {
                     'minItemsWarning',
                     'Array has too few items. Expected {0} or more',
                     schema.minItems
-                )
+                ),
             });
         }
 
@@ -440,7 +440,7 @@ export class ArrayASTNode extends ASTNode {
                     'maxItemsWarning',
                     'Array has too many items. Expected {0} or fewer',
                     schema.minItems
-                )
+                ),
             });
         }
 
@@ -454,7 +454,7 @@ export class ArrayASTNode extends ASTNode {
             if (duplicates) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
-                    message: localize('uniqueItemsWarning', 'Array has duplicate items')
+                    message: localize('uniqueItemsWarning', 'Array has duplicate items'),
                 });
             }
         }
@@ -509,7 +509,7 @@ export class NumberASTNode extends ASTNode {
                         'multipleOfWarning',
                         'Value is not divisible by {0}',
                         schema.multipleOf
-                    )
+                    ),
                 });
             }
         }
@@ -522,7 +522,7 @@ export class NumberASTNode extends ASTNode {
                         'exclusiveMinimumWarning',
                         'Value is below the exclusive minimum of {0}',
                         schema.minimum
-                    )
+                    ),
                 });
             }
             if (!schema.exclusiveMinimum && val < schema.minimum) {
@@ -532,7 +532,7 @@ export class NumberASTNode extends ASTNode {
                         'minimumWarning',
                         'Value is below the minimum of {0}',
                         schema.minimum
-                    )
+                    ),
                 });
             }
         }
@@ -545,7 +545,7 @@ export class NumberASTNode extends ASTNode {
                         'exclusiveMaximumWarning',
                         'Value is above the exclusive maximum of {0}',
                         schema.maximum
-                    )
+                    ),
                 });
             }
             if (!schema.exclusiveMaximum && val > schema.maximum) {
@@ -555,7 +555,7 @@ export class NumberASTNode extends ASTNode {
                         'maximumWarning',
                         'Value is above the maximum of {0}',
                         schema.maximum
-                    )
+                    ),
                 });
             }
         }
@@ -594,7 +594,7 @@ export class StringASTNode extends ASTNode {
                     'minLengthWarning',
                     'String is shorter than the minimum length of ',
                     schema.minLength
-                )
+                ),
             });
         }
 
@@ -605,7 +605,7 @@ export class StringASTNode extends ASTNode {
                     'maxLengthWarning',
                     'String is shorter than the maximum length of ',
                     schema.maxLength
-                )
+                ),
             });
         }
 
@@ -620,7 +620,7 @@ export class StringASTNode extends ASTNode {
                             'patternWarning',
                             'String does not match the pattern of "{0}"',
                             schema.pattern
-                        )
+                        ),
                 });
             }
         }
@@ -753,7 +753,7 @@ export class ObjectASTNode extends ASTNode {
                             'MissingRequiredPropWarning',
                             'Missing property "{0}"',
                             propertyName
-                        )
+                        ),
                     });
                 }
             });
@@ -829,7 +829,7 @@ export class ObjectASTNode extends ASTNode {
                                 'DisallowedExtraPropWarning',
                                 'Property {0} is not allowed',
                                 propertyName
-                            )
+                            ),
                         });
                     }
                 });
@@ -844,7 +844,7 @@ export class ObjectASTNode extends ASTNode {
                         'MaxPropWarning',
                         'Object has more properties than limit of {0}',
                         schema.maxProperties
-                    )
+                    ),
                 });
             }
         }
@@ -857,7 +857,7 @@ export class ObjectASTNode extends ASTNode {
                         'MinPropWarning',
                         'Object has fewer properties than the required number of {0}',
                         schema.minProperties
-                    )
+                    ),
                 });
             }
         }
@@ -877,7 +877,7 @@ export class ObjectASTNode extends ASTNode {
                                         'Object is missing property {0} required by property {1}',
                                         requiredProp,
                                         key
-                                    )
+                                    ),
                                 });
                             } else {
                                 validationResult.propertiesValueMatches++;
@@ -1002,8 +1002,8 @@ export function parse(text: string, config?: JSONDocumentConfig): JSONDocument {
                 message,
                 location: {
                     start: _scanner.getTokenOffset(),
-                    end: _scanner.getTokenOffset() + _scanner.getTokenLength()
-                }
+                    end: _scanner.getTokenOffset() + _scanner.getTokenLength(),
+                },
             };
             _doc.errors.push(error);
         }
@@ -1100,7 +1100,7 @@ export function parse(text: string, config?: JSONDocumentConfig): JSONDocument {
         if (keysSeen[key.value]) {
             _doc.warnings.push({
                 location: { start: node.key.start, end: node.key.end },
-                message: localize('DuplicateKeyWarning', 'Duplicate object key')
+                message: localize('DuplicateKeyWarning', 'Duplicate object key'),
             });
         }
         keysSeen[key.value] = true;

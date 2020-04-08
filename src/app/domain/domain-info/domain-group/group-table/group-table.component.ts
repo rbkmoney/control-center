@@ -14,7 +14,7 @@ import { toDataSource, toTableGroup } from './table-group';
 @Component({
     selector: 'cc-group-table',
     templateUrl: './group-table.component.html',
-    styleUrls: ['./group-table.component.scss']
+    styleUrls: ['./group-table.component.scss'],
 })
 export class GroupTableComponent implements OnInit, OnChanges {
     @Input() group: DomainGroup[];

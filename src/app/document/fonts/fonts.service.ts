@@ -19,7 +19,7 @@ export class FontsService {
         return (this.fontsData$ = forkJoin(fonts.map(({ url }) => this.loadFont(url))).pipe(
             map((fontsBase64) => ({
                 vfs: this.getVFS(fonts, fontsBase64),
-                fonts: this.getFonts(fonts)
+                fonts: this.getFonts(fonts),
             })),
             shareReplay(1)
         ));

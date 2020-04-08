@@ -4,7 +4,7 @@ import {
     AdjustmentOperationEvent,
     EventType,
     OperationError,
-    OperationFailedPayload
+    OperationFailedPayload,
 } from './adjustment-event';
 import { AdjustmentOperationService } from './adjustment-operation.service';
 import { CreatePaymentAdjustmentErrorCodes } from './error-codes';
@@ -16,7 +16,7 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
         return creationParams.map((params) => ({
             fn: this.manager.createPaymentAdjustment,
             context: this.manager,
-            params
+            params,
         }));
     }
 
@@ -26,14 +26,14 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
             this.events$.next({
                 type: EventType.PaymentAdjustmentsCreated,
                 operationType: ExecResultType.success,
-                payload: this.toSuccessPayload(success)
+                payload: this.toSuccessPayload(success),
             } as AdjustmentOperationEvent<PaymentAdjustmentCreationScope>);
         }
         if (error) {
             this.events$.next({
                 type: EventType.CreatePaymentAdjustmentFailed,
                 operationType: ExecResultType.error,
-                payload: this.toErrorPayload(error)
+                payload: this.toErrorPayload(error),
             } as OperationError<CreatePaymentAdjustmentErrorCodes | 'InternalServer', PaymentAdjustmentCreationScope>);
         }
     }
@@ -43,7 +43,7 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
             ({ data, container: { params } }) =>
                 ({
                     adjustmentId: data && data.id,
-                    creationParams: params
+                    creationParams: params,
                 } as PaymentAdjustmentCreationScope)
         );
     }
@@ -54,7 +54,7 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
         return result.map((error) => {
             const {
                 exception,
-                container: { params }
+                container: { params },
             } = error;
             return {
                 code: Object.values(CreatePaymentAdjustmentErrorCodes).includes(exception.name)
@@ -62,8 +62,8 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
                     : 'InternalServer',
                 operationScope: {
                     creationParams: params as PaymentAdjustmentCreationParams,
-                    adjustmentId: exception.id ? exception.id : null
-                }
+                    adjustmentId: exception.id ? exception.id : null,
+                },
             };
         });
     }

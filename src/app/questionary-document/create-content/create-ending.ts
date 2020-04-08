@@ -15,10 +15,10 @@ export function createEnding(): Content {
                         text:
                             moment().locale('ru').format('LL') +
                             '\n\n\n_____________________/______________/',
-                        style: { alignment: 'right' }
-                    }
-                ]
-            ]
-        }
+                        style: { alignment: 'right' },
+                    },
+                ],
+            ],
+        },
     };
 }

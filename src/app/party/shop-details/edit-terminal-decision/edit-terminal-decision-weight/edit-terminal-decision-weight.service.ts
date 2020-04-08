@@ -20,7 +20,7 @@ export class EditTerminalDecisionWeightService extends EditTerminalDecision {
     private initForm(): FormGroup {
         return this.fb.group({
             value: '',
-            property: 'weight'
+            property: 'weight',
         });
     }
 }

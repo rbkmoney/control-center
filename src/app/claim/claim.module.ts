@@ -23,7 +23,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { PapiModule } from '../papi/papi.module';
 import {
     ModificationNameModule,
-    PartyModificationCreatorModule
+    PartyModificationCreatorModule,
 } from '../party-modification-creator';
 import { SharedModule } from '../shared/shared.module';
 import { DamselModule } from '../thrift-services/damsel/damsel.module';
@@ -71,7 +71,7 @@ import { PersistentContainerService } from './persistent-container.service';
         FormsModule,
         ReactiveFormsModule,
         PartyModificationCreatorModule,
-        ModificationNameModule
+        ModificationNameModule,
     ],
     declarations: [
         ClaimComponent,
@@ -83,14 +83,14 @@ import { PersistentContainerService } from './persistent-container.service';
         AcceptClaimComponent,
         DenyClaimComponent,
         PartyModificationUnitsComponent,
-        RemoveConfirmComponent
+        RemoveConfirmComponent,
     ],
     entryComponents: [
         CloneClaimComponent,
         AcceptClaimComponent,
         DenyClaimComponent,
-        RemoveConfirmComponent
+        RemoveConfirmComponent,
     ],
-    providers: [ClaimService, PersistentContainerService, PartyModificationContainerService]
+    providers: [ClaimService, PersistentContainerService, PartyModificationContainerService],
 })
 export class ClaimModule {}

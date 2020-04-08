@@ -15,10 +15,10 @@ export const addDecisionToProviderCommit = (
     params: AddDecisionToProvider
 ): Commit => {
     const updateProvider = {
-        update: createAddTerminalToProviderOperation(providerObject, params)
+        update: createAddTerminalToProviderOperation(providerObject, params),
     };
     const commit = {
-        ops: [updateProvider]
+        ops: [updateProvider],
     };
     return toGenCommit(commit);
 };

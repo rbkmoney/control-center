@@ -27,7 +27,7 @@ export class FistfulStatisticsService extends ThriftService {
         return this.toObservableAction('GetDeposits')(new ThriftStatRequest(request)).pipe(
             map((res) => ({
                 result: res.data.deposits,
-                continuationToken: res.continuation_token
+                continuationToken: res.continuation_token,
             }))
         );
     }
@@ -46,7 +46,7 @@ export class FistfulStatisticsService extends ThriftService {
             partyId,
             sourceId,
             status,
-            walletId
+            walletId,
         } = params;
         return {
             dsl: JSON.stringify({
@@ -62,11 +62,11 @@ export class FistfulStatisticsService extends ThriftService {
                         ...(sourceId ? { source_id: sourceId } : {}),
                         ...(status ? { status } : {}),
                         ...(walletId ? { wallet_id: walletId } : {}),
-                        size: this.searchLimit.toString()
-                    }
-                }
+                        size: this.searchLimit.toString(),
+                    },
+                },
             } as QueryDSL),
-            ...(continuationToken ? { continuation_token: continuationToken } : {})
+            ...(continuationToken ? { continuation_token: continuationToken } : {}),
         };
     }
 }

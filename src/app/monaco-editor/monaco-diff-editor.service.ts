@@ -39,13 +39,13 @@ export class MonacoDiffEditorService extends AbstractMonacoService {
         }
         this.editor.setModel({
             original: this.prepareModel(original),
-            modified: this.prepareModel(modified)
+            modified: this.prepareModel(modified),
         });
     }
 
     protected createEditor(el: HTMLElement, options: IEditorOptions): monaco.editor.IEditor {
         return monaco.editor.createDiffEditor(el, {
-            ...options
+            ...options,
         });
     }
 

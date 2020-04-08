@@ -22,7 +22,7 @@ export class PayoutsService {
             });
         }
         return this.http.get<PayoutsResponse>(`${this.papiEndpoint}/payouts`, {
-            params: searchParams
+            params: searchParams,
         });
     }
 

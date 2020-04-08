@@ -5,7 +5,7 @@ import { RussianDomesticPassport } from '../../../../../thrift-services/ank/gen-
 @Component({
     selector: 'cc-identity-document-info',
     templateUrl: 'identity-document-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IdentityDocumentInfoComponent {
     @Input() identityDocument: RussianDomesticPassport;

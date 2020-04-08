@@ -5,7 +5,7 @@ import {
     Predicate,
     TerminalDecision,
     TerminalRef,
-    TerminalSelector
+    TerminalSelector,
 } from '../damsel/gen-model/domain';
 import * as DomainTypes from '../damsel/gen-nodejs/domain_types';
 

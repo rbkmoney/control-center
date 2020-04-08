@@ -7,7 +7,7 @@ import { PartyService } from '../party.service';
 
 @Component({
     templateUrl: 'party-details.component.html',
-    styleUrls: []
+    styleUrls: [],
 })
 export class PartyDetailsComponent implements OnInit {
     party: Party;
@@ -26,7 +26,7 @@ export class PartyDetailsComponent implements OnInit {
         this.isLoading = true;
         combineLatest([
             this.partyService.getParty(this.partyID),
-            this.partyService.getShops(this.partyID)
+            this.partyService.getShops(this.partyID),
         ]).subscribe(([party, shops]) => {
             this.isLoading = false;
             this.party = party;

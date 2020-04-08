@@ -9,7 +9,7 @@ import {
     skipUntil,
     take,
     takeUntil,
-    tap
+    tap,
 } from 'rxjs/operators';
 
 import { bootstrap$ } from './bootstrap';
@@ -20,7 +20,7 @@ import {
     IDisposable,
     IEditorOptions,
     ITextModel,
-    MonacoFile
+    MonacoFile,
 } from './model';
 import { CodeLensService } from './providers/code-lens.service';
 import { CompletionService } from './providers/completion.service';
@@ -155,7 +155,7 @@ export abstract class AbstractMonacoService {
                 this.zone.run(() =>
                     this.fileChange$.next({
                         ...file,
-                        content
+                        content,
                     })
                 )
             );

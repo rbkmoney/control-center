@@ -19,7 +19,7 @@ function resolveObject(obj: any): any {
     for (const [key, val] of entries) {
         result = {
             ...result,
-            [key]: isObject(val) ? toJson(val) : val
+            [key]: isObject(val) ? toJson(val) : val,
         };
     }
     return result;
@@ -30,7 +30,7 @@ function resolveMap(map: Map<any, any>): any {
     map.forEach((v, k) => {
         result = result.concat({
             key: toJson(k),
-            value: toJson(v)
+            value: toJson(v),
         });
     });
     return result;

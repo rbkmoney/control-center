@@ -4,7 +4,7 @@ import { DepositStatus } from '../thrift-services/fistful/gen-model/fistful_stat
 import { depositStatus } from './deposit-status';
 
 @Pipe({
-    name: 'ccDepositStatus'
+    name: 'ccDepositStatus',
 })
 export class DepositStatusPipe implements PipeTransform {
     transform(status: DepositStatus): string {

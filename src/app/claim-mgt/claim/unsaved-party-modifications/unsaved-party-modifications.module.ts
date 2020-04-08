@@ -15,9 +15,9 @@ import { UnsavedPartyModificationsComponent } from './unsaved-party-modification
         SharedModule,
         MatButtonModule,
         FlexLayoutModule,
-        MatDialogModule
+        MatDialogModule,
     ],
     declarations: [UnsavedPartyModificationsComponent],
-    exports: [UnsavedPartyModificationsComponent]
+    exports: [UnsavedPartyModificationsComponent],
 })
 export class UnsavedPartyModificationsModule {}

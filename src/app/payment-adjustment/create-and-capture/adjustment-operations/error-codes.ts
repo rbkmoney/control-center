@@ -3,7 +3,7 @@ export enum CreatePaymentAdjustmentErrorCodes {
     InvalidPaymentStatus = 'InvalidPaymentStatus',
     InvoicePaymentNotFound = 'InvoicePaymentNotFound',
     InvoiceNotFound = 'InvoiceNotFound',
-    InvalidUser = 'InvalidUser'
+    InvalidUser = 'InvalidUser',
 }
 
 export enum CancelPaymentAdjustmentErrorCodes {
@@ -11,7 +11,7 @@ export enum CancelPaymentAdjustmentErrorCodes {
     InvoiceNotFound = 'InvoiceNotFound',
     InvoicePaymentNotFound = 'InvoicePaymentNotFound',
     InvoicePaymentAdjustmentNotFound = 'InvoicePaymentAdjustmentNotFound',
-    InvalidPaymentAdjustmentStatus = 'InvalidPaymentAdjustmentStatus'
+    InvalidPaymentAdjustmentStatus = 'InvalidPaymentAdjustmentStatus',
 }
 
 export enum CapturePaymentAdjustmentErrorCodes {
@@ -19,5 +19,5 @@ export enum CapturePaymentAdjustmentErrorCodes {
     InvoiceNotFound = 'InvoiceNotFound',
     InvoicePaymentNotFound = 'InvoicePaymentNotFound',
     InvoicePaymentAdjustmentNotFound = 'InvoicePaymentAdjustmentNotFound',
-    InvalidPaymentAdjustmentStatus = 'InvalidPaymentAdjustmentStatus'
+    InvalidPaymentAdjustmentStatus = 'InvalidPaymentAdjustmentStatus',
 }

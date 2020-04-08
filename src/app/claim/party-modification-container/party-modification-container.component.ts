@@ -5,7 +5,7 @@ import { CreateModificationDialogComponent } from '../../party-modification-crea
 import {
     ModificationGroupType,
     ModificationUnitContainer,
-    PartyModificationContainer
+    PartyModificationContainer,
 } from '../model';
 import { PartyModificationContainerService } from './party-modification-container.service';
 import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.component';
@@ -13,7 +13,7 @@ import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.componen
 @Component({
     selector: 'cc-party-modification-container',
     templateUrl: 'party-modification-container.component.html',
-    styleUrls: ['./party-modification-container.component.css']
+    styleUrls: ['./party-modification-container.component.css'],
 })
 export class PartyModificationContainerComponent implements OnInit {
     @Input()
@@ -42,8 +42,8 @@ export class PartyModificationContainerComponent implements OnInit {
     remove() {
         const config = {
             data: {
-                typeHash: this.activeUnit.typeHash
-            }
+                typeHash: this.activeUnit.typeHash,
+            },
         };
         this.dialog.open<RemoveConfirmComponent>(RemoveConfirmComponent, config);
     }

@@ -6,7 +6,7 @@ import { getDate } from '../select-data';
 const mapAuthorityConfirmingDocumentType: { [name in AuthorityConfirmingDocumentType]: string } = {
     solePartyDecision: 'Решение единственного участника',
     meetingOfShareholders: 'Протокол общего собрания участников',
-    meetingOfParticipants: 'Протокол общего собрания акционеров'
+    meetingOfParticipants: 'Протокол общего собрания акционеров',
 };
 
 export function getAuthorityConfirmingDocument(

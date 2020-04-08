@@ -7,7 +7,7 @@ import { PayoutToolModificationUnit } from '../../../../thrift-services/damsel/g
 
 @Component({
     selector: 'cc-contract-payout-tool-modification-unit',
-    templateUrl: 'payout-tool-modification-unit.component.html'
+    templateUrl: 'payout-tool-modification-unit.component.html',
 })
 export class PayoutToolModificationUnitComponent implements OnInit {
     @Input()

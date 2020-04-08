@@ -8,7 +8,7 @@ import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
 @Component({
     selector: 'cc-shops-table',
     templateUrl: 'shops-table.component.html',
-    styleUrls: ['shops-table.component.css']
+    styleUrls: ['shops-table.component.css'],
 })
 export class ShopsTableComponent implements OnChanges {
     @Input() shops: Shop[];

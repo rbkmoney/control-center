@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PayoutsService } from '../payouts.service';
 
 @Component({
-    templateUrl: 'confirm-payouts.component.html'
+    templateUrl: 'confirm-payouts.component.html',
 })
 export class ConfirmPayoutsComponent {
     isLoading: boolean;

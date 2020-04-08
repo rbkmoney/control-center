@@ -12,7 +12,7 @@ import { ContractTemplateRef } from '../../../../thrift-services/damsel/gen-mode
 
 @Component({
     selector: 'cc-contract-template-ref',
-    templateUrl: 'contract-template-ref.component.html'
+    templateUrl: 'contract-template-ref.component.html',
 })
 export class ContractTemplateRefComponent implements OnInit {
     @Input()
@@ -41,7 +41,7 @@ export class ContractTemplateRefComponent implements OnInit {
             this.fb.control(
                 {
                     value: templateId,
-                    disabled: templateId.length === 0
+                    disabled: templateId.length === 0,
                 },
                 this.required ? Validators.required : null
             )

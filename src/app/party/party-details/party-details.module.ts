@@ -25,8 +25,8 @@ import { ShopsTableComponent } from './shops-table/shops-table.component';
         MatPaginatorModule,
         MatFormFieldModule,
         MatInputModule,
-        SharedModule
+        SharedModule,
     ],
-    declarations: [PartyDetailsComponent, ShopsTableComponent, PartyInfoComponent]
+    declarations: [PartyDetailsComponent, ShopsTableComponent, PartyInfoComponent],
 })
 export class PartyDetailsModule {}

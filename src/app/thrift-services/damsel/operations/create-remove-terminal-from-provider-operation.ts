@@ -12,5 +12,5 @@ export const createRemoveTerminalFromProviderOperation = (
     new_object: toGenDomainObject(
         removeTerminalDecision(providerObject, params.partyID, params.shopID, params.terminalID),
         'provider'
-    )
+    ),
 });

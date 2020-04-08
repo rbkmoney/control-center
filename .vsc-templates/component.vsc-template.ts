@@ -20,8 +20,8 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
             {
                 title: 'Component name',
                 argumentName: 'name',
-                defaultValue: ''
-            }
+                defaultValue: '',
+            },
         ],
         template: [
             {
@@ -35,7 +35,7 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
 <div class="${PREFIX}-${vsc.toKebabCase(inputs.name)}">
     <ng-content></ng-content>
 </div>
-`
+`,
                     },
                     {
                         type: 'file',
@@ -43,7 +43,7 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
                         content: (inputs) => `
 .${PREFIX}-${vsc.toKebabCase(inputs.name)} {
 }
-`
+`,
                     },
                     {
                         type: 'file',
@@ -59,17 +59,17 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ${getComponentName(inputs.name)} {
 }
-`
+`,
                     },
                     {
                         type: 'file',
                         name: (inputs) => `index.ts`,
                         content: (inputs) => `
 export * from './${getComponentPath(inputs.name)}'
-`
-                    }
-                ]
-            }
-        ]
+`,
+                    },
+                ],
+            },
+        ],
     };
 }

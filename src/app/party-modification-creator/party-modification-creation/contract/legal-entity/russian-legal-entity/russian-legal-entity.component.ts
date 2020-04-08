@@ -6,7 +6,7 @@ import { RussianLegalEntity } from '../../../../../thrift-services/damsel/gen-mo
 
 @Component({
     selector: 'cc-russian-legal-entity',
-    templateUrl: 'russian-legal-entity.component.html'
+    templateUrl: 'russian-legal-entity.component.html',
 })
 export class RussianLegalEntityComponent implements OnInit {
     @Input()

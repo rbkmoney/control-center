@@ -31,7 +31,7 @@ import { DomainObjDetailsComponent } from './domain-obj-details';
         MatProgressSpinnerModule,
         MonacoEditorModule,
         DamselModule,
-        SharedModule
-    ]
+        SharedModule,
+    ],
 })
 export class DomainInfoModule {}

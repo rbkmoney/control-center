@@ -38,12 +38,12 @@ export class ClaimsService extends PartialFetcher<Claim, SearchFormValue> {
             .searchClaims({
                 ...convertFormValueToParams(searchFormValue),
                 continuation_token: continuationToken,
-                limit: this.searchLimit
+                limit: this.searchLimit,
             })
             .pipe(
                 map((r) => ({
                     result: r.result,
-                    continuationToken: r.continuation_token
+                    continuationToken: r.continuation_token,
                 }))
             );
     }

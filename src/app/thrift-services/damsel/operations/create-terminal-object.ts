@@ -5,14 +5,14 @@ import { generateID, toMap } from './utils';
 
 const convert = (id: number, params: CreateTerminalParams): TerminalObject => ({
     ref: {
-        id
+        id,
     },
     data: {
         name: params.terminalName,
         description: params.terminalDescription,
         risk_coverage: params.riskCoverage,
-        options: toMap(params.options)
-    }
+        options: toMap(params.options),
+    },
 });
 
 export interface CreateTerminalObject {

@@ -59,7 +59,7 @@ import { SendCommentComponent } from './send-comment';
         QuestionaryModule,
         UnsavedPartyModificationsModule,
         PartyModificationCreatorModule,
-        MatDividerModule
+        MatDividerModule,
     ],
     declarations: [
         ConversationComponent,
@@ -67,8 +67,8 @@ import { SendCommentComponent } from './send-comment';
         SendCommentComponent,
         ActionIconPipe,
         ActionNamePipe,
-        CommentComponent
+        CommentComponent,
     ],
-    exports: [ConversationComponent]
+    exports: [ConversationComponent],
 })
 export class ConversationModule {}

@@ -6,7 +6,7 @@ import { ClaimService } from './claim.service';
 
 @Component({
     templateUrl: 'claim.component.html',
-    styleUrls: []
+    styleUrls: [],
 })
 export class ClaimComponent {
     constructor(
@@ -20,7 +20,7 @@ export class ClaimComponent {
                 error: (error) => {
                     console.error(error);
                     this.snackBar.open('An error occurred while claim resolving', 'OK');
-                }
+                },
             });
         });
     }

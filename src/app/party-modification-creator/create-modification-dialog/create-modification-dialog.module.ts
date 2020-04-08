@@ -18,10 +18,10 @@ import { CreateModificationDialogComponent } from './create-modification-dialog.
         MatButtonModule,
         PartyModificationCreationModule,
         PartyModificationTargetModule,
-        ModificationNameModule
+        ModificationNameModule,
     ],
     declarations: [CreateModificationDialogComponent],
     entryComponents: [CreateModificationDialogComponent],
-    providers: [PartyModificationEmitter]
+    providers: [PartyModificationEmitter],
 })
 export class CreateModificationDialogModule {}

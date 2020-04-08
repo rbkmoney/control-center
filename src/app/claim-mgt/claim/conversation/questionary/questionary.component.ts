@@ -16,7 +16,7 @@ const FILENAME_LENGTH = 100;
 @Component({
     selector: 'cc-questionary',
     templateUrl: 'questionary.component.html',
-    styleUrls: ['questionary.component.scss']
+    styleUrls: ['questionary.component.scss'],
 })
 export class QuestionaryComponent {
     beneficialOwnersDocuments$: Observable<TCreatedPdf[]>;
@@ -48,7 +48,7 @@ export class QuestionaryComponent {
     createFilename(name: string) {
         const { companyName, companyInn } = getCompanyInfo(this.questionary);
         return slugify([name, moment().utc().format(), companyInn, companyName].join('-'), {
-            separator: '_'
+            separator: '_',
         }).slice(0, FILENAME_LENGTH);
     }
 }

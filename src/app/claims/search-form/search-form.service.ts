@@ -33,7 +33,7 @@ export class SearchFormService {
     private prepareForm(): FormGroup {
         return this.fb.group({
             claimStatus: 'pending',
-            partyId: ''
+            partyId: '',
         });
     }
 }

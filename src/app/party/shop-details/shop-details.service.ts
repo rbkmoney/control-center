@@ -9,7 +9,7 @@ import {
     PayoutTool,
     ProviderObject,
     Shop,
-    TerminalObject
+    TerminalObject,
 } from '../../thrift-services/damsel/gen-model/domain';
 import { PartyService } from '../party.service';
 import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
@@ -34,7 +34,7 @@ export class ShopDetailsService {
         return combineLatest([
             this.partyService.getShop(partyID, shopID),
             this.dtm.getProviderObjects(),
-            this.dtm.getTerminalObjects()
+            this.dtm.getTerminalObjects(),
         ]).pipe(
             switchMap(([shop, providers, terminalObjects]) =>
                 this.partyService.getContract(partyID, shop.contract_id).pipe(
@@ -46,7 +46,7 @@ export class ShopDetailsService {
                             partyID,
                             shopID
                         ),
-                        shop
+                        shop,
                     }))
                 )
             ),
@@ -56,7 +56,7 @@ export class ShopDetailsService {
                         payoutTool,
                         shop,
                         providerInfo,
-                        contract
+                        contract,
                     }))
                 )
             )
@@ -82,8 +82,8 @@ export class ShopDetailsService {
                 ...r,
                 {
                     provider,
-                    terminalInfos: infos
-                }
+                    terminalInfos: infos,
+                },
             ];
         }, []);
     }

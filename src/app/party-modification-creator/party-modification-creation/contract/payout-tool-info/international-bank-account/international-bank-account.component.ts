@@ -6,7 +6,7 @@ import { InternationalBankAccount } from '../../../../../thrift-services/damsel/
 
 @Component({
     selector: 'cc-international-bank-account',
-    templateUrl: 'international-bank-account.component.html'
+    templateUrl: 'international-bank-account.component.html',
 })
 export class InternationalBankAccountComponent implements OnInit {
     @Input()

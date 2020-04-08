@@ -20,7 +20,7 @@ export class EditTerminalDecisionPriorityService extends EditTerminalDecision {
     private initForm(): FormGroup {
         return this.fb.group({
             value: '',
-            property: 'priority'
+            property: 'priority',
         });
     }
 }

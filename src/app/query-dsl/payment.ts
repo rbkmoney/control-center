@@ -2,7 +2,7 @@ import {
     InvoicePaymentFlow,
     InvoicePaymentStatus,
     PaymentTool,
-    TerminalPaymentProvider
+    TerminalPaymentProvider,
 } from '../thrift-services/damsel/gen-model/merch_stat';
 
 export interface Payment {

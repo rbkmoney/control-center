@@ -12,11 +12,11 @@ import { PayoutsComponent } from './payouts.component';
                 component: PayoutsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['payout:read']
-                }
-            }
-        ])
+                    roles: ['payout:read'],
+                },
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PayoutsRoutingModule {}

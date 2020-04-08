@@ -4,7 +4,7 @@ import { DepositsService } from './deposits.service';
 import { SearchFormParams } from './search-form/search-form-params';
 
 @Component({
-    templateUrl: 'deposits.component.html'
+    templateUrl: 'deposits.component.html',
 })
 export class DepositsComponent implements AfterViewInit {
     searchParams: SearchFormParams;

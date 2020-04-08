@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'ccIsActive'
+    name: 'ccIsActive',
 })
 export class IsActivePipe implements PipeTransform {
     public transform(input: boolean): string {

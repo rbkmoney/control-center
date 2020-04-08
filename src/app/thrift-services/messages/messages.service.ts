@@ -8,13 +8,13 @@ import {
     ConversationFilter,
     ConversationId,
     GetConversationResponse,
-    User
+    User,
 } from './gen-model/messages';
 import * as MessageServiceClient from './gen-nodejs/MessageService';
 import {
     Conversation as ConversationType,
     ConversationFilter as ConversationFilterType,
-    User as UserType
+    User as UserType,
 } from './gen-nodejs/messages_types';
 
 @Injectable()

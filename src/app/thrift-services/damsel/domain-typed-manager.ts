@@ -10,14 +10,14 @@ import {
     Domain,
     PaymentInstitutionObject,
     ProviderObject,
-    TerminalObject
+    TerminalObject,
 } from './gen-model/domain';
 import { Version } from './gen-model/domain_config';
 import {
     AddDecisionToProvider,
     addDecisionToProviderCommit,
     CreateTerminalParams,
-    getCreateTerminalCommit
+    getCreateTerminalCommit,
 } from './operations';
 import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
 import { editTerminalDecisionPropertyForShopCommit } from './operations/edit-terminal-decision-property-for-shop-commit';
@@ -79,7 +79,7 @@ export class DomainTypedManager {
     editTerminalDecisionPropertyForShop(params: EditTerminalDecisionPropertyParams) {
         return combineLatest([
             this.getLastVersion(),
-            this.getProviderObject(params.providerID)
+            this.getProviderObject(params.providerID),
         ]).pipe(
             switchMap(([version, provider]) =>
                 this.dmtService.commit(
@@ -94,7 +94,7 @@ export class DomainTypedManager {
     removeTerminalFromShop(params: RemoveTerminalFromShopParams) {
         return combineLatest([
             this.getLastVersion(),
-            this.getProviderObject(params.providerID)
+            this.getProviderObject(params.providerID),
         ]).pipe(
             switchMap(([version, provider]) => {
                 return this.dmtService.commit(
@@ -122,7 +122,7 @@ export class DomainTypedManager {
     addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
         return combineLatest([
             this.getLastVersion(),
-            this.getProviderObject(params.providerID)
+            this.getProviderObject(params.providerID),
         ]).pipe(
             switchMap(([version, providerObject]) =>
                 this.dmtService.commit(version, addDecisionToProviderCommit(providerObject, params))

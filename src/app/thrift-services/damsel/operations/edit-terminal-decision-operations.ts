@@ -12,5 +12,5 @@ export const editTerminalDecisionPropertyForShopOperation = (
     new_object: toGenDomainObject(
         editTerminalDecisionPropertyForShop(providerObject, params),
         'provider'
-    )
+    ),
 });

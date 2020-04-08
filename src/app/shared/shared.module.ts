@@ -13,7 +13,7 @@ import {
     ClaimStatusThriftPipe,
     CurrencyPipe,
     FormatAmountPipe,
-    ThriftViewPipe
+    ThriftViewPipe,
 } from './pipes';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
 
@@ -27,12 +27,12 @@ const declarations = [
     PrettyJsonComponent,
     CardContainerComponent,
     EmptySearchResultComponent,
-    ClaimSourcePipe
+    ClaimSourcePipe,
 ];
 
 @NgModule({
     imports: [CommonModule, PrettyJsonModule, FlexModule, MatCardModule],
     declarations,
-    exports: declarations
+    exports: declarations,
 })
 export class SharedModule {}

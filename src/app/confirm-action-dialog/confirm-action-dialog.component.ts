@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
     selector: 'cc-confirm-action-dialog',
     templateUrl: 'confirm-action-dialog.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmActionDialogComponent {
     constructor(

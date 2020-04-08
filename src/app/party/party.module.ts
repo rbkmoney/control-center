@@ -13,8 +13,8 @@ import { ShopDetailsModule } from './shop-details/shop-details.module';
         CommonModule,
         FlexLayoutModule,
         PartyDetailsModule,
-        ShopDetailsModule
+        ShopDetailsModule,
     ],
-    providers: [PartyService]
+    providers: [PartyService],
 })
 export class PartyModule {}

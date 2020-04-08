@@ -6,6 +6,6 @@ import { PartyShopsComponent } from './party-shops.component';
 
 @NgModule({
     imports: [PartyShopsRoutingModule, CommonModule],
-    declarations: [PartyShopsComponent]
+    declarations: [PartyShopsComponent],
 })
 export class PartyShopsModule {}

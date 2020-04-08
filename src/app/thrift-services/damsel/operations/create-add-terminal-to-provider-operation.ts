@@ -12,5 +12,5 @@ export const createAddTerminalToProviderOperation = (
     new_object: toGenDomainObject(
         addTerminalDecision(providerObject, params.partyID, params.shopID, params.terminalID),
         'provider'
-    )
+    ),
 });

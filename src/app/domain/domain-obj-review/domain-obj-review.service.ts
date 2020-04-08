@@ -22,10 +22,10 @@ export class DomainObjReviewService {
                 {
                     update: {
                         old_object: original.domainObj,
-                        new_object: modified.domainObj
-                    }
-                }
-            ]
+                        new_object: modified.domainObj,
+                    },
+                },
+            ],
         };
         return this.domainService
             .commit(commit)

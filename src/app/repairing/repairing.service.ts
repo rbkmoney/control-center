@@ -7,7 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import { execute } from '../shared/execute';
 import {
     InvoiceRepairScenario,
-    UserInfo
+    UserInfo,
 } from '../thrift-services/damsel/gen-model/payment_processing';
 import { PaymentProcessingService } from '../thrift-services/damsel/payment-processing.service';
 import { RepairScenario } from '../thrift-services/fistful/gen-model/withdrawal_session';
@@ -48,7 +48,7 @@ export class RepairingService {
         }
         if (alreadyAddedIds.length) {
             this.snackBar.open(`IDs: ${alreadyAddedIds.join(', ')} has already been added`, 'OK', {
-                duration: 10000
+                duration: 10000,
             });
         }
         return ids;
@@ -57,7 +57,7 @@ export class RepairingService {
     getUser(): UserInfo {
         return {
             id: this.keycloakService.getUsername(),
-            type: { internal_user: {} }
+            type: { internal_user: {} },
         };
     }
 
@@ -85,7 +85,7 @@ export class RepairingService {
                 this.automatonService.getMachine({
                     ns,
                     ref: { id },
-                    range: { limit: 0, direction: 1 }
+                    range: { limit: 0, direction: 1 },
                 })
             )
         ).pipe(tap(({ progress }) => this._progress$.next(progress)));

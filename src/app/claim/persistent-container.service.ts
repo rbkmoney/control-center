@@ -14,7 +14,7 @@ export class PersistentContainerService {
         this.containers = persisted.map((modification) => ({
             modification,
             saved,
-            typeHash: !saved ? this.makeTypeHash(modification) : null
+            typeHash: !saved ? this.makeTypeHash(modification) : null,
         }));
         this.containers$.next(this.containers);
     }
@@ -24,7 +24,7 @@ export class PersistentContainerService {
         const item = {
             modification,
             typeHash,
-            saved: false
+            saved: false,
         };
         const index = this.containers.findIndex((i) => i.typeHash === typeHash);
         if (index !== -1) {

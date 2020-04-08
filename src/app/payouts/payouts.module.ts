@@ -60,7 +60,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatBadgeModule,
         MatMenuModule,
         MatTooltipModule,
-        MatPaginatorModule
+        MatPaginatorModule,
     ],
     declarations: [
         PayoutsComponent,
@@ -70,14 +70,14 @@ import { SearchFormComponent } from './search-form/search-form.component';
         CancelPayoutComponent,
         PayPayoutsComponent,
         ConfirmPayoutsComponent,
-        PayoutsActionsComponent
+        PayoutsActionsComponent,
     ],
     entryComponents: [
         CreatePayoutComponent,
         CancelPayoutComponent,
         PayPayoutsComponent,
-        ConfirmPayoutsComponent
+        ConfirmPayoutsComponent,
     ],
-    providers: [PayoutsService]
+    providers: [PayoutsService],
 })
 export class PayoutsModule {}

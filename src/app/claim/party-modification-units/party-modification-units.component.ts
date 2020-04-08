@@ -8,7 +8,7 @@ import { ModificationGroupType, PartyModificationUnit } from '../model';
 @Component({
     selector: 'cc-party-modification-units',
     templateUrl: 'party-modification-units.component.html',
-    styleUrls: ['./party-modification-units.component.css']
+    styleUrls: ['./party-modification-units.component.css'],
 })
 export class PartyModificationUnitsComponent {
     @Input()
@@ -39,7 +39,7 @@ export class PartyModificationUnitsComponent {
                 break;
         }
         this.bottomSheet.open(UnitActionsNavListComponent, {
-            data: { type, unitID, partyID: this.partyID }
+            data: { type, unitID, partyID: this.partyID },
         });
     }
 }

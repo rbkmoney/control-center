@@ -12,7 +12,7 @@ import { PartyComponent } from './party.component';
                 component: PartyComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims']
+                    roles: ['get_claims'],
                 },
                 children: [
                     {
@@ -21,8 +21,8 @@ import { PartyComponent } from './party.component';
                             import('../party-claims').then((m) => m.PartyClaimsModule),
                         canActivate: [AppAuthGuardService],
                         data: {
-                            roles: ['get_claims']
-                        }
+                            roles: ['get_claims'],
+                        },
                     },
                     {
                         path: 'shops',
@@ -30,14 +30,14 @@ import { PartyComponent } from './party.component';
                             import('../party-shops').then((m) => m.PartyShopsModule),
                         canActivate: [AppAuthGuardService],
                         data: {
-                            roles: ['get_claims']
-                        }
+                            roles: ['get_claims'],
+                        },
                     },
-                    { path: '', redirectTo: 'claims', pathMatch: 'full' }
-                ]
-            }
-        ])
+                    { path: '', redirectTo: 'claims', pathMatch: 'full' },
+                ],
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PartyMgtRouting {}

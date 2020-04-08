@@ -5,7 +5,7 @@ import {
     Condition,
     Predicate,
     TerminalObject,
-    TerminalRef
+    TerminalRef,
 } from '../../thrift-services/damsel/gen-model/domain';
 
 interface PredicateInfo {
@@ -34,7 +34,7 @@ export enum PredicateType {
     condition = 'condition',
     is_not = 'is_not',
     all_of = 'all_of',
-    any_of = 'any_of'
+    any_of = 'any_of',
 }
 
 export interface TerminalInfo {
@@ -72,32 +72,32 @@ function extractPredicateInfo(
         return {
             shopPartyContain: inPredicates(all_of, shopID, partyID),
             predicateType: PredicateType.all_of,
-            disabled: isDisabled(all_of)
+            disabled: isDisabled(all_of),
         };
     }
     if (any_of && any_of.length > 0) {
         return {
             shopPartyContain: inPredicates(any_of, shopID, partyID),
             predicateType: PredicateType.any_of,
-            disabled: false
+            disabled: false,
         };
     }
     if (is_not && is_not.length > 0) {
         return {
             shopPartyContain: inPartyCondition(is_not, shopID, partyID),
             predicateType: PredicateType.is_not,
-            disabled: true
+            disabled: true,
         };
     }
     if (condition && condition.party) {
         return {
             shopPartyContain: inPartyCondition(condition, shopID, partyID),
             predicateType: PredicateType.condition,
-            disabled: false
+            disabled: false,
         };
     }
     return {
-        shopPartyContain: false
+        shopPartyContain: false,
     };
 }
 
@@ -155,7 +155,7 @@ const extractTerminalInfoGroup = (
                 disabled,
                 predicateType,
                 weights: extractWeights(then_),
-                priorities: extractPriorities(then_)
+                priorities: extractPriorities(then_),
             });
         }
         return r;
@@ -170,8 +170,8 @@ const flattenGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
                 disabled,
                 predicateType,
                 weight: weights[idx],
-                priority: priorities[idx]
-            }))
+                priority: priorities[idx],
+            })),
         ],
         []
     );
@@ -186,7 +186,7 @@ const enrichWithTerminal = (
             disabled: group.disabled,
             predicateType: group.predicateType,
             weight: group.weight,
-            priority: group.priority
+            priority: group.priority,
         };
     });
 };

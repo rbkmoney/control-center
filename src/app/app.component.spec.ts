@@ -8,7 +8,7 @@ xdescribe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [AppComponent],
-            imports: [MatIconModule, MatMenuModule]
+            imports: [MatIconModule, MatMenuModule],
         }).compileComponents();
     }));
     it('should create the app', async(() => {

@@ -8,14 +8,14 @@ import {
     CancelPaymentAdjustmentErrorCodes,
     EventType,
     OperationFailedPayload,
-    PaymentAdjustmentCaptureParams
+    PaymentAdjustmentCaptureParams,
 } from '../adjustment-operations';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCaptureParams>;
 
 @Component({
     selector: 'cc-capture-actions',
-    templateUrl: 'capture-actions.component.html'
+    templateUrl: 'capture-actions.component.html',
 })
 export class CaptureActionsComponent implements OnInit {
     @Input()
@@ -87,7 +87,7 @@ export class CaptureActionsComponent implements OnInit {
         this.batchAdjustmentService.capture(captureParams).subscribe({
             error: () => {
                 this.snackBar.open('An error occurred while adjustments capture');
-            }
+            },
         });
     }
 }

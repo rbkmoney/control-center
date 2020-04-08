@@ -12,6 +12,6 @@ import { CompletionService } from './providers/completion.service';
     declarations: [MonacoEditorDirective, MonacoDiffEditorDirective],
     imports: [CommonModule],
     exports: [MonacoEditorDirective, MonacoDiffEditorDirective],
-    providers: [MonacoEditorService, CodeLensService, CompletionService, MonacoDiffEditorService]
+    providers: [MonacoEditorService, CodeLensService, CompletionService, MonacoDiffEditorService],
 })
 export class MonacoEditorModule {}

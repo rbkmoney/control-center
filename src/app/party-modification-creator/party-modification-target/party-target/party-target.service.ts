@@ -7,7 +7,7 @@ import {
     Contract,
     Contractor,
     Party,
-    Shop
+    Shop,
 } from '../../../thrift-services/damsel/gen-model/domain';
 import { PartyTarget } from '../party-target';
 import { SelectableItem } from './selectable-item';

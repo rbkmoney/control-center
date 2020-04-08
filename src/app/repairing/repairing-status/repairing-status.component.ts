@@ -3,14 +3,14 @@ import { Component, Input } from '@angular/core';
 export enum RepairingStatusType {
     error = 'error',
     warn = 'warn',
-    info = 'info'
+    info = 'info',
 }
 
 @Component({
     selector: 'cc-repairing-status',
     templateUrl: 'repairing-status.component.html',
     styleUrls: [],
-    providers: []
+    providers: [],
 })
 export class RepairingStatusComponent {
     @Input()

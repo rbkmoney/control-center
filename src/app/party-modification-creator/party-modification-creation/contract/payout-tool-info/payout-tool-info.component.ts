@@ -7,12 +7,12 @@ import { PayoutToolInfo } from '../../../../thrift-services/damsel/gen-model/dom
 enum Type {
     russianBankAccount = 'russian_bank_account',
     internationalBankAccount = 'international_bank_account',
-    walletInfo = 'wallet_info'
+    walletInfo = 'wallet_info',
 }
 
 @Component({
     selector: 'cc-payout-tool-info',
-    templateUrl: 'payout-tool-info.component.html'
+    templateUrl: 'payout-tool-info.component.html',
 })
 export class PayoutToolInfoComponent implements OnInit {
     @Input()

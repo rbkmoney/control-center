@@ -5,7 +5,7 @@ function isDefined(value: any): boolean {
 export enum MessageFormat {
     file = 'file',
     bundle = 'bundle',
-    both = 'both'
+    both = 'both',
 }
 
 export interface Options {

@@ -5,7 +5,7 @@ import {
     OnChanges,
     OnInit,
     Output,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,7 +20,7 @@ import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 @Component({
     selector: 'cc-terminals',
     templateUrl: 'terminals.component.html',
-    providers: [EditTerminalDecisionPriorityService]
+    providers: [EditTerminalDecisionPriorityService],
 })
 export class TerminalsComponent implements OnChanges, OnInit {
     @Input() terminalInfos: TerminalInfo[];
@@ -65,7 +65,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
             () => {
                 this.isLoading = false;
                 this.snackBar.open('Terminal successfully removed from shop', 'OK', {
-                    duration: 3000
+                    duration: 3000,
                 });
                 this.terminalChanged.emit();
             },
@@ -84,7 +84,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
         const config = {
             data: this.getModalData(terminalID),
             width: '300px',
-            disableClose: true
+            disableClose: true,
         };
         const dialog = this.dialog.open(EditTerminalDecisionPriorityComponent, config);
         dialog
@@ -99,7 +99,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
         const config = {
             data: this.getModalData(terminalID),
             width: '300px',
-            disableClose: true
+            disableClose: true,
         };
         const dialog = this.dialog.open(EditTerminalDecisionWeightComponent, config);
         dialog
@@ -121,13 +121,13 @@ export class TerminalsComponent implements OnChanges, OnInit {
             diffPlus50 = prevInfo ? prevInfo.priority.toNumber() + 50 : basePriority + 50;
             this.editPriorityService.edit(this.getModalData(terminalID), {
                 property: 'priority',
-                value: diffPlus50
+                value: diffPlus50,
             });
         } else if (op === 'minus') {
             diffPlus50 = nexInfo ? nexInfo.priority.toNumber() - 50 : 0;
             this.editPriorityService.edit(this.getModalData(terminalID), {
                 property: 'priority',
-                value: diffPlus50
+                value: diffPlus50,
             });
         }
     }
@@ -141,7 +141,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
             shopID: this.shopID,
             partyID: this.partyID,
             providerID: this.providerID,
-            terminalID
+            terminalID,
         };
     }
 

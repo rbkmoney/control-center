@@ -11,7 +11,7 @@ import {
     pluck,
     publish,
     shareReplay,
-    switchMap
+    switchMap,
 } from 'rxjs/operators';
 
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
@@ -106,7 +106,7 @@ export class StatusChangerService {
     private initForm() {
         return this.fb.group({
             type: ['', Validators.required],
-            reason: null
+            reason: null,
         });
     }
 }

@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClaimService } from '../claim.service';
 
 @Component({
-    templateUrl: 'deny-claim.component.html'
+    templateUrl: 'deny-claim.component.html',
 })
 export class DenyClaimComponent {
     isLoading = false;

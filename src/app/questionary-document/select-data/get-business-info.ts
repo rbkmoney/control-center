@@ -3,7 +3,7 @@ import get from 'lodash-es/get';
 import { getUnionKey, toOptional } from '../../shared/utils';
 import {
     AdditionalInfo,
-    WithoutChiefAccountant
+    WithoutChiefAccountant,
 } from '../../thrift-services/ank/gen-model/questionary';
 import { hasChiefAccountant } from './has-chief-accountant';
 import { YesNo } from './yes-no';
@@ -25,6 +25,6 @@ export function getBusinessInfo(additionalInfo: AdditionalInfo): BusinessInfo {
             accountant_info,
             ['without_chief_accountant', 'accounting_organization', 'inn'],
             null
-        )
+        ),
     };
 }

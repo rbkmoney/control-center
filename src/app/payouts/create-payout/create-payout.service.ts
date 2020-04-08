@@ -17,7 +17,7 @@ export class CreatePayoutService {
         return {
             ...formValues,
             fromTime: this.convertDate(formValues.fromTime),
-            toTime: this.convertDate(formValues.toTime)
+            toTime: this.convertDate(formValues.toTime),
         };
     }
 
@@ -31,7 +31,7 @@ export class CreatePayoutService {
             fromTime: [now, Validators.required],
             toTime: [now, Validators.required],
             partyId: ['', Validators.required],
-            shopId: ['', Validators.required]
+            shopId: ['', Validators.required],
         });
     }
 }

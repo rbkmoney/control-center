@@ -25,7 +25,7 @@ export const currencies: CurrencySource[] = [
     { source: 'eskin1', currency: 'USD' },
     { source: 'eskin2', currency: 'EUR' },
     { source: 'eskin3', currency: 'KZT' },
-    { source: 'eskin5', currency: 'BYN' }
+    { source: 'eskin5', currency: 'BYN' },
 ];
 
 @Injectable()
@@ -56,7 +56,7 @@ export class CreateDepositService {
         return this.fb.group({
             destination: ['', Validators.required],
             amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
-            currency: [currencies[0], Validators.required]
+            currency: [currencies[0], Validators.required],
         });
     }
 
@@ -69,9 +69,9 @@ export class CreateDepositService {
             body: {
                 amount: toMajor(amount),
                 currency: {
-                    symbolic_code: currency.currency
-                }
-            }
+                    symbolic_code: currency.currency,
+                },
+            },
         };
     }
 
@@ -79,7 +79,7 @@ export class CreateDepositService {
         return {
             fromTime: moment().startOf('d').toISOString(),
             toTime: moment().endOf('d').toISOString(),
-            depositId: params.id
+            depositId: params.id,
         };
     }
 }

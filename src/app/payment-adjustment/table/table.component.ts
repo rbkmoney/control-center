@@ -7,7 +7,7 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,7 +18,7 @@ import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 @Component({
     selector: 'cc-payment-adjustment-table',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.component.css']
+    styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit, OnChanges {
     @Input()

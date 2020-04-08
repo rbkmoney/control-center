@@ -6,7 +6,7 @@ import { FileUploaderService } from './file-uploader.service';
 @Component({
     selector: 'cc-file-uploader',
     templateUrl: 'file-uploader.component.html',
-    styleUrls: ['file-uploader.component.css']
+    styleUrls: ['file-uploader.component.css'],
 })
 export class FileUploaderComponent {
     @Output()

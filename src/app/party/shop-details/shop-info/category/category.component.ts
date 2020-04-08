@@ -6,7 +6,7 @@ import { Category } from '../../../../thrift-services/damsel/gen-model/domain';
 @Component({
     templateUrl: 'category.component.html',
     selector: 'cc-category',
-    providers: [CategoryService]
+    providers: [CategoryService],
 })
 export class CategoryComponent implements OnInit {
     @Input() categoryID: number;

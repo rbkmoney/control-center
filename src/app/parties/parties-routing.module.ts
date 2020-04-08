@@ -12,11 +12,11 @@ import { PartiesComponent } from './parties.component';
                 component: PartiesComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['party:get']
-                }
-            }
-        ])
+                    roles: ['party:get'],
+                },
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PartiesRoutingModule {}

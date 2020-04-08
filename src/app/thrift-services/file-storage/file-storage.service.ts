@@ -10,7 +10,7 @@ import {
     FileNotFound,
     Metadata,
     NewFileResult,
-    URL
+    URL,
 } from './gen-model/file_storage';
 import * as FileStorage from './gen-nodejs/FileStorage';
 

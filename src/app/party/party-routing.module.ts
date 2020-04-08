@@ -13,19 +13,19 @@ import { ShopDetailsComponent } from './shop-details/shop-details.component';
                 component: PartyDetailsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['party:get']
-                }
+                    roles: ['party:get'],
+                },
             },
             {
                 path: 'party-old/:partyID/shop/:shopID',
                 component: ShopDetailsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['party:get']
-                }
-            }
-        ])
+                    roles: ['party:get'],
+                },
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PartyRoutingModule {}

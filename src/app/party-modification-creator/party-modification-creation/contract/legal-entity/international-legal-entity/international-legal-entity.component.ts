@@ -5,7 +5,7 @@ import { InternationalLegalEntity } from '../../../../../thrift-services/damsel/
 
 @Component({
     selector: 'cc-international-legal-entity',
-    templateUrl: 'international-legal-entity.component.html'
+    templateUrl: 'international-legal-entity.component.html',
 })
 export class InternationalLegalEntityComponent implements OnInit {
     @Input()

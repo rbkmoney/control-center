@@ -4,7 +4,7 @@ import { LegalOwnerInfo } from '../../../../../thrift-services/ank/gen-model/que
 
 @Component({
     selector: 'cc-legal-owner-info',
-    templateUrl: 'legal-owner-info.component.html'
+    templateUrl: 'legal-owner-info.component.html',
 })
 export class LegalOwnerInfoComponent {
     @Input() legalOwnerInfo: LegalOwnerInfo;

@@ -1,4 +1,4 @@
 export enum TargetType {
     fillIn = 'fillIn',
-    partyItem = 'partyItem'
+    partyItem = 'partyItem',
 }

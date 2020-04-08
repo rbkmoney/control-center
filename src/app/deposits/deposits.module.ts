@@ -43,14 +43,14 @@ import { SearchFormService } from './search-form/search-form.service';
         MatProgressBarModule,
         MatTableModule,
         MatDialogModule,
-        MatDatepickerModule
+        MatDatepickerModule,
     ],
     declarations: [
         DepositsComponent,
         CreateDepositComponent,
         DepositsTableComponent,
         SearchFormComponent,
-        DepositStatusPipe
+        DepositStatusPipe,
     ],
     providers: [
         CreateDepositService,
@@ -58,8 +58,8 @@ import { SearchFormService } from './search-form/search-form.service';
         DepositsTableService,
         SearchFormService,
         DepositsService,
-        FistfulStatisticsService
+        FistfulStatisticsService,
     ],
-    entryComponents: [CreateDepositComponent]
+    entryComponents: [CreateDepositComponent],
 })
 export class DepositsModule {}

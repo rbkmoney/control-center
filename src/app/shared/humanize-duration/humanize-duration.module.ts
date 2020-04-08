@@ -6,6 +6,6 @@ import { HumanizedDurationPipe } from './humanized-duration.pipe';
 @NgModule({
     declarations: [HumanizedDurationPipe],
     providers: [HumanizeDurationService],
-    exports: [HumanizedDurationPipe]
+    exports: [HumanizedDurationPipe],
 })
 export class HumanizeDurationModule {}

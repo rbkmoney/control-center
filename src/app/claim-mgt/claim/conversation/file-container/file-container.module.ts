@@ -11,6 +11,6 @@ import { FileContainerComponent } from './file-container.component';
     imports: [CommonModule, MatCardModule, FlexModule, MatIconModule],
     exports: [FileContainerComponent],
     declarations: [FileContainerComponent],
-    providers: [FileStorageService]
+    providers: [FileStorageService],
 })
 export class FileContainerModule {}

@@ -6,7 +6,7 @@ import { AdjustmentOperationEvent } from './adjustment-event';
 import {
     PaymentAdjustmentCancelParams,
     PaymentAdjustmentCaptureParams,
-    PaymentAdjustmentCreationParams
+    PaymentAdjustmentCreationParams,
 } from './adjustment-params';
 import { CancelAdjustmentService } from './cancel-adjustment.service';
 import { CaptureAdjustmentService } from './capture-adjustment.service';

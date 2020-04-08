@@ -9,7 +9,7 @@ import { RepairingStatusType } from '../repairing-status/repairing-status.compon
 import { RepairingService } from '../repairing.service';
 import {
     DialogData,
-    RepairWithScenarioSettingsComponent
+    RepairWithScenarioSettingsComponent,
 } from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 
 enum Status {
@@ -19,7 +19,7 @@ enum Status {
     unknownError = 'unknown error',
     invalidUser = 'invalid user',
     invoiceNotFound = 'invoice not found',
-    invalidRequest = 'invalid request'
+    invalidRequest = 'invalid request',
 }
 
 interface Element {
@@ -32,7 +32,7 @@ interface Element {
     selector: 'cc-repair-with-scenario',
     templateUrl: 'repair-with-scenario.component.html',
     styleUrls: ['../repairing.component.css'],
-    providers: []
+    providers: [],
 })
 export class RepairWithScenarioComponent {
     displayedColumns: string[] = ['select', 'id', 'status'];
@@ -84,13 +84,13 @@ export class RepairWithScenarioComponent {
 
     repairDialog() {
         const dialogRef = this.dialog.open(RepairWithScenarioSettingsComponent, {
-            width: '600px'
+            width: '600px',
         });
         dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {
             this.repair(this.selection.selected, {
                 [scenario]: {
-                    failure: { code }
-                }
+                    failure: { code },
+                },
             });
         });
     }

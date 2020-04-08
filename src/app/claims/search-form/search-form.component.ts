@@ -8,7 +8,7 @@ import { SearchFormService } from './search-form.service';
 @Component({
     selector: 'cc-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent implements OnInit {
     @Output()

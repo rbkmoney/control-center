@@ -5,7 +5,7 @@ import {
     OnChanges,
     OnInit,
     Output,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,7 +17,7 @@ import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimStatus } from '../../../papi/model';
 import {
     PartyModificationEmitter,
-    UnitActionsNavListComponent
+    UnitActionsNavListComponent,
 } from '../../../party-modification-creator';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
 import { getUnionKey } from '../../../shared/utils';
@@ -32,7 +32,7 @@ import { TimelineAction } from './to-timeline-info/model';
 @Component({
     selector: 'cc-claim-conversation',
     templateUrl: 'conversation.component.html',
-    providers: [ConversationService, QuestionaryService, SavePartyModificationsService]
+    providers: [ConversationService, QuestionaryService, SavePartyModificationsService],
 })
 export class ConversationComponent implements OnChanges, OnInit {
     @Input() claim: Claim;
@@ -81,7 +81,7 @@ export class ConversationComponent implements OnChanges, OnInit {
                             'party',
                             party_id,
                             'claim',
-                            id.toString()
+                            id.toString(),
                         ])
                     )
                 )
@@ -122,8 +122,8 @@ export class ConversationComponent implements OnChanges, OnInit {
         this.bottomSheet.open(UnitActionsNavListComponent, {
             data: {
                 type: 'allActions',
-                partyID: this.claim.party_id
-            }
+                partyID: this.claim.party_id,
+            },
         });
     }
 }

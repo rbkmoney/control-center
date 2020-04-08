@@ -15,7 +15,7 @@ import { ClaimInfoContainer } from '../model';
 
 @Component({
     selector: 'cc-claim-info',
-    templateUrl: 'claim-info.component.html'
+    templateUrl: 'claim-info.component.html',
 })
 export class ClaimInfoComponent implements OnInit {
     claimInfoContainer: ClaimInfoContainer;
@@ -66,27 +66,27 @@ export class ClaimInfoComponent implements OnInit {
 
     add() {
         this.bottomSheet.open(UnitActionsNavListComponent, {
-            data: { type: 'allActions', partyID: this.partyID }
+            data: { type: 'allActions', partyID: this.partyID },
         });
     }
 
     cloneClaim() {
         this.dialog.open(CloneClaimComponent, {
             disableClose: true,
-            data: { partyID: this.partyID, claimID: this.claimID }
+            data: { partyID: this.partyID, claimID: this.claimID },
         });
     }
 
     accept() {
         this.dialog.open(AcceptClaimComponent, {
-            disableClose: true
+            disableClose: true,
         });
     }
 
     deny() {
         this.dialog.open(DenyClaimComponent, {
             disableClose: true,
-            width: '30vw'
+            width: '30vw',
         });
     }
 

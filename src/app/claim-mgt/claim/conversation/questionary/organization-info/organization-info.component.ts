@@ -4,19 +4,19 @@ import get from 'lodash-es/get';
 import { getUnionKey, getUnionValue } from '../../../../../shared/utils/get-union-key';
 import {
     Contractor,
-    WithoutChiefAccountant
+    WithoutChiefAccountant,
 } from '../../../../../thrift-services/ank/gen-model/questionary';
 
 const WithoutChiefAccountantTitles: { [name in keyof WithoutChiefAccountant]: string } = {
     accounting_organization: 'Организация ведущая бухгалтерский учет',
     head_accounting: 'Руководитель организации',
-    individual_accountant: 'Бухгалтер - индивидуальный специалист'
+    individual_accountant: 'Бухгалтер - индивидуальный специалист',
 };
 
 @Component({
     selector: 'cc-organization-info',
     templateUrl: 'organization-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationInfoComponent {
     @Input() contractor: Contractor;

@@ -21,7 +21,7 @@ export class DomainInfoService {
     initialize(): Observable<void> {
         return combineLatest([
             this.domainService.shapshot,
-            this.metadataService.getDomainDef()
+            this.metadataService.getDomainDef(),
         ]).pipe(
             tap(([shapshot, domainDef]) => {
                 this.payload$.next({ shapshot, domainDef });

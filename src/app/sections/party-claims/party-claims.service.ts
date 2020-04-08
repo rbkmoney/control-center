@@ -27,12 +27,12 @@ export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
                     party_id,
                     ...params,
                     continuation_token: continuationToken,
-                    limit: SEARCH_LIMIT
+                    limit: SEARCH_LIMIT,
                 })
             ),
             map(({ result, continuation_token }) => ({
                 result,
-                continuationToken: continuation_token
+                continuationToken: continuation_token,
             }))
         );
     }

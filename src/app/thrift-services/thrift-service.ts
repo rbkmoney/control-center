@@ -62,8 +62,8 @@ export class ThriftService {
                     'x-rbk-meta-user-identity.email': email,
                     'x-rbk-meta-user-identity.realm': this.realm,
                     'x-rbk-meta-user-identity.username': preferred_username,
-                    'x-rbk-meta-user-identity.id': sub
-                }
+                    'x-rbk-meta-user-identity.id': sub,
+                },
             },
             errorCb
         );

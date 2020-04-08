@@ -28,7 +28,7 @@ export class SearchFormService {
             payoutIds: '',
             currencyCode: '',
             minAmount: [0, [Validators.required, Validators.min(0)]],
-            maxAmount: [1000000000, [Validators.required, Validators.min(0)]]
+            maxAmount: [1000000000, [Validators.required, Validators.min(0)]],
         });
     }
 }

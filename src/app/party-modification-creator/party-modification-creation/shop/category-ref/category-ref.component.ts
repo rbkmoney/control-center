@@ -12,7 +12,7 @@ import { CategoryRef } from '../../../../thrift-services/damsel/gen-model/domain
 
 @Component({
     selector: 'cc-category-ref',
-    templateUrl: 'category-ref.component.html'
+    templateUrl: 'category-ref.component.html',
 })
 export class CategoryRefComponent implements OnInit {
     @Input()
@@ -41,7 +41,7 @@ export class CategoryRefComponent implements OnInit {
             this.fb.control(
                 {
                     value: category,
-                    disabled: category.length === 0
+                    disabled: category.length === 0,
                 },
                 this.required ? Validators.required : null
             )

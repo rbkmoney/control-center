@@ -6,12 +6,12 @@ import { RepresentativeDocument } from '../../../../thrift-services/damsel/gen-m
 
 enum Type {
     articlesOfAssociation = 'articles_of_association',
-    powerOfAttorney = 'power_of_attorney'
+    powerOfAttorney = 'power_of_attorney',
 }
 
 @Component({
     selector: 'cc-representative-document',
-    templateUrl: 'representative-document.component.html'
+    templateUrl: 'representative-document.component.html',
 })
 export class RepresentativeDocumentComponent implements OnInit {
     @Input()

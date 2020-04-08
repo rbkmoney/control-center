@@ -8,7 +8,7 @@ import { DomainGroupService } from './domain-group.service';
 @Component({
     selector: 'cc-domain-group',
     templateUrl: './domain-group.component.html',
-    providers: [DomainGroupService]
+    providers: [DomainGroupService],
 })
 export class DomainGroupComponent implements OnInit {
     group: DomainGroup[];

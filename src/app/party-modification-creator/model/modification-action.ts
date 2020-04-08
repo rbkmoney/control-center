@@ -3,7 +3,7 @@ import { ShopModificationName } from './shop-modification-name';
 
 export enum ActionType {
     contractAction = 'contractAction',
-    shopAction = 'shopAction'
+    shopAction = 'shopAction',
 }
 
 export interface ModificationAction {

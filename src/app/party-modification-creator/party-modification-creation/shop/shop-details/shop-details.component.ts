@@ -6,7 +6,7 @@ import { ShopDetails } from '../../../../thrift-services/damsel/gen-model/domain
 
 @Component({
     selector: 'cc-shop-details',
-    templateUrl: 'shop-details.component.html'
+    templateUrl: 'shop-details.component.html',
 })
 export class ShopDetailsComponent implements OnInit {
     @Input()

@@ -5,7 +5,7 @@ import { Content } from '../../document';
 export function createFooter({
     margin,
     text,
-    content
+    content,
 }: {
     margin: Margins;
     text: string;
@@ -26,15 +26,15 @@ export function createFooter({
                             y1: -lineOffsetIn,
                             x2: lineSizeIn,
                             y2: -lineOffsetIn,
-                            lineWidth: 0.5
-                        }
-                    ]
+                            lineWidth: 0.5,
+                        },
+                    ],
                 },
                 {
                     style: { fontSize: 6 },
-                    text
-                }
-            ]
-        ]
+                    text,
+                },
+            ],
+        ],
     });
 }

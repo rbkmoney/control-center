@@ -10,7 +10,7 @@ interface RouteData {
 }
 
 @Component({
-    templateUrl: 'clone-claim.component.html'
+    templateUrl: 'clone-claim.component.html',
 })
 export class CloneClaimComponent {
     constructor(
@@ -22,7 +22,7 @@ export class CloneClaimComponent {
     cloneClaim() {
         this.dialogRef.close();
         this.router.navigate([
-            `/claims/${this.data.partyID}/${ClaimActionType.create}/${this.data.claimID}`
+            `/claims/${this.data.partyID}/${ClaimActionType.create}/${this.data.claimID}`,
         ]);
     }
 }

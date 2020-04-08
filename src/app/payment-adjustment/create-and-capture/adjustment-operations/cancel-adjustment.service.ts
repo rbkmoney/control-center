@@ -3,7 +3,7 @@ import {
     AdjustmentOperationEvent,
     EventType,
     OperationError,
-    OperationFailedPayload
+    OperationFailedPayload,
 } from './adjustment-event';
 import { AdjustmentOperationService } from './adjustment-operation.service';
 import { PaymentAdjustmentCancelParams } from './adjustment-params';
@@ -15,7 +15,7 @@ export class CancelAdjustmentService extends AdjustmentOperationService {
         return cancelParams.map((params) => ({
             fn: this.manager.cancelPaymentAdjustment,
             context: this.manager,
-            params
+            params,
         }));
     }
 
@@ -25,14 +25,14 @@ export class CancelAdjustmentService extends AdjustmentOperationService {
             this.events$.next({
                 type: EventType.PaymentAdjustmentsCancelled,
                 operationType: ExecResultType.success,
-                payload: success.map(({ container: { params } }) => params)
+                payload: success.map(({ container: { params } }) => params),
             } as AdjustmentOperationEvent<PaymentAdjustmentCancelParams>);
         }
         if (error) {
             this.events$.next({
                 type: EventType.CancelPaymentAdjustmentFailed,
                 operationType: ExecResultType.error,
-                payload: this.toErrorPayload(error)
+                payload: this.toErrorPayload(error),
             } as OperationError<CancelPaymentAdjustmentErrorCodes | 'InternalServer', PaymentAdjustmentCancelParams>);
         }
     }
@@ -41,18 +41,18 @@ export class CancelAdjustmentService extends AdjustmentOperationService {
         return result.map((error) => {
             const {
                 exception,
-                container: { params }
+                container: { params },
             } = error;
             const errorCodes = [
                 'InvalidUser',
                 'InvoiceNotFound',
                 'InvoicePaymentNotFound',
                 'InvoicePaymentAdjustmentNotFound',
-                'InvalidPaymentAdjustmentStatus'
+                'InvalidPaymentAdjustmentStatus',
             ];
             return {
                 code: errorCodes.includes(exception.name) ? exception.name : 'InternalServer',
-                operationScope: params
+                operationScope: params,
             };
         });
     }

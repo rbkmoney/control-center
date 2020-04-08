@@ -5,8 +5,8 @@ export function createHeadline(text: string): Content {
         text,
         style: {
             alignment: 'center',
-            bold: true
+            bold: true,
         },
-        margin: cmMarginsToIn(0, 0.1, 0, 0.1)
+        margin: cmMarginsToIn(0, 0.1, 0, 0.1),
     };
 }

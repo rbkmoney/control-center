@@ -23,8 +23,8 @@ import { PartiesComponent } from './parties.component';
         MatInputModule,
         MatButtonModule,
         MatProgressSpinnerModule,
-        SharedModule
+        SharedModule,
     ],
-    declarations: [PartiesComponent]
+    declarations: [PartiesComponent],
 })
 export class PartiesModule {}

@@ -8,7 +8,7 @@ import { Machine, MachineDescriptor, Reference } from './gen-model/state_process
 import * as Automaton from './gen-nodejs/Automaton';
 import {
     MachineDescriptor as MachineDescriptorObject,
-    Reference as ReferenceObject
+    Reference as ReferenceObject,
 } from './gen-nodejs/state_processing_types';
 
 @Injectable()

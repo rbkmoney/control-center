@@ -5,7 +5,7 @@ import {
     OnChanges,
     OnInit,
     Output,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -13,7 +13,7 @@ import { ActionType, ModificationAction } from '../../claim/modification-action'
 import {
     ContractModification,
     PartyModification,
-    ShopModification
+    ShopModification,
 } from '../../thrift-services/damsel/gen-model/payment_processing';
 import { ContractModificationName, ShopModificationName } from '../model';
 import { filterEmptyStringValues } from './filter-empty-string-value';
@@ -21,7 +21,7 @@ import { toPartyModification } from './to-party-modification';
 
 @Component({
     selector: 'cc-party-modification-creation',
-    templateUrl: 'party-modification-creation.component.html'
+    templateUrl: 'party-modification-creation.component.html',
 })
 export class PartyModificationCreationComponent implements OnInit, OnChanges {
     @Input()
@@ -55,11 +55,11 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
             unitID: [
                 {
                     value: this.unitID,
-                    disabled: this.unitIDDisabled
+                    disabled: this.unitIDDisabled,
                 },
-                Validators.required
+                Validators.required,
             ],
-            modification: this.fb.group({})
+            modification: this.fb.group({}),
         });
         this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
         this.form.valueChanges.subscribe(() => {

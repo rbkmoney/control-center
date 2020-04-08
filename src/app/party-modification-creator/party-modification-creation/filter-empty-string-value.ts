@@ -13,7 +13,7 @@ function filterObject(object: object, filter: Filter): object {
             if (filter(value)) {
                 return {
                     ...result,
-                    [key]: filterValues(value, filter)
+                    [key]: filterValues(value, filter),
                 };
             }
             return result;

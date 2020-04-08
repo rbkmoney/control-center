@@ -10,7 +10,7 @@ import { ProviderInfo, ShopDetailsService } from './shop-details.service';
 @Component({
     templateUrl: 'shop-details.component.html',
     styleUrls: ['shop-details.component.scss'],
-    providers: [ShopDetailsService]
+    providers: [ShopDetailsService],
 })
 export class ShopDetailsComponent implements OnInit {
     isLoading = false;
@@ -35,10 +35,10 @@ export class ShopDetailsComponent implements OnInit {
             data: {
                 shopID: this.shop.id,
                 partyID: this.partyID,
-                shopCategoryID: this.shop.category.id
+                shopCategoryID: this.shop.category.id,
             },
             width: '800px',
-            disableClose: true
+            disableClose: true,
         };
         const dialog = this.dialog.open(AddProviderComponent, config);
         dialog

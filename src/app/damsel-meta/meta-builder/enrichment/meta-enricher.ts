@@ -7,7 +7,7 @@ import {
     MetaTypedef,
     MetaTypeDefined,
     MetaUnion,
-    PrimitiveType
+    PrimitiveType,
 } from '../../model';
 import { findMeta } from '../find-meta';
 import { MetaGroup, MetaTypeCondition } from '../model';
@@ -51,7 +51,7 @@ export class MetaEnricher {
             const { resolved, errors } = resolver.resolve(enriched);
             return {
                 enriched: resolved,
-                errors: [...this.errors, ...errors]
+                errors: [...this.errors, ...errors],
             };
         }
         return { enriched, errors: this.errors };
@@ -60,11 +60,11 @@ export class MetaEnricher {
     private enrichStructUnion(meta: MetaStruct | MetaUnion): MetaStruct | MetaUnion {
         const fields = meta.fields.map((f) => ({
             ...f,
-            meta: this.enrichObjectMeta(f.meta)
+            meta: this.enrichObjectMeta(f.meta),
         }));
         const result = {
             ...meta,
-            fields
+            fields,
         };
         this.enrichedObjects = [...this.enrichedObjects, result];
         return result;
@@ -99,7 +99,7 @@ export class MetaEnricher {
     private enrichCollection(meta: MetaCollection): MetaCollection {
         return {
             ...meta,
-            itemMeta: this.enrichCollectionMapMeta(meta.itemMeta)
+            itemMeta: this.enrichCollectionMapMeta(meta.itemMeta),
         };
     }
 
@@ -107,7 +107,7 @@ export class MetaEnricher {
         return {
             ...meta,
             keyMeta: this.enrichCollectionMapMeta(meta.keyMeta),
-            valueMeta: this.enrichCollectionMapMeta(meta.valueMeta)
+            valueMeta: this.enrichCollectionMapMeta(meta.valueMeta),
         };
     }
 
@@ -198,11 +198,11 @@ export class MetaEnricher {
         return second
             ? {
                   namespace: first,
-                  type: second
+                  type: second,
               }
             : {
                   namespace: this.namespace,
-                  type: first
+                  type: first,
               };
     }
 

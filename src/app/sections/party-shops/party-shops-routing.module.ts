@@ -12,10 +12,10 @@ import { PartyShopsComponent } from './party-shops.component';
                 component: PartyShopsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims']
-                }
-            }
-        ])
-    ]
+                    roles: ['get_claims'],
+                },
+            },
+        ]),
+    ],
 })
 export class PartyShopsRoutingModule {}

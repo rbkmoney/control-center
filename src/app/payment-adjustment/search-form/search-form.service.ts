@@ -17,7 +17,7 @@ export class SearchFormService {
         return {
             ...value,
             fromTime: fromTime ? fromTime.startOf('day').toISOString() : '',
-            toTime: toTime ? toTime.endOf('day').toISOString() : ''
+            toTime: toTime ? toTime.endOf('day').toISOString() : '',
         };
     }
 
@@ -31,7 +31,7 @@ export class SearchFormService {
             fromRevision: ['', Validators.required],
             toRevision: ['', Validators.required],
             status: 'captured',
-            invoiceId: ''
+            invoiceId: '',
         });
     }
 }

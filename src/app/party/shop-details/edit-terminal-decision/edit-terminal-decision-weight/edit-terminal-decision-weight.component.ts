@@ -13,7 +13,7 @@ export interface EditWeightData {
 
 @Component({
     templateUrl: 'edit-terminal-decision-weight.component.html',
-    providers: [EditTerminalDecisionWeightService]
+    providers: [EditTerminalDecisionWeightService],
 })
 export class EditTerminalDecisionWeightComponent implements OnInit {
     isLoading$;

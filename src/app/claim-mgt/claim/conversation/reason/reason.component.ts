@@ -4,7 +4,7 @@ import { StatusModificationUnit } from '../../../../thrift-services/damsel/gen-m
 
 @Component({
     selector: 'cc-reason',
-    templateUrl: 'reason.component.html'
+    templateUrl: 'reason.component.html',
 })
 export class ReasonComponent {
     @Input() statusModificationUnit: StatusModificationUnit;

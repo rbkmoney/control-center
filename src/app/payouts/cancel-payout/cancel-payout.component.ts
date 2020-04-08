@@ -8,7 +8,7 @@ import { CancelPayoutService } from './cancel-payout.service';
 
 @Component({
     templateUrl: './cancel-payout.component.html',
-    providers: [CancelPayoutService]
+    providers: [CancelPayoutService],
 })
 export class CancelPayoutComponent implements OnInit {
     form: FormGroup;

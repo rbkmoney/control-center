@@ -43,15 +43,15 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatMenuModule,
         MatDialogModule,
         CdkTableModule,
-        SharedModule
+        SharedModule,
     ],
     declarations: [
         ClaimsComponent,
         SearchFormComponent,
         ClaimsTableComponent,
         ClaimActionsComponent,
-        CreateClaimComponent
+        CreateClaimComponent,
     ],
-    entryComponents: [CreateClaimComponent]
+    entryComponents: [CreateClaimComponent],
 })
 export class ClaimsModule {}

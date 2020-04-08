@@ -66,7 +66,7 @@ import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-sche
         MatIconModule,
         MatDividerModule,
         MatSnackBarModule,
-        MatProgressBarModule
+        MatProgressBarModule,
     ],
     declarations: [
         PartyModificationCreationComponent,
@@ -107,8 +107,8 @@ import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-sche
         InternationalLegalEntityComponent,
         NestedFormWrapperComponent,
         FormWrapperComponent,
-        BusinessScheduleSelectorComponent
+        BusinessScheduleSelectorComponent,
     ],
-    exports: [PartyModificationCreationComponent]
+    exports: [PartyModificationCreationComponent],
 })
 export class PartyModificationCreationModule {}

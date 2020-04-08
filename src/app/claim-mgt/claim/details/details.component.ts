@@ -11,7 +11,7 @@ import { StatusChangerComponent } from '../status-changer/status-changer.compone
 
 @Component({
     selector: 'cc-claim-details',
-    templateUrl: 'details.component.html'
+    templateUrl: 'details.component.html',
 })
 export class DetailsComponent {
     @Input() claim: Claim;
@@ -36,8 +36,8 @@ export class DetailsComponent {
                 data: {
                     partyID: this.claim.party_id,
                     claimID: this.claim.id,
-                    claimStatus: this.claim.status
-                }
+                    claimStatus: this.claim.status,
+                },
             })
             .afterClosed()
             .pipe(filter((r) => r))

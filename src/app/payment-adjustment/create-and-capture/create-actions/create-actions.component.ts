@@ -9,14 +9,14 @@ import {
     CreatePaymentAdjustmentErrorCodes,
     EventType,
     OperationFailedPayload,
-    PaymentAdjustmentCreationScope
+    PaymentAdjustmentCreationScope,
 } from '../adjustment-operations';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCreationScope>;
 
 @Component({
     selector: 'cc-create-actions',
-    templateUrl: 'create-actions.component.html'
+    templateUrl: 'create-actions.component.html',
 })
 export class CreateActionsComponent implements OnInit {
     @Input()
@@ -77,12 +77,12 @@ export class CreateActionsComponent implements OnInit {
         const captureParams = this.createResult.map(
             ({
                 adjustmentId: adjustment_id,
-                creationParams: { user, invoice_id, payment_id }
+                creationParams: { user, invoice_id, payment_id },
             }) => ({
                 user,
                 invoice_id,
                 payment_id,
-                adjustment_id
+                adjustment_id,
             })
         );
         this.createResult = [];
@@ -99,20 +99,20 @@ export class CreateActionsComponent implements OnInit {
             ({
                 operationScope: {
                     adjustmentId: adjustment_id,
-                    creationParams: { user, invoice_id, payment_id }
-                }
+                    creationParams: { user, invoice_id, payment_id },
+                },
             }) => ({
                 user,
                 invoice_id,
                 payment_id,
-                adjustment_id
+                adjustment_id,
             })
         );
         this.failedPending = [];
         this.batchAdjustmentService.cancel(cancelParams).subscribe({
             error: () => {
                 this.snackBar.open('An error occurred while adjustments cancel');
-            }
+            },
         });
     }
 
@@ -122,7 +122,7 @@ export class CreateActionsComponent implements OnInit {
         this.batchAdjustmentService.create(createParams).subscribe({
             error: () => {
                 this.snackBar.open('An error occurred while adjustments create');
-            }
+            },
         });
     }
 }

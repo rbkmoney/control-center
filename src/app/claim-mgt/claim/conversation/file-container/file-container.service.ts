@@ -8,7 +8,7 @@ import { booleanDelay } from '../../../../custom-operators';
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import {
     FileData,
-    FileNotFound
+    FileNotFound,
 } from '../../../../thrift-services/file-storage/gen-model/file_storage';
 import { download } from './download';
 

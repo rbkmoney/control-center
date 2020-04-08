@@ -45,16 +45,16 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatMenuModule,
         MatDialogModule,
         CdkTableModule,
-        SharedModule
+        SharedModule,
     ],
     declarations: [
         ClaimsComponent,
         SearchFormComponent,
         ClaimsTableComponent,
         ClaimActionsComponent,
-        CreateClaimComponent
+        CreateClaimComponent,
     ],
     entryComponents: [CreateClaimComponent],
-    providers: [ClaimsService, ClaimManagementService]
+    providers: [ClaimsService, ClaimManagementService],
 })
 export class ClaimsModule {}

@@ -6,7 +6,7 @@ import { ContractParams } from '../../../../thrift-services/damsel/gen-model/pay
 
 @Component({
     selector: 'cc-contract-params',
-    templateUrl: 'contract-params.component.html'
+    templateUrl: 'contract-params.component.html',
 })
 export class ContractParamsComponent implements OnInit {
     @Input()

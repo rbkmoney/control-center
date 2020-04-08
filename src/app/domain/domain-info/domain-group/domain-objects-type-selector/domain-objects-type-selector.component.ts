@@ -6,7 +6,7 @@ import { DomainGroup } from '../domain-group';
 
 @Component({
     selector: 'cc-domain-objects-type-selector',
-    templateUrl: './domain-objects-type-selector.component.html'
+    templateUrl: './domain-objects-type-selector.component.html',
 })
 export class DomainObjectsTypeSelectorComponent implements OnChanges {
     @Input() group: DomainGroup[];

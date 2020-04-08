@@ -7,7 +7,7 @@ import { ClaimManagementService } from '../../../thrift-services/damsel/claim-ma
 import {
     ClaimChangeset,
     ClaimID,
-    Modification
+    Modification,
 } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ConversationId } from '../../../thrift-services/messages/gen-model/messages';
 import { MessagesService } from '../../../thrift-services/messages/messages.service';

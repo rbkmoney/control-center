@@ -5,7 +5,7 @@ import { CreateClaimComponent } from '../create-claim/create-claim.component';
 
 @Component({
     selector: 'cc-claim-actions',
-    templateUrl: 'claim-actions.component.html'
+    templateUrl: 'claim-actions.component.html',
 })
 export class ClaimActionsComponent {
     constructor(private dialogRef: MatDialog) {}
@@ -13,7 +13,7 @@ export class ClaimActionsComponent {
     createClaim() {
         this.dialogRef.open(CreateClaimComponent, {
             width: '400px',
-            disableClose: true
+            disableClose: true,
         });
     }
 }

@@ -5,7 +5,7 @@ import { RussianBankAccount } from '../../../../../thrift-services/ank/gen-model
 @Component({
     selector: 'cc-bank-account-info',
     templateUrl: 'bank-account-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BankAccountInfoComponent {
     @Input() bankAccount: RussianBankAccount;

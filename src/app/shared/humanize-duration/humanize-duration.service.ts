@@ -21,13 +21,13 @@ export class HumanizeDurationService {
         return humanizeDuration.humanizer({
             language: 'en',
             round: true,
-            delimiter: ' '
+            delimiter: ' ',
         });
     }
 
     get shortEnglishHumanizer(): humanizeDuration.HumanizerOptions {
         return {
-            language: 'short'
+            language: 'short',
         };
     }
 

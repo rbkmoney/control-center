@@ -9,7 +9,7 @@ import { ModificationGroupType, PartyModificationUnit } from '../model';
 
 @Component({
     selector: 'cc-party-modifications',
-    templateUrl: 'party-modifications.component.html'
+    templateUrl: 'party-modifications.component.html',
 })
 export class PartyModificationsComponent implements OnInit {
     shopUnits: PartyModificationUnit[] = [];

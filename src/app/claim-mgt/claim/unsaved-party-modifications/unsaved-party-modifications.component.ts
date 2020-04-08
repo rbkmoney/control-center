@@ -6,7 +6,7 @@ import {
     OnChanges,
     OnInit,
     Output,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
 import isEqual from 'lodash-es/isEqual';
 
@@ -17,7 +17,7 @@ import { UnsavedPartyModificationService } from './unsaved-party-modifications.s
     selector: 'cc-unsaved-party-modifications',
     templateUrl: 'unsaved-party-modifications.component.html',
     providers: [UnsavedPartyModificationService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnsavedPartyModificationsComponent implements OnChanges, OnInit {
     @Input() partyModifications: PartyModification[];

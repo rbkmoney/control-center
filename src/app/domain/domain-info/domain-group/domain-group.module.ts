@@ -25,7 +25,7 @@ import { GroupTableComponent } from './group-table';
         DomainGroupComponent,
         DomainObjectsTypeSelectorComponent,
         GroupControlComponent,
-        GroupTableComponent
+        GroupTableComponent,
     ],
     imports: [
         CommonModule,
@@ -42,8 +42,8 @@ import { GroupTableComponent } from './group-table';
         MatCheckboxModule,
         MatSelectModule,
         SharedModule,
-        MatSortModule
+        MatSortModule,
     ],
-    exports: [DomainGroupComponent]
+    exports: [DomainGroupComponent],
 })
 export class DomainGroupModule {}

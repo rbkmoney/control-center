@@ -8,7 +8,7 @@ function getTypeDef(domainObjDef: Field[]) {
     return domainObjDef.reduce(
         (acc, { name, type }) => ({
             ...acc,
-            [name]: type
+            [name]: type,
         }),
         {}
     );
@@ -39,11 +39,11 @@ function groupByType(domain: Domain, domainObjDef: Field[]) {
         const type = getDomainObjType(cleared, domainObjDef);
         const val = {
             ref,
-            object: getDomainObjVal(cleared)
+            object: getDomainObjVal(cleared),
         };
         result = {
             ...result,
-            ...groupResult(result, type, val)
+            ...groupResult(result, type, val),
         };
     }
     return result;

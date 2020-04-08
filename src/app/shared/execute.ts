@@ -4,7 +4,7 @@ type Fn = () => Observable<any>;
 
 export enum ExecStateType {
     success = 'success',
-    error = 'error'
+    error = 'error',
 }
 
 interface BaseExecState {
@@ -49,7 +49,7 @@ async function exec(
     while (func) {
         const result: any = {
             func: func[1],
-            idx: func[0]
+            idx: func[0],
         };
         try {
             (result as SuccessExecState).data = await func[1]().toPromise();

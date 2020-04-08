@@ -5,7 +5,7 @@ import { MonacoFile } from './model';
 import { MonacoDiffEditorService } from './monaco-diff-editor.service';
 
 @Directive({
-    selector: 'cc-monaco-diff-editor,[ccMonacoDiffEditor]'
+    selector: 'cc-monaco-diff-editor,[ccMonacoDiffEditor]',
 })
 export class MonacoDiffEditorDirective extends AbstractMonacoDirective {
     @Input() original: MonacoFile;

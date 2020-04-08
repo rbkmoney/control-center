@@ -14,7 +14,7 @@ import { PaymentProcessingService } from './payment-processing.service';
         PaymentProcessingService,
         MerchantStatisticsService,
         DomainCacheService,
-        ClaimManagementService
-    ]
+        ClaimManagementService,
+    ],
 })
 export class DamselModule {}

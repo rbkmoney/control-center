@@ -38,7 +38,7 @@ export class DepositsService extends PartialFetcher<StatDeposit, SearchFormParam
                 const polledDepositParams: SearchFormParams = {
                     fromTime: moment().startOf('d').toISOString(),
                     toTime: moment().endOf('d').toISOString(),
-                    depositId: deposit.id
+                    depositId: deposit.id,
                 };
                 this.search(polledDepositParams);
             });

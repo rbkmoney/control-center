@@ -9,7 +9,7 @@ import {
     QuestionaryID,
     QuestionaryParams,
     Snapshot,
-    Version
+    Version,
 } from './gen-model/questionary_manager';
 import * as QuestionaryManager from './gen-nodejs/QuestionaryManager';
 

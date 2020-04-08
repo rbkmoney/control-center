@@ -10,5 +10,5 @@ export const createSingleMessageConversationParams = (
 ): Conversation => ({
     conversation_id,
     messages: [{ message_id: uuid(), text, user_id, timestamp: moment().toISOString() }],
-    status: ConversationStatus.ACTUAL
+    status: ConversationStatus.ACTUAL,
 });

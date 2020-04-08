@@ -8,7 +8,7 @@ import { formValueToSearchParams } from './to-search-params';
 @Component({
     selector: 'cc-payouts-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent implements OnInit {
     @Output()

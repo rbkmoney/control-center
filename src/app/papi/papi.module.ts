@@ -9,6 +9,6 @@ import { PayoutsService } from './payouts.service';
 
 @NgModule({
     imports: [HttpClientModule],
-    providers: [ClaimService, CategoryService, ContractService, PayoutsService, PartyService]
+    providers: [ClaimService, CategoryService, ContractService, PayoutsService, PartyService],
 })
 export class PapiModule {}

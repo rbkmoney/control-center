@@ -12,11 +12,11 @@ import { ClaimsComponent } from './claims.component';
                 component: ClaimsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims']
-                }
-            }
-        ])
+                    roles: ['get_claims'],
+                },
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ClaimsRoutingModule {}

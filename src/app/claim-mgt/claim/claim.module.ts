@@ -37,9 +37,9 @@ import { StatusChangerComponent } from './status-changer/status-changer.componen
         MatListModule,
         MatBottomSheetModule,
         MatStepperModule,
-        ConfirmActionDialogModule
+        ConfirmActionDialogModule,
     ],
     declarations: [ClaimComponent, DetailsComponent, StatusChangerComponent],
-    entryComponents: [StatusChangerComponent]
+    entryComponents: [StatusChangerComponent],
 })
 export class ClaimModule {}

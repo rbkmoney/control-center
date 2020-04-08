@@ -7,7 +7,7 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,7 +20,7 @@ import { CancelPayoutComponent } from '../cancel-payout/cancel-payout.component'
 @Component({
     selector: 'cc-payouts-table',
     templateUrl: 'payouts-table.component.html',
-    styleUrls: ['./payouts-table.component.css']
+    styleUrls: ['./payouts-table.component.css'],
 })
 export class PayoutsTableComponent implements OnInit, OnChanges {
     @Output()
@@ -45,7 +45,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         'period',
         'status',
         'type',
-        'payoutDetailButton'
+        'payoutDetailButton',
     ];
 
     constructor(private matDialog: MatDialog, private keycloakService: KeycloakService) {}
@@ -74,7 +74,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
 
     cancelPayout(id: string) {
         this.matDialog.open(CancelPayoutComponent, {
-            data: id
+            data: id,
         });
     }
 

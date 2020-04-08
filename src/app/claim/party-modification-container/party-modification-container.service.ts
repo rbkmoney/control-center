@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ContractModificationName, ShopModificationName } from '../../party-modification-creator';
 import {
     ContractModificationUnit,
-    ShopModificationUnit
+    ShopModificationUnit,
 } from '../../thrift-services/damsel/gen-model/payment_processing';
 import { ModificationGroupType } from '../model';
 import { ActionType } from '../modification-action';
@@ -22,14 +22,14 @@ export class PartyModificationContainerService {
             data: {
                 action: {
                     type: actionType,
-                    name
+                    name,
                 },
                 unitID,
                 partyID,
-                modification
+                modification,
             },
             width: '800px',
-            disableClose: true
+            disableClose: true,
         };
     }
 

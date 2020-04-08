@@ -30,11 +30,11 @@ export function createQuestionary(
             footer: createFooter({
                 margin: footerMarginsIn,
                 text: data.footer,
-                content: data.prefooter
+                content: data.prefooter,
             }),
             styles: createStyles(),
-            defaultStyle: createDefaultStyle()
+            defaultStyle: createDefaultStyle(),
         },
-        createTableLayouts()
+        createTableLayouts(),
     ];
 }

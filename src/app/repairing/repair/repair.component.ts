@@ -15,7 +15,7 @@ enum Status {
     unknown = 'unknown',
     unknownError = 'unknown error',
     withdrawalSessionNotFound = 'withdrawal session not found',
-    machineAlreadyWorking = 'machine already working'
+    machineAlreadyWorking = 'machine already working',
 }
 
 interface Element {
@@ -27,7 +27,7 @@ interface Element {
     selector: 'cc-repair',
     templateUrl: 'repair.component.html',
     styleUrls: ['../repairing.component.css'],
-    providers: []
+    providers: [],
 })
 export class RepairComponent {
     displayedColumns: string[] = ['select', 'id', 'status'];
@@ -78,14 +78,14 @@ export class RepairComponent {
     getScenario(scenario: string, code: string): RepairScenario {
         return {
             [scenario]: {
-                result: { failed: { failure: { code } } }
-            }
+                result: { failed: { failure: { code } } },
+            },
         };
     }
 
     repairDialog() {
         const dialogRef = this.dialog.open(RepairSettingsComponent, {
-            width: '600px'
+            width: '600px',
         });
         dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {
             this.repair(this.selection.selected, this.getScenario(scenario, code));

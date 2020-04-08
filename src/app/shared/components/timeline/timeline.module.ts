@@ -13,12 +13,12 @@ const EXPORTED_DECLARATIONS = [
     TimelineItemComponent,
     TimelineItemTitleComponent,
     TimelineItemBadgeComponent,
-    TimelineItemContentComponent
+    TimelineItemContentComponent,
 ];
 
 @NgModule({
     imports: [FlexLayoutModule, CommonModule],
     declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS
+    exports: EXPORTED_DECLARATIONS,
 })
 export class TimelineModule {}

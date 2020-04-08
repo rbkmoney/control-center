@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
-    MomentDateAdapter
+    MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -61,14 +61,14 @@ moment.locale('en');
         DepositsModule,
         ClaimMgtModule,
         PartyModule,
-        OldPartyModule
+        OldPartyModule,
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_LOCALE, useValue: 'en' }
+        { provide: MAT_DATE_LOCALE, useValue: 'en' },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

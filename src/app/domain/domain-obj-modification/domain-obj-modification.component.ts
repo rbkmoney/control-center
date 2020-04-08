@@ -16,7 +16,7 @@ import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confir
 @Component({
     templateUrl: './domain-obj-modification.component.html',
     styleUrls: ['../editor-container.scss'],
-    providers: [DomainObjModificationService]
+    providers: [DomainObjModificationService],
 })
 export class DomainObjModificationComponent implements OnInit, OnDestroy {
     initialized = false;
@@ -63,7 +63,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
     resetChanges() {
         this.dialog
             .open(ResetConfirmDialogComponent, {
-                width: '300px'
+                width: '300px',
             })
             .afterClosed()
             .subscribe((result) => {

@@ -7,7 +7,7 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,7 +17,7 @@ import { ProviderObject } from '../../../../thrift-services/damsel/gen-model/dom
 @Component({
     selector: 'cc-select-provider',
     templateUrl: 'select-provider.component.html',
-    styleUrls: ['../add-provider.component.scss']
+    styleUrls: ['../add-provider.component.scss'],
 })
 export class SelectProviderComponent implements OnInit, OnChanges {
     @Input() providers: ProviderObject[];

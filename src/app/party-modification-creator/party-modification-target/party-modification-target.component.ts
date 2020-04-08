@@ -6,7 +6,7 @@ import { TargetType } from './targe-type';
 
 @Component({
     selector: 'cc-party-modification-target',
-    templateUrl: 'party-modification-target.component.html'
+    templateUrl: 'party-modification-target.component.html',
 })
 export class PartyModificationTargetComponent {
     @Input()

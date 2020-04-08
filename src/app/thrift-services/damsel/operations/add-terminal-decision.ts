@@ -12,14 +12,14 @@ const createDecision = (partyID: string, shopID: string, terminalID: number): Te
             party: {
                 id: partyID,
                 definition: {
-                    shop_is: shopID
-                }
-            }
-        }
+                    shop_is: shopID,
+                },
+            },
+        },
     },
     then_: {
-        value: ([{ id: terminalID }] as unknown) as Set<TerminalRef>
-    }
+        value: ([{ id: terminalID }] as unknown) as Set<TerminalRef>,
+    },
 });
 
 const addDecision = (

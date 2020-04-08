@@ -16,11 +16,11 @@ export const getCreateTerminalCommit = (
     const createdTerminalObject = createTerminalObject(terminalObjects, params);
     const insertTerminal = {
         insert: {
-            object: toGenDomainObject(createdTerminalObject.terminalObject, 'terminal')
-        }
+            object: toGenDomainObject(createdTerminalObject.terminalObject, 'terminal'),
+        },
     };
     const commit = {
-        ops: [insertTerminal]
+        ops: [insertTerminal],
     };
     return { commit: toGenCommit(commit), id: createdTerminalObject.id };
 };

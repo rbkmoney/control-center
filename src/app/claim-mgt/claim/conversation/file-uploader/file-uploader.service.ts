@@ -50,7 +50,7 @@ export class FileUploaderService {
                     switchMap((uploadData) =>
                         forkJoin([
                             of(uploadData.file_data_id),
-                            this.uploadFileToUrl(file, uploadData.upload_url)
+                            this.uploadFileToUrl(file, uploadData.upload_url),
                         ])
                     ),
                     map(([fileId]) => fileId)
@@ -65,10 +65,10 @@ export class FileUploaderService {
                 file_modification: {
                     id,
                     modification: {
-                        creation: {}
-                    }
-                }
-            }
+                        creation: {},
+                    },
+                },
+            },
         };
     }
 
@@ -83,8 +83,8 @@ export class FileUploaderService {
         return this.http.put(url, file, {
             headers: {
                 'Content-Disposition': `attachment;filename=${file.name}`,
-                'Content-Type': ''
-            }
+                'Content-Type': '',
+            },
         });
     }
 }

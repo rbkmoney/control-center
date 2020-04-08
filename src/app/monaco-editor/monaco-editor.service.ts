@@ -40,7 +40,7 @@ export class MonacoEditorService extends AbstractMonacoService {
 
     protected createEditor(el: HTMLElement, options: IEditorOptions): monaco.editor.IEditor {
         return monaco.editor.create(el, {
-            ...options
+            ...options,
         });
     }
     protected openFile() {

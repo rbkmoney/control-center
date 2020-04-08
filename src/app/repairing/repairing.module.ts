@@ -55,7 +55,7 @@ import { SimpleRepairComponent } from './simple-repair/simple-repair.component';
         MatTooltipModule,
         FistfulModule,
         MatDialogModule,
-        MatCheckboxModule
+        MatCheckboxModule,
     ],
     declarations: [
         RepairingComponent,
@@ -65,9 +65,9 @@ import { SimpleRepairComponent } from './simple-repair/simple-repair.component';
         RepairComponent,
         RepairSettingsComponent,
         AddIdsInputComponent,
-        RepairingStatusComponent
+        RepairingStatusComponent,
     ],
     entryComponents: [RepairWithScenarioSettingsComponent, RepairSettingsComponent],
-    providers: [RepairingService]
+    providers: [RepairingService],
 })
 export class RepairingModule {}

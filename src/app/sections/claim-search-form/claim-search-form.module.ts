@@ -15,9 +15,9 @@ import { ClaimSearchFormComponent } from './claim-search-form.component';
         SharedModule,
         MatInputModule,
         MatSelectModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     declarations: [ClaimSearchFormComponent],
-    exports: [ClaimSearchFormComponent]
+    exports: [ClaimSearchFormComponent],
 })
 export class ClaimSearchFormModule {}

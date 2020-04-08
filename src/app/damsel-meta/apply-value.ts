@@ -7,7 +7,7 @@ import {
     NumberASTNode,
     ObjectASTNode,
     PropertyASTNode,
-    StringASTNode
+    StringASTNode,
 } from '../jsonc';
 import {
     MetaCollection,
@@ -19,7 +19,7 @@ import {
     MetaType,
     MetaTyped,
     MetaUnion,
-    PrimitiveType
+    PrimitiveType,
 } from './model';
 
 export interface ApplyPayload {
@@ -36,7 +36,7 @@ function applyToCollection(meta: MetaCollection, nodeValue: ASTNode): MetaCollec
     const { items } = nodeValue as ArrayASTNode;
     return {
         ...meta,
-        value: items.map((i) => applyToMeta(meta.itemMeta as MetaTyped, i))
+        value: items.map((i) => applyToMeta(meta.itemMeta as MetaTyped, i)),
     };
 }
 
@@ -67,7 +67,7 @@ function applyToMap(meta: MetaMap, nodeValue: ASTNode): MetaMap {
     }
     return {
         ...meta,
-        value
+        value,
     };
 }
 
@@ -79,7 +79,7 @@ function applyToEnum(meta: MetaEnum, nodeValue: ASTNode): MetaEnum {
     }
     return {
         ...meta,
-        value: (nodeValue as NumberASTNode).value
+        value: (nodeValue as NumberASTNode).value,
     };
 }
 
@@ -138,7 +138,7 @@ function applyToPrimitive(meta: MetaPrimitive, nodeValue: ASTNode): MetaPrimitiv
     }
     return {
         ...meta,
-        value
+        value,
     };
 }
 
@@ -165,7 +165,7 @@ function applyToField(field: MetaField, properties: PropertyASTNode[]): MetaFiel
     return found
         ? {
               ...field,
-              meta: applyToMeta(field.meta as MetaTyped, found.value)
+              meta: applyToMeta(field.meta as MetaTyped, found.value),
           }
         : field;
 }
@@ -190,7 +190,7 @@ function applyToUnion(subject: MetaUnion, value: ASTNode): MetaUnion {
         ...subject,
         settedField: properties[0].location as string,
         fields: applyToFields(subject.fields, properties),
-        virgin: false
+        virgin: false,
     };
 }
 
@@ -203,7 +203,7 @@ function applyToStruct(subject: MetaStruct, value: ASTNode): MetaStruct {
     return {
         ...subject,
         fields: applyToFields(subject.fields, (value as ObjectASTNode).properties),
-        virgin: false
+        virgin: false,
     };
 }
 

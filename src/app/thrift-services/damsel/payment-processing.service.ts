@@ -9,13 +9,13 @@ import {
     InvoicePaymentAdjustment,
     InvoicePaymentAdjustmentParams,
     InvoiceRepairScenario,
-    UserInfo
+    UserInfo,
 } from './gen-model/payment_processing';
 import * as Invoicing from './gen-nodejs/Invoicing';
 import {
     InvoicePaymentAdjustmentParams as InvoicePaymentAdjustmentParamsObject,
     InvoiceRepairScenario as InvoiceRepairScenarioObject,
-    UserInfo as UserInfoObject
+    UserInfo as UserInfoObject,
 } from './gen-nodejs/payment_processing_types';
 
 @Injectable()

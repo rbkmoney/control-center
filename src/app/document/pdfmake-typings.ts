@@ -2,7 +2,7 @@ import {
     Content as PDFMakeContent,
     Style as PDFMakeStyle,
     Table as PDFMakeTable,
-    TableCell as PDFMakeTableCell
+    TableCell as PDFMakeTableCell,
 } from 'pdfmake/build/pdfmake';
 import { Overwrite } from 'utility-types';
 

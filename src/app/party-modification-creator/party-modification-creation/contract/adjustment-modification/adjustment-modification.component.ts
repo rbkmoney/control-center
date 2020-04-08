@@ -5,7 +5,7 @@ import { ContractAdjustmentModification } from '../../../../thrift-services/dams
 
 @Component({
     selector: 'cc-adjustment-modification',
-    templateUrl: 'adjustment-modification.component.html'
+    templateUrl: 'adjustment-modification.component.html',
 })
 export class AdjustmentModificationComponent implements OnInit {
     @Input()

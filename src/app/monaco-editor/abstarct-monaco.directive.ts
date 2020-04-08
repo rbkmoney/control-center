@@ -7,7 +7,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
 
 import { AbstractMonacoService } from './abstract-monaco.service';
@@ -16,7 +16,7 @@ import {
     CompletionProvider,
     IDisposable,
     IEditorOptions,
-    MonacoFile
+    MonacoFile,
 } from './model';
 
 export abstract class AbstractMonacoDirective implements OnInit, OnChanges, OnDestroy {

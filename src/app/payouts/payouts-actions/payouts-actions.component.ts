@@ -10,7 +10,7 @@ import { PayPayoutsComponent } from '../pay-payouts/pay-payouts.component';
 
 @Component({
     selector: 'cc-payouts-actions',
-    templateUrl: 'payouts-actions.component.html'
+    templateUrl: 'payouts-actions.component.html',
 })
 export class PayoutsActionsComponent implements OnInit {
     @Input()
@@ -30,7 +30,7 @@ export class PayoutsActionsComponent implements OnInit {
     pay() {
         this.dialogRef
             .open(PayPayoutsComponent, {
-                data: this.getIds(this.selectedPayouts)
+                data: this.getIds(this.selectedPayouts),
             })
             .afterClosed()
             .pipe(filter((result) => result === 'success'))
@@ -40,7 +40,7 @@ export class PayoutsActionsComponent implements OnInit {
     confirmPayouts() {
         this.dialogRef
             .open(ConfirmPayoutsComponent, {
-                data: this.getIds(this.selectedPayouts)
+                data: this.getIds(this.selectedPayouts),
             })
             .afterClosed()
             .pipe(filter((result) => result === 'success'))
@@ -51,7 +51,7 @@ export class PayoutsActionsComponent implements OnInit {
         this.dialogRef
             .open(CreatePayoutComponent, {
                 width: '720px',
-                disableClose: true
+                disableClose: true,
             })
             .afterClosed()
             .pipe(filter((result) => result === 'success'))

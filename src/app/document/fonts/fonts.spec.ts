@@ -6,14 +6,14 @@ import { FontsService } from './fonts.service';
 describe('FontsService', () => {
     const fonts = {
         serif: {
-            normal: '/assets/regular.ttf'
-        }
+            normal: '/assets/regular.ttf',
+        },
     };
 
     function createDocumentFontsServiceService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [FontsService]
+            providers: [FontsService],
         });
         const injector = getTestBed();
         // tslint:disable-next-line: deprecation
@@ -30,7 +30,7 @@ describe('FontsService', () => {
         service.fontsData$.subscribe((result) => {
             expect(result).toEqual({
                 vfs: { serif_normal: 'AAA=' },
-                fonts: { serif: { normal: 'serif_normal' } }
+                fonts: { serif: { normal: 'serif_normal' } },
             });
         });
         const req = httpMock.expectOne('/assets/regular.ttf');

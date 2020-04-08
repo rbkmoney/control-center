@@ -9,7 +9,7 @@ import { SelectableItem } from './selectable-item';
 @Component({
     selector: 'cc-party-target',
     templateUrl: 'party-target.component.html',
-    providers: [PartyTargetService]
+    providers: [PartyTargetService],
 })
 export class PartyTargetComponent implements OnInit {
     @Input()

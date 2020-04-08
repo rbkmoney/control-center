@@ -7,7 +7,7 @@ import { RepairingService } from './repairing.service';
 @Component({
     templateUrl: 'repairing.component.html',
     styleUrls: ['repairing.component.css'],
-    providers: []
+    providers: [],
 })
 export class RepairingComponent {
     progress$: Observable<number>;

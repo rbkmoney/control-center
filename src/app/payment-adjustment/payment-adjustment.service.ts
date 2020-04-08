@@ -53,7 +53,7 @@ export class PaymentAdjustmentService {
             toTime,
             status,
             shopId,
-            invoiceId
+            invoiceId,
         } = params;
         return this.merchantStatisticsService.getPayments({
             dsl: JSON.stringify({
@@ -66,11 +66,11 @@ export class PaymentAdjustmentService {
                         from_payment_domain_revision: fromRevision,
                         to_payment_domain_revision: toRevision,
                         ...(status ? { payment_status: status } : {}),
-                        ...(invoiceId ? { invoice_id: invoiceId } : {})
-                    }
-                }
+                        ...(invoiceId ? { invoice_id: invoiceId } : {}),
+                    },
+                },
             } as QueryDSL),
-            ...(continuationToken ? { continuation_token: continuationToken } : {})
+            ...(continuationToken ? { continuation_token: continuationToken } : {}),
         });
     }
 }

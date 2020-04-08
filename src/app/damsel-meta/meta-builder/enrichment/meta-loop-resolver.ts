@@ -7,7 +7,7 @@ import {
     MetaStruct,
     MetaType,
     MetaTyped,
-    MetaUnion
+    MetaUnion,
 } from '../../model';
 import { registerError } from '../utils';
 
@@ -30,7 +30,7 @@ export class MetaLoopResolver {
     resolve(target: MetaStruct | MetaUnion): ResolveLoopResult {
         const result = {
             resolved: this.resolveObject(target),
-            errors: this.errors
+            errors: this.errors,
         };
         return result;
     }

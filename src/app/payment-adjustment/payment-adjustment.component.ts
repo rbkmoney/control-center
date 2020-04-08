@@ -10,7 +10,7 @@ import { SearchFormParams } from './search-form/search-form-params';
 @Component({
     selector: 'cc-payment-adjustment',
     templateUrl: './payment-adjustment.component.html',
-    styleUrls: []
+    styleUrls: [],
 })
 export class PaymentAdjustmentComponent implements OnInit {
     isLoading = false;
@@ -49,7 +49,7 @@ export class PaymentAdjustmentComponent implements OnInit {
         this.dialogRef.open(CreateAndCaptureComponent, {
             width: '800px',
             disableClose: true,
-            data: this.selectedPayments
+            data: this.selectedPayments,
         });
     }
 

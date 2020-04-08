@@ -7,7 +7,7 @@ import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 @Component({
     selector: 'cc-terminal',
     templateUrl: 'terminal.component.html',
-    styleUrls: ['terminal.component.scss']
+    styleUrls: ['terminal.component.scss'],
 })
 export class TerminalComponent {
     @Input() terminalInfo: TerminalInfo;
@@ -26,13 +26,13 @@ export class TerminalComponent {
             partyID: this.partyID,
             shopID: this.shopID,
             terminalID: this.terminalInfo.terminal.ref.id,
-            providerID: this.providerID
+            providerID: this.providerID,
         };
         this.dtm.removeTerminalFromShop(params).subscribe(
             () => {
                 this.isLoading = false;
                 this.snackBar.open('Terminal successfully removed from shop', 'OK', {
-                    duration: 3000
+                    duration: 3000,
                 });
                 this.terminalRemovedEvent.emit();
             },

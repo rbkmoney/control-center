@@ -27,13 +27,13 @@ export const booleanDelay = (ms: number = 500, emitTrigger: Observable<any> = of
                 triggerSub.unsubscribe();
                 emitterSub.unsubscribe();
                 observer.complete();
-            }
+            },
         });
         return {
             unsubscribe() {
                 triggerSub.unsubscribe();
                 emitterSub.unsubscribe();
                 sourceSub.unsubscribe();
-            }
+            },
         };
     });

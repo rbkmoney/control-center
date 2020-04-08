@@ -6,7 +6,7 @@ import { LegalAgreement } from '../../../../thrift-services/damsel/gen-model/dom
 
 @Component({
     selector: 'cc-legal-agreement-binding',
-    templateUrl: 'legal-agreement-binding.component.html'
+    templateUrl: 'legal-agreement-binding.component.html',
 })
 export class LegalAgreementBindingComponent implements OnInit {
     @Input()

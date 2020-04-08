@@ -7,7 +7,7 @@ import { PartyClaimsService } from './party-claims.service';
 @Component({
     templateUrl: 'party-claims.component.html',
     providers: [PartyClaimsService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyClaimsComponent implements OnInit {
     doAction$ = this.partyClaimsService.doAction$;

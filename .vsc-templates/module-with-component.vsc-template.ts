@@ -28,8 +28,8 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
             {
                 title: 'Component name',
                 argumentName: 'name',
-                defaultValue: ''
-            }
+                defaultValue: '',
+            },
         ],
         template: [
             {
@@ -50,7 +50,7 @@ import { ${getComponentName(inputs.name)} } from './${getComponentPath(inputs.na
     exports: [${getComponentName(inputs.name)}]
 })
 export class ${getModuletName(inputs.name)} {}
-`
+`,
                     },
                     {
                         type: 'file',
@@ -59,7 +59,7 @@ export class ${getModuletName(inputs.name)} {}
 <div class="${PREFIX}-${vsc.toKebabCase(inputs.name)}">
     <ng-content></ng-content>
 </div>
-`
+`,
                     },
                     {
                         type: 'file',
@@ -67,7 +67,7 @@ export class ${getModuletName(inputs.name)} {}
                         content: (inputs) => `
 .${getCssClassName(inputs.name)} {
 }
-`
+`,
                     },
                     {
                         type: 'file',
@@ -83,7 +83,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ${getComponentName(inputs.name)} {
 }
-`
+`,
                     },
                     {
                         type: 'file',
@@ -91,7 +91,7 @@ export class ${getComponentName(inputs.name)} {
                         content: (inputs) => `
 export * from './${getModulePath(inputs.name)}';
 export * from './${getComponentPath(inputs.name)}'
-`
+`,
                     },
                     {
                         type: 'file',
@@ -108,10 +108,10 @@ export * from './${getComponentPath(inputs.name)}'
     .${getCssClassName(inputs.name)} {
     }
 }
-`
-                    }
-                ]
-            }
-        ]
+`,
+                    },
+                ],
+            },
+        ],
     };
 }

@@ -12,7 +12,7 @@ import { DomainObjReviewService } from './domain-obj-review.service';
 @Component({
     templateUrl: './domain-obj-review.component.html',
     styleUrls: ['../editor-container.scss'],
-    providers: [DomainObjReviewService]
+    providers: [DomainObjReviewService],
 })
 export class DomainObjReviewComponent implements OnInit, OnDestroy {
     initialized = false;
@@ -21,7 +21,7 @@ export class DomainObjReviewComponent implements OnInit, OnDestroy {
     objectType: string;
     options: IDiffEditorOptions = {
         renderSideBySide: true,
-        readOnly: true
+        readOnly: true,
     };
     isLoading = false;
 
@@ -59,7 +59,7 @@ export class DomainObjReviewComponent implements OnInit, OnDestroy {
             () => {
                 this.isLoading = false;
                 this.snackBar.open('Commit successful', 'OK', {
-                    duration: 2000
+                    duration: 2000,
                 });
                 this.router.navigate(['domain', this.ref]);
             },

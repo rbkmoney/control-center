@@ -6,7 +6,7 @@ import { FileContainerService } from './file-container.service';
     selector: 'cc-file-container',
     templateUrl: 'file-container.component.html',
     styleUrls: ['file-container.component.css'],
-    providers: [FileContainerService]
+    providers: [FileContainerService],
 })
 export class FileContainerComponent implements OnInit {
     @Input()

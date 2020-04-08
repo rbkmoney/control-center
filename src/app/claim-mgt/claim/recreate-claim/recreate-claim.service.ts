@@ -28,7 +28,7 @@ export class RecreateClaimService {
                 this.dialog
                     .open(ConfirmActionDialogComponent)
                     .afterClosed()
-                    .pipe(filter((r) => r === 'confirm'))
+                    .pipe(filter((r) => r === 'confirm')),
             ])
         ),
         switchMap(([{ id, party_id, changeset }]) =>
@@ -39,7 +39,7 @@ export class RecreateClaimService {
                     changeset
                         .map((unit) => unit.modification)
                         .reduce(extractModificationsReducer, extractSeed)
-                )
+                ),
             ])
         ),
         switchMap(([claimId, partyId, { recreateModifications, extractedModifications }]) => {

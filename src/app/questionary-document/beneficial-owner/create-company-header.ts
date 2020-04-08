@@ -5,8 +5,8 @@ export function createCompanyHeader(companyName: string, companyInn: string): Co
     return {
         columns: [
             { ...createCaptionedText(companyName, 'Наименование вашей компании'), width: 'auto' },
-            { ...createCaptionedText(companyInn, 'ИНН'), width: 'auto' }
+            { ...createCaptionedText(companyInn, 'ИНН'), width: 'auto' },
         ],
-        columnGap: cmToIn(2)
+        columnGap: cmToIn(2),
     };
 }

@@ -6,7 +6,7 @@ import { ShopParams } from '../../../../thrift-services/damsel/gen-model/payment
 
 @Component({
     selector: 'cc-shop-params',
-    templateUrl: 'shop-params.component.html'
+    templateUrl: 'shop-params.component.html',
 })
 export class ShopParamsComponent implements OnInit {
     @Input()

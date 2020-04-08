@@ -19,7 +19,7 @@ export class DomainGroupService {
                 this.detectUndefGroup(domainGroup);
                 return {
                     version: version.toNumber(),
-                    group: this.filterUndef(domainGroup)
+                    group: this.filterUndef(domainGroup),
                 };
             })
         );

@@ -16,7 +16,7 @@ export class SearchFormService {
             ...value,
             fromTime: fromTime ? fromTime.startOf('day').toISOString() : '',
             toTime: toTime ? toTime.endOf('day').toISOString() : '',
-            amountTo: amountTo ? Math.round(amountTo * 100) : amountTo
+            amountTo: amountTo ? Math.round(amountTo * 100) : amountTo,
         };
     }
 
@@ -31,7 +31,7 @@ export class SearchFormService {
             identityId: '',
             partyId: '',
             sourceId: '',
-            walletId: ''
+            walletId: '',
         });
     }
 }

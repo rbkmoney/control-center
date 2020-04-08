@@ -34,8 +34,8 @@ import { PartyClaimsComponent } from './party-claims.component';
         ReactiveFormsModule,
         MatProgressSpinnerModule,
         SharedModule,
-        ClaimSearchFormModule
+        ClaimSearchFormModule,
     ],
-    declarations: [PartyClaimsComponent, ClaimsTableComponent]
+    declarations: [PartyClaimsComponent, ClaimsTableComponent],
 })
 export class PartyClaimsModule {}

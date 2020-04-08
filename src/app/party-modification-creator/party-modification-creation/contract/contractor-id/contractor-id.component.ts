@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'cc-contractor-id',
-    templateUrl: 'contractor-id.component.html'
+    templateUrl: 'contractor-id.component.html',
 })
 export class ContractorIdComponent implements OnInit {
     @Input()

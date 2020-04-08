@@ -17,18 +17,18 @@ const initializer = (
                 config: '/assets/authConfig.json',
                 initOptions: {
                     onLoad: 'login-required',
-                    checkLoginIframe: true
+                    checkLoginIframe: true,
                 },
                 enableBearerInterceptor: true,
                 bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
-                bearerPrefix: 'Bearer'
+                bearerPrefix: 'Bearer',
             })
             .then(() => {
                 return keycloak.getToken();
             })
             .then((token) => {
                 return keycloakTokenInfoService.init(token);
-            })
+            }),
     ]);
 
 @NgModule({
@@ -40,8 +40,8 @@ const initializer = (
             provide: APP_INITIALIZER,
             useFactory: initializer,
             multi: true,
-            deps: [KeycloakService, ConfigService, KeycloakTokenInfoService]
-        }
-    ]
+            deps: [KeycloakService, ConfigService, KeycloakTokenInfoService],
+        },
+    ],
 })
 export class CoreModule {}

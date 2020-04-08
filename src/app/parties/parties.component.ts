@@ -9,7 +9,7 @@ import { PartiesService } from './parties.service';
 @Component({
     templateUrl: 'parties.component.html',
     styleUrls: [],
-    providers: [PartiesService, PartyService]
+    providers: [PartiesService, PartyService],
 })
 export class PartiesComponent implements OnInit {
     public form: FormGroup;

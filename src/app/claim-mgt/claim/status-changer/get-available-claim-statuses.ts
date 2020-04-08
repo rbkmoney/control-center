@@ -10,14 +10,14 @@ export const getAvailableClaimStatuses = (status: ClaimStatus): ClaimStatuses[] 
                 ClaimStatuses.accepted,
                 ClaimStatuses.review,
                 ClaimStatuses.denied,
-                ClaimStatuses.revoked
+                ClaimStatuses.revoked,
             ];
         case ClaimStatusEnum.review:
             return [
                 ClaimStatuses.accepted,
                 ClaimStatuses.pending,
                 ClaimStatuses.denied,
-                ClaimStatuses.revoked
+                ClaimStatuses.revoked,
             ];
         default:
             return [];

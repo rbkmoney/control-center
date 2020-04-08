@@ -36,7 +36,7 @@ export class SendCommentService {
         private snackBar: MatSnackBar
     ) {
         this.form = this.fb.group({
-            comment: ['', [Validators.maxLength(1000)]]
+            comment: ['', [Validators.maxLength(1000)]],
         });
 
         this.sendComment$
@@ -65,7 +65,7 @@ export class SendCommentService {
                                 this.error$.next(error);
                                 return of(error);
                             })
-                        )
+                        ),
                     ]);
                 }),
                 filter(([, res]) => get(res, ['hasError']) !== true)
@@ -89,10 +89,10 @@ export class SendCommentService {
                 comment_modification: {
                     id,
                     modification: {
-                        creation: {}
-                    }
-                }
-            }
+                        creation: {},
+                    },
+                },
+            },
         };
     }
 }

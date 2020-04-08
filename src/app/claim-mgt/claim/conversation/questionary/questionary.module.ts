@@ -33,7 +33,7 @@ import { YesNoPipe } from './yes-no.pipe';
         MatExpansionModule,
         MatCardModule,
         MatListModule,
-        DetailsItemModule
+        DetailsItemModule,
     ],
     declarations: [
         QuestionaryComponent,
@@ -50,8 +50,8 @@ import { YesNoPipe } from './yes-no.pipe';
         PrivateEntityInfoComponent,
         SerialNumberPipe,
         BeneficialOwnerInfoComponent,
-        PdlInfoComponent
+        PdlInfoComponent,
     ],
-    exports: [QuestionaryComponent]
+    exports: [QuestionaryComponent],
 })
 export class QuestionaryModule {}

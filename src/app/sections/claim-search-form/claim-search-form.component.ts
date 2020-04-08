@@ -4,7 +4,7 @@ import {
     EventEmitter,
     Input,
     OnInit,
-    Output
+    Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +18,7 @@ import { SearchFormValue } from './search-form-value';
 @Component({
     selector: 'cc-claim-search-form',
     templateUrl: 'claim-search-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimSearchFormComponent implements OnInit {
     @Input() hidePartyId = false;
@@ -27,7 +27,7 @@ export class ClaimSearchFormComponent implements OnInit {
     form: FormGroup = this.fb.group({
         statuses: '',
         claim_id: '',
-        party_id: ''
+        party_id: '',
     });
 
     claimStatuses = ['pending', 'review', 'accepted', 'denied', 'revoked', 'pending_acceptance'];

@@ -10,7 +10,7 @@ import {
     pluck,
     shareReplay,
     switchMap,
-    tap
+    tap,
 } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 

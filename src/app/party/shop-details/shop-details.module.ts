@@ -63,7 +63,7 @@ import { TerminalsComponent } from './terminals/terminals.component';
         MatMenuModule,
         MatProgressBarModule,
         MatChipsModule,
-        SharedModule
+        SharedModule,
     ],
     declarations: [
         ShopDetailsComponent,
@@ -81,12 +81,12 @@ import { TerminalsComponent } from './terminals/terminals.component';
         CategoryComponent,
         EditTerminalDecisionPriorityComponent,
         EditTerminalDecisionWeightComponent,
-        TerminalsComponent
+        TerminalsComponent,
     ],
     entryComponents: [
         AddProviderComponent,
         EditTerminalDecisionPriorityComponent,
-        EditTerminalDecisionWeightComponent
-    ]
+        EditTerminalDecisionWeightComponent,
+    ],
 })
 export class ShopDetailsModule {}

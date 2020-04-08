@@ -8,7 +8,7 @@ interface RemoveData {
 }
 
 @Component({
-    templateUrl: 'remove-confirm.component.html'
+    templateUrl: 'remove-confirm.component.html',
 })
 export class RemoveConfirmComponent {
     constructor(

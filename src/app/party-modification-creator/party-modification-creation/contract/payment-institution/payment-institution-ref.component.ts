@@ -8,12 +8,12 @@ import { map } from 'rxjs/operators';
 import { DomainTypedManager } from '../../../../thrift-services';
 import {
     PaymentInstitutionObject,
-    PaymentInstitutionRef
+    PaymentInstitutionRef,
 } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-payment-institution-ref',
-    templateUrl: 'payment-institution-ref.component.html'
+    templateUrl: 'payment-institution-ref.component.html',
 })
 export class PaymentInstitutionRefComponent implements OnInit {
     @Input()

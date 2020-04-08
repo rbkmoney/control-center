@@ -5,7 +5,7 @@ import { TerminalObject } from '../../../../thrift-services/damsel/gen-model/dom
 @Component({
     selector: 'cc-select-terminal',
     templateUrl: 'select-terminal.component.html',
-    styleUrls: ['select-terminal.component.scss']
+    styleUrls: ['select-terminal.component.scss'],
 })
 export class SelectTerminalComponent {
     @Input() terminals: TerminalObject[];

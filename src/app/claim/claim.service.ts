@@ -9,7 +9,7 @@ import {
     retryWhen,
     switchMap,
     takeWhile,
-    tap
+    tap,
 } from 'rxjs/internal/operators';
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
@@ -133,7 +133,7 @@ export class ClaimService {
                     .acceptClaim({
                         partyId,
                         claimId,
-                        revision: claimInfo.revision
+                        revision: claimInfo.revision,
                     })
                     .pipe(map(() => claimInfo.revision))
             ),
@@ -151,7 +151,7 @@ export class ClaimService {
                         claimId,
                         partyId,
                         revision: claimInfo.revision,
-                        reason
+                        reason,
                     })
                     .pipe(map(() => claimInfo.revision))
             ),
@@ -179,7 +179,7 @@ export class ClaimService {
             modifications: containers.reduce(
                 (acc, { saved, modification }) => (saved ? acc : acc.concat(modification)),
                 []
-            )
+            ),
         };
     }
 
@@ -196,7 +196,7 @@ export class ClaimService {
             reason,
             createdAt: created_at,
             updatedAt: updated_at,
-            extractedIds: extracted_ids
+            extractedIds: extracted_ids,
         };
     }
 
@@ -243,7 +243,7 @@ export class ClaimService {
                 .subscribe((claimInfo) => {
                     newPair = {
                         status: claimInfo.status,
-                        revision: claimInfo.revision
+                        revision: claimInfo.revision,
                     };
                     if (!isEqual(newPair, currentPair)) {
                         this.claimInfoContainer = this.toClaimInfoContainer(claimInfo);

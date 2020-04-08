@@ -18,7 +18,7 @@ enum Status {
     machineNotFound = 'machine not found',
     machineFailed = 'machine failed',
     eventNotFound = 'event not found',
-    machineAlreadyWorking = 'machine already working'
+    machineAlreadyWorking = 'machine already working',
 }
 
 interface Element {
@@ -32,7 +32,7 @@ interface Element {
     selector: 'cc-simple-repair',
     templateUrl: 'simple-repair.component.html',
     styleUrls: ['../repairing.component.css'],
-    providers: []
+    providers: [],
 })
 export class SimpleRepairComponent {
     displayedColumns: string[] = ['select', 'id', 'ns', 'timer', 'status'];

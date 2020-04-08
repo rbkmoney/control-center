@@ -9,6 +9,6 @@ import { PartyComponent } from './party.component';
 
 @NgModule({
     imports: [PartyMgtRouting, CommonModule, MatTabsModule, SharedModule, FlexModule],
-    declarations: [PartyComponent]
+    declarations: [PartyComponent],
 })
 export class PartyModule {}

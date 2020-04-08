@@ -48,16 +48,16 @@ export function createVerticalParagraph(
         {
             colSpan: columnsCount,
             style: { color: 'white' },
-            text: header
-        }
+            text: header,
+        },
     ];
     return {
         layout: Layout.header,
         margin: MARGIN,
         table: {
             widths: new Array(columnsCount).fill('*'),
-            body: createTableBody([headerRow, ...body])
-        }
+            body: createTableBody([headerRow, ...body]),
+        },
     };
 }
 
@@ -76,19 +76,19 @@ export function createInlineParagraph(
                     {
                         text: header,
                         style: { color: 'white' },
-                        fillColor: PRIMARY_COLOR
-                    }
-                ]
-            ]
-        }
+                        fillColor: PRIMARY_COLOR,
+                    },
+                ],
+            ],
+        },
     };
     const bodyTable = {
         layout: Layout.noBorders,
         table: {
             rowSpan: body.length,
             widths: ['*'],
-            body
-        }
+            body,
+        },
     };
     return { ...createGrid([headerTable, bodyTable]), margin: MARGIN };
 }

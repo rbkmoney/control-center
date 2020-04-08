@@ -8,7 +8,7 @@ import { ClaimSearchParams } from '../papi/params';
 
 @Component({
     templateUrl: 'claims.component.html',
-    styleUrls: []
+    styleUrls: [],
 })
 export class ClaimsComponent implements OnInit {
     isLoading = false;
@@ -31,7 +31,7 @@ export class ClaimsComponent implements OnInit {
             (error: HttpErrorResponse) => {
                 this.isLoading = false;
                 this.snackBar.open(`${error.status}: ${error.message}`, 'OK', {
-                    duration: 1500
+                    duration: 1500,
                 });
             }
         );

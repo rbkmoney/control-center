@@ -9,12 +9,12 @@ import {
     ClaimID,
     ClaimSearchQuery,
     ClaimSearchResponse,
-    Modification
+    Modification,
 } from './gen-model/claim_management';
 import * as ClaimManagement from './gen-nodejs/ClaimManagement';
 import {
     ClaimSearchQuery as ClaimSearchQueryType,
-    Modification as ModificationType
+    Modification as ModificationType,
 } from './gen-nodejs/claim_management_types';
 
 @Injectable()

@@ -4,7 +4,7 @@ import { KeycloakService } from 'keycloak-angular';
 @Component({
     selector: 'cc-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
     username: string;
@@ -31,11 +31,11 @@ export class AppComponent implements OnInit {
             {
                 name: 'Payment adjustment',
                 route: '/payment-adjustment',
-                activateRoles: ['adjustment:create']
+                activateRoles: ['adjustment:create'],
             },
             { name: 'Parties', route: '/parties', activateRoles: ['party:get'] },
             { name: 'Repairing', route: '/repairing', activateRoles: ['party:get'] },
-            { name: 'Deposits', route: '/deposits', activateRoles: ['deposit:write'] }
+            { name: 'Deposits', route: '/deposits', activateRoles: ['deposit:write'] },
         ];
         const userRoles = this.keycloakService.getUserRoles();
         return menuItems.filter(

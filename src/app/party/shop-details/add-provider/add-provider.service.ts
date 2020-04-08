@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import {
     AddDecisionToProvider,
     DomainTypedManager,
-    filterProvidersByTerminalSelector
+    filterProvidersByTerminalSelector,
 } from '../../../thrift-services';
 import { ProviderObject, TerminalObject } from '../../../thrift-services/damsel/gen-model/domain';
 import { filterProvidersByCategoryId } from '../../../thrift-services/filters';
@@ -34,14 +34,14 @@ export class AddProviderService {
             partyID,
             shopID,
             terminalID: this.terminalForm.value.id,
-            providerID: this.providerForm.value.id
+            providerID: this.providerForm.value.id,
         } as AddDecisionToProvider;
         return this.dtm.addProviderDecision(params);
     }
 
     private prepareForm(): FormGroup {
         return this.fb.group({
-            id: ['', Validators.required]
+            id: ['', Validators.required],
         });
     }
 }

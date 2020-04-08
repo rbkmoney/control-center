@@ -12,11 +12,11 @@ import { RepairingComponent } from './repairing.component';
                 component: RepairingComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: []
-                }
-            }
-        ])
+                    roles: [],
+                },
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class RepairingRoutingModule {}

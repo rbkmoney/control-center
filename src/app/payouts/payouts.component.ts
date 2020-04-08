@@ -9,7 +9,7 @@ import { SearchFormService } from './search-form/search-form.service';
 @Component({
     templateUrl: 'payouts.component.html',
     styleUrls: ['./payouts.component.css'],
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class PayoutsComponent {
     isLoading: boolean;

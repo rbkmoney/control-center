@@ -63,7 +63,7 @@ import { TableComponent } from './table/table.component';
         PapiModule,
         DamselModule,
         MatSelectModule,
-        DomainModule
+        DomainModule,
     ],
     declarations: [
         PaymentAdjustmentComponent,
@@ -73,9 +73,9 @@ import { TableComponent } from './table/table.component';
         ActionItemComponent,
         CreateActionsComponent,
         CancelActionsComponent,
-        CaptureActionsComponent
+        CaptureActionsComponent,
     ],
     entryComponents: [CreateAndCaptureComponent],
-    providers: [PaymentAdjustmentService]
+    providers: [PaymentAdjustmentService],
 })
 export class PaymentAdjustmentModule {}

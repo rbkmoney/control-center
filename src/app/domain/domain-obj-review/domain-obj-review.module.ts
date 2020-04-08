@@ -22,8 +22,8 @@ import { DomainObjReviewComponent } from './domain-obj-review.component';
         MatCheckboxModule,
         MonacoEditorModule,
         SharedModule,
-        MatIconModule
+        MatIconModule,
     ],
-    exports: [DomainObjReviewComponent]
+    exports: [DomainObjReviewComponent],
 })
 export class DomainObjReviewModule {}

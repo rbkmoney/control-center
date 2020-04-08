@@ -5,6 +5,6 @@ import { QuestionaryDocumentService } from './questionary-document.service';
 
 @NgModule({
     imports: [DocumentModule],
-    providers: [QuestionaryDocumentService]
+    providers: [QuestionaryDocumentService],
 })
 export class QuestionaryDocumentModule {}

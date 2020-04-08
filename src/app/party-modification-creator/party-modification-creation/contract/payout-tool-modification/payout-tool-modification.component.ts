@@ -6,12 +6,12 @@ import { PayoutToolModification } from '../../../../thrift-services/damsel/gen-m
 
 enum Type {
     creation = 'creation',
-    infoModification = 'info_modification'
+    infoModification = 'info_modification',
 }
 
 @Component({
     selector: 'cc-contract-payout-tool-modification',
-    templateUrl: 'payout-tool-modification.component.html'
+    templateUrl: 'payout-tool-modification.component.html',
 })
 export class PayoutToolModificationComponent implements OnInit {
     @Input()

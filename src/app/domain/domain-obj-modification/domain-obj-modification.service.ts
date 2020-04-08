@@ -48,7 +48,7 @@ export class DomainObjModificationService {
                 const ref = parseRef(routeParams.ref);
                 return combineLatest([
                     this.metadataService.getDomainObjectType(ref),
-                    this.domainService.getDomainObject(ref)
+                    this.domainService.getDomainObject(ref),
                 ]).pipe(
                     switchMap(([objectType, domainObj]) =>
                         this.build(ref, objectType, domainObj, namespace)
@@ -70,13 +70,13 @@ export class DomainObjModificationService {
         return {
             meta: modifiedMeta,
             domainObj: this.formNewDomainObj(original.domainObj, thrift),
-            monacoContent: modifiedContent
+            monacoContent: modifiedContent,
         };
     }
 
     reset({ monacoContent }: ModificationItem): Partial<ModificationItem> {
         return {
-            monacoContent: monacoContent.slice()
+            monacoContent: monacoContent.slice(),
         };
     }
 
@@ -108,11 +108,11 @@ export class DomainObjModificationService {
                     original: {
                         monacoContent,
                         domainObj,
-                        meta: applied
+                        meta: applied,
                     },
                     modified: {
-                        monacoContent: monacoContent.slice()
-                    }
+                        monacoContent: monacoContent.slice(),
+                    },
                 };
             })
         );

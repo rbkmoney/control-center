@@ -6,7 +6,7 @@ import { ReportPreferences } from '../../../../thrift-services/damsel/gen-model/
 
 @Component({
     selector: 'cc-report-preferences',
-    templateUrl: 'report-preferences.component.html'
+    templateUrl: 'report-preferences.component.html',
 })
 export class ReportPreferencesComponent implements OnInit {
     @Input()
@@ -50,7 +50,7 @@ export class ReportPreferencesComponent implements OnInit {
             case 'service_acceptance_act_preferences':
                 return {
                     schedule: this.fb.group(data.schedule || {}),
-                    signer: this.fb.group({})
+                    signer: this.fb.group({}),
                 };
             default:
                 return {};

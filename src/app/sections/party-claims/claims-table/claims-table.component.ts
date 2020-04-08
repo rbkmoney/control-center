@@ -7,7 +7,7 @@ import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
     selector: 'cc-claims-table',
     templateUrl: 'claims-table.component.html',
     styleUrls: ['claims-table.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsTableComponent {
     @Input()
@@ -19,7 +19,7 @@ export class ClaimsTableComponent {
         'status',
         'createdAt',
         'updatedAt',
-        'actions'
+        'actions',
     ];
 
     navigateToClaim(partyID: PartyID, claimID: ClaimID) {

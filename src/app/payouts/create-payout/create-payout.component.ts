@@ -8,7 +8,7 @@ import { CreatePayoutService } from './create-payout.service';
 
 @Component({
     templateUrl: 'create-payout.component.html',
-    providers: [CreatePayoutService, PayoutsService]
+    providers: [CreatePayoutService, PayoutsService],
 })
 export class CreatePayoutComponent implements OnInit {
     form: FormGroup;

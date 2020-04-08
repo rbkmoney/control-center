@@ -9,10 +9,10 @@ export const editTerminalDecisionPropertyForShopCommit = (
     params: EditTerminalDecisionPropertyParams
 ): Commit => {
     const updateProvider = {
-        update: editTerminalDecisionPropertyForShopOperation(providerObject, params)
+        update: editTerminalDecisionPropertyForShopOperation(providerObject, params),
     };
     const commit = {
-        ops: [updateProvider]
+        ops: [updateProvider],
     };
     return toGenCommit(commit);
 };

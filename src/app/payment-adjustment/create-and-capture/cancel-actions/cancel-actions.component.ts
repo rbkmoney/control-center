@@ -10,14 +10,14 @@ import {
     CancelPaymentAdjustmentErrorCodes,
     EventType,
     OperationFailedPayload,
-    PaymentAdjustmentCancelParams
+    PaymentAdjustmentCancelParams,
 } from '../adjustment-operations';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCancelParams>;
 
 @Component({
     selector: 'cc-cancel-actions',
-    templateUrl: 'cancel-actions.component.html'
+    templateUrl: 'cancel-actions.component.html',
 })
 export class CancelActionsComponent implements OnInit {
     @Input()
@@ -90,13 +90,13 @@ export class CancelActionsComponent implements OnInit {
             user,
             invoice_id,
             payment_id,
-            params: this.adjustmentParams
+            params: this.adjustmentParams,
         }));
         this.cancelResult = [];
         this.batchAdjustmentService.create(createParams).subscribe({
             error: () => {
                 this.snackBar.open('An error occurred while adjustments create');
-            }
+            },
         });
     }
 
@@ -106,7 +106,7 @@ export class CancelActionsComponent implements OnInit {
         this.batchAdjustmentService.cancel(cancelParams).subscribe({
             error: () => {
                 this.snackBar.open('An error occurred while adjustments cancel');
-            }
+            },
         });
     }
 }

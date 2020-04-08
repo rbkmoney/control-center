@@ -2,7 +2,7 @@ import { ClaimStatus } from '../../../../papi/model/claim-statuses';
 import { getUnionKey } from '../../../../shared/utils';
 import {
     ClaimModification,
-    StatusModificationUnit
+    StatusModificationUnit,
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { TimelineAction } from './model';
 

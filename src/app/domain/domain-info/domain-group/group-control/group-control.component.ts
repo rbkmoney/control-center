@@ -4,7 +4,7 @@ import { DomainGroup } from '../domain-group';
 
 @Component({
     selector: 'cc-group-control',
-    templateUrl: './group-control.component.html'
+    templateUrl: './group-control.component.html',
 })
 export class GroupControlComponent {
     @Input() group: DomainGroup[];

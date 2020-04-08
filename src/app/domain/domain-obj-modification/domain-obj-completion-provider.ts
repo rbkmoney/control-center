@@ -5,7 +5,7 @@ import {
     CompletionProvider,
     ITextModel,
     Position,
-    ProviderResult
+    ProviderResult,
 } from '../../monaco-editor/model';
 
 export class DomainObjCompletionProvider implements CompletionProvider {
@@ -25,9 +25,9 @@ export class DomainObjCompletionProvider implements CompletionProvider {
                     label: 'test',
                     kind: monaco.languages.CompletionItemKind.Text,
                     documentation: 'Set the language',
-                    insertText: 'Test value'
-                }
-            ]
+                    insertText: 'Test value',
+                },
+            ],
         };
     }
 }

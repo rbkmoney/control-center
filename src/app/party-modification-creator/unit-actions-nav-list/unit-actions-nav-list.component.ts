@@ -7,12 +7,12 @@ import {
     ActionType,
     ContractModificationName,
     ShopModificationName,
-    UnitActionData
+    UnitActionData,
 } from '../model';
 
 @Component({
     templateUrl: 'unit-actions-nav-list.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnitActionsNavListComponent implements OnInit {
     constructor(
@@ -29,9 +29,9 @@ export class UnitActionsNavListComponent implements OnInit {
             ContractModificationName.reportPreferencesModification,
             ContractModificationName.adjustmentModification,
             ContractModificationName.payoutToolModification,
-            ContractModificationName.termination
+            ContractModificationName.termination,
             // ContractModificationName.contractorModification
-        ]
+        ],
     };
 
     shopActions = {
@@ -44,8 +44,8 @@ export class UnitActionsNavListComponent implements OnInit {
             ShopModificationName.shopAccountCreation,
             ShopModificationName.payoutScheduleModification,
             ShopModificationName.payoutToolModification,
-            ShopModificationName.contractModification
-        ]
+            ShopModificationName.contractModification,
+        ],
     };
 
     ngOnInit() {
@@ -55,7 +55,7 @@ export class UnitActionsNavListComponent implements OnInit {
                 this.shopActions.visible = true;
                 this.contractActions.names = [
                     ContractModificationName.creation,
-                    ...this.contractActions.names
+                    ...this.contractActions.names,
                 ];
                 this.shopActions.names = [ShopModificationName.creation, ...this.shopActions.names];
                 break;
@@ -73,13 +73,13 @@ export class UnitActionsNavListComponent implements OnInit {
             data: {
                 action: {
                     type,
-                    name
+                    name,
                 },
                 partyID: this.data.partyID,
-                unitID: this.data.unitID
+                unitID: this.data.unitID,
             },
             width: '800px',
-            disableClose: true
+            disableClose: true,
         };
         this.dialog.open<CreateModificationDialogComponent>(
             CreateModificationDialogComponent,

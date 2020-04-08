@@ -4,13 +4,13 @@ import map from 'lodash-es/map';
 import { UnitName } from '../party-modification-creator/party-modification-creation/unit-name';
 import {
     ContractModificationUnit,
-    ShopModificationUnit
+    ShopModificationUnit,
 } from '../thrift-services/damsel/gen-model/payment_processing';
 import {
     ModificationGroup,
     ModificationGroupType,
     PartyModificationUnit,
-    PersistentContainer
+    PersistentContainer,
 } from './model';
 
 interface PersistentUnit {
@@ -32,8 +32,8 @@ const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
         unitContainers: units.map(({ modificationUnit, saved, typeHash }) => ({
             modificationUnit,
             saved,
-            typeHash
-        }))
+            typeHash,
+        })),
     }));
 };
 
@@ -45,7 +45,7 @@ const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => 
     return map(grouped, (units, unitID) => ({
         unitID,
         hasUnsaved: isHasUnsaved(units, unitID),
-        containers: toContainers(units)
+        containers: toContainers(units),
     }));
 };
 
@@ -57,11 +57,11 @@ const toGroup = (
     const persistent = containers.map(({ modification, saved, typeHash }) => ({
         modificationUnit: modification[name],
         typeHash,
-        saved
+        saved,
     }));
     return {
         type,
-        units: toUnits(persistent)
+        units: toUnits(persistent),
     };
 };
 

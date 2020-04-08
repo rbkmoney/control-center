@@ -5,7 +5,7 @@ import { ClaimInfoDetailsComponent } from './claim-info-details.component';
 describe('ClaimInfoDetailsComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ClaimInfoDetailsComponent]
+            declarations: [ClaimInfoDetailsComponent],
         })
             .compileComponents()
             .then();
