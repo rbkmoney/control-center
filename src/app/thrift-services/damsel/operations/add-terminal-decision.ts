@@ -1,10 +1,10 @@
 import cloneDeep from 'lodash-es/cloneDeep';
-import last from 'lodash-es/last';
 import dropRight from 'lodash-es/dropRight';
+import last from 'lodash-es/last';
 
 import { toGenTerminalDecision } from '../../converters';
-import { checkSelector } from './utils';
 import { ProviderObject, TerminalDecision, TerminalRef } from '../gen-model/domain';
+import { checkSelector } from './utils';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision => ({
     if_: {
@@ -12,14 +12,14 @@ const createDecision = (partyID: string, shopID: string, terminalID: number): Te
             party: {
                 id: partyID,
                 definition: {
-                    shop_is: shopID
-                }
-            }
-        }
+                    shop_is: shopID,
+                },
+            },
+        },
     },
     then_: {
-        value: ([{ id: terminalID }] as unknown) as Set<TerminalRef>
-    }
+        value: ([{ id: terminalID }] as unknown) as Set<TerminalRef>,
+    },
 });
 
 const addDecision = (

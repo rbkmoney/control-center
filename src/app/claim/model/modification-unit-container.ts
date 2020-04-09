@@ -1,6 +1,6 @@
 import {
     ContractModificationUnit,
-    ShopModificationUnit
+    ShopModificationUnit,
 } from '../../thrift-services/damsel/gen-model/payment_processing';
 
 export class ModificationUnitContainer {

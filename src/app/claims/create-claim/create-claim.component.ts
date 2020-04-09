@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { ClaimActionType } from '../../claim/claim-action-type';
 
 @Component({
-    templateUrl: 'create-claim.component.html'
+    templateUrl: 'create-claim.component.html',
 })
 export class CreateClaimComponent implements OnInit {
     form: FormGroup;
@@ -19,7 +19,7 @@ export class CreateClaimComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            partyId: ['', Validators.required]
+            partyId: ['', Validators.required],
         });
     }
 

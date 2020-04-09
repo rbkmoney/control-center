@@ -6,7 +6,7 @@
             (selectionChange)="selectionChange($event)"
             [value]="initialValue"
         >
-            <mat-option *ngFor="let schedule of (schedules$ | async)" [value]="schedule.ref.id">
+            <mat-option *ngFor="let schedule of schedules$ | async" [value]="schedule.ref.id">
                 {{ schedule.ref.id }} {{ schedule.data.name }}
             </mat-option>
         </mat-select>

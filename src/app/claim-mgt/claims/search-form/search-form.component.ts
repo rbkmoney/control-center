@@ -2,14 +2,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
-import { SearchFormService } from './search-form.service';
-import { SearchFormValue } from './search-form-value';
 import { ClaimStatus } from '../../../papi/model';
+import { SearchFormValue } from './search-form-value';
+import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'cc-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent implements OnInit {
     @Output()
@@ -25,7 +25,7 @@ export class SearchFormComponent implements OnInit {
         const { form, claimStatuses } = this.searchFormService;
         this.claimStatuses = claimStatuses;
         this.form = form;
-        this.form.valueChanges.pipe(debounceTime(300)).subscribe(value => {
+        this.form.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
             this.valueChanges.emit(value);
         });
         this.form.patchValue({ statuses: [ClaimStatus.review, ClaimStatus.pending] });

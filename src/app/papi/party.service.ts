@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ConfigService } from '../core/config.service';
-import { ContractTemplate } from './model';
 import { decode } from '../shared/java-thrift-formatter';
 import { Party } from '../thrift-services/damsel/gen-model/domain';
+import { ContractTemplate } from './model';
 
 @Injectable()
 export class PartyService {
@@ -19,6 +19,6 @@ export class PartyService {
     getParty(partyId: string): Observable<Party> {
         return this.http
             .get<ContractTemplate[]>(`${this.papiEndpoint}/parties/${partyId}`)
-            .pipe(map(party => decode(party)));
+            .pipe(map((party) => decode(party)));
     }
 }

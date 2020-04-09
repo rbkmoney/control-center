@@ -5,19 +5,19 @@ export const addCommentsToTimelineInfos = (
     conversations: Conversation[],
     infos: TimelineItemInfo[]
 ): TimelineItemInfo[] =>
-    infos.map(info => {
+    infos.map((info) => {
         if (info.action === TimelineAction.commentAdded) {
             return {
                 ...info,
                 data: conversations
-                    ? conversations.find(conversation => {
+                    ? conversations.find((conversation) => {
                           return !!info.modifications.find(
-                              m =>
+                              (m) =>
                                   m.claim_modification.comment_modification.id ===
                                   conversation.conversation_id
                           );
                       })
-                    : null
+                    : null,
             };
         } else {
             return info;

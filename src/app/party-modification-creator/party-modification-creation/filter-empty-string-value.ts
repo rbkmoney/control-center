@@ -1,5 +1,5 @@
-import isDate from 'lodash-es/isDate';
 import isArray from 'lodash-es/isArray';
+import isDate from 'lodash-es/isDate';
 import isObject from 'lodash-es/isObject';
 import reduce from 'lodash-es/reduce';
 import * as moment from 'moment';
@@ -13,7 +13,7 @@ function filterObject(object: object, filter: Filter): object {
             if (filter(value)) {
                 return {
                     ...result,
-                    [key]: filterValues(value, filter)
+                    [key]: filterValues(value, filter),
                 };
             }
             return result;
@@ -39,4 +39,4 @@ export function filterValues(value: any, filter: Filter): any {
     return value;
 }
 
-export const filterEmptyStringValues = (value: any) => filterValues(value, v => v !== '');
+export const filterEmptyStringValues = (value: any) => filterValues(value, (v) => v !== '');

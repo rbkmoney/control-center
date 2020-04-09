@@ -1,11 +1,11 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'cc-add-ids-input',
     templateUrl: 'add-ids-input.component.html',
     styleUrls: [],
-    providers: []
+    providers: [],
 })
 export class AddIdsInputComponent {
     @Input()
@@ -25,10 +25,11 @@ export class AddIdsInputComponent {
     execIdsFromStr(str: string) {
         const ids: string[] = [];
         const selectIds = /[a-z0-9-]+/gi;
-        let execId: string[];
-        while ((execId = selectIds.exec(str))) {
+        let execId = selectIds.exec(str);
+        while (execId) {
             const id = execId[0];
             ids.push(id);
+            execId = selectIds.exec(str);
         }
         return ids;
     }

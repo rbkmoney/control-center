@@ -18,7 +18,7 @@
                 <div class="add-modification-container" fxLayoutAlign="end center">
                     <button
                         mat-button
-                        [disabled]="(isLoading | async) || (!isAddModificationAvailable | async)"
+                        [disabled]="(isLoading | async) || !(isAddModificationAvailable | async)"
                         (click)="add(unit.unitID)"
                     >
                         ADD MODIFICATION

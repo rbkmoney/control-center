@@ -6,7 +6,7 @@ import { Representative } from '../../../../thrift-services/damsel/gen-model/dom
 
 @Component({
     selector: 'cc-representative',
-    templateUrl: 'representative.component.html'
+    templateUrl: 'representative.component.html',
 })
 export class RepresentativeComponent implements OnInit {
     @Input()

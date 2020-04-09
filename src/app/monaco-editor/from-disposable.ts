@@ -1,10 +1,10 @@
-import { Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export function fromDisposable<T>(
     source: (listener: (e: T) => void) => monaco.IDisposable
 ): Observable<T> {
-    return Observable.create((observer: Observer<T>) => {
-        const disposable = source(e => {
+    return new Observable<T>((observer) => {
+        const disposable = source((e) => {
             observer.next(e);
         });
 

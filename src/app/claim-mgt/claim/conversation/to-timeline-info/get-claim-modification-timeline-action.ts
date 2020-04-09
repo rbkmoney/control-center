@@ -1,10 +1,10 @@
-import { TimelineAction } from './model';
+import { ClaimStatus } from '../../../../papi/model/claim-statuses';
+import { getUnionKey } from '../../../../shared/utils';
 import {
     ClaimModification,
-    StatusModificationUnit
+    StatusModificationUnit,
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { getUnionKey } from '../../../../shared/utils';
-import { ClaimStatus } from '../../../../papi/model/claim-statuses';
+import { TimelineAction } from './model';
 
 function getStatusModificationTimelineAction(unit: StatusModificationUnit): TimelineAction | null {
     const Status = ClaimStatus;

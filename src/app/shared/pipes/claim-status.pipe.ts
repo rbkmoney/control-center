@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'ccClaimStatus'
+    name: 'ccClaimStatus',
 })
 export class ClaimStatusPipe implements PipeTransform {
     transform(value: string) {

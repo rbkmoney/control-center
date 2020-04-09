@@ -6,7 +6,7 @@ import { RussianBankAccount } from '../../../../../thrift-services/damsel/gen-mo
 
 @Component({
     selector: 'cc-russian-bank-account',
-    templateUrl: 'russian-bank-account.component.html'
+    templateUrl: 'russian-bank-account.component.html',
 })
 export class RussianBankAccountComponent implements OnInit {
     @Input()
@@ -18,7 +18,7 @@ export class RussianBankAccountComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const control = value => this.fb.control(value, Validators.required);
+        const control = (value) => this.fb.control(value, Validators.required);
         const account = get(this, 'initialValue.account', '');
         const bankName = get(this, 'initialValue.bank_name', '');
         const bankPostAccount = get(this, 'initialValue.bank_post_account', '');

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
-import * as moment from 'moment';
 
+import { booleanDelay } from '../../../../custom-operators';
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import {
     FileData,
-    FileNotFound
+    FileNotFound,
 } from '../../../../thrift-services/file-storage/gen-model/file_storage';
-import { booleanDelay } from '../../../../custom-operators';
 import { download } from './download';
 
 @Injectable()
@@ -17,14 +17,11 @@ export class FileContainerService {
     private getFileInfo$ = new Subject<string>();
 
     fileData$: Observable<FileData | FileNotFound> = this.getFileInfo$.pipe(
-        switchMap(fileID => this.fileStorageService.getFileData(fileID)),
+        switchMap((fileID) => this.fileStorageService.getFileData(fileID)),
         shareReplay(1)
     );
 
-    isLoading$ = this.fileData$.pipe(
-        booleanDelay(),
-        shareReplay(1)
-    );
+    isLoading$ = this.fileData$.pipe(booleanDelay(), shareReplay(1));
 
     constructor(private fileStorageService: FileStorageService, private snackBar: MatSnackBar) {
         this.fileData$.subscribe();
@@ -36,14 +33,9 @@ export class FileContainerService {
 
     downloadFile(fileID: string) {
         this.fileStorageService
-            .generateDownloadUrl(
-                fileID,
-                moment()
-                    .add(1, 'h')
-                    .toISOString()
-            )
+            .generateDownloadUrl(fileID, moment().add(1, 'h').toISOString())
             .subscribe(
-                url => {
+                (url) => {
                     if (typeof url === 'string') {
                         download(url);
                     } else {

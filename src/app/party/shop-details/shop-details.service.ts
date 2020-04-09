@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
+import get from 'lodash-es/get';
 import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import get from 'lodash-es/get';
 
+import { DomainTypedManager } from '../../thrift-services';
 import {
     Contract,
     PayoutTool,
     ProviderObject,
     Shop,
-    TerminalObject
+    TerminalObject,
 } from '../../thrift-services/damsel/gen-model/domain';
-import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 import { PartyService } from '../party.service';
-import { DomainTypedManager } from '../../thrift-services';
+import { extractTerminalInfo, TerminalInfo } from './extract-terminal-info';
 
 export interface ProviderInfo {
     provider: ProviderObject;
@@ -34,11 +34,11 @@ export class ShopDetailsService {
         return combineLatest([
             this.partyService.getShop(partyID, shopID),
             this.dtm.getProviderObjects(),
-            this.dtm.getTerminalObjects()
+            this.dtm.getTerminalObjects(),
         ]).pipe(
             switchMap(([shop, providers, terminalObjects]) =>
                 this.partyService.getContract(partyID, shop.contract_id).pipe(
-                    map(contract => ({
+                    map((contract) => ({
                         contract,
                         providerInfo: this.toProviderInfo(
                             providers,
@@ -46,17 +46,17 @@ export class ShopDetailsService {
                             partyID,
                             shopID
                         ),
-                        shop
+                        shop,
                     }))
                 )
             ),
             switchMap(({ contract, providerInfo, shop }) =>
                 this.partyService.getPayoutTool(partyID, contract.id, shop.payout_tool_id).pipe(
-                    map(payoutTool => ({
+                    map((payoutTool) => ({
                         payoutTool,
                         shop,
                         providerInfo,
-                        contract
+                        contract,
                     }))
                 )
             )
@@ -82,8 +82,8 @@ export class ShopDetailsService {
                 ...r,
                 {
                     provider,
-                    terminalInfos: infos
-                }
+                    terminalInfos: infos,
+                },
             ];
         }, []);
     }

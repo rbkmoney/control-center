@@ -27,8 +27,8 @@ export class ThriftService {
 
     protected toObservableAction<T extends (...A: any[]) => Observable<any>>(name: string): T {
         return ((...args) =>
-            Observable.create(observer => {
-                const cb = msg => {
+            new Observable<any>((observer) => {
+                const cb = (msg) => {
                     observer.error(msg);
                     observer.complete();
                 };
@@ -46,7 +46,7 @@ export class ThriftService {
             }).pipe(timeout(60000))) as any;
     }
 
-    private createClient(errorCb: Function) {
+    private createClient(errorCb: (cb: () => void) => void) {
         const { email, preferred_username, sub } = this.keycloakTokenInfoService.decodedUserToken;
         return connectClient(
             location.hostname,
@@ -62,8 +62,8 @@ export class ThriftService {
                     'x-rbk-meta-user-identity.email': email,
                     'x-rbk-meta-user-identity.realm': this.realm,
                     'x-rbk-meta-user-identity.username': preferred_username,
-                    'x-rbk-meta-user-identity.id': sub
-                }
+                    'x-rbk-meta-user-identity.id': sub,
+                },
             },
             errorCb
         );

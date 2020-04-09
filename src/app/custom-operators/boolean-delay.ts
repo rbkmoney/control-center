@@ -1,4 +1,4 @@
-import { Observable, Subscription, Subscriber, timer, of } from 'rxjs';
+import { Observable, of, Subscriber, Subscription, timer } from 'rxjs';
 
 const emitWithDelay = (ms: number, observer: Subscriber<boolean>): Subscription =>
     timer(ms).subscribe(() => observer.next(true));
@@ -6,7 +6,7 @@ const emitWithDelay = (ms: number, observer: Subscriber<boolean>): Subscription 
 export const booleanDelay = (ms: number = 500, emitTrigger: Observable<any> = of(true)) => <T>(
     source: Observable<T>
 ) =>
-    new Observable<boolean>(observer => {
+    new Observable<boolean>((observer) => {
         let emitterSub = Subscription.EMPTY;
         const triggerSub = emitTrigger.subscribe(() => {
             emitterSub.unsubscribe();
@@ -27,13 +27,13 @@ export const booleanDelay = (ms: number = 500, emitTrigger: Observable<any> = of
                 triggerSub.unsubscribe();
                 emitterSub.unsubscribe();
                 observer.complete();
-            }
+            },
         });
         return {
             unsubscribe() {
                 triggerSub.unsubscribe();
                 emitterSub.unsubscribe();
                 sourceSub.unsubscribe();
-            }
+            },
         };
     });

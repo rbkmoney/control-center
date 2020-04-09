@@ -2,7 +2,7 @@ import { ContractModificationName, ShopModificationName } from '../party-modific
 
 export enum ActionType {
     contractAction = 'contractAction',
-    shopAction = 'shopAction'
+    shopAction = 'shopAction',
 }
 
 export interface ModificationAction {

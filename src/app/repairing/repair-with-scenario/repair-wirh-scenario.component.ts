@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 import { ExecStateType } from '../../shared/execute';
-import { RepairingService } from '../repairing.service';
-import {
-    RepairWithScenarioSettingsComponent,
-    DialogData
-} from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 import { InvoiceRepairScenario } from '../../thrift-services/damsel/gen-model/payment_processing';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
+import { RepairingService } from '../repairing.service';
+import {
+    DialogData,
+    RepairWithScenarioSettingsComponent,
+} from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 
 enum Status {
     repaired = 'machine repaired',
@@ -19,7 +19,7 @@ enum Status {
     unknownError = 'unknown error',
     invalidUser = 'invalid user',
     invoiceNotFound = 'invoice not found',
-    invalidRequest = 'invalid request'
+    invalidRequest = 'invalid request',
 }
 
 interface Element {
@@ -32,7 +32,7 @@ interface Element {
     selector: 'cc-repair-with-scenario',
     templateUrl: 'repair-with-scenario.component.html',
     styleUrls: ['../repairing.component.css'],
-    providers: []
+    providers: [],
 })
 export class RepairWithScenarioComponent {
     displayedColumns: string[] = ['select', 'id', 'status'];
@@ -53,8 +53,11 @@ export class RepairWithScenarioComponent {
     }
 
     add(addedIds: string[]) {
-        const ids = this.repairingService.combineIds(addedIds, this.dataSource.map(({ id }) => id));
-        this.dataSource = this.dataSource.concat(ids.map(id => ({ id, status: Status.unknown })));
+        const ids = this.repairingService.combineIds(
+            addedIds,
+            this.dataSource.map(({ id }) => id)
+        );
+        this.dataSource = this.dataSource.concat(ids.map((id) => ({ id, status: Status.unknown })));
     }
 
     remove(elements: Element[] = this.selection.selected) {
@@ -81,13 +84,13 @@ export class RepairWithScenarioComponent {
 
     repairDialog() {
         const dialogRef = this.dialog.open(RepairWithScenarioSettingsComponent, {
-            width: '600px'
+            width: '600px',
         });
         dialogRef.afterClosed().subscribe(({ scenario, code }: DialogData) => {
             this.repair(this.selection.selected, {
                 [scenario]: {
-                    failure: { code }
-                }
+                    failure: { code },
+                },
             });
         });
     }
@@ -97,7 +100,7 @@ export class RepairWithScenarioComponent {
             return;
         }
         this.setStatus(elements, Status.update);
-        this.repairingService.executeRepairWithScenario(elements, scenario).subscribe(result => {
+        this.repairingService.executeRepairWithScenario(elements, scenario).subscribe((result) => {
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.getStatusByError(result.error);

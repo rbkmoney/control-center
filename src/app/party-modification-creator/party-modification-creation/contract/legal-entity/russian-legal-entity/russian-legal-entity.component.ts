@@ -6,7 +6,7 @@ import { RussianLegalEntity } from '../../../../../thrift-services/damsel/gen-mo
 
 @Component({
     selector: 'cc-russian-legal-entity',
-    templateUrl: 'russian-legal-entity.component.html'
+    templateUrl: 'russian-legal-entity.component.html',
 })
 export class RussianLegalEntityComponent implements OnInit {
     @Input()
@@ -18,7 +18,7 @@ export class RussianLegalEntityComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const control = value => this.fb.control(value, Validators.required);
+        const control = (value) => this.fb.control(value, Validators.required);
         const registeredName = get(this, 'initialValue.registered_name', '');
         const registeredNumber = get(this, 'initialValue.registered_number', '');
         const inn = get(this, 'initialValue.inn', '');

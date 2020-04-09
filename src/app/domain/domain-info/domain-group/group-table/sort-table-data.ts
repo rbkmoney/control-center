@@ -1,4 +1,4 @@
-import { MatSort } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
 import isNumber from 'lodash-es/isNumber';
 
 import { TableDataSource } from './model';

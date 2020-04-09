@@ -1,9 +1,9 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 import get from 'lodash-es/get';
 
+import { ProviderObject, TerminalDecision } from '../gen-model/domain';
 import { EditTerminalDecisionPropertyParams } from './edit-terminal-decision-property-params';
 import { checkSelector } from './utils';
-import { ProviderObject, TerminalDecision } from '../gen-model/domain';
 
 const editDecision = (
     decisions: TerminalDecision[],
@@ -18,7 +18,7 @@ const editDecision = (
         const decisionPredicateShopID = get(decision, 'if_.condition.party.definition.shop_is');
         if (decisionPredicatePartyID === partyID && decisionPredicateShopID === shopID) {
             const terminalIndex = decision.then_.value
-                ? decision.then_.value.findIndex(item => item.id === terminalID)
+                ? decision.then_.value.findIndex((item) => item.id === terminalID)
                 : -1;
             if (terminalIndex !== -1) {
                 decision.then_.value[terminalIndex][property] = value;

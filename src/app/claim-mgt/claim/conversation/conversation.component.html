@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <h2 class="mat-title">Changeset</h2>
-    <cc-timeline *ngIf="(timelineInfo$ | async) as timelineInfo">
+    <cc-timeline *ngIf="timelineInfo$ | async as timelineInfo">
         <cc-timeline-item *ngFor="let item of timelineInfo">
             <cc-timeline-item-title>
                 <span class="mat-caption">
@@ -57,7 +57,7 @@
             </cc-timeline-item-content>
         </cc-timeline-item>
     </cc-timeline>
-    <div *ngIf="(hasUnsavedModifications$ | async)" fxLayout="column" fxLayoutGap="10px">
+    <div *ngIf="hasUnsavedModifications$ | async" fxLayout="column" fxLayoutGap="10px">
         <cc-unsaved-party-modifications
             [partyModifications]="unsavedModifications$ | async"
             (partyModificationsChanged)="partyModificationsChanged($event)"

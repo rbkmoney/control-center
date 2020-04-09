@@ -2,7 +2,7 @@
     <h2 class="mat-title">Unsaved party modifications</h2>
     <mat-accordion multi="true">
         <mat-expansion-panel
-            *ngFor="let modification of (unsavedPartyModifications$ | async); let i = index"
+            *ngFor="let modification of unsavedPartyModifications$ | async; let i = index"
             expanded="true"
         >
             <mat-expansion-panel-header>

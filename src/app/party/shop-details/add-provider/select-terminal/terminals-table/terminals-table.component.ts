@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
     Component,
     EventEmitter,
@@ -6,17 +7,17 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { TerminalObject } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-terminals-table',
     templateUrl: 'terminals-table.component.html',
-    styleUrls: ['../../add-provider.component.scss']
+    styleUrls: ['../../add-provider.component.scss'],
 })
 export class TerminalsTableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -30,9 +31,7 @@ export class TerminalsTableComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (terminal: TerminalObject, filter: string) =>
-            JSON.stringify(terminal)
-                .toLowerCase()
-                .includes(filter);
+            JSON.stringify(terminal).toLowerCase().includes(filter);
         this.selection.changed.subscribe(() => {
             const terminalSelection = Array.from(this.selection.selected.values());
             if (terminalSelection.length > 0) {

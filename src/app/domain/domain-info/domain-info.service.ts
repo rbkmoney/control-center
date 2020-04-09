@@ -3,9 +3,9 @@ import { AsyncSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Field } from 'thrift-ts';
 
+import { Snapshot } from '../../thrift-services/damsel/gen-model/domain_config';
 import { DomainService } from '../domain.service';
 import { MetadataService } from '../metadata.service';
-import { Snapshot } from '../../thrift-services/damsel/gen-model/domain_config';
 
 export interface Payload {
     shapshot: Snapshot;
@@ -21,7 +21,7 @@ export class DomainInfoService {
     initialize(): Observable<void> {
         return combineLatest([
             this.domainService.shapshot,
-            this.metadataService.getDomainDef()
+            this.metadataService.getDomainDef(),
         ]).pipe(
             tap(([shapshot, domainDef]) => {
                 this.payload$.next({ shapshot, domainDef });

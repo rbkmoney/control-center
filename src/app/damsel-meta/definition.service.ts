@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { shareReplay, map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { Field } from 'thrift-ts';
 
 import { Reference } from '../thrift-services/damsel/gen-model/domain';
@@ -29,7 +29,7 @@ export class DefinitionService {
         }
         const searchName = keys[0];
         return this.getDomainDef().pipe(
-            map(d => {
+            map((d) => {
                 const found = d.find(({ name }) => name === searchName);
                 return found ? (found.type as string) : null;
             })
@@ -38,7 +38,7 @@ export class DefinitionService {
 
     getDomainDef(): Observable<Field[]> {
         return this.def$.pipe(
-            map(m => m.find(({ name }) => name === 'domain').ast.union.DomainObject)
+            map((m) => m.find(({ name }) => name === 'domain').ast.union.DomainObject)
         );
     }
 }

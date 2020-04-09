@@ -1,18 +1,20 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
-import { DomainGroup } from '../domain-group';
+import { DetailsContainerService } from '../../details-container.service';
 import { DomainDetailsService } from '../../domain-details.service';
-import { toDataSource, toTableGroup } from './table-group';
-import { sortData } from './sort-table-data';
+import { DomainGroup } from '../domain-group';
 import { filterPredicate } from './filter-predicate';
 import { TableDataSource, TableGroup } from './model';
-import { DetailsContainerService } from '../../details-container.service';
+import { sortData } from './sort-table-data';
+import { toDataSource, toTableGroup } from './table-group';
 
 @Component({
     selector: 'cc-group-table',
     templateUrl: './group-table.component.html',
-    styleUrls: ['./group-table.component.scss']
+    styleUrls: ['./group-table.component.scss'],
 })
 export class GroupTableComponent implements OnInit, OnChanges {
     @Input() group: DomainGroup[];
@@ -42,7 +44,7 @@ export class GroupTableComponent implements OnInit, OnChanges {
         this.dataSource.sort = this.sort;
         this.dataSource.filterPredicate = filterPredicate;
         this.dataSource.sortData = sortData;
-        this.detailsContainerService.opened$.subscribe(opened => (this.detailsOpened = opened));
+        this.detailsContainerService.opened$.subscribe((opened) => (this.detailsOpened = opened));
     }
 
     openDetails({ pair }: TableDataSource, index: number) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DomainTypedManager } from '../../../../thrift-services';
 import { EditTerminalDecision } from '../edit-terminal-decision';
@@ -20,7 +20,7 @@ export class EditTerminalDecisionWeightService extends EditTerminalDecision {
     private initForm(): FormGroup {
         return this.fb.group({
             value: '',
-            property: 'weight'
+            property: 'weight',
         });
     }
 }

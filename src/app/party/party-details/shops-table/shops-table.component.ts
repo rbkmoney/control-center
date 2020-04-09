@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
@@ -7,7 +8,7 @@ import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
 @Component({
     selector: 'cc-shops-table',
     templateUrl: 'shops-table.component.html',
-    styleUrls: ['shops-table.component.css']
+    styleUrls: ['shops-table.component.css'],
 })
 export class ShopsTableComponent implements OnChanges {
     @Input() shops: Shop[];
@@ -19,8 +20,8 @@ export class ShopsTableComponent implements OnChanges {
     private partyId: string;
 
     constructor(private router: Router, private route: ActivatedRoute) {
-        this.route.params.subscribe(params => {
-            this.partyId = params['partyID'];
+        this.route.params.subscribe((params) => {
+            this.partyId = params.partyID;
         });
     }
 
@@ -28,9 +29,7 @@ export class ShopsTableComponent implements OnChanges {
         if (shops.currentValue) {
             this.dataSource.data = shops.currentValue;
             this.dataSource.filterPredicate = (shop: Shop, filter: string) =>
-                JSON.stringify(shop)
-                    .toLowerCase()
-                    .includes(filter);
+                JSON.stringify(shop).toLowerCase().includes(filter);
             this.dataSource.paginator = this.paginator;
         }
     }

@@ -1,5 +1,5 @@
-import * as DomainConfigTypes from '../damsel/gen-nodejs/domain_config_types';
 import { Commit, InsertOp, Operation, RemoveOp, UpdateOp } from '../damsel/gen-model/domain_config';
+import * as DomainConfigTypes from '../damsel/gen-nodejs/domain_config_types';
 
 const toGenInsertOp = (insertOp: InsertOp) => {
     const insertOpGen = new DomainConfigTypes.InsertOp();
@@ -33,7 +33,7 @@ const toGenOperation = (operation: Operation) => {
 };
 
 const toGenCommitOps = (operations: Operation[]) =>
-    operations.map(operation => toGenOperation(operation));
+    operations.map((operation) => toGenOperation(operation));
 
 export const toGenCommit = (commit: Commit) => {
     const genCommit = new DomainConfigTypes.Commit();

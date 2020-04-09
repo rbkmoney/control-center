@@ -1,7 +1,7 @@
-import { icons } from './icons';
 import { Content } from '../../document';
 import { Layout } from '../create-questionary';
 import { createGrid } from './create-grid';
+import { icons } from './icons';
 
 type Items<T extends any> = string[] | [T, string][];
 
@@ -23,7 +23,7 @@ function itemsWithActive<T extends any>(
     return Array.from(items).map(([key, value]) => ({
         key,
         value,
-        isActive: activeKey === key
+        isActive: activeKey === key,
     }));
 }
 
@@ -53,9 +53,9 @@ export function createVerticalCheckbox<T extends any>(itemsSrc: Items<T>, active
         table: {
             widths: ['*'],
             body: itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) => [
-                createCheckbox(value, isActive)
-            ])
-        }
+                createCheckbox(value, isActive),
+            ]),
+        },
     };
 }
 
@@ -71,8 +71,8 @@ export function createVerticalCheckboxWithTitle<T extends any>(
         table: {
             ...table,
             widths: ['auto', ...table.widths],
-            body: table.body.map((row, idx) => [idx === 0 ? title : null, ...row])
-        }
+            body: table.body.map((row, idx) => [idx === 0 ? title : null, ...row]),
+        },
     };
 }
 

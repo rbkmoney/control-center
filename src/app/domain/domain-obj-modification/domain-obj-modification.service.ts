@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest, Subject, of } from 'rxjs';
+import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { DomainObject, Reference } from '../../thrift-services/damsel/gen-model/domain';
-import { MetadataService } from '../metadata.service';
-import { DomainService } from '../domain.service';
-import { MetaBuilder } from '../../damsel-meta/meta-builder.service';
 import { MetaApplicator } from '../../damsel-meta/meta-applicator.service';
-import { toMonacoContent, parseRef } from '../utils';
-import { DomainReviewService } from '../domain-review.service';
-import { DomainModificationModel, ModificationItem } from '../domain-modification-model';
+import { MetaBuilder } from '../../damsel-meta/meta-builder.service';
+import { ThriftType } from '../../damsel-meta/thrift-builder';
 import { ThriftBuilderService } from '../../damsel-meta/thrift-builder.service';
 import { getThriftInstance } from '../../thrift-services';
-import { ThriftType } from '../../damsel-meta/thrift-builder';
+import { DomainObject, Reference } from '../../thrift-services/damsel/gen-model/domain';
+import { DomainModificationModel, ModificationItem } from '../domain-modification-model';
+import { DomainReviewService } from '../domain-review.service';
+import { DomainService } from '../domain.service';
+import { MetadataService } from '../metadata.service';
+import { parseRef, toMonacoContent } from '../utils';
 
 @Injectable()
 export class DomainObjModificationService {
@@ -32,24 +32,24 @@ export class DomainObjModificationService {
         private domainReviewService: DomainReviewService,
         private thriftBuilderService: ThriftBuilderService
     ) {
-        this.metaBuilder.errors.subscribe(e => {
+        this.metaBuilder.errors.subscribe((e) => {
             this.errors$.next(e);
             console.error('Build meta error:', e);
         });
-        this.metaApplicator.errors.subscribe(e => console.log('Apply meta error:', e));
+        this.metaApplicator.errors.subscribe((e) => console.log('Apply meta error:', e));
     }
 
     init(namespace = 'domain'): Observable<DomainModificationModel> {
-        return combineLatest(this.route.params, this.domainReviewService.reviewModel).pipe(
+        return combineLatest([this.route.params, this.domainReviewService.reviewModel]).pipe(
             switchMap(([routeParams, model]) => {
                 if (model && JSON.stringify(model.ref) === routeParams.ref) {
                     return of(model);
                 }
                 const ref = parseRef(routeParams.ref);
-                return combineLatest(
+                return combineLatest([
                     this.metadataService.getDomainObjectType(ref),
-                    this.domainService.getDomainObject(ref)
-                ).pipe(
+                    this.domainService.getDomainObject(ref),
+                ]).pipe(
                     switchMap(([objectType, domainObj]) =>
                         this.build(ref, objectType, domainObj, namespace)
                     )
@@ -70,13 +70,13 @@ export class DomainObjModificationService {
         return {
             meta: modifiedMeta,
             domainObj: this.formNewDomainObj(original.domainObj, thrift),
-            monacoContent: modifiedContent
+            monacoContent: modifiedContent,
         };
     }
 
     reset({ monacoContent }: ModificationItem): Partial<ModificationItem> {
         return {
-            monacoContent: monacoContent.slice()
+            monacoContent: monacoContent.slice(),
         };
     }
 
@@ -93,7 +93,7 @@ export class DomainObjModificationService {
             throw new Error('Domain object not found');
         }
         return this.metaBuilder.build(objectType, namespace).pipe(
-            map(initialMeta => {
+            map((initialMeta) => {
                 if (!initialMeta) {
                     throw new Error('Build initial meta failed');
                 }
@@ -108,11 +108,11 @@ export class DomainObjModificationService {
                     original: {
                         monacoContent,
                         domainObj,
-                        meta: applied
+                        meta: applied,
                     },
                     modified: {
-                        monacoContent: monacoContent.slice()
-                    }
+                        monacoContent: monacoContent.slice(),
+                    },
                 };
             })
         );
@@ -120,7 +120,7 @@ export class DomainObjModificationService {
 
     private formNewDomainObj(source: DomainObject, thrift: ThriftType): DomainObject {
         const result = getThriftInstance('domain', 'DomainObject');
-        const filtered = Object.keys(source).filter(k => !!source[k]);
+        const filtered = Object.keys(source).filter((k) => !!source[k]);
         if (filtered.length !== 1) {
             throw new Error('Should be only one field in DomainObject');
         }

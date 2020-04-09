@@ -1,24 +1,24 @@
 import {
-    Component,
     ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
     OnInit,
     Output,
-    EventEmitter,
-    Input
 } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, map, take } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '../../shared/utils';
-import { queryParamsToFormValue } from './query-params-to-form-value';
 import { formValueToSearchParams } from './form-value-to-search-params';
+import { queryParamsToFormValue } from './query-params-to-form-value';
 import { SearchFormValue } from './search-form-value';
 
 @Component({
     selector: 'cc-claim-search-form',
     templateUrl: 'claim-search-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimSearchFormComponent implements OnInit {
     @Input() hidePartyId = false;
@@ -27,7 +27,7 @@ export class ClaimSearchFormComponent implements OnInit {
     form: FormGroup = this.fb.group({
         statuses: '',
         claim_id: '',
-        party_id: ''
+        party_id: '',
     });
 
     claimStatuses = ['pending', 'review', 'accepted', 'denied', 'revoked', 'pending_acceptance'];
@@ -36,19 +36,13 @@ export class ClaimSearchFormComponent implements OnInit {
 
     ngOnInit() {
         this.form.valueChanges
-            .pipe(
-                debounceTime(300),
-                map(removeEmptyProperties)
-            )
-            .subscribe(v => {
+            .pipe(debounceTime(300), map(removeEmptyProperties))
+            .subscribe((v) => {
                 this.router.navigate([location.pathname], { queryParams: v });
                 this.valueChanges.emit(formValueToSearchParams(v));
             });
         this.route.queryParams
-            .pipe(
-                take(1),
-                map(queryParamsToFormValue)
-            )
-            .subscribe(v => this.form.patchValue(v));
+            .pipe(take(1), map(queryParamsToFormValue))
+            .subscribe((v) => this.form.patchValue(v));
     }
 }

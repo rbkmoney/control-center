@@ -1,11 +1,11 @@
+import { getUnionKey, sortUnitsByCreatedAtAsc } from '../../../../shared/utils';
 import {
     ClaimModification,
     Modification,
-    ModificationUnit
+    ModificationUnit,
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { TimelineAction, TimelineItemInfo } from './model';
-import { sortUnitsByCreatedAtAsc, getUnionKey } from '../../../../shared/utils';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
+import { TimelineAction, TimelineItemInfo } from './model';
 
 const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean =>
     x.action === y.action && x.user_info.type === y.user_info.type;
@@ -29,7 +29,7 @@ const concatLastItem = (
         accItemIndex === acc.length - 1
             ? {
                   ...updateItem,
-                  modifications: accItem.modifications.concat(updateItem.modifications)
+                  modifications: accItem.modifications.concat(updateItem.modifications),
               }
             : accItem
     );
@@ -47,7 +47,7 @@ const acceptTimelineItem = (
         action,
         user_info,
         created_at: created_at as string,
-        modifications
+        modifications,
     };
     if (acc.length !== 0 && modifications.length !== 0) {
         const lastItem = acc[acc.length - 1];

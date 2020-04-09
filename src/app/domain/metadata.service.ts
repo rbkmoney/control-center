@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { shareReplay, map } from 'rxjs/operators';
-import { JsonAST, Field } from 'thrift-ts';
+import { map, shareReplay } from 'rxjs/operators';
+import { Field, JsonAST } from 'thrift-ts';
 
 import { Reference } from '../thrift-services/damsel/gen-model/domain';
 
@@ -34,7 +34,7 @@ export class MetadataService {
         }
         const searchName = keys[0];
         return this.getDomainDef().pipe(
-            map(d => {
+            map((d) => {
                 const found = d.find(({ name }) => name === searchName);
                 return found ? (found.type as string) : null;
             })
@@ -43,7 +43,7 @@ export class MetadataService {
 
     getDomainDef(): Observable<Field[]> {
         return this.metadata$.pipe(
-            map(m => m.find(({ name }) => name === 'domain').ast.union.DomainObject)
+            map((m) => m.find(({ name }) => name === 'domain').ast.union.DomainObject)
         );
     }
 }

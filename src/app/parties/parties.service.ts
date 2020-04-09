@@ -11,7 +11,7 @@ export class PartiesService {
 
     private prepareForm(): FormGroup {
         return this.fb.group({
-            partyId: ['', Validators.required]
+            partyId: ['', Validators.required],
         });
     }
 }

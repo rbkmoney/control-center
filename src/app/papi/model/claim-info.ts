@@ -1,5 +1,5 @@
-import { PartyModificationUnit } from './party-modification-unit';
 import { ClaimStatus } from './claim-statuses';
+import { PartyModificationUnit } from './party-modification-unit';
 
 export class ClaimInfo {
     party_id: string;

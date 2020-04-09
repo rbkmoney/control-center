@@ -1,21 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrettyJsonModule } from 'angular2-prettyjson';
+import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
+import { PrettyJsonModule } from 'angular2-prettyjson';
 
+import { CardContainerComponent } from './components/card-container/card-container.component';
+import { EmptySearchResultComponent } from './components/empty-search-result/empty-search-result.component';
+import { PrettyJsonComponent } from './components/pretty-json/pretty-json.component';
 import {
+    ClaimSourcePipe,
+    ClaimStatusPipe,
+    ClaimStatusThriftPipe,
     CurrencyPipe,
     FormatAmountPipe,
     ThriftViewPipe,
-    ClaimStatusThriftPipe,
-    ClaimSourcePipe,
-    ClaimStatusPipe
 } from './pipes';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
-import { PrettyJsonComponent } from './components/pretty-json/pretty-json.component';
-import { CardContainerComponent } from './components/card-container/card-container.component';
-import { EmptySearchResultComponent } from './components/empty-search-result/empty-search-result.component';
 
 const declarations = [
     CurrencyPipe,
@@ -27,12 +27,12 @@ const declarations = [
     PrettyJsonComponent,
     CardContainerComponent,
     EmptySearchResultComponent,
-    ClaimSourcePipe
+    ClaimSourcePipe,
 ];
 
 @NgModule({
     imports: [CommonModule, PrettyJsonModule, FlexModule, MatCardModule],
     declarations,
-    exports: declarations
+    exports: declarations,
 })
 export class SharedModule {}

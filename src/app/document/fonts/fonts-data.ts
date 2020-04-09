@@ -1,4 +1,4 @@
-import { vfs, fonts } from 'pdfmake/build/pdfmake';
+import { fonts, vfs } from 'pdfmake/build/pdfmake';
 
 export interface FontsData {
     vfs: typeof vfs;

@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { ClaimActionType } from '../claim-action-type';
@@ -10,7 +10,7 @@ interface RouteData {
 }
 
 @Component({
-    templateUrl: 'clone-claim.component.html'
+    templateUrl: 'clone-claim.component.html',
 })
 export class CloneClaimComponent {
     constructor(
@@ -22,7 +22,7 @@ export class CloneClaimComponent {
     cloneClaim() {
         this.dialogRef.close();
         this.router.navigate([
-            `/claims/${this.data.partyID}/${ClaimActionType.create}/${this.data.claimID}`
+            `/claims/${this.data.partyID}/${ClaimActionType.create}/${this.data.claimID}`,
         ]);
     }
 }

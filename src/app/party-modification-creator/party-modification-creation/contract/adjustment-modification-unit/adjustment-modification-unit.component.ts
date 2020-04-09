@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as uuid from 'uuid/v4';
 import get from 'lodash-es/get';
+import * as uuid from 'uuid/v4';
 
 import { ContractAdjustmentModificationUnit } from '../../../../thrift-services/damsel/gen-model/payment_processing';
 
 @Component({
     selector: 'cc-adjustment-modification-unit',
-    templateUrl: 'adjustment-modification-unit.component.html'
+    templateUrl: 'adjustment-modification-unit.component.html',
 })
 export class AdjustmentModificationUnitComponent implements OnInit {
     @Input()

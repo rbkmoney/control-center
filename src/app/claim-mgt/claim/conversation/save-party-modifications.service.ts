@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, forkJoin, of, ReplaySubject } from 'rxjs';
-import {
-    shareReplay,
-    map,
-    distinctUntilChanged,
-    switchMap,
-    first,
-    pluck,
-    debounceTime,
-    tap
-} from 'rxjs/operators';
 import isEqual from 'lodash-es/isEqual';
+import { forkJoin, Observable, of, ReplaySubject, Subject } from 'rxjs';
+import {
+    debounceTime,
+    distinctUntilChanged,
+    first,
+    map,
+    pluck,
+    shareReplay,
+    switchMap,
+    tap,
+} from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 
-import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
-import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import { ClaimService } from '../claim.service';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class SavePartyModificationsService {
         distinctUntilChanged(isEqual),
         shareReplay(1)
     );
-    hasUnsavedModifications$ = this.unsaved$.pipe(map(m => m.length > 0));
+    hasUnsavedModifications$ = this.unsaved$.pipe(map((m) => m.length > 0));
     isSaving$ = this.saving$.asObservable();
 
     constructor(
@@ -37,16 +37,13 @@ export class SavePartyModificationsService {
         private claimManagementService: ClaimManagementService,
         private claimService: ClaimService
     ) {
-        const partyId$ = this.route.params.pipe(
-            pluck('party_id'),
-            first()
-        );
+        const partyId$ = this.route.params.pipe(pluck('party_id'), first());
         const claimId$ = this.route.params.pipe(
             pluck('claim_id'),
-            map(claimId => new Int64(Number(claimId))),
+            map((claimId) => new Int64(Number(claimId))),
             first()
         );
-        const claim$ = forkJoin(partyId$, claimId$).pipe(
+        const claim$ = forkJoin([partyId$, claimId$]).pipe(
             switchMap(([partyId, claimId]) =>
                 this.claimManagementService.getClaim(partyId, claimId)
             )
@@ -56,10 +53,10 @@ export class SavePartyModificationsService {
                 tap(() => this.saving$.next(true)),
                 debounceTime(300),
                 switchMap(() => this.unsavedModifications$.pipe(first())),
-                map(modifications =>
-                    modifications.map(party_modification => ({ party_modification }))
+                map((modifications) =>
+                    modifications.map((party_modification) => ({ party_modification }))
                 ),
-                switchMap(changeset => forkJoin(partyId$, claimId$, of(changeset))),
+                switchMap((changeset) => forkJoin([partyId$, claimId$, of(changeset)])),
                 switchMap(([partyId, claimId, changeset]) =>
                     this.claimManagementService.updateClaim(
                         partyId,
@@ -69,7 +66,7 @@ export class SavePartyModificationsService {
                 ),
                 switchMap(() => claim$)
             )
-            .subscribe(claim => {
+            .subscribe((claim) => {
                 this.saving$.next(false);
                 this.unsaved$.next([]);
                 this.claimService.claim$.next(claim); // TODO need refactoring

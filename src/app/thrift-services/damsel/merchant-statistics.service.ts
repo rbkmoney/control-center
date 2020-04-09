@@ -1,11 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import * as MerchantStatistics from './gen-nodejs/MerchantStatistics';
-import { ThriftService } from '../thrift-service';
-import { StatRequest as ThriftStatRequest } from './gen-nodejs/merch_stat_types';
-import { StatRequest, StatResponse } from './gen-model/merch_stat';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
+import { ThriftService } from '../thrift-service';
+import { StatRequest, StatResponse } from './gen-model/merch_stat';
+import * as MerchantStatistics from './gen-nodejs/MerchantStatistics';
+import { StatRequest as ThriftStatRequest } from './gen-nodejs/merch_stat_types';
 
 @Injectable()
 export class MerchantStatisticsService extends ThriftService {

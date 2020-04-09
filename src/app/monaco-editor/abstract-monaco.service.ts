@@ -1,27 +1,27 @@
 import { ElementRef, NgZone } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import {
-    map,
-    takeUntil,
-    take,
-    buffer,
-    distinctUntilChanged,
-    debounceTime,
-    skipUntil,
-    tap
-} from 'rxjs/operators';
 import flatten from 'lodash-es/flatten';
-
+import { Observable, Subject } from 'rxjs';
 import {
-    IEditorOptions,
-    MonacoFile,
-    CodeLensProvider,
-    IDisposable,
-    CompletionProvider,
-    ITextModel
-} from './model';
-import { fromDisposable } from './from-disposable';
+    buffer,
+    debounceTime,
+    distinctUntilChanged,
+    map,
+    skipUntil,
+    take,
+    takeUntil,
+    tap,
+} from 'rxjs/operators';
+
 import { bootstrap$ } from './bootstrap';
+import { fromDisposable } from './from-disposable';
+import {
+    CodeLensProvider,
+    CompletionProvider,
+    IDisposable,
+    IEditorOptions,
+    ITextModel,
+    MonacoFile,
+} from './model';
 import { CodeLensService } from './providers/code-lens.service';
 import { CompletionService } from './providers/completion.service';
 
@@ -126,13 +126,13 @@ export abstract class AbstractMonacoService {
     }
 
     private registerCompletionListener() {
-        this.bufferEditorInitialized(this.completionService.providers).subscribe(providers =>
+        this.bufferEditorInitialized(this.completionService.providers).subscribe((providers) =>
             this.completionService.register(providers)
         );
     }
 
     private registerCodeLensListener() {
-        this.bufferEditorInitialized(this.codeLensService.providers).subscribe(providers =>
+        this.bufferEditorInitialized(this.codeLensService.providers).subscribe((providers) =>
             this.codeLensService.register(providers)
         );
     }
@@ -140,7 +140,7 @@ export abstract class AbstractMonacoService {
     private bufferEditorInitialized<T>(o: Observable<T[]>): Observable<T[]> {
         return o.pipe(
             buffer(this.editorInitialized$),
-            map(buffered => flatten(buffered).filter(i => i !== null))
+            map((buffered) => flatten(buffered).filter((i) => i !== null))
         );
     }
 
@@ -155,7 +155,7 @@ export abstract class AbstractMonacoService {
                 this.zone.run(() =>
                     this.fileChange$.next({
                         ...file,
-                        content
+                        content,
                     })
                 )
             );
@@ -173,6 +173,6 @@ export abstract class AbstractMonacoService {
                 debounceTime(50),
                 takeUntil(this.destroy$)
             )
-            .subscribe(dimension => this.editor.layout(dimension));
+            .subscribe((dimension) => this.editor.layout(dimension));
     }
 }

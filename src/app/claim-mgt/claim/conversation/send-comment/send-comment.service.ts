@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subject, of, forkJoin, BehaviorSubject, Observable, merge } from 'rxjs';
-import { switchMap, filter, catchError, pluck, tap } from 'rxjs/operators';
-import * as uuid from 'uuid/v4';
-import get from 'lodash-es/get';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import get from 'lodash-es/get';
+import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
+import * as uuid from 'uuid/v4';
 
+import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
+import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { ConversationId, User } from '../../../../thrift-services/messages/gen-model/messages';
 import { MessagesService } from '../../../../thrift-services/messages/messages.service';
 import { createSingleMessageConversationParams } from '../../../../thrift-services/messages/utils';
-import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
-import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 
 @Injectable()
 export class SendCommentService {
@@ -20,7 +20,9 @@ export class SendCommentService {
     private sendComment$: Subject<string> = new Subject();
 
     form: FormGroup;
-    conversationSaved$: Observable<ConversationId> = this.conversationId$.pipe(filter(id => !!id));
+    conversationSaved$: Observable<ConversationId> = this.conversationId$.pipe(
+        filter((id) => !!id)
+    );
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
     inProgress$: Observable<boolean> = progress(
         this.sendComment$,
@@ -34,13 +36,13 @@ export class SendCommentService {
         private snackBar: MatSnackBar
     ) {
         this.form = this.fb.group({
-            comment: ['', [Validators.maxLength(1000)]]
+            comment: ['', [Validators.maxLength(1000)]],
         });
 
         this.sendComment$
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
-                switchMap(text => {
+                switchMap((text) => {
                     const { name, email, sub } = this.keycloakTokenInfoService.decodedUserToken;
                     const user: User = { fullname: name, email, user_id: sub };
                     const conversation_id = uuid();
@@ -49,10 +51,10 @@ export class SendCommentService {
                         text,
                         sub
                     );
-                    return forkJoin(
+                    return forkJoin([
                         of(conversation_id),
                         this.messagesService.saveConversations([conversation], user).pipe(
-                            catchError(ex => {
+                            catchError((ex) => {
                                 console.error(ex);
                                 this.snackBar.open(
                                     `There was an error sending a comment: ${ex}`,
@@ -63,8 +65,8 @@ export class SendCommentService {
                                 this.error$.next(error);
                                 return of(error);
                             })
-                        )
-                    );
+                        ),
+                    ]);
                 }),
                 filter(([, res]) => get(res, ['hasError']) !== true)
             )
@@ -87,10 +89,10 @@ export class SendCommentService {
                 comment_modification: {
                     id,
                     modification: {
-                        creation: {}
-                    }
-                }
-            }
+                        creation: {},
+                    },
+                },
+            },
         };
     }
 }

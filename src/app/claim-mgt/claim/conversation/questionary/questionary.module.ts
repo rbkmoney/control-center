@@ -1,26 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatExpansionModule, MatListModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
 
-import { YesNoPipe } from './yes-no.pipe';
-import { OrganizationInfoComponent } from './organization-info';
-import { QuestionaryComponent } from './questionary.component';
 import { DetailsItemModule } from '../../../../shared/components/details-item';
-import { LegalOwnerInfoComponent } from './legal-owner-info';
-import { EmptyDefaultPipe } from './empty-default.pipe';
 import { AuthorityConfirmingDocumentTitlePipe } from './authority-confirming-document-title.pipe';
-import { IndividualEntityInfoComponent } from './individual-entity-info';
-import { IdentityDocumentInfoComponent } from './identity-document-info';
 import { BankAccountInfoComponent } from './bank-account-info';
-import { ShopInfoComponent } from './shop-info';
-import { ContactInfoComponent } from './contact-info';
-import { PrivateEntityInfoComponent } from './private-entity-info';
-import { SerialNumberPipe } from './serial-number.pipe';
 import { BeneficialOwnerInfoComponent } from './beneficial-owner-info';
+import { ContactInfoComponent } from './contact-info';
+import { EmptyDefaultPipe } from './empty-default.pipe';
+import { IdentityDocumentInfoComponent } from './identity-document-info';
+import { IndividualEntityInfoComponent } from './individual-entity-info';
+import { LegalOwnerInfoComponent } from './legal-owner-info';
+import { OrganizationInfoComponent } from './organization-info';
 import { PdlInfoComponent } from './pdl-info';
+import { PrivateEntityInfoComponent } from './private-entity-info';
+import { QuestionaryComponent } from './questionary.component';
+import { SerialNumberPipe } from './serial-number.pipe';
+import { ShopInfoComponent } from './shop-info';
+import { YesNoPipe } from './yes-no.pipe';
 
 @NgModule({
     imports: [
@@ -31,7 +33,7 @@ import { PdlInfoComponent } from './pdl-info';
         MatExpansionModule,
         MatCardModule,
         MatListModule,
-        DetailsItemModule
+        DetailsItemModule,
     ],
     declarations: [
         QuestionaryComponent,
@@ -48,8 +50,8 @@ import { PdlInfoComponent } from './pdl-info';
         PrivateEntityInfoComponent,
         SerialNumberPipe,
         BeneficialOwnerInfoComponent,
-        PdlInfoComponent
+        PdlInfoComponent,
     ],
-    exports: [QuestionaryComponent]
+    exports: [QuestionaryComponent],
 })
 export class QuestionaryModule {}

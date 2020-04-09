@@ -4,7 +4,7 @@ import { ClaimsService } from './claims.service';
 import { SearchFormValue } from './search-form/search-form-value';
 
 @Component({
-    templateUrl: 'claims.component.html'
+    templateUrl: 'claims.component.html',
 })
 export class ClaimsComponent {
     isLoading$ = this.claimService.isLoading$;

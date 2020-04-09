@@ -1,12 +1,12 @@
 import {
-    Component,
     ChangeDetectionStrategy,
-    Input,
-    Output,
+    Component,
     EventEmitter,
+    Input,
     OnChanges,
+    OnInit,
+    Output,
     SimpleChanges,
-    OnInit
 } from '@angular/core';
 import isEqual from 'lodash-es/isEqual';
 
@@ -17,7 +17,7 @@ import { UnsavedPartyModificationService } from './unsaved-party-modifications.s
     selector: 'cc-unsaved-party-modifications',
     templateUrl: 'unsaved-party-modifications.component.html',
     providers: [UnsavedPartyModificationService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnsavedPartyModificationsComponent implements OnChanges, OnInit {
     @Input() partyModifications: PartyModification[];
@@ -28,7 +28,7 @@ export class UnsavedPartyModificationsComponent implements OnChanges, OnInit {
     constructor(private unsavedPartyModService: UnsavedPartyModificationService) {}
 
     ngOnInit() {
-        this.unsavedPartyModifications$.subscribe(m => this.partyModificationsChanged.emit(m));
+        this.unsavedPartyModifications$.subscribe((m) => this.partyModificationsChanged.emit(m));
     }
 
     ngOnChanges({ partyModifications }: SimpleChanges) {

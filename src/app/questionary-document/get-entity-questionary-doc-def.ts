@@ -1,7 +1,7 @@
+import { Questionary } from '../thrift-services/ank/gen-model/questionary_manager';
+import { DocDef } from './create-questionary';
 import { getDocDef as getRussianIndividualEntityDocDef } from './russian-individual-entity';
 import { getDocDef as getRussianLegalEntityDocDef } from './russian-legal-entity';
-import { DocDef } from './create-questionary';
-import { Questionary } from '../thrift-services/ank/gen-model/questionary_manager';
 
 export function getEntityQuestionaryDocDef(questionary: Questionary): DocDef {
     if (questionary.data.contractor.individual_entity) {

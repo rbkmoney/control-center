@@ -6,7 +6,7 @@ import { InternationalBankAccount } from '../../../../../thrift-services/damsel/
 
 @Component({
     selector: 'cc-international-bank-account',
-    templateUrl: 'international-bank-account.component.html'
+    templateUrl: 'international-bank-account.component.html',
 })
 export class InternationalBankAccountComponent implements OnInit {
     @Input()
@@ -22,9 +22,9 @@ export class InternationalBankAccountComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const number = get(this, 'initialValue.number', '');
+        const num = get(this, 'initialValue.number', '');
         const iban = get(this, 'initialValue.iban', '');
-        this.form.registerControl('number', this.fb.control(number));
+        this.form.registerControl('number', this.fb.control(num));
         this.form.registerControl('iban', this.fb.control(iban));
         const bank = get(this, 'initialValue.bank', null);
         if (bank) {

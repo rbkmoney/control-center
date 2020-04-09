@@ -1,59 +1,59 @@
-import { JsonAST, Enums, Field, Structs, Unions, TypeDefs } from 'thrift-ts';
+import { Enums, Field, JsonAST, Structs, TypeDefs, Unions } from 'thrift-ts';
 
 import {
     ASTDefinition,
-    MetaTyped,
     MetaEnum,
-    MetaType,
     MetaField,
     MetaStruct,
+    MetaType,
+    MetaTyped,
+    MetaTypedef,
     MetaUnion,
-    MetaTypedef
 } from '../model';
-import { isRef } from './utils';
-import { resolveAstValueType } from './resolve-ast-value-type';
 import { MetaGroup } from './model';
+import { resolveAstValueType } from './resolve-ast-value-type';
+import { isRef } from './utils';
 
 const resolveAstField = ({ option, name, type }: Field): MetaField => ({
     required: option ? option === 'required' : false,
     name,
-    meta: resolveAstValueType(type)
+    meta: resolveAstValueType(type),
 });
 
-const resolveAstFields = (fields: Field[]): MetaField[] => fields.map(f => resolveAstField(f));
+const resolveAstFields = (fields: Field[]): MetaField[] => fields.map((f) => resolveAstField(f));
 
 const resolveAstEnums = (ast: Enums): MetaEnum[] =>
-    Object.keys(ast).map(name => ({
+    Object.keys(ast).map((name) => ({
         type: MetaType.enum,
         name,
-        items: ast[name].items
+        items: ast[name].items,
     }));
 
 const resolveAstStructs = (ast: Structs, namespace: string): MetaStruct[] =>
-    Object.keys(ast).map(name => ({
+    Object.keys(ast).map((name) => ({
         type: MetaType.struct,
         name,
         fields: resolveAstFields(ast[name]),
         isRef: isRef(name),
         namespace,
-        virgin: true
+        virgin: true,
     }));
 
 const resolveAstUnion = (ast: Unions, namespace: string): MetaUnion[] =>
-    Object.keys(ast).map(name => ({
+    Object.keys(ast).map((name) => ({
         type: MetaType.union,
         name,
         fields: resolveAstFields(ast[name]),
         settedField: null,
         namespace,
-        virgin: true
+        virgin: true,
     }));
 
 const resolveAstTypedef = (ast: TypeDefs): MetaTypedef[] =>
-    Object.keys(ast).map(name => ({
+    Object.keys(ast).map((name) => ({
         type: MetaType.typedef,
         name,
-        meta: resolveAstValueType(ast[name].type)
+        meta: resolveAstValueType(ast[name].type),
     }));
 
 function resolveJsonAst(ast: JsonAST, namespace: string): MetaTyped[] {
@@ -82,8 +82,8 @@ export function buildInitialMeta(astDef: ASTDefinition[]): MetaGroup[] {
             ...r,
             {
                 namespace: name,
-                meta: resolveJsonAst(ast, name)
-            }
+                meta: resolveJsonAst(ast, name),
+            },
         ],
         []
     );

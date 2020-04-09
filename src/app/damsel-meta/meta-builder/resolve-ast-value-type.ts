@@ -1,15 +1,15 @@
-import { ValueType, SetType, ListType, MapType } from 'thrift-ts';
 import isString from 'lodash-es/isString';
+import { ListType, MapType, SetType, ValueType } from 'thrift-ts';
 
 import {
-    PrimitiveType,
-    MetaPrimitive,
-    MetaType,
     CollectionType,
     MetaCollection,
-    MetaMap
+    MetaMap,
+    MetaPrimitive,
+    MetaType,
+    PrimitiveType,
 } from '../model';
-import { isPrimitiveType, isComplexType } from './utils';
+import { isComplexType, isPrimitiveType } from './utils';
 
 const resolveCollection = (
     collectionType: CollectionType,
@@ -17,18 +17,18 @@ const resolveCollection = (
 ): MetaCollection => ({
     type: MetaType.collection,
     collectionType,
-    itemMeta: resolveAstValueType(itemType)
+    itemMeta: resolveAstValueType(itemType),
 });
 
 const resolveMap = (keyType: ValueType, valueType: ValueType): MetaMap => ({
     type: MetaType.map,
     keyMeta: resolveAstValueType(keyType),
-    valueMeta: resolveAstValueType(valueType)
+    valueMeta: resolveAstValueType(valueType),
 });
 
 export const resolvePrimitive = (primitiveType: PrimitiveType): MetaPrimitive => ({
     type: MetaType.primitive,
-    primitiveType
+    primitiveType,
 });
 
 export function resolveAstValueType(

@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
     Component,
     EventEmitter,
@@ -6,17 +7,17 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { ProviderObject } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-select-provider',
     templateUrl: 'select-provider.component.html',
-    styleUrls: ['../add-provider.component.scss']
+    styleUrls: ['../add-provider.component.scss'],
 })
 export class SelectProviderComponent implements OnInit, OnChanges {
     @Input() providers: ProviderObject[];
@@ -38,9 +39,7 @@ export class SelectProviderComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (provider: ProviderObject, filter: string) =>
-            JSON.stringify(provider)
-                .toLowerCase()
-                .includes(filter);
+            JSON.stringify(provider).toLowerCase().includes(filter);
         this.selection.changed.subscribe(() => {
             const providerSelection = Array.from(this.selection.selected.values());
             if (providerSelection.length > 0) {

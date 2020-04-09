@@ -4,6 +4,6 @@ import { ModificationNamePipe } from './modification-name.pipe';
 
 @NgModule({
     declarations: [ModificationNamePipe],
-    exports: [ModificationNamePipe]
+    exports: [ModificationNamePipe],
 })
 export class ModificationNameModule {}

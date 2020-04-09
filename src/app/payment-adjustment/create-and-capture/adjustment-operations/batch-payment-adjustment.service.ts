@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { mergeAll, share } from 'rxjs/internal/operators';
 
-import { CaptureAdjustmentService } from './capture-adjustment.service';
-import { CancelAdjustmentService } from './cancel-adjustment.service';
-import { CreateAdjustmentService } from './create-adjustment.service';
 import { AdjustmentOperationEvent } from './adjustment-event';
 import {
     PaymentAdjustmentCancelParams,
     PaymentAdjustmentCaptureParams,
-    PaymentAdjustmentCreationParams
+    PaymentAdjustmentCreationParams,
 } from './adjustment-params';
+import { CancelAdjustmentService } from './cancel-adjustment.service';
+import { CaptureAdjustmentService } from './capture-adjustment.service';
+import { CreateAdjustmentService } from './create-adjustment.service';
 
 @Injectable()
 export class BatchPaymentAdjustmentService {
@@ -18,19 +18,13 @@ export class BatchPaymentAdjustmentService {
         this.createAdjustmentService.progress$,
         this.cancelAdjustmentService.progress$,
         this.captureAdjustmentService.progress$
-    ).pipe(
-        mergeAll(),
-        share()
-    );
+    ).pipe(mergeAll(), share());
 
     events$: Observable<AdjustmentOperationEvent> = of(
         this.createAdjustmentService.events$,
         this.cancelAdjustmentService.events$,
         this.captureAdjustmentService.events$
-    ).pipe(
-        mergeAll(),
-        share()
-    );
+    ).pipe(mergeAll(), share());
 
     constructor(
         private createAdjustmentService: CreateAdjustmentService,

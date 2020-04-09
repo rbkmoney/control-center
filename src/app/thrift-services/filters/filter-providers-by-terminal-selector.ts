@@ -4,7 +4,7 @@ export const filterProvidersByTerminalSelector = (
     objects: ProviderObject[],
     filterValue: 'decisions' | 'value'
 ): ProviderObject[] => {
-    return objects.filter(object => {
+    return objects.filter((object) => {
         const selector = object.data.terminal;
         switch (filterValue) {
             case 'decisions':

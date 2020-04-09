@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { DomainService } from './domain.service';
-import { PaymentProcessingService } from './payment-processing.service';
-import { MerchantStatisticsService } from './merchant-statistics.service';
-import { DomainTypedManager } from './domain-typed-manager';
-import { DomainCacheService } from './domain-cache.service';
 import { ClaimManagementService } from './claim-management.service';
+import { DomainCacheService } from './domain-cache.service';
+import { DomainTypedManager } from './domain-typed-manager';
+import { DomainService } from './domain.service';
+import { MerchantStatisticsService } from './merchant-statistics.service';
+import { PaymentProcessingService } from './payment-processing.service';
 
 @NgModule({
     providers: [
@@ -14,7 +14,7 @@ import { ClaimManagementService } from './claim-management.service';
         PaymentProcessingService,
         MerchantStatisticsService,
         DomainCacheService,
-        ClaimManagementService
-    ]
+        ClaimManagementService,
+    ],
 })
 export class DamselModule {}

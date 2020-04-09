@@ -1,5 +1,5 @@
-import { Layout } from '../create-questionary';
 import { Content } from '../../document';
+import { Layout } from '../create-questionary';
 
 export function createCaptionedText(text: string, caption: string): Content {
     return {
@@ -11,9 +11,9 @@ export function createCaptionedText(text: string, caption: string): Content {
                         text,
                         style: {
                             bold: true,
-                            alignment: 'center'
-                        }
-                    }
+                            alignment: 'center',
+                        },
+                    },
                 ],
                 [
                     {
@@ -21,11 +21,11 @@ export function createCaptionedText(text: string, caption: string): Content {
                         style: {
                             bold: true,
                             alignment: 'center',
-                            italics: true
-                        }
-                    }
-                ]
-            ]
-        }
+                            italics: true,
+                        },
+                    },
+                ],
+            ],
+        },
     };
 }

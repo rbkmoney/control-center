@@ -1,6 +1,6 @@
-import { DocDef } from './create-questionary';
-import { getDocDef } from './beneficial-owner';
 import { BeneficialOwner } from '../thrift-services/ank/gen-model/questionary';
+import { getDocDef } from './beneficial-owner';
+import { DocDef } from './create-questionary';
 
 export function getBeneficialOwnerDocDef(
     beneficialOwner: BeneficialOwner,

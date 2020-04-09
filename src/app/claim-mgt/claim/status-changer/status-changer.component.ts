@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { StatusChangerService } from './status-changer.service';
+import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimID, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatuses } from '../claim-statuses';
 import { getAvailableClaimStatuses } from './get-available-claim-statuses';
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
+import { StatusChangerService } from './status-changer.service';
 
 interface ActionsInterface {
     partyID: string;
@@ -16,10 +16,10 @@ interface ActionsInterface {
 @Component({
     templateUrl: 'status-changer.component.html',
     providers: [StatusChangerService],
-    styleUrls: ['status-changer.component.scss']
+    styleUrls: ['status-changer.component.scss'],
 })
 export class StatusChangerComponent implements OnInit {
-    actions = getAvailableClaimStatuses(this.data.claimStatus).filter(status =>
+    actions = getAvailableClaimStatuses(this.data.claimStatus).filter((status) =>
         this.statusFilter(status)
     );
     form = this.actionsService.form;
@@ -42,7 +42,7 @@ export class StatusChangerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.actionsService.claim$.subscribe(_ => {
+        this.actionsService.claim$.subscribe(() => {
             this.dialogRef.close(true);
         });
     }

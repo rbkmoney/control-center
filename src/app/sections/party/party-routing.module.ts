@@ -12,31 +12,32 @@ import { PartyComponent } from './party.component';
                 component: PartyComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims']
+                    roles: ['get_claims'],
                 },
                 children: [
                     {
                         path: 'claims',
                         loadChildren: () =>
-                            import('../party-claims').then(m => m.PartyClaimsModule),
+                            import('../party-claims').then((m) => m.PartyClaimsModule),
                         canActivate: [AppAuthGuardService],
                         data: {
-                            roles: ['get_claims']
-                        }
+                            roles: ['get_claims'],
+                        },
                     },
                     {
                         path: 'shops',
-                        loadChildren: () => import('../party-shops').then(m => m.PartyShopsModule),
+                        loadChildren: () =>
+                            import('../party-shops').then((m) => m.PartyShopsModule),
                         canActivate: [AppAuthGuardService],
                         data: {
-                            roles: ['get_claims']
-                        }
+                            roles: ['get_claims'],
+                        },
                     },
-                    { path: '', redirectTo: 'claims', pathMatch: 'full' }
-                ]
-            }
-        ])
+                    { path: '', redirectTo: 'claims', pathMatch: 'full' },
+                ],
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PartyMgtRouting {}

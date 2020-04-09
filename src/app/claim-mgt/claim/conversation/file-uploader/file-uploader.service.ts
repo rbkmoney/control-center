@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import * as moment from 'moment';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
-import * as moment from 'moment';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
+import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import { NewFileResult } from '../../../../thrift-services/file-storage/gen-model/file_storage';
 import { Value } from '../../../../thrift-services/file-storage/gen-model/msgpack';
-import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 
 @Injectable()
 export class FileUploaderService {
@@ -18,7 +18,7 @@ export class FileUploaderService {
     filesUploadingError$ = new Subject<null>();
 
     filesUploaded$: Observable<string[]> = this.startUploading$.pipe(
-        switchMap(files =>
+        switchMap((files) =>
             this.uploadFiles(files).pipe(
                 catchError(() => {
                     this.filesUploadingError$.next(null);
@@ -26,7 +26,7 @@ export class FileUploaderService {
                 })
             )
         ),
-        filter(v => !!v.length),
+        filter((v) => !!v.length),
         shareReplay(1)
     );
 
@@ -45,13 +45,13 @@ export class FileUploaderService {
 
     uploadFiles(files: File[]): Observable<string[]> {
         return forkJoin(
-            files.map(file =>
+            files.map((file) =>
                 this.getUploadLink().pipe(
-                    switchMap(uploadData =>
-                        forkJoin(
+                    switchMap((uploadData) =>
+                        forkJoin([
                             of(uploadData.file_data_id),
-                            this.uploadFileToUrl(file, uploadData.upload_url)
-                        )
+                            this.uploadFileToUrl(file, uploadData.upload_url),
+                        ])
                     ),
                     map(([fileId]) => fileId)
                 )
@@ -65,19 +65,17 @@ export class FileUploaderService {
                 file_modification: {
                     id,
                     modification: {
-                        creation: {}
-                    }
-                }
-            }
+                        creation: {},
+                    },
+                },
+            },
         };
     }
 
     private getUploadLink(): Observable<NewFileResult> {
         return this.fileStorageService.createNewFile(
             new Map<string, Value>(),
-            moment()
-                .add(1, 'h')
-                .toISOString()
+            moment().add(1, 'h').toISOString()
         );
     }
 
@@ -85,8 +83,8 @@ export class FileUploaderService {
         return this.http.put(url, file, {
             headers: {
                 'Content-Disposition': `attachment;filename=${file.name}`,
-                'Content-Type': ''
-            }
+                'Content-Type': '',
+            },
         });
     }
 }

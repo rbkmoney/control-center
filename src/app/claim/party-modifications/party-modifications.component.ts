@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { pluck, first, shareReplay } from 'rxjs/operators';
+import { first, pluck, shareReplay } from 'rxjs/operators';
 
 import { ClaimService } from '../claim.service';
 import { ModificationGroupType, PartyModificationUnit } from '../model';
 
 @Component({
     selector: 'cc-party-modifications',
-    templateUrl: 'party-modifications.component.html'
+    templateUrl: 'party-modifications.component.html',
 })
 export class PartyModificationsComponent implements OnInit {
     shopUnits: PartyModificationUnit[] = [];
@@ -29,7 +29,7 @@ export class PartyModificationsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.claimService.modificationGroups$.subscribe(groups => {
+        this.claimService.modificationGroups$.subscribe((groups) => {
             this.shopUnits = [];
             this.contractUnits = [];
             for (const group of groups) {

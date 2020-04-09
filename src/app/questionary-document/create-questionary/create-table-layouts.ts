@@ -7,19 +7,19 @@ export enum Layout {
     noPaddings = 'noPaddings',
     header = 'header',
     wrapper = 'wrapper',
-    underline = 'underline'
+    underline = 'underline',
 }
 
 const noPaddings: TableLayoutFunctions = {
     paddingLeft: () => 0,
     paddingRight: () => 0,
     paddingTop: () => 0,
-    paddingBottom: () => 0
+    paddingBottom: () => 0,
 };
 
 const noBorders: TableLayoutFunctions = {
     hLineWidth: () => 0,
-    vLineWidth: () => 0
+    vLineWidth: () => 0,
 };
 
 export function createTableLayouts(): { [name in Layout]: TableLayoutFunctions } {
@@ -28,20 +28,20 @@ export function createTableLayouts(): { [name in Layout]: TableLayoutFunctions }
         [Layout.noPaddings]: noPaddings,
         [Layout.wrapper]: {
             ...noBorders,
-            ...noPaddings
+            ...noPaddings,
         },
         [Layout.header]: {
             fillColor(rowIdx) {
                 return rowIdx === 0 ? PRIMARY_COLOR : null;
             },
-            ...noBorders
+            ...noBorders,
         },
         [Layout.underline]: {
-            hLineWidth: idx => (idx === 1 ? 0.5 : 0),
+            hLineWidth: (idx) => (idx === 1 ? 0.5 : 0),
             vLineWidth: () => 0,
             paddingLeft: () => 0,
             paddingRight: () => 0,
-            paddingTop: () => 0
-        }
+            paddingTop: () => 0,
+        },
     };
 }

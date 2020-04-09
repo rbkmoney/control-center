@@ -1,4 +1,4 @@
-<div class="container" fxLayout="column" fxLayoutGap="20px" *ngIf="(claim$ | async) as claim">
+<div class="container" fxLayout="column" fxLayoutGap="20px" *ngIf="claim$ | async as claim">
     <h1 class="mat-headline">Claim #{{ claim.id }}</h1>
     <cc-claim-details [claim]="claim"></cc-claim-details>
     <cc-claim-conversation

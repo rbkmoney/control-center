@@ -1,16 +1,17 @@
 import groupBy from 'lodash-es/groupBy';
 import map from 'lodash-es/map';
+
+import { UnitName } from '../party-modification-creator/party-modification-creation/unit-name';
+import {
+    ContractModificationUnit,
+    ShopModificationUnit,
+} from '../thrift-services/damsel/gen-model/payment_processing';
 import {
     ModificationGroup,
     ModificationGroupType,
     PartyModificationUnit,
-    PersistentContainer
+    PersistentContainer,
 } from './model';
-import {
-    ContractModificationUnit,
-    ShopModificationUnit
-} from '../thrift-services/damsel/gen-model/payment_processing';
-import { UnitName } from '../party-modification-creator/party-modification-creation/unit-name';
 
 interface PersistentUnit {
     modificationUnit: ShopModificationUnit | ContractModificationUnit;
@@ -19,7 +20,7 @@ interface PersistentUnit {
 }
 
 const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
-    const grouped = groupBy(persistentUnits, item => {
+    const grouped = groupBy(persistentUnits, (item) => {
         const modificationNames = Object.keys(item.modificationUnit.modification);
         if (modificationNames.length !== 1) {
             return 'unknown';
@@ -31,20 +32,20 @@ const toContainers = (persistentUnits: PersistentUnit[]): any[] => {
         unitContainers: units.map(({ modificationUnit, saved, typeHash }) => ({
             modificationUnit,
             saved,
-            typeHash
-        }))
+            typeHash,
+        })),
     }));
 };
 
 const isHasUnsaved = (units: PersistentUnit[], unitID: string): boolean =>
-    units.filter(i => !i.saved && i.modificationUnit.id === unitID).length > 0;
+    units.filter((i) => !i.saved && i.modificationUnit.id === unitID).length > 0;
 
 const toUnits = (persistentUnits: PersistentUnit[]): PartyModificationUnit[] => {
-    const grouped = groupBy(persistentUnits, item => item.modificationUnit.id);
+    const grouped = groupBy(persistentUnits, (item) => item.modificationUnit.id);
     return map(grouped, (units, unitID) => ({
         unitID,
         hasUnsaved: isHasUnsaved(units, unitID),
-        containers: toContainers(units)
+        containers: toContainers(units),
     }));
 };
 
@@ -56,16 +57,16 @@ const toGroup = (
     const persistent = containers.map(({ modification, saved, typeHash }) => ({
         modificationUnit: modification[name],
         typeHash,
-        saved
+        saved,
     }));
     return {
         type,
-        units: toUnits(persistent)
+        units: toUnits(persistent),
     };
 };
 
 export const convert = (containers: PersistentContainer[]): ModificationGroup[] => {
-    const grouped = groupBy(containers, item => {
+    const grouped = groupBy(containers, (item) => {
         const { shop_modification, contract_modification } = item.modification;
         if (shop_modification) {
             return ModificationGroupType.ShopUnitContainer;

@@ -1,23 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import forEach from 'lodash-es/forEach';
 import groupBy from 'lodash-es/groupBy';
 
+import { InvoicePaymentAdjustmentParams } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import {
     AdjustmentOperationEvent,
     BatchPaymentAdjustmentService,
     CancelPaymentAdjustmentErrorCodes,
     EventType,
     OperationFailedPayload,
-    PaymentAdjustmentCancelParams
+    PaymentAdjustmentCancelParams,
 } from '../adjustment-operations';
-import { InvoicePaymentAdjustmentParams } from '../../../thrift-services/damsel/gen-model/payment_processing';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCancelParams>;
 
 @Component({
     selector: 'cc-cancel-actions',
-    templateUrl: 'cancel-actions.component.html'
+    templateUrl: 'cancel-actions.component.html',
 })
 export class CancelActionsComponent implements OnInit {
     @Input()
@@ -40,7 +40,7 @@ export class CancelActionsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.batchAdjustmentService.events$.subscribe(event => {
+        this.batchAdjustmentService.events$.subscribe((event) => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCancelled:
                     this.cancelResult = this.cancelResult.concat(
@@ -90,19 +90,23 @@ export class CancelActionsComponent implements OnInit {
             user,
             invoice_id,
             payment_id,
-            params: this.adjustmentParams
+            params: this.adjustmentParams,
         }));
         this.cancelResult = [];
-        this.batchAdjustmentService.create(createParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments create');
+        this.batchAdjustmentService.create(createParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments create');
+            },
         });
     }
 
     retry() {
         const cancelParams = this.failedInternal.map(({ operationScope }) => operationScope);
         this.failedInternal = [];
-        this.batchAdjustmentService.cancel(cancelParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments cancel');
+        this.batchAdjustmentService.cancel(cancelParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments cancel');
+            },
         });
     }
 }

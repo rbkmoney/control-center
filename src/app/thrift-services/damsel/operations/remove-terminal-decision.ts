@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 
-import { checkSelector } from './utils';
 import { ProviderObject, TerminalDecision } from '../gen-model/domain';
+import { checkSelector } from './utils';
 
 const checkCondition = (condition: any, partyID: string, shopID: string): boolean => {
     const isPartyEquals = condition.party.id === partyID;
@@ -39,7 +39,8 @@ const removeDecision = (
 ): TerminalDecision[] =>
     decisions.reduce((acc: TerminalDecision[], decision: any) => {
         const isTerminalMatched =
-            decision.then_.value && decision.then_.value.map(item => item.id).includes(terminalID);
+            decision.then_.value &&
+            decision.then_.value.map((item) => item.id).includes(terminalID);
         if (isTerminalMatched) {
             const newDecision = filterDecision(decision, partyID, shopID);
             return newDecision ? acc.concat(newDecision) : acc;

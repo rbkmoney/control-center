@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import * as uuid from 'uuid/v4';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import * as uuid from 'uuid/v4';
 
-import { toMajor } from '../to-major-amount';
+import { createDepositStopPollingCondition, poll } from '../../custom-operators';
+import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
+import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';
 import { DepositParams } from '../../thrift-services/fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../thrift-services/fistful/gen-model/fistful_stat';
 import { SearchFormParams } from '../search-form/search-form-params';
-import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
-import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';
-import { createDepositStopPollingCondition, poll } from '../../custom-operators';
+import { toMajor } from '../to-major-amount';
 
 export interface CurrencySource {
     source: string;
@@ -25,7 +25,7 @@ export const currencies: CurrencySource[] = [
     { source: 'eskin1', currency: 'USD' },
     { source: 'eskin2', currency: 'EUR' },
     { source: 'eskin3', currency: 'KZT' },
-    { source: 'eskin5', currency: 'BYN' }
+    { source: 'eskin5', currency: 'BYN' },
 ];
 
 @Injectable()
@@ -45,7 +45,7 @@ export class CreateDepositService {
         return this.fistfulAdminService.createDeposit(params).pipe(
             switchMap(() =>
                 this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
-                    map(res => res.result[0]),
+                    map((res) => res.result[0]),
                     poll(createDepositStopPollingCondition)
                 )
             )
@@ -56,7 +56,7 @@ export class CreateDepositService {
         return this.fb.group({
             destination: ['', Validators.required],
             amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
-            currency: [currencies[0], Validators.required]
+            currency: [currencies[0], Validators.required],
         });
     }
 
@@ -69,21 +69,17 @@ export class CreateDepositService {
             body: {
                 amount: toMajor(amount),
                 currency: {
-                    symbolic_code: currency.currency
-                }
-            }
+                    symbolic_code: currency.currency,
+                },
+            },
         };
     }
 
     private getPollingSearchFormParams(params: DepositParams): SearchFormParams {
         return {
-            fromTime: moment()
-                .startOf('d')
-                .toISOString(),
-            toTime: moment()
-                .endOf('d')
-                .toISOString(),
-            depositId: params.id
+            fromTime: moment().startOf('d').toISOString(),
+            toTime: moment().endOf('d').toISOString(),
+            depositId: params.id,
         };
     }
 }

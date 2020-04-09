@@ -2,7 +2,7 @@ export function text(
     literals: TemplateStringsArray,
     ...placeholders: (string | number | null | undefined)[]
 ): string {
-    const resultPlaceholders = placeholders.map(p => {
+    const resultPlaceholders = placeholders.map((p) => {
         switch (p) {
             case null:
             case undefined:

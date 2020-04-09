@@ -14,27 +14,27 @@ import { DomainObjReviewComponent } from './domain-obj-review';
                 component: DomainInfoComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['dmt:checkout']
-                }
+                    roles: ['dmt:checkout'],
+                },
             },
             {
                 path: 'domain/:ref',
                 component: DomainObjModificationComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['dmt:checkout']
-                }
+                    roles: ['dmt:checkout'],
+                },
             },
             {
                 path: 'domain/:ref/review',
                 component: DomainObjReviewComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['dmt:checkout']
-                }
-            }
-        ])
+                    roles: ['dmt:checkout'],
+                },
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DomainRoutingModule {}

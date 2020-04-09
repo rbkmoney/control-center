@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
@@ -16,8 +16,8 @@ export class ClaimService {
 
     getClaim(partyID: string, claimID: ClaimID) {
         this.claimManagementService.getClaim(partyID, claimID).subscribe(
-            claim => this.claim$.next(claim),
-            e => {
+            (claim) => this.claim$.next(claim),
+            (e) => {
                 console.error(e);
                 this.snackBar.open('Error loading the claim', 'OK');
             }

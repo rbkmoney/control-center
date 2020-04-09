@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { ConnectableObservable, Observable, Subject } from 'rxjs';
 import {
     catchError,
@@ -9,13 +11,11 @@ import {
     pluck,
     publish,
     shareReplay,
-    switchMap
+    switchMap,
 } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
-import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatuses } from '../claim-statuses';
 
 class UpdateClaim {
@@ -36,23 +36,23 @@ export class StatusChangerService {
                 case ClaimStatuses.denied:
                     return this.claimManagementService
                         .denyClaim(partyID, claimID, this.form.getRawValue().reason)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 case ClaimStatuses.pending:
                     return this.claimManagementService
                         .requestClaimChanges(partyID, claimID)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 case ClaimStatuses.review:
                     return this.claimManagementService
                         .requestClaimReview(partyID, claimID)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 case ClaimStatuses.accepted:
                     return this.claimManagementService
                         .acceptClaim(partyID, claimID)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 case ClaimStatuses.revoked:
                     return this.claimManagementService
                         .revokeClaim(partyID, claimID, this.form.getRawValue().reason)
-                        .pipe(catchError(e => this.handleError(e)));
+                        .pipe(catchError((e) => this.handleError(e)));
                 default:
                     throw new Error('Wrong action type!');
             }
@@ -80,7 +80,7 @@ export class StatusChangerService {
                 filter(([prev, curr]) => prev.reason === curr.reason),
                 pluck(1, 'type')
             )
-            .subscribe(type => {
+            .subscribe((type) => {
                 switch (type) {
                     case ClaimStatuses.denied:
                     case ClaimStatuses.revoked:
@@ -106,7 +106,7 @@ export class StatusChangerService {
     private initForm() {
         return this.fb.group({
             type: ['', Validators.required],
-            reason: null
+            reason: null,
         });
     }
 }

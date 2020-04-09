@@ -6,7 +6,7 @@ import { ContractTermination } from '../../../../thrift-services/damsel/gen-mode
 
 @Component({
     selector: 'cc-termination',
-    templateUrl: 'termination.component.html'
+    templateUrl: 'termination.component.html',
 })
 export class TerminationComponent implements OnInit {
     @Input()

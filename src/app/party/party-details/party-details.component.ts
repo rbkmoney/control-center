@@ -7,7 +7,7 @@ import { PartyService } from '../party.service';
 
 @Component({
     templateUrl: 'party-details.component.html',
-    styleUrls: []
+    styleUrls: [],
 })
 export class PartyDetailsComponent implements OnInit {
     party: Party;
@@ -17,17 +17,17 @@ export class PartyDetailsComponent implements OnInit {
     private partyID: string;
 
     constructor(private partyService: PartyService, private route: ActivatedRoute) {
-        this.route.params.subscribe(params => {
-            this.partyID = params['partyID'];
+        this.route.params.subscribe((params) => {
+            this.partyID = params.partyID;
         });
     }
 
     ngOnInit(): void {
         this.isLoading = true;
-        combineLatest(
+        combineLatest([
             this.partyService.getParty(this.partyID),
-            this.partyService.getShops(this.partyID)
-        ).subscribe(([party, shops]) => {
+            this.partyService.getShops(this.partyID),
+        ]).subscribe(([party, shops]) => {
             this.isLoading = false;
             this.party = party;
             this.shops = shops;

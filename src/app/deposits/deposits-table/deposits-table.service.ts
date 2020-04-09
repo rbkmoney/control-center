@@ -12,7 +12,7 @@ export const currencies: CurrencySource[] = [
     { source: 'eskin1', currency: 'USD' },
     { source: 'eskin2', currency: 'EUR' },
     { source: 'eskin3', currency: 'KZT' },
-    { source: 'eskin5', currency: 'BYN' }
+    { source: 'eskin5', currency: 'BYN' },
 ];
 
 @Injectable()
@@ -20,7 +20,7 @@ export class DepositsTableService {
     form = this.fb.group({
         destination: ['', Validators.required],
         amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
-        currency: [currencies[0], Validators.required]
+        currency: [currencies[0], Validators.required],
     });
 
     constructor(private fb: FormBuilder) {}

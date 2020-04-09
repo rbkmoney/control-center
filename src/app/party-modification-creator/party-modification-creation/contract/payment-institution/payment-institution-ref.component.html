@@ -2,7 +2,7 @@
     <mat-form-field fxFlex>
         <mat-select placeholder="Select payment institution" formControlName="id">
             <mat-option
-                *ngFor="let paymentInstitution of (paymentInstitutions$ | async)"
+                *ngFor="let paymentInstitution of paymentInstitutions$ | async"
                 [value]="paymentInstitution.ref.id"
                 required
             >

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'cc-currency-ref',
-    templateUrl: 'currency-ref.component.html'
+    templateUrl: 'currency-ref.component.html',
 })
 export class CurrencyRefComponent implements OnInit {
     @Input()

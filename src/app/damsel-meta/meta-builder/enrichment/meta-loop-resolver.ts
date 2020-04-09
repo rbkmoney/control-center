@@ -1,15 +1,15 @@
 import isString from 'lodash-es/isString';
 
-import { registerError } from '../utils';
 import {
-    MetaStruct,
-    MetaUnion,
+    MetaCollection,
     MetaField,
-    MetaTyped,
-    MetaType,
     MetaMap,
-    MetaCollection
+    MetaStruct,
+    MetaType,
+    MetaTyped,
+    MetaUnion,
 } from '../../model';
+import { registerError } from '../utils';
 
 export interface ResolveLoopResult {
     resolved: MetaStruct | MetaUnion;
@@ -30,7 +30,7 @@ export class MetaLoopResolver {
     resolve(target: MetaStruct | MetaUnion): ResolveLoopResult {
         const result = {
             resolved: this.resolveObject(target),
-            errors: this.errors
+            errors: this.errors,
         };
         return result;
     }
@@ -85,11 +85,13 @@ export class MetaLoopResolver {
     }
 
     private isResolved(meta: MetaUnion | MetaStruct): boolean {
-        return !!this.resolved.find(i => i.name === meta.name);
+        return !!this.resolved.find((i) => i.name === meta.name);
     }
 
     private findResolved(looped: string): MetaUnion | MetaStruct {
-        const found = this.resolveContainer.find(i => i.name === looped.replace(this.loopSign, ''));
+        const found = this.resolveContainer.find(
+            (i) => i.name === looped.replace(this.loopSign, '')
+        );
         if (!found) {
             this.registerError('Resolved meta not found');
         }

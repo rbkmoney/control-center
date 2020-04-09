@@ -12,6 +12,6 @@ export function createDefaultStyle(): PDFMakeStyle {
     return {
         font: FontFamily.serif,
         fontSize: 8,
-        lineHeight: 1
+        lineHeight: 1,
     };
 }

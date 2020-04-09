@@ -5,21 +5,22 @@ import {
     OnChanges,
     OnInit,
     Output,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs/operators';
-import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { DomainTypedManager } from '../../../thrift-services';
-import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
-import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
 import { EditTerminalDecisionPriorityService } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.service';
+import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
+import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 
 @Component({
     selector: 'cc-terminals',
     templateUrl: 'terminals.component.html',
-    providers: [EditTerminalDecisionPriorityService]
+    providers: [EditTerminalDecisionPriorityService],
 })
 export class TerminalsComponent implements OnChanges, OnInit {
     @Input() terminalInfos: TerminalInfo[];
@@ -64,11 +65,11 @@ export class TerminalsComponent implements OnChanges, OnInit {
             () => {
                 this.isLoading = false;
                 this.snackBar.open('Terminal successfully removed from shop', 'OK', {
-                    duration: 3000
+                    duration: 3000,
                 });
                 this.terminalChanged.emit();
             },
-            e => {
+            (e) => {
                 this.isLoading = false;
                 this.snackBar.open(
                     'An error occurred while while removing terminal from shop',
@@ -83,12 +84,12 @@ export class TerminalsComponent implements OnChanges, OnInit {
         const config = {
             data: this.getModalData(terminalID),
             width: '300px',
-            disableClose: true
+            disableClose: true,
         };
         const dialog = this.dialog.open(EditTerminalDecisionPriorityComponent, config);
         dialog
             .afterClosed()
-            .pipe(filter(result => result))
+            .pipe(filter((result) => result))
             .subscribe(() => {
                 this.terminalChanged.emit();
             });
@@ -98,12 +99,12 @@ export class TerminalsComponent implements OnChanges, OnInit {
         const config = {
             data: this.getModalData(terminalID),
             width: '300px',
-            disableClose: true
+            disableClose: true,
         };
         const dialog = this.dialog.open(EditTerminalDecisionWeightComponent, config);
         dialog
             .afterClosed()
-            .pipe(filter(result => result))
+            .pipe(filter((result) => result))
             .subscribe(() => {
                 this.terminalChanged.emit();
             });
@@ -120,13 +121,13 @@ export class TerminalsComponent implements OnChanges, OnInit {
             diffPlus50 = prevInfo ? prevInfo.priority.toNumber() + 50 : basePriority + 50;
             this.editPriorityService.edit(this.getModalData(terminalID), {
                 property: 'priority',
-                value: diffPlus50
+                value: diffPlus50,
             });
         } else if (op === 'minus') {
             diffPlus50 = nexInfo ? nexInfo.priority.toNumber() - 50 : 0;
             this.editPriorityService.edit(this.getModalData(terminalID), {
                 property: 'priority',
-                value: diffPlus50
+                value: diffPlus50,
             });
         }
     }
@@ -140,7 +141,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
             shopID: this.shopID,
             partyID: this.partyID,
             providerID: this.providerID,
-            terminalID
+            terminalID,
         };
     }
 

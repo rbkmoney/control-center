@@ -13,12 +13,12 @@ describe('MetaLoopResolver', () => {
                     meta: {
                         collectionType: 'set',
                         itemMeta: '$loop_Predicate',
-                        type: 'collection'
-                    }
-                }
+                        type: 'collection',
+                    },
+                },
             ],
             settedField: null,
-            type: 'union'
+            type: 'union',
         } as any;
 
         const resolver = new MetaLoopResolver([predicate], '$loop_');
@@ -39,16 +39,16 @@ describe('MetaLoopResolver', () => {
                     {
                         meta: '$loop_CurrencySelector',
                         name: 'currencies',
-                        required: true
+                        required: true,
                     },
                     {
                         meta: '$loop_Predicate',
                         name: 'predicate',
-                        required: true
-                    }
+                        required: true,
+                    },
                 ],
                 isRef: false,
-                type: 'struct'
+                type: 'struct',
             },
             {
                 name: 'CurrencySelector',
@@ -59,12 +59,12 @@ describe('MetaLoopResolver', () => {
                         meta: {
                             collectionType: 'set',
                             itemMeta: '$loop_CurrencyRef',
-                            type: 'collection'
-                        }
-                    }
+                            type: 'collection',
+                        },
+                    },
                 ],
                 settedField: null,
-                type: 'union'
+                type: 'union',
             },
             {
                 name: 'CurrencyRef',
@@ -72,11 +72,11 @@ describe('MetaLoopResolver', () => {
                     {
                         meta: { type: 'primitive', primitiveType: 'string' },
                         name: 'symbolic_code',
-                        required: true
-                    }
+                        required: true,
+                    },
                 ],
                 isRef: true,
-                type: 'struct'
+                type: 'struct',
             },
             {
                 name: 'Predicate',
@@ -87,13 +87,13 @@ describe('MetaLoopResolver', () => {
                         meta: {
                             collectionType: 'set',
                             itemMeta: '$loop_Predicate',
-                            type: 'collection'
-                        }
-                    }
+                            type: 'collection',
+                        },
+                    },
                 ],
                 settedField: null,
-                type: 'union'
-            }
+                type: 'union',
+            },
         ] as any;
 
         const resolver = new MetaLoopResolver(resolveContainer, '$loop_');

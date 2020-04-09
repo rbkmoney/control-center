@@ -1,16 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { RepresentativeDocument } from '../../../../thrift-services/damsel/gen-model/domain';
 import get from 'lodash-es/get';
+
+import { RepresentativeDocument } from '../../../../thrift-services/damsel/gen-model/domain';
 
 enum Type {
     articlesOfAssociation = 'articles_of_association',
-    powerOfAttorney = 'power_of_attorney'
+    powerOfAttorney = 'power_of_attorney',
 }
 
 @Component({
     selector: 'cc-representative-document',
-    templateUrl: 'representative-document.component.html'
+    templateUrl: 'representative-document.component.html',
 })
 export class RepresentativeDocumentComponent implements OnInit {
     @Input()

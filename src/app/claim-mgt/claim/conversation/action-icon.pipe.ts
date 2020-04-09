@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TimelineAction } from './to-timeline-info/model';
 
 @Pipe({
-    name: 'actionIcon'
+    name: 'actionIcon',
 })
 export class ActionIconPipe implements PipeTransform {
     transform(action: TimelineAction): string {
@@ -16,7 +16,7 @@ export class ActionIconPipe implements PipeTransform {
             [TimelineAction.filesAdded]: 'attach_file',
             [TimelineAction.commentAdded]: 'mode_comment',
             [TimelineAction.changesAdded]: 'add',
-            [TimelineAction.partyModification]: 'add'
+            [TimelineAction.partyModification]: 'add',
         } as const)[action];
     }
 }

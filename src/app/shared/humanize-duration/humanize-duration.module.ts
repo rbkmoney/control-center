@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { HumanizedDurationPipe } from './humanized-duration.pipe';
 import { HumanizeDurationService } from './humanize-duration.service';
+import { HumanizedDurationPipe } from './humanized-duration.pipe';
 
 @NgModule({
     declarations: [HumanizedDurationPipe],
     providers: [HumanizeDurationService],
-    exports: [HumanizedDurationPipe]
+    exports: [HumanizedDurationPipe],
 })
 export class HumanizeDurationModule {}

@@ -6,7 +6,7 @@ import { ShopContractModification } from '../../../../thrift-services/damsel/gen
 
 @Component({
     selector: 'cc-shop-contract-modification',
-    templateUrl: 'contract-modification.component.html'
+    templateUrl: 'contract-modification.component.html',
 })
 export class ContractModificationComponent implements OnInit {
     @Input()

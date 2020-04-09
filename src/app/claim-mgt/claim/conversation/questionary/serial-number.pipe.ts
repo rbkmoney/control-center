@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'serialNumber'
+    name: 'serialNumber',
 })
 export class SerialNumberPipe implements PipeTransform {
     transform(idx: number, count?: number): string {

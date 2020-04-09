@@ -9,11 +9,11 @@ export function getIndividualResidencyInfo(
     if (residencyInfo.individual_residency_info) {
         const {
             usa_tax_resident: usaTaxResident,
-            except_usa_tax_resident: exceptUsaTaxResident
+            except_usa_tax_resident: exceptUsaTaxResident,
         } = residencyInfo.individual_residency_info;
         return {
             usaTaxResident,
-            exceptUsaTaxResident
+            exceptUsaTaxResident,
         };
     }
     console.error("ResidencyInfo isn't IndividualResidencyInfo");

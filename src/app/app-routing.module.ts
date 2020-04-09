@@ -10,13 +10,13 @@ import { AppAuthGuardService } from './app-auth-guard.service';
                 {
                     path: '',
                     redirectTo: '/payouts',
-                    pathMatch: 'full'
-                }
+                    pathMatch: 'full',
+                },
             ],
             { paramsInheritanceStrategy: 'always' }
-        )
+        ),
     ],
     providers: [AppAuthGuardService],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class AppRoutingModule {}

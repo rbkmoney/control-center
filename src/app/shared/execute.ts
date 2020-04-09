@@ -4,7 +4,7 @@ type Fn = () => Observable<any>;
 
 export enum ExecStateType {
     success = 'success',
-    error = 'error'
+    error = 'error',
 }
 
 interface BaseExecState {
@@ -45,11 +45,11 @@ async function exec(
     result$: Subject<ExecState>,
     progress: Progress
 ): Promise<void> {
-    let func: [number, Fn];
-    while ((func = funcs.pop())) {
+    let func = funcs.pop();
+    while (func) {
         const result: any = {
             func: func[1],
-            idx: func[0]
+            idx: func[0],
         };
         try {
             (result as SuccessExecState).data = await func[1]().toPromise();
@@ -61,6 +61,7 @@ async function exec(
             result.progress = progress.decrease();
             result$.next(result as SuccessExecState | ErrorExecState);
         }
+        func = funcs.pop();
     }
 }
 
@@ -74,6 +75,6 @@ export function execute(funcs: Fn[], execCount = 4): Observable<ExecState> {
     }
     Promise.all(execs)
         .then(() => result$.complete())
-        .catch(e => result$.error(e));
+        .catch((e) => result$.error(e));
     return result$;
 }

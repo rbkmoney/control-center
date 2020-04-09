@@ -1,10 +1,10 @@
-import { Injectable, NgZone, Optional, Inject } from '@angular/core';
+import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 
-import { IEditorOptions, MonacoFile, CodeLensProvider, CompletionProvider } from './model';
-import { CODE_LENS_PROVIDERS, COMPLETION_PROVIDERS } from './tokens';
+import { AbstractMonacoService } from './abstract-monaco.service';
+import { CodeLensProvider, CompletionProvider, IEditorOptions, MonacoFile } from './model';
 import { CodeLensService } from './providers/code-lens.service';
 import { CompletionService } from './providers/completion.service';
-import { AbstractMonacoService } from './abstract-monaco.service';
+import { CODE_LENS_PROVIDERS, COMPLETION_PROVIDERS } from './tokens';
 
 @Injectable()
 export class MonacoEditorService extends AbstractMonacoService {
@@ -40,7 +40,7 @@ export class MonacoEditorService extends AbstractMonacoService {
 
     protected createEditor(el: HTMLElement, options: IEditorOptions): monaco.editor.IEditor {
         return monaco.editor.create(el, {
-            ...options
+            ...options,
         });
     }
     protected openFile() {

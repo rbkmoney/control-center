@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatExpansionModule, MatButtonModule, MatDialogModule } from '@angular/material';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 
-import { UnsavedPartyModificationsComponent } from './unsaved-party-modifications.component';
 import { SharedModule } from '../../../shared/shared.module';
+import { UnsavedPartyModificationsComponent } from './unsaved-party-modifications.component';
 
 @NgModule({
     imports: [
@@ -13,9 +15,9 @@ import { SharedModule } from '../../../shared/shared.module';
         SharedModule,
         MatButtonModule,
         FlexLayoutModule,
-        MatDialogModule
+        MatDialogModule,
     ],
     declarations: [UnsavedPartyModificationsComponent],
-    exports: [UnsavedPartyModificationsComponent]
+    exports: [UnsavedPartyModificationsComponent],
 })
 export class UnsavedPartyModificationsModule {}

@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { PaymentAdjustmentService } from './payment-adjustment.service';
-import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
 import { StatPayment } from '../thrift-services/damsel/gen-model/merch_stat';
+import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
+import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { SearchFormParams } from './search-form/search-form-params';
 
 @Component({
     selector: 'cc-payment-adjustment',
     templateUrl: './payment-adjustment.component.html',
-    styleUrls: []
+    styleUrls: [],
 })
 export class PaymentAdjustmentComponent implements OnInit {
     isLoading = false;
@@ -31,7 +32,7 @@ export class PaymentAdjustmentComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.paymentAdjustmentService.searchPaymentChanges$.subscribe(payments => {
+        this.paymentAdjustmentService.searchPaymentChanges$.subscribe((payments) => {
             this.payments = payments;
         });
     }
@@ -48,7 +49,7 @@ export class PaymentAdjustmentComponent implements OnInit {
         this.dialogRef.open(CreateAndCaptureComponent, {
             width: '800px',
             disableClose: true,
-            data: this.selectedPayments
+            data: this.selectedPayments,
         });
     }
 
@@ -65,7 +66,7 @@ export class PaymentAdjustmentComponent implements OnInit {
                 this.selectedPayments = [];
                 this.isLoading = false;
             },
-            e => {
+            (e) => {
                 this.snackBar.open(`${e.message || 'Error'}`, 'OK');
                 this.isLoading = false;
                 console.error(e);

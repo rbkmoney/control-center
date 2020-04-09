@@ -1,18 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import get from 'lodash-es/get';
+import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/internal/operators';
-import sortBy from 'lodash-es/sortBy';
-import get from 'lodash-es/get';
 
-import { Category } from '../../../../papi/model';
 import { CategoryService } from '../../../../papi/category.service';
+import { Category } from '../../../../papi/model';
 import { CategoryRef } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-category-ref',
-    templateUrl: 'category-ref.component.html'
+    templateUrl: 'category-ref.component.html',
 })
 export class CategoryRefComponent implements OnInit {
     @Input()
@@ -41,13 +41,13 @@ export class CategoryRefComponent implements OnInit {
             this.fb.control(
                 {
                     value: category,
-                    disabled: category.length === 0
+                    disabled: category.length === 0,
                 },
                 this.required ? Validators.required : null
             )
         );
         this.categories$ = this.categoryService.getCategories().pipe(
-            map(categories => sortBy(categories, 'id')),
+            map((categories) => sortBy(categories, 'id')),
             tap(
                 () => {
                     this.form.controls.id.enable();

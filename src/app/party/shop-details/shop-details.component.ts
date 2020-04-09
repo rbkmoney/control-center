@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { filter, switchMap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
 
-import { ProviderInfo, ShopDetailsService } from './shop-details.service';
 import { Contract, PayoutTool, Shop } from '../../thrift-services/damsel/gen-model/domain';
 import { AddProviderComponent } from './add-provider/add-provider.component';
+import { ProviderInfo, ShopDetailsService } from './shop-details.service';
 
 @Component({
     templateUrl: 'shop-details.component.html',
     styleUrls: ['shop-details.component.scss'],
-    providers: [ShopDetailsService]
+    providers: [ShopDetailsService],
 })
 export class ShopDetailsComponent implements OnInit {
     isLoading = false;
@@ -35,15 +35,15 @@ export class ShopDetailsComponent implements OnInit {
             data: {
                 shopID: this.shop.id,
                 partyID: this.partyID,
-                shopCategoryID: this.shop.category.id
+                shopCategoryID: this.shop.category.id,
             },
             width: '800px',
-            disableClose: true
+            disableClose: true,
         };
         const dialog = this.dialog.open(AddProviderComponent, config);
         dialog
             .afterClosed()
-            .pipe(filter(result => result))
+            .pipe(filter((result) => result))
             .subscribe(() => this.getData());
     }
 

@@ -1,5 +1,5 @@
-import isArray from 'lodash-es/isArray';
 import forIn from 'lodash-es/forIn';
+import isArray from 'lodash-es/isArray';
 import isObject from 'lodash-es/isObject';
 import isString from 'lodash-es/isString';
 

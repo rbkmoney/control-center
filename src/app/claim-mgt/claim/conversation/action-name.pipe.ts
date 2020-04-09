@@ -11,11 +11,11 @@ const timelineActionNameToTitle: { [N in TimelineAction]: string } = {
     [TimelineAction.filesAdded]: 'Files added',
     [TimelineAction.commentAdded]: 'Comment added',
     [TimelineAction.changesAdded]: 'Changes added',
-    [TimelineAction.partyModification]: 'Party modification'
+    [TimelineAction.partyModification]: 'Party modification',
 };
 
 @Pipe({
-    name: 'actionName'
+    name: 'actionName',
 })
 export class ActionNamePipe implements PipeTransform {
     transform(action: TimelineAction): string {

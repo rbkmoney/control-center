@@ -5,7 +5,7 @@ import {
     Condition,
     Predicate,
     TerminalObject,
-    TerminalRef
+    TerminalRef,
 } from '../../thrift-services/damsel/gen-model/domain';
 
 interface PredicateInfo {
@@ -34,7 +34,7 @@ export enum PredicateType {
     condition = 'condition',
     is_not = 'is_not',
     all_of = 'all_of',
-    any_of = 'any_of'
+    any_of = 'any_of',
 }
 
 export interface TerminalInfo {
@@ -59,7 +59,7 @@ function inPartyCondition({ party }: Condition, shopID: string, partyID: string)
 }
 
 function isDisabled(all_of: any[]): boolean {
-    const constant = all_of.find(pre => pre.constant !== null);
+    const constant = all_of.find((pre) => pre.constant !== null);
     return !!constant ? constant.constant : false;
 }
 
@@ -72,36 +72,36 @@ function extractPredicateInfo(
         return {
             shopPartyContain: inPredicates(all_of, shopID, partyID),
             predicateType: PredicateType.all_of,
-            disabled: isDisabled(all_of)
+            disabled: isDisabled(all_of),
         };
     }
     if (any_of && any_of.length > 0) {
         return {
             shopPartyContain: inPredicates(any_of, shopID, partyID),
             predicateType: PredicateType.any_of,
-            disabled: false
+            disabled: false,
         };
     }
     if (is_not && is_not.length > 0) {
         return {
             shopPartyContain: inPartyCondition(is_not, shopID, partyID),
             predicateType: PredicateType.is_not,
-            disabled: true
+            disabled: true,
         };
     }
     if (condition && condition.party) {
         return {
             shopPartyContain: inPartyCondition(condition, shopID, partyID),
             predicateType: PredicateType.condition,
-            disabled: false
+            disabled: false,
         };
     }
     return {
-        shopPartyContain: false
+        shopPartyContain: false,
     };
 }
 
-const extractIdsFromValue = (value: TerminalRef[]): number[] => value.map(v => v.id);
+const extractIdsFromValue = (value: TerminalRef[]): number[] => value.map((v) => v.id);
 
 // Need TerminalDecision with if_ then_
 function extractIdsFromDecisions(decisions: any[]): number[] {
@@ -128,13 +128,13 @@ function extractIds({ decisions, value }: any): number[] {
 
 function extractWeights({ value }: any): number {
     if (value) {
-        return value.map(val => val.weight);
+        return value.map((val) => val.weight);
     }
 }
 
 function extractPriorities({ value }: any): Int64 {
     if (value) {
-        return value.map(val => val.priority);
+        return value.map((val) => val.priority);
     }
 }
 
@@ -155,7 +155,7 @@ const extractTerminalInfoGroup = (
                 disabled,
                 predicateType,
                 weights: extractWeights(then_),
-                priorities: extractPriorities(then_)
+                priorities: extractPriorities(then_),
             });
         }
         return r;
@@ -170,8 +170,8 @@ const flattenGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
                 disabled,
                 predicateType,
                 weight: weights[idx],
-                priority: priorities[idx]
-            }))
+                priority: priorities[idx],
+            })),
         ],
         []
     );
@@ -180,13 +180,13 @@ const enrichWithTerminal = (
     groups: FlattenTerminalInfoGroup[],
     terminalObjects: TerminalObject[]
 ): TerminalInfo[] => {
-    return groups.map(group => {
+    return groups.map((group) => {
         return {
             terminal: terminalObjects.find(({ ref: { id } }) => group.terminalId === id),
             disabled: group.disabled,
             predicateType: group.predicateType,
             weight: group.weight,
-            priority: group.priority
+            priority: group.priority,
         };
     });
 };

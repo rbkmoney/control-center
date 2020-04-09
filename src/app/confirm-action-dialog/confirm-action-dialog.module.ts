@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import {
-    MatDialogModule,
-    MatButtonModule,
-    MAT_DIALOG_DEFAULT_OPTIONS,
-    MatDialogConfig
-} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import {
+    MatDialogConfig,
+    MatDialogModule,
+    MAT_DIALOG_DEFAULT_OPTIONS,
+} from '@angular/material/dialog';
 
 import { ConfirmActionDialogComponent } from './confirm-action-dialog.component';
 
@@ -20,9 +20,9 @@ import { ConfirmActionDialogComponent } from './confirm-action-dialog.component'
             useValue: {
                 width: '450px',
                 hasBackdrop: true,
-                disableClose: true
-            } as MatDialogConfig
-        }
-    ]
+                disableClose: true,
+            } as MatDialogConfig,
+        },
+    ],
 })
 export class ConfirmActionDialogModule {}

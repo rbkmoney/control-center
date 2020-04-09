@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { ErrorObservable, MetaErrorEmitter } from './meta-error-emitter';
 import { MetaStruct, MetaUnion } from './model';
 import { buildStructUnion, ThriftType } from './thrift-builder';
-import { ErrorObservable, MetaErrorEmitter } from './meta-error-emitter';
 
 @Injectable()
 export class ThriftBuilderService implements ErrorObservable {

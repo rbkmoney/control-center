@@ -1,19 +1,18 @@
-import { Content, Table, cmMarginsToIn } from '../../document';
-import { Layout } from '../create-questionary';
-import { createTableBody } from './create-table-body';
-import { PRIMARY_COLOR } from '../create-questionary';
-import { getColumnsCount } from './get-columns-count';
+import { cmMarginsToIn, Content, Table } from '../../document';
+import { Layout, PRIMARY_COLOR } from '../create-questionary';
 import { createGrid } from './create-grid';
+import { createTableBody } from './create-table-body';
+import { getColumnsCount } from './get-columns-count';
 
 const MARGIN = cmMarginsToIn(0, 0.1);
 
 function prepareBody(body: Table['body'] | string): Table['body'] {
     body = typeof body === 'string' ? [[body]] : body;
-    return body.map(i => i.map(j => j || ''));
+    return body.map((i) => i.map((j) => j || ''));
 }
 
 function setBodyColSpans(body: Table['body'], columnsCount: number): Table['body'] {
-    return body.map(row => {
+    return body.map((row) => {
         const rowColumnsCount = row.reduce(
             (sum, col) => sum + (typeof col === 'object' ? col.colSpan || 1 : 1),
             0
@@ -49,16 +48,16 @@ export function createVerticalParagraph(
         {
             colSpan: columnsCount,
             style: { color: 'white' },
-            text: header
-        }
+            text: header,
+        },
     ];
     return {
         layout: Layout.header,
         margin: MARGIN,
         table: {
             widths: new Array(columnsCount).fill('*'),
-            body: createTableBody([headerRow, ...body])
-        }
+            body: createTableBody([headerRow, ...body]),
+        },
     };
 }
 
@@ -77,19 +76,19 @@ export function createInlineParagraph(
                     {
                         text: header,
                         style: { color: 'white' },
-                        fillColor: PRIMARY_COLOR
-                    }
-                ]
-            ]
-        }
+                        fillColor: PRIMARY_COLOR,
+                    },
+                ],
+            ],
+        },
     };
     const bodyTable = {
         layout: Layout.noBorders,
         table: {
             rowSpan: body.length,
             widths: ['*'],
-            body
-        }
+            body,
+        },
     };
     return { ...createGrid([headerTable, bodyTable]), margin: MARGIN };
 }

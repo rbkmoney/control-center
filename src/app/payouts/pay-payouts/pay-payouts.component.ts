@@ -1,10 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PayoutsService } from '../payouts.service';
 
 @Component({
-    templateUrl: 'pay-payouts.component.html'
+    templateUrl: 'pay-payouts.component.html',
 })
 export class PayPayoutsComponent {
     isLoading: boolean;
@@ -25,7 +26,7 @@ export class PayPayoutsComponent {
                 this.dialogRef.close('success');
                 this.snackBar.open('Successfully payed', 'OK', { duration: 3000 });
             },
-            error => {
+            (error) => {
                 this.isLoading = false;
                 this.snackBar.open('An error occurred while payout pay', 'OK');
                 console.error(error);

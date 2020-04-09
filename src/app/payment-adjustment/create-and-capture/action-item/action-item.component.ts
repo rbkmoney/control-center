@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'cc-action-item',
-    templateUrl: 'action-item.component.html'
+    templateUrl: 'action-item.component.html',
 })
 export class ActionItemComponent {
     @Input()

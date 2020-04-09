@@ -1,6 +1,6 @@
-import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 
 import { DomainTypedManager } from '../../../thrift-services';
@@ -23,7 +23,7 @@ export class EditTerminalDecision {
         const params = {
             ...data,
             ...this.form.getRawValue(),
-            ...formValues
+            ...formValues,
         } as EditTerminalDecisionPropertyParams;
         this.isLoading$.next(true);
         this.dtm.editTerminalDecisionPropertyForShop(params).subscribe(
@@ -31,10 +31,10 @@ export class EditTerminalDecision {
                 this.terminalChanged.emit();
                 this.isLoading$.next(false);
                 this.snackBar.open('Terminal decision successfully edited', 'OK', {
-                    duration: 3000
+                    duration: 3000,
                 });
             },
-            e => {
+            (e) => {
                 this.isLoading$.next(false);
                 this.snackBar.open('An error occurred while while editing terminal decision', 'OK');
                 console.error(e);

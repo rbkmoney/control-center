@@ -1,22 +1,22 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, timer } from 'rxjs';
-import { share, switchMap, first } from 'rxjs/operators';
+import { first, share, switchMap } from 'rxjs/operators';
 
-import {
-    InvoicePaymentAdjustmentParams as InvoicePaymentAdjustmentParamsObject,
-    UserInfo as UserInfoObject,
-    InvoiceRepairScenario as InvoiceRepairScenarioObject
-} from './gen-nodejs/payment_processing_types';
+import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../thrift-service';
-import * as Invoicing from './gen-nodejs/Invoicing';
 import { InvoiceID } from './gen-model/domain';
 import {
     InvoicePaymentAdjustment,
     InvoicePaymentAdjustmentParams,
     InvoiceRepairScenario,
-    UserInfo
+    UserInfo,
 } from './gen-model/payment_processing';
-import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
+import * as Invoicing from './gen-nodejs/Invoicing';
+import {
+    InvoicePaymentAdjustmentParams as InvoicePaymentAdjustmentParamsObject,
+    InvoiceRepairScenario as InvoiceRepairScenarioObject,
+    UserInfo as UserInfoObject,
+} from './gen-nodejs/payment_processing_types';
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {

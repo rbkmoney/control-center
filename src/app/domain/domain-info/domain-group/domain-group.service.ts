@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { AsyncSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { group } from './group-domain-objects';
-import { DomainGroup } from './domain-group';
 import { DomainInfoService } from '../domain-info.service';
+import { DomainGroup } from './domain-group';
+import { group } from './group-domain-objects';
 
 @Injectable()
 export class DomainGroupService {
@@ -19,14 +19,14 @@ export class DomainGroupService {
                 this.detectUndefGroup(domainGroup);
                 return {
                     version: version.toNumber(),
-                    group: this.filterUndef(domainGroup)
+                    group: this.filterUndef(domainGroup),
                 };
             })
         );
     }
 
     private detectUndefGroup(domainGroup: DomainGroup[]) {
-        const undef = domainGroup.find(g => g.name === 'undef');
+        const undef = domainGroup.find((g) => g.name === 'undef');
         if (undef) {
             this.undefDetectionStatus$.next('detected');
         }
@@ -34,6 +34,6 @@ export class DomainGroupService {
     }
 
     private filterUndef(domainGroup: DomainGroup[]) {
-        return domainGroup.filter(g => g.name !== 'undef');
+        return domainGroup.filter((g) => g.name !== 'undef');
     }
 }

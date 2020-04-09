@@ -6,7 +6,7 @@ import { PayoutToolID } from '../../../../thrift-services/damsel/gen-model/domai
 
 @Component({
     selector: 'cc-shop-payout-tool-modification',
-    templateUrl: 'payout-tool-modification.component.html'
+    templateUrl: 'payout-tool-modification.component.html',
 })
 export class PayoutToolModificationComponent implements OnInit {
     @Input()

@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TargetType } from './targe-type';
 
 @Pipe({
-    name: 'ccPartyItemName'
+    name: 'ccPartyItemName',
 })
 export class PartyItemNamePipe implements PipeTransform {
     transform(value: TargetType, ...args: any[]): any {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Subject } from 'rxjs';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class DetailsContainerService {
 
     set container(sidenav: MatSidenav) {
         this.detailsContainer = sidenav;
-        this.detailsContainer.openedChange.subscribe(opened => this.opened$.next(opened));
+        this.detailsContainer.openedChange.subscribe((opened) => this.opened$.next(opened));
     }
 
     open() {

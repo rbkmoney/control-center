@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
     selector: 'cc-pdl-info',
     templateUrl: 'pdl-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PdlInfoComponent {
     @Input()
