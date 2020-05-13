@@ -18,7 +18,7 @@ export class FileContainerService {
 
     fileData$: Observable<FileData | FileNotFound> = this.getFileInfo$.pipe(
         switchMap((fileID) => this.fileStorageService.getFileData(fileID)),
-        map(file => ({ ...file, file_name: decodeURI(file?.file_name) })),
+        map((file) => ({ ...file, file_name: decodeURI(file?.file_name) })),
         shareReplay(1)
     );
 
