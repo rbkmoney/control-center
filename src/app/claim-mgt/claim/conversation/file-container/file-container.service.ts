@@ -2,22 +2,21 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
-import { shareReplay, switchMap } from 'rxjs/operators';
+import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { booleanDelay } from '../../../../custom-operators';
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
-import {
-    FileData,
-    FileNotFound,
-} from '../../../../thrift-services/file-storage/gen-model/file_storage';
+import { FileData } from '../../../../thrift-services/file-storage/gen-model/file_storage';
 import { download } from './download';
 
 @Injectable()
 export class FileContainerService {
     private getFileInfo$ = new Subject<string>();
 
-    fileData$: Observable<FileData | FileNotFound> = this.getFileInfo$.pipe(
+    fileData$: Observable<FileData> = this.getFileInfo$.pipe(
         switchMap((fileID) => this.fileStorageService.getFileData(fileID)),
+        filter((file) => Object.keys(file).length > 0),
+        map((file: FileData) => ({ ...file, file_name: decodeURI(file?.file_name) })),
         shareReplay(1)
     );
 
