@@ -8,10 +8,11 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
-import { map, scan, switchMap } from 'rxjs/operators';
+import { filter, map, scan, switchMap } from 'rxjs/operators';
 
 import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimStatus } from '../../../papi/model';
@@ -25,6 +26,7 @@ import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/c
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import { RecreateClaimService } from '../recreate-claim';
 import { ConversationService } from './conversation.service';
+import { ExtractPartyModificationComponent } from './extract-party-modifications/extract-party-modification.component';
 import { QuestionaryService } from './questionary.service';
 import { SavePartyModificationsService } from './save-party-modifications.service';
 import { TimelineAction } from './to-timeline-info/model';
@@ -60,7 +62,8 @@ export class ConversationComponent implements OnChanges, OnInit {
         private recreateClaimService: RecreateClaimService,
         private partyModEmitter: PartyModificationEmitter,
         private snackBar: MatSnackBar,
-        private appAuthGuardService: AppAuthGuardService
+        private appAuthGuardService: AppAuthGuardService,
+        private dialog: MatDialog
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
@@ -125,5 +128,20 @@ export class ConversationComponent implements OnChanges, OnInit {
                 partyID: this.claim.party_id,
             },
         });
+    }
+
+    extractPartyModification(mods: Modification[]) {
+        const dialog = this.dialog.open(ExtractPartyModificationComponent, {
+            disableClose: true,
+            data: { mods: mods.map((m) => m.party_modification) },
+        });
+        dialog
+            .afterClosed()
+            .pipe(filter((r) => r.length > 0))
+            .subscribe((result) => this.partyModificationsChanged(result));
+    }
+
+    canExtractPartyMod(modifications: Modification[]) {
+        return modifications.filter((m) => !!m.party_modification).length > 0;
     }
 }
