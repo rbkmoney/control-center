@@ -13,16 +13,11 @@ export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> 
 
     claims$: Observable<Claim[]> = this.searchResult$.pipe();
 
-    constructor(
-        private claimManagementService: ClaimManagementService
-    ) {
+    constructor(private claimManagementService: ClaimManagementService) {
         super();
     }
 
-    protected fetch(
-        params: any,
-        continuationToken: string
-    ): Observable<FetchResult<Claim>> {
+    protected fetch(params: any, continuationToken: string): Observable<FetchResult<Claim>> {
         return this.claimManagementService
             .searchClaims({
                 ...params,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SearchFormValue } from '../claim-search-form'
+import { SearchFormValue } from '../claim-search-form';
 import { SearchClaimsService } from './search-claims.service';
 import { MatSnackBar } from '@angular/material';
 
@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material';
     templateUrl: './search-claims.component.html',
     styleUrls: ['./search-claims.component.scss']
 })
-export class SearchClaimsComponent implements OnInit{
+export class SearchClaimsComponent implements OnInit {
     doAction$ = this.searchClaimService.doAction$;
     claims$ = this.searchClaimService.claims$;
     hasMore$ = this.searchClaimService.hasMore$;
