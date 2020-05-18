@@ -19,11 +19,12 @@ import {
 
 import { SearchClaimsComponent } from './search-claims.component';
 import { SearchClaimsComponentRouting } from './search-claims-routing.module';
-import { SearchFormComponent } from './search-form/search-form.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SearchTableComponent } from './search-table/search-table.component';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { SearchClaimsService } from './search-claims.service';
+import { ClaimSearchFormModule } from '../claim-search-form';
+import { ClaimMailPipePipe } from './search-table/claim-mail-pipe.pipe';
 
 @NgModule({
     imports: [
@@ -43,9 +44,10 @@ import { SearchClaimsService } from './search-claims.service';
         ReactiveFormsModule,
         FlexLayoutModule,
         SharedModule,
-        MatExpansionModule
+        MatExpansionModule,
+        ClaimSearchFormModule
     ],
-    declarations: [SearchClaimsComponent, SearchFormComponent, SearchTableComponent],
+    declarations: [SearchClaimsComponent, SearchTableComponent, ClaimMailPipePipe],
     providers: [SearchClaimsService, ClaimManagementService]
 })
 export class SearchClaimsModule {}

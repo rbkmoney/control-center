@@ -5,7 +5,7 @@ import { Claim, Metadata } from '../../../thrift-services/damsel/gen-model/claim
 @Component({
     selector: 'cc-search-table',
     templateUrl: './search-table.component.html',
-    styleUrls: ['./search-table.component.css']
+    styleUrls: ['./search-table.component.scss']
 })
 export class SearchTableComponent {
     @Input()
@@ -16,29 +16,6 @@ export class SearchTableComponent {
     constructor(private router: Router) {}
 
     navigateToClaim(partyID: string, claimID: number) {
-        console.log(
-            `[SearchTableComponent][navigateToClaim] claims/party/${partyID}/claim/${claimID}`
-        );
-        this.router.navigate([`claims/party/${partyID}/claim/${claimID}`]);
-    }
-
-    getSourceFromMeta(metadata: Metadata): string {
-        return metadata == null
-            ? 'Unknown'
-            : metadata.has('Source')
-            ? (metadata.get('Source') as string)
-            : 'Unknown';
-    }
-
-    getMailFromClaimChangeset(claim: Claim): string {
-        let res = 'Unknown';
-
-        const changeSet = claim.changeset;
-        if (changeSet.length > 0) {
-            const modificationUnit = changeSet[0];
-            res = modificationUnit.user_info.email;
-        }
-
-        return res;
+        this.router.navigate(['claims', 'party', partyID, 'claim', claimID + '']);
     }
 }

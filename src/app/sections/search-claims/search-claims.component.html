@@ -1,22 +1,30 @@
 <div class="search-claims-container">
     <h1 class="mat-headline">Claims</h1>
-    <mat-card>
-        <mat-card-content>
-            <cc-search-form (valueChanges)="search($event)"></cc-search-form>
-        </mat-card-content>
-        <mat-card-footer *ngIf="(isLoading$ | async)">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </mat-card-footer>
-    </mat-card>
-    <div class="mat-elevation-z2" fxLayout="column">
-        <cc-search-table [claims]="claims$ | async"></cc-search-table>
-        <button
-            mat-raised-button
-            *ngIf="(hasMore$ | async)"
-            (click)="fetchMore()"
-            [disabled]="isLoading$ | async"
-        >
-            Load more
-        </button>
+    <div fxLayout="column" fxLayoutGap="20px">
+        <mat-card>
+            <mat-card-content>
+                <cc-claim-search-form
+                        (valueChanges)="search($event)"
+                ></cc-claim-search-form>
+            </mat-card-content>
+            <mat-card-footer *ngIf="(doAction$ | async)">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-card-footer>
+        </mat-card>
+        <ng-container *ngIf="(claims$ | async) as claims">
+            <cc-empty-search-result *ngIf="claims.length === 0"></cc-empty-search-result>
+            <mat-card *ngIf="claims.length > 0" fxLayout="column" fxLayoutGap="20px">
+                <cc-search-table [claims]="claims"></cc-search-table>
+                <button
+                        fxFlex="100"
+                        mat-button
+                        *ngIf="(hasMore$ | async)"
+                        (click)="fetchMore()"
+                        [disabled]="doAction$ | async"
+                >
+                    {{ (doAction$ | async) ? 'LOADING...' : 'SHOW MORE' }}
+                </button>
+            </mat-card>
+        </ng-container>
     </div>
 </div>
