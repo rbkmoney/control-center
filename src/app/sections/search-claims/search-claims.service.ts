@@ -1,46 +1,31 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import { catchError, map, shareReplay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import { booleanDebounceTime } from '../../shared/operators';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
-import { SearchFormValue } from './search-form/search-form-value';
+import { SearchFormValue } from '../claim-search-form';
 
 @Injectable()
 export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> {
     private readonly searchLimit = 20;
 
-    claims$: Observable<Claim[]> = this.searchResult$.pipe(
-        catchError(() => {
-            this.snackBar.open('An error occurred while processing your search', 'OK');
-            return [];
-        })
-    );
-
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
-    );
+    claims$: Observable<Claim[]> = this.searchResult$.pipe();
 
     constructor(
-        private claimManagementService: ClaimManagementService,
-        private snackBar: MatSnackBar
+        private claimManagementService: ClaimManagementService
     ) {
         super();
     }
 
     protected fetch(
-        searchFormValue: SearchFormValue,
+        params: any,
         continuationToken: string
     ): Observable<FetchResult<Claim>> {
         return this.claimManagementService
             .searchClaims({
-                party_id: searchFormValue.party_id === '' ? undefined : searchFormValue.party_id,
-                claim_id: searchFormValue.claim_id,
-                statuses: searchFormValue.statuses.map(cv => ({ [cv]: {} })),
+                ...params,
                 continuation_token: continuationToken,
                 limit: this.searchLimit
             })
