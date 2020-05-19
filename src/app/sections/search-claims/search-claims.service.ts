@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
-import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
+import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 import { SearchFormValue } from '../claim-search-form';
 
 @Injectable()

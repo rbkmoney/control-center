@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 
 @Pipe({
