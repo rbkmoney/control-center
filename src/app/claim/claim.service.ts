@@ -78,7 +78,7 @@ export class ClaimService {
                     this.persistentContainerService.init([]);
                     this.claimInfoContainer = { type, partyId };
                     this.claimInfoContainer$.next(this.claimInfoContainer);
-                    tap(() => this.isAddModificationAvailable$.next(this.getAvailability()));
+                    this.isAddModificationAvailable$.next(this.getAvailability());
                     return of();
                 }
             case ClaimActionType.edit:
@@ -165,6 +165,7 @@ export class ClaimService {
     }
 
     private getAvailability(): boolean {
+        console.log(this.claimInfoContainer);
         switch (this.claimInfoContainer.type) {
             case ClaimActionType.edit:
                 return this.claimInfoContainer.status === ClaimStatus.pending;
