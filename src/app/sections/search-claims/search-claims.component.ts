@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SearchFormValue } from '../claim-search-form';
 import { SearchClaimsService } from './search-claims.service';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
     templateUrl: './search-claims.component.html',
