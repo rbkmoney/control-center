@@ -165,7 +165,6 @@ export class ClaimService {
     }
 
     private getAvailability(): boolean {
-        console.log(this.claimInfoContainer);
         switch (this.claimInfoContainer.type) {
             case ClaimActionType.edit:
                 return this.claimInfoContainer.status === ClaimStatus.pending;
