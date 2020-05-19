@@ -1,15 +1,19 @@
 <h4 class="mat-dialog-title">Party modifications extraction params</h4>
-<mat-dialog-content>
+<mat-dialog-content class="scroll-fix" fxLayout="column" fxLayoutGap="15px">
     <div class="mat-body-1">Party modifications types:</div>
-    <form [formGroup]="form">
+    <form [formGroup]="form" fxLayout="column" fxLayoutGap="15px">
         <div *ngFor="let control of form.controls; let i = index">
-            <mat-checkbox [formControlName]="i">{{ types[i].name }}</mat-checkbox>
+            <mat-checkbox [formControlName]="i">{{
+                mods[i] | ccPartyModificationName
+            }}</mat-checkbox>
         </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-    <button mat-dialog-close mat-button color="default" [mat-dialog-close]="false">CANCEL</button>
-    <button mat-button color="primary" [disabled]="form && !form.valid" (click)="extract()">
+    <button mat-dialog-close mat-button color="default" [mat-dialog-close]="false">
+        CANCEL
+    </button>
+    <button mat-button color="primary" [disabled]="!form.valid" (click)="extract()">
         EXTRACT
     </button>
 </mat-dialog-actions>

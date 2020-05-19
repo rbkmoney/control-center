@@ -8,9 +8,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
 import { ExtractPartyModificationComponent } from './extract-party-modification.component';
+import { PartyModificationNamePipe } from './party-modification-name.pipe';
 
 @NgModule({
-    declarations: [ExtractPartyModificationComponent],
+    declarations: [ExtractPartyModificationComponent, PartyModificationNamePipe],
     exports: [ExtractPartyModificationComponent],
     imports: [
         FlexModule,
