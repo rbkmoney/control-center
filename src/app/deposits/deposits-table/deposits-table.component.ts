@@ -5,7 +5,7 @@ import { StatDeposit } from '../../thrift-services/fistful/gen-model/fistful_sta
 @Component({
     selector: 'cc-deposits-table',
     templateUrl: 'deposits-table.component.html',
-    styleUrls: ['deposits-table.component.css']
+    styleUrls: ['deposits-table.component.css'],
 })
 export class DepositsTableComponent {
     @Input()

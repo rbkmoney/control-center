@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { EditTerminalDecisionWeightService } from './edit-terminal-decision-weight.service';
 
@@ -13,7 +13,7 @@ export interface EditWeightData {
 
 @Component({
     templateUrl: 'edit-terminal-decision-weight.component.html',
-    providers: [EditTerminalDecisionWeightService]
+    providers: [EditTerminalDecisionWeightService],
 })
 export class EditTerminalDecisionWeightComponent implements OnInit {
     isLoading$;

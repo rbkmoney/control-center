@@ -7,7 +7,7 @@ function familyToFonts(familyName: string | number, family: TFontFamilyTypes): F
         family: familyName,
         type,
         hash: `${familyName}_${type}`,
-        url
+        url,
     }));
 }
 

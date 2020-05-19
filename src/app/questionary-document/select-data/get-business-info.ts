@@ -1,12 +1,12 @@
-import { hasChiefAccountant } from './has-chief-accountant';
-import { YesNo } from './yes-no';
-import { toOptional } from '../../shared/utils';
+import get from 'lodash-es/get';
+
+import { getUnionKey, toOptional } from '../../shared/utils';
 import {
     AdditionalInfo,
-    WithoutChiefAccountant
+    WithoutChiefAccountant,
 } from '../../thrift-services/ank/gen-model/questionary';
-import get from 'lodash-es/get';
-import { getUnionKey } from '../../shared/utils';
+import { hasChiefAccountant } from './has-chief-accountant';
+import { YesNo } from './yes-no';
 
 export interface BusinessInfo {
     hasChiefAccountant: YesNo;
@@ -25,6 +25,6 @@ export function getBusinessInfo(additionalInfo: AdditionalInfo): BusinessInfo {
             accountant_info,
             ['without_chief_accountant', 'accounting_organization', 'inn'],
             null
-        )
+        ),
     };
 }

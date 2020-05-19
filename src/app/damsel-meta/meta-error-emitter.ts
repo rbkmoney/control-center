@@ -1,4 +1,4 @@
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 export interface ErrorObservable {
     errors: Observable<string>;

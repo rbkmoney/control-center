@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { DomainTypedManager, TerminalOption } from '../../../../../thrift-services';
 import { Observable } from 'rxjs';
 
+import { DomainTypedManager, TerminalOption } from '../../../../../thrift-services';
+
 const toFormArray = (fb: FormBuilder, options: TerminalOption[]): FormArray =>
-    fb.array(options.map(option => fb.group(option)));
+    fb.array(options.map((option) => fb.group(option)));
 
 @Injectable()
 export class CreateTerminalFormService {
@@ -14,16 +14,16 @@ export class CreateTerminalFormService {
     riskCoverages = [
         {
             name: 'low',
-            value: 0
+            value: 0,
         },
         {
             name: 'high',
-            value: 100
+            value: 100,
         },
         {
             name: 'fatal',
-            value: 9999
-        }
+            value: 9999,
+        },
     ];
 
     constructor(private fb: FormBuilder, private dtm: DomainTypedManager) {
@@ -48,7 +48,7 @@ export class CreateTerminalFormService {
     private getOption(): FormGroup {
         return this.fb.group({
             key: '',
-            value: ''
+            value: '',
         });
     }
 
@@ -57,7 +57,7 @@ export class CreateTerminalFormService {
             terminalName: ['', Validators.required],
             terminalDescription: ['', Validators.required],
             riskCoverage: ['', Validators.required],
-            options: toFormArray(this.fb, [{ key: '', value: '' }])
+            options: toFormArray(this.fb, [{ key: '', value: '' }]),
         });
     }
 }

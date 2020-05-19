@@ -1,14 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { PayoutSearchParams } from '../../papi/params';
 import { SearchFormService } from './search-form.service';
 import { formValueToSearchParams } from './to-search-params';
-import { PayoutSearchParams } from '../../papi/params';
 
 @Component({
     selector: 'cc-payouts-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent implements OnInit {
     @Output()
@@ -30,8 +30,8 @@ export class SearchFormComponent implements OnInit {
         this.form = form;
         this.payoutStatuses = payoutStatuses;
         this.payoutTypes = payoutTypes;
-        this.form.valueChanges.subscribe(value => this.emitValue(value));
-        this.form.statusChanges.subscribe(status => this.emitStatus(status));
+        this.form.valueChanges.subscribe((value) => this.emitValue(value));
+        this.form.statusChanges.subscribe((status) => this.emitStatus(status));
         this.emitValue(this.form.value);
         this.emitStatus(this.form.status);
     }

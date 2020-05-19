@@ -1,4 +1,3 @@
-import * as DomainTypes from '../damsel/gen-nodejs/domain_types';
 import {
     Condition,
     PartyCondition,
@@ -6,8 +5,9 @@ import {
     Predicate,
     TerminalDecision,
     TerminalRef,
-    TerminalSelector
+    TerminalSelector,
 } from '../damsel/gen-model/domain';
+import * as DomainTypes from '../damsel/gen-nodejs/domain_types';
 
 const toPartyConditionDefinitionGen = (definition: PartyConditionDefinition) => {
     const definitionGen = new DomainTypes.PartyConditionDefinition();
@@ -47,7 +47,7 @@ const toTerminalRefGen = (ref: TerminalRef) => {
 const toTerminalSelectorGen = (selector: TerminalSelector) => {
     const selectorGen = new DomainTypes.TerminalSelector();
     if (selector.value) {
-        selectorGen.value = Array.from(selector.value).map(ref => toTerminalRefGen(ref));
+        selectorGen.value = Array.from(selector.value).map((ref) => toTerminalRefGen(ref));
     }
     return selectorGen;
 };

@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { PartyService } from './party.service';
 import { PartyDetailsModule } from './party-details/party-details.module';
-import { ShopDetailsModule } from './shop-details/shop-details.module';
 import { PartyRoutingModule } from './party-routing.module';
+import { PartyService } from './party.service';
+import { ShopDetailsModule } from './shop-details/shop-details.module';
 
 @NgModule({
     imports: [
@@ -13,8 +13,8 @@ import { PartyRoutingModule } from './party-routing.module';
         CommonModule,
         FlexLayoutModule,
         PartyDetailsModule,
-        ShopDetailsModule
+        ShopDetailsModule,
     ],
-    providers: [PartyService]
+    providers: [PartyService],
 })
 export class PartyModule {}

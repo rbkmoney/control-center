@@ -1,17 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { MatCheckboxChange, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs';
 
-import { MonacoFile, IDiffEditorOptions } from '../../monaco-editor';
-import { toMonacoFile } from '../utils';
+import { IDiffEditorOptions, MonacoFile } from '../../monaco-editor';
 import { DomainModificationModel } from '../domain-modification-model';
+import { toMonacoFile } from '../utils';
 import { DomainObjReviewService } from './domain-obj-review.service';
 
 @Component({
     templateUrl: './domain-obj-review.component.html',
     styleUrls: ['../editor-container.scss'],
-    providers: [DomainObjReviewService]
+    providers: [DomainObjReviewService],
 })
 export class DomainObjReviewComponent implements OnInit, OnDestroy {
     initialized = false;
@@ -20,7 +21,7 @@ export class DomainObjReviewComponent implements OnInit, OnDestroy {
     objectType: string;
     options: IDiffEditorOptions = {
         renderSideBySide: true,
-        readOnly: true
+        readOnly: true,
     };
     isLoading = false;
 
@@ -58,11 +59,11 @@ export class DomainObjReviewComponent implements OnInit, OnDestroy {
             () => {
                 this.isLoading = false;
                 this.snackBar.open('Commit successful', 'OK', {
-                    duration: 2000
+                    duration: 2000,
                 });
                 this.router.navigate(['domain', this.ref]);
             },
-            ex => {
+            (ex) => {
                 this.isLoading = false;
                 console.error(ex);
                 this.snackBar.open(`An error occured while commit: ${ex}`, 'OK');

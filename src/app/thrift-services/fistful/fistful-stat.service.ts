@@ -3,13 +3,13 @@ import { FetchResult } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SearchFormParams } from '../../deposits/search-form/search-form-params';
+import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
+import { QueryDSL } from '../../query-dsl';
 import { ThriftService } from '../thrift-service';
+import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
-import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
-import { SearchFormParams } from '../../deposits/search-form/search-form-params';
-import { QueryDSL } from '../../query-dsl';
-import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
@@ -25,9 +25,9 @@ export class FistfulStatisticsService extends ThriftService {
     ): Observable<FetchResult<StatDeposit>> {
         const request: StatRequest = this.searchParamsToRequest(params, continuationToken);
         return this.toObservableAction('GetDeposits')(new ThriftStatRequest(request)).pipe(
-            map(res => ({
+            map((res) => ({
                 result: res.data.deposits,
-                continuationToken: res.continuation_token
+                continuationToken: res.continuation_token,
             }))
         );
     }
@@ -46,7 +46,7 @@ export class FistfulStatisticsService extends ThriftService {
             partyId,
             sourceId,
             status,
-            walletId
+            walletId,
         } = params;
         return {
             dsl: JSON.stringify({
@@ -62,11 +62,11 @@ export class FistfulStatisticsService extends ThriftService {
                         ...(sourceId ? { source_id: sourceId } : {}),
                         ...(status ? { status } : {}),
                         ...(walletId ? { wallet_id: walletId } : {}),
-                        size: this.searchLimit.toString()
-                    }
-                }
+                        size: this.searchLimit.toString(),
+                    },
+                },
             } as QueryDSL),
-            ...(continuationToken ? { continuation_token: continuationToken } : {})
+            ...(continuationToken ? { continuation_token: continuationToken } : {}),
         };
     }
 }

@@ -4,6 +4,6 @@ import { DocumentService } from './document.service';
 import { FontsService } from './fonts';
 
 @NgModule({
-    providers: [DocumentService, FontsService]
+    providers: [DocumentService, FontsService],
 })
 export class DocumentModule {}

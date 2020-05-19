@@ -7,7 +7,7 @@ import { RepairingService } from './repairing.service';
 @Component({
     templateUrl: 'repairing.component.html',
     styleUrls: ['repairing.component.css'],
-    providers: []
+    providers: [],
 })
 export class RepairingComponent {
     progress$: Observable<number>;
@@ -20,11 +20,13 @@ export class RepairingComponent {
 
     get progressBarMode$() {
         return this.progress$.pipe(
-            map(progress => (progress === 0 ? 'indeterminate' : 'determinate'))
+            map((progress) => (progress === 0 ? 'indeterminate' : 'determinate'))
         );
     }
 
     get progressBarValue$() {
-        return this.progress$.pipe(map(progress => (progress === 0 ? undefined : progress * 100)));
+        return this.progress$.pipe(
+            map((progress) => (progress === 0 ? undefined : progress * 100))
+        );
     }
 }

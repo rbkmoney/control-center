@@ -1,17 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { PayoutToolInfo } from '../../../../thrift-services/damsel/gen-model/domain';
 import get from 'lodash-es/get';
+
+import { PayoutToolInfo } from '../../../../thrift-services/damsel/gen-model/domain';
 
 enum Type {
     russianBankAccount = 'russian_bank_account',
     internationalBankAccount = 'international_bank_account',
-    walletInfo = 'wallet_info'
+    walletInfo = 'wallet_info',
 }
 
 @Component({
     selector: 'cc-payout-tool-info',
-    templateUrl: 'payout-tool-info.component.html'
+    templateUrl: 'payout-tool-info.component.html',
 })
 export class PayoutToolInfoComponent implements OnInit {
     @Input()
@@ -64,7 +65,7 @@ export class PayoutToolInfoComponent implements OnInit {
     }
 
     private clearControl() {
-        this.types.forEach(type => {
+        this.types.forEach((type) => {
             this.form.removeControl(type);
         });
     }

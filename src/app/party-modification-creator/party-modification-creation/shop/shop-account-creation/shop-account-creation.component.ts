@@ -6,7 +6,7 @@ import { ShopAccountParams } from '../../../../thrift-services/damsel/gen-model/
 
 @Component({
     selector: 'cc-shop-account-creation',
-    templateUrl: 'shop-account-creation.component.html'
+    templateUrl: 'shop-account-creation.component.html',
 })
 export class ShopAccountCreationComponent implements OnInit {
     @Input()

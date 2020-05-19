@@ -28,18 +28,18 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
             {
                 title: 'Component name',
                 argumentName: 'name',
-                defaultValue: ''
-            }
+                defaultValue: '',
+            },
         ],
         template: [
             {
                 type: 'folder',
-                name: inputs => vsc.toKebabCase(inputs.name),
+                name: (inputs) => vsc.toKebabCase(inputs.name),
                 children: [
                     {
                         type: 'file',
-                        name: inputs => `${getModulePath(inputs.name)}.ts`,
-                        content: inputs => `
+                        name: (inputs) => `${getModulePath(inputs.name)}.ts`,
+                        content: (inputs) => `
 import { NgModule } from '@angular/core';
 
 import { ${getComponentName(inputs.name)} } from './${getComponentPath(inputs.name)}';
@@ -50,29 +50,29 @@ import { ${getComponentName(inputs.name)} } from './${getComponentPath(inputs.na
     exports: [${getComponentName(inputs.name)}]
 })
 export class ${getModuletName(inputs.name)} {}
-`
+`,
                     },
                     {
                         type: 'file',
-                        name: inputs => `${getComponentPath(inputs.name)}.html`,
-                        content: inputs => `
+                        name: (inputs) => `${getComponentPath(inputs.name)}.html`,
+                        content: (inputs) => `
 <div class="${PREFIX}-${vsc.toKebabCase(inputs.name)}">
     <ng-content></ng-content>
 </div>
-`
+`,
                     },
                     {
                         type: 'file',
-                        name: inputs => `${getComponentPath(inputs.name)}.scss`,
-                        content: inputs => `
+                        name: (inputs) => `${getComponentPath(inputs.name)}.scss`,
+                        content: (inputs) => `
 .${getCssClassName(inputs.name)} {
 }
-`
+`,
                     },
                     {
                         type: 'file',
-                        name: inputs => `${getComponentPath(inputs.name)}.ts`,
-                        content: inputs => `
+                        name: (inputs) => `${getComponentPath(inputs.name)}.ts`,
+                        content: (inputs) => `
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
@@ -83,20 +83,20 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ${getComponentName(inputs.name)} {
 }
-`
+`,
                     },
                     {
                         type: 'file',
-                        name: inputs => `index.ts`,
-                        content: inputs => `
+                        name: (inputs) => `index.ts`,
+                        content: (inputs) => `
 export * from './${getModulePath(inputs.name)}';
 export * from './${getComponentPath(inputs.name)}'
-`
+`,
                     },
                     {
                         type: 'file',
-                        name: inputs => `_${vsc.toKebabCase(inputs.name)}-theme.scss`,
-                        content: inputs => `
+                        name: (inputs) => `_${vsc.toKebabCase(inputs.name)}-theme.scss`,
+                        content: (inputs) => `
 @import '~@angular/material/theming';
 
 @mixin ${getCssClassName(inputs.name)}-theme($theme) {
@@ -108,10 +108,10 @@ export * from './${getComponentPath(inputs.name)}'
     .${getCssClassName(inputs.name)} {
     }
 }
-`
-                    }
-                ]
-            }
-        ]
+`,
+                    },
+                ],
+            },
+        ],
     };
 }

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { UnitActionsNavListModule } from './unit-actions-nav-list';
-import { PartyModificationEmitter } from './party-modification-emitter.service';
 import { CreateModificationDialogModule } from './create-modification-dialog';
+import { PartyModificationEmitter } from './party-modification-emitter.service';
+import { UnitActionsNavListModule } from './unit-actions-nav-list';
 
 @NgModule({
     imports: [UnitActionsNavListModule, CreateModificationDialogModule],
-    providers: [PartyModificationEmitter]
+    providers: [PartyModificationEmitter],
 })
 export class PartyModificationCreatorModule {}

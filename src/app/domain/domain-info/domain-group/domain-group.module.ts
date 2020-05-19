@@ -1,25 +1,23 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatExpansionModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatSelectModule,
-    MatSortModule,
-    MatTableModule
-} from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
-import { DomainGroupComponent } from './domain-group.component';
 import { SharedModule } from '../../../shared/shared.module';
-import { GroupControlComponent } from './group-control';
+import { DomainGroupComponent } from './domain-group.component';
 import { DomainObjectsTypeSelectorComponent } from './domain-objects-type-selector';
+import { GroupControlComponent } from './group-control';
 import { GroupTableComponent } from './group-table';
 
 @NgModule({
@@ -27,7 +25,7 @@ import { GroupTableComponent } from './group-table';
         DomainGroupComponent,
         DomainObjectsTypeSelectorComponent,
         GroupControlComponent,
-        GroupTableComponent
+        GroupTableComponent,
     ],
     imports: [
         CommonModule,
@@ -44,8 +42,8 @@ import { GroupTableComponent } from './group-table';
         MatCheckboxModule,
         MatSelectModule,
         SharedModule,
-        MatSortModule
+        MatSortModule,
     ],
-    exports: [DomainGroupComponent]
+    exports: [DomainGroupComponent],
 })
 export class DomainGroupModule {}

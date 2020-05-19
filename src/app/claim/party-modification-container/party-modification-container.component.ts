@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
+import { CreateModificationDialogComponent } from '../../party-modification-creator';
 import {
     ModificationGroupType,
     ModificationUnitContainer,
-    PartyModificationContainer
+    PartyModificationContainer,
 } from '../model';
 import { PartyModificationContainerService } from './party-modification-container.service';
 import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.component';
-import { CreateModificationDialogComponent } from '../../party-modification-creator';
 
 @Component({
     selector: 'cc-party-modification-container',
     templateUrl: 'party-modification-container.component.html',
-    styleUrls: ['./party-modification-container.component.css']
+    styleUrls: ['./party-modification-container.component.css'],
 })
 export class PartyModificationContainerComponent implements OnInit {
     @Input()
@@ -42,8 +42,8 @@ export class PartyModificationContainerComponent implements OnInit {
     remove() {
         const config = {
             data: {
-                typeHash: this.activeUnit.typeHash
-            }
+                typeHash: this.activeUnit.typeHash,
+            },
         };
         this.dialog.open<RemoveConfirmComponent>(RemoveConfirmComponent, config);
     }

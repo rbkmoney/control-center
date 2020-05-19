@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, timeout } from 'rxjs/operators';
 import {
     createPdf,
-    TDocumentDefinitions,
+    TableLayoutFunctions,
     TCreatedPdf,
-    TableLayoutFunctions
+    TDocumentDefinitions,
 } from 'pdfmake/build/pdfmake';
+import { Observable } from 'rxjs';
+import { map, timeout } from 'rxjs/operators';
 
 import { FontsService } from './fonts';
 import { fontsConfig } from './fonts-config';

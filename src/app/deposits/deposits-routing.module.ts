@@ -12,11 +12,11 @@ import { DepositsComponent } from './deposits.component';
                 component: DepositsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['deposit:write']
-                }
-            }
-        ])
+                    roles: ['deposit:write'],
+                },
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DepositsRoutingModule {}

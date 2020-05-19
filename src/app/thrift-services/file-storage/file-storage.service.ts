@@ -1,18 +1,18 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../thrift-service';
-import * as FileStorage from './gen-nodejs/FileStorage';
+import { Timestamp } from './gen-model/base';
 import {
     FileData,
     FileDataID,
     FileNotFound,
     Metadata,
     NewFileResult,
-    URL
+    URL,
 } from './gen-model/file_storage';
-import { Timestamp } from './gen-model/base';
-import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
+import * as FileStorage from './gen-nodejs/FileStorage';
 
 @Injectable()
 export class FileStorageService extends ThriftService {

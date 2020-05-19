@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 
-import { AddProviderService } from './add-provider.service';
 import { ProviderObject, TerminalObject } from '../../../thrift-services/damsel/gen-model/domain';
+import { AddProviderService } from './add-provider.service';
 
 interface AddProviderData {
     partyID: string;
@@ -15,7 +16,7 @@ interface AddProviderData {
 @Component({
     templateUrl: 'add-provider.component.html',
     styleUrls: ['add-provider.component.scss'],
-    providers: [AddProviderService]
+    providers: [AddProviderService],
 })
 export class AddProviderComponent implements OnInit {
     terminals$: Observable<TerminalObject[]>;
@@ -54,7 +55,7 @@ export class AddProviderComponent implements OnInit {
                 this.snackBar.open('Provider successfully added', 'OK', { duration: 3000 });
                 this.dialogRef.close(true);
             },
-            e => {
+            (e) => {
                 this.isLoading = false;
                 this.snackBar.open('An error occurred while while adding provider', 'OK');
                 console.error(e);

@@ -1,10 +1,10 @@
-import { TableLayoutFunctions, TDocumentDefinitions, PageSize } from 'pdfmake/build/pdfmake';
+import { PageSize, TableLayoutFunctions, TDocumentDefinitions } from 'pdfmake/build/pdfmake';
 
-import { createStyles, createDefaultStyle } from './create-styles';
-import { createTableLayouts } from './create-table-layouts';
-import { DocDef } from './doc-def';
 import { cmMarginsToIn } from '../../document/cm-margins-to-in';
 import { createFooter } from './create-footer';
+import { createDefaultStyle, createStyles } from './create-styles';
+import { createTableLayouts } from './create-table-layouts';
+import { DocDef } from './doc-def';
 
 export function createQuestionary(
     data: DocDef
@@ -30,11 +30,11 @@ export function createQuestionary(
             footer: createFooter({
                 margin: footerMarginsIn,
                 text: data.footer,
-                content: data.prefooter
+                content: data.prefooter,
             }),
             styles: createStyles(),
-            defaultStyle: createDefaultStyle()
+            defaultStyle: createDefaultStyle(),
         },
-        createTableLayouts()
+        createTableLayouts(),
     ];
 }

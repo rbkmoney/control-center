@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { MetaErrorEmitter, ErrorObservable } from './meta-error-emitter';
-import { MetaStruct, MetaUnion } from './model';
-import { applyValue } from './apply-value';
-import { ObjectASTNode, IError } from '../jsonc';
+import { IError, ObjectASTNode } from '../jsonc';
 import { parse } from '../jsonc/json-parser';
+import { applyValue } from './apply-value';
+import { ErrorObservable, MetaErrorEmitter } from './meta-error-emitter';
+import { MetaStruct, MetaUnion } from './model';
 
 @Injectable()
 export class MetaApplicator implements ErrorObservable {
@@ -38,6 +38,6 @@ export class MetaApplicator implements ErrorObservable {
     }
 
     private emitMonacoErrors(errors: IError[]) {
-        this.errorEmitter.emitErrors(errors.map(e => e.message));
+        this.errorEmitter.emitErrors(errors.map((e) => e.message));
     }
 }

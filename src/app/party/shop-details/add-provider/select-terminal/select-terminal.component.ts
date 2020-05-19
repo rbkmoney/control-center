@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { TerminalObject } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-select-terminal',
     templateUrl: 'select-terminal.component.html',
-    styleUrls: ['select-terminal.component.scss']
+    styleUrls: ['select-terminal.component.scss'],
 })
 export class SelectTerminalComponent {
     @Input() terminals: TerminalObject[];

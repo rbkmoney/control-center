@@ -1,20 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatTableModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
 
-import { PartyDetailsComponent } from './party-details.component';
-import { ShopsTableComponent } from './shops-table/shops-table.component';
-import { PartyInfoComponent } from './party-info/party-info.component';
 import { SharedModule } from '../../shared/shared.module';
+import { PartyDetailsComponent } from './party-details.component';
+import { PartyInfoComponent } from './party-info/party-info.component';
+import { ShopsTableComponent } from './shops-table/shops-table.component';
 
 @NgModule({
     imports: [
@@ -27,8 +25,8 @@ import { SharedModule } from '../../shared/shared.module';
         MatPaginatorModule,
         MatFormFieldModule,
         MatInputModule,
-        SharedModule
+        SharedModule,
     ],
-    declarations: [PartyDetailsComponent, ShopsTableComponent, PartyInfoComponent]
+    declarations: [PartyDetailsComponent, ShopsTableComponent, PartyInfoComponent],
 })
 export class PartyDetailsModule {}

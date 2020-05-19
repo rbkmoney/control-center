@@ -1,13 +1,13 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { SelectionModel } from '@angular/cdk/collections';
 
 import { ExecStateType } from '../../shared/execute';
 import { Machine } from '../../thrift-services/machinegun/gen-model/state_processing';
 import { Namespace } from '../../thrift-services/machinegun/model/namespace';
-import { RepairingService } from '../repairing.service';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
+import { RepairingService } from '../repairing.service';
 
 enum Status {
     found = 'machine found',
@@ -18,7 +18,7 @@ enum Status {
     machineNotFound = 'machine not found',
     machineFailed = 'machine failed',
     eventNotFound = 'event not found',
-    machineAlreadyWorking = 'machine already working'
+    machineAlreadyWorking = 'machine already working',
 }
 
 interface Element {
@@ -32,7 +32,7 @@ interface Element {
     selector: 'cc-simple-repair',
     templateUrl: 'simple-repair.component.html',
     styleUrls: ['../repairing.component.css'],
-    providers: []
+    providers: [],
 })
 export class SimpleRepairComponent {
     displayedColumns: string[] = ['select', 'id', 'ns', 'timer', 'status'];
@@ -56,12 +56,15 @@ export class SimpleRepairComponent {
     }
 
     add(addedIds: string[]) {
-        const ids = this.repairingService.combineIds(addedIds, this.dataSource.map(({ id }) => id));
+        const ids = this.repairingService.combineIds(
+            addedIds,
+            this.dataSource.map(({ id }) => id)
+        );
         const ns = this.nsControl.value;
         this.dataSource = this.dataSource.concat(
-            ids.map(id => ({ id, ns, status: Status.update }))
+            ids.map((id) => ({ id, ns, status: Status.update }))
         );
-        this.updateStatus(this.dataSource.filter(el => ids.includes(el.id)));
+        this.updateStatus(this.dataSource.filter((el) => ids.includes(el.id)));
     }
 
     remove(elements: Element[] = this.selection.selected) {
@@ -78,7 +81,7 @@ export class SimpleRepairComponent {
             return;
         }
         this.setStatus(elements);
-        this.repairingService.executeGetMachine(elements).subscribe(result => {
+        this.repairingService.executeGetMachine(elements).subscribe((result) => {
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.statusByError(result.error);
@@ -109,7 +112,7 @@ export class SimpleRepairComponent {
             return;
         }
         this.setStatus(elements, Status.update);
-        this.repairingService.executeSimpleRepair(elements).subscribe(result => {
+        this.repairingService.executeSimpleRepair(elements).subscribe((result) => {
             const element = elements[result.idx];
             if (result.type === ExecStateType.error) {
                 element.status = this.statusByError(result.error);

@@ -1,42 +1,40 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatListModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatStepperModule,
-    MatTableModule,
-    MatTooltipModule
-} from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
-import { PaymentAdjustmentComponent } from './payment-adjustment.component';
-import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
-import { TableComponent } from './table/table.component';
-import { SearchFormComponent } from './search-form/search-form.component';
-import { PaymentAdjustmentService } from './payment-adjustment.service';
+import { DomainModule } from '../domain';
 import { PapiModule } from '../papi/papi.module';
+import { SharedModule } from '../shared/shared.module';
 import { DamselModule } from '../thrift-services/damsel/damsel.module';
 import { ActionItemComponent } from './create-and-capture/action-item/action-item.component';
-import { CreateActionsComponent } from './create-and-capture/create-actions/create-actions.component';
 import { CancelActionsComponent } from './create-and-capture/cancel-actions/cancel-actions.component';
 import { CaptureActionsComponent } from './create-and-capture/capture-actions/capture-actions.component';
-import { SharedModule } from '../shared/shared.module';
-import { DomainModule } from '../domain';
+import { CreateActionsComponent } from './create-and-capture/create-actions/create-actions.component';
+import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
+import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
+import { PaymentAdjustmentComponent } from './payment-adjustment.component';
+import { PaymentAdjustmentService } from './payment-adjustment.service';
+import { SearchFormComponent } from './search-form/search-form.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
     imports: [
@@ -65,7 +63,7 @@ import { DomainModule } from '../domain';
         PapiModule,
         DamselModule,
         MatSelectModule,
-        DomainModule
+        DomainModule,
     ],
     declarations: [
         PaymentAdjustmentComponent,
@@ -75,9 +73,9 @@ import { DomainModule } from '../domain';
         ActionItemComponent,
         CreateActionsComponent,
         CancelActionsComponent,
-        CaptureActionsComponent
+        CaptureActionsComponent,
     ],
     entryComponents: [CreateAndCaptureComponent],
-    providers: [PaymentAdjustmentService]
+    providers: [PaymentAdjustmentService],
 })
 export class PaymentAdjustmentModule {}

@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ModificationGroupType, ModificationAction, ActionType } from '../model';
-import { PartyTarget } from '../party-modification-target';
 import {
     ContractModificationUnit,
     PartyModification,
-    ShopModificationUnit
+    ShopModificationUnit,
 } from '../../thrift-services/damsel/gen-model/claim_management';
+import { ActionType, ModificationAction, ModificationGroupType } from '../model';
 import { PartyModificationEmitter } from '../party-modification-emitter.service';
+import { PartyTarget } from '../party-modification-target';
 
 export interface CreateModificationData {
     action: ModificationAction;
@@ -19,11 +19,11 @@ export interface CreateModificationData {
 
 enum Step {
     prepareTarget = '0',
-    fillInModification = '1'
+    fillInModification = '1',
 }
 
 @Component({
-    templateUrl: 'create-modification-dialog.component.html'
+    templateUrl: 'create-modification-dialog.component.html',
 })
 export class CreateModificationDialogComponent implements OnInit {
     isLoading = false;

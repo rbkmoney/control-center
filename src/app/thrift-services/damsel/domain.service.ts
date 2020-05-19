@@ -1,10 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import * as Repository from './gen-nodejs/Repository';
+import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../thrift-service';
 import { Commit, Limit, Reference, Snapshot, Version } from './gen-model/domain_config';
-import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
+import * as Repository from './gen-nodejs/Repository';
 
 @Injectable()
 export class DomainService extends ThriftService {

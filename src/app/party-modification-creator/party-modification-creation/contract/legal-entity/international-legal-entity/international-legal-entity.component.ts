@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { InternationalLegalEntity } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-international-legal-entity',
-    templateUrl: 'international-legal-entity.component.html'
+    templateUrl: 'international-legal-entity.component.html',
 })
 export class InternationalLegalEntityComponent implements OnInit {
     @Input()

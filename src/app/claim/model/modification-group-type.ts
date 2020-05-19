@@ -1,5 +1,5 @@
 export enum ModificationGroupType {
     ShopUnitContainer = 'ShopUnitContainer',
     ContractUnitContainer = 'ContractUnitContainer',
-    unknown = 'unknown'
+    unknown = 'unknown',
 }

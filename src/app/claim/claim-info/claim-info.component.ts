@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet, MatDialog, MatSnackBar } from '@angular/material';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { ClaimService } from '../claim.service';
-import { ClaimInfoContainer } from '../model';
-import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
-import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
-import { ClaimActionType } from '../claim-action-type';
-import { CloneClaimComponent } from '../clone-claim/clone-claim.component';
 import { UnitActionsNavListComponent } from '../../party-modification-creator';
+import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
+import { ClaimActionType } from '../claim-action-type';
+import { ClaimService } from '../claim.service';
+import { CloneClaimComponent } from '../clone-claim/clone-claim.component';
+import { DenyClaimComponent } from '../deny-claim/deny-claim.component';
+import { ClaimInfoContainer } from '../model';
 
 @Component({
     selector: 'cc-claim-info',
-    templateUrl: 'claim-info.component.html'
+    templateUrl: 'claim-info.component.html',
 })
 export class ClaimInfoComponent implements OnInit {
     claimInfoContainer: ClaimInfoContainer;
@@ -22,7 +24,7 @@ export class ClaimInfoComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private claimService: ClaimService,
+        public claimService: ClaimService,
         private bottomSheet: MatBottomSheet,
         private snackBar: MatSnackBar,
         private dialog: MatDialog
@@ -30,8 +32,8 @@ export class ClaimInfoComponent implements OnInit {
 
     ngOnInit() {
         this.claimService.claimInfoContainer$
-            .pipe(filter(container => container !== null))
-            .subscribe(container => {
+            .pipe(filter((container) => container !== null))
+            .subscribe((container) => {
                 this.claimInfoContainer = container;
                 this.partyID = container.partyId;
                 this.claimID = container.claimId;
@@ -45,19 +47,18 @@ export class ClaimInfoComponent implements OnInit {
     save() {
         switch (this.claimInfoContainer.type) {
             case ClaimActionType.edit:
-                this.claimService
-                    .saveChanges()
-                    .subscribe(() => this.success(), e => this.failed(e));
+                this.claimService.saveChanges().subscribe(
+                    () => this.success(),
+                    (e) => this.failed(e)
+                );
                 break;
             case ClaimActionType.create:
                 this.claimService.createClaim().subscribe(
-                    claimInfo => {
-                        const editEndpoint = `/claims/${claimInfo.party_id}/${
-                            ClaimActionType.edit
-                        }/${claimInfo.claim_id}`;
+                    (claimInfo) => {
+                        const editEndpoint = `/claims/${claimInfo.party_id}/${ClaimActionType.edit}/${claimInfo.claim_id}`;
                         this.router.navigate([editEndpoint]).then(() => this.success());
                     },
-                    e => this.failed(e)
+                    (e) => this.failed(e)
                 );
                 break;
         }
@@ -65,27 +66,27 @@ export class ClaimInfoComponent implements OnInit {
 
     add() {
         this.bottomSheet.open(UnitActionsNavListComponent, {
-            data: { type: 'allActions', partyID: this.partyID }
+            data: { type: 'allActions', partyID: this.partyID },
         });
     }
 
     cloneClaim() {
         this.dialog.open(CloneClaimComponent, {
             disableClose: true,
-            data: { partyID: this.partyID, claimID: this.claimID }
+            data: { partyID: this.partyID, claimID: this.claimID },
         });
     }
 
     accept() {
         this.dialog.open(AcceptClaimComponent, {
-            disableClose: true
+            disableClose: true,
         });
     }
 
     deny() {
         this.dialog.open(DenyClaimComponent, {
             disableClose: true,
-            width: '30vw'
+            width: '30vw',
         });
     }
 

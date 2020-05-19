@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { PartiesService } from './parties.service';
 import { PartyService } from '../party/party.service';
-import { MatSnackBar } from '@angular/material';
+import { PartiesService } from './parties.service';
 
 @Component({
     templateUrl: 'parties.component.html',
     styleUrls: [],
-    providers: [PartiesService, PartyService]
+    providers: [PartiesService, PartyService],
 })
 export class PartiesComponent implements OnInit {
     public form: FormGroup;
@@ -35,7 +35,7 @@ export class PartiesComponent implements OnInit {
                 this.isLoading = false;
                 this.router.navigate(['party-old', partyId]);
             },
-            err => {
+            (err) => {
                 this.isLoading = false;
                 this.snackBar
                     .open(`An error occurred while initializing: ${err}`, 'RETRY')

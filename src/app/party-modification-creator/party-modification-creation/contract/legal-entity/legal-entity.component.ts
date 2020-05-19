@@ -6,12 +6,12 @@ import { LegalEntity } from '../../../../thrift-services/damsel/gen-model/domain
 
 enum Type {
     russianLegalEntity = 'russian_legal_entity',
-    internationalLegalEntity = 'international_legal_entity'
+    internationalLegalEntity = 'international_legal_entity',
 }
 
 @Component({
     selector: 'cc-legal-entity',
-    templateUrl: 'legal-entity.component.html'
+    templateUrl: 'legal-entity.component.html',
 })
 export class LegalEntityComponent implements OnInit {
     @Input()

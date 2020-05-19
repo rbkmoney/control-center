@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { forkJoin, Observable, of, Subject } from 'rxjs';
 import flatten from 'lodash-es/flatten';
+import { forkJoin, Observable, of, Subject } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 export enum ExecResultType {
     success = 'success',
-    error = 'error'
+    error = 'error',
 }
 
 export interface ExecResult {
@@ -42,13 +42,13 @@ export class ExecutorService {
             );
             if (container) {
                 const { fn, context, params } = container;
-                const args = Object.entries(params).map(e => (e.length > 0 ? e[1] : null));
+                const args = Object.entries(params).map((e) => (e.length > 0 ? e[1] : null));
                 return fn.apply(context, args).pipe(
-                    catchError(exception =>
+                    catchError((exception) =>
                         of({
                             type: ExecResultType.error,
                             container,
-                            exception
+                            exception,
                         })
                     ),
                     switchMap((nextRes: any) => {
@@ -60,8 +60,8 @@ export class ExecutorService {
                             {
                                 type: ExecResultType.success,
                                 container,
-                                data: nextRes
-                            } as ExecSuccessResult
+                                data: nextRes,
+                            } as ExecSuccessResult,
                         ]);
                     })
                 );
@@ -69,7 +69,7 @@ export class ExecutorService {
             return of(results);
         };
         const execs = new Array(execCount).fill([]).map(executor);
-        return forkJoin(execs).pipe(map(res => flatten(res) as ExecResult[]));
+        return forkJoin(execs).pipe(map((res) => flatten(res) as ExecResult[]));
     }
 
     private updateProgress(length: number, value: number) {

@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
-import { ClaimInfoContainer } from '../../model';
 import { ClaimActionType } from '../../claim-action-type';
+import { ClaimInfoContainer } from '../../model';
 
 @Component({
     selector: 'cc-claim-info-details',
-    templateUrl: 'claim-info-details.component.html'
+    templateUrl: 'claim-info-details.component.html',
 })
 export class ClaimInfoDetailsComponent {
     @Input()

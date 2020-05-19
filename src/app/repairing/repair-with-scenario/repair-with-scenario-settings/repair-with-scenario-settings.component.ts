@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ enum Scenario {
     // complex = 'complex',
     fail_pre_processing = 'fail_pre_processing',
     // skip_inspector = 'skip_inspector',
-    fail_session = 'fail_session'
+    fail_session = 'fail_session',
 }
 
 export interface DialogData {
@@ -19,7 +19,7 @@ export interface DialogData {
 @Component({
     templateUrl: 'repair-with-scenario-settings.component.html',
     styleUrls: [],
-    providers: []
+    providers: [],
 })
 export class RepairWithScenarioSettingsComponent {
     scenarios = Object.values(Scenario);
@@ -34,11 +34,11 @@ export class RepairWithScenarioSettingsComponent {
     ) {
         this.formGroup = fb.group({
             scenario: [Scenario.fail_pre_processing],
-            code: [this.codes[0]]
+            code: [this.codes[0]],
         });
         this.autocompleteCodes$ = this.formGroup.valueChanges.pipe(
             map(({ code }) =>
-                code ? this.codes.filter(c => c.toLowerCase().indexOf(code) !== -1) : this.codes
+                code ? this.codes.filter((c) => c.toLowerCase().indexOf(code) !== -1) : this.codes
             )
         );
     }
@@ -50,7 +50,7 @@ export class RepairWithScenarioSettingsComponent {
     getData(): DialogData {
         return {
             scenario: this.formGroup.value.scenario,
-            code: this.formGroup.value.code
+            code: this.formGroup.value.code,
         };
     }
 }

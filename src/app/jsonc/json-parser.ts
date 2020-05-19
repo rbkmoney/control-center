@@ -1,5 +1,6 @@
-import { JSONSchema } from './json-schema';
 import * as Json from 'jsonc-parser';
+
+import { JSONSchema } from './json-schema';
 import * as nls from './nlc';
 
 const localize = nls.loadMessageBundle();
@@ -35,7 +36,7 @@ export class ValidationResult {
     }
 
     public mergeAll(validationResults: ValidationResult[]): void {
-        validationResults.forEach(validationResult => {
+        validationResults.forEach((validationResult) => {
             this.merge(validationResult);
         });
     }
@@ -166,7 +167,7 @@ export class ASTNode {
         }
 
         if (Array.isArray(schema.type)) {
-            if ((<string[]>schema.type).indexOf(this.type) === -1) {
+            if ((schema.type as string[]).indexOf(this.type) === -1) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
                     message:
@@ -174,8 +175,8 @@ export class ASTNode {
                         localize(
                             'typeArrayMismatchWarning',
                             'Incorrect type. Expected one of {0}',
-                            (<string[]>schema.type).join(', ')
-                        )
+                            (schema.type as string[]).join(', ')
+                        ),
                 });
             }
         } else if (schema.type) {
@@ -188,12 +189,12 @@ export class ASTNode {
                             'typeMismatchWarning',
                             'Incorrect type. Expected "{0}"',
                             schema.type
-                        )
+                        ),
                 });
             }
         }
         if (Array.isArray(schema.allOf)) {
-            schema.allOf.forEach(subSchema => {
+            schema.allOf.forEach((subSchema) => {
                 this.validate(subSchema, validationResult, matchingSchemas, offset);
             });
         }
@@ -204,11 +205,11 @@ export class ASTNode {
             if (!subValidationResult.hasErrors()) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
-                    message: localize('notSchemaWarning', 'Matches a schema that is not allowed.')
+                    message: localize('notSchemaWarning', 'Matches a schema that is not allowed.'),
                 });
             }
             if (matchingSchemas) {
-                subMatchingSchemas.forEach(ms => {
+                subMatchingSchemas.forEach((ms) => {
                     ms.inverted = !ms.inverted;
                     matchingSchemas.push(ms);
                 });
@@ -224,7 +225,7 @@ export class ASTNode {
                 validationResult: ValidationResult;
                 matchingSchemas: IApplicableSchema[];
             } = null;
-            alternatives.forEach(subSchema => {
+            alternatives.forEach((subSchema) => {
                 const subValidationResult = new ValidationResult();
                 const subMatchingSchemas: IApplicableSchema[] = [];
                 this.validate(subSchema, subValidationResult, subMatchingSchemas);
@@ -235,7 +236,7 @@ export class ASTNode {
                     bestMatch = {
                         schema: subSchema,
                         validationResult: subValidationResult,
-                        matchingSchemas: subMatchingSchemas
+                        matchingSchemas: subMatchingSchemas,
                     };
                 } else {
                     if (
@@ -261,7 +262,7 @@ export class ASTNode {
                             bestMatch = {
                                 schema: subSchema,
                                 validationResult: subValidationResult,
-                                matchingSchemas: subMatchingSchemas
+                                matchingSchemas: subMatchingSchemas,
                             };
                         } else if (compareResult === 0) {
                             // there's already a best matching but we are as good
@@ -280,7 +281,7 @@ export class ASTNode {
                     message: localize(
                         'oneOfWarning',
                         'Matches multiple schemas when only one must validate.'
-                    )
+                    ),
                 });
             }
             if (bestMatch !== null) {
@@ -309,7 +310,7 @@ export class ASTNode {
                         'enumWarning',
                         'Value is not an accepted value. Valid values: {0}',
                         JSON.stringify(schema.enum)
-                    )
+                    ),
                 });
             } else {
                 validationResult.enumValueMatch = true;
@@ -317,7 +318,7 @@ export class ASTNode {
         }
 
         if (matchingSchemas !== null) {
-            matchingSchemas.push({ node: this, schema: schema });
+            matchingSchemas.push({ node: this, schema });
         }
     }
 }
@@ -358,7 +359,7 @@ export class ArrayASTNode extends ASTNode {
     }
 
     public getValue(): any {
-        return this.items.map(v => v.getValue());
+        return this.items.map((v) => v.getValue());
     }
 
     public addItem(item: ASTNode): boolean {
@@ -389,7 +390,7 @@ export class ArrayASTNode extends ASTNode {
         super.validate(schema, validationResult, matchingSchemas, offset);
 
         if (Array.isArray(schema.items)) {
-            const subSchemas = <JSONSchema[]>schema.items;
+            const subSchemas = schema.items as JSONSchema[];
             subSchemas.forEach((subSchema, index) => {
                 const itemValidationResult = new ValidationResult();
                 const item = this.items[index];
@@ -408,13 +409,13 @@ export class ArrayASTNode extends ASTNode {
                         'additionalItemsWarning',
                         'Array has too many items according to schema. Expected {0} or fewer',
                         subSchemas.length
-                    )
+                    ),
                 });
             } else if (this.items.length >= subSchemas.length) {
                 validationResult.propertiesValueMatches += this.items.length - subSchemas.length;
             }
         } else if (schema.items) {
-            this.items.forEach(item => {
+            this.items.forEach((item) => {
                 const itemValidationResult = new ValidationResult();
                 item.validate((schema as any).items, itemValidationResult, matchingSchemas, offset);
                 validationResult.mergePropertyMatch(itemValidationResult);
@@ -428,7 +429,7 @@ export class ArrayASTNode extends ASTNode {
                     'minItemsWarning',
                     'Array has too few items. Expected {0} or more',
                     schema.minItems
-                )
+                ),
             });
         }
 
@@ -439,12 +440,12 @@ export class ArrayASTNode extends ASTNode {
                     'maxItemsWarning',
                     'Array has too many items. Expected {0} or fewer',
                     schema.minItems
-                )
+                ),
             });
         }
 
         if (schema.uniqueItems === true) {
-            const values = this.items.map(node => {
+            const values = this.items.map((node) => {
                 return node.getValue();
             });
             const duplicates = values.some((value, index) => {
@@ -453,7 +454,7 @@ export class ArrayASTNode extends ASTNode {
             if (duplicates) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
-                    message: localize('uniqueItemsWarning', 'Array has duplicate items')
+                    message: localize('uniqueItemsWarning', 'Array has duplicate items'),
                 });
             }
         }
@@ -488,7 +489,7 @@ export class NumberASTNode extends ASTNode {
         let typeIsInteger = false;
         if (
             schema.type === 'integer' ||
-            (Array.isArray(schema.type) && (<string[]>schema.type).indexOf('integer') !== -1)
+            (Array.isArray(schema.type) && (schema.type as string[]).indexOf('integer') !== -1)
         ) {
             typeIsInteger = true;
         }
@@ -508,7 +509,7 @@ export class NumberASTNode extends ASTNode {
                         'multipleOfWarning',
                         'Value is not divisible by {0}',
                         schema.multipleOf
-                    )
+                    ),
                 });
             }
         }
@@ -521,7 +522,7 @@ export class NumberASTNode extends ASTNode {
                         'exclusiveMinimumWarning',
                         'Value is below the exclusive minimum of {0}',
                         schema.minimum
-                    )
+                    ),
                 });
             }
             if (!schema.exclusiveMinimum && val < schema.minimum) {
@@ -531,7 +532,7 @@ export class NumberASTNode extends ASTNode {
                         'minimumWarning',
                         'Value is below the minimum of {0}',
                         schema.minimum
-                    )
+                    ),
                 });
             }
         }
@@ -544,7 +545,7 @@ export class NumberASTNode extends ASTNode {
                         'exclusiveMaximumWarning',
                         'Value is above the exclusive maximum of {0}',
                         schema.maximum
-                    )
+                    ),
                 });
             }
             if (!schema.exclusiveMaximum && val > schema.maximum) {
@@ -554,7 +555,7 @@ export class NumberASTNode extends ASTNode {
                         'maximumWarning',
                         'Value is above the maximum of {0}',
                         schema.maximum
-                    )
+                    ),
                 });
             }
         }
@@ -593,7 +594,7 @@ export class StringASTNode extends ASTNode {
                     'minLengthWarning',
                     'String is shorter than the minimum length of ',
                     schema.minLength
-                )
+                ),
             });
         }
 
@@ -604,7 +605,7 @@ export class StringASTNode extends ASTNode {
                     'maxLengthWarning',
                     'String is shorter than the maximum length of ',
                     schema.maxLength
-                )
+                ),
             });
         }
 
@@ -619,7 +620,7 @@ export class StringASTNode extends ASTNode {
                             'patternWarning',
                             'String does not match the pattern of "{0}"',
                             schema.pattern
-                        )
+                        ),
                 });
             }
         }
@@ -689,21 +690,21 @@ export class ObjectASTNode extends ASTNode {
     }
 
     public getFirstProperty(key: string): PropertyASTNode {
-        for (let i = 0; i < this.properties.length; i++) {
-            if (this.properties[i].key.value === key) {
-                return this.properties[i];
+        for (const prop of this.properties) {
+            if (prop.key.value === key) {
+                return prop;
             }
         }
         return null;
     }
 
     public getKeyList(): string[] {
-        return this.properties.map(p => p.key.getValue());
+        return this.properties.map((p) => p.key.getValue());
     }
 
     public getValue(): any {
         const value: any = {};
-        this.properties.forEach(p => {
+        this.properties.forEach((p) => {
             const v = p.value && p.value.getValue();
             if (v) {
                 value[p.key.getValue()] = v;
@@ -733,7 +734,7 @@ export class ObjectASTNode extends ASTNode {
         super.validate(schema, validationResult, matchingSchemas, offset);
         const seenKeys: { [key: string]: ASTNode } = {};
         const unprocessedProperties: string[] = [];
-        this.properties.forEach(node => {
+        this.properties.forEach((node) => {
             const key = node.key.value;
             seenKeys[key] = node.value;
             unprocessedProperties.push(key);
@@ -742,17 +743,17 @@ export class ObjectASTNode extends ASTNode {
         if (Array.isArray(schema.required)) {
             schema.required.forEach((propertyName: string) => {
                 if (!seenKeys[propertyName]) {
-                    const key = this.parent && (<PropertyASTNode>this.parent).key;
+                    const key = this.parent && (this.parent as PropertyASTNode).key;
                     const location = key
                         ? { start: key.start, end: key.end }
                         : { start: this.start, end: this.start + 1 };
                     validationResult.warnings.push({
-                        location: location,
+                        location,
                         message: localize(
                             'MissingRequiredPropWarning',
                             'Missing property "{0}"',
                             propertyName
-                        )
+                        ),
                     });
                 }
             });
@@ -820,7 +821,7 @@ export class ObjectASTNode extends ASTNode {
                 unprocessedProperties.forEach((propertyName: string) => {
                     const child = seenKeys[propertyName];
                     if (child) {
-                        const propertyNode = <PropertyASTNode>child.parent;
+                        const propertyNode = child.parent as PropertyASTNode;
 
                         validationResult.warnings.push({
                             location: { start: propertyNode.key.start, end: propertyNode.key.end },
@@ -828,7 +829,7 @@ export class ObjectASTNode extends ASTNode {
                                 'DisallowedExtraPropWarning',
                                 'Property {0} is not allowed',
                                 propertyName
-                            )
+                            ),
                         });
                     }
                 });
@@ -843,7 +844,7 @@ export class ObjectASTNode extends ASTNode {
                         'MaxPropWarning',
                         'Object has more properties than limit of {0}',
                         schema.maxProperties
-                    )
+                    ),
                 });
             }
         }
@@ -856,7 +857,7 @@ export class ObjectASTNode extends ASTNode {
                         'MinPropWarning',
                         'Object has fewer properties than the required number of {0}',
                         schema.minProperties
-                    )
+                    ),
                 });
             }
         }
@@ -876,7 +877,7 @@ export class ObjectASTNode extends ASTNode {
                                         'Object is missing property {0} required by property {1}',
                                         requiredProp,
                                         key
-                                    )
+                                    ),
                                 });
                             } else {
                                 validationResult.propertiesValueMatches++;
@@ -998,11 +999,11 @@ export function parse(text: string, config?: JSONDocumentConfig): JSONDocument {
         ) {
             // ignore multiple errors on the same offset
             const error = {
-                message: message,
+                message,
                 location: {
                     start: _scanner.getTokenOffset(),
-                    end: _scanner.getTokenOffset() + _scanner.getTokenLength()
-                }
+                    end: _scanner.getTokenOffset() + _scanner.getTokenLength(),
+                },
             };
             _doc.errors.push(error);
         }
@@ -1099,7 +1100,7 @@ export function parse(text: string, config?: JSONDocumentConfig): JSONDocument {
         if (keysSeen[key.value]) {
             _doc.warnings.push({
                 location: { start: node.key.start, end: node.key.end },
-                message: localize('DuplicateKeyWarning', 'Duplicate object key')
+                message: localize('DuplicateKeyWarning', 'Duplicate object key'),
             });
         }
         keysSeen[key.value] = true;

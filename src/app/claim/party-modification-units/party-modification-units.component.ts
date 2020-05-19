@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { MatBottomSheet } from '@angular/material';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
-import { ModificationGroupType, PartyModificationUnit } from '../model';
-import { ClaimService } from '../claim.service';
 import { UnitActionsNavListComponent } from '../../party-modification-creator';
+import { ClaimService } from '../claim.service';
+import { ModificationGroupType, PartyModificationUnit } from '../model';
 
 @Component({
     selector: 'cc-party-modification-units',
     templateUrl: 'party-modification-units.component.html',
-    styleUrls: ['./party-modification-units.component.css']
+    styleUrls: ['./party-modification-units.component.css'],
 })
 export class PartyModificationUnitsComponent {
     @Input()
@@ -39,7 +39,7 @@ export class PartyModificationUnitsComponent {
                 break;
         }
         this.bottomSheet.open(UnitActionsNavListComponent, {
-            data: { type, unitID, partyID: this.partyID }
+            data: { type, unitID, partyID: this.partyID },
         });
     }
 }

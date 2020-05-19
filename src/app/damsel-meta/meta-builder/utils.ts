@@ -1,6 +1,6 @@
-import { ValueType, SetType, ListType, MapType } from 'thrift-ts';
-import isString from 'lodash-es/isString';
 import isObject from 'lodash-es/isObject';
+import isString from 'lodash-es/isString';
+import { ListType, MapType, SetType, ValueType } from 'thrift-ts';
 
 import { PrimitiveType } from '../model';
 

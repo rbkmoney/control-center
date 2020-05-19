@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { shareReplay, map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
-import { DomainService } from './domain.service';
 import { toGenReference } from '../converters';
+import { DomainService } from './domain.service';
 import { Domain } from './gen-model/domain';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class DomainCacheService {
     get domain(): Observable<Domain> {
         if (!this.cache$) {
             this.cache$ = this.dmtService.checkout(toGenReference()).pipe(
-                map(s => s.domain),
+                map((s) => s.domain),
                 shareReplay(1)
             );
         }

@@ -1,22 +1,22 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import groupBy from 'lodash-es/groupBy';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import forEach from 'lodash-es/forEach';
+import groupBy from 'lodash-es/groupBy';
 
 import {
-    EventType,
-    OperationFailedPayload,
     AdjustmentOperationEvent,
     BatchPaymentAdjustmentService,
-    PaymentAdjustmentCreationScope
+    CreatePaymentAdjustmentErrorCodes,
+    EventType,
+    OperationFailedPayload,
+    PaymentAdjustmentCreationScope,
 } from '../adjustment-operations';
-import { CreatePaymentAdjustmentErrorCodes } from '../adjustment-operations';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCreationScope>;
 
 @Component({
     selector: 'cc-create-actions',
-    templateUrl: 'create-actions.component.html'
+    templateUrl: 'create-actions.component.html',
 })
 export class CreateActionsComponent implements OnInit {
     @Input()
@@ -35,7 +35,7 @@ export class CreateActionsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.batchAdjustmentService.events$.subscribe(event => {
+        this.batchAdjustmentService.events$.subscribe((event) => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCreated:
                     this.createResult = this.createResult.concat(
@@ -77,12 +77,12 @@ export class CreateActionsComponent implements OnInit {
         const captureParams = this.createResult.map(
             ({
                 adjustmentId: adjustment_id,
-                creationParams: { user, invoice_id, payment_id }
+                creationParams: { user, invoice_id, payment_id },
             }) => ({
                 user,
                 invoice_id,
                 payment_id,
-                adjustment_id
+                adjustment_id,
             })
         );
         this.createResult = [];
@@ -99,26 +99,30 @@ export class CreateActionsComponent implements OnInit {
             ({
                 operationScope: {
                     adjustmentId: adjustment_id,
-                    creationParams: { user, invoice_id, payment_id }
-                }
+                    creationParams: { user, invoice_id, payment_id },
+                },
             }) => ({
                 user,
                 invoice_id,
                 payment_id,
-                adjustment_id
+                adjustment_id,
             })
         );
         this.failedPending = [];
-        this.batchAdjustmentService.cancel(cancelParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments cancel');
+        this.batchAdjustmentService.cancel(cancelParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments cancel');
+            },
         });
     }
 
     retryFailedInternal() {
-        const createParams = this.failedInternal.map(item => item.operationScope.creationParams);
+        const createParams = this.failedInternal.map((item) => item.operationScope.creationParams);
         this.failedInternal = [];
-        this.batchAdjustmentService.create(createParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments create');
+        this.batchAdjustmentService.create(createParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments create');
+            },
         });
     }
 }

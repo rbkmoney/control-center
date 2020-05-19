@@ -12,10 +12,10 @@ import { PartyClaimsComponent } from './party-claims.component';
                 component: PartyClaimsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims']
-                }
-            }
-        ])
-    ]
+                    roles: ['get_claims'],
+                },
+            },
+        ]),
+    ],
 })
 export class PartyClaimsRoutingModule {}

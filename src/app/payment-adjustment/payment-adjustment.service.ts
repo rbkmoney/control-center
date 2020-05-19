@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { SearchFormParams } from './search-form/search-form-params';
-import { MerchantStatisticsService } from '../thrift-services/damsel/merchant-statistics.service';
-import { StatPayment, StatResponse } from '../thrift-services/damsel/gen-model/merch_stat';
-import { QueryDSL } from '../query-dsl';
 import { DomainService } from '../domain';
+import { QueryDSL } from '../query-dsl';
+import { StatPayment, StatResponse } from '../thrift-services/damsel/gen-model/merch_stat';
+import { MerchantStatisticsService } from '../thrift-services/damsel/merchant-statistics.service';
+import { SearchFormParams } from './search-form/search-form-params';
 
 @Injectable()
 export class PaymentAdjustmentService {
@@ -18,7 +18,7 @@ export class PaymentAdjustmentService {
         private merchantStatisticsService: MerchantStatisticsService,
         private domainService: DomainService
     ) {
-        this.domainService.version$.subscribe(version => (this.version = version));
+        this.domainService.version$.subscribe((version) => (this.version = version));
     }
 
     fetchPayments(params: SearchFormParams): Observable<StatPayment[]> {
@@ -31,7 +31,7 @@ export class PaymentAdjustmentService {
         payments: StatPayment[] = []
     ): Observable<StatPayment[]> {
         return this.getPayments(params, continuationToken).pipe(
-            mergeMap(res => {
+            mergeMap((res) => {
                 const mergedPayments = [...payments, ...res.data.payments];
                 this.searchPaymentChanges$.next(mergedPayments);
                 return res.continuation_token
@@ -53,7 +53,7 @@ export class PaymentAdjustmentService {
             toTime,
             status,
             shopId,
-            invoiceId
+            invoiceId,
         } = params;
         return this.merchantStatisticsService.getPayments({
             dsl: JSON.stringify({
@@ -66,11 +66,11 @@ export class PaymentAdjustmentService {
                         from_payment_domain_revision: fromRevision,
                         to_payment_domain_revision: toRevision,
                         ...(status ? { payment_status: status } : {}),
-                        ...(invoiceId ? { invoice_id: invoiceId } : {})
-                    }
-                }
+                        ...(invoiceId ? { invoice_id: invoiceId } : {}),
+                    },
+                },
             } as QueryDSL),
-            ...(continuationToken ? { continuation_token: continuationToken } : {})
+            ...(continuationToken ? { continuation_token: continuationToken } : {}),
         });
     }
 }

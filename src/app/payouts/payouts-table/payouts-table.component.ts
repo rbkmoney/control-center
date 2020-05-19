@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
     Component,
     EventEmitter,
@@ -6,10 +7,11 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { KeycloakService } from 'keycloak-angular';
 
 import { Payout } from '../../papi/model';
@@ -18,7 +20,7 @@ import { CancelPayoutComponent } from '../cancel-payout/cancel-payout.component'
 @Component({
     selector: 'cc-payouts-table',
     templateUrl: 'payouts-table.component.html',
-    styleUrls: ['./payouts-table.component.css']
+    styleUrls: ['./payouts-table.component.css'],
 })
 export class PayoutsTableComponent implements OnInit, OnChanges {
     @Output()
@@ -43,7 +45,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
         'period',
         'status',
         'type',
-        'payoutDetailButton'
+        'payoutDetailButton',
     ];
 
     constructor(private matDialog: MatDialog, private keycloakService: KeycloakService) {}
@@ -58,7 +60,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.roles = this.keycloakService.getUserRoles();
-        this.selection.changed.subscribe(e => this.valueChanges.emit(e.source.selected));
+        this.selection.changed.subscribe((e) => this.valueChanges.emit(e.source.selected));
         this.dataSource.paginator = this.paginator;
     }
 
@@ -72,7 +74,7 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
 
     cancelPayout(id: string) {
         this.matDialog.open(CancelPayoutComponent, {
-            data: id
+            data: id,
         });
     }
 

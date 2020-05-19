@@ -1,19 +1,19 @@
 import {
-    MetaTyped,
     MetaCollection,
     MetaMap,
-    MetaType,
     MetaStruct,
-    MetaUnion,
-    MetaTypeDefined,
+    MetaType,
+    MetaTyped,
     MetaTypedef,
-    PrimitiveType
+    MetaTypeDefined,
+    MetaUnion,
+    PrimitiveType,
 } from '../../model';
-import { MetaTypeCondition, MetaGroup } from '../model';
 import { findMeta } from '../find-meta';
-import { MetaLoopResolver } from './meta-loop-resolver';
-import { isObjectRefType, registerError, isPrimitiveType } from '../utils';
+import { MetaGroup, MetaTypeCondition } from '../model';
 import { resolvePrimitive } from '../resolve-ast-value-type';
+import { isObjectRefType, isPrimitiveType, registerError } from '../utils';
+import { MetaLoopResolver } from './meta-loop-resolver';
 
 type MetaLoop = string;
 type ObjectRef = string;
@@ -51,20 +51,20 @@ export class MetaEnricher {
             const { resolved, errors } = resolver.resolve(enriched);
             return {
                 enriched: resolved,
-                errors: [...this.errors, ...errors]
+                errors: [...this.errors, ...errors],
             };
         }
         return { enriched, errors: this.errors };
     }
 
     private enrichStructUnion(meta: MetaStruct | MetaUnion): MetaStruct | MetaUnion {
-        const fields = meta.fields.map(f => ({
+        const fields = meta.fields.map((f) => ({
             ...f,
-            meta: this.enrichObjectMeta(f.meta)
+            meta: this.enrichObjectMeta(f.meta),
         }));
         const result = {
             ...meta,
-            fields
+            fields,
         };
         this.enrichedObjects = [...this.enrichedObjects, result];
         return result;
@@ -99,7 +99,7 @@ export class MetaEnricher {
     private enrichCollection(meta: MetaCollection): MetaCollection {
         return {
             ...meta,
-            itemMeta: this.enrichCollectionMapMeta(meta.itemMeta)
+            itemMeta: this.enrichCollectionMapMeta(meta.itemMeta),
         };
     }
 
@@ -107,7 +107,7 @@ export class MetaEnricher {
         return {
             ...meta,
             keyMeta: this.enrichCollectionMapMeta(meta.keyMeta),
-            valueMeta: this.enrichCollectionMapMeta(meta.valueMeta)
+            valueMeta: this.enrichCollectionMapMeta(meta.valueMeta),
         };
     }
 
@@ -198,16 +198,16 @@ export class MetaEnricher {
         return second
             ? {
                   namespace: first,
-                  type: second
+                  type: second,
               }
             : {
                   namespace: this.namespace,
-                  type: first
+                  type: first,
               };
     }
 
     private registerExternalNamespace(namespace: string): void {
-        const found = this.externalNamespaces.find(n => n === namespace);
+        const found = this.externalNamespaces.find((n) => n === namespace);
         if (!found) {
             this.externalNamespaces = this.externalNamespaces.concat(namespace);
         }

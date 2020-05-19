@@ -1,14 +1,14 @@
-import {
-    MetaPrimitive,
-    MetaEnum,
-    MetaCollection,
-    MetaMap,
-    MetaTyped,
-    MetaType,
-    MetaStruct,
-    MetaUnion
-} from '../model';
 import { getThriftInstance } from '../../thrift-services';
+import {
+    MetaCollection,
+    MetaEnum,
+    MetaMap,
+    MetaPrimitive,
+    MetaStruct,
+    MetaType,
+    MetaTyped,
+    MetaUnion,
+} from '../model';
 
 export type ThriftType = any;
 
@@ -53,7 +53,7 @@ export function buildStructUnion({
     namespace,
     name,
     fields,
-    virgin
+    virgin,
 }: MetaStruct | MetaUnion): ThriftType {
     if (virgin) {
         return;

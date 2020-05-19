@@ -59,7 +59,7 @@ export enum MetaType {
     collection = 'collection',
     map = 'map',
     enum = 'enum',
-    typedef = 'typedef'
+    typedef = 'typedef',
 }
 
 export enum PrimitiveType {
@@ -71,12 +71,12 @@ export enum PrimitiveType {
     bool = 'bool',
     int = 'int',
     double = 'double',
-    binary = 'binary'
+    binary = 'binary',
 }
 
 export enum CollectionType {
     set = 'set',
-    list = 'list'
+    list = 'list',
 }
 
 export * from './ast-definition';

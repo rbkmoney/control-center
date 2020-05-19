@@ -5,7 +5,7 @@ function isDefined(value: any): boolean {
 export enum MessageFormat {
     file = 'file',
     bundle = 'bundle',
-    both = 'both'
+    both = 'both',
 }
 
 export interface Options {
@@ -19,6 +19,7 @@ export interface LocalizeInfo {
     comment: string[];
 }
 
+// tslint:disable-next-line: no-namespace
 namespace LocalizeInfo {
     export function is(value: any): value is LocalizeInfo {
         const candidate = value as LocalizeInfo;
@@ -33,10 +34,6 @@ export type LocalizeFunc = (
 ) => string;
 
 export type LoadFunc = (file?: string) => LocalizeFunc;
-
-interface NlsBundle {
-    [key: string]: string[];
-}
 
 export type KeyInfo = string | LocalizeInfo;
 

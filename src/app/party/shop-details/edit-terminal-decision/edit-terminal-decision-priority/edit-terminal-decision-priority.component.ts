@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { EditTerminalDecisionPriorityService } from './edit-terminal-decision-priority.service';
 
@@ -13,7 +13,7 @@ export interface EditPriorityData {
 
 @Component({
     templateUrl: 'edit-terminal-decision-priority.component.html',
-    providers: [EditTerminalDecisionPriorityService]
+    providers: [EditTerminalDecisionPriorityService],
 })
 export class EditTerminalDecisionPriorityComponent implements OnInit {
     isLoading$;

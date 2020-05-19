@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import remove from 'lodash-es/remove';
+import { Subject } from 'rxjs';
 
-import { PersistentContainer } from './model';
 import { PartyModification } from '../thrift-services/damsel/gen-model/payment_processing';
+import { PersistentContainer } from './model';
 
 @Injectable()
 export class PersistentContainerService {
@@ -11,10 +11,10 @@ export class PersistentContainerService {
     private containers: PersistentContainer[] = [];
 
     init(persisted: PartyModification[], saved = true) {
-        this.containers = persisted.map(modification => ({
+        this.containers = persisted.map((modification) => ({
             modification,
             saved,
-            typeHash: !saved ? this.makeTypeHash(modification) : null
+            typeHash: !saved ? this.makeTypeHash(modification) : null,
         }));
         this.containers$.next(this.containers);
     }
@@ -24,9 +24,9 @@ export class PersistentContainerService {
         const item = {
             modification,
             typeHash,
-            saved: false
+            saved: false,
         };
-        const index = this.containers.findIndex(i => i.typeHash === typeHash);
+        const index = this.containers.findIndex((i) => i.typeHash === typeHash);
         if (index !== -1) {
             this.containers[index] = item;
         } else {
@@ -36,7 +36,7 @@ export class PersistentContainerService {
     }
 
     remove(typeHash: string) {
-        remove(this.containers, i => i.typeHash === typeHash);
+        remove(this.containers, (i) => i.typeHash === typeHash);
         this.containers$.next(this.containers.sort(this.sort));
     }
 

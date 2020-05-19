@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { PayoutsComponent } from './payouts.component';
 import { AppAuthGuardService } from '../app-auth-guard.service';
+import { PayoutsComponent } from './payouts.component';
 
 @NgModule({
     imports: [
@@ -12,11 +12,11 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
                 component: PayoutsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['payout:read']
-                }
-            }
-        ])
+                    roles: ['payout:read'],
+                },
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PayoutsRoutingModule {}

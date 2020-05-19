@@ -1,18 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-    MatProgressSpinnerModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDialogModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 
-import { DomainObjModificationComponent } from './domain-obj-modification.component';
 import { MonacoEditorModule } from '../../monaco-editor';
 import { SharedModule } from '../../shared/shared.module';
+import { DomainObjModificationComponent } from './domain-obj-modification.component';
 import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confirm-dialog.component';
 
 @NgModule({
@@ -27,9 +25,9 @@ import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confir
         MatIconModule,
         MonacoEditorModule,
         SharedModule,
-        MatDialogModule
+        MatDialogModule,
     ],
     entryComponents: [ResetConfirmDialogComponent],
-    exports: [DomainObjModificationComponent]
+    exports: [DomainObjModificationComponent],
 })
 export class DomainObjModificationModule {}

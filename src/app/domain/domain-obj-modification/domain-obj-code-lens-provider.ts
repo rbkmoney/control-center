@@ -1,9 +1,9 @@
 import {
-    CodeLensProvider,
-    ITextModel,
     CancellationToken,
+    CodeLensProvider,
     ICodeLensSymbol,
-    ProviderResult
+    ITextModel,
+    ProviderResult,
 } from '../../monaco-editor';
 
 export class DomainObjCodeLensProvider implements CodeLensProvider {
@@ -22,9 +22,9 @@ export class DomainObjCodeLensProvider implements CodeLensProvider {
                 id: 'First Line',
                 command: {
                     id: null,
-                    title: 'DomainRef'
-                }
-            }
+                    title: 'DomainRef',
+                },
+            },
         ];
     }
     resolveCodeLens?(

@@ -1,21 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { MonacoFile, CodeLensProvider, CompletionProvider } from '../../monaco-editor';
-import { DomainObjModificationService } from './domain-obj-modification.service';
-import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
-import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
+import { CodeLensProvider, CompletionProvider, MonacoFile } from '../../monaco-editor';
+import { DomainModificationModel } from '../domain-modification-model';
 import { DomainReviewService } from '../domain-review.service';
 import { toMonacoFile } from '../utils';
-import { DomainModificationModel } from '../domain-modification-model';
+import { DomainObjCodeLensProvider } from './domain-obj-code-lens-provider';
+import { DomainObjCompletionProvider } from './domain-obj-completion-provider';
+import { DomainObjModificationService } from './domain-obj-modification.service';
 import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confirm-dialog.component';
 
 @Component({
     templateUrl: './domain-obj-modification.component.html',
     styleUrls: ['../editor-container.scss'],
-    providers: [DomainObjModificationService]
+    providers: [DomainObjModificationService],
 })
 export class DomainObjModificationComponent implements OnInit, OnDestroy {
     initialized = false;
@@ -24,8 +25,8 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
     codeLensProviders: CodeLensProvider[];
     completionProviders: CompletionProvider[];
     modifiedFile: MonacoFile;
+    model: DomainModificationModel;
 
-    private model: DomainModificationModel;
     private initSub: Subscription;
 
     constructor(
@@ -62,10 +63,10 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
     resetChanges() {
         this.dialog
             .open(ResetConfirmDialogComponent, {
-                width: '300px'
+                width: '300px',
             })
             .afterClosed()
-            .subscribe(result => {
+            .subscribe((result) => {
                 if (!result) {
                     return;
                 }
@@ -78,7 +79,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
     private initialize(): Subscription {
         this.isLoading = true;
         return this.domainObjModService.init().subscribe(
-            model => {
+            (model) => {
                 this.isLoading = false;
                 this.model = model;
                 this.modifiedFile = toMonacoFile(model.modified.monacoContent);
@@ -87,7 +88,7 @@ export class DomainObjModificationComponent implements OnInit, OnDestroy {
                     this.initSub.unsubscribe();
                 }
             },
-            err => {
+            (err) => {
                 console.error(err);
                 this.isLoading = false;
                 this.snackBar.open(`An error occurred while initializing: ${err}`, 'OK');

@@ -1,21 +1,21 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../thrift-service';
-import * as MessageServiceClient from './gen-nodejs/MessageService';
-import {
-    ConversationFilter as ConversationFilterType,
-    User as UserType,
-    Conversation as ConversationType
-} from './gen-nodejs/messages_types';
 import {
     Conversation,
     ConversationFilter,
     ConversationId,
     GetConversationResponse,
-    User
+    User,
 } from './gen-model/messages';
-import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
+import * as MessageServiceClient from './gen-nodejs/MessageService';
+import {
+    Conversation as ConversationType,
+    ConversationFilter as ConversationFilterType,
+    User as UserType,
+} from './gen-nodejs/messages_types';
 
 @Injectable()
 export class MessagesService extends ThriftService {
@@ -31,7 +31,7 @@ export class MessagesService extends ThriftService {
 
     saveConversations = (conversations: Conversation[], user: User): Observable<void> =>
         this.toObservableAction('SaveConversations')(
-            conversations.map(c => new ConversationType(c)),
+            conversations.map((c) => new ConversationType(c)),
             new UserType(user)
         );
 }

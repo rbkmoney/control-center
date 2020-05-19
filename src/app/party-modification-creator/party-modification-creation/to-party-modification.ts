@@ -1,6 +1,6 @@
+import { ContractModificationName, ShopModificationName } from '..';
 import { ActionType, ModificationAction } from '../../claim/modification-action';
 import { UnitName } from './unit-name';
-import { ShopModificationName, ContractModificationName } from '..';
 
 const toModification = (
     unitID: string,
@@ -11,9 +11,9 @@ const toModification = (
     [unitName]: {
         id: unitID,
         modification: {
-            [modificationName]: modification
-        }
-    }
+            [modificationName]: modification,
+        },
+    },
 });
 
 export const toPartyModification = (action: ModificationAction, formValue: any) => {

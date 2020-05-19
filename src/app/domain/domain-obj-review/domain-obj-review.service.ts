@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
-
-import { DomainModificationModel } from '../domain-modification-model';
-import { DomainService } from '../domain.service';
-import { Version } from '../../thrift-services/damsel/gen-model/domain_config';
-import { DomainReviewService } from '../domain-review.service';
+import { combineLatest, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
+import { Version } from '../../thrift-services/damsel/gen-model/domain_config';
+import { DomainModificationModel } from '../domain-modification-model';
+import { DomainReviewService } from '../domain-review.service';
+import { DomainService } from '../domain.service';
 
 @Injectable()
 export class DomainObjReviewService {
@@ -22,10 +22,10 @@ export class DomainObjReviewService {
                 {
                     update: {
                         old_object: original.domainObj,
-                        new_object: modified.domainObj
-                    }
-                }
-            ]
+                        new_object: modified.domainObj,
+                    },
+                },
+            ],
         };
         return this.domainService
             .commit(commit)
@@ -33,6 +33,6 @@ export class DomainObjReviewService {
     }
 
     initialize() {
-        return combineLatest(this.route.params, this.domainReviewService.reviewModel);
+        return combineLatest([this.route.params, this.domainReviewService.reviewModel]);
     }
 }

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CreatePayoutService } from './create-payout.service';
 import { PayoutsService } from '../payouts.service';
+import { CreatePayoutService } from './create-payout.service';
 
 @Component({
     templateUrl: 'create-payout.component.html',
-    providers: [CreatePayoutService, PayoutsService]
+    providers: [CreatePayoutService, PayoutsService],
 })
 export class CreatePayoutComponent implements OnInit {
     form: FormGroup;
@@ -34,7 +35,7 @@ export class CreatePayoutComponent implements OnInit {
                     this.isLoading = false;
                     this.snackBar.open('Successfully created', 'OK', { duration: 3000 });
                 },
-                error => {
+                (error) => {
                     this.isLoading = false;
                     const message = error.message;
                     this.snackBar.open(

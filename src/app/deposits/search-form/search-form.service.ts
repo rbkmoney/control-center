@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+
 import { SearchFormParams } from './search-form-params';
 
 @Injectable()
@@ -15,7 +16,7 @@ export class SearchFormService {
             ...value,
             fromTime: fromTime ? fromTime.startOf('day').toISOString() : '',
             toTime: toTime ? toTime.endOf('day').toISOString() : '',
-            amountTo: amountTo ? Math.round(amountTo * 100) : amountTo
+            amountTo: amountTo ? Math.round(amountTo * 100) : amountTo,
         };
     }
 
@@ -30,7 +31,7 @@ export class SearchFormService {
             identityId: '',
             partyId: '',
             sourceId: '',
-            walletId: ''
+            walletId: '',
         });
     }
 }

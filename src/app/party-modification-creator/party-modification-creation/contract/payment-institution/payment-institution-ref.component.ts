@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import get from 'lodash-es/get';
 import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
-import get from 'lodash-es/get';
+import { map } from 'rxjs/operators';
 
+import { DomainTypedManager } from '../../../../thrift-services';
 import {
     PaymentInstitutionObject,
-    PaymentInstitutionRef
+    PaymentInstitutionRef,
 } from '../../../../thrift-services/damsel/gen-model/domain';
-import { DomainTypedManager } from '../../../../thrift-services';
 
 @Component({
     selector: 'cc-payment-institution-ref',
-    templateUrl: 'payment-institution-ref.component.html'
+    templateUrl: 'payment-institution-ref.component.html',
 })
 export class PaymentInstitutionRefComponent implements OnInit {
     @Input()
@@ -33,8 +33,8 @@ export class PaymentInstitutionRefComponent implements OnInit {
         this.paymentInstitutions$ = this.dtm
             .getPaymentInstitutions()
             .pipe(
-                map(paymentInstitutions =>
-                    sortBy(paymentInstitutions, paymentInstitution => paymentInstitution.ref.id)
+                map((paymentInstitutions) =>
+                    sortBy(paymentInstitutions, (paymentInstitution) => paymentInstitution.ref.id)
                 )
             );
         const paymentInstitutionId = get(this, 'initialValue.id', '');

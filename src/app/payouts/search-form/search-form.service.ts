@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as moment from 'moment';
 import values from 'lodash-es/values';
+import * as moment from 'moment';
 
 import { PayoutStatus, PayoutTypes } from '../../papi/model';
 
@@ -28,7 +28,7 @@ export class SearchFormService {
             payoutIds: '',
             currencyCode: '',
             minAmount: [0, [Validators.required, Validators.min(0)]],
-            maxAmount: [1000000000, [Validators.required, Validators.min(0)]]
+            maxAmount: [1000000000, [Validators.required, Validators.min(0)]],
         });
     }
 }

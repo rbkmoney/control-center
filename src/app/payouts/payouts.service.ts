@@ -11,7 +11,7 @@ export class PayoutsService {
     constructor(private payoutsPapiService: PayoutsPapiService) {}
 
     get(params: PayoutSearchParams): Observable<Payout[]> {
-        return this.payoutsPapiService.getPayouts(params).pipe(map(response => response.payouts));
+        return this.payoutsPapiService.getPayouts(params).pipe(map((response) => response.payouts));
     }
 
     confirm(payoutsIds: string[]): Observable<void> {

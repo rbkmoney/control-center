@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { KeycloakService } from 'keycloak-angular';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import {
-    UserInfo,
-    InvoiceRepairScenario
-} from '../thrift-services/damsel/gen-model/payment_processing';
 import { execute } from '../shared/execute';
-import { AutomatonService } from '../thrift-services/machinegun/automaton.service';
+import {
+    InvoiceRepairScenario,
+    UserInfo,
+} from '../thrift-services/damsel/gen-model/payment_processing';
 import { PaymentProcessingService } from '../thrift-services/damsel/payment-processing.service';
-import { RepairerService } from '../thrift-services/fistful/repairer.service';
 import { RepairScenario } from '../thrift-services/fistful/gen-model/withdrawal_session';
+import { RepairerService } from '../thrift-services/fistful/repairer.service';
+import { AutomatonService } from '../thrift-services/machinegun/automaton.service';
 
 @Injectable()
 export class RepairingService {
@@ -31,7 +31,7 @@ export class RepairingService {
     }
 
     get isLoading$(): Observable<boolean> {
-        return this._progress$.pipe(map(progress => progress !== 1));
+        return this._progress$.pipe(map((progress) => progress !== 1));
     }
 
     combineIds(addedIds: string[], currentIds: string[] = []) {
@@ -48,7 +48,7 @@ export class RepairingService {
         }
         if (alreadyAddedIds.length) {
             this.snackBar.open(`IDs: ${alreadyAddedIds.join(', ')} has already been added`, 'OK', {
-                duration: 10000
+                duration: 10000,
             });
         }
         return ids;
@@ -57,14 +57,17 @@ export class RepairingService {
     getUser(): UserInfo {
         return {
             id: this.keycloakService.getUsername(),
-            type: { internal_user: {} }
+            type: { internal_user: {} },
         };
     }
 
     remove<E>(currentElements: E[], elements: E[]) {
         const resultDataSource = currentElements.slice();
         for (const element of elements) {
-            resultDataSource.splice(resultDataSource.findIndex(e => e === element), 1);
+            resultDataSource.splice(
+                resultDataSource.findIndex((e) => e === element),
+                1
+            );
         }
         return resultDataSource;
     }
@@ -82,7 +85,7 @@ export class RepairingService {
                 this.automatonService.getMachine({
                     ns,
                     ref: { id },
-                    range: { limit: 0, direction: 1 }
+                    range: { limit: 0, direction: 1 },
                 })
             )
         ).pipe(tap(({ progress }) => this._progress$.next(progress)));

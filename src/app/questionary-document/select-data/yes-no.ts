@@ -1,6 +1,6 @@
 export enum YesNo {
     yes,
-    no
+    no,
 }
 
 export function toYesNo(value: boolean): YesNo {

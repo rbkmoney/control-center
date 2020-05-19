@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
     Component,
     EventEmitter,
@@ -6,18 +7,18 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
-import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { i64ToNumber } from '../../shared/i64-to-number';
+import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 
 @Component({
     selector: 'cc-payment-adjustment-table',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.component.css']
+    styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit, OnChanges {
     @Input()
@@ -45,10 +46,10 @@ export class TableComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.selection.changed.subscribe(e => this.changeSelected.emit(e.source.selected));
+        this.selection.changed.subscribe((e) => this.changeSelected.emit(e.source.selected));
         this.dataSource.filterPredicate = ({ domain_revision }, filter) => {
-            const number = i64ToNumber(domain_revision.buffer, domain_revision.offset);
-            return filter === number.toString();
+            const num = i64ToNumber(domain_revision.buffer, domain_revision.offset);
+            return filter === num.toString();
         };
         this.dataSource.paginator = this.paginator;
     }

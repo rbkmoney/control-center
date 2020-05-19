@@ -5,9 +5,9 @@ export const filterProvidersByCategories = (
     objects: ProviderObject[],
     shopCategories: number[]
 ): ProviderObject[] => {
-    return objects.filter(obj => {
+    return objects.filter((obj) => {
         const predicate = (category: CategoryRef) =>
-            !!shopCategories.find(shopCategory => shopCategory === category.id);
+            !!shopCategories.find((shopCategory) => shopCategory === category.id);
         const paymentCats = get(obj, 'data.payment_terms.categories.value');
         const recurrentCats = get(obj, 'data.recurrent_paytool_terms.categories.value');
         if (paymentCats) {

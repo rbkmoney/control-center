@@ -8,11 +8,11 @@ describe('toFonts', () => {
             normal: 'normal',
             bold: 'bold',
             italics: '🥳',
-            bolditalics: 'url5'
+            bolditalics: 'url5',
         },
         1: {
-            normal: 'url'
-        }
+            normal: 'url',
+        },
     };
 
     it('should return fonts list', () => {
@@ -21,7 +21,7 @@ describe('toFonts', () => {
             { family: 'test', type: 'normal', hash: 'test_normal', url: 'normal' },
             { family: 'test', type: 'bold', hash: 'test_bold', url: 'bold' },
             { family: 'test', type: 'italics', hash: 'test_italics', url: '🥳' },
-            { family: 'test', type: 'bolditalics', hash: 'test_bolditalics', url: 'url5' }
+            { family: 'test', type: 'bolditalics', hash: 'test_bolditalics', url: 'url5' },
         ]);
     });
 });

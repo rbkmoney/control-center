@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatCheckboxChange, MatSnackBar } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PartyTarget } from '../party-target';
 import { PartyTargetService } from './party-target.service';
@@ -8,7 +9,7 @@ import { SelectableItem } from './selectable-item';
 @Component({
     selector: 'cc-party-target',
     templateUrl: 'party-target.component.html',
-    providers: [PartyTargetService]
+    providers: [PartyTargetService],
 })
 export class PartyTargetComponent implements OnInit {
     @Input()
@@ -37,7 +38,7 @@ export class PartyTargetComponent implements OnInit {
 
     ngOnInit() {
         this.partyTargetService.getSelectableItems(this.partyID, this.partyTarget).subscribe(
-            items => {
+            (items) => {
                 this.loading = false;
                 this.items = items;
             },

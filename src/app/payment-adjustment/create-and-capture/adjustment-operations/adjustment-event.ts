@@ -9,7 +9,7 @@ export enum EventType {
     PaymentAdjustmentsCaptured = 'PaymentAdjustmentsCaptured',
     CreatePaymentAdjustmentFailed = 'CreatePaymentAdjustmentFailed',
     CancelPaymentAdjustmentFailed = 'CancelPaymentAdjustmentFailed',
-    CapturePaymentAdjustmentFailed = 'CapturePaymentAdjustmentFailed'
+    CapturePaymentAdjustmentFailed = 'CapturePaymentAdjustmentFailed',
 }
 
 export type OperationType = ExecResultType;

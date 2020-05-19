@@ -35,8 +35,8 @@ import { Component, Input } from '@angular/core';
             pre {
                 white-space: pre-wrap;
             }
-        `
-    ]
+        `,
+    ],
 })
 export class PrettyJsonComponent {
     @Input()

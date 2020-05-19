@@ -1,20 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import forEach from 'lodash-es/forEach';
+import groupBy from 'lodash-es/groupBy';
+
 import {
     BatchPaymentAdjustmentService,
     CancelPaymentAdjustmentErrorCodes,
     EventType,
     OperationFailedPayload,
-    PaymentAdjustmentCaptureParams
+    PaymentAdjustmentCaptureParams,
 } from '../adjustment-operations';
-import forEach from 'lodash-es/forEach';
-import groupBy from 'lodash-es/groupBy';
 
 type FailedPayload = OperationFailedPayload<string, PaymentAdjustmentCaptureParams>;
 
 @Component({
     selector: 'cc-capture-actions',
-    templateUrl: 'capture-actions.component.html'
+    templateUrl: 'capture-actions.component.html',
 })
 export class CaptureActionsComponent implements OnInit {
     @Input()
@@ -33,7 +34,7 @@ export class CaptureActionsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.batchAdjustmentService.events$.subscribe(event => {
+        this.batchAdjustmentService.events$.subscribe((event) => {
             switch (event.type) {
                 case EventType.PaymentAdjustmentsCaptured:
                     this.snackBar.open(
@@ -83,8 +84,10 @@ export class CaptureActionsComponent implements OnInit {
     retry() {
         const captureParams = this.failedInternal.map(({ operationScope }) => operationScope);
         this.failedInternal = [];
-        this.batchAdjustmentService.capture(captureParams).subscribe(null, () => {
-            this.snackBar.open('An error occurred while adjustments capture');
+        this.batchAdjustmentService.capture(captureParams).subscribe({
+            error: () => {
+                this.snackBar.open('An error occurred while adjustments capture');
+            },
         });
     }
 }

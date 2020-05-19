@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+
 import { PayoutCreateParams } from '../../papi/params';
 
 @Injectable()
@@ -16,14 +17,12 @@ export class CreatePayoutService {
         return {
             ...formValues,
             fromTime: this.convertDate(formValues.fromTime),
-            toTime: this.convertDate(formValues.toTime)
+            toTime: this.convertDate(formValues.toTime),
         };
     }
 
     private convertDate(date: string): string {
-        return moment(date, this.dateFormat)
-            .utc()
-            .format();
+        return moment(date, this.dateFormat).utc().format();
     }
 
     private prepareForm(): FormGroup {
@@ -32,7 +31,7 @@ export class CreatePayoutService {
             fromTime: [now, Validators.required],
             toTime: [now, Validators.required],
             partyId: ['', Validators.required],
-            shopId: ['', Validators.required]
+            shopId: ['', Validators.required],
         });
     }
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CreateTerminalFormService } from './create-terminal-form.service';
 
@@ -8,7 +8,7 @@ import { CreateTerminalFormService } from './create-terminal-form.service';
     selector: 'cc-create-terminal-form',
     templateUrl: 'create-terminal-form.component.html',
     styleUrls: ['../../add-provider.component.scss'],
-    providers: [CreateTerminalFormService]
+    providers: [CreateTerminalFormService],
 })
 export class CreateTerminalFormComponent implements OnInit {
     @Output() terminalIdSelected: EventEmitter<number> = new EventEmitter();
@@ -45,13 +45,13 @@ export class CreateTerminalFormComponent implements OnInit {
     save() {
         this.isLoading = true;
         this.createTerminalFormService.saveTerminal().subscribe(
-            terminalID => {
+            (terminalID) => {
                 this.terminalIdSelected.emit(terminalID);
                 this.isLoading = false;
                 this.saved = true;
                 this.snackBar.open('Terminal successfully added', 'OK', { duration: 3000 });
             },
-            e => {
+            (e) => {
                 this.isLoading = false;
                 this.saved = false;
                 this.snackBar.open('An error occurred while while adding provider', 'OK');

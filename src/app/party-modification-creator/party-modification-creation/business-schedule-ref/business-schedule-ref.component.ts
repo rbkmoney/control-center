@@ -6,7 +6,7 @@ import { BusinessScheduleRef } from '../../../thrift-services/damsel/gen-model/d
 
 @Component({
     selector: 'cc-business-schedule-ref',
-    templateUrl: 'business-schedule-ref.component.html'
+    templateUrl: 'business-schedule-ref.component.html',
 })
 export class BusinessScheduleRefComponent implements OnInit {
     @Input()
