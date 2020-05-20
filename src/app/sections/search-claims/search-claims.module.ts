@@ -43,9 +43,9 @@ import { SearchTableComponent } from './search-table/search-table.component';
         FlexLayoutModule,
         SharedModule,
         MatExpansionModule,
-        ClaimSearchFormModule
+        ClaimSearchFormModule,
     ],
     declarations: [SearchClaimsComponent, SearchTableComponent, ClaimMailPipePipe],
-    providers: [SearchClaimsService, ClaimManagementService]
+    providers: [SearchClaimsService, ClaimManagementService],
 })
 export class SearchClaimsModule {}

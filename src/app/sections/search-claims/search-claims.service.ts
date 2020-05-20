@@ -22,12 +22,12 @@ export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> 
             .searchClaims({
                 ...params,
                 continuation_token: continuationToken,
-                limit: this.searchLimit
+                limit: this.searchLimit,
             })
             .pipe(
-                map(r => ({
+                map((r) => ({
                     result: r.result,
-                    continuationToken: r.continuation_token
+                    continuationToken: r.continuation_token,
                 }))
             );
     }

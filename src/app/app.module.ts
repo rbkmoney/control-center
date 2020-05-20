@@ -61,7 +61,7 @@ moment.locale('en');
         DepositsModule,
         PartyModule,
         OldPartyModule,
-        SearchClaimsModule
+        SearchClaimsModule,
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },

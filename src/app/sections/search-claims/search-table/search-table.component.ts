@@ -6,7 +6,7 @@ import { Claim } from '../../../thrift-services/damsel/gen-model/claim_managemen
 @Component({
     selector: 'cc-search-table',
     templateUrl: './search-table.component.html',
-    styleUrls: ['./search-table.component.scss']
+    styleUrls: ['./search-table.component.scss'],
 })
 export class SearchTableComponent {
     @Input()

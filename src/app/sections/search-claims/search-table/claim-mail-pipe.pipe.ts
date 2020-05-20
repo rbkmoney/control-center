@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 
 @Pipe({
-    name: 'ccClaimMail'
+    name: 'ccClaimMail',
 })
 export class ClaimMailPipePipe implements PipeTransform {
     transform(value: Claim): string {

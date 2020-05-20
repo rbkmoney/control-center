@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
             {
                 name: 'Claims-Deprecated',
                 route: '/claims-deprecated',
-                activateRoles: ['claim:get']
+                activateRoles: ['claim:get'],
             },
             { name: 'Claims', route: '/claims', activateRoles: ['get_claims'] },
             {
