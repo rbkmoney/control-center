@@ -1,5 +1,4 @@
-export const removeEmptyProperties = <T>(s: T) =>
-    Object.keys(s).reduce(
-        (acc, cur) => (!!s[cur] && s[cur] !== '' ? { ...acc, [cur]: s[cur] } : acc),
-        {} as T
-    );
+import identity from 'lodash-es/identity';
+import pickBy from 'lodash-es/pickBy';
+
+export const removeEmptyProperties = (s) => pickBy(s, identity);

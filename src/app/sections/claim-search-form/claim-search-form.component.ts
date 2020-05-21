@@ -26,6 +26,7 @@ export class ClaimSearchFormComponent implements OnInit {
 
     form: FormGroup = this.fb.group({
         statuses: '',
+        email: '',
         claim_id: '',
         party_id: '',
     });
@@ -36,7 +37,7 @@ export class ClaimSearchFormComponent implements OnInit {
 
     ngOnInit() {
         this.form.valueChanges
-            .pipe(debounceTime(300), map(removeEmptyProperties))
+            .pipe(debounceTime(600), map(removeEmptyProperties))
             .subscribe((v) => {
                 this.router.navigate([location.pathname], { queryParams: v });
                 this.valueChanges.emit(formValueToSearchParams(v));
