@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppAuthGuardService } from '../../app-auth-guard.service';
-import { ClaimsComponent } from './claims.component';
+import { SearchClaimsComponent } from './search-claims.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
-                path: '',
-                component: ClaimsComponent,
+                path: 'claims',
+                component: SearchClaimsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['get_claims'],
@@ -19,4 +19,4 @@ import { ClaimsComponent } from './claims.component';
     ],
     exports: [RouterModule],
 })
-export class ClaimsRoutingModule {}
+export class SearchClaimsComponentRouting {}
