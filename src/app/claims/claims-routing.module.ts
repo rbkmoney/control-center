@@ -8,7 +8,7 @@ import { ClaimsComponent } from './claims.component';
     imports: [
         RouterModule.forChild([
             {
-                path: 'claims',
+                path: 'claims-deprecated',
                 component: ClaimsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {

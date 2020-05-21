@@ -30,6 +30,7 @@ import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment
 import { PayoutsModule } from './payouts/payouts.module';
 import { RepairingModule } from './repairing/repairing.module';
 import { PartyModule } from './sections/party/party.module';
+import { SearchClaimsModule } from './sections/search-claims/search-claims.module';
 
 /**
  * For use in specific locations (for example, questionary PDF document)
@@ -62,6 +63,7 @@ moment.locale('en');
         ClaimMgtModule,
         PartyModule,
         OldPartyModule,
+        SearchClaimsModule,
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
