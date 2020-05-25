@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { get } from 'lodash-es';
-import * as uuid from 'uuid/v4';
 
-import { RussianLegalEntity } from '../../../../thrift-services/ank/gen-model/questionary';
 import {
     Questionary,
     QuestionaryData,
 } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { RussianBankAccount } from '../../../../thrift-services/damsel/gen-model/domain';
-import { toRussianBankAccount, toShopDetails, toShopLocation } from './converters';
+import {
+    toIndividualEntity,
+    toLegalEntity,
+    toRussianBankAccount,
+    toShopDetails,
+    toShopLocation,
+} from './converters';
 
 export interface ExtractForm {
     control: FormControl;
@@ -45,72 +48,11 @@ export class ExtractPartyModificationsService {
 
     private getModification(questionary: Questionary, path: string): PartyModification {
         const data = get(questionary.data, path);
-        console.log(path);
-        console.log(data);
-        let russian_legal_entity: RussianLegalEntity;
         switch (path) {
             case 'contractor.individual_entity':
-                russian_legal_entity = data.russian_legal_entity;
-                return {
-                    contractor_modification: {
-                        id: uuid(),
-                        modification: {
-                            creation: {
-                                legal_entity: {
-                                    russian_legal_entity: {
-                                        registered_name:
-                                            russian_legal_entity.name +
-                                            russian_legal_entity.additional_info.bank_account
-                                                .russian_bank_account,
-                                        registered_number: 'registered_number',
-                                        inn: russian_legal_entity.inn,
-                                        actual_address:
-                                            russian_legal_entity.registration_info
-                                                .legal_registration_info.actual_address,
-                                        post_address: russian_legal_entity.postal_address,
-                                        representative_position: 'representative_position',
-                                        representative_full_name: 'representative_full_name',
-                                        representative_document: 'representative_document',
-                                        russian_bank_account: russian_legal_entity.additional_info
-                                            .bank_account
-                                            .russian_bank_account as RussianBankAccount,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                };
+                return toIndividualEntity(data, questionary.data.bank_account);
             case 'contractor.legal_entity':
-                russian_legal_entity = data.russian_legal_entity;
-                return {
-                    contractor_modification: {
-                        id: uuid(),
-                        modification: {
-                            creation: {
-                                legal_entity: {
-                                    russian_legal_entity: {
-                                        registered_name:
-                                            russian_legal_entity.name +
-                                            russian_legal_entity.additional_info.bank_account
-                                                .russian_bank_account,
-                                        registered_number: 'registered_number',
-                                        inn: russian_legal_entity.inn,
-                                        actual_address:
-                                            russian_legal_entity.registration_info
-                                                .legal_registration_info.actual_address,
-                                        post_address: russian_legal_entity.postal_address,
-                                        representative_position: 'representative_position',
-                                        representative_full_name: 'representative_full_name',
-                                        representative_document: 'representative_document',
-                                        russian_bank_account: russian_legal_entity.additional_info
-                                            .bank_account
-                                            .russian_bank_account as RussianBankAccount,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                };
+                return toLegalEntity(data, questionary.data.bank_account);
             case 'bank_account.russian_bank_account':
                 return toRussianBankAccount(data);
             case 'shop_info.location':
