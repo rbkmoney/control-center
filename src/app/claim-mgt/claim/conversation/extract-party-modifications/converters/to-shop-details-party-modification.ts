@@ -6,4 +6,6 @@ export const toShopDetailsPartyModification = ({
     name,
     description,
 }: AnkShopDetails): PartyModification =>
-    toShopModification({ details_modification: { name, description } });
+    toShopModification({
+        details_modification: { name: name || '', description: description || '' },
+    });

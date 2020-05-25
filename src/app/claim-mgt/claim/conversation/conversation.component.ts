@@ -139,7 +139,12 @@ export class ConversationComponent implements OnChanges, OnInit {
         dialog
             .afterClosed()
             .pipe(filter((r) => r.length > 0))
-            .subscribe((result) => this.partyModificationsChanged(result));
+            .subscribe((result) => {
+                this.snackBar.open('Party modifications extracted successfully', 'OK', {
+                    duration: 1500,
+                });
+                this.partyModificationsChanged(result);
+            });
     }
 
     canUseActionsForQuestionary(modifications: Modification[]) {

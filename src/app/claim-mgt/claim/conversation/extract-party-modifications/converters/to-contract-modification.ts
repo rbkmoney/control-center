@@ -7,10 +7,10 @@ import {
 
 export const toContractModification = (
     modification: ContractModification,
-    id?: string
+    id: string = uuid()
 ): PartyModification => ({
     contract_modification: {
-        id: id ? id : uuid(),
+        id,
         modification,
     },
 });

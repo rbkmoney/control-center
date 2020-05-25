@@ -8,6 +8,11 @@
             </mat-checkbox>
         </div>
     </div>
+    <div fxLayout="column" fxLayoutGap="15px">
+        <mat-checkbox [formControl]="createShop">
+            Create a shop based on this questionary?
+        </mat-checkbox>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
     <button mat-dialog-close mat-button color="default" [mat-dialog-close]="false">

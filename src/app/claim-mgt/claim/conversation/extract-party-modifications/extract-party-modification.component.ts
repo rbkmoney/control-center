@@ -7,7 +7,7 @@ import {
     ExtractPartyModificationsService,
 } from './extract-party-modifications.service';
 
-export interface ExtractPartyModificationInterface {
+export interface ExtractPartyModification {
     questionary: Questionary;
 }
 
@@ -18,15 +18,16 @@ export interface ExtractPartyModificationInterface {
 })
 export class ExtractPartyModificationComponent implements OnInit {
     forms: ExtractForm[];
+    createShop = this.extractPartyModificationsService.createShop;
 
     constructor(
         private dialogRef: MatDialogRef<ExtractPartyModificationComponent>,
         private extractPartyModificationsService: ExtractPartyModificationsService,
-        @Inject(MAT_DIALOG_DATA) private data: ExtractPartyModificationInterface
+        @Inject(MAT_DIALOG_DATA) private data: ExtractPartyModification
     ) {}
 
     ngOnInit(): void {
-        this.forms = this.extractPartyModificationsService.init(this.data.questionary.data);
+        this.forms = this.extractPartyModificationsService.createForms(this.data.questionary.data);
     }
 
     extract() {

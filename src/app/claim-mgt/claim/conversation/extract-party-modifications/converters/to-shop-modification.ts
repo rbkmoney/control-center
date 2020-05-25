@@ -7,10 +7,10 @@ import {
 
 export const toShopModification = (
     modification: ShopModification,
-    id?: string
+    id: string = uuid()
 ): PartyModification => ({
     shop_modification: {
-        id: id ? id : uuid(),
+        id,
         modification,
     },
 });

@@ -17,10 +17,10 @@ export const toRussianBankAccountPartyModification = ({
                 creation: {
                     tool_info: {
                         russian_bank_account: {
-                            account,
-                            bank_name,
-                            bank_bik,
-                            bank_post_account,
+                            account: account || '',
+                            bank_name: bank_name || '',
+                            bank_bik: bank_bik || '',
+                            bank_post_account: bank_post_account || '',
                         },
                     },
                     currency: {

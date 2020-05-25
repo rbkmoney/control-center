@@ -8,6 +8,7 @@ import {
 } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import {
+    addShopCreation,
     toIndividualEntityPartyModification,
     toLegalEntityPartyModification,
     toRussianBankAccountPartyModification,
@@ -22,28 +23,31 @@ export interface ExtractForm {
 
 @Injectable()
 export class ExtractPartyModificationsService {
-    init(data: QuestionaryData) {
-        return Object.keys(data).reduce(
-            (acc, cur) =>
-                cur === 'contact_info'
-                    ? acc
-                    : [
-                          ...acc,
-                          ...Object.keys(data[cur])
-                              .filter((k) => data[cur][k])
-                              .map((k) => ({
-                                  control: new FormControl(false),
-                                  path: `${cur}.${k}`,
-                              })),
-                      ],
-            []
-        );
+    createShop = new FormControl(false);
+
+    createForms(data: QuestionaryData) {
+        return Object.keys(data).reduce((acc, cur) => {
+            if (cur === 'contact_info' || !data[cur]) {
+                return acc;
+            } else {
+                return [
+                    ...acc,
+                    ...Object.keys(data[cur])
+                        .filter((k) => data[cur][k])
+                        .map((k) => ({
+                            control: new FormControl(true),
+                            path: `${cur}.${k}`,
+                        })),
+                ];
+            }
+        }, []);
     }
 
     mapToModifications(questionary: Questionary, forms: ExtractForm[]) {
-        return forms
+        const mods = forms
             .filter((f) => f.control.value)
             .map((f) => this.getModification(questionary, f.path));
+        return this.createShop.value ? addShopCreation(mods) : mods;
     }
 
     private getModification(questionary: Questionary, path: string): PartyModification {

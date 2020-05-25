@@ -3,7 +3,6 @@ import {
     IndividualEntity,
 } from '../../../../../thrift-services/ank/gen-model/questionary';
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
-import { RussianBankAccount } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { toContractorModification } from './to-contractor-modification';
 
 export const toIndividualEntityPartyModification = (
@@ -14,22 +13,29 @@ export const toIndividualEntityPartyModification = (
         creation: {
             legal_entity: {
                 russian_legal_entity: {
-                    registered_name: russian_individual_entity.name,
+                    registered_name: russian_individual_entity.name || '',
                     registered_number:
-                        russian_individual_entity.registration_info.individual_registration_info
-                            .ogrnip || '',
-                    inn: russian_individual_entity.inn,
+                        russian_individual_entity.registration_info?.individual_registration_info
+                            ?.ogrnip || '',
+                    inn: russian_individual_entity.inn || '',
                     actual_address:
-                        russian_individual_entity.registration_info.individual_registration_info
-                            .registration_place,
+                        russian_individual_entity.registration_info?.individual_registration_info
+                            ?.registration_place || '',
                     post_address:
-                        russian_individual_entity.russian_private_entity.residence_address,
+                        russian_individual_entity.russian_private_entity?.residence_address || '',
                     representative_position: '',
-                    representative_full_name: russian_individual_entity.russian_private_entity.fio,
+                    representative_full_name:
+                        russian_individual_entity.russian_private_entity?.fio || '',
                     representative_document:
-                        russian_individual_entity.identity_document.russian_domestic_password
-                            .series_number,
-                    russian_bank_account: bank_account.russian_bank_account as RussianBankAccount,
+                        russian_individual_entity.identity_document?.russian_domestic_password
+                            ?.series_number || '',
+                    russian_bank_account: {
+                        account: bank_account?.russian_bank_account?.account || '',
+                        bank_name: bank_account?.russian_bank_account?.bank_name || '',
+                        bank_bik: bank_account?.russian_bank_account?.bank_bik || '',
+                        bank_post_account:
+                            bank_account?.russian_bank_account?.bank_post_account || '',
+                    },
                 },
             },
         },
