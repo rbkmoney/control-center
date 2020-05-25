@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { get } from 'lodash-es';
+import get from 'lodash-es/get';
 
 import {
     Questionary,
