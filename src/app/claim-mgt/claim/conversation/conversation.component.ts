@@ -76,7 +76,6 @@ export class ConversationComponent implements OnChanges, OnInit {
     }
 
     ngOnInit() {
-        this.questionary$.subscribe((q) => console.log(q.data.contractor));
         this.recreateClaimService.recreated$
             .pipe(
                 switchMap(({ party_id, id }) =>
