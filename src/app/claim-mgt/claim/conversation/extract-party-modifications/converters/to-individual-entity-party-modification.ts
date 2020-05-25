@@ -6,7 +6,7 @@ import { PartyModification } from '../../../../../thrift-services/damsel/gen-mod
 import { RussianBankAccount } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { toContractorModification } from './to-contractor-modification';
 
-export const toIndividualEntity = (
+export const toIndividualEntityPartyModification = (
     { russian_individual_entity }: IndividualEntity,
     bank_account: BankAccount
 ): PartyModification =>

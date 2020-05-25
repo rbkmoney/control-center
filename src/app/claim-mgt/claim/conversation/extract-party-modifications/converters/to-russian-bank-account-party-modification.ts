@@ -4,7 +4,7 @@ import { RussianBankAccount as AnkRussianBankAccount } from '../../../../../thri
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 import { toContractModification } from './to-contract-modification';
 
-export const toRussianBankAccount = ({
+export const toRussianBankAccountPartyModification = ({
     bank_name,
     bank_bik,
     bank_post_account,

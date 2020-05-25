@@ -8,11 +8,11 @@ import {
 } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import {
-    toIndividualEntity,
-    toLegalEntity,
-    toRussianBankAccount,
-    toShopDetails,
-    toShopLocation,
+    toIndividualEntityPartyModification,
+    toLegalEntityPartyModification,
+    toRussianBankAccountPartyModification,
+    toShopDetailsPartyModification,
+    toShopLocationPartyModification,
 } from './converters';
 
 export interface ExtractForm {
@@ -30,10 +30,10 @@ export class ExtractPartyModificationsService {
                     : [
                           ...acc,
                           ...Object.keys(data[cur])
-                              .map((k) => `${cur}.${k}`)
-                              .map((path) => ({
+                              .filter((k) => data[cur][k])
+                              .map((k) => ({
                                   control: new FormControl(false),
-                                  path,
+                                  path: `${cur}.${k}`,
                               })),
                       ],
             []
@@ -50,15 +50,15 @@ export class ExtractPartyModificationsService {
         const data = get(questionary.data, path);
         switch (path) {
             case 'contractor.individual_entity':
-                return toIndividualEntity(data, questionary.data.bank_account);
+                return toIndividualEntityPartyModification(data, questionary.data.bank_account);
             case 'contractor.legal_entity':
-                return toLegalEntity(data, questionary.data.bank_account);
+                return toLegalEntityPartyModification(data, questionary.data.bank_account);
             case 'bank_account.russian_bank_account':
-                return toRussianBankAccount(data);
+                return toRussianBankAccountPartyModification(data);
             case 'shop_info.location':
-                return toShopLocation(data);
+                return toShopLocationPartyModification(data);
             case 'shop_info.details':
-                return toShopDetails(data);
+                return toShopDetailsPartyModification(data);
         }
         return undefined;
     }
