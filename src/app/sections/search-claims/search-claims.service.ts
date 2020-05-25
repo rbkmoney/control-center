@@ -11,7 +11,7 @@ import { SearchFormValue } from '../claim-search-form';
 export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> {
     private readonly searchLimit = 20;
 
-    claims$: Observable<Claim[]> = this.searchResult$.pipe();
+    claims$: Observable<Claim[]> = this.searchResult$;
 
     constructor(private claimManagementService: ClaimManagementService) {
         super();

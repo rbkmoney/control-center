@@ -1,15 +1,13 @@
 import { Params } from '@angular/router';
+import pickBy from 'lodash-es/pickBy';
 
-export const queryParamsToFormValue = (params: Params) => {
-    const result = {};
-    for (const k in params) {
-        if (params.hasOwnProperty(k)) {
-            if (k === 'statuses' && typeof params[k] === 'string') {
-                result[k] = [params[k]];
-            } else {
-                result[k] = params[k];
-            }
-        }
-    }
-    return result;
-};
+import { wrapValuesToArray } from '../../shared/utils';
+
+const statusesAndPrimitives = (v, k) =>
+    k === 'statuses' && (typeof v === 'string' || typeof v === 'number');
+
+export const queryParamsToFormValue = (params: Params) => ({
+    ...params,
+    // Query param ?statuses=accepted will be present as { statuses: 'accepted' } in form. Selector value must be an array in multiple-selection mode.
+    ...wrapValuesToArray(pickBy(params, statusesAndPrimitives)),
+});
