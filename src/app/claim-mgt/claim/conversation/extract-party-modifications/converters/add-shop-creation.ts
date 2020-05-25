@@ -1,21 +1,31 @@
+import get from 'lodash-es/get';
 import * as uuid from 'uuid/v4';
 
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 
 export const addShopCreation = (mods: PartyModification[]): PartyModification[] => {
-    const payout_tool_id =
+    const payout_tool_id = get(
         mods.find(
             (m) =>
                 m.contract_modification?.modification?.payout_tool_modification?.modification
                     ?.creation
-        )?.contract_modification.modification.payout_tool_modification.payout_tool_id || '';
-    const shopDetails = mods.find((m) => m.shop_modification?.modification?.details_modification)
-        ?.shop_modification.modification.details_modification || {
-        name: '',
-        description: '',
-    };
-    const shopLocation = mods.find((m) => m.shop_modification?.modification?.location_modification)
-        ?.shop_modification.modification.location_modification || { url: '' };
+        ),
+        'contract_modification.modification.payout_tool_modification.payout_tool_id',
+        ''
+    );
+    const shopDetails = get(
+        mods.find((m) => m.shop_modification?.modification?.details_modification),
+        'shop_modification.modification.details_modification',
+        {
+            name: '',
+            description: '',
+        }
+    );
+    const shopLocation = get(
+        mods.find((m) => m.shop_modification?.modification?.location_modification),
+        'shop_modification.modification.location_modification',
+        { url: '' }
+    );
 
     const shopCreation: PartyModification = {
         shop_modification: {
