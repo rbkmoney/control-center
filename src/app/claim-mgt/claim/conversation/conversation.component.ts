@@ -22,6 +22,7 @@ import {
 } from '../../../party-modification-creator';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
 import { getUnionKey } from '../../../shared/utils';
+import { Questionary } from '../../../thrift-services/ank/gen-model/questionary_manager';
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import { RecreateClaimService } from '../recreate-claim';
@@ -130,10 +131,10 @@ export class ConversationComponent implements OnChanges, OnInit {
         });
     }
 
-    extractPartyModification(mods: Modification[]) {
+    extractPartyModification(questionary: Questionary) {
         const dialog = this.dialog.open(ExtractPartyModificationComponent, {
             disableClose: true,
-            data: { mods: mods.map((m) => m.party_modification) },
+            data: { questionary },
         });
         dialog
             .afterClosed()
@@ -141,7 +142,9 @@ export class ConversationComponent implements OnChanges, OnInit {
             .subscribe((result) => this.partyModificationsChanged(result));
     }
 
-    canExtractPartyMod(modifications: Modification[]) {
-        return modifications.filter((m) => !!m.party_modification).length > 0;
+    canUseActionsForQuestionary(modifications: Modification[]) {
+        return (
+            modifications.filter((m) => !!m?.claim_modification?.document_modification).length > 0
+        );
     }
 }

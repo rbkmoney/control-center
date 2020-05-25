@@ -9,14 +9,15 @@
                         item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
                     }})
                 </div>
-                <div *ngIf="canExtractPartyMod(item.modifications)">
+                <div *ngIf="canUseActionsForQuestionary(item.modifications)">
                     <button mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon>more_horiz</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
                         <button
                             mat-menu-item
-                            (click)="extractPartyModification(item.modifications)"
+                            *ngIf="questionary$ | async as questionary"
+                            (click)="extractPartyModification(questionary)"
                         >
                             Extract party mods
                         </button>

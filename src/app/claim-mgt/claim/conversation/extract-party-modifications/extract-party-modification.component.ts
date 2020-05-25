@@ -1,36 +1,42 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { atLeastOneSelectedValidator } from './atleast-one-selected-validator';
+import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
+import {
+    ExtractForm,
+    ExtractPartyModificationsService,
+} from './extract-party-modifications.service';
 
-interface ExtractPartyModificationInterface {
-    mods: PartyModification[];
+export interface ExtractPartyModificationInterface {
+    questionary: Questionary;
 }
 
 @Component({
     templateUrl: 'extract-party-modification.component.html',
     styleUrls: ['extract-party-modification.component.scss'],
+    providers: [ExtractPartyModificationsService],
 })
-export class ExtractPartyModificationComponent {
-    mods = this.data.mods;
-    form = this.fb.array(
-        this.data.mods.map(() => false),
-        { validators: atLeastOneSelectedValidator }
-    );
+export class ExtractPartyModificationComponent implements OnInit {
+    forms: ExtractForm[];
 
     constructor(
         private dialogRef: MatDialogRef<ExtractPartyModificationComponent>,
         private fb: FormBuilder,
+        private extractPartyModificationsService: ExtractPartyModificationsService,
         @Inject(MAT_DIALOG_DATA) private data: ExtractPartyModificationInterface
     ) {}
 
+    ngOnInit(): void {
+        this.forms = this.extractPartyModificationsService.init(this.data.questionary.data);
+    }
+
     extract() {
         this.dialogRef.close(
-            this.form.controls
-                .map((v, i) => (v.value ? this.data.mods[i] : null))
-                .filter((m) => !!m)
+            this.extractPartyModificationsService.mapToModifications(
+                this.data.questionary,
+                this.forms
+            )
         );
     }
 }
