@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { PartyModificationCreationModule } from '../../../../party-modification-creator/party-modification-creation';
 import { ExtractPartyModificationComponent } from './extract-party-modification.component';
 import { PartyModificationNamePipe } from './party-modification-name.pipe';
+import { CategoryRefSelectorModule } from '../../../../shared/components/category-ref-selector/category-ref-selector.module';
 
 @NgModule({
     declarations: [ExtractPartyModificationComponent, PartyModificationNamePipe],
@@ -23,6 +24,7 @@ import { PartyModificationNamePipe } from './party-modification-name.pipe';
         MatCheckboxModule,
         CommonModule,
         PartyModificationCreationModule,
+        CategoryRefSelectorModule
     ],
     entryComponents: [ExtractPartyModificationComponent],
 })
