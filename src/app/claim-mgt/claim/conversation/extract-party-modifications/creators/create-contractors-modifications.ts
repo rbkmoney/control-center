@@ -9,13 +9,17 @@ export const createContractorsModifications = (
     questionaryData: QuestionaryData,
     values: ExtractFormValue
 ): PartyModification[] => {
-    const legalEntityCreation = values.questionary['contractor.legal_entity']
+    const legalEntityCreation = get(values, "questionary['contractor.legal_entity']", false)
         ? toLegalEntityPartyModification(
               questionaryData,
               get(values, "questionary['bank_account.russian_bank_account']", false)
           )
         : null;
-    const individualEntityCreation = values.questionary['contractor.individual_entity']
+    const individualEntityCreation = get(
+        values,
+        "questionary['contractor.individual_entity']",
+        false
+    )
         ? toIndividualEntityPartyModification(
               questionaryData,
               get(values, "questionary['bank_account.russian_bank_account']", false)
