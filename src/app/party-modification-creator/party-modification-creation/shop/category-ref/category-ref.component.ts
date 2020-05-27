@@ -6,15 +6,15 @@ import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/internal/operators';
 
-import { CategoryService } from '../../../papi/category.service';
-import { Category } from '../../../papi/model';
-import { CategoryRef } from '../../../thrift-services/damsel/gen-model/domain';
+import { CategoryService } from '../../../../papi/category.service';
+import { Category } from '../../../../papi/model';
+import { CategoryRef } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
-    selector: 'cc-category-ref-selector',
-    templateUrl: 'category-ref-selector.component.html',
+    selector: 'cc-category-ref',
+    templateUrl: 'category-ref.component.html',
 })
-export class CategoryRefSelectorComponent implements OnInit {
+export class CategoryRefComponent implements OnInit {
     @Input()
     form: FormGroup;
 

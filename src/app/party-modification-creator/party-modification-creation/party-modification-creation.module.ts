@@ -43,6 +43,7 @@ import { CurrencyRefComponent } from './currency-ref/currency-ref.component';
 import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
 import { NestedFormWrapperComponent } from './nested-form-wrapper/nested-form-wrapper.component';
 import { PartyModificationCreationComponent } from './party-modification-creation.component';
+import { CategoryRefComponent } from './shop/category-ref/category-ref.component';
 import { ContractModificationComponent } from './shop/contract-modification/contract-modification.component';
 import { ShopLocationComponent } from './shop/location-modification/shop-location.component';
 import { PayoutToolModificationComponent as ShopPayoutToolModificationComponent } from './shop/payout-tool-modification/payout-tool-modification.component';
@@ -50,7 +51,6 @@ import { ShopAccountCreationComponent } from './shop/shop-account-creation/shop-
 import { ShopDetailsComponent } from './shop/shop-details/shop-details.component';
 import { ShopParamsComponent } from './shop/shop-params/shop-params.component';
 import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-schedule-modification/shop-payout-schedule-modification.component';
-import { CategoryRefSelectorModule } from '../../shared/components/category-ref-selector/category-ref-selector.module';
 
 @NgModule({
     imports: [
@@ -67,7 +67,6 @@ import { CategoryRefSelectorModule } from '../../shared/components/category-ref-
         MatDividerModule,
         MatSnackBarModule,
         MatProgressBarModule,
-        CategoryRefSelectorModule
     ],
     declarations: [
         PartyModificationCreationComponent,
@@ -84,6 +83,7 @@ import { CategoryRefSelectorModule } from '../../shared/components/category-ref-
         LegalAgreementBindingComponent,
         AdjustmentModificationUnitComponent,
         ReportPreferencesComponent,
+        CategoryRefComponent,
         ShopDetailsComponent,
         ShopLocationComponent,
         ShopAccountCreationComponent,
@@ -109,6 +109,6 @@ import { CategoryRefSelectorModule } from '../../shared/components/category-ref-
         FormWrapperComponent,
         BusinessScheduleSelectorComponent,
     ],
-    exports: [PartyModificationCreationComponent],
+    exports: [PartyModificationCreationComponent, CategoryRefComponent],
 })
 export class PartyModificationCreationModule {}
