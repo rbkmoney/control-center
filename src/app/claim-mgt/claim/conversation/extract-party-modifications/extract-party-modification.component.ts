@@ -1,11 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
-import {
-    ExtractForm,
-    ExtractPartyModificationsService,
-} from './extract-party-modifications.service';
+import { ExtractPartyModificationsService } from './extract-party-modifications.service';
 
 export interface ExtractPartyModification {
     questionary: Questionary;
@@ -17,25 +15,26 @@ export interface ExtractPartyModification {
     providers: [ExtractPartyModificationsService],
 })
 export class ExtractPartyModificationComponent implements OnInit {
-    forms: ExtractForm[];
-    createShop = this.extractPartyModificationsService.createShop;
+    form = this.extractPartyModificationsService.form;
 
     constructor(
         private dialogRef: MatDialogRef<ExtractPartyModificationComponent>,
         private extractPartyModificationsService: ExtractPartyModificationsService,
+        private fb: FormBuilder,
         @Inject(MAT_DIALOG_DATA) private data: ExtractPartyModification
     ) {}
 
+    getQuestionaryGroup(): FormGroup {
+        return this.form.get('questionary') as FormGroup;
+    }
+
     ngOnInit(): void {
-        this.forms = this.extractPartyModificationsService.createForms(this.data.questionary.data);
+        this.extractPartyModificationsService.createForms(this.data.questionary.data);
     }
 
     extract() {
         this.dialogRef.close(
-            this.extractPartyModificationsService.mapToModifications(
-                this.data.questionary,
-                this.forms
-            )
+            this.extractPartyModificationsService.mapToModifications(this.data.questionary.data)
         );
     }
 }
