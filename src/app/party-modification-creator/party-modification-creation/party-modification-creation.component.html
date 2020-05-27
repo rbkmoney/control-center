@@ -46,13 +46,13 @@
         </cc-contractor-id>
     </div>
     <div *ngIf="action.type === actionTypes.shopAction">
-        <cc-category-ref
+        <cc-category-ref-selector
             *ngIf="action.name === shopModificationNames.categoryModification"
             [form]="form.get('modification')"
             [initialValue]="modification?.category_modification"
             [required]="true"
         >
-        </cc-category-ref>
+        </cc-category-ref-selector>
         <cc-shop-details
             *ngIf="action.name === shopModificationNames.detailsModification"
             [form]="form.get('modification')"
