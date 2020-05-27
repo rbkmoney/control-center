@@ -12,7 +12,7 @@ export const createShopCreation = (
     payout_tool_id: string
 ): PartyModification => {
     const defaultLocation = { url: '' };
-    const location = values.questionary['shop_info.location']
+    const location = get(values, "questionary['shop_info.location']", false)
         ? get(questionaryData, 'shop_info.location', defaultLocation)
         : defaultLocation;
 
@@ -20,7 +20,7 @@ export const createShopCreation = (
         name: '',
         description: '',
     };
-    const details = values.questionary['shop_info.details']
+    const details = get(values, "questionary['shop_info.details']", false)
         ? get(questionaryData, 'shop_info.details', defaultDetails)
         : defaultDetails;
 
