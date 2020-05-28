@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { PartyModificationCreationModule } from '../../../../party-modification-creator/party-modification-creation';
 import { ExtractPartyModificationComponent } from './extract-party-modification.component';
-import { ExtractFormCheckboxNamePipe } from './party-modification-name.pipe';
+import { ExtractFormCheckboxNamePipe } from './extract-form-checkbox-name.pipe';
 
 @NgModule({
     declarations: [ExtractPartyModificationComponent, ExtractFormCheckboxNamePipe],
