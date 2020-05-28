@@ -23,7 +23,7 @@
             mat-button
             color="primary"
             (click)="extract()"
-            [disabled]="form.value.shopCreation && !form.value.id"
+            [disabled]="form.value.shopCreation && !category.value.id"
         >
             EXTRACT
         </button>
