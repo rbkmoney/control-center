@@ -10,8 +10,9 @@ export const createContractCreation = (
     contract_modification: {
         id: uuid(),
         modification: {
-            creation: {},
-            contractor_modification: contractorID,
+            creation: {
+                contractor_id: contractorID,
+            },
         },
     },
 });
