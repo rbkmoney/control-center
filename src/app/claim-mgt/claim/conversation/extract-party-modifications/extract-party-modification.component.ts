@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -14,7 +14,7 @@ export interface ExtractPartyModification {
     styleUrls: ['extract-party-modification.component.scss'],
     providers: [ExtractPartyModificationsService],
 })
-export class ExtractPartyModificationComponent implements OnInit {
+export class ExtractPartyModificationComponent {
     form = this.extractPartyModificationsService.form;
 
     constructor(
@@ -23,12 +23,8 @@ export class ExtractPartyModificationComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) private data: ExtractPartyModification
     ) {}
 
-    getQuestionaryGroup(): FormGroup {
-        return this.form.get('questionary') as FormGroup;
-    }
-
-    ngOnInit(): void {
-        this.extractPartyModificationsService.createForms(this.data.questionary.data);
+    getModsGroup(): FormGroup {
+        return this.form.get('mods') as FormGroup;
     }
 
     extract() {

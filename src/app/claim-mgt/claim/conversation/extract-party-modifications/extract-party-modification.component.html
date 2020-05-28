@@ -1,15 +1,19 @@
 <h4 class="mat-dialog-title">Party modifications extraction params</h4>
 <mat-dialog-content class="scroll-fix">
     <form [formGroup]="form" fxLayout="column" fxLayoutGap="15px">
-        <cc-category-ref [required]="true" [form]="form.get('category')"></cc-category-ref>
         <div class="mat-body-1">Party modifications types:</div>
         <div fxLayout="column" fxLayoutGap="15px">
-            <div *ngFor="let control of getQuestionaryGroup().controls | keyvalue">
+            <div *ngFor="let control of getModsGroup().controls | keyvalue">
                 <mat-checkbox [formControl]="control.value"
                     >{{ control.key | ccPartyModificationName }}
                 </mat-checkbox>
             </div>
         </div>
+        <cc-category-ref
+            *ngIf="form.get('mods').value.shopCreation"
+            [required]="true"
+            [form]="form.get('category')"
+        ></cc-category-ref>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
@@ -20,7 +24,7 @@
         mat-button
         color="primary"
         (click)="extract()"
-        [disabled]="!form.get('category').value.id"
+        [disabled]="form.get('mods').value.shopCreation && !form.get('category').value.id"
     >
         EXTRACT
     </button>

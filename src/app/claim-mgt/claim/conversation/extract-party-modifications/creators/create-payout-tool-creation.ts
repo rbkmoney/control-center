@@ -6,7 +6,6 @@ import { createRussianBankAccount } from './create-russian-bank-account';
 
 export const createPayoutToolCreation = (
     questionaryData: QuestionaryData,
-    needAddBankAccount: boolean,
     contractID: string
 ): PartyModification => ({
     contract_modification: {
@@ -20,10 +19,7 @@ export const createPayoutToolCreation = (
                             symbolic_code: 'RUB',
                         },
                         tool_info: {
-                            russian_bank_account: createRussianBankAccount(
-                                questionaryData,
-                                needAddBankAccount
-                            ),
+                            russian_bank_account: createRussianBankAccount(questionaryData),
                         },
                     },
                 },
