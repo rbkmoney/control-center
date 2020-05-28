@@ -8,8 +8,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
 import { PartyModificationCreationModule } from '../../../../party-modification-creator/party-modification-creation';
-import { ExtractPartyModificationComponent } from './extract-party-modification.component';
 import { ExtractFormCheckboxNamePipe } from './extract-form-checkbox-name.pipe';
+import { ExtractPartyModificationComponent } from './extract-party-modification.component';
 
 @NgModule({
     declarations: [ExtractPartyModificationComponent, ExtractFormCheckboxNamePipe],
