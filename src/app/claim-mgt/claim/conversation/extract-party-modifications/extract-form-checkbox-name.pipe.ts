@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'ccPartyModificationName',
+    name: 'ccExtractFormCheckboxName',
 })
-export class PartyModificationNamePipe implements PipeTransform {
+export class ExtractFormCheckboxNamePipe implements PipeTransform {
     transform(value: string): string {
         switch (value) {
             case 'contractCreation':

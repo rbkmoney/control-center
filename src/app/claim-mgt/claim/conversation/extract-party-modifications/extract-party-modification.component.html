@@ -5,7 +5,7 @@
         <div fxLayout="column" fxLayoutGap="15px">
             <div *ngFor="let control of getModsGroup().controls | keyvalue">
                 <mat-checkbox [formControl]="control.value"
-                    >{{ control.key | ccPartyModificationName }}
+                    >{{ control.key | ccExtractFormCheckboxName }}
                 </mat-checkbox>
             </div>
         </div>

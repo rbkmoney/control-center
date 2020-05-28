@@ -9,10 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 
 import { PartyModificationCreationModule } from '../../../../party-modification-creator/party-modification-creation';
 import { ExtractPartyModificationComponent } from './extract-party-modification.component';
-import { PartyModificationNamePipe } from './party-modification-name.pipe';
+import { ExtractFormCheckboxNamePipe } from './party-modification-name.pipe';
 
 @NgModule({
-    declarations: [ExtractPartyModificationComponent, PartyModificationNamePipe],
+    declarations: [ExtractPartyModificationComponent, ExtractFormCheckboxNamePipe],
     exports: [ExtractPartyModificationComponent],
     imports: [
         FlexModule,
