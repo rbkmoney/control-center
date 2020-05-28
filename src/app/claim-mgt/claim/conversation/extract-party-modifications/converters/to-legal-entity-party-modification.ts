@@ -5,6 +5,8 @@ import { PartyModification } from '../../../../../thrift-services/damsel/gen-mod
 import { createRussianBankAccount } from '../creators/create-russian-bank-account';
 import { toContractorModification } from './to-contractor-modification';
 
+const path = 'contractor.legal_entity.russian_legal_entity';
+
 export const toLegalEntityPartyModification = (
     questionaryData: QuestionaryData,
     contractorID: string
@@ -14,52 +16,47 @@ export const toLegalEntityPartyModification = (
             creation: {
                 legal_entity: {
                     russian_legal_entity: {
-                        registered_name:
-                            get(
-                                questionaryData,
-                                'contractor.legal_entity.russian_legal_entity.name',
-                                ''
-                            ) || '',
+                        registered_name: get(questionaryData, `${path}.name`, '') || '',
                         registered_number:
                             get(
                                 questionaryData,
-                                'contractor.legal_entity.russian_legal_entity.registration_info.legal_registration_info.ogrn',
+                                `${path}.registration_info.legal_registration_info.ogrn`,
                                 ''
                             ) || '',
-                        inn:
-                            get(
-                                questionaryData,
-                                'contractor.legal_entity.russian_legal_entity.inn',
-                                ''
-                            ) || '',
+                        inn: get(questionaryData, `${path}.inn`, '') || '',
                         actual_address:
                             get(
                                 questionaryData,
-                                'contractor.legal_entity.russian_legal_entity.registration_info.legal_registration_info.actual_address',
+                                `${path}.registration_info.legal_registration_info.actual_address`,
                                 ''
-                            ) || '',
+                            ) ||
+                            get(
+                                questionaryData,
+                                `${path}.registration_info.legal_registration_info.registration_address`,
+                                ''
+                            ) ||
+                            '',
                         post_address:
+                            get(questionaryData, `${path}.postal_address`, '') ||
                             get(
                                 questionaryData,
-                                'contractor.legal_entity.russian_legal_entity.postal_address',
+                                `${path}.registration_info.legal_registration_info.registration_address`,
                                 ''
-                            ) || '',
+                            ) ||
+                            '',
                         representative_position:
-                            get(
-                                questionaryData,
-                                'contractor.legal_entity.russian_legal_entity.legal_owner_info.head_position',
-                                ''
-                            ) || '',
+                            get(questionaryData, `${path}.legal_owner_info.head_position`, '') ||
+                            '',
                         representative_full_name:
                             get(
                                 questionaryData,
-                                'contractor.legal_entity.russian_legal_entity.legal_owner_info.russian_private_entity.fio',
+                                `${path}.legal_owner_info.russian_private_entity.fio`,
                                 ''
                             ) || '',
                         representative_document:
                             get(
                                 questionaryData,
-                                'contractor.legal_entity.russian_legal_entity.legal_owner_info.identity_document.russian_domestic_password.series_number',
+                                `${path}.legal_owner_info.identity_document.russian_domestic_password.series_number`,
                                 ''
                             ) || '',
                         russian_bank_account: createRussianBankAccount(questionaryData),

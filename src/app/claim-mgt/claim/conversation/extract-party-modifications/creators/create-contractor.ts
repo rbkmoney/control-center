@@ -9,6 +9,7 @@ export const createContractor = (
     questionaryData: QuestionaryData,
     contractorID: string = uuid()
 ): PartyModification => {
+    console.log(questionaryData);
     const isLegalEntityExist = get(questionaryData, 'contractor.legal_entity', false);
     const isIndividualEntityExist = get(questionaryData, 'contractor.individual_entity', false);
 
