@@ -1,23 +1,18 @@
 import get from 'lodash-es/get';
-import * as uuid from 'uuid/v4';
 
 import { QuestionaryData } from '../../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 import { toIndividualEntityPartyModification, toLegalEntityPartyModification } from '../converters';
 
-export const createContractor = (
-    questionaryData: QuestionaryData,
-    contractorID: string = uuid()
-): PartyModification => {
-    console.log(questionaryData);
-    const isLegalEntityExist = get(questionaryData, 'contractor.legal_entity', false);
-    const isIndividualEntityExist = get(questionaryData, 'contractor.individual_entity', false);
+export const createContractor = (d: QuestionaryData, contractorID: string): PartyModification => {
+    const isLegalEntityExist = get(d, 'contractor.legal_entity', false);
+    const isIndividualEntityExist = get(d, 'contractor.individual_entity', false);
 
     const legalEntityCreation = isLegalEntityExist
-        ? toLegalEntityPartyModification(questionaryData, contractorID)
+        ? toLegalEntityPartyModification(d, contractorID)
         : null;
     const individualEntityCreation = isIndividualEntityExist
-        ? toIndividualEntityPartyModification(questionaryData, contractorID)
+        ? toIndividualEntityPartyModification(d, contractorID)
         : null;
 
     if (isLegalEntityExist) {

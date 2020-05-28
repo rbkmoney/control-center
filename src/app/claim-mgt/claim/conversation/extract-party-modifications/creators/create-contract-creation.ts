@@ -1,14 +1,13 @@
-import * as uuid from 'uuid/v4';
-
 import { QuestionaryData } from '../../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 
 export const createContractCreation = (
-    questionaryData: QuestionaryData,
-    contractorID: string
+    d: QuestionaryData,
+    contractorID: string,
+    contractID: string
 ): PartyModification => ({
     contract_modification: {
-        id: uuid(),
+        id: contractID,
         modification: {
             creation: {
                 contractor_id: contractorID,

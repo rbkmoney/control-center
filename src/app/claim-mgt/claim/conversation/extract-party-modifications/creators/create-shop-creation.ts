@@ -1,24 +1,22 @@
-import get from 'lodash-es/get';
-import * as uuid from 'uuid/v4';
-
+import { getOr } from '../../../../../shared/utils';
 import { QuestionaryData } from '../../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 
 export const createShopCreation = (
-    questionaryData: QuestionaryData,
+    d: QuestionaryData,
     contract_id: string,
     payout_tool_id: string,
     categoryID: number,
-    shopID: string = uuid()
+    shopID: string
 ): PartyModification => {
     const defaultLocation = { url: '' };
-    const location = get(questionaryData, 'shop_info.location', defaultLocation) || defaultLocation;
+    const location = getOr(d, 'shop_info.location', defaultLocation);
 
     const defaultDetails = {
         name: '',
         description: '',
     };
-    const details = get(questionaryData, 'shop_info.details', defaultDetails) || defaultDetails;
+    const details = getOr(d, 'shop_info.details', defaultDetails);
 
     return {
         shop_modification: {

@@ -11,11 +11,11 @@ export interface ExtractPartyModification {
 
 @Component({
     templateUrl: 'extract-party-modification.component.html',
-    styleUrls: ['extract-party-modification.component.scss'],
     providers: [ExtractPartyModificationsService],
 })
 export class ExtractPartyModificationComponent {
     form = this.extractPartyModificationsService.form;
+    category = this.extractPartyModificationsService.category;
 
     constructor(
         private dialogRef: MatDialogRef<ExtractPartyModificationComponent>,

@@ -1,12 +1,6 @@
-import { CategoryRef } from '../../../../thrift-services/damsel/gen-model/domain';
-
-interface ModsFormValue {
+export interface ExtractFormValue {
     contractCreation: boolean;
     payoutToolCreation: boolean;
     shopCreation: boolean;
-}
-
-export interface ExtractFormValue {
-    category: CategoryRef;
-    mods: ModsFormValue;
+    id?: number;
 }

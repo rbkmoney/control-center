@@ -1,56 +1,68 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import get from 'lodash-es/get';
+import { FormBuilder } from '@angular/forms';
+import * as uuid from 'uuid/v4';
 
 import { QuestionaryData } from '../../../../thrift-services/ank/gen-model/questionary_manager';
+import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { createContractCreation, createPayoutToolCreation, createShopCreation } from './creators';
 import { createContractor } from './creators/create-contractor';
 import { ExtractFormValue } from './extract-form-value';
 
 @Injectable()
 export class ExtractPartyModificationsService {
-    form: FormGroup = this.fb.group({
-        category: this.fb.group({}),
-        mods: this.fb.group({
-            contractCreation: new FormControl(true),
-            payoutToolCreation: new FormControl(true),
-            shopCreation: new FormControl(true),
-        }),
+    form = this.fb.group({
+        contractCreation: true,
+        payoutToolCreation: true,
+        shopCreation: true,
     });
+
+    category = this.fb.group({});
 
     constructor(private fb: FormBuilder) {}
 
-    mapToModifications(questionaryData: QuestionaryData) {
-        const { mods, category }: ExtractFormValue = this.form.value;
+    mapToModifications(d: QuestionaryData): PartyModification[] {
+        const {
+            contractCreation,
+            payoutToolCreation,
+            shopCreation,
+        }: ExtractFormValue = this.form.value;
+        const shopID = shopCreation ? uuid() : '';
+        const contractID = contractCreation ? uuid() : '';
+        const contractorID = contractCreation ? uuid() : '';
+        const payoutToolID = payoutToolCreation ? uuid() : '';
 
-        const contractorCreation = mods.contractCreation ? createContractor(questionaryData) : null;
-        const contractCreation = mods.contractCreation
-            ? createContractCreation(
-                  questionaryData,
-                  get(contractorCreation, 'contractor_modification.id', '')
-              )
-            : null;
-        const payoutToolCreation = mods.payoutToolCreation
-            ? createPayoutToolCreation(
-                  questionaryData,
-                  get(contractCreation, 'contract_modification.id', '')
-              )
-            : null;
-        const shopCreation = mods.shopCreation
-            ? createShopCreation(
-                  questionaryData,
-                  get(contractCreation, 'contract_modification.id', ''),
-                  get(
-                      payoutToolCreation,
-                      'contract_modification.modification.payout_tool_modification.payout_tool_id',
-                      ''
-                  ),
-                  category.id
-              )
-            : null;
+        const result = [];
 
-        return [contractorCreation, contractCreation, payoutToolCreation, shopCreation].filter(
-            (i) => !!i
-        );
+        if (contractCreation) {
+            const contractorCreationModification = createContractor(d, contractorID);
+            const contractCreationModification = createContractCreation(
+                d,
+                contractorID,
+                contractID
+            );
+            result.push(contractorCreationModification, contractCreationModification);
+        }
+
+        if (payoutToolCreation) {
+            const payoutToolCreationModification = createPayoutToolCreation(
+                d,
+                contractID,
+                payoutToolID
+            );
+            result.push(payoutToolCreationModification);
+        }
+
+        if (shopCreation) {
+            const shopCreationModification = createShopCreation(
+                d,
+                contractID,
+                payoutToolID,
+                this.category.value.id,
+                shopID
+            );
+            result.push(shopCreationModification);
+        }
+
+        return result;
     }
 }
