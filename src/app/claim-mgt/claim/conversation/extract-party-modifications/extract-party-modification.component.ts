@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
@@ -14,7 +15,6 @@ export interface ExtractPartyModification {
 })
 export class ExtractPartyModificationComponent {
     form = this.extractPartyModificationsService.form;
-    category = this.extractPartyModificationsService.category;
 
     constructor(
         private dialogRef: MatDialogRef<ExtractPartyModificationComponent>,
@@ -26,5 +26,9 @@ export class ExtractPartyModificationComponent {
         this.dialogRef.close(
             this.extractPartyModificationsService.mapToModifications(this.data.questionary.data)
         );
+    }
+
+    getParamsControls() {
+        return (this.form.get('params') as FormGroup).controls;
     }
 }

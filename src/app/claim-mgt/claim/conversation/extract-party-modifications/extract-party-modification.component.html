@@ -3,16 +3,16 @@
     <form [formGroup]="form" fxLayout="column" fxLayoutGap="15px">
         <div class="mat-body-1">Party modifications types:</div>
         <div fxLayout="column" fxLayoutGap="15px">
-            <div *ngFor="let control of form.controls | keyvalue">
+            <div *ngFor="let control of getParamsControls() | keyvalue">
                 <mat-checkbox [formControl]="control.value"
                     >{{ control.key | ccExtractFormCheckboxName }}
                 </mat-checkbox>
             </div>
         </div>
         <cc-category-ref
-            *ngIf="form.value.shopCreation"
+            *ngIf="form.get('params').value.shopCreation"
             [required]="true"
-            [form]="category"
+            [form]="form.get('category')"
         ></cc-category-ref>
     </form>
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
@@ -23,7 +23,7 @@
             mat-button
             color="primary"
             (click)="extract()"
-            [disabled]="form.value.shopCreation && !category.value.id"
+            [disabled]="form.get('params').value.shopCreation && !form.get('category').value.id"
         >
             EXTRACT
         </button>

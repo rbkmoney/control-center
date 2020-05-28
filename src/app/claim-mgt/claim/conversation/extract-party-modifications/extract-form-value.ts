@@ -1,6 +1,12 @@
-export interface ExtractFormValue {
+import { CategoryRef } from '../../../../thrift-services/damsel/gen-model/domain';
+
+interface ExtractParamsFormValue {
     contractCreation: boolean;
     payoutToolCreation: boolean;
     shopCreation: boolean;
-    id?: number;
+}
+
+export interface ExtractFormValue {
+    params: ExtractParamsFormValue;
+    category: CategoryRef;
 }

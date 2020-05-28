@@ -11,20 +11,20 @@ import { ExtractFormValue } from './extract-form-value';
 @Injectable()
 export class ExtractPartyModificationsService {
     form = this.fb.group({
-        contractCreation: true,
-        payoutToolCreation: true,
-        shopCreation: true,
+        params: this.fb.group({
+            contractCreation: true,
+            payoutToolCreation: true,
+            shopCreation: true,
+        }),
+        category: this.fb.group({}),
     });
-
-    category = this.fb.group({});
 
     constructor(private fb: FormBuilder) {}
 
     mapToModifications(d: QuestionaryData): PartyModification[] {
         const {
-            contractCreation,
-            payoutToolCreation,
-            shopCreation,
+            params: { contractCreation, payoutToolCreation, shopCreation },
+            category: { id },
         }: ExtractFormValue = this.form.value;
         const shopID = shopCreation ? uuid() : '';
         const contractID = contractCreation ? uuid() : '';
@@ -57,7 +57,7 @@ export class ExtractPartyModificationsService {
                 d,
                 contractID,
                 payoutToolID,
-                this.category.value.id,
+                id,
                 shopID
             );
             result.push(shopCreationModification);
