@@ -1,5 +1,3 @@
-import get from 'lodash-es/get';
-
 import { getOr } from '../../../../../shared/utils';
 import { QuestionaryData } from '../../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
@@ -17,7 +15,7 @@ export const toLegalEntityPartyModification = (
             creation: {
                 legal_entity: {
                     russian_legal_entity: {
-                        registered_name: get(d, `${path}.name`, ''),
+                        registered_name: getOr(d, `${path}.name`, ''),
                         registered_number: getOr(
                             d,
                             `${path}.registration_info.legal_registration_info.ogrn`,
