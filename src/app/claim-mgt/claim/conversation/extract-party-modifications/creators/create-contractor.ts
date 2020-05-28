@@ -1,4 +1,4 @@
-import { get } from 'lodash-es';
+import get from 'lodash-es/get';
 import * as uuid from 'uuid/v4';
 
 import { QuestionaryData } from '../../../../../thrift-services/ank/gen-model/questionary_manager';
