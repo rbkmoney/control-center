@@ -8,10 +8,11 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
-import { map, scan, switchMap } from 'rxjs/operators';
+import { filter, map, scan, switchMap } from 'rxjs/operators';
 
 import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimStatus } from '../../../papi/model';
@@ -21,10 +22,12 @@ import {
 } from '../../../party-modification-creator';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
 import { getUnionKey } from '../../../shared/utils';
+import { Questionary } from '../../../thrift-services/ank/gen-model/questionary_manager';
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import { RecreateClaimService } from '../recreate-claim';
 import { ConversationService } from './conversation.service';
+import { ExtractPartyModificationComponent } from './extract-party-modifications/extract-party-modification.component';
 import { QuestionaryService } from './questionary.service';
 import { SavePartyModificationsService } from './save-party-modifications.service';
 import { TimelineAction } from './to-timeline-info/model';
@@ -60,7 +63,8 @@ export class ConversationComponent implements OnChanges, OnInit {
         private recreateClaimService: RecreateClaimService,
         private partyModEmitter: PartyModificationEmitter,
         private snackBar: MatSnackBar,
-        private appAuthGuardService: AppAuthGuardService
+        private appAuthGuardService: AppAuthGuardService,
+        private dialog: MatDialog
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
@@ -125,5 +129,27 @@ export class ConversationComponent implements OnChanges, OnInit {
                 partyID: this.claim.party_id,
             },
         });
+    }
+
+    extractPartyModification(questionary: Questionary) {
+        const dialog = this.dialog.open(ExtractPartyModificationComponent, {
+            disableClose: true,
+            data: { questionary },
+        });
+        dialog
+            .afterClosed()
+            .pipe(filter((r) => r.length > 0))
+            .subscribe((result) => {
+                this.snackBar.open('Party modifications extracted successfully', 'OK', {
+                    duration: 1500,
+                });
+                this.partyModificationsChanged(result);
+            });
+    }
+
+    canUseActionsForQuestionary(modifications: Modification[]) {
+        return (
+            modifications.filter((m) => !!m?.claim_modification?.document_modification).length > 0
+        );
     }
 }

@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MonacoEditorModule } from '../../../monaco-editor';
@@ -26,6 +27,7 @@ import { ActionIconPipe } from './action-icon.pipe';
 import { ActionNamePipe } from './action-name.pipe';
 import { CommentComponent } from './comment/comment.component';
 import { ConversationComponent } from './conversation.component';
+import { ExtractPartyModificationModule } from './extract-party-modifications/extract-party-modification.module';
 import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
 import { QuestionaryModule } from './questionary/questionary.module';
@@ -60,6 +62,8 @@ import { SendCommentComponent } from './send-comment';
         UnsavedPartyModificationsModule,
         PartyModificationCreatorModule,
         MatDividerModule,
+        ExtractPartyModificationModule,
+        MatMenuModule,
     ],
     declarations: [
         ConversationComponent,

@@ -1,0 +1,37 @@
+<h4 class="mat-dialog-title">Party modifications extraction params</h4>
+<div fxLayout="column" fxLayoutGap="15px">
+    <form [formGroup]="form" fxLayout="column" fxLayoutGap="15px">
+        <div class="mat-body-1">Party modifications types:</div>
+        <div fxLayout="column" fxLayoutGap="15px">
+            <div *ngFor="let control of getParamsControls() | keyvalue">
+                <mat-checkbox [formControl]="control.value"
+                    >{{ control.key | ccExtractFormCheckboxName }}
+                </mat-checkbox>
+            </div>
+        </div>
+        <div *ngIf="form.get('params').value.shopCreation">
+            <cc-category-ref [required]="true" [form]="form.get('category')"></cc-category-ref>
+            <cc-payment-institution-ref
+                [required]="true"
+                [form]="form.get('payment_institution')"
+            ></cc-payment-institution-ref>
+        </div>
+    </form>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-dialog-close mat-button color="default" [mat-dialog-close]="false">
+            CANCEL
+        </button>
+        <button
+            mat-button
+            color="primary"
+            (click)="extract()"
+            [disabled]="
+                form.get('params').value.shopCreation &&
+                !form.get('category').value.id &&
+                !form.get('payment_institution').value.id
+            "
+        >
+            EXTRACT
+        </button>
+    </mat-dialog-actions>
+</div>

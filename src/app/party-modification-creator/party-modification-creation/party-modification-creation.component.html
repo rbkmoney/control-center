@@ -50,6 +50,7 @@
             *ngIf="action.name === shopModificationNames.categoryModification"
             [form]="form.get('modification')"
             [initialValue]="modification?.category_modification"
+            [required]="true"
         >
         </cc-category-ref>
         <cc-shop-details

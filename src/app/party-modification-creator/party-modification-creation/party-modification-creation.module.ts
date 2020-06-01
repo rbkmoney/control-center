@@ -109,6 +109,10 @@ import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-sche
         FormWrapperComponent,
         BusinessScheduleSelectorComponent,
     ],
-    exports: [PartyModificationCreationComponent],
+    exports: [
+        PartyModificationCreationComponent,
+        CategoryRefComponent,
+        PaymentInstitutionRefComponent,
+    ],
 })
 export class PartyModificationCreationModule {}

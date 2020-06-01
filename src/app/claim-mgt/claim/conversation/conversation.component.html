@@ -3,12 +3,26 @@
     <cc-timeline *ngIf="timelineInfo$ | async as timelineInfo">
         <cc-timeline-item *ngFor="let item of timelineInfo">
             <cc-timeline-item-title>
-                <span class="mat-caption">
+                <div class="mat-caption">
                     {{ item.action | actionName }} by {{ item.user_info.username }} at
                     {{ item.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
                         item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
                     }})
-                </span>
+                </div>
+                <div *ngIf="canUseActionsForQuestionary(item.modifications)">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button
+                            mat-menu-item
+                            *ngIf="questionary$ | async as questionary"
+                            (click)="extractPartyModification(questionary)"
+                        >
+                            Extract party mods
+                        </button>
+                    </mat-menu>
+                </div>
             </cc-timeline-item-title>
             <cc-timeline-item-badge>
                 <mat-icon>{{ item.action | actionIcon }}</mat-icon>

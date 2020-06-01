@@ -88,5 +88,6 @@ import { TerminalsComponent } from './terminals/terminals.component';
         EditTerminalDecisionPriorityComponent,
         EditTerminalDecisionWeightComponent,
     ],
+    exports: [CategoryComponent],
 })
 export class ShopDetailsModule {}
