@@ -1,4 +1,7 @@
-import { CategoryRef } from '../../../../thrift-services/damsel/gen-model/domain';
+import {
+    CategoryRef,
+    PaymentInstitutionRef,
+} from '../../../../thrift-services/damsel/gen-model/domain';
 
 interface ExtractParamsFormValue {
     contractCreation: boolean;
@@ -9,4 +12,5 @@ interface ExtractParamsFormValue {
 export interface ExtractFormValue {
     params: ExtractParamsFormValue;
     category: CategoryRef;
+    payment_institution: PaymentInstitutionRef;
 }

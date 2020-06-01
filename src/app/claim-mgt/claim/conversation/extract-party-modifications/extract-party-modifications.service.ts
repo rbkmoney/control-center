@@ -6,6 +6,7 @@ import { QuestionaryData } from '../../../../thrift-services/ank/gen-model/quest
 import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { createContractCreation, createPayoutToolCreation, createShopCreation } from './creators';
 import { createContractor } from './creators/create-contractor';
+import { createShopAccountCreation } from './creators/create-shop-account-creation';
 import { ExtractFormValue } from './extract-form-value';
 
 @Injectable()
@@ -17,6 +18,7 @@ export class ExtractPartyModificationsService {
             shopCreation: true,
         }),
         category: this.fb.group({}),
+        payment_institution: this.fb.group({}),
     });
 
     constructor(private fb: FormBuilder) {}
@@ -24,7 +26,8 @@ export class ExtractPartyModificationsService {
     mapToModifications(d: QuestionaryData): PartyModification[] {
         const {
             params: { contractCreation, payoutToolCreation, shopCreation },
-            category: { id },
+            category,
+            payment_institution,
         }: ExtractFormValue = this.form.value;
         const shopID = shopCreation ? uuid() : '';
         const contractID = contractCreation ? uuid() : '';
@@ -38,7 +41,8 @@ export class ExtractPartyModificationsService {
             const contractCreationModification = createContractCreation(
                 d,
                 contractorID,
-                contractID
+                contractID,
+                payment_institution
             );
             result.push(contractorCreationModification, contractCreationModification);
         }
@@ -57,10 +61,11 @@ export class ExtractPartyModificationsService {
                 d,
                 contractID,
                 payoutToolID,
-                id,
+                category.id,
                 shopID
             );
-            result.push(shopCreationModification);
+            const shopAccountCreation = createShopAccountCreation(shopID);
+            result.push(shopCreationModification, shopAccountCreation);
         }
 
         return result;

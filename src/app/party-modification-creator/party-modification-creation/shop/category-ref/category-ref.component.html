@@ -1,4 +1,4 @@
-<form [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
+<form [formGroup]="form" fxLayout="column">
     <mat-form-field fxFlex>
         <mat-select placeholder="Select category" formControlName="id" [required]="required">
             <mat-option *ngFor="let category of categories$ | async" [value]="category.id">

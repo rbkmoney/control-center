@@ -9,11 +9,13 @@
                 </mat-checkbox>
             </div>
         </div>
-        <cc-category-ref
-            *ngIf="form.get('params').value.shopCreation"
-            [required]="true"
-            [form]="form.get('category')"
-        ></cc-category-ref>
+        <div *ngIf="form.get('params').value.shopCreation">
+            <cc-category-ref [required]="true" [form]="form.get('category')"></cc-category-ref>
+            <cc-payment-institution-ref
+                [required]="true"
+                [form]="form.get('payment_institution')"
+            ></cc-payment-institution-ref>
+        </div>
     </form>
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
         <button mat-dialog-close mat-button color="default" [mat-dialog-close]="false">
@@ -23,7 +25,11 @@
             mat-button
             color="primary"
             (click)="extract()"
-            [disabled]="form.get('params').value.shopCreation && !form.get('category').value.id"
+            [disabled]="
+                form.get('params').value.shopCreation &&
+                !form.get('category').value.id &&
+                !form.get('payment_institution').value.id
+            "
         >
             EXTRACT
         </button>
