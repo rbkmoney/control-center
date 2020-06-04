@@ -9,7 +9,8 @@
                 <mat-panel-title> Party modification </mat-panel-title>
             </mat-expansion-panel-header>
             <cc-pretty-json [object]="modification"></cc-pretty-json>
-            <mat-action-row>
+            <mat-action-row fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-button color="primary" (click)="edit(i)">EDIT</button>
                 <button mat-button color="warn" (click)="remove(i)">REMOVE</button>
             </mat-action-row>
         </mat-expansion-panel>

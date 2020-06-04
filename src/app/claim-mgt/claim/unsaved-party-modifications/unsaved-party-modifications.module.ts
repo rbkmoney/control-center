@@ -6,6 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import { SharedModule } from '../../../shared/shared.module';
+import { EditUnsavedModificationModule } from '../conversation/edit-unsaved-modification/edit-unsaved-modification.module';
 import { UnsavedPartyModificationsComponent } from './unsaved-party-modifications.component';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { UnsavedPartyModificationsComponent } from './unsaved-party-modification
         MatButtonModule,
         FlexLayoutModule,
         MatDialogModule,
+        EditUnsavedModificationModule,
     ],
     declarations: [UnsavedPartyModificationsComponent],
     exports: [UnsavedPartyModificationsComponent],

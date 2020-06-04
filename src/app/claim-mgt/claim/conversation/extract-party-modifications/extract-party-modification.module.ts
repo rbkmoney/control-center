@@ -7,9 +7,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
-import { PartyModificationCreationModule } from '../../../../party-modification-creator/party-modification-creation';
 import { ExtractFormCheckboxNamePipe } from './extract-form-checkbox-name.pipe';
 import { ExtractPartyModificationComponent } from './extract-party-modification.component';
+import { ModificationsModule } from '../../../../shared/components/modifications';
 
 @NgModule({
     declarations: [ExtractPartyModificationComponent, ExtractFormCheckboxNamePipe],
@@ -22,7 +22,7 @@ import { ExtractPartyModificationComponent } from './extract-party-modification.
         ReactiveFormsModule,
         MatCheckboxModule,
         CommonModule,
-        PartyModificationCreationModule,
+        ModificationsModule,
     ],
     entryComponents: [ExtractPartyModificationComponent],
 })
