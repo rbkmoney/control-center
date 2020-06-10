@@ -21,7 +21,7 @@ export class EditUnsavedModificationComponent {
         @Inject(MAT_DIALOG_DATA) private data: PartyModification
     ) {}
 
-    add() {
+    save() {
         this.dialogRef.close({
             [this.modType]: {
                 id: this.mod[this.modType].id,
