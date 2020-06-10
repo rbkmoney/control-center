@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { getUnionKey } from '../../../../shared/utils';
 import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { EditUnsavedModificationService } from './edit-unsaved-modification.service';
 
 type ModificationType = 'contractor_modification' | 'contract_modification' | 'shop_modification';
 
@@ -18,7 +17,6 @@ export class EditUnsavedModificationComponent {
 
     constructor(
         private dialogRef: MatDialogRef<EditUnsavedModificationComponent>,
-        private editUnsavedModificationService: EditUnsavedModificationService,
         private fb: FormBuilder,
         @Inject(MAT_DIALOG_DATA) private data: PartyModification
     ) {}
