@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -15,10 +16,11 @@ import { BusinessScheduleSelectorComponent } from './business-schedule-ref/busin
 import { AdjustmentModificationUnitComponent } from './contract/adjustment-modification-unit/adjustment-modification-unit.component';
 import { AdjustmentModificationComponent } from './contract/adjustment-modification/adjustment-modification.component';
 import { AdjustmentParamsComponent } from './contract/adjustment-params/adjustment-params.component';
+import { ContractParamsLegacyComponent } from './contract/contract-params-legacy/contract-params-legacy.component';
 import { ContractParamsComponent } from './contract/contract-params/contract-params.component';
 import { ContractTemplateRefComponent } from './contract/contract-template-ref/contract-template-ref.component';
 import { ContractorIdComponent } from './contract/contractor-id/contractor-id.component';
-import { ContractorComponent } from './contract/contractor/contractor.component';
+import { ContractorLegacyComponent } from './contract/contractor-legacy/contractor-legacy.component';
 import { LegalAgreementBindingComponent } from './contract/legal-agreement-binding/legal-agreement-binding.component';
 import { InternationalLegalEntityComponent } from './contract/legal-entity/international-legal-entity/international-legal-entity.component';
 import { LegalEntityComponent } from './contract/legal-entity/legal-entity.component';
@@ -47,12 +49,14 @@ import { ShopAccountCreationComponent } from './shop/shop-account-creation/shop-
 import { ShopDetailsComponent } from './shop/shop-details/shop-details.component';
 import { ShopParamsComponent } from './shop/shop-params/shop-params.component';
 import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-schedule-modification/shop-payout-schedule-modification.component';
-import { MatDividerModule } from '@angular/material/divider';
+import { ContractorComponent } from './contractor/contractor.component';
+import { PrivateEntityComponent } from './contract/private-entity/private-entity.component';
 
 @NgModule({
     declarations: [
         CategoryRefComponent,
         PaymentInstitutionRefComponent,
+        ContractParamsLegacyComponent,
         ContractParamsComponent,
         PayoutToolModificationUnitComponent,
         LegalAgreementBindingComponent,
@@ -81,8 +85,10 @@ import { MatDividerModule } from '@angular/material/divider';
         AdjustmentParamsComponent,
         RepresentativeDocumentComponent,
         ContractTemplateRefComponent,
+        ContractorLegacyComponent,
         ContractorComponent,
         LegalEntityComponent,
+        PrivateEntityComponent,
         RussianLegalEntityComponent,
         InternationalLegalEntityComponent,
         BusinessScheduleSelectorComponent,
@@ -92,6 +98,7 @@ import { MatDividerModule } from '@angular/material/divider';
     exports: [
         CategoryRefComponent,
         PaymentInstitutionRefComponent,
+        ContractParamsLegacyComponent,
         ContractParamsComponent,
         PayoutToolModificationUnitComponent,
         LegalAgreementBindingComponent,
@@ -119,7 +126,7 @@ import { MatDividerModule } from '@angular/material/divider';
         MatButtonModule,
         MatDatepickerModule,
         MatProgressBarModule,
-        MatDividerModule
-    ]
+        MatDividerModule,
+    ],
 })
 export class ModificationsModule {}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
-import { first, map, switchMap } from 'rxjs/operators';
+import { filter, first, map, switchMap } from 'rxjs/operators';
 
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
 import { EditUnsavedModificationComponent } from '../conversation/edit-unsaved-modification/edit-unsaved-modification.component';
@@ -25,12 +25,20 @@ export class UnsavedPartyModificationService {
             .subscribe((modifications) => this.unsaved$.next(modifications));
 
         this.edit$
-            .pipe(switchMap((pos) => forkJoin([of(pos), this.unsaved$.pipe(first())])))
-            .subscribe(([pos, mods]) => {
-                this.dialog.open(EditUnsavedModificationComponent, {
-                    disableClose: true,
-                    data: mods[pos],
-                });
+            .pipe(
+                switchMap((pos) => forkJoin([of(pos), this.unsaved$.pipe(first())])),
+                switchMap(([pos, mods]) => {
+                    const d = this.dialog.open(EditUnsavedModificationComponent, {
+                        disableClose: true,
+                        data: mods[pos],
+                    });
+                    return forkJoin([of(mods), of(pos), d.afterClosed()]);
+                }),
+                filter(([mods, pos, newMod]) => !!newMod)
+            )
+            .subscribe(([mods, pos, newMod]) => {
+                mods[pos] = newMod;
+                this.setUpUnsaved(mods);
             });
     }
 

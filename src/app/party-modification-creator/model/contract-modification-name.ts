@@ -1,5 +1,6 @@
 export enum ContractModificationName {
     creation = 'creation',
+    legacyCreation = 'legacyCreation',
     termination = 'termination',
     adjustmentModification = 'adjustment_modification',
     payoutToolModification = 'payout_tool_modification',

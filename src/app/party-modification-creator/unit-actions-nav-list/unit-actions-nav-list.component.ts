@@ -55,6 +55,7 @@ export class UnitActionsNavListComponent implements OnInit {
                 this.shopActions.visible = true;
                 this.contractActions.names = [
                     ContractModificationName.creation,
+                    ContractModificationName.legacyCreation,
                     ...this.contractActions.names,
                 ];
                 this.shopActions.names = [ShopModificationName.creation, ...this.shopActions.names];

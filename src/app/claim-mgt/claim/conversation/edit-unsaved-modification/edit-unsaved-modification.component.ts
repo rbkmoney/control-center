@@ -23,7 +23,14 @@ export class EditUnsavedModificationComponent {
         @Inject(MAT_DIALOG_DATA) private data: PartyModification
     ) {}
 
-    save() {
-        console.log(this.form.value);
+    add() {
+        this.dialogRef.close({
+            [this.modType]: {
+                id: this.mod[this.modType].id,
+                modification: {
+                    [getUnionKey(this.mod[this.modType].modification)]: this.form.value,
+                },
+            },
+        });
     }
 }
