@@ -110,6 +110,7 @@ import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-sche
         ShopParamsComponent,
         ShopPayoutToolModificationComponent,
         ContractPayoutToolModificationComponent,
+        ContractorComponent
     ],
     imports: [
         FlexModule,
