@@ -20,7 +20,7 @@ import { ContractParamsLegacyComponent } from './contract/contract-params-legacy
 import { ContractParamsComponent } from './contract/contract-params/contract-params.component';
 import { ContractTemplateRefComponent } from './contract/contract-template-ref/contract-template-ref.component';
 import { ContractorIdComponent } from './contract/contractor-id/contractor-id.component';
-import { ContractorLegacyComponent } from './contract/contractor-legacy/contractor-legacy.component';
+import { ContractorComponent } from './contract/contractor/contractor.component';
 import { LegalAgreementBindingComponent } from './contract/legal-agreement-binding/legal-agreement-binding.component';
 import { InternationalLegalEntityComponent } from './contract/legal-entity/international-legal-entity/international-legal-entity.component';
 import { LegalEntityComponent } from './contract/legal-entity/legal-entity.component';
@@ -49,8 +49,6 @@ import { ShopAccountCreationComponent } from './shop/shop-account-creation/shop-
 import { ShopDetailsComponent } from './shop/shop-details/shop-details.component';
 import { ShopParamsComponent } from './shop/shop-params/shop-params.component';
 import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-schedule-modification/shop-payout-schedule-modification.component';
-import { ContractorComponent } from './contractor/contractor.component';
-import { PrivateEntityComponent } from './contract/private-entity/private-entity.component';
 
 @NgModule({
     declarations: [
@@ -85,10 +83,8 @@ import { PrivateEntityComponent } from './contract/private-entity/private-entity
         AdjustmentParamsComponent,
         RepresentativeDocumentComponent,
         ContractTemplateRefComponent,
-        ContractorLegacyComponent,
         ContractorComponent,
         LegalEntityComponent,
-        PrivateEntityComponent,
         RussianLegalEntityComponent,
         InternationalLegalEntityComponent,
         BusinessScheduleSelectorComponent,

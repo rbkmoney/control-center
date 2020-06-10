@@ -52,6 +52,6 @@ import { YesNoPipe } from './yes-no.pipe';
         BeneficialOwnerInfoComponent,
         PdlInfoComponent,
     ],
-    exports: [QuestionaryComponent, PrivateEntityInfoComponent]
+    exports: [QuestionaryComponent],
 })
 export class QuestionaryModule {}
