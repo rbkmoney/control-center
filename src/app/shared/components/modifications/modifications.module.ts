@@ -25,6 +25,7 @@ import { LegalAgreementBindingComponent } from './contract/legal-agreement-bindi
 import { InternationalLegalEntityComponent } from './contract/legal-entity/international-legal-entity/international-legal-entity.component';
 import { LegalEntityComponent } from './contract/legal-entity/legal-entity.component';
 import { RussianLegalEntityComponent } from './contract/legal-entity/russian-legal-entity/russian-legal-entity.component';
+import { PaymentInstitutionIdComponent } from './contract/payment-institution-id/payment-institution-id.component';
 import { PaymentInstitutionRefComponent } from './contract/payment-institution/payment-institution-ref.component';
 import { InternationalBankAccountComponent } from './contract/payout-tool-info/international-bank-account/international-bank-account.component';
 import { InternationalBankDetailsComponent } from './contract/payout-tool-info/international-bank-account/international-bank-details/international-bank-details.component';
@@ -67,6 +68,7 @@ import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-sche
         ShopAccountCreationComponent,
         ShopPayoutScheduleModificationComponent,
         ContractModificationComponent,
+        PaymentInstitutionIdComponent,
         ShopParamsComponent,
         ShopPayoutToolModificationComponent,
         ContractPayoutToolModificationComponent,
@@ -110,7 +112,7 @@ import { ShopPayoutScheduleModificationComponent } from './shop/shop-payout-sche
         ShopParamsComponent,
         ShopPayoutToolModificationComponent,
         ContractPayoutToolModificationComponent,
-        ContractorComponent
+        ContractorComponent,
     ],
     imports: [
         FlexModule,
