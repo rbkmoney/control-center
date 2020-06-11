@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { KeycloakService } from 'keycloak-angular';
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import {
     InvoicePaymentAdjustmentParams,
+    InvoicePaymentAdjustmentScenario,
     UserInfo,
 } from '../../thrift-services/damsel/gen-model/payment_processing';
 import {
@@ -43,6 +44,20 @@ export class CreateAndCaptureComponent implements OnInit {
 
     adjustmentParams: InvoicePaymentAdjustmentParams;
 
+    activeScenario: 'cash_flow' | 'status_change' = 'cash_flow';
+
+    scenarios = ['cash_flow', 'status_change'];
+
+    statuses = [
+        'pending',
+        'processed',
+        'captured',
+        'cancelled',
+        'refunded',
+        'failed',
+        'charged_back',
+    ];
+
     constructor(
         private batchAdjustmentService: BatchPaymentAdjustmentService,
         @Inject(MAT_DIALOG_DATA) data: StatPayment[],
@@ -55,7 +70,7 @@ export class CreateAndCaptureComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            revision: ['', Validators.required],
+            cash_flow: ['', Validators.required],
             reason: ['', Validators.required],
         });
         this.progress$ = this.batchAdjustmentService.progress$;
@@ -72,14 +87,23 @@ export class CreateAndCaptureComponent implements OnInit {
         });
     }
 
+    onScenarioChange({ value }) {
+        this.activeScenario = value;
+        switch (value) {
+            case 'cash_flow':
+                this.form.removeControl('status_change');
+                this.form.addControl('cash_flow', new FormControl(''));
+                break;
+            case 'status_change':
+                this.form.removeControl('cash_flow');
+                this.form.addControl('status_change', new FormControl(''));
+                break;
+        }
+        this.form.updateValueAndValidity();
+    }
+
     create() {
-        const {
-            value: { revision, reason },
-        } = this.form;
-        this.adjustmentParams = {
-            domain_revision: revision,
-            reason,
-        } as InvoicePaymentAdjustmentParams;
+        this.adjustmentParams = this.getAdjustmentParams();
         this.createStarted = true;
         this.form.disable();
         const createParams = this.payments.map(({ invoice_id, id }) => ({
@@ -95,6 +119,35 @@ export class CreateAndCaptureComponent implements OnInit {
                 this.snackBar.open('An error occurred while adjustments creating');
             },
         });
+    }
+
+    private getAdjustmentParams(): InvoicePaymentAdjustmentParams {
+        let scenario: InvoicePaymentAdjustmentScenario;
+        const { reason } = this.form.value;
+        switch (this.activeScenario) {
+            case 'cash_flow':
+                const { cash_flow } = this.form.value;
+                scenario = {
+                    cash_flow: {
+                        domain_revision: cash_flow,
+                    },
+                };
+                break;
+            case 'status_change':
+                const { status_change } = this.form.value;
+                scenario = {
+                    status_change: {
+                        target_status: {
+                            [status_change]: {},
+                        },
+                    },
+                };
+                break;
+        }
+        return {
+            reason,
+            scenario,
+        } as InvoicePaymentAdjustmentParams;
     }
 
     private getUser(): UserInfo {

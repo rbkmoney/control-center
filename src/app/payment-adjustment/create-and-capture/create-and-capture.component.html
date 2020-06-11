@@ -6,19 +6,57 @@
 <mat-dialog-content>
     <div fxLayout="column" fxLayoutGap="20px">
         <div>
-            <form [formGroup]="form" fxLayout fxLayoutGap="10px">
-                <mat-form-field fxFlex="20">
-                    <input
-                        matInput
-                        placeholder="Domain revision"
-                        formControlName="revision"
-                        type="number"
-                        required
-                    />
-                </mat-form-field>
-                <mat-form-field fxFlex="90">
-                    <input matInput placeholder="Reason" formControlName="reason" required />
-                </mat-form-field>
+            <form [formGroup]="form" fxLayout="column" fxLayoutGap="10px">
+                <div fxLayout="column" fxLayoutGap="10px">
+                    <div class="mat-subheading-2" fxFlex="10">Scenario:</div>
+                    <mat-radio-group
+                        fxFlex="50"
+                        fxLayout
+                        fxLayoutAlign="space-between center"
+                        (change)="onScenarioChange($event)"
+                    >
+                        <mat-radio-button
+                            fxFlex
+                            value="cash_flow"
+                            [checked]="activeScenario === 'cash_flow'"
+                        >
+                            Domain revision
+                        </mat-radio-button>
+                        <mat-radio-button
+                            fxFlex
+                            value="status_change"
+                            [checked]="activeScenario === 'status_change'"
+                        >
+                            Status change
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+                    <mat-form-field *ngIf="activeScenario === 'cash_flow'" fxFlex="20">
+                        <input
+                            matInput
+                            placeholder="Domain revision"
+                            formControlName="cash_flow"
+                            type="number"
+                            required
+                        />
+                    </mat-form-field>
+                    <mat-form-field *ngIf="activeScenario === 'status_change'" fxFlex="20">
+                        <mat-select
+                            placeholder="Payment status"
+                            formControlName="status_change"
+                            type="number"
+                            required
+                        >
+                            <mat-option *ngFor="let status of statuses" [value]="status">{{
+                                status
+                            }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="90">
+                        <input matInput placeholder="Reason" formControlName="reason" required />
+                    </mat-form-field>
+                </div>
             </form>
             <div>
                 <button
