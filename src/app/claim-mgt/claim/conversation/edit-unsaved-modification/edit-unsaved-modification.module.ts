@@ -4,12 +4,18 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { ModificationsModule } from '../../../../shared/components/modifications';
+import { PartyModificationFormsModule } from '../../../../party-modification-forms';
 import { EditUnsavedModificationComponent } from './edit-unsaved-modification.component';
 
 @NgModule({
     declarations: [EditUnsavedModificationComponent],
     entryComponents: [EditUnsavedModificationComponent],
-    imports: [CommonModule, MatDialogModule, MatButtonModule, FlexModule, ModificationsModule],
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        FlexModule,
+        PartyModificationFormsModule,
+    ],
 })
 export class EditUnsavedModificationModule {}

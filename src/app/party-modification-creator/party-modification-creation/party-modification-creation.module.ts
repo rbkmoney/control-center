@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
-import { ModificationsModule } from '../../shared/components/modifications';
+import { PartyModificationFormsModule } from '../../party-modification-forms';
 import { PartyModificationCreationComponent } from './party-modification-creation.component';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { PartyModificationCreationComponent } from './party-modification-creatio
         ReactiveFormsModule,
         FlexLayoutModule,
         MatInputModule,
-        ModificationsModule,
+        PartyModificationFormsModule,
     ],
     declarations: [PartyModificationCreationComponent],
     exports: [PartyModificationCreationComponent],
