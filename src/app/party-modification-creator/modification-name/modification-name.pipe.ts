@@ -46,6 +46,8 @@ export class ModificationNamePipe implements PipeTransform {
 
     private transformContractModificationName(value: ContractModificationName): string {
         switch (value) {
+            case ContractModificationName.legacyCreation:
+                return 'Contract creation (legacy)';
             case ContractModificationName.creation:
                 return 'Contract creation';
             case ContractModificationName.termination:

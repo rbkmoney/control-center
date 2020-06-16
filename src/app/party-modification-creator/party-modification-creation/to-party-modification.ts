@@ -2,6 +2,9 @@ import { ContractModificationName, ShopModificationName } from '..';
 import { ActionType, ModificationAction } from '../../claim/modification-action';
 import { UnitName } from './unit-name';
 
+const removeLegacyMark = (name: ShopModificationName | ContractModificationName): string =>
+    name.replace('legacy', '').toLocaleLowerCase();
+
 const toModification = (
     unitID: string,
     modification: any,
@@ -11,7 +14,7 @@ const toModification = (
     [unitName]: {
         id: unitID,
         modification: {
-            [modificationName]: modification,
+            [removeLegacyMark(modificationName)]: modification,
         },
     },
 });

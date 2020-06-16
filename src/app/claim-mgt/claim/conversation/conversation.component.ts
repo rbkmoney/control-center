@@ -11,8 +11,8 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
-import { filter, map, scan, switchMap } from 'rxjs/operators';
+import { combineLatest, from, of } from 'rxjs';
+import { filter, first, map, switchMap } from 'rxjs/operators';
 
 import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimStatus } from '../../../papi/model';
@@ -97,7 +97,10 @@ export class ConversationComponent implements OnChanges, OnInit {
             .pipe(map((mods) => mods.map((modification) => modification.party_modification)))
             .subscribe((m) => this.savePartyModService.partyModificationsChanged(m));
         this.partyModEmitter.modification$
-            .pipe(scan((acc, curr) => [...acc, curr], []))
+            .pipe(
+                switchMap((m) => combineLatest([of(m), this.unsavedModifications$.pipe(first())])),
+                map(([m, unsavedMods]) => [...unsavedMods, m])
+            )
             .subscribe((m) => this.savePartyModService.partyModificationsChanged(m));
         this.recreateClaimService.extractError$.subscribe(() =>
             this.snackBar.open('An error occurred while claim recreated', 'OK')
