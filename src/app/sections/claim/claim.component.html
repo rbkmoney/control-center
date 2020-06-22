@@ -2,7 +2,7 @@
     <div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="15px">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <h3 class="mat-headline">
-                Claim <span class="header">#{{ 'claimID' }}</span>
+                Claim <span class="header">#{{ claimID$ | async }}</span>
             </h3>
             <h3 class="mat-headline">{{ 'Review' }}</h3>
         </div>

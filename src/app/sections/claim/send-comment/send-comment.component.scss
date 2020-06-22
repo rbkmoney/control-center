@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 $cc-send-comment-action-padding: 10px 0 0 0;
 
 .send-comment-action {
@@ -9,5 +11,5 @@ button {
 }
 
 .hasError {
-    color: #f44336;
+    color: mat-color($mat-red, 500);
 }
