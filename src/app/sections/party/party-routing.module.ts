@@ -25,6 +25,14 @@ import { PartyComponent } from './party.component';
                         },
                     },
                     {
+                        path: 'claim/:claimID',
+                        loadChildren: () => import('../claim').then((m) => m.ClaimModule),
+                        canActivate: [AppAuthGuardService],
+                        data: {
+                            roles: ['get_claims'],
+                        },
+                    },
+                    {
                         path: 'shops',
                         loadChildren: () =>
                             import('../party-shops').then((m) => m.PartyShopsModule),
