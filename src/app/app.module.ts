@@ -86,6 +86,5 @@ export class AppModule {
                 this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
             );
         }
-        this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
     }
 }

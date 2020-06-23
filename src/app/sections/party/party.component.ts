@@ -15,7 +15,7 @@ export class PartyComponent {
     ];
 
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));
-    hasClaimID$ = this.route.params.pipe(
+    hasClaimID$ = this.route.firstChild.params.pipe(
         pluck('claimID'),
         map((claimID) => !!claimID),
         shareReplay(SHARE_REPLAY_CONF)
