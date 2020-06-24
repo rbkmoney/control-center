@@ -12,6 +12,7 @@ import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
 import { SendCommentModule } from './send-comment/send-comment.module';
+import { ConversationModule } from './conversation';
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import { SendCommentModule } from './send-comment/send-comment.module';
         ReactiveFormsModule,
         MatInputModule,
         SendCommentModule,
+        ConversationModule
     ],
     declarations: [ClaimComponent],
 })
