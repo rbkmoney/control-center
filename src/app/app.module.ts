@@ -6,12 +6,12 @@ import {
 } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as moment from 'moment';
 import 'moment/locale/ru';
@@ -24,7 +24,6 @@ import { ClaimsModule } from './claims/claims.module';
 import { CoreModule } from './core/core.module';
 import { DepositsModule } from './deposits/deposits.module';
 import { DomainModule } from './domain';
-import icons from './icons.json';
 import { PartiesModule } from './parties/parties.module';
 import { PartyModule as OldPartyModule } from './party/party.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
@@ -74,17 +73,4 @@ moment.locale('en');
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {
-    constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
-        this.registerIcons();
-    }
-
-    registerIcons() {
-        for (const name of icons) {
-            this.matIconRegistry.addSvgIcon(
-                name,
-                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
-            );
-        }
-    }
-}
+export class AppModule {}
