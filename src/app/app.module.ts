@@ -79,6 +79,6 @@ moment.locale('en');
 })
 export class AppModule {
     constructor(private themeManager: ThemeManager) {
-        themeManager.change(ThemeName.light);
+        this.themeManager.change(ThemeName.light);
     }
 }
