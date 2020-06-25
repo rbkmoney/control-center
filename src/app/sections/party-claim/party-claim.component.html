@@ -2,13 +2,13 @@
     <div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="15px">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <h3 class="mat-headline">
-                Claim <span class="header">#{{ claimID$ | async }}</span>
+                Claim <span class="cc-party-claim-header">#{{ claimID$ | async }}</span>
             </h3>
             <h3 class="mat-headline">{{ 'Review' }}</h3>
         </div>
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <h3 class="mat-title">Changeset</h3>
-            <mat-form-field>
+            <mat-form-field class="changeset-filter">
                 <mat-label>Changeset filters</mat-label>
                 <mat-select>
                     <mat-option>

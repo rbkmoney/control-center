@@ -5,10 +5,10 @@ import { pluck, shareReplay } from 'rxjs/operators';
 import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
 
 @Component({
-    templateUrl: 'claim.component.html',
-    styleUrls: ['claim.component.scss'],
+    templateUrl: 'party-claim.component.html',
+    styleUrls: ['party-claim.component.scss'],
 })
-export class ClaimComponent {
+export class PartyClaimComponent {
     claimID$ = this.route.params.pipe(pluck('claimID'), shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private route: ActivatedRoute) {}

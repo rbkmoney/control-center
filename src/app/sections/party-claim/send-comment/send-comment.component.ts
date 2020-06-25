@@ -14,7 +14,6 @@ export class SendCommentComponent implements OnInit {
 
     form: FormGroup = this.sendCommentService.form;
     inProgress$ = this.sendCommentService.inProgress$;
-    commentLength$ = this.sendCommentService.commentLength$;
 
     constructor(private sendCommentService: SendCommentService) {}
 

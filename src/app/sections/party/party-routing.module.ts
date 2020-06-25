@@ -26,7 +26,8 @@ import { PartyComponent } from './party.component';
                     },
                     {
                         path: 'claim/:claimID',
-                        loadChildren: () => import('../claim').then((m) => m.ClaimModule),
+                        loadChildren: () =>
+                            import('../party-claim').then((m) => m.PartyClaimModule),
                         canActivate: [AppAuthGuardService],
                         data: {
                             roles: ['get_claims'],

@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@import '../../sections/party-claim/party-claim-theme';
+@import '../../sections/party/party-theme';
+
+@mixin cc-theme($theme) {
+    body.#{map-get($theme, name)} {
+        @include angular-material-theme($theme);
+        @include party-claim-theme($theme);
+        @include party-theme($theme);
+    }
+}
