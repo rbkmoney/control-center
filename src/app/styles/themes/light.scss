@@ -1,6 +1,10 @@
 @import '~@angular/material/theming';
 @import './theme';
 
+body.light {
+    background-color: mat-color($mat-gray, 50);
+}
+
 $theme: (
     primary: mat-palette($mat-indigo),
     accent: mat-palette($mat-pink),

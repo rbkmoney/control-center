@@ -4,6 +4,7 @@
         <input formControlName="comment" matInput type="text" autocomplete="off" />
         <mat-hint
             [ngClass]="{
+                'cc-caption': true,
                 'cc-send-comment-error': form.controls.comment.value?.length > 1000
             }"
             >{{ form.controls.comment.value?.length || 0 }}/1000</mat-hint
