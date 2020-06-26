@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SharedModule } from '../../shared/shared.module';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { ClaimSearchFormModule } from '../claim-search-form';
+import { CreateClaimComponent } from './create-claim/create-claim.component';
 import { SearchClaimsComponentRouting } from './search-claims-routing.module';
 import { SearchClaimsComponent } from './search-claims.component';
 import { SearchClaimsService } from './search-claims.service';
@@ -45,7 +46,13 @@ import { SearchTableComponent } from './search-table/search-table.component';
         MatExpansionModule,
         ClaimSearchFormModule,
     ],
-    declarations: [SearchClaimsComponent, SearchTableComponent, ClaimMailPipePipe],
+    declarations: [
+        SearchClaimsComponent,
+        SearchTableComponent,
+        ClaimMailPipePipe,
+        CreateClaimComponent,
+    ],
+    entryComponents: [CreateClaimComponent],
     providers: [SearchClaimsService, ClaimManagementService],
 })
 export class SearchClaimsModule {}

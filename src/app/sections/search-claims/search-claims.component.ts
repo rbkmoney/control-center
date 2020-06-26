@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SearchFormValue } from '../claim-search-form';
+import { CreateClaimComponent } from './create-claim/create-claim.component';
 import { SearchClaimsService } from './search-claims.service';
 
 @Component({
@@ -13,7 +15,11 @@ export class SearchClaimsComponent implements OnInit {
     claims$ = this.searchClaimService.claims$;
     hasMore$ = this.searchClaimService.hasMore$;
 
-    constructor(private searchClaimService: SearchClaimsService, private snackBar: MatSnackBar) {}
+    constructor(
+        private searchClaimService: SearchClaimsService,
+        private snackBar: MatSnackBar,
+        private dialogRef: MatDialog
+    ) {}
 
     ngOnInit() {
         this.searchClaimService.errors$.subscribe((e) =>
@@ -27,5 +33,12 @@ export class SearchClaimsComponent implements OnInit {
 
     fetchMore() {
         this.searchClaimService.fetchMore();
+    }
+
+    createClaim() {
+        this.dialogRef.open(CreateClaimComponent, {
+            width: '400px',
+            disableClose: true,
+        });
     }
 }
