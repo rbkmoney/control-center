@@ -1,31 +1,29 @@
-<div class="claim-container">
-    <div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="15px">
-        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-            <h3 class="mat-headline">
-                Claim <span class="cc-party-claim-header">#{{ claimID$ | async }}</span>
-            </h3>
-            <h3 class="mat-headline">{{ 'Review' }}</h3>
-        </div>
-        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-            <h3 class="mat-title">Changeset</h3>
-            <mat-form-field class="changeset-filter">
-                <mat-label>Changeset filters</mat-label>
-                <mat-select>
-                    <mat-option>
-                        eekekekkekek
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="25px">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <h3 class="cc-headline">
+            Claim <span class="cc-party-claim-header">#{{ claimID$ | async }}</span>
+        </h3>
+        <h3 class="cc-headline">{{ 'Review' }}</h3>
     </div>
-    <mat-card>
-        <mat-card-content fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-            <cc-send-comment fxFlex="100"></cc-send-comment>
-            <cc-file-uploader></cc-file-uploader>
-        </mat-card-content>
-        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-            <button mat-button>CHANGE STATUS</button>
-            <button mat-button>ADD PARTY MODIFICATION</button>
-        </mat-card-actions>
-    </mat-card>
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
+        <h3 class="cc-title">Changeset</h3>
+        <mat-form-field fxFlex="0 1 266px">
+            <mat-label>Changeset filters</mat-label>
+            <mat-select>
+                <mat-option>
+                    eekekekkekek
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
 </div>
+<mat-card>
+    <mat-card-content fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="space-between center">
+        <cc-send-comment fxFlex="100"></cc-send-comment>
+        <cc-file-uploader></cc-file-uploader>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button>CHANGE STATUS</button>
+        <button mat-button>ADD PARTY MODIFICATION</button>
+    </mat-card-actions>
+</mat-card>

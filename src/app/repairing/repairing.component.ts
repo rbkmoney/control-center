@@ -6,7 +6,7 @@ import { RepairingService } from './repairing.service';
 
 @Component({
     templateUrl: 'repairing.component.html',
-    styleUrls: ['repairing.component.css'],
+    styleUrls: ['repairing.component.scss'],
     providers: [],
 })
 export class RepairingComponent {

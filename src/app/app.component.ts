@@ -4,7 +4,7 @@ import { KeycloakService } from 'keycloak-angular';
 @Component({
     selector: 'cc-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
     username: string;

@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
-@mixin party-claim-theme($theme) {
-    $gray: map-get($theme, gray);
+@mixin cc-party-claim-theme($theme) {
+    $foreground: map-get($theme, foreground);
 
     .cc-party-claim-header {
-        color: mat-color($gray, 600);
+        color: mat-color($foreground, secondary-text);
     }
 }

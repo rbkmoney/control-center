@@ -6,7 +6,6 @@ import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
 
 @Component({
     templateUrl: 'party-claim.component.html',
-    styleUrls: ['party-claim.component.scss'],
 })
 export class PartyClaimComponent {
     claimID$ = this.route.params.pipe(pluck('claimID'), shareReplay(SHARE_REPLAY_CONF));
