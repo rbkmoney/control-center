@@ -11,4 +11,5 @@
         CREATE
     </button>
     <button mat-dialog-close mat-button color="default" [mat-dialog-close]="false">CANCEL</button>
+    <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
 </mat-dialog-actions>

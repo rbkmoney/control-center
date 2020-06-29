@@ -6,12 +6,11 @@ import { pluck, switchMap } from 'rxjs/operators';
 
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { SearchFormValue } from '../claim-search-form';
-import { CreateClaimService } from './create-claim.service';
 import { PartyClaimsService } from './party-claims.service';
 
 @Component({
     templateUrl: 'party-claims.component.html',
-    providers: [PartyClaimsService, CreateClaimService],
+    providers: [PartyClaimsService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyClaimsComponent implements OnInit {

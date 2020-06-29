@@ -1,46 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { fromPromise } from 'rxjs/internal-compatibility';
-import { catchError, switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
-import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
+import { CreateClaimService } from './create-claim.service';
 
 @Component({
     templateUrl: 'create-claim.component.html',
+    providers: [CreateClaimService],
 })
 export class CreateClaimComponent implements OnInit {
-    form: FormGroup;
-    isLoading$: boolean;
+    form = this.createClaimService.form;
+    isLoading$ = this.createClaimService.inProgress$;
+
+    private claim$ = this.createClaimService.claim$;
 
     constructor(
         private dialogRef: MatDialogRef<CreateClaimComponent>,
-        private fb: FormBuilder,
         private router: Router,
-        private route: ActivatedRoute,
-        private claimService: ClaimManagementService
+        private createClaimService: CreateClaimService,
     ) {}
 
-    ngOnInit() {
-        this.form = this.fb.group({
-            partyId: ['', Validators.required],
-        });
-    }
-
-    submit() {
-        const { partyId } = this.form.value;
-        forkJoin([of(this.form.value.partyId), this.claimService.createClaim(partyId, [])])
+    ngOnInit(): void {
+        this.claim$
             .pipe(
-                switchMap(([partyID, claim]) =>
+                tap((q) => console.log(q)),
+                switchMap((claim) =>
                     fromPromise(
-                        this.router.navigate([`claim-mgt/party/${partyID}/claim/${claim.id}`])
+                        this.router.navigate([
+                            `claim-mgt/party/${claim.party_id}/claim/${claim.id}`,
+                        ])
                     )
                 )
             )
-            .subscribe(() => {
-                this.dialogRef.close();
-            });
+            .subscribe(
+                () => {
+                    this.dialogRef.close();
+                }
+            );
+    }
+
+    submit() {
+        this.createClaimService.createClaim();
     }
 }
