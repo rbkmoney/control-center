@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { switchMap, tap } from 'rxjs/operators';
@@ -20,7 +19,7 @@ export class CreateClaimComponent implements OnInit {
     constructor(
         private dialogRef: MatDialogRef<CreateClaimComponent>,
         private router: Router,
-        private createClaimService: CreateClaimService,
+        private createClaimService: CreateClaimService
     ) {}
 
     ngOnInit(): void {
@@ -35,11 +34,9 @@ export class CreateClaimComponent implements OnInit {
                     )
                 )
             )
-            .subscribe(
-                () => {
-                    this.dialogRef.close();
-                }
-            );
+            .subscribe(() => {
+                this.dialogRef.close();
+            });
     }
 
     submit() {
