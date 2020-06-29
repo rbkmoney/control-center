@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { BehaviorSubject, EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
-
-import { CreateClaimService as CreateClaimServiceGeneric } from '../create-claim.service';
-import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { pluck } from 'rxjs/operators';
+
+import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
+import { CreateClaimService as CreateClaimServiceGeneric } from '../create-claim.service';
 
 @Injectable()
 export class CreateClaimService extends CreateClaimServiceGeneric {
