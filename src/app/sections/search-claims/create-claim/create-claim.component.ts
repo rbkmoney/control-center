@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { fromPromise } from 'rxjs/internal-compatibility';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 import { CreateClaimService } from './create-claim.service';
 
@@ -25,7 +25,6 @@ export class CreateClaimComponent implements OnInit {
     ngOnInit(): void {
         this.claim$
             .pipe(
-                tap((q) => console.log(q)),
                 switchMap((claim) =>
                     fromPromise(
                         this.router.navigate([
