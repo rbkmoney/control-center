@@ -16,11 +16,11 @@ export class SearchTableComponent {
 
     constructor(private router: Router) {}
 
-    navigateToClaim(partyID: string, claimID: number) {
+    navigateToDeprecated(partyID: string, claimID: number) {
         this.router.navigate(['claim-mgt', 'party', partyID, 'claim', claimID + '']);
     }
 
-    navigateToParty(partyID: string) {
-        this.router.navigate([`/party/${partyID}`]);
+    navigateToClaim(partyID: string, claimID: number) {
+        this.router.navigate([`/party/${partyID}/claim/${claimID}`]);
     }
 }

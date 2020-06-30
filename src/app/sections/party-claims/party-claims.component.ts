@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { filter } from 'rxjs/operators';
 
+import { ConfirmActionDialogComponent } from '../../confirm-action-dialog';
 import { SearchFormValue } from '../claim-search-form';
 import { CreateClaimService } from './create-claim.service';
 import { PartyClaimsService } from './party-claims.service';
@@ -18,7 +21,8 @@ export class PartyClaimsComponent implements OnInit {
     constructor(
         private partyClaimsService: PartyClaimsService,
         private snackBar: MatSnackBar,
-        private createClaimService: CreateClaimService
+        private createClaimService: CreateClaimService,
+        private dialogRef: MatDialog
     ) {}
 
     ngOnInit() {
@@ -36,6 +40,12 @@ export class PartyClaimsComponent implements OnInit {
     }
 
     createClaim() {
-        this.createClaimService.createClaim();
+        const dialog = this.dialogRef.open(ConfirmActionDialogComponent);
+        dialog
+            .afterClosed()
+            .pipe(filter((r) => r === 'confirm'))
+            .subscribe(() => {
+                this.createClaimService.createClaim();
+            });
     }
 }
