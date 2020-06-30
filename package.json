@@ -39,7 +39,7 @@
     "angular-file": "3.0.1",
     "angular2-prettyjson": "3.0.1",
     "ank-proto": "git+ssh://git@github.com:rbkmoney/ank-proto.git#21edf79b702e704ccc207bf7e03be1bbf830eed6",
-    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#b4850bf46b22cd679a3b46e0f5b65afe2934af75",
+    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#d0e949b965e17207f6a72b64e0d83575e18779e5",
     "file-storage-proto": "git+ssh://git@github.com:rbkmoney/file-storage-proto.git#281e1ca4cea9bf32229a6c389f0dcf5d49c05a0b",
     "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#c2113c853ed71a34bb6468b9a6cf9b468967af84",
     "humanize-duration": "~3.21.0",
