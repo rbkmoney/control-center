@@ -37,7 +37,10 @@
                 <!--                    Details-->
                 <!--                </button>-->
                 <button mat-menu-item (click)="navigateToDeprecated(claim.party_id, claim.id)">
-                    Details Deprecated
+                    Details deprecated
+                </button>
+                <button mat-menu-item (click)="navigateToParty(claim.party_id)">
+                    Party claims
                 </button>
             </mat-menu>
         </td>
