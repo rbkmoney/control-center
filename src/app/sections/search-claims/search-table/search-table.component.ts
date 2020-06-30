@@ -19,4 +19,8 @@ export class SearchTableComponent {
     navigateToClaim(partyID: string, claimID: number) {
         this.router.navigate(['claim-mgt', 'party', partyID, 'claim', claimID + '']);
     }
+
+    navigateToParty(partyID: string) {
+        this.router.navigate([`/party/${partyID}`]);
+    }
 }
