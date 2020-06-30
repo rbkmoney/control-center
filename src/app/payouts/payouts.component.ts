@@ -8,7 +8,7 @@ import { SearchFormService } from './search-form/search-form.service';
 
 @Component({
     templateUrl: 'payouts.component.html',
-    styleUrls: ['./payouts.component.css'],
+    styleUrls: ['./payouts.component.scss'],
     providers: [SearchFormService],
 })
 export class PayoutsComponent {

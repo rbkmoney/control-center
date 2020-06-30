@@ -1,12 +1,13 @@
-<form [formGroup]="form" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between end">
+<form [formGroup]="form" fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="end start">
     <mat-form-field fxFlex>
         <mat-label>Leave a comment...</mat-label>
         <input formControlName="comment" matInput type="text" autocomplete="off" />
         <mat-hint
             [ngClass]="{
-                hasError: (commentLength$ | async) > 1000
+                'cc-caption': true,
+                'cc-send-comment-error': form.controls.comment.value?.length > 1000
             }"
-            >{{ commentLength$ | async }} / 1000</mat-hint
+            >{{ form.controls.comment.value?.length || 0 }}/1000</mat-hint
         >
     </mat-form-field>
     <div class="send-comment-action">

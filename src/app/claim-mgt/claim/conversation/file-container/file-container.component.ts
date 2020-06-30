@@ -5,7 +5,7 @@ import { FileContainerService } from './file-container.service';
 @Component({
     selector: 'cc-file-container',
     templateUrl: 'file-container.component.html',
-    styleUrls: ['file-container.component.css'],
+    styleUrls: ['file-container.component.scss'],
     providers: [FileContainerService],
 })
 export class FileContainerComponent implements OnInit {

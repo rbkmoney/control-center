@@ -18,7 +18,7 @@ import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 @Component({
     selector: 'cc-payment-adjustment-table',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.component.css'],
+    styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, OnChanges {
     @Input()

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import get from 'lodash-es/get';
 import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, pluck, startWith, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 
 import { KeycloakTokenInfoService } from '../../../keycloak-token-info.service';
@@ -29,10 +29,6 @@ export class SendCommentService {
     inProgress$: Observable<boolean> = progress(
         this.sendComment$,
         merge(this.conversationId$, this.error$)
-    );
-    commentLength$ = this.form.valueChanges.pipe(
-        startWith({ comment: '' }),
-        map((v) => v.comment.length)
     );
 
     constructor(

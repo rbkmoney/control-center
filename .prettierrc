@@ -1,11 +1,5 @@
 {
     "printWidth": 100,
     "singleQuote": true,
-    "tabWidth": 4,
-    "overrides": [
-        {
-            "files": "*.svg",
-            "options": { "parser": "html" }
-        }
-    ]
+    "tabWidth": 4
 }

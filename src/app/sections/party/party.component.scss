@@ -1,12 +1,8 @@
 .party-container {
-    max-width: 900px;
-    margin: 20px auto;
-}
-
-.header {
-    color: rgba(0, 0, 0, 0.54);
+    max-width: 936px;
+    margin: 25px auto;
 }
 
 router-outlet {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
