@@ -9,6 +9,12 @@
             [initialValue]="modification?.creation"
         >
         </cc-contract-params>
+        <cc-contract-params-legacy
+            *ngIf="action.name === contractModificationNames.legacyCreation"
+            [form]="form.get('modification')"
+            [initialValue]="modification?.creation"
+        >
+        </cc-contract-params-legacy>
         <cc-contract-payout-tool-modification-unit
             *ngIf="action.name === contractModificationNames.payoutToolModification"
             [form]="form.get('modification')"

@@ -1,0 +1,8 @@
+<form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="5px">
+    <cc-contractor-id [form]="form" [initialValue]="initialValue?.contractor_id"></cc-contractor-id>
+    <cc-payment-institution-ref
+        [form]="form.get('payment_institution')"
+        [initialValue]="initialValue?.payment_institution"
+        [required]="true"
+    ></cc-payment-institution-ref>
+</form>

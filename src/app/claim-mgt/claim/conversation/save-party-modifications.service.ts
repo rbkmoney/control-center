@@ -9,6 +9,7 @@ import {
     map,
     pluck,
     shareReplay,
+    startWith,
     switchMap,
     tap,
 } from 'rxjs/operators';
@@ -26,6 +27,7 @@ export class SavePartyModificationsService {
     private saving$: Subject<boolean> = new Subject();
 
     unsavedModifications$: Observable<PartyModification[]> = this.unsaved$.pipe(
+        startWith([]),
         distinctUntilChanged(isEqual),
         shareReplay(1)
     );

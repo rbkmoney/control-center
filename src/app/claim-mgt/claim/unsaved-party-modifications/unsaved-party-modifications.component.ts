@@ -43,4 +43,8 @@ export class UnsavedPartyModificationsComponent implements OnChanges, OnInit {
     remove(pos: number) {
         this.unsavedPartyModService.remove(pos);
     }
+
+    edit(pos: number) {
+        this.unsavedPartyModService.edit(pos);
+    }
 }
