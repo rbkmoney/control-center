@@ -26,6 +26,10 @@ export class ClaimsTableComponent {
     constructor(private router: Router) {}
 
     navigateToClaim(partyID: PartyID, claimID: ClaimID) {
+        this.router.navigate([`/party/${partyID}/claim/${claimID}`]);
+    }
+
+    navigateToDeprecatedClaim(partyID: PartyID, claimID: ClaimID) {
         this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
     }
 }

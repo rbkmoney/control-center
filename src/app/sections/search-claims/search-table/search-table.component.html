@@ -33,11 +33,8 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <!--                <button mat-menu-item (click)="navigateToClaim(claim.party_id, claim.id)">-->
-                <!--                    Details-->
-                <!--                </button>-->
-                <button mat-menu-item (click)="navigateToDeprecated(claim.party_id, claim.id)">
-                    Details deprecated
+                <button mat-menu-item (click)="navigateToClaim(claim.party_id, claim.id)">
+                    Details
                 </button>
                 <button mat-menu-item (click)="navigateToParty(claim.party_id)">
                     Party claims

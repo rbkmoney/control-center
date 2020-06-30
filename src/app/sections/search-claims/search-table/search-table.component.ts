@@ -16,12 +16,8 @@ export class SearchTableComponent {
 
     constructor(private router: Router) {}
 
-    navigateToDeprecated(partyID: string, claimID: number) {
-        this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
-    }
-
     navigateToClaim(partyID: string, claimID: number) {
-        this.router.navigate([`/party/${partyID}/claim/${claimID}`]);
+        this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
     }
 
     navigateToParty(party_id: string) {
