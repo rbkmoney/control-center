@@ -38,7 +38,10 @@
             </button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="navigateToClaim(claim.party_id, claim.id)">
-                    Claim details
+                    Details
+                </button>
+                <button mat-menu-item (click)="navigateToDeprecatedClaim(claim.party_id, claim.id)">
+                    Deprecated details
                 </button>
             </mat-menu>
         </td>

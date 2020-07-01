@@ -1,6 +1,9 @@
-<div fxLayout="column" fxLayoutGap="30px">
-    <div class="cc-headline">Party claims</div>
-    <div fxLayout="column" fxLayoutGap="25px">
+<div fxLayout="column">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="mat-headline">Party claims</div>
+        <button mat-button color="primary" (click)="createClaim()">CREATE</button>
+    </div>
+    <div fxLayout="column" fxLayoutGap="20px">
         <mat-card>
             <mat-card-content>
                 <cc-claim-search-form
