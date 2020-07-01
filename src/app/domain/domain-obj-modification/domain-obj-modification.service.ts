@@ -36,7 +36,7 @@ export class DomainObjModificationService {
             this.errors$.next(e);
             console.error('Build meta error:', e);
         });
-        this.metaApplicator.errors.subscribe((e) => console.log('Apply meta error:', e));
+        this.metaApplicator.errors.subscribe((e) => console.error('Apply meta error:', e));
     }
 
     init(namespace = 'domain'): Observable<DomainModificationModel> {

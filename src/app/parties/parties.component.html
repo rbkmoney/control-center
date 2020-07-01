@@ -9,10 +9,24 @@
                 <button
                     mat-raised-button
                     color="primary"
-                    (click)="goToParty()"
+                    (click)="goToParty(true)"
                     [disabled]="!form.valid"
                 >
-                    <span *ngIf="!isLoading">Go</span>
+                    <span *ngIf="!isLoading">To party details</span>
+                    <mat-progress-spinner
+                        *ngIf="isLoading"
+                        color="accent"
+                        mode="indeterminate"
+                        diameter="30"
+                    ></mat-progress-spinner>
+                </button>
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="goToParty(false)"
+                    [disabled]="!form.valid"
+                >
+                    <span *ngIf="!isLoading">To party claims (new)</span>
                     <mat-progress-spinner
                         *ngIf="isLoading"
                         color="accent"
