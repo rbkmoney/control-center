@@ -7,5 +7,6 @@ import { ClaimChangeset } from '../../../thrift-services/damsel/gen-model/claim_
     templateUrl: 'conversation.component.html',
 })
 export class ConversationComponent {
-    @Input() changeset: ClaimChangeset;
+    @Input()
+    changeset: ClaimChangeset;
 }

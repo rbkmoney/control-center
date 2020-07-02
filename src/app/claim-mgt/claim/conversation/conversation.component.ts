@@ -76,7 +76,6 @@ export class ConversationComponent implements OnChanges, OnInit {
     }
 
     ngOnInit() {
-        console.log(this.claim);
         this.recreateClaimService.recreated$
             .pipe(
                 switchMap(({ party_id, id }) =>
