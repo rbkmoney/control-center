@@ -32,7 +32,14 @@
                             "src/favicon.ico",
                             "src/assets"
                         ],
-                        "styles": ["src/styles.scss"],
+                        "styles": [
+                            "src/app/styles/core.scss",
+                            {
+                                "input": "src/app/styles/themes/light.scss",
+                                "bundleName": "themes/light",
+                                "lazy": true
+                            }
+                        ],
                         "scripts": ["./node_modules/keycloak-js/dist/keycloak.js"]
                     },
                     "configurations": {

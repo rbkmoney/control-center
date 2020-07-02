@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+@import './theme';
+
+body.light {
+    background-color: mat-color($mat-gray, 50);
+}
+
+$theme: (
+    primary: mat-palette($mat-indigo),
+    accent: mat-palette($mat-pink),
+    warn: mat-palette($mat-red),
+    is-dark: false,
+    foreground: $mat-light-theme-foreground,
+    background: $mat-light-theme-background,
+    /*
+* Custom
+*
+*/ name: 'light',
+    gray: mat-palette($mat-grey),
+);
+
+@include cc-theme($theme);

@@ -1,6 +1,6 @@
-<div class="search-claims-container" fxLayout="column">
-    <div class="mat-headline">Claims</div>
-    <div fxLayout="column" fxLayoutGap="20px">
+<div class="search-claims-container" fxLayout="column" fxLayoutGap="24px">
+    <h1 class="cc-headline">Claims</h1>
+    <div fxLayout="column" fxLayoutGap="24px">
         <mat-card>
             <mat-card-content>
                 <cc-claim-search-form (valueChanges)="search($event)"></cc-claim-search-form>
@@ -11,7 +11,7 @@
         </mat-card>
         <ng-container *ngIf="claims$ | async as claims">
             <cc-empty-search-result *ngIf="claims.length === 0"></cc-empty-search-result>
-            <mat-card *ngIf="claims.length > 0" fxLayout="column" fxLayoutGap="20px">
+            <mat-card *ngIf="claims.length > 0" fxLayout="column" fxLayoutGap="18px">
                 <cc-search-table [claims]="claims"></cc-search-table>
                 <button
                     fxFlex="100"

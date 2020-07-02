@@ -31,7 +31,7 @@ interface Element {
 @Component({
     selector: 'cc-repair-with-scenario',
     templateUrl: 'repair-with-scenario.component.html',
-    styleUrls: ['../repairing.component.css'],
+    styleUrls: ['../repairing.component.scss'],
     providers: [],
 })
 export class RepairWithScenarioComponent {

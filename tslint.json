@@ -20,8 +20,8 @@
             {
                 "grouped-imports": true,
                 "groups": [
-                    { "name": "node_modules", "match": "^(?![.]|@dsh/)", "order": 10 },
-                    { "name": "project", "match": "^@dsh/", "order": 20 },
+                    { "name": "node_modules", "match": "^(?![.]|@cc/)", "order": 10 },
+                    { "name": "project", "match": "^@cc/", "order": 20 },
                     { "name": "current", "match": "^[.]", "order": 30 }
                 ]
             }

@@ -31,6 +31,8 @@ import { PayoutsModule } from './payouts/payouts.module';
 import { RepairingModule } from './repairing/repairing.module';
 import { PartyModule } from './sections/party/party.module';
 import { SearchClaimsModule } from './sections/search-claims/search-claims.module';
+import { SettingsModule } from './settings';
+import { ThemeManager, ThemeManagerModule, ThemeName } from './theme-manager';
 
 /**
  * For use in specific locations (for example, questionary PDF document)
@@ -59,6 +61,8 @@ moment.locale('en');
         PartyModule,
         DomainModule,
         RepairingModule,
+        ThemeManagerModule,
+        SettingsModule,
         DepositsModule,
         ClaimMgtModule,
         PartyModule,
@@ -73,4 +77,8 @@ moment.locale('en');
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+    constructor(private themeManager: ThemeManager) {
+        this.themeManager.change(ThemeName.light);
+    }
+}

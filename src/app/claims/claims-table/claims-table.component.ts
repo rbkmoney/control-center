@@ -7,7 +7,7 @@ import { ClaimInfo } from '../../papi/model';
 @Component({
     selector: 'cc-claims-table',
     templateUrl: 'claims-table.component.html',
-    styleUrls: ['./claims-table.component.css'],
+    styleUrls: ['./claims-table.component.scss'],
 })
 export class ClaimsTableComponent {
     @Input()

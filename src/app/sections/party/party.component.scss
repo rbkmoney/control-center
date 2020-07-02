@@ -1,8 +1,8 @@
 .party-container {
-    max-width: 900px;
-    margin: 20px auto;
+    max-width: 936px;
+    margin: 24px auto;
 }
 
 router-outlet {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
