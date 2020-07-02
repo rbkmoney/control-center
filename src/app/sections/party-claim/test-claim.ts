@@ -1,6 +1,7 @@
-import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 import { Int64 } from 'thrift-ts/lib';
 import * as uuid from 'uuid/v4';
+
+import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 
 export const testClaim = (): Claim => ({
     id: new Int64(3310),
