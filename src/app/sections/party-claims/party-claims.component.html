@@ -1,9 +1,10 @@
-<div fxLayout="column">
+<div fxLayout="column" fxLayoutGap="24px">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="mat-headline">Party claims</div>
+        <div class="сс-headline">Party claims</div>
         <button mat-button color="primary" (click)="createClaim()">CREATE</button>
     </div>
-    <div fxLayout="column" fxLayoutGap="20px">
+    <div class="cc-headline">Party claims</div>
+    <div fxLayout="column" fxLayoutGap="24px">
         <mat-card>
             <mat-card-content>
                 <cc-claim-search-form
@@ -17,7 +18,7 @@
         </mat-card>
         <ng-container *ngIf="claims$ | async as claims">
             <cc-empty-search-result *ngIf="claims.length === 0"></cc-empty-search-result>
-            <mat-card *ngIf="claims.length > 0" fxLayout="column" fxLayoutGap="20px">
+            <mat-card *ngIf="claims.length > 0" fxLayout="column" fxLayoutGap="16px">
                 <cc-claims-table [claims]="claims"></cc-claims-table>
                 <button
                     fxFlex="100"
