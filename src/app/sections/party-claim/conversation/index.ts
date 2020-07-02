@@ -1,1 +1,1 @@
-export * from './conversation.module'
+export * from './conversation.module';
