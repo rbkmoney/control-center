@@ -5,13 +5,14 @@
     $orange: map-get($theme, orange);
     $red: map-get($theme, red);
     $green: map-get($theme, green);
+    $white: map-get($theme, white);
 
     .cc-timeline-item-badge {
         &.primary {
             background-color: $blue;
 
             mat-icon {
-                color: white;
+                color: $white;
             }
         }
 
@@ -19,7 +20,7 @@
             background-color: $orange;
 
             mat-icon {
-                color: white;
+                color: $white;
             }
         }
 
@@ -27,7 +28,7 @@
             background-color: $red;
 
             mat-icon {
-                color: white;
+                color: $white;
             }
         }
 
@@ -35,7 +36,7 @@
             background-color: $green;
 
             mat-icon {
-                color: white;
+                color: $white;
             }
         }
     }
