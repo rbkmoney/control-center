@@ -115,13 +115,8 @@
         <mat-divider></mat-divider>
     </div>
 
-    <mat-card fxLayout="column" fxLayoutGap="24px" *ngIf="canAddClaimMod || canAddPartyMod">
-        <mat-card-content
-            fxLayout="row"
-            fxLayoutGap="8px"
-            fxLayoutAlign="space-between center"
-            *ngIf="canAddClaimMod"
-        >
+    <mat-card fxLayout="column" fxLayoutGap="24px">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center">
             <cc-send-comment
                 fxFlex="100"
                 [disabled]="!canAddClaimMod"
@@ -138,7 +133,9 @@
             *ngIf="canAddPartyMod"
         >
             <button mat-button disabled>CHANGE STATUS</button>
-            <button mat-button (click)="addPartyModification()">ADD PARTY MODIFICATION</button>
+            <button mat-button (click)="addPartyModification()" [disabled]="canAddPartyMod">
+                ADD PARTY MODIFICATION
+            </button>
         </mat-card-actions>
     </mat-card>
 </div>
