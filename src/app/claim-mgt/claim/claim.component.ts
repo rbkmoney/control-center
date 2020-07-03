@@ -14,8 +14,7 @@ import { RecreateClaimService } from './recreate-claim';
 export class ClaimComponent implements OnInit {
     claim$ = this.claimService.claim$;
 
-    constructor(private route: ActivatedRoute, private claimService: ClaimService) {
-    }
+    constructor(private route: ActivatedRoute, private claimService: ClaimService) {}
 
     ngOnInit() {
         this.getClaim();

@@ -1,14 +1,9 @@
 @import '~@angular/material/theming';
 
 @mixin cc-timeline-item-badge-theme($theme) {
-    //$primary: map-get($theme, primary);
-    //$warn: map-get($theme, warn);
-    //$error: map-get($theme, error);
-    //$success: map-get($theme, success);
-
     .cc-timeline-item-badge {
         &.primary {
-            background-color: #0366d6;
+            background-color: mat-color($mat-blue, A700);
 
             mat-icon {
                 color: white;
@@ -16,7 +11,7 @@
         }
 
         &.warn {
-            background-color: #dbab09;
+            background-color: mat-color($mat-orange, 400);
 
             mat-icon {
                 color: white;
@@ -24,7 +19,7 @@
         }
 
         &.error {
-            background-color: #cb2431;
+            background-color: mat-color($mat-red, 600);
 
             mat-icon {
                 color: white;
@@ -32,7 +27,7 @@
         }
 
         &.success {
-            background-color: #2cbe4e;
+            background-color: mat-color($mat-green, A700);
 
             mat-icon {
                 color: white;
