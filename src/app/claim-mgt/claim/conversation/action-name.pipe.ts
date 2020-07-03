@@ -12,8 +12,8 @@ const timelineActionNameToTitle: { [N in TimelineAction]: string } = {
     [TimelineAction.filesDeleted]: 'removed files',
     [TimelineAction.commentAdded]: 'added message',
     [TimelineAction.commentDeleted]: 'removed message',
-    [TimelineAction.addedDocument]: 'added document',
-    [TimelineAction.partyModification]: 'added party modification',
+    [TimelineAction.documentAdded]: 'added document',
+    [TimelineAction.partyModificationAdded]: 'added party modification',
 };
 
 @Pipe({

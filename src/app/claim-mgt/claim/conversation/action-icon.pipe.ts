@@ -15,8 +15,8 @@ export class ActionIconPipe implements PipeTransform {
             [TimelineAction.statusAccepted]: 'check',
             [TimelineAction.filesAdded]: 'attach_file',
             [TimelineAction.commentAdded]: 'add_comment',
-            [TimelineAction.addedDocument]: 'add',
-            [TimelineAction.partyModification]: 'add',
+            [TimelineAction.documentAdded]: 'add',
+            [TimelineAction.partyModificationAdded]: 'add',
             [TimelineAction.commentDeleted]: 'clear',
             [TimelineAction.filesDeleted]: 'clear',
         } as const)[action];

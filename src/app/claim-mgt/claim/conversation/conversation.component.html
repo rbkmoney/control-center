@@ -75,11 +75,11 @@
                         [statusModificationUnit]="m.claim_modification.status_modification"
                     ></cc-reason>
                     <cc-questionary
-                        *ngIf="item.action === timelineAction.addedDocument"
+                        *ngIf="item.action === timelineAction.documentAdded"
                         [questionary]="questionary$ | async"
                     ></cc-questionary>
                 </ng-container>
-                <ng-container *ngIf="item.action === timelineAction.partyModification">
+                <ng-container *ngIf="item.action === timelineAction.partyModificationAdded">
                     <mat-expansion-panel *ngFor="let modification of item.modifications">
                         <mat-expansion-panel-header>
                             <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>

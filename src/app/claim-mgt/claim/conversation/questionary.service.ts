@@ -12,7 +12,7 @@ import { TimelineAction } from './to-timeline-info/model';
 export class QuestionaryService {
     questionary$ = this.conversationService.timelineInfos$.pipe(
         map((timelineInfos) =>
-            timelineInfos.find((i) => i.action === TimelineAction.addedDocument)
+            timelineInfos.find((i) => i.action === TimelineAction.documentAdded)
         ),
         pluck('modifications', 0, 'claim_modification', 'document_modification', 'id'),
         switchMap((id) => combineLatest([of(id), this.route.params.pipe(pluck('party_id'))])),

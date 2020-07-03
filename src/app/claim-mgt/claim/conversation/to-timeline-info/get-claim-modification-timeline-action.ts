@@ -47,7 +47,7 @@ function getCommentAction(m: CommentModification): TimelineAction | null {
 export function getClaimModificationTimelineAction(m: ClaimModification): TimelineAction | null {
     switch (getUnionKey(m)) {
         case 'document_modification':
-            return TimelineAction.addedDocument;
+            return TimelineAction.documentAdded;
         case 'status_modification':
             return getStatusModificationTimelineAction(
                 m.status_modification as StatusModificationUnit

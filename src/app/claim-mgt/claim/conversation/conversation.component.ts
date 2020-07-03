@@ -159,10 +159,10 @@ export class ConversationComponent implements OnChanges, OnInit {
 
     getBadgeColor(action: TimelineAction) {
         switch (action) {
-            case TimelineAction.addedDocument:
+            case TimelineAction.documentAdded:
             case TimelineAction.filesAdded:
             case TimelineAction.commentAdded:
-            case TimelineAction.partyModification:
+            case TimelineAction.partyModificationAdded:
                 return 'primary';
             case TimelineAction.statusRevoked:
                 return 'warn';

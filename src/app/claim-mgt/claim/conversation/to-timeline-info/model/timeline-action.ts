@@ -1,6 +1,6 @@
 export enum TimelineAction {
-    partyModification = 'partyModification',
-    addedDocument = 'addedDocument',
+    partyModificationAdded = 'partyModificationAdded',
+    documentAdded = 'documentAdded',
     filesAdded = 'filesAdded',
     filesDeleted = 'filesDeleted',
     commentAdded = 'commentAdded',
