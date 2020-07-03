@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="20px">
+<div fxLayout="column" fxLayoutGap="18px">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
         <h3 class="cc-title">Changeset</h3>
         <mat-form-field fxFlex="0 1 266px">
@@ -133,7 +133,11 @@
             *ngIf="canAddPartyMod"
         >
             <button mat-button disabled>CHANGE STATUS</button>
-            <button mat-button (click)="addPartyModification()" [disabled]="canAddPartyMod">
+            <button
+                mat-button
+                (click)="addPartyModification()"
+                [disabled]="!canAddClaimMod && !canAddPartyMod"
+            >
                 ADD PARTY MODIFICATION
             </button>
         </mat-card-actions>
