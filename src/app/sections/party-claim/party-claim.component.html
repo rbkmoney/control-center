@@ -5,25 +5,5 @@
         </h3>
         <h3 class="cc-headline">{{ 'Review' }}</h3>
     </div>
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
-        <h3 class="cc-title">Changeset</h3>
-        <mat-form-field fxFlex="0 1 266px">
-            <mat-label>Changeset filters</mat-label>
-            <mat-select>
-                <mat-option>
-                    eekekekkekek
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+    <cc-claim-conversation [claim]="testClaim"></cc-claim-conversation>
 </div>
-<mat-card fxLayout="column" fxLayoutGap="24px">
-    <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center">
-        <cc-send-comment fxFlex="100"></cc-send-comment>
-        <cc-file-uploader></cc-file-uploader>
-    </mat-card-content>
-    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-button>CHANGE STATUS</button>
-        <button mat-button>ADD PARTY MODIFICATION</button>
-    </mat-card-actions>
-</mat-card>

@@ -1,10 +1,36 @@
 <div fxLayout="column" fxLayoutGap="20px">
-    <h2 class="mat-title">Changeset</h2>
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
+        <h3 class="cc-title">Changeset</h3>
+        <mat-form-field fxFlex="0 1 266px">
+            <mat-label>Changeset filters</mat-label>
+            <mat-select disabled>
+                <mat-option>
+                    eekekekkekek
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <cc-timeline *ngIf="timelineInfo$ | async as timelineInfo">
+        <cc-timeline-item>
+            <cc-timeline-item-title>
+                <div class="cc-body-1">
+                    Claim created at
+                    {{ claim.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                        claim.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
+                    }})
+                </div>
+            </cc-timeline-item-title>
+            <cc-timeline-item-badge>
+                <mat-icon>create</mat-icon>
+            </cc-timeline-item-badge>
+        </cc-timeline-item>
         <cc-timeline-item *ngFor="let item of timelineInfo">
             <cc-timeline-item-title>
-                <div class="mat-caption">
-                    {{ item.action | actionName }} by {{ item.user_info.username }} at
+                <div class="cc-body-1">
+                    <span class="cc-conversation-thicc-username">{{
+                        item.user_info.username
+                    }}</span>
+                    {{ item.action | actionName }} at
                     {{ item.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
                         item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
                     }})
@@ -24,7 +50,7 @@
                     </mat-menu>
                 </div>
             </cc-timeline-item-title>
-            <cc-timeline-item-badge>
+            <cc-timeline-item-badge [color]="getBadgeColor(item.action)">
                 <mat-icon>{{ item.action | actionIcon }}</mat-icon>
             </cc-timeline-item-badge>
             <cc-timeline-item-content
@@ -49,7 +75,7 @@
                         [statusModificationUnit]="m.claim_modification.status_modification"
                     ></cc-reason>
                     <cc-questionary
-                        *ngIf="item.action === timelineAction.changesAdded"
+                        *ngIf="item.action === timelineAction.addedDocument"
                         [questionary]="questionary$ | async"
                     ></cc-questionary>
                 </ng-container>
@@ -88,28 +114,68 @@
         </div>
         <mat-divider></mat-divider>
     </div>
-    <mat-card *ngIf="canAddClaimMod || canAddPartyMod">
+
+    <mat-card fxLayout="column" fxLayoutGap="24px" *ngIf="canAddClaimMod || canAddPartyMod">
         <mat-card-content
             fxLayout="row"
-            fxLayoutGap="10px"
+            fxLayoutGap="8px"
             fxLayoutAlign="space-between center"
             *ngIf="canAddClaimMod"
         >
-            <cc-file-uploader
-                (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"
-            ></cc-file-uploader>
             <cc-send-comment
                 fxFlex="100"
-                *ngIf="
-                    claimStatus !== claimStatuses.denied &&
-                    claimStatus !== claimStatuses.revoked &&
-                    canAddClaimMod
+                [disabled]="
+                    claimStatus === claimStatuses.denied ||
+                    claimStatus === claimStatuses.revoked ||
+                    claimStatus === claimStatuses.accepted ||
+                    claimStatus === claimStatuses.pending_acceptance ||
+                    !canAddClaimMod
                 "
                 (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
             ></cc-send-comment>
+            <cc-file-uploader
+                [disabled]="
+                    claimStatus === claimStatuses.denied ||
+                    claimStatus === claimStatuses.revoked ||
+                    claimStatus === claimStatuses.accepted ||
+                    claimStatus === claimStatuses.pending_acceptance ||
+                    !canAddClaimMod
+                "
+                (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"
+            ></cc-file-uploader>
         </mat-card-content>
-        <mat-card-actions *ngIf="canAddPartyMod">
+        <mat-card-actions
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            *ngIf="canAddPartyMod"
+        >
+            <button mat-button disabled>CHANGE STATUS</button>
             <button mat-button (click)="addPartyModification()">ADD PARTY MODIFICATION</button>
         </mat-card-actions>
     </mat-card>
+
+    <!--    <mat-card *ngIf="canAddClaimMod || canAddPartyMod">-->
+    <!--        <mat-card-content-->
+    <!--                fxLayout="row"-->
+    <!--                fxLayoutGap="10px"-->
+    <!--                fxLayoutAlign="space-between center"-->
+    <!--                *ngIf="canAddClaimMod"-->
+    <!--        >-->
+    <!--            <cc-file-uploader-->
+    <!--                    (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"-->
+    <!--            ></cc-file-uploader>-->
+    <!--            <cc-send-comment-->
+    <!--                    fxFlex="100"-->
+    <!--                    *ngIf="-->
+    <!--                    claimStatus !== claimStatuses.denied &&-->
+    <!--                    claimStatus !== claimStatuses.revoked &&-->
+    <!--                    canAddClaimMod-->
+    <!--                "-->
+    <!--                    (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"-->
+    <!--            ></cc-send-comment>-->
+    <!--        </mat-card-content>-->
+    <!--        <mat-card-actions *ngIf="canAddPartyMod">-->
+    <!--            <button mat-button (click)="addPartyModification()">ADD PARTY MODIFICATION</button>-->
+    <!--        </mat-card-actions>-->
+    <!--    </mat-card>-->
 </div>

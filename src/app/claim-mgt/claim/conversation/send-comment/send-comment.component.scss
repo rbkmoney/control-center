@@ -1,9 +1,7 @@
-$cc-send-comment-action-padding: 10px 0 0 0;
+@import '~@angular/material/theming';
+
+$cc-send-comment-action-padding: 8px 0 0 0;
 
 .send-comment-action {
     padding: $cc-send-comment-action-padding;
-}
-
-button {
-    margin-bottom: 1.25em;
 }

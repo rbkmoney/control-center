@@ -8,15 +8,17 @@ import { TimelineAction } from './to-timeline-info/model';
 export class ActionIconPipe implements PipeTransform {
     transform(action: TimelineAction): string {
         return ({
-            [TimelineAction.statusPending]: 'visibility',
-            [TimelineAction.statusReview]: 'forward',
-            [TimelineAction.statusRevoked]: 'close',
-            [TimelineAction.statusDenied]: 'close',
-            [TimelineAction.statusAccepted]: 'done',
+            [TimelineAction.statusPending]: 'double_arrow',
+            [TimelineAction.statusReview]: 'double_arrow',
+            [TimelineAction.statusRevoked]: 'block',
+            [TimelineAction.statusDenied]: 'block',
+            [TimelineAction.statusAccepted]: 'check',
             [TimelineAction.filesAdded]: 'attach_file',
-            [TimelineAction.commentAdded]: 'mode_comment',
-            [TimelineAction.changesAdded]: 'add',
+            [TimelineAction.commentAdded]: 'add_comment',
+            [TimelineAction.addedDocument]: 'add',
             [TimelineAction.partyModification]: 'add',
+            [TimelineAction.commentDeleted]: 'clear',
+            [TimelineAction.filesDeleted]: 'clear',
         } as const)[action];
     }
 }

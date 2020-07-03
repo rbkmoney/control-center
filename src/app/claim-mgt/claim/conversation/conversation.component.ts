@@ -35,6 +35,7 @@ import { TimelineAction } from './to-timeline-info/model';
 @Component({
     selector: 'cc-claim-conversation',
     templateUrl: 'conversation.component.html',
+    styleUrls: ['conversation.component.scss'],
     providers: [ConversationService, QuestionaryService, SavePartyModificationsService],
 })
 export class ConversationComponent implements OnChanges, OnInit {
@@ -154,5 +155,23 @@ export class ConversationComponent implements OnChanges, OnInit {
         return (
             modifications.filter((m) => !!m?.claim_modification?.document_modification).length > 0
         );
+    }
+
+    getBadgeColor(action: TimelineAction) {
+        switch (action) {
+            case TimelineAction.addedDocument:
+            case TimelineAction.filesAdded:
+            case TimelineAction.commentAdded:
+            case TimelineAction.partyModification:
+                return 'primary';
+            case TimelineAction.statusRevoked:
+                return 'warn';
+            case TimelineAction.statusDenied:
+                return 'error';
+            case TimelineAction.statusAccepted:
+                return 'success';
+            default:
+                return;
+        }
     }
 }

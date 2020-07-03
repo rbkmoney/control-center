@@ -8,10 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { FileUploaderModule } from './file-uploader/file-uploader.module';
+import { ConversationModule } from '../../claim-mgt/claim/conversation/conversation.module';
 import { PartyClaimRoutingModule } from './party-claim-routing.module';
 import { PartyClaimComponent } from './party-claim.component';
-import { SendCommentModule } from './send-comment/send-comment.module';
 
 @NgModule({
     imports: [
@@ -19,13 +18,12 @@ import { SendCommentModule } from './send-comment/send-comment.module';
         FlexModule,
         MatSelectModule,
         MatCardModule,
-        FileUploaderModule,
         CommonModule,
         MatButtonModule,
         MatIconModule,
         ReactiveFormsModule,
         MatInputModule,
-        SendCommentModule,
+        ConversationModule,
     ],
     declarations: [PartyClaimComponent],
 })

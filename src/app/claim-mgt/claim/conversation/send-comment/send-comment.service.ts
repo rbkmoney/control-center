@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import get from 'lodash-es/get';
@@ -19,7 +19,9 @@ export class SendCommentService {
     private error$: BehaviorSubject<any> = new BehaviorSubject({ hasError: false });
     private sendComment$: Subject<string> = new Subject();
 
-    form: FormGroup;
+    form = this.fb.group({
+        comment: ['', [Validators.maxLength(1000), Validators.required]],
+    });
     conversationSaved$: Observable<ConversationId> = this.conversationId$.pipe(
         filter((id) => !!id)
     );
@@ -35,10 +37,6 @@ export class SendCommentService {
         private keycloakTokenInfoService: KeycloakTokenInfoService,
         private snackBar: MatSnackBar
     ) {
-        this.form = this.fb.group({
-            comment: ['', [Validators.maxLength(1000)]],
-        });
-
         this.sendComment$
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
@@ -76,10 +74,8 @@ export class SendCommentService {
             });
     }
 
-    sendComment(comment: string) {
-        if (comment.length === 0) {
-            return;
-        }
+    sendComment() {
+        const { comment } = this.form.value;
         this.sendComment$.next(comment);
     }
 

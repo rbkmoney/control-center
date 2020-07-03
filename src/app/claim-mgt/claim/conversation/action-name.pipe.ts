@@ -3,15 +3,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TimelineAction } from './to-timeline-info/model';
 
 const timelineActionNameToTitle: { [N in TimelineAction]: string } = {
-    [TimelineAction.statusPending]: 'Changed status to Pending',
-    [TimelineAction.statusReview]: 'Changed status to Review',
-    [TimelineAction.statusRevoked]: 'Changed status to Revoked',
-    [TimelineAction.statusDenied]: 'Changed status to Denied',
-    [TimelineAction.statusAccepted]: 'Changed status to Accepted',
-    [TimelineAction.filesAdded]: 'Files added',
-    [TimelineAction.commentAdded]: 'Comment added',
-    [TimelineAction.changesAdded]: 'Changes added',
-    [TimelineAction.partyModification]: 'Party modification',
+    [TimelineAction.statusPending]: 'changed claim status to pending',
+    [TimelineAction.statusReview]: 'changed claim status to review',
+    [TimelineAction.statusRevoked]: 'revoked claim',
+    [TimelineAction.statusDenied]: 'denied claim',
+    [TimelineAction.statusAccepted]: 'accepted claim',
+    [TimelineAction.filesAdded]: 'added files',
+    [TimelineAction.filesDeleted]: 'removed files',
+    [TimelineAction.commentAdded]: 'added message',
+    [TimelineAction.commentDeleted]: 'removed message',
+    [TimelineAction.addedDocument]: 'added document',
+    [TimelineAction.partyModification]: 'added party modification',
 };
 
 @Pipe({

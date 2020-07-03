@@ -1,13 +1,19 @@
-<form [formGroup]="form" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between end">
+<form [formGroup]="form" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="end start">
     <mat-form-field fxFlex>
-        <mat-label>Write a comment...</mat-label>
+        <mat-label>Leave a comment...</mat-label>
         <input formControlName="comment" matInput type="text" autocomplete="off" />
+        <mat-hint
+            [ngClass]="{
+                'cc-caption': true,
+                'cc-send-comment-error': form.controls.comment.value?.length > 1000
+            }"
+            >{{ form.controls.comment.value?.length || 0 }}/1000</mat-hint
+        >
     </mat-form-field>
     <div class="send-comment-action">
         <button
             mat-icon-button
-            color="accent"
-            (click)="sendComment(form.value.comment)"
+            (click)="sendComment()"
             [disabled]="(inProgress$ | async) || !form.valid"
         >
             <mat-icon>send</mat-icon>
