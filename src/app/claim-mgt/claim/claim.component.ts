@@ -15,7 +15,6 @@ export class ClaimComponent implements OnInit {
     claim$ = this.claimService.claim$;
 
     constructor(private route: ActivatedRoute, private claimService: ClaimService) {
-        this.claim$.subscribe((c) => console.log(c));
     }
 
     ngOnInit() {
