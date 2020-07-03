@@ -8,12 +8,9 @@ import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
 
 @Component({
     templateUrl: 'party-claim.component.html',
-    providers: [ClaimService, RecreateClaimService],
 })
 export class PartyClaimComponent {
     claimID$ = this.route.params.pipe(pluck('claimID'), shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private route: ActivatedRoute) {}
-
-    testClaim = {};
 }
