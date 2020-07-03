@@ -124,23 +124,11 @@
         >
             <cc-send-comment
                 fxFlex="100"
-                [disabled]="
-                    claimStatus === claimStatuses.denied ||
-                    claimStatus === claimStatuses.revoked ||
-                    claimStatus === claimStatuses.accepted ||
-                    claimStatus === claimStatuses.pending_acceptance ||
-                    !canAddClaimMod
-                "
+                [disabled]="!canAddClaimMod"
                 (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
             ></cc-send-comment>
             <cc-file-uploader
-                [disabled]="
-                    claimStatus === claimStatuses.denied ||
-                    claimStatus === claimStatuses.revoked ||
-                    claimStatus === claimStatuses.accepted ||
-                    claimStatus === claimStatuses.pending_acceptance ||
-                    !canAddClaimMod
-                "
+                [disabled]="!canAddClaimMod"
                 (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"
             ></cc-file-uploader>
         </mat-card-content>

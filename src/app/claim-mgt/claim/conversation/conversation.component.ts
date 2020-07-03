@@ -46,13 +46,15 @@ export class ConversationComponent implements OnChanges, OnInit {
     questionary$ = this.questionaryService.questionary$;
     timelineAction = TimelineAction;
     claimStatus: ClaimStatus;
-    claimStatuses = ClaimStatus;
 
     unsavedModifications$ = this.savePartyModService.unsavedModifications$;
     hasUnsavedModifications$ = this.savePartyModService.hasUnsavedModifications$;
     isSaving$ = this.savePartyModService.isSaving$;
 
-    canAddClaimMod = this.appAuthGuardService.userHasRoles(['add_claim_mod']);
+    canAddClaimMod =
+        this.appAuthGuardService.userHasRoles(['add_claim_mod']) ||
+        ClaimStatus === ClaimStatus.pending ||
+        ClaimStatus === ClaimStatus.review;
     canAddPartyMod = this.appAuthGuardService.userHasRoles(['add_party_mod']);
 
     constructor(
