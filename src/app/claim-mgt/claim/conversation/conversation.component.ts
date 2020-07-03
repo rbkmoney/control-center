@@ -52,9 +52,8 @@ export class ConversationComponent implements OnChanges, OnInit {
     isSaving$ = this.savePartyModService.isSaving$;
 
     canAddClaimMod =
-        this.appAuthGuardService.userHasRoles(['add_claim_mod']) ||
-        ClaimStatus === ClaimStatus.pending ||
-        ClaimStatus === ClaimStatus.review;
+        this.appAuthGuardService.userHasRoles(['add_claim_mod']) &&
+        (this.claimStatus === ClaimStatus.pending || this.claimStatus === ClaimStatus.review);
     canAddPartyMod = this.appAuthGuardService.userHasRoles(['add_party_mod']);
 
     constructor(
