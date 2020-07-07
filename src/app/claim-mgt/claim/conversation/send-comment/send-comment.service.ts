@@ -20,7 +20,6 @@ export class SendCommentService {
     private sendComment$: Subject<string> = new Subject();
 
     form: FormGroup;
-
     conversationSaved$: Observable<ConversationId> = this.conversationId$.pipe(
         filter((id) => !!id)
     );
