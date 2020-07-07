@@ -1,9 +1,0 @@
-@import '~@angular/material/theming';
-
-@mixin cc-send-comment-theme($theme) {
-    $warn: map-get($theme, warn);
-
-    .cc-send-comment-error {
-        color: mat-color($warn, 500) !important;
-    }
-}

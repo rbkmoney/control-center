@@ -1,0 +1,103 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
+        <h3 class="cc-title">Changeset</h3>
+        <mat-form-field fxFlex="0 1 266px">
+            <mat-label>Changeset filters</mat-label>
+            <mat-select>
+                <mat-option>
+                    eekekekkekek
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <cc-timeline *ngIf="timelineInfos$ | async as timelineInfos">
+        <cc-timeline-item>
+            <cc-timeline-item-title>
+                <div class="cc-body-1">
+                    Claim created at
+                    {{ claim.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                        claim.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
+                    }})
+                </div>
+            </cc-timeline-item-title>
+            <cc-timeline-item-badge>
+                <mat-icon>create</mat-icon>
+            </cc-timeline-item-badge>
+        </cc-timeline-item>
+        <cc-timeline-item *ngFor="let item of timelineInfos">
+            <cc-timeline-item-title>
+                <div class="cc-body-1">
+                    <span class="cc-conversation-username">{{ item.user_info.username }}</span>
+                    {{ item.action | actionName }} at
+                    {{ item.created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                        item.created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
+                    }})
+                </div>
+                <div>
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu"> </mat-menu>
+                </div>
+            </cc-timeline-item-title>
+            <cc-timeline-item-badge [color]="item.action | ccBadgeColor">
+                <mat-icon>{{ item.action | actionIcon }}</mat-icon>
+            </cc-timeline-item-badge>
+            <cc-timeline-item-content
+                *ngIf="item.modifications.length !== 0"
+                fxLayout="column"
+                fxLayoutGap="20px"
+            >
+                <!--                <ng-container *ngFor="let m of item.modifications">-->
+                <!--                    <cc-file-container-->
+                <!--                            *ngIf="item.action === timelineAction.filesAdded"-->
+                <!--                            [fileID]="m.claim_modification.file_modification.id"-->
+                <!--                    ></cc-file-container>-->
+                <!--                    <cc-conversation-comment-->
+                <!--                            *ngIf="item.action === timelineAction.commentAdded"-->
+                <!--                            [conversation]="item.data"-->
+                <!--                    ></cc-conversation-comment>-->
+                <!--                    <cc-reason-->
+                <!--                            *ngIf="-->
+                <!--                            item.action === timelineAction.statusDenied ||-->
+                <!--                            item.action === timelineAction.statusRevoked-->
+                <!--                        "-->
+                <!--                            [statusModificationUnit]="m.claim_modification.status_modification"-->
+                <!--                    ></cc-reason>-->
+                <!--                    <cc-questionary-->
+                <!--                            *ngIf="item.action === timelineAction.documentAdded"-->
+                <!--                            [questionary]="questionary$ | async"-->
+                <!--                    ></cc-questionary>-->
+                <!--                </ng-container>-->
+                <ng-container *ngIf="item.action === timelineAction.partyModificationAdded">
+                    <mat-expansion-panel *ngFor="let modification of item.modifications">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> {{ getKey(modification) }} </mat-panel-title>
+                            <mat-panel-description>
+                                {{
+                                    modification.claim_modification
+                                        ? getKey(modification.claim_modification)
+                                        : getKey(modification.party_modification)
+                                }}
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <cc-pretty-json [object]="modification"></cc-pretty-json>
+                    </mat-expansion-panel>
+                </ng-container>
+            </cc-timeline-item-content>
+        </cc-timeline-item>
+    </cc-timeline>
+
+    <mat-card fxLayout="column" fxLayoutGap="24px">
+        <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center">
+            <cc-send-comment fxFlex="100"></cc-send-comment>
+            <cc-file-uploader></cc-file-uploader>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-button disabled>CHANGE STATUS</button>
+            <button mat-button>
+                ADD PARTY MODIFICATION
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

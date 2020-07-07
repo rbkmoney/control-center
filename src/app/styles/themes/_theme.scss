@@ -2,7 +2,7 @@
 
 @import '../../sections/party-claim/party-claim-theme';
 @import '../../sections/party/party-theme';
-@import '../../sections/party-claim/send-comment/send-comment-theme';
+@import '../../sections/party-claim/conversation/conversation-theme';
 @import '../../shared/components/timeline/timeline-item/timeline-item-badge/timeline-item-badge-theme';
 
 @mixin cc-theme($theme) {
@@ -10,7 +10,7 @@
         @include angular-material-theme($theme);
         @include cc-party-claim-theme($theme);
         @include cc-party-theme($theme);
-        @include cc-send-comment-theme($theme);
         @include cc-timeline-item-badge-theme($theme);
+        @include cc-conversation-theme($theme);
     }
 }

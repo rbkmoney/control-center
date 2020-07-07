@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { FileUploaderService } from './file-uploader.service';
 
 @Component({
@@ -11,6 +11,9 @@ import { FileUploaderService } from './file-uploader.service';
 export class FileUploaderComponent implements OnInit {
     @Output()
     filesUploaded: EventEmitter<Modification[]> = new EventEmitter();
+
+    @Input()
+    disabled: boolean;
 
     startUploading$ = this.fileUploaderService.startUploading$;
     inProgress$ = this.fileUploaderService.inProgress$;

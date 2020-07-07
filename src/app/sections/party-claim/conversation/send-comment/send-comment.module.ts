@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-import { MessagesModule } from '../../../thrift-services/messages';
+import { MessagesModule } from '../../../../thrift-services/messages';
 import { SendCommentComponent } from './send-comment.component';
 import { SendCommentService } from './send-comment.service';
 

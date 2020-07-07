@@ -1,9 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="32px">
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="24px">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
         <h3 class="cc-headline">
             Claim <span class="cc-party-claim-header">#{{ claimID$ | async }}</span>
         </h3>
         <h3 class="cc-headline">{{ 'Review' }}</h3>
     </div>
-    <cc-claim-conversation></cc-claim-conversation>
+    <cc-conversation></cc-conversation>
 </div>

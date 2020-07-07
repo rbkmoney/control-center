@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ngfModule } from 'angular-file';
 
-import { FileStorageModule } from '../../../thrift-services/file-storage';
+import { FileStorageModule } from '../../../../thrift-services/file-storage';
 import { FileUploaderComponent } from './file-uploader.component';
 import { FileUploaderService } from './file-uploader.service';
 

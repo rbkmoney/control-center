@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { SendCommentService } from './send-comment.service';
 
 @Component({
@@ -11,6 +11,9 @@ import { SendCommentService } from './send-comment.service';
 })
 export class SendCommentComponent implements OnInit {
     @Output() conversationSaved: EventEmitter<Modification[]> = new EventEmitter();
+
+    @Input()
+    disabled?: boolean;
 
     form: FormGroup = this.sendCommentService.form;
     inProgress$ = this.sendCommentService.inProgress$;

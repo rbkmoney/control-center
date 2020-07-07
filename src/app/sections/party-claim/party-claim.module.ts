@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { ConversationModule } from '../../claim-mgt/claim/conversation/conversation.module';
+import { ConversationModule } from './conversation/conversation.module';
 import { PartyClaimRoutingModule } from './party-claim-routing.module';
 import { PartyClaimComponent } from './party-claim.component';
 

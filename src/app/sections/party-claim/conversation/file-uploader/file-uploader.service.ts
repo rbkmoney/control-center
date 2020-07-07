@@ -6,10 +6,10 @@ import * as moment from 'moment';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { FileStorageService } from '../../../thrift-services/file-storage/file-storage.service';
-import { NewFileResult } from '../../../thrift-services/file-storage/gen-model/file_storage';
-import { Value } from '../../../thrift-services/file-storage/gen-model/msgpack';
+import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
+import { NewFileResult } from '../../../../thrift-services/file-storage/gen-model/file_storage';
+import { Value } from '../../../../thrift-services/file-storage/gen-model/msgpack';
 
 @Injectable()
 export class FileUploaderService {
