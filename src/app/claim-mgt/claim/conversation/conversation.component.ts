@@ -35,7 +35,6 @@ import { TimelineAction } from './to-timeline-info/model';
 @Component({
     selector: 'cc-claim-conversation',
     templateUrl: 'conversation.component.html',
-    styleUrls: ['conversation.component.scss'],
     providers: [ConversationService, QuestionaryService, SavePartyModificationsService],
 })
 export class ConversationComponent implements OnChanges, OnInit {
@@ -46,14 +45,13 @@ export class ConversationComponent implements OnChanges, OnInit {
     questionary$ = this.questionaryService.questionary$;
     timelineAction = TimelineAction;
     claimStatus: ClaimStatus;
+    claimStatuses = ClaimStatus;
 
     unsavedModifications$ = this.savePartyModService.unsavedModifications$;
     hasUnsavedModifications$ = this.savePartyModService.hasUnsavedModifications$;
     isSaving$ = this.savePartyModService.isSaving$;
 
-    canAddClaimMod =
-        this.appAuthGuardService.userHasRoles(['add_claim_mod']) &&
-        (this.claimStatus === ClaimStatus.pending || this.claimStatus === ClaimStatus.review);
+    canAddClaimMod = this.appAuthGuardService.userHasRoles(['add_claim_mod']);
     canAddPartyMod = this.appAuthGuardService.userHasRoles(['add_party_mod']);
 
     constructor(
@@ -156,23 +154,5 @@ export class ConversationComponent implements OnChanges, OnInit {
         return (
             modifications.filter((m) => !!m?.claim_modification?.document_modification).length > 0
         );
-    }
-
-    getBadgeColor(action: TimelineAction) {
-        switch (action) {
-            case TimelineAction.documentAdded:
-            case TimelineAction.filesAdded:
-            case TimelineAction.commentAdded:
-            case TimelineAction.partyModificationAdded:
-                return 'primary';
-            case TimelineAction.statusRevoked:
-                return 'warn';
-            case TimelineAction.statusDenied:
-                return 'error';
-            case TimelineAction.statusAccepted:
-                return 'success';
-            default:
-                return;
-        }
     }
 }

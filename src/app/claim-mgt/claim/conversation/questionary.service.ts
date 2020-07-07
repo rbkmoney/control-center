@@ -11,9 +11,7 @@ import { TimelineAction } from './to-timeline-info/model';
 @Injectable()
 export class QuestionaryService {
     questionary$ = this.conversationService.timelineInfos$.pipe(
-        map((timelineInfos) =>
-            timelineInfos.find((i) => i.action === TimelineAction.documentAdded)
-        ),
+        map((timelineInfos) => timelineInfos.find((i) => i.action === TimelineAction.changesAdded)),
         pluck('modifications', 0, 'claim_modification', 'document_modification', 'id'),
         switchMap((id) => combineLatest([of(id), this.route.params.pipe(pluck('party_id'))])),
         switchMap(([quest_id, party_id]) => this.ankService.get(quest_id, party_id)),

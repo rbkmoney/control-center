@@ -32,7 +32,7 @@ import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
 import { QuestionaryModule } from './questionary/questionary.module';
 import { ReasonComponent } from './reason/reason.component';
-import { SendCommentModule } from './send-comment/send-comment.module';
+import { SendCommentComponent } from './send-comment';
 
 @NgModule({
     imports: [
@@ -64,11 +64,11 @@ import { SendCommentModule } from './send-comment/send-comment.module';
         MatDividerModule,
         ExtractPartyModificationModule,
         MatMenuModule,
-        SendCommentModule,
     ],
     declarations: [
         ConversationComponent,
         ReasonComponent,
+        SendCommentComponent,
         ActionIconPipe,
         ActionNamePipe,
         CommentComponent,
