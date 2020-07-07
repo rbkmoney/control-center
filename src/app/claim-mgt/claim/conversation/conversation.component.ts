@@ -65,10 +65,7 @@ export class ConversationComponent implements OnChanges, OnInit {
         private snackBar: MatSnackBar,
         private appAuthGuardService: AppAuthGuardService,
         private dialog: MatDialog
-    ) {
-        this.timelineInfo$.subscribe((q) => console.log(q));
-        this.questionary$.subscribe((q) => console.log(q));
-    }
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         const { currentValue } = changes.claim;

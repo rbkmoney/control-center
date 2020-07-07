@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
@@ -10,7 +10,7 @@ import { SendCommentService } from './send-comment.service';
     styleUrls: ['send-comment.component.scss'],
     providers: [SendCommentService],
 })
-export class SendCommentComponent implements OnInit {
+export class SendCommentComponent {
     @Output() conversationSaved: EventEmitter<Modification[]> = new EventEmitter();
 
     @Input()
@@ -19,11 +19,9 @@ export class SendCommentComponent implements OnInit {
     form: FormGroup = this.sendCommentService.form;
     inProgress$ = this.sendCommentService.inProgress$;
 
-    constructor(private sendCommentService: SendCommentService) {}
-
-    ngOnInit(): void {
+    constructor(private sendCommentService: SendCommentService) {
         this.sendCommentService.conversationSaved$.subscribe((id) =>
-            this.conversationSaved.emit([this.sendCommentService.createModification(id)])
+            this.conversationSaved.next([sendCommentService.createModification(id)])
         );
         this.inProgress$.subscribe((inProgress) => {
             if (inProgress) {
@@ -34,7 +32,7 @@ export class SendCommentComponent implements OnInit {
         });
     }
 
-    sendComment(v: string) {
-        this.sendCommentService.sendComment(v);
+    sendComment(comment: string) {
+        this.sendCommentService.sendComment(comment);
     }
 }
