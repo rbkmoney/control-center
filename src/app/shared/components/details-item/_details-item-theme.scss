@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin cc-details-item-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .cc-details-item-name {
+        color: mat-color($foreground, secondary-text);
+    }
+}

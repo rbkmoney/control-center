@@ -1,8 +1,5 @@
 @import '~@angular/material/theming';
 
-@mixin cc-conversation-theme($theme) {
-}
-
 @mixin cc-conversation-typography($config) {
     .cc-conversation-username {
         @include mat-typography-level-to-styles($config, body-2);

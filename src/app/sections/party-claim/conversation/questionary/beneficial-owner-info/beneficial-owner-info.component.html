@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="10px">
+<div fxLayout="column" fxLayoutGap="16px">
     <cc-details-item title="Процент владения капиталом юридического лица">
         {{ beneficialOwner?.ownership_percentage | emptyDefault }}
     </cc-details-item>
@@ -20,7 +20,7 @@
     <cc-details-item title="Номер миграционной карты">
         {{ beneficialOwner?.migration_card_info?.card_number | emptyDefault }}
     </cc-details-item>
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item title="Дата начала срока пребывания в РФ" fxFlex>{{
             beneficialOwner?.migration_card_info?.beginning_date | date | emptyDefault
         }}</cc-details-item>
@@ -36,7 +36,7 @@
     >
         {{ beneficialOwner?.residence_approve?.name | emptyDefault }}
     </cc-details-item>
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item title="Серия" fxFlex>
             {{ beneficialOwner?.residence_approve?.series | emptyDefault }}
         </cc-details-item>
@@ -44,7 +44,7 @@
             {{ beneficialOwner?.residence_approve?.number | emptyDefault }}
         </cc-details-item>
     </div>
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item title="Дата начала срока действия" fxFlex>{{
             beneficialOwner?.residence_approve?.beginning_date | date | emptyDefault
         }}</cc-details-item>
@@ -55,7 +55,7 @@
 
     <mat-divider></mat-divider>
 
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item title="ИНН" fxFlex>{{
             beneficialOwner?.inn | emptyDefault
         }}</cc-details-item>
@@ -73,7 +73,7 @@
     <mat-divider></mat-divider>
 
     <cc-pdl-info [pdl]="beneficialOwner"></cc-pdl-info>
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item
             title="Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом США?"
             fxFlex

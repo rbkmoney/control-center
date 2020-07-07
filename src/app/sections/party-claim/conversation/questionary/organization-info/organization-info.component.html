@@ -1,5 +1,5 @@
-<div class="cc-organization-info" fxLayout="column" fxLayoutGap="10px">
-    <div fxLayout fxLayoutGap="10px">
+<div class="cc-organization-info" fxLayout="column" fxLayoutGap="16px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item title="Имя" fxFlex>{{ entity?.name | emptyDefault }}</cc-details-item>
         <cc-details-item title="ИНН" fxFlex>{{ entity?.inn | emptyDefault }}</cc-details-item>
     </div>
@@ -12,7 +12,7 @@
     <cc-details-item title="Штатная численность организации">
         {{ entity?.additional_info?.staff_count | emptyDefault }}
     </cc-details-item>
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item title="Наличие в штате главного бухгалтера" fxFlex>
             {{
                 !!entity?.additional_info?.accountant_info?.with_chief_accountant
@@ -44,7 +44,7 @@
 
     <mat-divider></mat-divider>
 
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item fxFlex title="Наличие выгодоприобретателя">
             {{ entity?.additional_info?.has_beneficiary | yesNo | emptyDefault }}
         </cc-details-item>
@@ -58,7 +58,7 @@
 
     <mat-divider></mat-divider>
 
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item fxFlex title="Планируемое количество операций в месяц">
             {{ entity?.additional_info?.month_operation_count | emptyDefault }}
         </cc-details-item>

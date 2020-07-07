@@ -1,11 +1,11 @@
-<div fxLayout="column" fxLayoutGap="10px">
+<div fxLayout="column" fxLayoutGap="16px">
     <cc-private-entity-info
         [privateEntity]="legalOwnerInfo?.russian_private_entity"
     ></cc-private-entity-info>
 
     <mat-divider></mat-divider>
 
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item title="ИНН" fxFlex>{{
             legalOwnerInfo?.inn | emptyDefault
         }}</cc-details-item>
@@ -16,7 +16,7 @@
 
     <mat-divider></mat-divider>
 
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="16px">
         <cc-details-item title="Должность" fxFlex>{{
             legalOwnerInfo?.head_position | emptyDefault
         }}</cc-details-item>
