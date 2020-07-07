@@ -8,6 +8,7 @@ import { SendCommentService } from './send-comment.service';
     selector: 'cc-send-comment',
     templateUrl: 'send-comment.component.html',
     styleUrls: ['send-comment.component.scss'],
+    providers: [SendCommentService],
 })
 export class SendCommentComponent implements OnInit {
     @Output() conversationSaved: EventEmitter<Modification[]> = new EventEmitter();
@@ -33,7 +34,7 @@ export class SendCommentComponent implements OnInit {
         });
     }
 
-    sendComment() {
-        this.sendCommentService.sendComment();
+    sendComment(v: string) {
+        this.sendCommentService.sendComment(v);
     }
 }

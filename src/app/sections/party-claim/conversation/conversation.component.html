@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="16px">
+<div fxLayout="column" fxLayoutGap="24px">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
         <h3 class="cc-title">Changeset</h3>
         <mat-form-field fxFlex="0 1 266px">
@@ -37,7 +37,7 @@
                     <button mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon>more_horiz</mat-icon>
                     </button>
-                    <mat-menu #menu="matMenu"> </mat-menu>
+                    <mat-menu #menu="matMenu"></mat-menu>
                 </div>
             </cc-timeline-item-title>
             <cc-timeline-item-badge [color]="item.action | ccBadgeColor">
@@ -48,27 +48,27 @@
                 fxLayout="column"
                 fxLayoutGap="20px"
             >
-                <!--                <ng-container *ngFor="let m of item.modifications">-->
-                <!--                    <cc-file-container-->
-                <!--                            *ngIf="item.action === timelineAction.filesAdded"-->
-                <!--                            [fileID]="m.claim_modification.file_modification.id"-->
-                <!--                    ></cc-file-container>-->
-                <!--                    <cc-conversation-comment-->
-                <!--                            *ngIf="item.action === timelineAction.commentAdded"-->
-                <!--                            [conversation]="item.data"-->
-                <!--                    ></cc-conversation-comment>-->
-                <!--                    <cc-reason-->
-                <!--                            *ngIf="-->
-                <!--                            item.action === timelineAction.statusDenied ||-->
-                <!--                            item.action === timelineAction.statusRevoked-->
-                <!--                        "-->
-                <!--                            [statusModificationUnit]="m.claim_modification.status_modification"-->
-                <!--                    ></cc-reason>-->
-                <!--                    <cc-questionary-->
-                <!--                            *ngIf="item.action === timelineAction.documentAdded"-->
-                <!--                            [questionary]="questionary$ | async"-->
-                <!--                    ></cc-questionary>-->
-                <!--                </ng-container>-->
+                <ng-container *ngFor="let m of item.modifications">
+                    <cc-file-container
+                        *ngIf="item.action === timelineAction.filesAdded"
+                        [fileID]="m.claim_modification.file_modification.id"
+                    ></cc-file-container>
+                    <cc-conversation-comment
+                        *ngIf="item.action === timelineAction.commentAdded"
+                        [conversation]="item.data"
+                    ></cc-conversation-comment>
+                    <cc-reason
+                        *ngIf="
+                            item.action === timelineAction.statusDenied ||
+                            item.action === timelineAction.statusRevoked
+                        "
+                        [statusModificationUnit]="m.claim_modification.status_modification"
+                    ></cc-reason>
+                    <cc-questionary
+                        *ngIf="item.action === timelineAction.documentAdded"
+                        [questionary]="questionary$ | async"
+                    ></cc-questionary>
+                </ng-container>
                 <ng-container *ngIf="item.action === timelineAction.partyModificationAdded">
                     <mat-expansion-panel *ngFor="let modification of item.modifications">
                         <mat-expansion-panel-header>

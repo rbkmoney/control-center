@@ -15,8 +15,12 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ActionIconPipe } from './action-icon.pipe';
 import { ActionNamePipe } from './action-name.pipe';
 import { BadgeColorPipe } from './badge-color.pipe';
+import { CommentComponent } from './comment/comment.component';
 import { ConversationComponent } from './conversation.component';
+import { FileContainerModule } from './file-container';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
+import { QuestionaryModule } from './questionary/questionary.module';
+import { ReasonComponent } from './reason/reason.component';
 import { SendCommentModule } from './send-comment/send-comment.module';
 
 @NgModule({
@@ -35,8 +39,17 @@ import { SendCommentModule } from './send-comment/send-comment.module';
         MatCardModule,
         MatExpansionModule,
         SharedModule,
+        FileContainerModule,
+        QuestionaryModule,
     ],
-    declarations: [ConversationComponent, ActionIconPipe, ActionNamePipe, BadgeColorPipe],
+    declarations: [
+        ConversationComponent,
+        ActionIconPipe,
+        ActionNamePipe,
+        BadgeColorPipe,
+        CommentComponent,
+        ReasonComponent,
+    ],
     exports: [ConversationComponent],
 })
 export class ConversationModule {}

@@ -8,7 +8,7 @@ $line-color: mat-color($neutral, 200);
 
 .cc-timeline {
     position: relative;
-    border-bottom: $line-size solid;
+    border-bottom: $line-size * 2 solid;
     border-bottom-color: $line-color;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
 

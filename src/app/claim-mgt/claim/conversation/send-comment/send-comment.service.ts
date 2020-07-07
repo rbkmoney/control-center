@@ -74,9 +74,8 @@ export class SendCommentService {
             });
     }
 
-    sendComment() {
-        const { comment } = this.form.value;
-        this.sendComment$.next(comment);
+    sendComment(v: string) {
+        this.sendComment$.next(v);
     }
 
     createModification(id: ConversationId): Modification {
