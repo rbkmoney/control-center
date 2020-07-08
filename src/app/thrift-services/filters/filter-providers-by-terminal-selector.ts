@@ -8,9 +8,9 @@ export const filterProvidersByTerminalSelector = (
         const selector = object.data.terminal;
         switch (filterValue) {
             case 'decisions':
-                return selector.decisions;
+                return selector?.decisions;
             case 'value':
-                return selector.value;
+                return selector?.value;
         }
     });
 };
