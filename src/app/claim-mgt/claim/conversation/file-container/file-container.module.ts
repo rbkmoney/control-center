@@ -4,13 +4,12 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
-import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
+import { FileStorageModule } from '../../../../thrift-services/file-storage';
 import { FileContainerComponent } from './file-container.component';
 
 @NgModule({
-    imports: [CommonModule, MatCardModule, FlexModule, MatIconModule],
+    imports: [CommonModule, MatCardModule, FlexModule, MatIconModule, FileStorageModule],
     exports: [FileContainerComponent],
     declarations: [FileContainerComponent],
-    providers: [FileStorageService],
 })
 export class FileContainerModule {}

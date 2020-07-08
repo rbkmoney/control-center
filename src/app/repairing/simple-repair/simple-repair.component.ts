@@ -31,7 +31,7 @@ interface Element {
 @Component({
     selector: 'cc-simple-repair',
     templateUrl: 'simple-repair.component.html',
-    styleUrls: ['../repairing.component.css'],
+    styleUrls: ['../repairing.component.scss'],
     providers: [],
 })
 export class SimpleRepairComponent {

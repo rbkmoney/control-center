@@ -13,7 +13,7 @@ import { RemoveConfirmComponent } from './remove-confirm/remove-confirm.componen
 @Component({
     selector: 'cc-party-modification-container',
     templateUrl: 'party-modification-container.component.html',
-    styleUrls: ['./party-modification-container.component.css'],
+    styleUrls: ['./party-modification-container.component.scss'],
 })
 export class PartyModificationContainerComponent implements OnInit {
     @Input()

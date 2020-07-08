@@ -9,10 +9,10 @@
     flex-direction: column;
 }
 
-/deep/.card-container > * {
+::ng-deep.card-container > * {
     margin-bottom: 20px;
 }
 
-/deep/.card-container > *:last-child {
+::ng-deep.card-container > *:last-child {
     margin-bottom: 0;
 }

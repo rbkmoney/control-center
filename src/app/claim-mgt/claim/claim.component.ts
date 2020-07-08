@@ -8,7 +8,7 @@ import { RecreateClaimService } from './recreate-claim';
 
 @Component({
     templateUrl: 'claim.component.html',
-    styleUrls: ['claim.component.css'],
+    styleUrls: ['claim.component.scss'],
     providers: [ClaimManagementService, ClaimService, RecreateClaimService],
 })
 export class ClaimComponent implements OnInit {

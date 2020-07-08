@@ -8,7 +8,7 @@ import { ModificationGroupType, PartyModificationUnit } from '../model';
 @Component({
     selector: 'cc-party-modification-units',
     templateUrl: 'party-modification-units.component.html',
-    styleUrls: ['./party-modification-units.component.css'],
+    styleUrls: ['./party-modification-units.component.scss'],
 })
 export class PartyModificationUnitsComponent {
     @Input()

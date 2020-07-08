@@ -4,7 +4,7 @@ import { PaymentInstitutionRef } from '../../../../../thrift-services/damsel/gen
 
 export const createContractCreation = (
     d: QuestionaryData,
-    contractorID: string,
+    contractor_id: string,
     contractID: string,
     payment_institution: PaymentInstitutionRef
 ): PartyModification => ({
@@ -12,7 +12,7 @@ export const createContractCreation = (
         id: contractID,
         modification: {
             creation: {
-                contractor_id: contractorID,
+                contractor_id,
                 payment_institution,
             },
         },

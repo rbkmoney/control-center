@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Claim, ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
@@ -22,7 +23,13 @@ export class ClaimsTableComponent {
         'actions',
     ];
 
+    constructor(private router: Router) {}
+
     navigateToClaim(partyID: PartyID, claimID: ClaimID) {
-        console.log(partyID, claimID.toNumber(), '===========>>>');
+        this.router.navigate([`/party/${partyID}/claim/${claimID}`]);
+    }
+
+    navigateToDeprecatedClaim(partyID: PartyID, claimID: ClaimID) {
+        this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
     }
 }

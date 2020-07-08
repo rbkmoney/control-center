@@ -20,7 +20,7 @@ import { CancelPayoutComponent } from '../cancel-payout/cancel-payout.component'
 @Component({
     selector: 'cc-payouts-table',
     templateUrl: 'payouts-table.component.html',
-    styleUrls: ['./payouts-table.component.css'],
+    styleUrls: ['./payouts-table.component.scss'],
 })
 export class PayoutsTableComponent implements OnInit, OnChanges {
     @Output()
