@@ -4,7 +4,7 @@
 @import '../../sections/party/party-theme';
 @import '../../shared/components/timeline/timeline-item/timeline-item-badge/timeline-item-badge-theme';
 @import '../../shared/components/details-item/details-item-theme';
-@import '../../sections/party-claim/claim-changeset/clain-changeset-theme';
+@import '../../sections/party-claim/claim-changeset/claim-changeset-theme';
 
 @mixin cc-theme($theme) {
     body.#{map-get($theme, name)} {
