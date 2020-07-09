@@ -1,0 +1,97 @@
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <div class="cc-body-1">
+            <span class="cc-claim-changeset-username">kekes</span>
+            {{ timelineAction.documentAdded | actionName }} at
+            {{ '2013-04-01T00:00:00.000' | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                '2013-04-01T00:00:00.000' | humanizedDuration: { largest: 1, hasAgoEnding: true }
+            }})
+        </div>
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu"></mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge [color]="timelineAction.documentAdded | ccBadgeColor">
+        <mat-icon>{{ timelineAction.documentAdded | actionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="20px">
+        <div fxLayout="column" fxLayoutGap="24px">
+            <mat-accordion *ngIf="questionary" multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Сведения об организации</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <cc-organization-info
+                        [contractor]="questionary?.data?.contractor"
+                    ></cc-organization-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel *ngIf="questionary?.data?.contractor?.legal_entity">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Сведения о юридическом лице</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <cc-legal-owner-info
+                        [legalOwnerInfo]="
+                            questionary?.data?.contractor.legal_entity?.russian_legal_entity
+                                ?.legal_owner_info
+                        "
+                    ></cc-legal-owner-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel *ngIf="questionary?.data?.contractor?.individual_entity">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Сведения о физическом лице</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <cc-individual-entity-info
+                        [individualEntity]="
+                            questionary?.data?.contractor?.individual_entity
+                                ?.russian_individual_entity
+                        "
+                    ></cc-individual-entity-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Сведения о магазине</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <cc-shop-info [shopInfo]="questionary?.data?.shop_info"></cc-shop-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title
+                            >Банковские реквизиты для вывода денежных средств</mat-panel-title
+                        >
+                    </mat-expansion-panel-header>
+                    <cc-bank-account-info
+                        [bankAccount]="questionary?.data?.bank_account?.russian_bank_account"
+                    ></cc-bank-account-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Контактная информация</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <cc-contact-info
+                        [contactInfo]="questionary?.data?.contact_info"
+                    ></cc-contact-info>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <mat-accordion *ngIf="entity?.beneficial_owners?.length" multi>
+                <mat-expansion-panel
+                    *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Beneficial owner
+                            {{ i | serialNumber: entity?.beneficial_owners?.length }}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <cc-beneficial-owner-info
+                        [beneficialOwner]="beneficialOwner"
+                    ></cc-beneficial-owner-info>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </cc-timeline-item-content>
+</cc-timeline-item>

@@ -8,9 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { ConversationModule } from './conversation/conversation.module';
+import { ActionsComponent } from './actions/actions.component';
+import { ClaimChangesetModule } from './claim-changeset/claim-changeset.module';
+import { FileUploaderModule } from './file-uploader/file-uploader.module';
 import { PartyClaimRoutingModule } from './party-claim-routing.module';
 import { PartyClaimComponent } from './party-claim.component';
+import { SendCommentModule } from './send-comment/send-comment.module';
+import { TitleComponent } from './title/title.component';
 
 @NgModule({
     imports: [
@@ -23,8 +27,10 @@ import { PartyClaimComponent } from './party-claim.component';
         MatIconModule,
         ReactiveFormsModule,
         MatInputModule,
-        ConversationModule,
+        ClaimChangesetModule,
+        SendCommentModule,
+        FileUploaderModule,
     ],
-    declarations: [PartyClaimComponent],
+    declarations: [PartyClaimComponent, TitleComponent, ActionsComponent],
 })
 export class PartyClaimModule {}

@@ -1,0 +1,13 @@
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <div class="cc-body-1">
+            Claim created at
+            {{ created_at | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                created_at | humanizedDuration: { largest: 1, hasAgoEnding: true }
+            }})
+        </div>
+    </cc-timeline-item-title>
+    <cc-timeline-item-badge>
+        <mat-icon>create</mat-icon>
+    </cc-timeline-item-badge>
+</cc-timeline-item>

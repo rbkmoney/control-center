@@ -5,7 +5,7 @@
 
 @import './utils/typography';
 
-@import '../sections/party-claim/conversation/conversation-theme';
+@import '../sections/party-claim/claim-changeset/clain-changeset-theme';
 
 @mixin cc-override() {
     @include cc-body-override();
@@ -14,7 +14,7 @@
 @mixin cc-typography($config) {
     @include mat-core($config);
     @include cc-base-typography($config);
-    @include cc-conversation-typography($config);
+    @include cc-claim-changeset-typography($config);
 }
 
 @include cc-override();

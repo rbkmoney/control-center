@@ -1,0 +1,30 @@
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <div class="cc-body-1">
+            <span class="cc-claim-changeset-username">kekes</span>
+            {{ timelineAction.commentAdded | actionName }} at
+            {{ '2013-04-01T00:00:00.000' | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                '2013-04-01T00:00:00.000' | humanizedDuration: { largest: 1, hasAgoEnding: true }
+            }})
+        </div>
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu"></mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge [color]="timelineAction.commentAdded | ccBadgeColor">
+        <mat-icon>{{ timelineAction.commentAdded | actionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="20px">
+        <mat-card>
+            <mat-card-content>
+                Где-то я был больше подобен растению, где-то был больше подобен птице, там червю.
+            </mat-card-content>
+        </mat-card>
+        <p class="cc-subheading-1 cc-claim-changeset-loading-text">Loading...</p>
+        <p class="cc-subheading-1">An error occurred while file receiving (500)</p>
+    </cc-timeline-item-content>
+</cc-timeline-item>

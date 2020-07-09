@@ -1,0 +1,29 @@
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <div class="cc-body-1">
+            <span class="cc-claim-changeset-username">kekes</span>
+            {{ timelineAction.filesAdded | actionName }} at
+            {{ '2013-04-01T00:00:00.000' | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                '2013-04-01T00:00:00.000' | humanizedDuration: { largest: 1, hasAgoEnding: true }
+            }})
+        </div>
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu"></mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge [color]="timelineAction.filesAdded | ccBadgeColor">
+        <mat-icon>{{ timelineAction.filesAdded | actionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="20px">
+        <mat-card>
+            <mat-card-content fxLayout="row" fxLayoutAlign="space-between">
+                <div class="cc-body-1">file_01.pdf</div>
+                <mat-icon>cloud_download</mat-icon>
+            </mat-card-content>
+        </mat-card>
+    </cc-timeline-item-content>
+</cc-timeline-item>

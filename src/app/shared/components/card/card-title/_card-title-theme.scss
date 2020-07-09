@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+
+@mixin cc-card-title-typography($config) {
+    .cc-card-title {
+        @include mat-typography-level-to-styles($config, title);
+    }
+}
