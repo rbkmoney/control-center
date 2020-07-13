@@ -8,7 +8,7 @@ import { TimelineAction } from '../claim-changeset/timeline-action';
 })
 export class PartyModificationTimelineItemComponent {
     @Input()
-    expanded: boolean;
+    expanded = false;
 
     timelineAction = TimelineAction;
     testMod = {
