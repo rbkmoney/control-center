@@ -1,0 +1,29 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
+        <h3 class="cc-title">Changeset</h3>
+        <mat-form-field fxFlex="0 1 266px">
+            <mat-label>Changeset filters</mat-label>
+            <mat-select>
+                <mat-option>
+                    eekekekkekek
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <cc-timeline>
+        <cc-created-timeline-item [createdAt]="created_at"></cc-created-timeline-item>
+        <ng-container>
+            <cc-questionary-timeline-item></cc-questionary-timeline-item>
+
+            <cc-file-timeline-item></cc-file-timeline-item>
+
+            <cc-comment-timeline-item></cc-comment-timeline-item>
+
+            <cc-party-modification-timeline-item
+                [expanded]="false"
+            ></cc-party-modification-timeline-item>
+
+            <cc-status-timeline-item></cc-status-timeline-item>
+        </ng-container>
+    </cc-timeline>
+</div>

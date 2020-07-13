@@ -5,9 +5,7 @@
 
 @import './utils/typography';
 
-@import '../sections/party-claim/claim-changeset/claim-changeset-theme';
-
-@import '../shared/components/card/card-title/card-title-theme';
+@import '../sections/party-claim/changesets/claim-changeset/claim-changeset-theme';
 
 @mixin cc-override() {
     @include cc-body-override();
@@ -17,7 +15,6 @@
     @include mat-core($config);
     @include cc-base-typography($config);
     @include cc-claim-changeset-typography($config);
-    @include cc-card-title-typography($config);
 }
 
 @include cc-override();

@@ -1,0 +1,30 @@
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <div class="cc-body-1">
+            <span class="cc-claim-changeset-username">kekes</span>
+            {{ timelineAction.partyModificationAdded | actionName }} at
+            {{ '2013-04-01T00:00:00.000' | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+                '2013-04-01T00:00:00.000' | humanizedDuration: { largest: 1, hasAgoEnding: true }
+            }})
+        </div>
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu"></mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge [color]="timelineAction.partyModificationAdded | ccBadgeColor">
+        <mat-icon>{{ timelineAction.partyModificationAdded | actionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+
+    <cc-timeline-item-content>
+        <mat-expansion-panel [expanded]="expanded">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Shop category modification</mat-panel-title>
+            </mat-expansion-panel-header>
+            <cc-pretty-json [object]="testMod"></cc-pretty-json>
+        </mat-expansion-panel>
+    </cc-timeline-item-content>
+</cc-timeline-item>

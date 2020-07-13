@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { TimelineAction } from '../../../../../sections/party-claim/claim-changeset/timeline-action';
+import { TimelineAction } from '../../../../../sections/party-claim/changesets/claim-changeset/timeline-action';
 
 @Pipe({
     name: 'ccBadgeColor',

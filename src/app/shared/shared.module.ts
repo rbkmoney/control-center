@@ -6,7 +6,6 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import {
     CardContainerComponent,
-    CardTitleComponent,
     EmptySearchResultComponent,
     PrettyJsonComponent,
 } from './components';
@@ -28,7 +27,6 @@ const declarations = [
     ClaimStatusThriftPipe,
     ClaimStatusPipe,
     PrettyJsonComponent,
-    CardTitleComponent,
     EmptySearchResultComponent,
     ClaimSourcePipe,
     CardContainerComponent,
