@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import get from 'lodash-es/get';
 
 import { getUnionValue } from '../../../../shared/utils';
@@ -8,6 +8,7 @@ import { TimelineAction } from '../claim-changeset/timeline-action';
 @Component({
     selector: 'cc-questionary-timeline-item',
     templateUrl: 'questionary-timeline-item.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionaryTimelineItemComponent {
     timelineAction = TimelineAction;
