@@ -14,8 +14,6 @@ import { DetailsItemModule } from '../../../shared/components/details-item';
 import { TimelineModule } from '../../../shared/components/timeline';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SharedModule } from '../../../shared/shared.module';
-import { ActionIconPipe } from './claim-changeset/action-icon.pipe';
-import { ActionNamePipe } from './claim-changeset/action-name.pipe';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
 import { ClaimTimelineItemHeaderComponent } from './claim-timeline-item-header/claim-timeline-item-header.component';
 import { CommentContentComponent } from './comment-timeline-item/comment-content/comment-content.component';
@@ -53,8 +51,6 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
     declarations: [
         ClaimChangesetComponent,
         UnsavedClaimChangesetComponent,
-        ActionIconPipe,
-        ActionNamePipe,
         CreatedTimelineItemComponent,
         QuestionaryTimelineItemComponent,
         PartyModificationTimelineItemComponent,

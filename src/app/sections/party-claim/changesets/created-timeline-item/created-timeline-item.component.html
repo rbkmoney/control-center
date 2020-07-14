@@ -1,10 +1,9 @@
 <cc-timeline-item>
     <cc-timeline-item-title>
-        <div class="cc-body-1">
-            Claim created at {{ createdAt | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
-                createdAt | humanizedDuration: { largest: 1, hasAgoEnding: true }
-            }})
-        </div>
+        <cc-claim-timeline-item-header
+            [createdAt]="'2013-04-01T00:00:00.000'"
+            [text]="'Claim created'"
+        ></cc-claim-timeline-item-header>
         <div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_horiz</mat-icon>

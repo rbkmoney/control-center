@@ -1,8 +1,9 @@
 <cc-timeline-item>
     <cc-timeline-item-title>
         <cc-claim-timeline-item-header
-            [timelineAction]="timelineAction.partyModificationAdded"
             [createdAt]="'2013-04-01T00:00:00.000'"
+            [text]="'added party modification'"
+            [username]="'kekes'"
         ></cc-claim-timeline-item-header>
 
         <div>
@@ -13,8 +14,8 @@
         </div>
     </cc-timeline-item-title>
 
-    <cc-timeline-item-badge [color]="timelineAction.partyModificationAdded | ccBadgeColor">
-        <mat-icon>{{ timelineAction.partyModificationAdded | actionIcon }}</mat-icon>
+    <cc-timeline-item-badge [color]="'primary'">
+        <mat-icon>{{ 'add' }}</mat-icon>
     </cc-timeline-item-badge>
     <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
         <cc-party-modification-content [expanded]="expanded"></cc-party-modification-content>

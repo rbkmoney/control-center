@@ -4,7 +4,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { TimelineItemComponent } from './timeline-item';
 import { TimelineItemBadgeComponent } from './timeline-item/timeline-item-badge';
-import { BadgeColorPipe } from './timeline-item/timeline-item-badge/badge-color.pipe';
 import { TimelineItemContentComponent } from './timeline-item/timeline-item-content';
 import { TimelineItemTitleComponent } from './timeline-item/timeline-item-title';
 import { TimelineComponent } from './timeline.component';
@@ -15,7 +14,6 @@ const EXPORTED_DECLARATIONS = [
     TimelineItemTitleComponent,
     TimelineItemBadgeComponent,
     TimelineItemContentComponent,
-    BadgeColorPipe,
 ];
 
 @NgModule({
