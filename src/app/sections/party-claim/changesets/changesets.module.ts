@@ -24,7 +24,9 @@ import { CreatedTimelineItemComponent } from './created-timeline-item';
 import { FileTimelineItemComponent } from './file-timeline-item/file-timeline-item.component';
 import { FileComponent } from './file-timeline-item/file/file.component';
 import { PartyModificationTimelineItemComponent } from './party-modification-timeline-item';
+import { PartyModificationComponent } from './party-modification-timeline-item/party-modification/party-modification.component';
 import { QuestionaryTimelineItemComponent, SerialNumberPipe } from './questionary-timeline-item';
+import { ReasonComponent } from './status-timeline-item/reason/reason.component';
 import { StatusTimelineItemComponent } from './status-timeline-item/status-timeline-item.component';
 import { TimelineItemErrorComponent } from './timeline-item-error/timeline-item-error.component';
 import { TimelineItemLoadingComponent } from './timeline-item-loading/timeline-item-loading.component';
@@ -64,6 +66,8 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         CommentComponent,
         ClaimTimelineItemComponent,
         FileComponent,
+        PartyModificationComponent,
+        ReasonComponent,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
