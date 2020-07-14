@@ -1,0 +1,6 @@
+<div class="cc-body-1">
+    <span class="cc-claim-changeset-username">kekes</span>
+    {{ timelineAction | actionName }} at {{ createdAt | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+        createdAt | humanizedDuration: { largest: 1, hasAgoEnding: true }
+    }})
+</div>

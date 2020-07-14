@@ -17,6 +17,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ActionIconPipe } from './claim-changeset/action-icon.pipe';
 import { ActionNamePipe } from './claim-changeset/action-name.pipe';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
+import { ClaimTimelineItemHeaderComponent } from './claim-timeline-item-header/claim-timeline-item-header.component';
 import { ClaimTimelineItemComponent } from './claim-timeline-item/claim-timeline-item.component';
 import { CommentContentComponent } from './comment-timeline-item/comment-content/comment-content.component';
 import { CommentTimelineItemComponent } from './comment-timeline-item/comment-timeline-item.component';
@@ -70,6 +71,7 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         QuestionaryContentComponent,
         PartyModificationContentComponent,
         ReasonContentComponent,
+        ClaimTimelineItemHeaderComponent,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })

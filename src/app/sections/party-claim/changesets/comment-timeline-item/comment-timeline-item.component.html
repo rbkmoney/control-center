@@ -1,8 +1,23 @@
-<cc-claim-timeline-item
-    [timelineAction]="timelineAction.commentAdded"
-    createdAt="2013-04-01T00:00:00.000"
->
-    <cc-comment-content></cc-comment-content>
-    <cc-timeline-item-loading></cc-timeline-item-loading>
-    <cc-timeline-item-error></cc-timeline-item-error>
-</cc-claim-timeline-item>
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <cc-claim-timeline-item-header
+            [timelineAction]="timelineAction.commentAdded"
+            [createdAt]="'2013-04-01T00:00:00.000'"
+        ></cc-claim-timeline-item-header>
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu"></mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge [color]="timelineAction.commentAdded | ccBadgeColor">
+        <mat-icon>{{ timelineAction.commentAdded | actionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
+        <cc-comment-content></cc-comment-content>
+        <cc-timeline-item-loading></cc-timeline-item-loading>
+        <cc-timeline-item-error></cc-timeline-item-error>
+    </cc-timeline-item-content>
+</cc-timeline-item>

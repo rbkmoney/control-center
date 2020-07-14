@@ -1,6 +1,22 @@
-<cc-claim-timeline-item
-    [timelineAction]="timelineAction.partyModificationAdded"
-    createdAt="2013-04-01T00:00:00.000"
->
-    <cc-party-modification-content [expanded]="expanded"></cc-party-modification-content>
-</cc-claim-timeline-item>
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <cc-claim-timeline-item-header
+            [timelineAction]="timelineAction.partyModificationAdded"
+            [createdAt]="'2013-04-01T00:00:00.000'"
+        ></cc-claim-timeline-item-header>
+
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu"></mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge [color]="timelineAction.partyModificationAdded | ccBadgeColor">
+        <mat-icon>{{ timelineAction.partyModificationAdded | actionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
+        <cc-party-modification-content [expanded]="expanded"></cc-party-modification-content>
+    </cc-timeline-item-content>
+</cc-timeline-item>

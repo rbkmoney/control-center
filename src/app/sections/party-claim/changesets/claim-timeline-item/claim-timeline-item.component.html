@@ -6,6 +6,10 @@
                 createdAt | humanizedDuration: { largest: 1, hasAgoEnding: true }
             }})
         </div>
+        <cc-claim-timeline-item-header
+            [timelineAction]="timelineAction"
+            [createdAt]="createdAt"
+        ></cc-claim-timeline-item-header>
         <div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_horiz</mat-icon>

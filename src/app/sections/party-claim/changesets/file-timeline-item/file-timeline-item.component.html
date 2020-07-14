@@ -1,6 +1,21 @@
-<cc-claim-timeline-item
-    [timelineAction]="timelineAction.filesAdded"
-    createdAt="2013-04-01T00:00:00.000"
->
-    <cc-file-content></cc-file-content>
-</cc-claim-timeline-item>
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <cc-claim-timeline-item-header
+            [timelineAction]="timelineAction.filesAdded"
+            [createdAt]="'2013-04-01T00:00:00.000'"
+        ></cc-claim-timeline-item-header>
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu"></mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge [color]="timelineAction.filesAdded | ccBadgeColor">
+        <mat-icon>{{ timelineAction.filesAdded | actionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
+        <cc-file-content></cc-file-content>
+    </cc-timeline-item-content>
+</cc-timeline-item>
