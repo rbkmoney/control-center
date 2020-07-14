@@ -22,6 +22,7 @@ import { CommentTimelineItemComponent } from './comment-timeline-item/comment-ti
 import { CommentComponent } from './comment-timeline-item/comment/comment.component';
 import { CreatedTimelineItemComponent } from './created-timeline-item';
 import { FileTimelineItemComponent } from './file-timeline-item/file-timeline-item.component';
+import { FileComponent } from './file-timeline-item/file/file.component';
 import { PartyModificationTimelineItemComponent } from './party-modification-timeline-item';
 import { QuestionaryTimelineItemComponent, SerialNumberPipe } from './questionary-timeline-item';
 import { StatusTimelineItemComponent } from './status-timeline-item/status-timeline-item.component';
@@ -62,6 +63,7 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         TimelineItemErrorComponent,
         CommentComponent,
         ClaimTimelineItemComponent,
+        FileComponent,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
