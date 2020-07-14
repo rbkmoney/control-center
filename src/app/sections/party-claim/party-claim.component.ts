@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
@@ -8,6 +8,7 @@ import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 
 @Component({
     templateUrl: 'party-claim.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyClaimComponent {
     claimID$ = this.route.params.pipe(pluck('claimID'), shareReplay(SHARE_REPLAY_CONF));

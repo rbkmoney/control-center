@@ -2,10 +2,5 @@
     [timelineAction]="timelineAction.partyModificationAdded"
     createdAt="2013-04-01T00:00:00.000"
 >
-    <mat-expansion-panel [expanded]="expanded">
-        <mat-expansion-panel-header>
-            <mat-panel-title>Shop category modification</mat-panel-title>
-        </mat-expansion-panel-header>
-        <cc-pretty-json [object]="testMod"></cc-pretty-json>
-    </mat-expansion-panel>
+    <cc-party-modification [expanded]="expanded"></cc-party-modification>
 </cc-claim-timeline-item>
