@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'cc-party-modification',
-    templateUrl: 'party-modification.component.html',
+    selector: 'cc-party-modification-content',
+    templateUrl: 'party-modification-content.component.html',
 })
-export class PartyModificationComponent {
+export class PartyModificationContentComponent {
     @Input()
     expanded = false;
 

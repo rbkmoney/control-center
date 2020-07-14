@@ -24,10 +24,10 @@ import { CreatedTimelineItemComponent } from './created-timeline-item';
 import { FileContentComponent } from './file-timeline-item/file-content/file-content.component';
 import { FileTimelineItemComponent } from './file-timeline-item/file-timeline-item.component';
 import { PartyModificationTimelineItemComponent } from './party-modification-timeline-item';
-import { PartyModificationComponent } from './party-modification-timeline-item/party-modification/party-modification.component';
+import { PartyModificationContentComponent } from './party-modification-timeline-item/party-modification-content/party-modification-content.component';
 import { QuestionaryTimelineItemComponent, SerialNumberPipe } from './questionary-timeline-item';
-import { ReasonComponent } from './status-timeline-item/reason/reason.component';
 import { QuestionaryContentComponent } from './questionary-timeline-item/questionary-content/questionary-content.component';
+import { ReasonContentComponent } from './status-timeline-item/reason-content/reason-content.component';
 import { StatusTimelineItemComponent } from './status-timeline-item/status-timeline-item.component';
 import { TimelineItemErrorComponent } from './timeline-item-error/timeline-item-error.component';
 import { TimelineItemLoadingComponent } from './timeline-item-loading/timeline-item-loading.component';
@@ -68,8 +68,8 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         ClaimTimelineItemComponent,
         FileContentComponent,
         QuestionaryContentComponent,
-        PartyModificationComponent,
-        ReasonComponent,
+        PartyModificationContentComponent,
+        ReasonContentComponent,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
