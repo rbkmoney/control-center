@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import get from 'lodash-es/get';
 
-import { getUnionValue } from '../../../../shared/utils';
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { TimelineAction } from '../claim-changeset/timeline-action';
 
@@ -95,8 +93,4 @@ export class QuestionaryTimelineItemComponent {
             },
         },
     };
-
-    get entity() {
-        return getUnionValue(getUnionValue(get(this.questionary, ['data', 'contractor'])));
-    }
 }

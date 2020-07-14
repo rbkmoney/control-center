@@ -18,13 +18,14 @@ import { ActionIconPipe } from './claim-changeset/action-icon.pipe';
 import { ActionNamePipe } from './claim-changeset/action-name.pipe';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
 import { ClaimTimelineItemComponent } from './claim-timeline-item/claim-timeline-item.component';
+import { CommentContentComponent } from './comment-timeline-item/comment-content/comment-content.component';
 import { CommentTimelineItemComponent } from './comment-timeline-item/comment-timeline-item.component';
-import { CommentComponent } from './comment-timeline-item/comment/comment.component';
 import { CreatedTimelineItemComponent } from './created-timeline-item';
+import { FileContentComponent } from './file-timeline-item/file-content/file-content.component';
 import { FileTimelineItemComponent } from './file-timeline-item/file-timeline-item.component';
-import { FileComponent } from './file-timeline-item/file/file.component';
 import { PartyModificationTimelineItemComponent } from './party-modification-timeline-item';
 import { QuestionaryTimelineItemComponent, SerialNumberPipe } from './questionary-timeline-item';
+import { QuestionaryContentComponent } from './questionary-timeline-item/questionary-content/questionary-content.component';
 import { StatusTimelineItemComponent } from './status-timeline-item/status-timeline-item.component';
 import { TimelineItemErrorComponent } from './timeline-item-error/timeline-item-error.component';
 import { TimelineItemLoadingComponent } from './timeline-item-loading/timeline-item-loading.component';
@@ -61,9 +62,10 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         SerialNumberPipe,
         TimelineItemLoadingComponent,
         TimelineItemErrorComponent,
-        CommentComponent,
+        CommentContentComponent,
         ClaimTimelineItemComponent,
-        FileComponent,
+        FileContentComponent,
+        QuestionaryContentComponent,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
