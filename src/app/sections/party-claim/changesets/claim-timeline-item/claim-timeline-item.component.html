@@ -1,7 +1,8 @@
 <cc-timeline-item>
     <cc-timeline-item-title>
         <div class="cc-body-1">
-            Claim created at {{ createdAt | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+            <span class="cc-claim-changeset-username">kekes</span>
+            {{ timelineAction | actionName }} at {{ createdAt | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
                 createdAt | humanizedDuration: { largest: 1, hasAgoEnding: true }
             }})
         </div>
@@ -13,8 +14,10 @@
         </div>
     </cc-timeline-item-title>
 
-    <cc-timeline-item-badge>
-        <mat-icon>create</mat-icon>
+    <cc-timeline-item-badge [color]="timelineAction | ccBadgeColor">
+        <mat-icon>{{ timelineAction | actionIcon }}</mat-icon>
     </cc-timeline-item-badge>
-    <cc-timeline-item-content fxLayout="column" fxLayoutGap="20px"> </cc-timeline-item-content>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="20px">
+        <ng-content></ng-content>
+    </cc-timeline-item-content>
 </cc-timeline-item>

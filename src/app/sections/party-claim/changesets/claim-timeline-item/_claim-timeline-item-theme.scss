@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+
+@mixin cc-claim-timeline-item-typography($config) {
+    .cc-claim-changeset-username {
+        @include mat-typography-level-to-styles($config, body-2);
+    }
+}

@@ -1,102 +1,82 @@
-<cc-timeline-item>
-    <cc-timeline-item-title>
-        <div class="cc-body-1">
-            <span class="cc-claim-changeset-username">kekes</span>
-            {{ timelineAction.documentAdded | actionName }} at
-            {{ '2013-04-01T00:00:00.000' | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
-                '2013-04-01T00:00:00.000' | humanizedDuration: { largest: 1, hasAgoEnding: true }
-            }})
-        </div>
-        <div>
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_horiz</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu"></mat-menu>
-        </div>
-    </cc-timeline-item-title>
+<cc-claim-timeline-item
+    [timelineAction]="timelineAction.documentAdded"
+    createdAt="2013-04-01T00:00:00.000"
+>
+    <div fxLayout="column" fxLayoutGap="24px">
+        <mat-accordion *ngIf="questionary" multi>
+            <mat-expansion-panel *ngIf="questionary?.data?.contractor">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Contractor</mat-panel-title>
+                </mat-expansion-panel-header>
+                <cc-pretty-json [object]="questionary.data.contractor"></cc-pretty-json>
+            </mat-expansion-panel>
 
-    <cc-timeline-item-badge [color]="timelineAction.documentAdded | ccBadgeColor">
-        <mat-icon>{{ timelineAction.documentAdded | actionIcon }}</mat-icon>
-    </cc-timeline-item-badge>
-    <cc-timeline-item-content fxLayout="column" fxLayoutGap="20px">
-        <div fxLayout="column" fxLayoutGap="24px">
-            <mat-accordion *ngIf="questionary" multi>
-                <mat-expansion-panel *ngIf="questionary?.data?.contractor">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Contractor</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <cc-pretty-json [object]="questionary.data.contractor"></cc-pretty-json>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel
-                    *ngIf="
-                        questionary?.data?.contractor?.legal_entity?.russian_legal_entity
-                            ?.legal_owner_info
+            <mat-expansion-panel
+                *ngIf="
+                    questionary?.data?.contractor?.legal_entity?.russian_legal_entity
+                        ?.legal_owner_info
+                "
+            >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Legal Entity</mat-panel-title>
+                </mat-expansion-panel-header>
+                <cc-pretty-json
+                    [object]="
+                        questionary.data.contractor.legal_entity.russian_legal_entity
+                            .legal_owner_info
                     "
-                >
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Legal Entity</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <cc-pretty-json
-                        [object]="
-                            questionary.data.contractor.legal_entity.russian_legal_entity
-                                .legal_owner_info
-                        "
-                    ></cc-pretty-json>
-                </mat-expansion-panel>
+                ></cc-pretty-json>
+            </mat-expansion-panel>
 
-                <mat-expansion-panel
-                    *ngIf="
-                        questionary?.data?.contractor?.individual_entity?.russian_individual_entity
+            <mat-expansion-panel
+                *ngIf="questionary?.data?.contractor?.individual_entity?.russian_individual_entity"
+            >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Individual Entity</mat-panel-title>
+                </mat-expansion-panel-header>
+                <cc-pretty-json
+                    [object]="
+                        questionary.data.contractor.individual_entity.russian_individual_entity
                     "
-                >
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Individual Entity</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <cc-pretty-json
-                        [object]="
-                            questionary.data.contractor.individual_entity.russian_individual_entity
-                        "
-                    ></cc-pretty-json>
-                </mat-expansion-panel>
+                ></cc-pretty-json>
+            </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="questionary?.data?.shop_info">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Shop Info</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <cc-pretty-json [object]="questionary.data.shop_info"></cc-pretty-json>
-                </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="questionary?.data?.shop_info">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Shop Info</mat-panel-title>
+                </mat-expansion-panel-header>
+                <cc-pretty-json [object]="questionary.data.shop_info"></cc-pretty-json>
+            </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="questionary?.data?.bank_account?.russian_bank_account">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Bank Account</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <cc-pretty-json
-                        [object]="questionary.data?.bank_account.russian_bank_account"
-                    ></cc-pretty-json>
-                </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="questionary?.data?.bank_account?.russian_bank_account">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Bank Account</mat-panel-title>
+                </mat-expansion-panel-header>
+                <cc-pretty-json
+                    [object]="questionary.data?.bank_account.russian_bank_account"
+                ></cc-pretty-json>
+            </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="questionary?.data?.contact_info">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Contact Info</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <cc-pretty-json [object]="questionary.data.contact_info"></cc-pretty-json>
-                </mat-expansion-panel>
-            </mat-accordion>
+            <mat-expansion-panel *ngIf="questionary?.data?.contact_info">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Contact Info</mat-panel-title>
+                </mat-expansion-panel-header>
+                <cc-pretty-json [object]="questionary.data.contact_info"></cc-pretty-json>
+            </mat-expansion-panel>
+        </mat-accordion>
 
-            <mat-accordion *ngIf="entity?.beneficial_owners?.length" multi>
-                <mat-expansion-panel
-                    *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i"
-                >
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Beneficial owner
-                            {{ i | serialNumber: entity?.beneficial_owners?.length }}
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <cc-pretty-json [object]="beneficialOwner"></cc-pretty-json>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
-    </cc-timeline-item-content>
-</cc-timeline-item>
+        <mat-accordion *ngIf="entity?.beneficial_owners?.length" multi>
+            <mat-expansion-panel
+                *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i"
+            >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Beneficial owner
+                        {{ i | serialNumber: entity?.beneficial_owners?.length }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <cc-pretty-json [object]="beneficialOwner"></cc-pretty-json>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</cc-claim-timeline-item>

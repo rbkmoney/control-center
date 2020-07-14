@@ -5,7 +5,7 @@
 
 @import './utils/typography';
 
-@import '../sections/party-claim/changesets/claim-changeset/claim-changeset-theme';
+@import '../sections/party-claim/changesets/claim-timeline-item/claim-timeline-item-theme';
 
 @mixin cc-override() {
     @include cc-body-override();
@@ -14,7 +14,7 @@
 @mixin cc-typography($config) {
     @include mat-core($config);
     @include cc-base-typography($config);
-    @include cc-claim-changeset-typography($config);
+    @include cc-claim-timeline-item-typography($config);
 }
 
 @include cc-override();

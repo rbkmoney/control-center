@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
-@mixin cc-party-claim-theme($theme) {
+@mixin cc-timeline-item-loading-theme($theme) {
     $foreground: map-get($theme, foreground);
 
-    .cc-party-claim-header {
+    .cc-timeline-item-loading-text {
         color: mat-color($foreground, secondary-text);
     }
 }

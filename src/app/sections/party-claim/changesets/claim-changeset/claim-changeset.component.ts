@@ -9,7 +9,7 @@ import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/cla
 })
 export class ClaimChangesetComponent {
     @Input()
-    created_at: string;
+    createdAt: string;
 
     @Input()
     changeset: ClaimChangeset;

@@ -1,7 +1,7 @@
 @import './timeline-item.scss';
 
 .cc-timeline-item {
-    padding-bottom: 28px;
-    padding-left: $size + $content-padding;
+    padding-bottom: 16px;
+    padding-left: $size + $content-padding + 6;
     position: relative;
 }
