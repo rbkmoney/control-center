@@ -12,8 +12,6 @@
         @include cc-party-theme($theme);
         @include cc-timeline-item-badge-theme($theme);
         @include cc-details-item-theme($theme);
-        @include cc-timeline-item-loading-theme($theme);
-        @include cc-party-claim-title-theme($theme);
         @include cc-party-claim-theme($theme);
     }
 }
