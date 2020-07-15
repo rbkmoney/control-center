@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { pluck } from 'rxjs/operators';
 
 import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
 
@@ -17,13 +18,7 @@ export class ShopsTableComponent implements OnChanges {
     dataSource: MatTableDataSource<Shop> = new MatTableDataSource();
     displayedColumns = ['id', 'name', 'url', 'actions'];
 
-    private partyId: string;
-
-    constructor(private router: Router, private route: ActivatedRoute) {
-        this.route.params.subscribe((params) => {
-            this.partyId = params.partyID;
-        });
-    }
+    constructor(private router: Router, private route: ActivatedRoute) {}
 
     ngOnChanges({ shops }: SimpleChanges) {
         if (shops.currentValue) {
@@ -39,6 +34,8 @@ export class ShopsTableComponent implements OnChanges {
     }
 
     navigateToShop(shopID: string) {
-        this.router.navigate([`/party-old/${this.partyId}/shop/${shopID}`]);
+        this.route.params.pipe(pluck('partyID')).subscribe((partyID) => {
+            this.router.navigate([`/party-old/${partyID}/shop/${shopID}`]);
+        });
     }
 }
