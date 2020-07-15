@@ -26,21 +26,21 @@ export class PartiesComponent implements OnInit {
         this.form = this.partiesService.form;
     }
 
-    goToParty(old: boolean) {
+    goToParty() {
         this.isLoading = true;
         let { partyId } = this.form.value;
         partyId = partyId.trim();
         this.partyService.getParty(partyId).subscribe(
             () => {
                 this.isLoading = false;
-                this.router.navigate([old ? 'party-old' : 'party', partyId]);
+                this.router.navigate(['party', partyId]);
             },
             (err) => {
                 this.isLoading = false;
                 this.snackBar
                     .open(`An error occurred while receiving party`, 'RETRY')
                     .onAction()
-                    .subscribe(() => this.goToParty(old));
+                    .subscribe(() => this.goToParty());
             }
         );
     }

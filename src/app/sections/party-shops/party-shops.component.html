@@ -1,1 +1,4 @@
-<div class="cc-headline">Party shops</div>
+<div fxLayout="column" fxLayoutGap="24px">
+    <div class="cc-headline">Party shops</div>
+    <cc-shops-table [shops]="shops$ | async"></cc-shops-table>
+</div>
