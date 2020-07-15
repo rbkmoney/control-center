@@ -1,4 +1,4 @@
-import { ClaimStatus } from '../../../../papi/model/claim-statuses';
+import { ClaimStatus } from '../../../../papi/model';
 import { getUnionKey } from '../../../../shared/utils';
 import {
     ClaimModification,

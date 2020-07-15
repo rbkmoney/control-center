@@ -1,0 +1,29 @@
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <cc-claim-timeline-item-header
+            [createdAt]="'2013-04-01T00:00:00.000'"
+            [text]="
+                'changed claim status to pending' ||
+                'changed claim status to review' ||
+                'revoked claim' ||
+                'denied claim' ||
+                'accepted claim'
+            "
+            [username]="'kekes'"
+        ></cc-claim-timeline-item-header>
+
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu"></mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge [color]="'warn' || 'error' || 'success'">
+        <mat-icon>{{ 'block' || 'double_arrow' || 'check' }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
+        <cc-reason-content></cc-reason-content>
+    </cc-timeline-item-content>
+</cc-timeline-item>

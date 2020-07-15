@@ -8,8 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
+import { ChangesetsModule } from './changesets/changesets.module';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
+import { PartyClaimActionsComponent } from './party-claim-actions/party-claim-actions.component';
 import { PartyClaimRoutingModule } from './party-claim-routing.module';
+import { PartyClaimTitleComponent } from './party-claim-title/party-claim-title.component';
 import { PartyClaimComponent } from './party-claim.component';
 import { SendCommentModule } from './send-comment/send-comment.module';
 
@@ -19,14 +22,15 @@ import { SendCommentModule } from './send-comment/send-comment.module';
         FlexModule,
         MatSelectModule,
         MatCardModule,
-        FileUploaderModule,
         CommonModule,
         MatButtonModule,
         MatIconModule,
         ReactiveFormsModule,
         MatInputModule,
         SendCommentModule,
+        FileUploaderModule,
+        ChangesetsModule,
     ],
-    declarations: [PartyClaimComponent],
+    declarations: [PartyClaimComponent, PartyClaimTitleComponent, PartyClaimActionsComponent],
 })
 export class PartyClaimModule {}
