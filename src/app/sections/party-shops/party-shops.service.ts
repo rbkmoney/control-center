@@ -3,15 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { PartyService as PapiPartyService } from '../../papi/party.service';
-import { PartyService } from '../../party/party.service';
+import { PartyService } from '../../papi/party.service';
 import { Party } from '../../thrift-services/damsel/gen-model/domain';
 
 @Injectable()
 export class PartyShopsService {
     private party$: Observable<Party> = this.route.params.pipe(
         pluck('partyID'),
-        switchMap((partyID) => this.papiPartyService.getParty(partyID)),
+        switchMap((partyID) => this.partyService.getParty(partyID)),
         shareReplay(1)
     );
 
@@ -20,9 +19,5 @@ export class PartyShopsService {
         map((shops) => Array.from(shops.values()))
     );
 
-    constructor(
-        private partyService: PartyService,
-        private papiPartyService: PapiPartyService,
-        private route: ActivatedRoute
-    ) {}
+    constructor(private partyService: PartyService, private route: ActivatedRoute) {}
 }
