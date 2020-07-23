@@ -1,4 +1,14 @@
 <mat-nav-list>
+    <div *ngIf="contractorActions.visible">
+        <a
+            mat-list-item
+            *ngFor="let contractorAction of contractorActions.names"
+            (click)="select(contractorActions.type, contractorAction)"
+        >
+            {{ contractorAction | ccModificationName: 'ContractorUnitContainer' }}
+        </a>
+    </div>
+    <div *ngIf="data.type === 'allActions'"><mat-divider></mat-divider></div>
     <div *ngIf="contractActions.visible">
         <a
             mat-list-item
