@@ -9,6 +9,7 @@ import {
     ShopModificationName,
     UnitActionData,
 } from '../model';
+import { ContractorModificationName } from '../model/contractor-modification-name';
 
 @Component({
     templateUrl: 'unit-actions-nav-list.component.html',
@@ -21,6 +22,12 @@ export class UnitActionsNavListComponent implements OnInit {
         @Inject(MAT_BOTTOM_SHEET_DATA) public data: UnitActionData
     ) {}
 
+    contractorActions = {
+        type: ActionType.contractorAction,
+        visible: false,
+        names: [],
+    };
+
     contractActions = {
         type: ActionType.contractAction,
         visible: false,
@@ -30,7 +37,6 @@ export class UnitActionsNavListComponent implements OnInit {
             ContractModificationName.adjustmentModification,
             ContractModificationName.payoutToolModification,
             ContractModificationName.termination,
-            // ContractModificationName.contractorModification
         ],
     };
 
@@ -53,22 +59,33 @@ export class UnitActionsNavListComponent implements OnInit {
             case 'allActions':
                 this.contractActions.visible = true;
                 this.shopActions.visible = true;
+                this.contractorActions.visible = true;
                 this.contractActions.names = [
                     ContractModificationName.creation,
                     ContractModificationName.legacyCreation,
                     ...this.contractActions.names,
                 ];
                 this.shopActions.names = [ShopModificationName.creation, ...this.shopActions.names];
+                this.contractorActions.names = [
+                    ContractorModificationName.creation,
+                    ...this.contractorActions.names,
+                ];
                 break;
             case 'contractActions':
                 this.contractActions.visible = true;
                 break;
             case 'shopActions':
                 this.shopActions.visible = true;
+                break;
+            case 'contractorActions':
+                this.contractorActions.visible = true;
         }
     }
 
-    select(type: ActionType, name: ContractModificationName | ShopModificationName) {
+    select(
+        type: ActionType,
+        name: ContractModificationName | ShopModificationName | ContractorModificationName
+    ) {
         this.bottomSheetRef.dismiss();
         const config = {
             data: {

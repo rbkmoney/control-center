@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import get from 'lodash-es/get';
 
-import { getUnionKey, getUnionValue } from '../../../../../shared/utils/get-union-key';
+import { getUnionKey, getUnionValue } from '../../../../../shared/utils';
 import {
     Contractor,
     WithoutChiefAccountant,

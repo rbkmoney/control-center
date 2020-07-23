@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <mat-accordion *ngIf="questionary" multi>
-        <mat-expansion-panel>
+        <mat-expansion-panel *ngIf="questionary?.data?.contractor">
             <mat-expansion-panel-header>
                 <mat-panel-title>Сведения об организации</mat-panel-title>
             </mat-expansion-panel-header>
@@ -8,6 +8,7 @@
                 [contractor]="questionary?.data?.contractor"
             ></cc-organization-info>
         </mat-expansion-panel>
+
         <mat-expansion-panel *ngIf="questionary?.data?.contractor?.legal_entity">
             <mat-expansion-panel-header>
                 <mat-panel-title>Сведения о юридическом лице</mat-panel-title>
@@ -19,6 +20,7 @@
                 "
             ></cc-legal-owner-info>
         </mat-expansion-panel>
+
         <mat-expansion-panel *ngIf="questionary?.data?.contractor?.individual_entity">
             <mat-expansion-panel-header>
                 <mat-panel-title>Сведения о физическом лице</mat-panel-title>
@@ -29,13 +31,15 @@
                 "
             ></cc-individual-entity-info>
         </mat-expansion-panel>
-        <mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="questionary?.data?.shop_info">
             <mat-expansion-panel-header>
                 <mat-panel-title>Сведения о магазине</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-shop-info [shopInfo]="questionary?.data?.shop_info"></cc-shop-info>
         </mat-expansion-panel>
-        <mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="questionary?.data?.bank_account?.russian_bank_account">
             <mat-expansion-panel-header>
                 <mat-panel-title>Банковские реквизиты для вывода денежных средств</mat-panel-title>
             </mat-expansion-panel-header>
@@ -43,7 +47,8 @@
                 [bankAccount]="questionary?.data?.bank_account?.russian_bank_account"
             ></cc-bank-account-info>
         </mat-expansion-panel>
-        <mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="questionary?.data?.contact_info">
             <mat-expansion-panel-header>
                 <mat-panel-title>Контактная информация</mat-panel-title>
             </mat-expansion-panel-header>

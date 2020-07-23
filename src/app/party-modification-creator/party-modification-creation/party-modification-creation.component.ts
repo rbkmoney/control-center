@@ -10,12 +10,17 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ActionType, ModificationAction } from '../../claim/modification-action';
+import { ContractorModification } from '../../thrift-services/damsel/gen-model/claim_management';
 import {
     ContractModification,
     PartyModification,
     ShopModification,
 } from '../../thrift-services/damsel/gen-model/payment_processing';
-import { ContractModificationName, ShopModificationName } from '../model';
+import {
+    ContractModificationName,
+    ContractorModificationName,
+    ShopModificationName,
+} from '../model';
 import { filterEmptyStringValues } from './filter-empty-string-value';
 import { toPartyModification } from './to-party-modification';
 
@@ -34,7 +39,7 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     unitIDDisabled;
 
     @Input()
-    modification: ShopModification & ContractModification; // TODO: bad type, should be '|' instead '&'
+    modification: ShopModification & ContractModification & ContractorModification; // TODO: bad type, should be '|' instead '&'
 
     @Output()
     valueChanges: EventEmitter<PartyModification> = new EventEmitter();
@@ -45,6 +50,7 @@ export class PartyModificationCreationComponent implements OnInit, OnChanges {
     actionTypes = ActionType;
     shopModificationNames = ShopModificationName;
     contractModificationNames = ContractModificationName;
+    contractorModificationNames = ContractorModificationName;
 
     form: FormGroup;
 
