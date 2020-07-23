@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import remove from 'lodash-es/remove';
 import { Subject } from 'rxjs';
 
-import { PartyModification } from '../thrift-services/damsel/gen-model/payment_processing';
+import { PartyModification } from '../thrift-services/damsel/gen-model/claim_management';
 import { PersistentContainer } from './model';
 
 @Injectable()
