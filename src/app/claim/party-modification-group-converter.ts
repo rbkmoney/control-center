@@ -4,8 +4,9 @@ import map from 'lodash-es/map';
 import { UnitName } from '../party-modification-creator/party-modification-creation/unit-name';
 import {
     ContractModificationUnit,
+    ContractorModificationUnit,
     ShopModificationUnit,
-} from '../thrift-services/damsel/gen-model/payment_processing';
+} from '../thrift-services/damsel/gen-model/claim_management';
 import {
     ModificationGroup,
     ModificationGroupType,
@@ -14,7 +15,7 @@ import {
 } from './model';
 
 interface PersistentUnit {
-    modificationUnit: ShopModificationUnit | ContractModificationUnit;
+    modificationUnit: ShopModificationUnit | ContractModificationUnit | ContractorModificationUnit;
     saved: boolean;
     typeHash: string;
 }
