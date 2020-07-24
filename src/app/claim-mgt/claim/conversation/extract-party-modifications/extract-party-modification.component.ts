@@ -1,17 +1,19 @@
 import { Component, Inject } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
+import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ExtractPartyModificationsService } from './extract-party-modifications.service';
 
 export interface ExtractPartyModification {
     questionary: Questionary;
+    partyID: PartyID;
 }
 
 @Component({
     templateUrl: 'extract-party-modification.component.html',
     providers: [ExtractPartyModificationsService],
+    styleUrls: ['extract-party-modifications.component.scss']
 })
 export class ExtractPartyModificationComponent {
     form = this.extractPartyModificationsService.form;
@@ -26,9 +28,5 @@ export class ExtractPartyModificationComponent {
         this.dialogRef.close(
             this.extractPartyModificationsService.mapToModifications(this.data.questionary.data)
         );
-    }
-
-    getParamsControls() {
-        return (this.form.get('params') as FormGroup).controls;
     }
 }

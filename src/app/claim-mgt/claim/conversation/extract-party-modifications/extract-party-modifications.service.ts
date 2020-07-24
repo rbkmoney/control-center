@@ -12,61 +12,52 @@ import { ExtractFormValue } from './extract-form-value';
 @Injectable()
 export class ExtractPartyModificationsService {
     form = this.fb.group({
-        params: this.fb.group({
-            contractCreation: true,
-            payoutToolCreation: true,
-            shopCreation: true,
-        }),
         category: this.fb.group({}),
         payment_institution: this.fb.group({}),
+        contractor: this.fb.group({})
     });
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder) {
+        this.form.valueChanges.subscribe(q => console.log(q));
+    }
 
     mapToModifications(d: QuestionaryData): PartyModification[] {
         const {
-            params: { contractCreation, payoutToolCreation, shopCreation },
             category,
-            payment_institution,
+            payment_institution
         }: ExtractFormValue = this.form.value;
-        const shopID = shopCreation ? uuid() : '';
-        const contractID = contractCreation ? uuid() : '';
-        const contractorID = contractCreation ? uuid() : '';
-        const payoutToolID = payoutToolCreation ? uuid() : '';
+        const shopID = uuid();
+        const contractID = uuid();
+        const contractorID = uuid();
+        const payoutToolID = uuid();
 
         const result = [];
 
-        if (contractCreation) {
-            const contractorCreationModification = createContractor(d, contractorID);
-            const contractCreationModification = createContractCreation(
-                d,
-                contractorID,
-                contractID,
-                payment_institution
-            );
-            result.push(contractorCreationModification, contractCreationModification);
-        }
+        const contractorCreationModification = createContractor(d, contractorID);
+        const contractCreationModification = createContractCreation(
+            d,
+            contractorID,
+            contractID,
+            payment_institution
+        );
+        result.push(contractorCreationModification, contractCreationModification);
 
-        if (payoutToolCreation) {
-            const payoutToolCreationModification = createPayoutToolCreation(
-                d,
-                contractID,
-                payoutToolID
-            );
-            result.push(payoutToolCreationModification);
-        }
+        const payoutToolCreationModification = createPayoutToolCreation(
+            d,
+            contractID,
+            payoutToolID
+        );
+        result.push(payoutToolCreationModification);
 
-        if (shopCreation) {
-            const shopCreationModification = createShopCreation(
-                d,
-                contractID,
-                payoutToolID,
-                category.id,
-                shopID
-            );
-            const shopAccountCreation = createShopAccountCreation(shopID);
-            result.push(shopCreationModification, shopAccountCreation);
-        }
+        const shopCreationModification = createShopCreation(
+            d,
+            contractID,
+            payoutToolID,
+            category.id,
+            shopID
+        );
+        const shopAccountCreation = createShopAccountCreation(shopID);
+        result.push(shopCreationModification, shopAccountCreation);
 
         return result;
     }

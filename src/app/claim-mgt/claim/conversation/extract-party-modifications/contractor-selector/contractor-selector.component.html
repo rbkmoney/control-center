@@ -1,0 +1,31 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <div class="mat-title">Contractor</div>
+    <mat-radio-group (change)="targetChanges($event)" fxLayout fxLayoutGap="20px">
+        <mat-radio-button
+                *ngFor="let item of selectorTypes"
+                [checked]="selectedTarget === item"
+                [value]="item"
+        >{{ item | ccSelectorType }}
+        </mat-radio-button>
+    </mat-radio-group>
+    <ng-container *ngIf="selectedTarget === 'attachNew'">
+        <form [formGroup]="contractorForm">
+            <mat-form-field fxFlex="">
+                <input type="text" matInput formControlName="id" placeholder="Contractor ID">
+            </mat-form-field>
+        </form>
+    </ng-container>
+    <ng-container *ngIf="selectedTarget === 'attach'">
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <div *ngIf="!loading && items">
+            <div fxLayout="column" *ngFor="let item of items">
+                <div fxLayout="column">
+                    <mat-checkbox [checked]="item.checked" (change)="change(item, $event)"
+                    >{{ item.id }}
+                    </mat-checkbox>
+                    <cc-pretty-json [object]="item.item"></cc-pretty-json>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
