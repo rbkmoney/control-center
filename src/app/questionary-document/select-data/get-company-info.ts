@@ -1,15 +1,15 @@
 import get from 'lodash-es/get';
 
-import { getUnionValue } from '../../shared/utils';
 import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
 
 export function getCompanyInfo(
     questionary: Questionary
 ): { companyName: string; companyInn: string } {
-    console.log(getUnionValue(getUnionValue(questionary.data.contractor)));
     return {
         companyName: get(questionary, ['data', 'shop_info', 'details', 'name'], ''),
-        // companyInn: getUnionValue(getUnionValue(questionary.data.contractor))?.inn || '',
-        companyInn: '',
+        companyInn:
+            get(questionary, 'data.contractor.legal_entity.russian_legal_entity') ||
+            get(questionary, 'data.contractor.individual_entity.russian_individual_entity') ||
+            '',
     };
 }

@@ -8,6 +8,7 @@ import { map } from 'rxjs/internal/operators';
 
 import { PartyService } from '../../../../../papi/party.service';
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
+import { ActionType } from './action-type';
 import { SelectableItem } from './selectable-item';
 
 @Component({
@@ -22,8 +23,9 @@ export class ContractorSelectorComponent implements OnInit {
     @Input()
     contractorForm: FormGroup;
 
-    selectorTypes = ['attachNew', 'attach'];
-    selectedTarget = 'attachNew';
+    actionType = ActionType;
+    actionTypes = [ActionType.attachNew, ActionType.attach];
+    selectedTarget = ActionType.attachNew;
 
     dataSource: MatTableDataSource<SelectableItem> = new MatTableDataSource();
 

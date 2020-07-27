@@ -2,20 +2,20 @@
     <div class="mat-title">Contractor</div>
     <mat-radio-group (change)="targetChanges($event)" fxLayout fxLayoutGap="20px">
         <mat-radio-button
-            *ngFor="let item of selectorTypes"
+            *ngFor="let item of actionTypes"
             [checked]="selectedTarget === item"
             [value]="item"
             >{{ item | ccSelectorType }}
         </mat-radio-button>
     </mat-radio-group>
-    <ng-container *ngIf="selectedTarget === 'attachNew'">
+    <ng-container *ngIf="selectedTarget === actionType.attachNew">
         <form [formGroup]="contractorForm">
             <mat-form-field fxFlex="">
                 <input type="text" matInput formControlName="id" placeholder="Contractor ID" />
             </mat-form-field>
         </form>
     </ng-container>
-    <ng-container *ngIf="selectedTarget === 'attach'">
+    <ng-container *ngIf="selectedTarget === actionType.attach">
         <div *ngIf="isLoading" fxFlex fxLayout="row" fxLayoutAlign="center center">
             <mat-spinner></mat-spinner>
         </div>

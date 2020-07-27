@@ -1,14 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { ActionType } from './action-type';
+
 @Pipe({
     name: 'ccSelectorType',
 })
 export class SelectorTypePipe implements PipeTransform {
     transform(value: string): any {
         switch (value) {
-            case 'attachNew':
+            case ActionType.attachNew:
                 return 'Attach new';
-            case 'attach':
+            case ActionType.attach:
                 return 'Select from party';
             default:
                 return value;
