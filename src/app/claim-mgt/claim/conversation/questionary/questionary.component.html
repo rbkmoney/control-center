@@ -29,14 +29,14 @@
             ></cc-individual-entity-info>
         </mat-expansion-panel>
 
-      <mat-expansion-panel *ngIf="questionary?.data?.shop_info">
+        <mat-expansion-panel *ngIf="questionary?.data?.shop_info">
             <mat-expansion-panel-header>
                 <mat-panel-title>Сведения о магазине</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-shop-info [shopInfo]="questionary.data.shop_info"></cc-shop-info>
         </mat-expansion-panel>
 
-      <mat-expansion-panel *ngIf="questionary?.data?.bank_account?.russian_bank_account">
+        <mat-expansion-panel *ngIf="questionary?.data?.bank_account?.russian_bank_account">
             <mat-expansion-panel-header>
                 <mat-panel-title>Банковские реквизиты для вывода денежных средств</mat-panel-title>
             </mat-expansion-panel-header>
@@ -45,7 +45,7 @@
             ></cc-bank-account-info>
         </mat-expansion-panel>
 
-      <mat-expansion-panel *ngIf="questionary?.data?.contact_info">
+        <mat-expansion-panel *ngIf="questionary?.data?.contact_info">
             <mat-expansion-panel-header>
                 <mat-panel-title>Контактная информация</mat-panel-title>
             </mat-expansion-panel-header>
