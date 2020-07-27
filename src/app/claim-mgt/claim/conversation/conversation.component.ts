@@ -30,7 +30,7 @@ import { ConversationService } from './conversation.service';
 import { ExtractPartyModificationComponent } from './extract-party-modifications/extract-party-modification.component';
 import { QuestionaryService } from './questionary.service';
 import { SavePartyModificationsService } from './save-party-modifications.service';
-import { TimelineAction, TimelineItemInfo } from './to-timeline-info/model';
+import { TimelineAction } from './to-timeline-info/model';
 
 @Component({
     selector: 'cc-claim-conversation',
@@ -138,8 +138,7 @@ export class ConversationComponent implements OnChanges, OnInit {
         const dialog = this.dialog.open(ExtractPartyModificationComponent, {
             disableClose: true,
             data: { questionary, partyID: this.claim.party_id },
-            width: '550px',
-            height: '80vh'
+            width: '800px',
         });
         dialog
             .afterClosed()

@@ -7,18 +7,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { PartyModificationFormsModule } from '../../../../party-modification-forms';
+import { ContractorSelectorModule } from './contractor-selector/contractor-selector.module';
 import { ExtractFormCheckboxNamePipe } from './extract-form-checkbox-name.pipe';
 import { ExtractPartyModificationComponent } from './extract-party-modification.component';
-import { MatRadioModule } from '@angular/material/radio';
-import { ContractorSelectorModule } from './contractor-selector/contractor-selector.module';
 
 @NgModule({
-    declarations: [
-        ExtractPartyModificationComponent,
-        ExtractFormCheckboxNamePipe,
-    ],
+    declarations: [ExtractPartyModificationComponent, ExtractFormCheckboxNamePipe],
     exports: [ExtractPartyModificationComponent],
     imports: [
         FlexModule,
@@ -31,7 +28,7 @@ import { ContractorSelectorModule } from './contractor-selector/contractor-selec
         PartyModificationFormsModule,
         MatDividerModule,
         MatRadioModule,
-        ContractorSelectorModule
+        ContractorSelectorModule,
     ],
     entryComponents: [ExtractPartyModificationComponent],
 })

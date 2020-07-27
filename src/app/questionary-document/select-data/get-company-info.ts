@@ -6,8 +6,10 @@ import { Questionary } from '../../thrift-services/ank/gen-model/questionary_man
 export function getCompanyInfo(
     questionary: Questionary
 ): { companyName: string; companyInn: string } {
+    console.log(getUnionValue(getUnionValue(questionary.data.contractor)));
     return {
         companyName: get(questionary, ['data', 'shop_info', 'details', 'name'], ''),
-        companyInn: getUnionValue(getUnionValue(questionary.data.contractor)).inn,
+        // companyInn: getUnionValue(getUnionValue(questionary.data.contractor))?.inn || '',
+        companyInn: '',
     };
 }

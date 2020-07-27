@@ -14,33 +14,35 @@ export class ExtractPartyModificationsService {
     form = this.fb.group({
         category: this.fb.group({}),
         payment_institution: this.fb.group({}),
-        contractor: this.fb.group({})
+        contractor: this.fb.group({}),
     });
 
-    constructor(private fb: FormBuilder) {
-        this.form.valueChanges.subscribe(q => console.log(q));
-    }
+    constructor(private fb: FormBuilder) {}
 
     mapToModifications(d: QuestionaryData): PartyModification[] {
         const {
             category,
-            payment_institution
+            payment_institution,
+            contractor: { id },
         }: ExtractFormValue = this.form.value;
+        const contractorID = uuid();
         const shopID = uuid();
         const contractID = uuid();
-        const contractorID = uuid();
         const payoutToolID = uuid();
 
         const result = [];
 
-        const contractorCreationModification = createContractor(d, contractorID);
+        if (d.contractor) {
+            const contractorCreationModification = createContractor(d, contractorID);
+            result.push(contractorCreationModification);
+        }
+
         const contractCreationModification = createContractCreation(
-            d,
-            contractorID,
+            d.contractor ? contractorID : id,
             contractID,
             payment_institution
         );
-        result.push(contractorCreationModification, contractCreationModification);
+        result.push(contractCreationModification);
 
         const payoutToolCreationModification = createPayoutToolCreation(
             d,

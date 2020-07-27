@@ -13,16 +13,23 @@ export interface ExtractPartyModification {
 @Component({
     templateUrl: 'extract-party-modification.component.html',
     providers: [ExtractPartyModificationsService],
-    styleUrls: ['extract-party-modifications.component.scss']
+    styleUrls: ['extract-party-modifications.component.scss'],
 })
 export class ExtractPartyModificationComponent {
     form = this.extractPartyModificationsService.form;
+    partyID: string;
+    isContractorAvailable: boolean;
 
     constructor(
         private dialogRef: MatDialogRef<ExtractPartyModificationComponent>,
         private extractPartyModificationsService: ExtractPartyModificationsService,
         @Inject(MAT_DIALOG_DATA) private data: ExtractPartyModification
-    ) {}
+    ) {
+        this.partyID = this.data.partyID;
+        this.isContractorAvailable =
+            !!this.data.questionary.data.contractor?.legal_entity ||
+            !!this.data.questionary.data.contractor?.individual_entity;
+    }
 
     extract() {
         this.dialogRef.close(

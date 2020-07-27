@@ -2,6 +2,6 @@ import { Contractor } from '../../../../../thrift-services/damsel/gen-model/doma
 
 export class SelectableItem {
     id: string;
-    item: Contractor;
+    data: Contractor;
     checked: boolean;
 }

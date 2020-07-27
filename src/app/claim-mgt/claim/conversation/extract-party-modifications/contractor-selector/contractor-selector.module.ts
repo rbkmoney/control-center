@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
-import { ContractorSelectorComponent } from './contractor-selector.component';
-import { FlexModule } from '@angular/flex-layout';
-import { MatRadioModule } from '@angular/material/radio';
-import { SelectorTypePipe } from './selector-type.pipe';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTableModule } from '@angular/material/table';
+
 import { SharedModule } from '../../../../../shared/shared.module';
+import { ContractorSelectorComponent } from './contractor-selector.component';
+import { SelectorTypePipe } from './selector-type.pipe';
 
 @NgModule({
     imports: [
@@ -21,13 +23,10 @@ import { SharedModule } from '../../../../../shared/shared.module';
         MatInputModule,
         MatProgressSpinnerModule,
         MatCheckboxModule,
-        SharedModule
+        SharedModule,
+        MatTableModule,
     ],
-    exports: [
-        ContractorSelectorComponent
-    ],
-    declarations: [ContractorSelectorComponent, SelectorTypePipe]
+    exports: [ContractorSelectorComponent],
+    declarations: [ContractorSelectorComponent, SelectorTypePipe],
 })
-export class ContractorSelectorModule {
-
-}
+export class ContractorSelectorModule {}

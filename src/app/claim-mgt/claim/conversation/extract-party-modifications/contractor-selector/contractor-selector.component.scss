@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+}
+
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-row {
+    width: 100%;
+}
+
+.mat-column-id {
+    padding-left: 8px;
+    padding-right: 16px;
+}
+
+.mat-column-data {
+    padding-left: 16px;
+    max-width: 640px;
+    width: 640px;
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+.table-container {
+    width: 100%;
+    max-width: 737px;
+}

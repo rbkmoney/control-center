@@ -4,14 +4,15 @@
             <div class="mat-headline">Party modifications extraction params</div>
             <form [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
                 <cc-contractor-selector
-                        [partyID]="data.partyID"
-                        [contractorForm]="form.get('contractor')"
+                    *ngIf="!isContractorAvailable"
+                    [partyID]="partyID"
+                    [contractorForm]="form.get('contractor')"
                 ></cc-contractor-selector>
-                <mat-divider></mat-divider>
+                <mat-divider *ngIf="!isContractorAvailable"></mat-divider>
                 <cc-category-ref [required]="true" [form]="form.get('category')"></cc-category-ref>
                 <cc-payment-institution-ref
-                        [required]="true"
-                        [form]="form.get('payment_institution')"
+                    [required]="true"
+                    [form]="form.get('payment_institution')"
                 ></cc-payment-institution-ref>
             </form>
         </div>
@@ -21,10 +22,14 @@
             CANCEL
         </button>
         <button
-                mat-button
-                color="primary"
-                (click)="extract()"
-                [disabled]="!form.get('category').value.id && !form.get('payment_institution').value.id && !form.get('contractor').value.id"
+            mat-button
+            color="primary"
+            (click)="extract()"
+            [disabled]="
+                !form.get('category').value.id &&
+                !form.get('payment_institution').value.id &&
+                !form.get('contractor').value.id
+            "
         >
             EXTRACT
         </button>
