@@ -28,5 +28,7 @@ export const toPartyModification = (action: ModificationAction, formValue: any) 
             return toMod(UnitName.shopModification, name);
         case ActionType.contractAction:
             return toMod(UnitName.contractModification, name);
+        case ActionType.contractorAction:
+            return toMod(UnitName.contractorModification, name);
     }
 };

@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import {
     ContractModificationUnit,
+    ContractorModificationUnit,
     PartyModification,
     ShopModificationUnit,
 } from '../../thrift-services/damsel/gen-model/claim_management';
@@ -14,7 +15,7 @@ export interface CreateModificationData {
     action: ModificationAction;
     partyID: string;
     unitID?: string;
-    modification?: ShopModificationUnit | ContractModificationUnit;
+    modification?: ShopModificationUnit | ContractModificationUnit | ContractorModificationUnit;
 }
 
 enum Step {
@@ -72,6 +73,7 @@ export class CreateModificationDialogComponent implements OnInit {
         switch (this.data.action.type) {
             case ActionType.shopAction:
             case ActionType.contractAction:
+            case ActionType.contractorAction:
                 this.addChange();
                 break;
         }
@@ -83,6 +85,8 @@ export class CreateModificationDialogComponent implements OnInit {
                 return ModificationGroupType.ShopUnitContainer;
             case ActionType.contractAction:
                 return ModificationGroupType.ContractUnitContainer;
+            case ActionType.contractorAction:
+                return ModificationGroupType.ContractorUnitContainer;
         }
     }
 
@@ -92,6 +96,8 @@ export class CreateModificationDialogComponent implements OnInit {
                 return PartyTarget.shop;
             case ActionType.contractAction:
                 return PartyTarget.contract;
+            case ActionType.contractorAction:
+                return PartyTarget.contractor;
         }
     }
 

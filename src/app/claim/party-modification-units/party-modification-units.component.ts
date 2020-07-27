@@ -34,6 +34,9 @@ export class PartyModificationUnitsComponent {
             case ModificationGroupType.ShopUnitContainer:
                 type = 'shopActions';
                 break;
+            case ModificationGroupType.ContractorUnitContainer:
+                type = 'contractorActions';
+                break;
             default:
                 type = 'allActions';
                 break;
