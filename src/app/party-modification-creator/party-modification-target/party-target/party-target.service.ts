@@ -5,8 +5,8 @@ import { map } from 'rxjs/internal/operators';
 import { PartyService } from '../../../papi/party.service';
 import {
     Contract,
-    Contractor,
     Party,
+    PartyContractor,
     Shop,
 } from '../../../thrift-services/damsel/gen-model/domain';
 import { PartyTarget } from '../party-target';
@@ -30,12 +30,14 @@ export class PartyTargetService {
     private getTarget(
         party: Party,
         targetName: PartyTarget
-    ): Map<string, Contract | Shop | Contractor> {
+    ): Map<string, Contract | Shop | PartyContractor> {
         switch (targetName) {
             case PartyTarget.contract:
                 return party.contracts;
             case PartyTarget.shop:
                 return party.shops;
+            case PartyTarget.contractor:
+                return party.contractors;
         }
     }
 }
