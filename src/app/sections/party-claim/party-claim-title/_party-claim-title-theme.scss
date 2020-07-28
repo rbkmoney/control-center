@@ -1,0 +1,9 @@
+@import '../../../../../node_modules/@angular/material/theming';
+
+@mixin cc-party-claim-title-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .cc-party-claim-title {
+        color: mat-color($foreground, secondary-text);
+    }
+}

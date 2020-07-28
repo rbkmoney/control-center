@@ -27,9 +27,9 @@ const declarations = [
     ClaimStatusThriftPipe,
     ClaimStatusPipe,
     PrettyJsonComponent,
-    CardContainerComponent,
     EmptySearchResultComponent,
     ClaimSourcePipe,
+    CardContainerComponent,
 ];
 
 @NgModule({
