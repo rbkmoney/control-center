@@ -1,8 +1,8 @@
-<div fxLayout="column" fxLayoutAlign="space-between stretch">
+<div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="32px">
     <mat-dialog-content>
-        <div fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="32px">
             <div class="mat-headline">Party modifications extraction params</div>
-            <form [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
+            <form [formGroup]="form" fxLayout="column" fxLayoutGap="32px">
                 <cc-contractor-selector
                     *ngIf="!isContractorAvailable"
                     [partyID]="partyID"
@@ -26,9 +26,11 @@
             color="primary"
             (click)="extract()"
             [disabled]="
-                !form.get('category').value.id &&
-                !form.get('payment_institution').value.id &&
-                !form.get('contractor').value.id
+                !(
+                    !!form.get('category').value.id &&
+                    !!form.get('payment_institution').value.id &&
+                    !!form.get('contractor').value.id
+                )
             "
         >
             EXTRACT
