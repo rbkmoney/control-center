@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="24px">
     <div class="mat-title">Contractor</div>
-    <mat-radio-group (change)="targetChanges($event)" fxLayout fxLayoutGap="20px">
+    <mat-radio-group (change)="targetChanges($event)" fxLayout fxLayoutGap="32px">
         <mat-radio-button
             *ngFor="let item of actionTypes"
             [checked]="selectedTarget === item"
