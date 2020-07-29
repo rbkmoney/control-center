@@ -5,12 +5,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 
 import { SharedModule } from '../../../../../shared/shared.module';
 import { ContractorSelectorComponent } from './contractor-selector.component';
+import { ContractorsTableComponent } from './contractors-table/contractors-table.component';
 import { SelectorTypePipe } from './selector-type.pipe';
 
 @NgModule({
@@ -25,8 +27,9 @@ import { SelectorTypePipe } from './selector-type.pipe';
         MatCheckboxModule,
         SharedModule,
         MatTableModule,
+        MatPaginatorModule,
     ],
     exports: [ContractorSelectorComponent],
-    declarations: [ContractorSelectorComponent, SelectorTypePipe],
+    declarations: [ContractorSelectorComponent, SelectorTypePipe, ContractorsTableComponent],
 })
 export class ContractorSelectorModule {}
