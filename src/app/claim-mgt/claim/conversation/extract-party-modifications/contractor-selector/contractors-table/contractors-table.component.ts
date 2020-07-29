@@ -1,4 +1,4 @@
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,7 +16,7 @@ import { SelectableItem } from '../selectable-item';
     styleUrls: ['contractors-table.component.scss'],
     templateUrl: 'contractors-table.component.html',
 })
-export class ContractorsTableComponent {
+export class ContractorsTableComponent implements OnInit {
     @Input()
     partyID: PartyID;
 
