@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
@@ -25,6 +25,6 @@ export class ContractorSelectorComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.contractorForm.registerControl('id', new FormControl());
+        this.contractorForm.registerControl('id', new FormControl('', [Validators.required]));
     }
 }

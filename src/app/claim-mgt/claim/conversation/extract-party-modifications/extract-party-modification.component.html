@@ -21,18 +21,7 @@
         <button mat-dialog-close mat-button color="default" [mat-dialog-close]="false">
             CANCEL
         </button>
-        <button
-            mat-button
-            color="primary"
-            (click)="extract()"
-            [disabled]="
-                !(
-                    !!form.get('category').value.id &&
-                    !!form.get('payment_institution').value.id &&
-                    !!form.get('contractor').value.id
-                )
-            "
-        >
+        <button mat-button color="primary" (click)="extract()" [disabled]="!form.valid">
             EXTRACT
         </button>
     </mat-dialog-actions>
