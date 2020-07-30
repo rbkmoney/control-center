@@ -4,9 +4,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>Сведения об организации</mat-panel-title>
             </mat-expansion-panel-header>
-            <cc-organization-info
-                [contractor]="questionary?.data?.contractor"
-            ></cc-organization-info>
+            <cc-organization-info [contractor]="questionary.data.contractor"></cc-organization-info>
         </mat-expansion-panel>
 
         <mat-expansion-panel *ngIf="questionary?.data?.contractor?.legal_entity">
@@ -15,8 +13,7 @@
             </mat-expansion-panel-header>
             <cc-legal-owner-info
                 [legalOwnerInfo]="
-                    questionary?.data?.contractor.legal_entity?.russian_legal_entity
-                        ?.legal_owner_info
+                    questionary.data.contractor.legal_entity.russian_legal_entity.legal_owner_info
                 "
             ></cc-legal-owner-info>
         </mat-expansion-panel>
@@ -27,7 +24,7 @@
             </mat-expansion-panel-header>
             <cc-individual-entity-info
                 [individualEntity]="
-                    questionary?.data?.contractor?.individual_entity?.russian_individual_entity
+                    questionary.data.contractor.individual_entity.russian_individual_entity
                 "
             ></cc-individual-entity-info>
         </mat-expansion-panel>
@@ -36,7 +33,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>Сведения о магазине</mat-panel-title>
             </mat-expansion-panel-header>
-            <cc-shop-info [shopInfo]="questionary?.data?.shop_info"></cc-shop-info>
+            <cc-shop-info [shopInfo]="questionary.data.shop_info"></cc-shop-info>
         </mat-expansion-panel>
 
         <mat-expansion-panel *ngIf="questionary?.data?.bank_account?.russian_bank_account">
@@ -44,7 +41,7 @@
                 <mat-panel-title>Банковские реквизиты для вывода денежных средств</mat-panel-title>
             </mat-expansion-panel-header>
             <cc-bank-account-info
-                [bankAccount]="questionary?.data?.bank_account?.russian_bank_account"
+                [bankAccount]="questionary.data.bank_account.russian_bank_account"
             ></cc-bank-account-info>
         </mat-expansion-panel>
 

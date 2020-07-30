@@ -16,7 +16,11 @@ import { EmptyDefaultPipe } from './empty-default.pipe';
 import { IdentityDocumentInfoComponent } from './identity-document-info';
 import { IndividualEntityInfoComponent } from './individual-entity-info';
 import { LegalOwnerInfoComponent } from './legal-owner-info';
-import { OrganizationInfoComponent } from './organization-info';
+import {
+    InternationalEntityComponent,
+    OrganizationInfoComponent,
+    RussianEntityComponent,
+} from './organization-info';
 import { PdlInfoComponent } from './pdl-info';
 import { PrivateEntityInfoComponent } from './private-entity-info';
 import { QuestionaryComponent } from './questionary.component';
@@ -37,6 +41,8 @@ import { YesNoPipe } from './yes-no.pipe';
     ],
     declarations: [
         QuestionaryComponent,
+        RussianEntityComponent,
+        InternationalEntityComponent,
         OrganizationInfoComponent,
         YesNoPipe,
         LegalOwnerInfoComponent,

@@ -1,6 +1,5 @@
 import get from 'lodash-es/get';
 
-import { getUnionValue } from '../../shared/utils';
 import { Questionary } from '../../thrift-services/ank/gen-model/questionary_manager';
 
 export function getCompanyInfo(
@@ -8,6 +7,9 @@ export function getCompanyInfo(
 ): { companyName: string; companyInn: string } {
     return {
         companyName: get(questionary, ['data', 'shop_info', 'details', 'name'], ''),
-        companyInn: getUnionValue(getUnionValue(questionary.data.contractor)).inn,
+        companyInn:
+            get(questionary, 'data.contractor.legal_entity.russian_legal_entity') ||
+            get(questionary, 'data.contractor.individual_entity.russian_individual_entity') ||
+            '',
     };
 }

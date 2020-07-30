@@ -2,6 +2,6 @@ import { Contract, Contractor, Shop } from '../../../thrift-services/damsel/gen-
 
 export class SelectableItem {
     id: string;
-    item: Contract | Shop | Contractor;
+    data: Contract | Shop | Contractor;
     checked: boolean;
 }

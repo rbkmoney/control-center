@@ -5,9 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { PartyModificationFormsModule } from '../../../../party-modification-forms';
+import { ContractorSelectorModule } from './contractor-selector/contractor-selector.module';
 import { ExtractFormCheckboxNamePipe } from './extract-form-checkbox-name.pipe';
 import { ExtractPartyModificationComponent } from './extract-party-modification.component';
 
@@ -23,6 +26,9 @@ import { ExtractPartyModificationComponent } from './extract-party-modification.
         MatCheckboxModule,
         CommonModule,
         PartyModificationFormsModule,
+        MatDividerModule,
+        MatRadioModule,
+        ContractorSelectorModule,
     ],
     entryComponents: [ExtractPartyModificationComponent],
 })
