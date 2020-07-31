@@ -1,17 +1,5 @@
-.table-container {
-    max-height: 540px;
-}
-
 table {
-    width: 100%;
-}
-
-.mat-header-row {
-    width: 100%;
-}
-
-.mat-row {
-    width: 100%;
+    overflow: auto;
 }
 
 .mat-column-select,
@@ -22,13 +10,11 @@ table {
 
 .mat-column-data {
     padding-left: 16px;
-    max-width: 350px;
-    width: 350px;
     white-space: nowrap;
-    overflow-x: scroll;
 }
 
 .table-container {
     width: 100%;
-    max-width: 737px;
+    max-width: 735px;
+    overflow: auto;
 }
