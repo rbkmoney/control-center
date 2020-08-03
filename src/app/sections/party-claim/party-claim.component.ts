@@ -1,28 +1,23 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
-import Int64 from 'thrift-ts/lib/int64';
 
 import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
-import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
+import { PartyClaimService } from './party-claim.service';
 
 @Component({
     templateUrl: 'party-claim.component.html',
+    providers: [PartyClaimService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PartyClaimComponent {
+export class PartyClaimComponent implements OnInit {
     claimID$ = this.route.params.pipe(pluck('claimID'), shareReplay(SHARE_REPLAY_CONF));
+    isLoading$ = this.partyClaimService.isLoading$;
+    claim$ = this.partyClaimService.claim$;
 
-    constructor(private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute, private partyClaimService: PartyClaimService) {}
 
-    claim: Claim = {
-        id: new Int64(123),
-        party_id: '31123231231123123231321213',
-        status: {
-            review: {},
-        },
-        changeset: [],
-        revision: 123,
-        created_at: '2013-04-01T00:00:00.000',
-    };
+    ngOnInit(): void {
+        this.partyClaimService.getClaim();
+    }
 }

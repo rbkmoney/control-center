@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import get from 'lodash-es/get';
 import * as moment from 'moment';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
@@ -18,7 +18,7 @@ const FILENAME_LENGTH = 100;
     templateUrl: 'questionary.component.html',
     styleUrls: ['questionary.component.scss'],
 })
-export class QuestionaryComponent {
+export class QuestionaryComponent implements OnChanges {
     beneficialOwnersDocuments$: Observable<TCreatedPdf[]>;
 
     @Input()
@@ -29,6 +29,10 @@ export class QuestionaryComponent {
     }
 
     constructor(private questionaryDocumentService: QuestionaryDocumentService) {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(this.questionary);
+    }
 
     downloadDocument() {
         this.questionaryDocumentService
