@@ -20,6 +20,7 @@ export const toModificationUnitInfos = (units: ModificationUnit[]): Modification
                 if (info.path === path) {
                     infos[i].isOutdated = true;
                 }
+                return false;
             }),
             path,
             unit,
