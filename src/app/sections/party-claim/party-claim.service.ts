@@ -14,7 +14,7 @@ export class PartyClaimService {
     claim$ = this.getClaim$.pipe(
         switchMap(() => this.route.params),
         switchMap(({ partyID, claimID }) =>
-            this.claimManagementService.getClaim(partyID, new Int64(parseInt(claimID)))
+            this.claimManagementService.getClaim(partyID, new Int64(parseInt(claimID, 10)))
         ),
         shareReplay(1)
     );
