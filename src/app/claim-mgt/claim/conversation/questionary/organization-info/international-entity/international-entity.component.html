@@ -1,0 +1,19 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="10px">
+        <cc-details-item title="Legal name" fxFlex>{{
+            entity?.legal_name | emptyDefault
+        }}</cc-details-item>
+        <cc-details-item title="Trading name" fxFlex>{{
+            entity?.trading_name | emptyDefault
+        }}</cc-details-item>
+    </div>
+    <cc-details-item title="Registered address">
+        {{ entity?.registered_address | emptyDefault }}
+    </cc-details-item>
+    <cc-details-item title="Actual address">
+        {{ entity?.actual_address | emptyDefault }}
+    </cc-details-item>
+    <cc-details-item title="Registered number">
+        {{ entity?.registered_number | emptyDefault }}
+    </cc-details-item>
+</div>

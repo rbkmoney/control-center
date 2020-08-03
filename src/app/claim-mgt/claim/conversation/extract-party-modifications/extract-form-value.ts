@@ -3,14 +3,12 @@ import {
     PaymentInstitutionRef,
 } from '../../../../thrift-services/damsel/gen-model/domain';
 
-interface ExtractParamsFormValue {
-    contractCreation: boolean;
-    payoutToolCreation: boolean;
-    shopCreation: boolean;
+interface ContractorID {
+    id: string;
 }
 
 export interface ExtractFormValue {
-    params: ExtractParamsFormValue;
     category: CategoryRef;
     payment_institution: PaymentInstitutionRef;
+    contractor: ContractorID;
 }

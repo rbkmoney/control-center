@@ -1,9 +1,7 @@
-import { QuestionaryData } from '../../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 import { PaymentInstitutionRef } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 export const createContractCreation = (
-    d: QuestionaryData,
     contractor_id: string,
     contractID: string,
     payment_institution: PaymentInstitutionRef

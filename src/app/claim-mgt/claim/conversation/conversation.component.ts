@@ -137,7 +137,8 @@ export class ConversationComponent implements OnChanges, OnInit {
     extractPartyModification(questionary: Questionary) {
         const dialog = this.dialog.open(ExtractPartyModificationComponent, {
             disableClose: true,
-            data: { questionary },
+            data: { questionary, partyID: this.claim.party_id },
+            width: '800px',
         });
         dialog
             .afterClosed()

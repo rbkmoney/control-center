@@ -25,7 +25,7 @@ export class QuestionaryComponent {
     questionary: Questionary;
 
     get entity() {
-        return getUnionValue(getUnionValue(get(this.questionary, ['data', 'contractor'])));
+        return getUnionValue(getUnionValue(get(this.questionary, ['data', 'contractor']))) as any;
     }
 
     constructor(private questionaryDocumentService: QuestionaryDocumentService) {}
