@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { toModificationUnitInfos } from './to-modification-unit-infos';
+import { ChangesetInfo, toChangesetInfos } from './changeset-infos';
 
 @Component({
     selector: 'cc-claim-changeset',
@@ -15,10 +15,13 @@ export class ClaimChangesetComponent implements OnChanges {
     @Input()
     changeset: ClaimChangeset;
 
+    changesetInfos: ChangesetInfo[];
+
     ngOnChanges(changes: SimpleChanges): void {
         const { changeset } = changes;
         if (changeset.currentValue) {
-            console.log(toModificationUnitInfos(changeset.currentValue));
+            console.log(toChangesetInfos(changeset.currentValue));
+            this.changesetInfos = toChangesetInfos(changeset.currentValue);
         }
     }
 }

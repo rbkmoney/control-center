@@ -12,16 +12,27 @@
     </div>
     <cc-timeline>
         <cc-created-timeline-item [createdAt]="createdAt"></cc-created-timeline-item>
-        <!--        <ng-container>-->
-        <!--            <cc-questionary-timeline-item></cc-questionary-timeline-item>-->
-
-        <!--            <cc-file-timeline-item></cc-file-timeline-item>-->
-
-        <!--            <cc-comment-timeline-item></cc-comment-timeline-item>-->
-
-        <!--            <cc-party-modification-timeline-item></cc-party-modification-timeline-item>-->
-
-        <!--            <cc-status-timeline-item></cc-status-timeline-item>-->
-        <!--        </ng-container>-->
+        <ng-container *ngFor="let info of changesetInfos">
+            <cc-file-timeline-item
+                *ngIf="info.type === 'fileModification'"
+                [changesetInfo]="info"
+            ></cc-file-timeline-item>
+            <cc-comment-timeline-item
+                *ngIf="info.type === 'commentModification'"
+                [changesetInfo]="info"
+            ></cc-comment-timeline-item>
+            <cc-party-modification-timeline-item
+                *ngIf="info.type === 'partyModification'"
+                [changesetInfo]="info"
+            ></cc-party-modification-timeline-item>
+            <cc-questionary-timeline-item
+                *ngIf="info.type === 'documentModification'"
+                [changesetInfo]="info"
+            ></cc-questionary-timeline-item>
+            <cc-status-timeline-item
+                *ngIf="info.type === 'statusModification'"
+                [changesetInfo]="info"
+            ></cc-status-timeline-item>
+        </ng-container>
     </cc-timeline>
 </div>
