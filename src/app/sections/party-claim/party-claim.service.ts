@@ -19,7 +19,7 @@ export class PartyClaimService {
             this.claimManagementService.getClaim(partyID, new Int64(parseInt(claimID, 10))).pipe(
                 catchError(() => {
                     this.snackBar
-                        .open('An error accured while fetching claim', 'RETRY', {})
+                        .open('An error occurred while fetching claim', 'RETRY', {})
                         .onAction()
                         .subscribe(() => this.getClaim());
                     return [];
