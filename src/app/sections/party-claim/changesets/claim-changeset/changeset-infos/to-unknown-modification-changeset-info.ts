@@ -6,7 +6,7 @@ const makeStatusChangesetInfo = (unit: ModificationUnit): ChangesetInfo => ({
     modification: unit.modification,
     userInfo: unit.user_info,
     type: 'unknown',
-    hash: 'unknown'
+    hash: 'unknown',
 });
 
 export const toUnknownModificationChangesetInfo = (

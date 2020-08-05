@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
 import { SharedModule } from '../../shared/shared.module';
@@ -32,6 +33,7 @@ import { SendCommentModule } from './send-comment/send-comment.module';
         FileUploaderModule,
         ChangesetsModule,
         SharedModule,
+        MatProgressSpinnerModule,
     ],
     declarations: [PartyClaimComponent, PartyClaimTitleComponent, PartyClaimActionsComponent],
 })

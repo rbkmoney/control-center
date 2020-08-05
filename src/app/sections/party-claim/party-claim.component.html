@@ -1,12 +1,21 @@
-<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="24px">
-    <cc-party-claim-title
-        [claimID]="claimID$ | async"
-        [status]="(claim$ | async)?.status"
-    ></cc-party-claim-title>
-    <cc-claim-changeset
-        [createdAt]="(claim$ | async)?.created_at"
-        [changeset]="(claim$ | async)?.changeset"
-    ></cc-claim-changeset>
-    <!--    <cc-unsaved-claim-changeset></cc-unsaved-claim-changeset>-->
-    <cc-party-claim-actions></cc-party-claim-actions>
+<div *ngIf="isLoading$ | async" fxLayout="row" fxLayoutAlign="center">
+    <mat-progress-spinner
+        color="primary"
+        mode="indeterminate"
+        diameter="128"
+    ></mat-progress-spinner>
+</div>
+<div *ngIf="!(isLoading$ | async)">
+    <div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="24px">
+        <cc-party-claim-title
+            [claimID]="claimID$ | async"
+            [status]="status$ | async"
+        ></cc-party-claim-title>
+        <cc-claim-changeset
+            [createdAt]="createdAt$ | async"
+            [changeset]="changeset$ | async"
+        ></cc-claim-changeset>
+        <!--    <cc-unsaved-claim-changeset></cc-unsaved-claim-changeset>-->
+        <cc-party-claim-actions></cc-party-claim-actions>
+    </div>
 </div>

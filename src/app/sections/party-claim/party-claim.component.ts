@@ -13,7 +13,9 @@ import { PartyClaimService } from './party-claim.service';
 export class PartyClaimComponent implements OnInit {
     claimID$ = this.route.params.pipe(pluck('claimID'), shareReplay(SHARE_REPLAY_CONF));
     isLoading$ = this.partyClaimService.isLoading$;
-    claim$ = this.partyClaimService.claim$;
+    createdAt$ = this.partyClaimService.claim$.pipe(pluck('created_at'));
+    changeset$ = this.partyClaimService.claim$.pipe(pluck('changeset'));
+    status$ = this.partyClaimService.claim$.pipe(pluck('status'));
 
     constructor(private route: ActivatedRoute, private partyClaimService: PartyClaimService) {}
 

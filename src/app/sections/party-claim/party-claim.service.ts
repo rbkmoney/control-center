@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { Subject } from 'rxjs';
-import { shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
@@ -11,10 +12,19 @@ import { ClaimManagementService } from '../../thrift-services/damsel/claim-manag
 export class PartyClaimService {
     private getClaim$ = new Subject();
 
-    claim$ = this.getClaim$.pipe(
+    claim$ = this.getClaim$.asObservable().pipe(
+        startWith({}),
         switchMap(() => this.route.params),
         switchMap(({ partyID, claimID }) =>
-            this.claimManagementService.getClaim(partyID, new Int64(parseInt(claimID, 10)))
+            this.claimManagementService.getClaim(partyID, new Int64(parseInt(claimID, 10))).pipe(
+                catchError(() => {
+                    this.snackBar
+                        .open('An error accured while fetching claim', 'RETRY', {})
+                        .onAction()
+                        .subscribe(() => this.getClaim());
+                    return [];
+                })
+            )
         ),
         shareReplay(1)
     );
@@ -22,10 +32,10 @@ export class PartyClaimService {
 
     constructor(
         private claimManagementService: ClaimManagementService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private snackBar: MatSnackBar
     ) {
         this.getClaim$.subscribe();
-        this.claim$.subscribe();
     }
 
     getClaim() {
