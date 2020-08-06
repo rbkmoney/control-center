@@ -6,10 +6,10 @@ const path = 'bank_account.international_bank_account';
 
 export const createInternationalBankAccount = (d: QuestionaryData): InternationalBankAccount => {
     const internationalBankAccount = getOr(d, path, null);
-    const number = getOr(internationalBankAccount, `number`, '');
+    const accountNumber = getOr(internationalBankAccount, `number`, '');
     const bank = getOr(internationalBankAccount, `bank`, '');
     const correspondent_account = getOr(internationalBankAccount, `correspondent_account`, '');
     const iban = getOr(internationalBankAccount, `iban`, '');
     const account_holder = getOr(internationalBankAccount, `account_holder`, '');
-    return { number, bank, correspondent_account, iban, account_holder };
+    return { number: accountNumber, bank, correspondent_account, iban, account_holder };
 };
