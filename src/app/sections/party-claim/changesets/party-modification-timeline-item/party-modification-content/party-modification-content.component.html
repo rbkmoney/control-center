@@ -1,6 +1,6 @@
 <mat-expansion-panel [expanded]="expanded">
     <mat-expansion-panel-header>
-        <mat-panel-title>Shop category modification</mat-panel-title>
+        <mat-panel-title>{{ modification | ccPartyModificationName }}</mat-panel-title>
     </mat-expansion-panel-header>
-    <cc-pretty-json [object]="testMod"></cc-pretty-json>
+    <cc-pretty-json [object]="modification"></cc-pretty-json>
 </mat-expansion-panel>

@@ -17,8 +17,17 @@
         <mat-icon>{{ isCreation ? 'add_comment' : 'clear' }}</mat-icon>
     </cc-timeline-item-badge>
     <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
-        <cc-comment-content></cc-comment-content>
-        <cc-timeline-item-loading></cc-timeline-item-loading>
-        <cc-timeline-item-error></cc-timeline-item-error>
+        <ng-container *ngFor="let conversation of conversations$ | async">
+            {{ toKek(conversation) }}
+            <cc-comment-content
+                *ngFor="let message of conversation.messages"
+                [text]="message.text"
+            ></cc-comment-content>
+        </ng-container>
+        <cc-timeline-item-loading *ngIf="isLoading$ | async"></cc-timeline-item-loading>
+        <cc-timeline-item-error
+            *ngIf="error$ | async as error"
+            [text]="error"
+        ></cc-timeline-item-error>
     </cc-timeline-item-content>
 </cc-timeline-item>
