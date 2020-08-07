@@ -7,7 +7,11 @@
             <cc-organization-info [contractor]="questionary.data.contractor"></cc-organization-info>
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngIf="questionary?.data?.contractor?.legal_entity">
+        <mat-expansion-panel
+            *ngIf="
+                questionary?.data?.contractor?.legal_entity?.russian_legal_entity?.legal_owner_info
+            "
+        >
             <mat-expansion-panel-header>
                 <mat-panel-title>Сведения о юридическом лице</mat-panel-title>
             </mat-expansion-panel-header>
@@ -66,7 +70,12 @@
         </mat-expansion-panel>
     </mat-accordion>
 
-    <mat-card *ngIf="questionary">
+    <mat-card
+        *ngIf="
+            questionary?.data?.contractor?.individual_entity?.russian_individual_entity ||
+            questionary?.data?.contractor?.legal_entity?.russian_legal_entity
+        "
+    >
         <mat-card-content fxLayout="row wrap" fxLayoutGap="10px">
             <button mat-button (click)="downloadDocument()">DOWNLOAD QUESTIONARY</button>
             <button
