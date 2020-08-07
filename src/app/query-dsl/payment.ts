@@ -13,6 +13,8 @@ export interface Payment {
     payment_method?: PaymentTool;
     payment_terminal_provider?: TerminalPaymentProvider;
     payment_ip?: string;
+    payment_provider_id?: string;
+    payment_terminal_id?: string;
     payment_fingerprint?: string;
     payment_pan_mask?: string;
     payment_customer_id?: string;

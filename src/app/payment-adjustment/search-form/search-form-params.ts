@@ -4,6 +4,8 @@ export interface SearchFormParams {
     partyId: string;
     fromRevision: string;
     toRevision: string;
+    providerID: string;
+    terminalID: string;
     status: string;
     shopId: string;
     invoiceId: string;
