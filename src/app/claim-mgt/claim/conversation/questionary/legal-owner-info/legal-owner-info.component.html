@@ -1,16 +1,16 @@
 <div fxLayout="column" fxLayoutGap="10px">
     <cc-private-entity-info
-        [privateEntity]="legalOwnerInfo?.russian_private_entity"
+        [privateEntity]="legalOwnerInfo.russian_private_entity"
     ></cc-private-entity-info>
 
     <mat-divider></mat-divider>
 
     <div fxLayout fxLayoutGap="10px">
         <cc-details-item title="ИНН" fxFlex>{{
-            legalOwnerInfo?.inn | emptyDefault
+            legalOwnerInfo.inn | emptyDefault
         }}</cc-details-item>
         <cc-details-item title="СНИЛС" fxFlex>{{
-            legalOwnerInfo?.snils | emptyDefault
+            legalOwnerInfo.snils | emptyDefault
         }}</cc-details-item>
     </div>
 
@@ -18,10 +18,10 @@
 
     <div fxLayout fxLayoutGap="10px">
         <cc-details-item title="Должность" fxFlex>{{
-            legalOwnerInfo?.head_position | emptyDefault
+            legalOwnerInfo.head_position | emptyDefault
         }}</cc-details-item>
         <cc-details-item title="Срок полномочий" fxFlex>{{
-            legalOwnerInfo?.term_of_office | emptyDefault
+            legalOwnerInfo.term_of_office | emptyDefault
         }}</cc-details-item>
     </div>
 
@@ -31,7 +31,7 @@
 
     <cc-details-item title="Действует на основании" fxFlex>
         {{
-            legalOwnerInfo?.authority_confirming_document?.type
+            legalOwnerInfo.authority_confirming_document?.type
                 | authorityConfirmingDocumentTitle
                 | emptyDefault
         }}
@@ -40,6 +40,6 @@
     <mat-divider></mat-divider>
 
     <cc-identity-document-info
-        [identityDocument]="legalOwnerInfo?.identity_document?.russian_domestic_password"
+        [identityDocument]="legalOwnerInfo.identity_document?.russian_domestic_password"
     ></cc-identity-document-info>
 </div>
