@@ -1,0 +1,21 @@
+<div *ngIf="partyDelegate$ | async; else emptyPartyDelegate" fxLayout="column" fxLayoutGap="64px">
+    <div fxLayout="column" fxLayoutGap="8px">
+        <div fxLayout fxLayoutGap="8px" fxLayoutAlign="space-between">
+            <div class="mat-headline party-payment-routing-rules-title">
+                Party payment routing rules
+            </div>
+            <button mat-button>ADD RULE</button>
+        </div>
+        <div class="mat-caption cc-payment-routing-rules-caption">
+            Ruleset ref ID: {{ (partyDelegate$ | async).ruleset.id }}
+        </div>
+    </div>
+    <div class="mat-display-1" fxFlexAlign="center">Party payment routing rules is empty</div>
+</div>
+
+<ng-template #emptyPartyDelegate>
+    <div class="empty-party-delegate" fxLayout="column" fxLayoutAlign=" center" fxLayoutGap="24px">
+        <div class="mat-display-1">Payment rules is not found</div>
+        <button mat-raised-button color="primary" (click)="initialize()">INITIALIZE</button>
+    </div>
+</ng-template>

@@ -1,11 +1,10 @@
-import sortBy from 'lodash-es/sortBy';
 import transform from 'lodash-es/transform';
 
 import { Domain, TerminalSelector } from '../gen-model/domain';
 
-export const generateID = (domainObjects: any[]): number => {
-    const objWithMaxId = sortBy(domainObjects, (obj) => obj.ref.id)[domainObjects.length - 1];
-    return objWithMaxId.ref.id + 1;
+export const generateID = (objectsWithRefId: { ref: { id: number } }[]): number => {
+    const ids = objectsWithRefId.map(({ ref }) => ref.id);
+    return Math.max(...ids) + 1;
 };
 
 export const toMap = (domainMap: { key: any; value: any }[]): Map<string, string> => {
