@@ -9,7 +9,6 @@ export enum ChangesetInfoType {
     fileModification = 'fileModification',
     documentModification = 'documentModification',
     statusModification = 'statusModification',
-    UNKNOWN = 'UNKNOWN',
 }
 
 export enum ChangesetInfoModificationType {

@@ -1,25 +1,14 @@
-import { getUnionKey, getUnionKeys } from '../../../../../shared/utils';
+import { getUnionKey } from '../../../../../shared/utils';
 import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
 import { markOutdated } from './mark-outdated';
 
-const getPartyChangesetInfoHash = (
-    data: any,
-    nesting: number = 1,
-    hash?: string,
-    level: number = 0
-): string => {
-    if (typeof data === 'string' || nesting === level) {
-        return `${hash}.${getUnionKey(data)}`;
+const getHash = (m: any, acc: string = ''): string => {
+    if (m.id && m.modification) {
+        return `${acc}.${getUnionKey(m.modification) as string}`;
     }
-    return getPartyChangesetInfoHash(
-        getUnionKeys(data)
-            .map((k) => data[k])
-            .find((i) => typeof i !== 'string' && i !== null),
-        nesting,
-        hash ? `${hash}.${getUnionKey(data)}` : `${getUnionKey(data)}`,
-        ++level
-    );
+    const unionKey = getUnionKey(m) as string;
+    return getHash(m[unionKey], `${acc}.${unionKey}`);
 };
 
 const makePartyChangesetInfo = (unit: ModificationUnit): ChangesetInfo =>
@@ -28,7 +17,7 @@ const makePartyChangesetInfo = (unit: ModificationUnit): ChangesetInfo =>
         modification: unit.modification,
         userInfo: unit.user_info,
         type: ChangesetInfoType.partyModification,
-        hash: getPartyChangesetInfoHash(unit.modification, 3),
+        hash: getHash(unit.modification),
     } as ChangesetInfo);
 
 export const toPartyModificationChangesetInfo = (

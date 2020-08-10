@@ -32,6 +32,7 @@ const declarations = [
     ClaimSourcePipe,
     PartyModificationNamePipe,
     CardContainerComponent,
+    PartyModificationNamePipe,
 ];
 
 @NgModule({
