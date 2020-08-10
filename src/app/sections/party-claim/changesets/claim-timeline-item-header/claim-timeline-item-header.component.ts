@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'cc-claim-timeline-item-header',
     templateUrl: 'claim-timeline-item-header.component.html',
+    styleUrls: ['./claim-timeline-item-header.component.scss'],
 })
 export class ClaimTimelineItemHeaderComponent {
     @Input()
@@ -13,4 +14,7 @@ export class ClaimTimelineItemHeaderComponent {
 
     @Input()
     text: string;
+
+    @Input()
+    outdated?: boolean;
 }
