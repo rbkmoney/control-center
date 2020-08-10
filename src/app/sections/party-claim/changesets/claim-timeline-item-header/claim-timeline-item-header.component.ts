@@ -3,9 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'cc-claim-timeline-item-header',
     templateUrl: 'claim-timeline-item-header.component.html',
-    styleUrls: [
-        '../../../party-claim/changesets/claim-timeline-item-header/claim-timeline-item-header.component.scss',
-    ],
+    styleUrls: ['./claim-timeline-item-header.component.scss'],
 })
 export class ClaimTimelineItemHeaderComponent {
     @Input()

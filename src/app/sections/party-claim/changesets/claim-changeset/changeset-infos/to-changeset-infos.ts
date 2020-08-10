@@ -5,7 +5,6 @@ import { toDocumentModificationChangesetInfo } from './to-document-modification-
 import { toFileModificationChangesetInfo } from './to-file-modification-changeset-info';
 import { toPartyModificationChangesetInfo } from './to-party-modification-changeset-info';
 import { toStatusModificationChangesetInfo } from './to-status-modification-changeset-info';
-import { toUnknownModificationChangesetInfo } from './to-unknown-modification-changeset-info';
 
 const getModificationType = (unit: ModificationUnit): string => {
     if (unit.modification.party_modification) {
@@ -38,6 +37,6 @@ export const toChangesetInfos = (units: ModificationUnit[]): ChangesetInfo[] =>
                 return toStatusModificationChangesetInfo(acc, cur);
             default:
                 console.error('Changeset infos: Unknown type', cur);
-                return toUnknownModificationChangesetInfo(acc, cur);
+                return acc;
         }
     }, []);
