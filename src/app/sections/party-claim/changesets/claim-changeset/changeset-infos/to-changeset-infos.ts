@@ -6,19 +6,19 @@ import { toFileModificationChangesetInfo } from './to-file-modification-changese
 import { toPartyModificationChangesetInfo } from './to-party-modification-changeset-info';
 import { toStatusModificationChangesetInfo } from './to-status-modification-changeset-info';
 
-const getModificationType = (unit: ModificationUnit): string => {
+const getModificationType = (unit: ModificationUnit): ChangesetInfoType => {
     if (unit.modification.party_modification) {
-        return 'partyModification';
+        return ChangesetInfoType.partyModification;
     } else if (unit.modification.claim_modification.comment_modification) {
-        return 'commentModification';
+        return ChangesetInfoType.commentModification;
     } else if (unit.modification.claim_modification.file_modification) {
-        return 'fileModification';
+        return ChangesetInfoType.fileModification;
     } else if (unit.modification.claim_modification.document_modification) {
-        return 'documentModification';
+        return ChangesetInfoType.documentModification;
     } else if (unit.modification.claim_modification.status_modification) {
-        return 'statusModification';
+        return ChangesetInfoType.statusModification;
     } else {
-        return 'UNKNOWN';
+        return;
     }
 };
 

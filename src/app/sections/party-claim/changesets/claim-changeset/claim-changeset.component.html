@@ -14,23 +14,23 @@
         <cc-created-timeline-item [createdAt]="createdAt"></cc-created-timeline-item>
         <ng-container *ngFor="let info of changesetInfos; trackBy: simpleTrackBy">
             <cc-file-timeline-item
-                *ngIf="info.type === 'fileModification'"
+                *ngIf="info.type === changesetInfoTypes.fileModification"
                 [changesetInfo]="info"
             ></cc-file-timeline-item>
             <cc-comment-timeline-item
-                *ngIf="info.type === 'commentModification'"
+                *ngIf="info.type === changesetInfoTypes.commentModification"
                 [changesetInfo]="info"
             ></cc-comment-timeline-item>
             <cc-party-modification-timeline-item
-                *ngIf="info.type === 'partyModification'"
+                *ngIf="info.type === changesetInfoTypes.partyModification"
                 [changesetInfo]="info"
             ></cc-party-modification-timeline-item>
             <cc-questionary-timeline-item
-                *ngIf="info.type === 'documentModification'"
+                *ngIf="info.type === changesetInfoTypes.documentModification"
                 [changesetInfo]="info"
             ></cc-questionary-timeline-item>
             <cc-status-timeline-item
-                *ngIf="info.type === 'statusModification'"
+                *ngIf="info.type === changesetInfoTypes.statusModification"
                 [changesetInfo]="info"
             ></cc-status-timeline-item>
         </ng-container>
