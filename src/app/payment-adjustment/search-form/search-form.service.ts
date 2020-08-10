@@ -30,6 +30,8 @@ export class SearchFormService {
             invoicesIds: '',
             fromRevision: ['', Validators.required],
             toRevision: ['', Validators.required],
+            providerID: '',
+            terminalID: '',
             status: 'captured',
             invoiceId: '',
         });
