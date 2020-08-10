@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
+import { ChangesetInfo } from '../claim-changeset/changeset-infos';
 
 @Component({
     selector: 'cc-questionary-timeline-item',
     templateUrl: 'questionary-timeline-item.component.html',
 })
 export class QuestionaryTimelineItemComponent {
+    @Input()
+    changesetInfo: ChangesetInfo;
+
     questionary: Questionary = {
         id: '954a0aaf-3d4a-4afc-a193-c04e269646a3',
         owner_id: 'izipppo@gmail.com',

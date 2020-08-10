@@ -10,14 +10,14 @@ const getPartyChangesetInfoHash = (
     level: number = 0
 ): string => {
     if (typeof data === 'string' || nesting === level) {
-        return `${hash}.${getUnionKey(data)}`;
+        return `${hash}.${String(getUnionKey(data))}`;
     }
     return getPartyChangesetInfoHash(
         getUnionKeys(data)
             .map((k) => data[k])
             .find((i) => typeof i !== 'string' && i !== null),
         nesting,
-        hash ? `${hash}.${getUnionKey(data)}` : `${getUnionKey(data)}`,
+        hash ? `${hash}.${String(getUnionKey(data))}` : `${String(getUnionKey(data))}`,
         ++level
     );
 };
