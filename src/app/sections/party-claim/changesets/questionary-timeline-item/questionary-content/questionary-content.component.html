@@ -56,16 +56,4 @@
             <cc-pretty-json [object]="questionary.data.contact_info"></cc-pretty-json>
         </mat-expansion-panel>
     </mat-accordion>
-
-    <mat-accordion *ngIf="entity?.beneficial_owners?.length" multi>
-        <mat-expansion-panel *ngFor="let beneficialOwner of entity?.beneficial_owners; index as i">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Beneficial owner
-                    {{ i | serialNumber: entity?.beneficial_owners?.length }}
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <cc-pretty-json [object]="beneficialOwner"></cc-pretty-json>
-        </mat-expansion-panel>
-    </mat-accordion>
 </div>
