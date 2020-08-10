@@ -1,5 +1,5 @@
 import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
-import { ChangesetInfo } from './changeset-info';
+import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
 import { toCommentModificationChangesetInfo } from './to-comment-modification-changeset-info';
 import { toDocumentModificationChangesetInfo } from './to-document-modification-changeset-info';
 import { toFileModificationChangesetInfo } from './to-file-modification-changeset-info';
@@ -26,18 +26,18 @@ const getModificationType = (unit: ModificationUnit): string => {
 export const toChangesetInfos = (units: ModificationUnit[]): ChangesetInfo[] =>
     units.reduce((acc, cur) => {
         switch (getModificationType(cur)) {
-            case 'partyModification':
-                return toPartyModificationChangesetInfo(cur, acc);
-            case 'commentModification':
-                return toCommentModificationChangesetInfo(cur, acc);
-            case 'fileModification':
-                return toFileModificationChangesetInfo(cur, acc);
-            case 'documentModification':
-                return toDocumentModificationChangesetInfo(cur, acc);
-            case 'statusModification':
-                return toStatusModificationChangesetInfo(cur, acc);
+            case ChangesetInfoType.partyModification:
+                return toPartyModificationChangesetInfo(acc, cur);
+            case ChangesetInfoType.commentModification:
+                return toCommentModificationChangesetInfo(acc, cur);
+            case ChangesetInfoType.fileModification:
+                return toFileModificationChangesetInfo(acc, cur);
+            case ChangesetInfoType.documentModification:
+                return toDocumentModificationChangesetInfo(acc, cur);
+            case ChangesetInfoType.statusModification:
+                return toStatusModificationChangesetInfo(acc, cur);
             default:
                 console.error('Changeset infos: Unknown type', cur);
-                return toUnknownModificationChangesetInfo(cur, acc);
+                return toUnknownModificationChangesetInfo(acc, cur);
         }
     }, []);

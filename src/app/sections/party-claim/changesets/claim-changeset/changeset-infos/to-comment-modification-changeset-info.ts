@@ -1,27 +1,24 @@
 import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
-import { ChangesetInfo } from './changeset-info';
+import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
+import { markRemoved } from './mark-removed';
 
 const getCommentChangesetInfoHash = (unit: ModificationUnit): string => {
-    return `commentModification.${unit.modification.claim_modification.comment_modification.id}`;
+    return `${ChangesetInfoType.commentModification}.${unit.modification.claim_modification.comment_modification.id}`;
 };
 
-const makeCommentChangesetInfo = (unit: ModificationUnit): ChangesetInfo => ({
-    createdAt: unit.created_at,
-    modification: unit.modification,
-    userInfo: unit.user_info,
-    type: 'commentModification',
-    hash: getCommentChangesetInfoHash(unit),
-});
+const makeCommentChangesetInfo = (unit: ModificationUnit): ChangesetInfo =>
+    ({
+        createdAt: unit.created_at,
+        modification: unit.modification,
+        userInfo: unit.user_info,
+        type: ChangesetInfoType.commentModification,
+        hash: getCommentChangesetInfoHash(unit),
+    } as ChangesetInfo);
 
 export const toCommentModificationChangesetInfo = (
-    unit: ModificationUnit,
-    infos: ChangesetInfo[]
+    infos: ChangesetInfo[],
+    unit: ModificationUnit
 ): ChangesetInfo[] => {
     const commentChangesetInfo = makeCommentChangesetInfo(unit);
-    return [
-        ...infos.map((info) =>
-            info.hash === commentChangesetInfo.hash ? { ...info, removed: true } : info
-        ),
-        commentChangesetInfo,
-    ];
+    return [...markRemoved(infos, commentChangesetInfo.hash), commentChangesetInfo];
 };

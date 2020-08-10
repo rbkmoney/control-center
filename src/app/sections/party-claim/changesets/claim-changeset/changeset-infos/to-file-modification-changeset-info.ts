@@ -1,27 +1,24 @@
 import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
-import { ChangesetInfo } from './changeset-info';
+import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
+import { markRemoved } from './mark-removed';
 
 const getFileChangesetInfoHash = (unit: ModificationUnit): string => {
-    return `fileModification.${unit.modification.claim_modification.file_modification.id}`;
+    return `${ChangesetInfoType.fileModification}.${unit.modification.claim_modification.file_modification.id}`;
 };
 
-const makeFileChangesetInfo = (unit: ModificationUnit): ChangesetInfo => ({
-    createdAt: unit.created_at,
-    modification: unit.modification,
-    userInfo: unit.user_info,
-    type: 'fileModification',
-    hash: getFileChangesetInfoHash(unit),
-});
+const makeFileChangesetInfo = (unit: ModificationUnit): ChangesetInfo =>
+    ({
+        createdAt: unit.created_at,
+        modification: unit.modification,
+        userInfo: unit.user_info,
+        type: ChangesetInfoType.fileModification,
+        hash: getFileChangesetInfoHash(unit),
+    } as ChangesetInfo);
 
 export const toFileModificationChangesetInfo = (
-    unit: ModificationUnit,
-    infos: ChangesetInfo[]
+    infos: ChangesetInfo[],
+    unit: ModificationUnit
 ): ChangesetInfo[] => {
     const fileChangesetInfo = makeFileChangesetInfo(unit);
-    return [
-        ...infos.map((info) =>
-            info.hash === fileChangesetInfo.hash ? { ...info, removed: true } : info
-        ),
-        fileChangesetInfo,
-    ];
+    return [...markRemoved(infos, fileChangesetInfo.hash), fileChangesetInfo];
 };

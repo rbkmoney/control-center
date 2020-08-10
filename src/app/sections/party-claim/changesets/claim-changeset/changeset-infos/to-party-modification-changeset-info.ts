@@ -1,33 +1,40 @@
-import { getUnionKey, getUnionValue } from '../../../../../shared/utils';
+import { getUnionKey, getUnionKeys } from '../../../../../shared/utils';
 import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
-import { ChangesetInfo } from './changeset-info';
+import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
+import { markOutdated } from './mark-outdated';
 
-const getPartyChangesetInfoHash = (unit: ModificationUnit): string => {
-    const unitType = getUnionKey(unit.modification);
-    const unitValue = getUnionValue(unit.modification);
-    const unitValueType = getUnionKey(unitValue);
-    const unitValueValue = getUnionValue(unitValue);
-    const unitValueValueType = getUnionKey(unitValueValue.modification);
-    return `${unitType}.${unitValueType}.${unitValueValueType}`;
+const getPartyChangesetInfoHash = (
+    data: any,
+    nesting: number = 1,
+    hash?: string,
+    level: number = 0
+): string => {
+    if (typeof data === 'string' || nesting === level) {
+        return `${hash}.${getUnionKey(data)}`;
+    }
+    return getPartyChangesetInfoHash(
+        getUnionKeys(data)
+            .map((k) => data[k])
+            .find((i) => typeof i !== 'string' && i !== null),
+        nesting,
+        hash ? `${hash}.${getUnionKey(data)}` : `${getUnionKey(data)}`,
+        ++level
+    );
 };
 
-const makePartyChangesetInfo = (unit: ModificationUnit): ChangesetInfo => ({
-    createdAt: unit.created_at,
-    modification: unit.modification,
-    userInfo: unit.user_info,
-    type: 'partyModification',
-    hash: getPartyChangesetInfoHash(unit),
-});
+const makePartyChangesetInfo = (unit: ModificationUnit): ChangesetInfo =>
+    ({
+        createdAt: unit.created_at,
+        modification: unit.modification,
+        userInfo: unit.user_info,
+        type: ChangesetInfoType.partyModification,
+        hash: getPartyChangesetInfoHash(unit.modification, 3),
+    } as ChangesetInfo);
 
 export const toPartyModificationChangesetInfo = (
-    unit: ModificationUnit,
-    infos: ChangesetInfo[]
+    infos: ChangesetInfo[],
+    unit: ModificationUnit
 ): ChangesetInfo[] => {
     const partyChangesetInfo = makePartyChangesetInfo(unit);
-    return [
-        ...infos.map((info) =>
-            info.hash === partyChangesetInfo.hash ? { ...info, outdated: true } : info
-        ),
-        partyChangesetInfo,
-    ];
+    return [...markOutdated(infos, partyChangesetInfo.hash), partyChangesetInfo];
 };

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { catchError, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 
@@ -18,11 +18,8 @@ export class PartyClaimService {
         switchMap(({ partyID, claimID }) =>
             this.claimManagementService.getClaim(partyID, new Int64(parseInt(claimID, 10))).pipe(
                 catchError(() => {
-                    this.snackBar
-                        .open('An error occurred while fetching claim', 'RETRY', {})
-                        .onAction()
-                        .subscribe(() => this.getClaim());
-                    return [];
+                    this.snackBar.open('An error occurred while fetching claim', 'OK');
+                    return of();
                 })
             )
         ),

@@ -1,27 +1,24 @@
 import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
-import { ChangesetInfo } from './changeset-info';
+import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
+import { markOutdated } from './mark-outdated';
 
 const getDocumentChangesetInfoHash = (unit: ModificationUnit): string => {
-    return `documentModification`;
+    return `${ChangesetInfoType.documentModification}`;
 };
 
-const makeDocumentChangesetInfo = (unit: ModificationUnit): ChangesetInfo => ({
-    createdAt: unit.created_at,
-    modification: unit.modification,
-    userInfo: unit.user_info,
-    type: 'documentModification',
-    hash: getDocumentChangesetInfoHash(unit),
-});
+const makeDocumentChangesetInfo = (unit: ModificationUnit): ChangesetInfo =>
+    ({
+        createdAt: unit.created_at,
+        modification: unit.modification,
+        userInfo: unit.user_info,
+        type: ChangesetInfoType.documentModification,
+        hash: getDocumentChangesetInfoHash(unit),
+    } as ChangesetInfo);
 
 export const toDocumentModificationChangesetInfo = (
-    unit: ModificationUnit,
-    infos: ChangesetInfo[]
+    infos: ChangesetInfo[],
+    unit: ModificationUnit
 ): ChangesetInfo[] => {
     const documentChangesetInfo = makeDocumentChangesetInfo(unit);
-    return [
-        ...infos.map((info) =>
-            info.hash === documentChangesetInfo.hash ? { ...info, outdated: true } : info
-        ),
-        documentChangesetInfo,
-    ];
+    return [...markOutdated(infos, documentChangesetInfo.hash), documentChangesetInfo];
 };

@@ -12,7 +12,7 @@
     </div>
     <cc-timeline>
         <cc-created-timeline-item [createdAt]="createdAt"></cc-created-timeline-item>
-        <ng-container *ngFor="let info of changesetInfos">
+        <ng-container *ngFor="let info of changesetInfos; trackBy: simpleTrackBy">
             <cc-file-timeline-item
                 *ngIf="info.type === 'fileModification'"
                 [changesetInfo]="info"

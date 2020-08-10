@@ -17,6 +17,10 @@ export class ClaimChangesetComponent implements OnChanges {
 
     changesetInfos: ChangesetInfo[];
 
+    simpleTrackBy(index: number): number {
+        return index;
+    }
+
     ngOnChanges(changes: SimpleChanges): void {
         const { changeset } = changes;
         if (changeset.currentValue) {
