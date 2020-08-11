@@ -1,9 +1,10 @@
 <cc-timeline-item>
     <cc-timeline-item-title>
         <cc-claim-timeline-item-header
-            [createdAt]="'2013-04-01T00:00:00.000'"
+            [createdAt]="changesetInfo.createdAt"
             [text]="'added party modification'"
-            [username]="'kekes'"
+            [username]="changesetInfo.userInfo.username"
+            [outdated]="changesetInfo.outdated"
         ></cc-claim-timeline-item-header>
 
         <div>
@@ -14,10 +15,13 @@
         </div>
     </cc-timeline-item-title>
 
-    <cc-timeline-item-badge [color]="'primary'">
+    <cc-timeline-item-badge [color]="changesetInfo.outdated ? null : 'primary'">
         <mat-icon>{{ 'add' }}</mat-icon>
     </cc-timeline-item-badge>
     <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
-        <cc-party-modification-content [expanded]="expanded"></cc-party-modification-content>
+        <cc-party-modification-content
+            [expanded]="expanded"
+            [modification]="changesetInfo.modification.party_modification"
+        ></cc-party-modification-content>
     </cc-timeline-item-content>
 </cc-timeline-item>

@@ -16,7 +16,6 @@ export class ClaimChangesetComponent implements OnChanges {
     changeset: ClaimChangeset;
 
     changesetInfos: ChangesetInfo[];
-
     changesetInfoTypes = ChangesetInfoType;
 
     simpleTrackBy(index: number): number {

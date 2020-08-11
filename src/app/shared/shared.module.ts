@@ -30,6 +30,7 @@ const declarations = [
     PrettyJsonComponent,
     EmptySearchResultComponent,
     ClaimSourcePipe,
+    PartyModificationNamePipe,
     CardContainerComponent,
     PartyModificationNamePipe,
 ];

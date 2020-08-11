@@ -14,9 +14,13 @@ import { DetailsItemModule } from '../../../shared/components/details-item';
 import { TimelineModule } from '../../../shared/components/timeline';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SharedModule } from '../../../shared/shared.module';
+import { MessagesModule } from '../../../thrift-services/messages';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
 import { ClaimTimelineItemHeaderComponent } from './claim-timeline-item-header/claim-timeline-item-header.component';
+import { CommentActionIconPipe } from './comment-timeline-item/comment-action-icon.pipe';
+import { CommentBadgeColorPipe } from './comment-timeline-item/comment-badge-color.pipe';
 import { CommentContentComponent } from './comment-timeline-item/comment-content/comment-content.component';
+import { CommentHeaderPipe } from './comment-timeline-item/comment-header.pipe';
 import { CommentTimelineItemComponent } from './comment-timeline-item/comment-timeline-item.component';
 import { CreatedTimelineItemComponent } from './created-timeline-item';
 import { FileContentComponent } from './file-timeline-item/file-content/file-content.component';
@@ -47,6 +51,7 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         DetailsItemModule,
         MatDividerModule,
         MatExpansionModule,
+        MessagesModule,
     ],
     declarations: [
         ClaimChangesetComponent,
@@ -66,6 +71,9 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         PartyModificationContentComponent,
         ReasonContentComponent,
         ClaimTimelineItemHeaderComponent,
+        CommentHeaderPipe,
+        CommentActionIconPipe,
+        CommentBadgeColorPipe,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
