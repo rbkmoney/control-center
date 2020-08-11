@@ -14,7 +14,7 @@ export class CommentTimelineItemComponent implements OnInit {
     changesetInfo: ChangesetInfo;
 
     isLoading$ = this.commentTimelineItemService.isLoading$;
-    conversations$ = this.commentTimelineItemService.conversations$;
+    message$ = this.commentTimelineItemService.message$;
     error$ = this.commentTimelineItemService.error$;
     changesetInfoModificationTypes = ChangesetInfoModificationType;
 
