@@ -31,7 +31,7 @@ export class CommentTimelineItemService {
         this.message$.subscribe();
     }
 
-    getConversations(conversationIDs: ConversationId[]) {
+    getMessage(conversationIDs: ConversationId[]) {
         this.getConversations$.next(conversationIDs);
     }
 }
