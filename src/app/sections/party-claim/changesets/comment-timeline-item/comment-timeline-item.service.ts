@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { Subject } from 'rxjs';
+import { merge, ReplaySubject, Subject } from 'rxjs';
 import { catchError, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { ConversationId } from '../../../../thrift-services/messages/gen-model/messages';
@@ -8,7 +8,7 @@ import { MessagesService } from '../../../../thrift-services/messages/messages.s
 
 @Injectable()
 export class CommentTimelineItemService {
-    getConversations$ = new Subject<ConversationId[]>();
+    getConversations$ = new ReplaySubject<ConversationId[]>();
 
     conversations$ = this.getConversations$.pipe(
         startWith([]),
@@ -23,8 +23,8 @@ export class CommentTimelineItemService {
         ),
         shareReplay(1)
     );
-    isLoading$ = progress(this.getConversations$, this.conversations$);
     error$ = new Subject<string>();
+    isLoading$ = progress(this.getConversations$, merge(this.conversations$, this.error$));
 
     constructor(private messagesService: MessagesService) {
         this.getConversations$.subscribe();
