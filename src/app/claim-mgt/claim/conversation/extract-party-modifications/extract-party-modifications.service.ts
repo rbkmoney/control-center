@@ -20,7 +20,6 @@ export class ExtractPartyModificationsService {
     constructor(private fb: FormBuilder) {}
 
     mapToModifications(d: QuestionaryData): PartyModification[] {
-        console.log(d);
         const {
             category,
             payment_institution,

@@ -1,13 +1,6 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { ChangesetInfo } from '../claim-changeset/changeset-infos';
+import { ChangesetInfo, ChangesetInfoModificationType } from '../claim-changeset/changeset-infos';
 import { CommentTimelineItemService } from './comment-timeline-item.service';
 
 @Component({
@@ -16,33 +9,20 @@ import { CommentTimelineItemService } from './comment-timeline-item.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CommentTimelineItemService],
 })
-export class CommentTimelineItemComponent implements OnChanges, OnInit {
+export class CommentTimelineItemComponent implements OnInit {
     @Input()
     changesetInfo: ChangesetInfo;
 
     isLoading$ = this.commentTimelineItemService.isLoading$;
     conversations$ = this.commentTimelineItemService.conversations$;
     error$ = this.commentTimelineItemService.error$;
-
-    isCreation: boolean;
+    changesetInfoModificationTypes = ChangesetInfoModificationType;
 
     constructor(private commentTimelineItemService: CommentTimelineItemService) {}
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { changesetInfo } = changes;
-        if (changesetInfo.currentValue) {
-            this.isCreation = !!changesetInfo.currentValue.modification.claim_modification
-                .comment_modification.modification.creation;
-        }
-    }
 
     ngOnInit(): void {
         this.commentTimelineItemService.getConversations([
             this.changesetInfo.modification.claim_modification.comment_modification.id,
         ]);
-    }
-
-    toKek(conversation: any) {
-        console.log(conversation);
     }
 }

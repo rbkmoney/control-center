@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { merge, ReplaySubject, Subject } from 'rxjs';
+import { merge, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { ConversationId } from '../../../../thrift-services/messages/gen-model/messages';
@@ -17,7 +17,7 @@ export class CommentTimelineItemService {
                 pluck('conversations'),
                 catchError((e) => {
                     this.error$.next(e);
-                    return [];
+                    return of(e);
                 })
             )
         ),
