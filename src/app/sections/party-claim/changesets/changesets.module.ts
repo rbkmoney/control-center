@@ -14,6 +14,7 @@ import { DetailsItemModule } from '../../../shared/components/details-item';
 import { TimelineModule } from '../../../shared/components/timeline';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SharedModule } from '../../../shared/shared.module';
+import { FileStorageModule } from '../../../thrift-services/file-storage';
 import { MessagesModule } from '../../../thrift-services/messages';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
 import { ClaimTimelineItemHeaderComponent } from './claim-timeline-item-header/claim-timeline-item-header.component';
@@ -23,7 +24,10 @@ import { CommentContentComponent } from './comment-timeline-item/comment-content
 import { CommentHeaderPipe } from './comment-timeline-item/comment-header.pipe';
 import { CommentTimelineItemComponent } from './comment-timeline-item/comment-timeline-item.component';
 import { CreatedTimelineItemComponent } from './created-timeline-item';
+import { FileActionIconPipe } from './file-timeline-item/file-action-icon.pipe';
+import { FileBadgeColorPipe } from './file-timeline-item/file-badge-color.pipe';
 import { FileContentComponent } from './file-timeline-item/file-content/file-content.component';
+import { FileHeaderPipe } from './file-timeline-item/file-header.pipe';
 import { FileTimelineItemComponent } from './file-timeline-item/file-timeline-item.component';
 import { PartyModificationTimelineItemComponent } from './party-modification-timeline-item';
 import { PartyModificationContentComponent } from './party-modification-timeline-item/party-modification-content/party-modification-content.component';
@@ -52,6 +56,7 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         MatDividerModule,
         MatExpansionModule,
         MessagesModule,
+        FileStorageModule,
     ],
     declarations: [
         ClaimChangesetComponent,
@@ -74,6 +79,9 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         CommentHeaderPipe,
         CommentActionIconPipe,
         CommentBadgeColorPipe,
+        FileHeaderPipe,
+        FileBadgeColorPipe,
+        FileActionIconPipe,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
