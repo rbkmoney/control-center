@@ -1,9 +1,9 @@
 <cc-timeline-item>
     <cc-timeline-item-title>
         <cc-claim-timeline-item-header
-            [createdAt]="'2013-04-01T00:00:00.000'"
-            [text]="'added files' || 'removed files'"
-            [username]="'kekes'"
+            [createdAt]="changesetInfo.createdAt"
+            [text]="changesetInfo.modificationType | ccFileHeader"
+            [username]="changesetInfo.userInfo.username"
         ></cc-claim-timeline-item-header>
         <div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -13,10 +13,15 @@
         </div>
     </cc-timeline-item-title>
 
-    <cc-timeline-item-badge [color]="'primary'">
-        <mat-icon>{{ 'attach_file' || 'clear' }}</mat-icon>
+    <cc-timeline-item-badge [color]="changesetInfo.modificationType | ccFileBadgeColor">
+        <mat-icon>{{ changesetInfo.modificationType | ccFileActionIcon }}</mat-icon>
     </cc-timeline-item-badge>
     <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
-        <cc-file-content></cc-file-content>
+        <cc-file-content
+            *ngIf="fileData$ | async as fileData"
+            [fileData]="fileData"
+        ></cc-file-content>
+        <cc-timeline-item-error [text]="error$ | async"></cc-timeline-item-error>
+        <cc-timeline-item-loading *ngIf="isLoading$ | async"></cc-timeline-item-loading>
     </cc-timeline-item-content>
 </cc-timeline-item>

@@ -1,6 +1,8 @@
 <mat-card>
     <mat-card-content fxLayout="row" fxLayoutAlign="space-between">
-        <div class="cc-body-1">file_01.pdf</div>
-        <mat-icon>cloud_download</mat-icon>
+        <div class="cc-body-1">{{ fileData.file_name }}</div>
+        <mat-icon (click)="downloadFile(fileData.file_data_id)" class="download"
+            >cloud_download</mat-icon
+        >
     </mat-card-content>
 </mat-card>
