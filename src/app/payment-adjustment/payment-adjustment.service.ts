@@ -54,6 +54,8 @@ export class PaymentAdjustmentService {
             status,
             shopId,
             invoiceId,
+            providerID,
+            terminalID,
         } = params;
         return this.merchantStatisticsService.getPayments({
             dsl: JSON.stringify({
@@ -65,6 +67,8 @@ export class PaymentAdjustmentService {
                         to_time: toTime,
                         from_payment_domain_revision: fromRevision,
                         to_payment_domain_revision: toRevision,
+                        ...(providerID ? { payment_provider_id: providerID } : {}),
+                        ...(terminalID ? { payment_terminal_id: terminalID } : {}),
                         ...(status ? { payment_status: status } : {}),
                         ...(invoiceId ? { invoice_id: invoiceId } : {}),
                     },
