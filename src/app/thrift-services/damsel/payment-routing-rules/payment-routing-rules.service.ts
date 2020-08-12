@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { findDomainObjects } from '../operations/utils';
-import { PaymentRoutingRulesObject, Domain } from '../gen-model/domain';
-import { DomainService } from '../domain.service';
-import { DomainCacheService } from '../domain-cache.service';
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Version } from '../gen-model/domain_config';
+
+import { DomainCacheService } from '../domain-cache.service';
 import { DomainTypedManager } from '../domain-typed-manager';
+import { DomainService } from '../domain.service';
+import { Domain, PaymentRoutingRulesObject } from '../gen-model/domain';
+import { Version } from '../gen-model/domain_config';
+import { findDomainObjects } from '../operations/utils';
 import { addPartyDelegateCommit } from './add-party-delegate-commit';
 
 const findPaymentRoutingRulesObjects = (domain: Domain): PaymentRoutingRulesObject[] =>

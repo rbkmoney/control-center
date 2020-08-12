@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../thrift-services';
-import { shareReplay, pluck, map, withLatestFrom } from 'rxjs/operators';
-import { PaymentRoutingRulesObject } from '../../thrift-services/damsel/gen-model/domain';
-import { PartyService } from '../../papi/party.service';
 import { ActivatedRoute } from '@angular/router';
+import { map, pluck, shareReplay, withLatestFrom } from 'rxjs/operators';
+
+import { PartyService } from '../../papi/party.service';
+import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../thrift-services';
+import { PaymentRoutingRulesObject } from '../../thrift-services/damsel/gen-model/domain';
 
 const findPartyDelegate = (mainRuleset: PaymentRoutingRulesObject, partyID: string) =>
     mainRuleset.data.decisions.delegates.find((d) => d?.allowed?.condition?.party?.id === partyID);

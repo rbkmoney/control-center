@@ -1,8 +1,9 @@
-import { PaymentRoutingRulesObject, PaymentRoutingDelegate } from '../gen-model/domain';
-import { generateID } from '../operations/utils';
-import { createDamselInstance } from '../create-damsel-instance';
 import cloneDeep from 'lodash-es/cloneDeep';
+
+import { createDamselInstance } from '../create-damsel-instance';
+import { PaymentRoutingDelegate, PaymentRoutingRulesObject } from '../gen-model/domain';
 import { Commit } from '../gen-model/domain_config';
+import { generateID } from '../operations/utils';
 
 const createPartyDelegate = ({
     id,

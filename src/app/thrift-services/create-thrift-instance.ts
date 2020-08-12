@@ -1,6 +1,6 @@
-import type { ThriftType, ValueType, SetType, ListType, MapType } from 'thrift-ts';
-import Int64 from 'thrift-ts/lib/int64';
 import difference from 'lodash-es/difference';
+import type { ListType, MapType, SetType, ThriftType, ValueType } from 'thrift-ts';
+import Int64 from 'thrift-ts/lib/int64';
 
 const primitiveTypes = [
     'int',
