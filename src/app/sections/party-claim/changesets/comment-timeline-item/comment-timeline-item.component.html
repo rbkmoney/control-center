@@ -2,11 +2,7 @@
     <cc-timeline-item-title>
         <cc-claim-timeline-item-header
             [createdAt]="changesetInfo.createdAt"
-            [text]="
-                changesetInfo.modificationType === changesetInfoModificationTypes.creation
-                    ? 'added message'
-                    : 'removed message'
-            "
+            [text]="changesetInfo.modificationType | ccCommentHeader"
             [username]="changesetInfo.userInfo.username"
         ></cc-claim-timeline-item-header>
         <div>
@@ -17,26 +13,14 @@
         </div>
     </cc-timeline-item-title>
 
-    <cc-timeline-item-badge
-        [color]="
-            changesetInfo.modificationType === changesetInfoModificationTypes.creation
-                ? 'primary'
-                : null
-        "
-    >
-        <mat-icon>{{
-            changesetInfo.modificationType === changesetInfoModificationTypes.creation
-                ? 'add_comment'
-                : 'clear'
-        }}</mat-icon>
+    <cc-timeline-item-badge [color]="changesetInfo.modificationType | ccCommentBadgeColor">
+        <mat-icon>{{ changesetInfo.modificationType | ccCommentActionIcon }}</mat-icon>
     </cc-timeline-item-badge>
     <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
-        <ng-container *ngFor="let conversation of conversations$ | async">
-            <cc-comment-content
-                *ngFor="let message of conversation.messages"
-                [text]="message.text"
-            ></cc-comment-content>
-        </ng-container>
+        <cc-comment-content
+            *ngIf="message$ | async as message"
+            [text]="message.text"
+        ></cc-comment-content>
         <cc-timeline-item-loading *ngIf="isLoading$ | async"></cc-timeline-item-loading>
         <cc-timeline-item-error
             *ngIf="error$ | async as error"

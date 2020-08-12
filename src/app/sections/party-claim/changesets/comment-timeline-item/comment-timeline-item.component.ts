@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { ChangesetInfo, ChangesetInfoModificationType } from '../claim-changeset/changeset-infos';
+import { ChangesetInfo } from '../claim-changeset/changeset-infos';
 import { CommentTimelineItemService } from './comment-timeline-item.service';
 
 @Component({
@@ -14,14 +14,13 @@ export class CommentTimelineItemComponent implements OnInit {
     changesetInfo: ChangesetInfo;
 
     isLoading$ = this.commentTimelineItemService.isLoading$;
-    conversations$ = this.commentTimelineItemService.conversations$;
+    message$ = this.commentTimelineItemService.message$;
     error$ = this.commentTimelineItemService.error$;
-    changesetInfoModificationTypes = ChangesetInfoModificationType;
 
     constructor(private commentTimelineItemService: CommentTimelineItemService) {}
 
     ngOnInit(): void {
-        this.commentTimelineItemService.getConversations([
+        this.commentTimelineItemService.getMessage([
             this.changesetInfo.modification.claim_modification.comment_modification.id,
         ]);
     }
