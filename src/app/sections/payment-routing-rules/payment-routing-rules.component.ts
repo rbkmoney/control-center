@@ -4,6 +4,9 @@ import { switchMap, take } from 'rxjs/operators';
 
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
 import { PaymentRoutingRulesService } from './payment-routing-rules.service';
+import { AddPaymentRoutingRuleDialogComponent } from './add-payment-routing-rule-dilaog';
+
+const DIALOG_WIDTH = '548px';
 
 @Component({
     selector: 'cc-payment-routing-rules',
@@ -13,6 +16,8 @@ import { PaymentRoutingRulesService } from './payment-routing-rules.service';
 })
 export class PaymentRoutingRulesComponent {
     partyDelegate$ = this.paymentRoutingRulesService.partyDelegate$;
+
+    dataSource = [];
 
     constructor(
         private dialog: MatDialog,
@@ -27,7 +32,7 @@ export class PaymentRoutingRulesComponent {
                     this.dialog
                         .open(InitializePaymentRoutingRulesDialogComponent, {
                             disableClose: true,
-                            width: '548px',
+                            width: DIALOG_WIDTH,
                             data: { partyID },
                         })
                         .afterClosed()
@@ -35,4 +40,23 @@ export class PaymentRoutingRulesComponent {
             )
             .subscribe();
     }
+
+    addPartyRule() {
+        this.paymentRoutingRulesService.partyID$
+            .pipe(
+                take(1),
+                switchMap((partyID) =>
+                    this.dialog
+                        .open(AddPaymentRoutingRuleDialogComponent, {
+                            disableClose: true,
+                            width: DIALOG_WIDTH,
+                            data: { partyID },
+                        })
+                        .afterClosed()
+                )
+            )
+            .subscribe();
+    }
+
+    navigateToShopRuleset(shopID: string) {}
 }

@@ -1,0 +1,32 @@
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="32px">
+    <div class="mat-headline">Payment rules init params</div>
+
+    <div fxLayout="column" fxLayoutGap="24px">
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Main deligate description"
+                formControlName="delegateDescription"
+            />
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <div class="mat-title">Payment routing ruleset</div>
+        <div fxLayout="column" fxLayoutGap="16px">
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="name" required />
+            </mat-form-field>
+            <mat-form-field>
+                <input
+                    matInput
+                    placeholder="Description (optional)"
+                    formControlName="description"
+                />
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxLayout fxLayoutGap="8px" fxLayoutAlign="space-between">
+        <button mat-button (click)="cancel()">CANCEL</button>
+        <button mat-button color="primary" (click)="init()">INIT</button>
+    </div>
+</form>
