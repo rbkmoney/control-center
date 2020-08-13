@@ -25,7 +25,7 @@ export class InitializePaymentRoutingRulesDialogComponent {
     init() {
         const { delegateDescription, name, description } = this.form.value;
         this.paymentRoutingRulesService
-            .addPartyDelegate({
+            .addPartyRuleset({
                 name,
                 partyID: this.data.partyID,
                 description,

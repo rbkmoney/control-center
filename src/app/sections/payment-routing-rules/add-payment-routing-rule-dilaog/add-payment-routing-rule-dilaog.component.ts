@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { PaymentRoutingRulesService } from '../../../thrift-services';
+import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-add-payment-routing-rule-dilaog',
@@ -9,8 +11,8 @@ import { PaymentRoutingRulesService } from '../../../thrift-services';
 })
 export class AddPaymentRoutingRuleDialogComponent {
     form = this.fb.group({
-        delegateDescription: 'Main delegate[party]',
-        name: 'submain ruleset[by shop id]',
+        shopID: '',
+        name: 'Ruleset[candidates]',
         description: '',
     });
 
@@ -18,17 +20,17 @@ export class AddPaymentRoutingRuleDialogComponent {
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<AddPaymentRoutingRuleDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
-        @Inject(MAT_DIALOG_DATA) public data: { partyID: string }
+        @Inject(MAT_DIALOG_DATA) public data: { partyID: string; shops: Shop[] }
     ) {}
 
-    init() {
-        const { delegateDescription, name, description } = this.form.value;
+    add() {
+        const { shopID, name, description } = this.form.value;
         this.paymentRoutingRulesService
-            .addPartyDelegate({
+            .addShopRuleset({
                 name,
-                partyID: this.data.partyID,
                 description,
-                delegateDescription,
+                partyID: this.data.partyID,
+                shopID,
             })
             .subscribe(() => this.dialogRef.close());
     }

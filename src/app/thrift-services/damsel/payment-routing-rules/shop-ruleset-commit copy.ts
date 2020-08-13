@@ -5,22 +5,24 @@ import { PaymentRoutingDelegate, PaymentRoutingRulesObject } from '../gen-model/
 import { Commit } from '../gen-model/domain_config';
 import { generateID } from '../operations/utils';
 
-const createPartyDelegate = ({
+const createShopDelegate = ({
     id,
     partyID,
-    description,
+    shopID,
 }: {
     id: number;
     partyID: string;
-    description?: string;
+    shopID: string;
 }) =>
     createDamselInstance<PaymentRoutingDelegate>('domain', 'PaymentRoutingDelegate', {
         ruleset: { id },
-        description,
         allowed: {
             condition: {
                 party: {
                     id: partyID,
+                    definition: {
+                        shop_is: shopID,
+                    },
                 },
             },
         },
@@ -55,36 +57,36 @@ const addDelegateToRuleset = (
     return result;
 };
 
-export function addPartyDelegateCommit({
-    mainRuleset,
+export function shopRulesetCommit({
+    partyRuleset,
     paymentRoutingRulesObjects,
+    shopID,
     partyID,
     name,
     description,
-    delegateDescription,
 }: {
-    mainRuleset: PaymentRoutingRulesObject;
+    partyRuleset: PaymentRoutingRulesObject;
     paymentRoutingRulesObjects: PaymentRoutingRulesObject[];
+    shopID: string;
     partyID: string;
     name: string;
     description?: string;
-    delegateDescription?: string;
 }) {
     const id = generateID(paymentRoutingRulesObjects);
-    const ruleset = createRuleset({ id, name, description });
-    const partyDelegate = createPartyDelegate({ id, partyID, description: delegateDescription });
-    const delegateRuleset = addDelegateToRuleset(mainRuleset, partyDelegate);
+    const shopRuleset = createRuleset({ id, name, description });
+    const shopDelegate = createShopDelegate({ id, shopID, partyID });
+    const newPartyRuleset = addDelegateToRuleset(partyRuleset, shopDelegate);
     return createDamselInstance<Commit>('domain_config', 'Commit', {
         ops: [
             {
                 insert: {
-                    object: { payment_routing_rules: ruleset },
+                    object: { payment_routing_rules: shopRuleset },
                 },
             },
             {
                 update: {
-                    old_object: { payment_routing_rules: mainRuleset },
-                    new_object: { payment_routing_rules: delegateRuleset },
+                    old_object: { payment_routing_rules: partyRuleset },
+                    new_object: { payment_routing_rules: newPartyRuleset },
                 },
             },
         ],

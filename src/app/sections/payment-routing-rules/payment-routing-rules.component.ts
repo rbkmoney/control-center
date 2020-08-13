@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { switchMap, take } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { AddPaymentRoutingRuleDialogComponent } from './add-payment-routing-rule-dilaog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
 import { PaymentRoutingRulesService } from './payment-routing-rules.service';
-import { AddPaymentRoutingRuleDialogComponent } from './add-payment-routing-rule-dilaog';
 
 const DIALOG_WIDTH = '548px';
 
@@ -16,8 +17,19 @@ const DIALOG_WIDTH = '548px';
 })
 export class PaymentRoutingRulesComponent {
     partyDelegate$ = this.paymentRoutingRulesService.partyDelegate$;
-
-    dataSource = [];
+    partyRuleset$ = this.paymentRoutingRulesService.partyRuleset$;
+    dataSource$ = combineLatest([this.partyRuleset$, this.paymentRoutingRulesService.shops$]).pipe(
+        map(([{ data }, shops]) =>
+            data.decisions.delegates
+                .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
+                .map((d) => ({
+                    id: d.ruleset.id,
+                    shop: shops.find((s) => s.id === d.allowed.condition.party.definition.shop_is),
+                }))
+        ),
+        shareReplay(1)
+    );
+    displayedColumns = ['shop', 'id', 'actions'];
 
     constructor(
         private dialog: MatDialog,
@@ -42,15 +54,18 @@ export class PaymentRoutingRulesComponent {
     }
 
     addPartyRule() {
-        this.paymentRoutingRulesService.partyID$
+        combineLatest([
+            this.paymentRoutingRulesService.partyID$,
+            this.paymentRoutingRulesService.shops$,
+        ])
             .pipe(
                 take(1),
-                switchMap((partyID) =>
+                switchMap(([partyID, shops]) =>
                     this.dialog
                         .open(AddPaymentRoutingRuleDialogComponent, {
                             disableClose: true,
                             width: DIALOG_WIDTH,
-                            data: { partyID },
+                            data: { partyID, shops },
                         })
                         .afterClosed()
                 )

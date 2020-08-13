@@ -1,6 +1,6 @@
 import transform from 'lodash-es/transform';
 
-import { Domain, TerminalSelector } from '../gen-model/domain';
+import { Domain, DomainObject, TerminalSelector } from '../gen-model/domain';
 
 export const generateID = (objectsWithRefId: { ref: { id: number } }[]): number => {
     const ids = objectsWithRefId.map(({ ref }) => ref.id);
@@ -19,17 +19,15 @@ export const findDomainObject = (domainObjects: any[], id: number) =>
 const transformUnion = (union: any): any =>
     transform(union, (result, value, key) => (value ? (result[key] = value) : undefined), {});
 
-export const findDomainObjects = (domain: Domain, fieldName: string): any[] => {
-    const result = [];
-    domain.forEach((obj) => {
+export const findDomainObjects = <F extends keyof DomainObject>(
+    domain: Domain,
+    fieldName: F
+): DomainObject[F][] =>
+    Array.from(domain).reduce((acc, [, obj]) => {
         const transformed = transformUnion(obj);
         const domainObject = transformed[fieldName];
-        if (domainObject) {
-            result.push(domainObject);
-        }
-    });
-    return result;
-};
+        return domainObject ? [...acc, domainObject] : acc;
+    }, []);
 
 export const checkSelector = (selector: TerminalSelector) => {
     if (selector.value) {

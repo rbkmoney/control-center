@@ -10,22 +10,26 @@
             Ruleset ref ID: {{ (partyDelegate$ | async).ruleset.id }}
         </div>
     </div>
-    <div class="mat-display-1" fxFlexAlign="center">Party payment routing rules is empty</div>
 
-    <mat-card>
+    <mat-card *ngIf="(dataSource$ | async)?.length; else emptyPartyRuleset">
         <mat-card-content fxLayout="column">
-            <table mat-table [dataSource]="dataSource" fxFlex>
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef>Shop ID</th>
-                    <td mat-cell *matCellDef="let shop">{{ shop.id }}</td>
+            <table mat-table [dataSource]="dataSource$ | async" fxFlex>
+                <ng-container matColumnDef="shop">
+                    <th mat-header-cell *matHeaderCellDef width="50%">Shop</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div fxLayout="column">
+                            <div class="mat-body-1">{{ element.shop.details.name }}</div>
+                            <div class="mat-caption">{{ element.shop.id }}</div>
+                        </div>
+                    </td>
                 </ng-container>
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef>Ruleset Ref ID</th>
-                    <td mat-cell *matCellDef="let shop">{{ shop.details.name }}</td>
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef width="50%">Ruleset Ref ID</th>
+                    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
                 </ng-container>
                 <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef class="action-cell"></th>
-                    <td mat-cell *matCellDef="let shop" class="action-cell">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let shop">
                         <button mat-icon-button [matMenuTriggerFor]="menu">
                             <mat-icon>more_vert</mat-icon>
                         </button>
@@ -36,8 +40,8 @@
                         </mat-menu>
                     </td>
                 </ng-container>
-                <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
-                <!-- <tr mat-row *matRowDef="let shop; columns: displayedColumns"></tr> -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
 
             <mat-paginator
@@ -46,6 +50,10 @@
             ></mat-paginator>
         </mat-card-content>
     </mat-card>
+
+    <ng-template #emptyPartyRuleset>
+        <div class="mat-display-1" fxFlexAlign="center">Party payment routing rules is empty</div>
+    </ng-template>
 </div>
 
 <ng-template #emptyPartyDelegate>

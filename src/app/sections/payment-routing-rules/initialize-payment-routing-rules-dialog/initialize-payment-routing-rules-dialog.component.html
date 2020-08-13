@@ -27,6 +27,6 @@
 
     <div fxLayout fxLayoutGap="8px" fxLayoutAlign="space-between">
         <button mat-button (click)="cancel()">CANCEL</button>
-        <button mat-button color="primary" (click)="init()">INIT</button>
+        <button mat-button color="primary" (click)="init()" [disabled]="form.invalid">INIT</button>
     </div>
 </form>
