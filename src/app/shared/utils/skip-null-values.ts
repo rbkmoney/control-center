@@ -1,7 +1,7 @@
 import isArray from 'lodash-es/isArray';
 import transform from 'lodash-es/transform';
 
-export const skipNullValues = (obj: object): object =>
+export const skipNullValues = (obj) =>
     transform(
         obj,
         (acc, v, k) => {
