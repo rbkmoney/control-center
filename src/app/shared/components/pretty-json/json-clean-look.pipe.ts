@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 @Pipe({
     name: 'ccJsonCleanLook',
 })
 export class JsonCleanLookPipe implements PipeTransform {
-    transform(obj: object, isActive: boolean): Object {
-        return isActive ? this.clean(obj) : obj;
+    transform(obj: object, isActive: boolean): object {
+        return isActive ? this.clean(cloneDeep(obj)) : obj;
     }
 
     private clean(obj) {
