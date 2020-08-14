@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isArray } from 'lodash-es';
+import isArray from 'lodash-es/isArray';
 import cloneDeep from 'lodash-es/cloneDeep';
 import transform from 'lodash-es/transform';
 
