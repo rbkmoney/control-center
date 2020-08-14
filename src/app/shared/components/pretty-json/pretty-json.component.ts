@@ -58,8 +58,7 @@ export class PrettyJsonComponent implements OnChanges {
 
     private clean(obj) {
         const propNames = Object.getOwnPropertyNames(obj);
-        for (let i = 0; i < propNames.length; i++) {
-            const propName = propNames[i];
+        for (const propName of propNames) {
             if (obj[propName] === null) {
                 delete obj[propName];
             } else if (typeof obj[propName] === 'object') {
