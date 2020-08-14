@@ -39,7 +39,7 @@ const declarations = [
 
 @NgModule({
     imports: [CommonModule, PrettyJsonModule, FlexModule, MatCardModule],
-    declarations: [declarations],
+    declarations: declarations,
     exports: declarations,
 })
 export class SharedModule {}
