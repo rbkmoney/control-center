@@ -17,7 +17,6 @@ import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SharedModule } from '../../../shared/shared.module';
 import { FileStorageModule } from '../../../thrift-services/file-storage';
 import { MessagesModule } from '../../../thrift-services/messages';
-import { ChangesetInfoTypePipe } from './claim-changeset/changeset-info-type.pipe';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
 import { ClaimTimelineItemHeaderComponent } from './claim-timeline-item-header/claim-timeline-item-header.component';
 import { CommentActionIconPipe } from './comment-timeline-item/comment-action-icon.pipe';
@@ -85,7 +84,6 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         FileHeaderPipe,
         FileBadgeColorPipe,
         FileActionIconPipe,
-        ChangesetInfoTypePipe,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
