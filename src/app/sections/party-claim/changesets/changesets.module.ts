@@ -4,13 +4,11 @@ import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 import { DetailsItemModule } from '../../../shared/components/details-item';
@@ -62,8 +60,6 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         MessagesModule,
         FileStorageModule,
         ReactiveFormsModule,
-        MatRadioModule,
-        MatCheckboxModule,
     ],
     declarations: [
         ClaimChangesetComponent,
