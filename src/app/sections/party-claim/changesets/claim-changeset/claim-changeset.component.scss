@@ -1,0 +1,13 @@
+::ng-deep .mat-select-panel {
+    max-height: 300px !important;
+}
+
+.changeset-filter {
+    &-option {
+        padding: 12px 20px;
+    }
+
+    &-divider {
+        margin: 10px 0;
+    }
+}

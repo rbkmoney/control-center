@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 import { DetailsItemModule } from '../../../shared/components/details-item';
@@ -16,6 +19,7 @@ import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SharedModule } from '../../../shared/shared.module';
 import { FileStorageModule } from '../../../thrift-services/file-storage';
 import { MessagesModule } from '../../../thrift-services/messages';
+import { ChangesetInfoTypePipe } from './claim-changeset/changeset-info-type.pipe';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
 import { ClaimTimelineItemHeaderComponent } from './claim-timeline-item-header/claim-timeline-item-header.component';
 import { CommentActionIconPipe } from './comment-timeline-item/comment-action-icon.pipe';
@@ -57,6 +61,9 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         MatExpansionModule,
         MessagesModule,
         FileStorageModule,
+        ReactiveFormsModule,
+        MatRadioModule,
+        MatCheckboxModule,
     ],
     declarations: [
         ClaimChangesetComponent,
@@ -82,6 +89,7 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         FileHeaderPipe,
         FileBadgeColorPipe,
         FileActionIconPipe,
+        ChangesetInfoTypePipe,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })

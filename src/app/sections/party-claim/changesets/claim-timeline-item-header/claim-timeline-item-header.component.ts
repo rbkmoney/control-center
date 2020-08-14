@@ -17,4 +17,7 @@ export class ClaimTimelineItemHeaderComponent {
 
     @Input()
     outdated?: boolean;
+
+    @Input()
+    removed?: boolean;
 }
