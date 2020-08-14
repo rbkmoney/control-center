@@ -15,6 +15,7 @@ export const skipNullValues = (obj: object): object => {
             } else {
                 acc[k] = v;
             }
+            return acc;
         },
         {}
     );
