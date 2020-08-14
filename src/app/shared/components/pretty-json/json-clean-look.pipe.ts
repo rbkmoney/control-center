@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class JsonCleanLookPipe implements PipeTransform {
     transform(obj: object, isActive: boolean): Object {
-        return this.clean(obj);
+        return isActive ? this.clean(obj) : obj;
     }
 
     private clean(obj) {
