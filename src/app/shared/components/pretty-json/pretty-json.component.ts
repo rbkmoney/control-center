@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
     selector: 'cc-pretty-json',
@@ -12,6 +12,7 @@ import { Component, Input } from '@angular/core';
                 line-height: 18px;
                 letter-spacing: 0px;
             }
+
             :host /deep/ .string {
                 color: #0451a5;
             }
@@ -38,10 +39,33 @@ import { Component, Input } from '@angular/core';
         `,
     ],
 })
-export class PrettyJsonComponent {
+export class PrettyJsonComponent implements OnChanges {
     @Input()
     object: object;
 
     @Input()
     inline = false;
+
+    @Input()
+    cleanLook: boolean;
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { cleanLook, object } = changes;
+        if (object?.currentValue && cleanLook?.currentValue) {
+            this.object = this.clean(object.currentValue);
+        }
+    }
+
+    private clean(obj) {
+        const propNames = Object.getOwnPropertyNames(obj);
+        for (let i = 0; i < propNames.length; i++) {
+            const propName = propNames[i];
+            if (obj[propName] === null) {
+                delete obj[propName];
+            } else if (typeof obj[propName] === 'object') {
+                obj[propName] = this.clean(obj[propName]);
+            }
+        }
+        return obj;
+    }
 }
