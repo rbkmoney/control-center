@@ -2,5 +2,5 @@
     <mat-expansion-panel-header>
         <mat-panel-title>{{ modification | ccPartyModificationName }}</mat-panel-title>
     </mat-expansion-panel-header>
-    <cc-pretty-json [object]="modification"></cc-pretty-json>
+    <cc-pretty-json [object]="modification" [cleanLook]="true"></cc-pretty-json>
 </mat-expansion-panel>

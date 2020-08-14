@@ -14,6 +14,7 @@ import { DetailsItemModule } from '../../../shared/components/details-item';
 import { TimelineModule } from '../../../shared/components/timeline';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SharedModule } from '../../../shared/shared.module';
+import { AnkModule } from '../../../thrift-services/ank';
 import { FileStorageModule } from '../../../thrift-services/file-storage';
 import { MessagesModule } from '../../../thrift-services/messages';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
@@ -57,6 +58,7 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         MatExpansionModule,
         MessagesModule,
         FileStorageModule,
+        AnkModule,
     ],
     declarations: [
         ClaimChangesetComponent,

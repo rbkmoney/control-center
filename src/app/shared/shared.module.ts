@@ -9,6 +9,7 @@ import {
     EmptySearchResultComponent,
     PrettyJsonComponent,
 } from './components';
+import { JsonCleanLookPipe } from './components/pretty-json/json-clean-look.pipe';
 import {
     ClaimSourcePipe,
     ClaimStatusPipe,
@@ -33,6 +34,7 @@ const declarations = [
     PartyModificationNamePipe,
     CardContainerComponent,
     PartyModificationNamePipe,
+    JsonCleanLookPipe,
 ];
 
 @NgModule({
