@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'cc-pretty-json',
@@ -39,7 +39,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
         `,
     ],
 })
-export class PrettyJsonComponent implements OnChanges {
+export class PrettyJsonComponent {
     @Input()
     object: object;
 
@@ -48,23 +48,4 @@ export class PrettyJsonComponent implements OnChanges {
 
     @Input()
     cleanLook: boolean;
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { cleanLook, object } = changes;
-        if (object?.currentValue && cleanLook?.currentValue) {
-            this.object = this.clean(object.currentValue);
-        }
-    }
-
-    private clean(obj) {
-        const propNames = Object.getOwnPropertyNames(obj);
-        for (const propName of propNames) {
-            if (obj[propName] === null) {
-                delete obj[propName];
-            } else if (typeof obj[propName] === 'object') {
-                obj[propName] = this.clean(obj[propName]);
-            }
-        }
-        return obj;
-    }
 }

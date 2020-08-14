@@ -1,2 +1,2 @@
-<span *ngIf="inline" [innerHtml]="object | prettyjson: 2"></span>
-<pre *ngIf="!inline" [innerHtml]="object | prettyjson: 2"></pre>
+<span *ngIf="inline" [innerHtml]="object | ccJsonCleanLook: cleanLook | prettyjson: 2"></span>
+<pre *ngIf="!inline" [innerHtml]="object | ccJsonCleanLook: cleanLook | prettyjson: 2"></pre>

@@ -9,6 +9,7 @@ import {
     EmptySearchResultComponent,
     PrettyJsonComponent,
 } from './components';
+import { JsonCleanLookPipe } from './components/pretty-json/json-clean-look.pipe';
 import {
     ClaimSourcePipe,
     ClaimStatusPipe,
@@ -37,7 +38,7 @@ const declarations = [
 
 @NgModule({
     imports: [CommonModule, PrettyJsonModule, FlexModule, MatCardModule],
-    declarations,
+    declarations: [declarations, JsonCleanLookPipe],
     exports: declarations,
 })
 export class SharedModule {}
