@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isArray } from 'lodash-es';
 import cloneDeep from 'lodash-es/cloneDeep';
+import transform from 'lodash-es/transform';
 
 @Pipe({
     name: 'ccJsonCleanLook',
@@ -10,14 +12,20 @@ export class JsonCleanLookPipe implements PipeTransform {
     }
 
     private clean(obj) {
-        const propNames = Object.getOwnPropertyNames(obj);
-        for (const propName of propNames) {
-            if (obj[propName] === null) {
-                delete obj[propName];
-            } else if (typeof obj[propName] === 'object') {
-                obj[propName] = this.clean(obj[propName]);
-            }
-        }
-        return obj;
+        return transform(
+            obj,
+            (acc, v, k) => {
+                if (v !== null) {
+                    if (isArray(v)) {
+                        acc[k] = v.map((o) => this.clean(o));
+                    } else if (typeof v === 'object') {
+                        acc[k] = this.clean(v);
+                    } else {
+                        acc[k] = v;
+                    }
+                }
+            },
+            {}
+        );
     }
 }
