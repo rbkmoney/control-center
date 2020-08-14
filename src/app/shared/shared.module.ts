@@ -34,11 +34,12 @@ const declarations = [
     PartyModificationNamePipe,
     CardContainerComponent,
     PartyModificationNamePipe,
+    JsonCleanLookPipe,
 ];
 
 @NgModule({
     imports: [CommonModule, PrettyJsonModule, FlexModule, MatCardModule],
-    declarations: [declarations, JsonCleanLookPipe],
+    declarations: [declarations],
     exports: declarations,
 })
 export class SharedModule {}
