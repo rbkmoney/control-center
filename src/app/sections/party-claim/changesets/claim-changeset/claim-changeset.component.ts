@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { ChangesetInfoType } from './changeset-infos';
 import { ClaimChangesetService } from './claim-changeset.service';
+import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
+import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from './changeset-infos';
 
 @Component({
     selector: 'cc-claim-changeset',
@@ -24,6 +25,11 @@ export class ClaimChangesetComponent implements OnChanges {
     filteredChangesetInfos$ = this.claimChangesetService.filteredChangesetInfos$;
 
     constructor(private claimChangesetService: ClaimChangesetService) {}
+    @Input()
+    partyID: PartyID;
+
+    changesetInfos: ChangesetInfo[];
+    changesetInfoTypes = ChangesetInfoType;
 
     simpleTrackBy(index: number): number {
         return index;

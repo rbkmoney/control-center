@@ -4,7 +4,10 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>Contractor</mat-panel-title>
             </mat-expansion-panel-header>
-            <cc-pretty-json [object]="questionary.data.contractor"></cc-pretty-json>
+            <cc-pretty-json
+                [object]="questionary.data.contractor"
+                [cleanLook]="true"
+            ></cc-pretty-json>
         </mat-expansion-panel>
 
         <mat-expansion-panel
@@ -19,6 +22,7 @@
                 [object]="
                     questionary.data.contractor.legal_entity.russian_legal_entity.legal_owner_info
                 "
+                [cleanLook]="true"
             ></cc-pretty-json>
         </mat-expansion-panel>
 
@@ -30,6 +34,7 @@
             </mat-expansion-panel-header>
             <cc-pretty-json
                 [object]="questionary.data.contractor.individual_entity.russian_individual_entity"
+                [cleanLook]="true"
             ></cc-pretty-json>
         </mat-expansion-panel>
 
@@ -37,7 +42,10 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>Shop Info</mat-panel-title>
             </mat-expansion-panel-header>
-            <cc-pretty-json [object]="questionary.data.shop_info"></cc-pretty-json>
+            <cc-pretty-json
+                [object]="questionary.data.shop_info"
+                [cleanLook]="true"
+            ></cc-pretty-json>
         </mat-expansion-panel>
 
         <mat-expansion-panel *ngIf="questionary?.data?.bank_account?.russian_bank_account">
@@ -46,6 +54,7 @@
             </mat-expansion-panel-header>
             <cc-pretty-json
                 [object]="questionary.data?.bank_account.russian_bank_account"
+                [cleanLook]="true"
             ></cc-pretty-json>
         </mat-expansion-panel>
 
@@ -53,7 +62,10 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>Contact Info</mat-panel-title>
             </mat-expansion-panel-header>
-            <cc-pretty-json [object]="questionary.data.contact_info"></cc-pretty-json>
+            <cc-pretty-json
+                [object]="questionary.data.contact_info"
+                [cleanLook]="true"
+            ></cc-pretty-json>
         </mat-expansion-panel>
     </mat-accordion>
 </div>

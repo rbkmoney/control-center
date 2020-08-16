@@ -18,8 +18,11 @@
         <mat-icon>{{ 'add' }}</mat-icon>
     </cc-timeline-item-badge>
     <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
-        <cc-questionary-content [questionary]="questionary"></cc-questionary-content>
-        <cc-timeline-item-loading></cc-timeline-item-loading>
-        <cc-timeline-item-error></cc-timeline-item-error>
+        <cc-questionary-content [questionary]="questionaryData$ | async"></cc-questionary-content>
+        <cc-timeline-item-loading *ngIf="isLoading$ | async"></cc-timeline-item-loading>
+        <cc-timeline-item-error
+            *ngIf="error$ | async as error"
+            [text]="error"
+        ></cc-timeline-item-error>
     </cc-timeline-item-content>
 </cc-timeline-item>

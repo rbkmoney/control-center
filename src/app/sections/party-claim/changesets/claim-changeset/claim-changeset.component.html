@@ -54,6 +54,7 @@
             <cc-questionary-timeline-item
                 *ngIf="info.type === changesetInfoType.documentModification"
                 [changesetInfo]="info"
+                [partyID]="partyID"
             ></cc-questionary-timeline-item>
             <cc-status-timeline-item
                 *ngIf="info.type === changesetInfoType.statusModification"

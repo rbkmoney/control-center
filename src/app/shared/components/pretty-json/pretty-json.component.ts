@@ -12,6 +12,7 @@ import { Component, Input } from '@angular/core';
                 line-height: 18px;
                 letter-spacing: 0px;
             }
+
             :host /deep/ .string {
                 color: #0451a5;
             }
@@ -44,4 +45,7 @@ export class PrettyJsonComponent {
 
     @Input()
     inline = false;
+
+    @Input()
+    cleanLook: boolean;
 }
