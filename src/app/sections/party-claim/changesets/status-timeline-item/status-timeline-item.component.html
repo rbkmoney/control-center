@@ -1,7 +1,7 @@
 <cc-timeline-item>
     <cc-timeline-item-title>
         <cc-claim-timeline-item-header
-            [createdAt]="'2013-04-01T00:00:00.000'"
+            [createdAt]="changesetInfo.createdAt"
             [text]="
                 'changed claim status to pending' ||
                 'changed claim status to review' ||
@@ -9,7 +9,7 @@
                 'denied claim' ||
                 'accepted claim'
             "
-            [username]="'kekes'"
+            [username]="changesetInfo.userInfo.username"
         ></cc-claim-timeline-item-header>
 
         <div>

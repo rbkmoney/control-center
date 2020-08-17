@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { ClaimChangesetService } from './claim-changeset.service';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
-import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from './changeset-infos';
+import { ChangesetInfo, ChangesetInfoType } from './changeset-infos';
+import { ClaimChangesetService } from './claim-changeset.service';
 
 @Component({
     selector: 'cc-claim-changeset',

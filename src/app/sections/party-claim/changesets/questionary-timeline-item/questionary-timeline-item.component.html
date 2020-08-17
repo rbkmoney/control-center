@@ -1,9 +1,9 @@
 <cc-timeline-item>
     <cc-timeline-item-title>
         <cc-claim-timeline-item-header
-            [createdAt]="'2013-04-01T00:00:00.000'"
+            [createdAt]="changesetInfo.createdAt"
             [text]="'added document'"
-            [username]="'kekes'"
+            [username]="changesetInfo.userInfo.username"
             [outdated]="changesetInfo.outdated"
         ></cc-claim-timeline-item-header>
         <div>
