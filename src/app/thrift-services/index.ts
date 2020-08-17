@@ -1,6 +1,6 @@
 export * from './thrift-service';
 export * from './filters';
-export * from './create-thrift-instance';
+export * from './thrift-instance';
 export * from './ank';
 export * from './file-storage';
 export * from './messages';

@@ -2,7 +2,7 @@
     <div class="mat-headline">Party payment routing rule params</div>
 
     <div fxLayout="column" fxLayoutGap="24px">
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>Shop</mat-label>
             <mat-select formControlName="shopID" required>
                 <mat-option *ngFor="let shop of data.shops" [value]="shop.id">

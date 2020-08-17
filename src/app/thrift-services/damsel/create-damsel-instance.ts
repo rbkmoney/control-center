@@ -1,5 +1,5 @@
 import metadata from '../../../assets/meta-damsel.json';
-import { createNamespaceThriftInstanceCreatorByName } from '../create-thrift-instance';
+import { createThriftInstanceUtils } from '../thrift-instance';
 import * as base from './gen-nodejs/base_types';
 import * as claim_management from './gen-nodejs/claim_management_types';
 import * as domain_config from './gen-nodejs/domain_config_types';
@@ -14,7 +14,7 @@ export const namespaces = {
     geo_ip,
 };
 
-export const createDamselInstance = createNamespaceThriftInstanceCreatorByName(
-    metadata,
-    namespaces
-);
+export const {
+    createThriftInstance: createDamselInstance,
+    thriftInstanceToObject: damselInstanceToObject,
+} = createThriftInstanceUtils(metadata, namespaces);

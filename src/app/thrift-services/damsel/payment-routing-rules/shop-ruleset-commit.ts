@@ -43,7 +43,7 @@ const createRuleset = ({
             name,
             description,
             decisions: {
-                delegates: [],
+                candidates: [],
             },
         },
     });

@@ -9,7 +9,8 @@ import { Domain, PaymentRoutingDelegate, PaymentRoutingRulesObject } from '../ge
 import { Version } from '../gen-model/domain_config';
 import { findDomainObjects } from '../operations/utils';
 import { partyRulesetCommit } from './party-ruleset-commit';
-import { shopRulesetCommit } from './shop-ruleset-commit copy';
+import { shopRuleCommit } from './shop-rule-commit';
+import { shopRulesetCommit } from './shop-ruleset-commit';
 
 const MAIN_RULESET_NAME = 'Main ruleset';
 
@@ -25,6 +26,9 @@ const findMainRuleset = (objs: PaymentRoutingRulesObject[]): PaymentRoutingRules
 
 const findPartyDelegate = (mainRuleset: PaymentRoutingRulesObject, partyID: string) =>
     mainRuleset.data.decisions.delegates.find((d) => d?.allowed?.condition?.party?.id === partyID);
+
+const findShopDelegate = (partyRuleset: PaymentRoutingRulesObject, refID: number) =>
+    partyRuleset.data.decisions.delegates.find((d) => d?.ruleset?.id === refID);
 
 const findRulesetByDelegate = (
     rulesets: PaymentRoutingRulesObject[],
@@ -56,10 +60,23 @@ export class PaymentRoutingRulesService {
         );
     }
 
+    getShopDelegate(partyID: string, refID: number): Observable<PaymentRoutingDelegate> {
+        return this.getPartyRuleset(partyID).pipe(
+            map((partyRuleset) => findShopDelegate(partyRuleset, refID))
+        );
+    }
+
     getPartyRuleset(partyID: string): Observable<PaymentRoutingRulesObject> {
         return this.getPartyDelegate(partyID).pipe(
             withLatestFrom(this.getRulesets()),
             map(([partyDelegate, rulesets]) => findRulesetByDelegate(rulesets, partyDelegate))
+        );
+    }
+
+    getShopRuleset(partyID: string, refID: number): Observable<PaymentRoutingRulesObject> {
+        return this.getShopDelegate(partyID, refID).pipe(
+            withLatestFrom(this.getRulesets()),
+            map(([shopDelegate, rulesets]) => findRulesetByDelegate(rulesets, shopDelegate))
         );
     }
 
@@ -107,6 +124,37 @@ export class PaymentRoutingRulesService {
                     shopRulesetCommit({
                         partyRuleset,
                         paymentRoutingRulesObjects,
+                        ...params,
+                    })
+                )
+            ),
+            tap(() => this.dmtCacheService.forceReload())
+        );
+    }
+
+    addShopRule({
+        refID,
+        partyID,
+        ...params
+    }: {
+        partyID: string;
+        refID: number;
+        terminalID: number;
+        description: string;
+        weight: number;
+        priority: number;
+    }): Observable<Version> {
+        console.log('add shop rule', refID, partyID, params);
+        return combineLatest([
+            this.domainTypedManager.getLastVersion(),
+            this.getShopRuleset(partyID, refID),
+        ]).pipe(
+            take(1),
+            switchMap(([version, shopRuleset]) =>
+                this.dmtService.commit(
+                    version,
+                    shopRuleCommit({
+                        shopRuleset,
                         ...params,
                     })
                 )

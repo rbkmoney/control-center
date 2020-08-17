@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
+import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { AddPaymentRoutingRuleDialogComponent } from './add-payment-routing-rule-dilaog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
@@ -33,7 +34,8 @@ export class PaymentRoutingRulesComponent {
 
     constructor(
         private dialog: MatDialog,
-        private paymentRoutingRulesService: PaymentRoutingRulesService
+        private paymentRoutingRulesService: PaymentRoutingRulesService,
+        private router: Router
     ) {}
 
     initialize() {
@@ -73,5 +75,11 @@ export class PaymentRoutingRulesComponent {
             .subscribe();
     }
 
-    navigateToShopRuleset(shopID: string) {}
+    navigateToShopRuleset(refID: string) {
+        this.paymentRoutingRulesService.partyID$
+            .pipe(take(1))
+            .subscribe((partyID) =>
+                this.router.navigate(['party', partyID, 'payment-routing-rules', refID])
+            );
+    }
 }
