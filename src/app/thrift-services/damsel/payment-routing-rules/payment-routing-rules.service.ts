@@ -9,6 +9,7 @@ import { Domain, PaymentRoutingDelegate, PaymentRoutingRulesObject } from '../ge
 import { Version } from '../gen-model/domain_config';
 import { findDomainObjects } from '../operations/utils';
 import { partyRulesetCommit } from './party-ruleset-commit';
+import { removeShopRuleCommit } from './remove-shop-rule-commit';
 import { shopRuleCommit } from './shop-rule-commit';
 import { shopRulesetCommit } from './shop-ruleset-commit';
 
@@ -142,7 +143,6 @@ export class PaymentRoutingRulesService {
         weight: number;
         priority: number;
     }): Observable<Version> {
-        console.log('add shop rule', refID, partyID, params);
         return combineLatest([
             this.domainTypedManager.getLastVersion(),
             this.getShopRuleset(partyID, refID),
@@ -154,6 +154,33 @@ export class PaymentRoutingRulesService {
                     shopRuleCommit({
                         shopRuleset,
                         ...params,
+                    })
+                )
+            ),
+            tap(() => this.dmtCacheService.forceReload())
+        );
+    }
+
+    removeShopRule({
+        refID,
+        partyID,
+        candidateIdx,
+    }: {
+        partyID: string;
+        refID: number;
+        candidateIdx: number;
+    }): Observable<Version> {
+        return combineLatest([
+            this.domainTypedManager.getLastVersion(),
+            this.getShopRuleset(partyID, refID),
+        ]).pipe(
+            take(1),
+            switchMap(([version, shopRuleset]) =>
+                this.dmtService.commit(
+                    version,
+                    removeShopRuleCommit({
+                        shopRuleset,
+                        candidateIdx,
                     })
                 )
             ),

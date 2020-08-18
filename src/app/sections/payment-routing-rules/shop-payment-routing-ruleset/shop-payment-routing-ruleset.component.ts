@@ -57,6 +57,10 @@ export class ShopPaymentRoutingRulesetComponent {
             .subscribe();
     }
 
+    removeShopRule(idx: number) {
+        this.shopPaymentRoutingRulesetService.removeShopRule(idx);
+    }
+
     terminalToObject(terminal: TerminalObject) {
         return damselInstanceToObject<TerminalObject>('domain', 'TerminalObject', terminal);
     }

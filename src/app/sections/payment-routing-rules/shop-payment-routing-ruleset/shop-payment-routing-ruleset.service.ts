@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { PartyService } from '../../../papi/party.service';
 import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../../thrift-services';
@@ -42,4 +42,19 @@ export class ShopPaymentRoutingRulesetService {
         private route: ActivatedRoute,
         private partyService: PartyService
     ) {}
+
+    removeShopRule(candidateIdx: number) {
+        combineLatest([this.refID$, this.partyID$])
+            .pipe(
+                take(1),
+                switchMap(([refID, partyID]) =>
+                    this.paymentRoutingRulesService.removeShopRule({
+                        refID,
+                        partyID,
+                        candidateIdx,
+                    })
+                )
+            )
+            .subscribe();
+    }
 }
