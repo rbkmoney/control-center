@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { map, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { DomainCacheService } from '../domain-cache.service';
 import { DomainTypedManager } from '../domain-typed-manager';
@@ -67,15 +67,13 @@ export class PaymentRoutingRulesService {
     }
 
     getPartyRuleset(partyID: string): Observable<PaymentRoutingRulesObject> {
-        return this.getPartyDelegate(partyID).pipe(
-            withLatestFrom(this.getRulesets()),
+        return combineLatest([this.getPartyDelegate(partyID), this.getRulesets()]).pipe(
             map(([partyDelegate, rulesets]) => findRulesetByDelegate(rulesets, partyDelegate))
         );
     }
 
     getShopRuleset(partyID: string, refID: number): Observable<PaymentRoutingRulesObject> {
-        return this.getShopDelegate(partyID, refID).pipe(
-            withLatestFrom(this.getRulesets()),
+        return combineLatest([this.getShopDelegate(partyID, refID), this.getRulesets()]).pipe(
             map(([shopDelegate, rulesets]) => findRulesetByDelegate(rulesets, shopDelegate))
         );
     }
