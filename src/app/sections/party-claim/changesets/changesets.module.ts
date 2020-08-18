@@ -36,6 +36,9 @@ import { PartyModificationContentComponent } from './party-modification-timeline
 import { QuestionaryTimelineItemComponent, SerialNumberPipe } from './questionary-timeline-item';
 import { QuestionaryContentComponent } from './questionary-timeline-item/questionary-content/questionary-content.component';
 import { ReasonContentComponent } from './status-timeline-item/reason-content/reason-content.component';
+import { StatusActionIconPipe } from './status-timeline-item/status-action-icon.pipe';
+import { StatusBadgeColorPipe } from './status-timeline-item/status-badge-color.pipe';
+import { StatusHeaderPipe } from './status-timeline-item/status-header.pipe';
 import { StatusTimelineItemComponent } from './status-timeline-item/status-timeline-item.component';
 import { TimelineItemErrorComponent } from './timeline-item-error/timeline-item-error.component';
 import { TimelineItemLoadingComponent } from './timeline-item-loading/timeline-item-loading.component';
@@ -86,6 +89,9 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         FileHeaderPipe,
         FileBadgeColorPipe,
         FileActionIconPipe,
+        StatusHeaderPipe,
+        StatusActionIconPipe,
+        StatusBadgeColorPipe,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })

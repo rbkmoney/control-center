@@ -3,11 +3,8 @@
         <cc-claim-timeline-item-header
             [createdAt]="changesetInfo.createdAt"
             [text]="
-                'changed claim status to pending' ||
-                'changed claim status to review' ||
-                'revoked claim' ||
-                'denied claim' ||
-                'accepted claim'
+                changesetInfo.modification.claim_modification.status_modification.status
+                    | ccStatusHeader
             "
             [username]="changesetInfo.userInfo.username"
         ></cc-claim-timeline-item-header>
@@ -20,8 +17,16 @@
         </div>
     </cc-timeline-item-title>
 
-    <cc-timeline-item-badge [color]="'warn' || 'error' || 'success'">
-        <mat-icon>{{ 'block' || 'double_arrow' || 'check' }}</mat-icon>
+    <cc-timeline-item-badge
+        [color]="
+            changesetInfo.modification.claim_modification.status_modification.status
+                | ccStatusBadgeColor
+        "
+    >
+        <mat-icon>{{
+            changesetInfo.modification.claim_modification.status_modification.status
+                | ccStatusActionIcon
+        }}</mat-icon>
     </cc-timeline-item-badge>
     <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
         <cc-reason-content></cc-reason-content>
