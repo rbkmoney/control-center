@@ -1,0 +1,52 @@
+<div fxLayout="column" fxLayoutGap="32px">
+    <h1 class="mat-headline">Other filters</h1>
+    <form [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <div fxLayout fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Payer email" formGroupName="payerEmail"/>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Terminal ID" formGroupName="terminalID"/>
+                </mat-form-field>
+            </div>
+            <div fxLayout fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Provider ID" formGroupName="providerID"/>
+                </mat-form-field>
+                <div fxFlex></div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <h2 class="mat-title">Payment Status</h2>
+        <cc-expandable-radio-group formGroupName="paymentStatus" [values]="paymentStatuses"></cc-expandable-radio-group>
+        <mat-divider></mat-divider>
+        <h2 class="mat-title">Domain Revision</h2>
+        <div fxLayout fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+                <input matInput placeholder="From" formGroupName="domainRevisionFrom"/>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput placeholder="To" formGroupName="domainRevisionTo"/>
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <h2 class="mat-title">Payment Amount</h2>
+        <div fxLayout fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+                <input matInput placeholder="From" formGroupName="paymentAmountFrom"/>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput placeholder="To" formGroupName="paymentAmountTo"/>
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <h2 class="mat-title">Payment Method</h2>
+        <mat-form-field fxFlex>
+            <mat-radio-group formGroupName="paymentMethod">
+                <mat-radio-button>Any</mat-radio-button>
+                <mat-radio-button *ngFor="let status of paymentStatuses" [value]="status">{{ status }}</mat-radio-button>
+            </mat-radio-group>
+        </mat-form-field>
+    </form>
+</div>

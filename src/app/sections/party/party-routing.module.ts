@@ -16,6 +16,15 @@ import { PartyComponent } from './party.component';
                 },
                 children: [
                     {
+                        path: 'payments',
+                        loadChildren: () =>
+                            import('../party-payments').then((m) => m.PartyPaymentsModule),
+                        canActivate: [AppAuthGuardService],
+                        data: {
+                            roles: ['get_claims'],
+                        },
+                    },
+                    {
                         path: 'claims',
                         loadChildren: () =>
                             import('../party-claims').then((m) => m.PartyClaimsModule),
