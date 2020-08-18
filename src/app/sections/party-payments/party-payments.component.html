@@ -1,0 +1,28 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <div class="cc-headline">Merchant's payments</div>
+    <div fxLayout="column" fxLayoutGap="24px">
+        <mat-card>
+            <mat-card-content>
+                <cc-search-form (valueChanges)="search($event)"></cc-search-form>
+            </mat-card-content>
+            <mat-card-footer *ngIf="doAction$ | async">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-card-footer>
+        </mat-card>
+        <ng-container *ngIf="payments$ | async as payments">
+            <cc-empty-search-result *ngIf="payments.length === 0"></cc-empty-search-result>
+            <mat-card *ngIf="payments.length > 0" fxLayout="column" fxLayoutGap="16px">
+                <cc-payments-table [payments]="payments"></cc-payments-table>
+                <button
+                    fxFlex="100"
+                    mat-button
+                    *ngIf="hasMore$ | async"
+                    (click)="fetchMore()"
+                    [disabled]="doAction$ | async"
+                >
+                    {{ (doAction$ | async) ? 'LOADING...' : 'SHOW MORE' }}
+                </button>
+            </mat-card>
+        </ng-container>
+    </div>
+</div>
