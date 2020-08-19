@@ -9,7 +9,9 @@ import { AdjustmentOperationService } from './adjustment-operation.service';
 import { PaymentAdjustmentCaptureParams } from './adjustment-params';
 import { CapturePaymentAdjustmentErrorCodes } from './error-codes';
 import { ExecResultGroup } from './exec-result-group';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class CaptureAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(captureParams: any[]): any[] {
         return captureParams.map((params) => ({
