@@ -18,7 +18,8 @@
     "fistful-model": "thrift-ts node_modules/fistful-proto/proto -o src/app/thrift-services/fistful/gen-model -d false",
     "messages-model": "thrift-ts node_modules/messages-proto/proto -o src/app/thrift-services/messages/gen-model -d false",
     "file-storage-model": "thrift-ts node_modules/file-storage-proto/proto -o src/app/thrift-services/file-storage/gen-model -d false",
-    "ank-model": "thrift-ts node_modules/ank-proto/proto -o src/app/thrift-services/ank/gen-model -d false"
+    "ank-model": "thrift-ts node_modules/ank-proto/proto -o src/app/thrift-services/ank/gen-model -d false",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
