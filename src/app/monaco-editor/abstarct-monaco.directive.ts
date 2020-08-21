@@ -1,4 +1,5 @@
 import {
+    Directive,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -19,6 +20,7 @@ import {
     MonacoFile,
 } from './model';
 
+@Directive()
 export abstract class AbstractMonacoDirective implements OnInit, OnChanges, OnDestroy {
     @Input() options: IEditorOptions;
     @Input() codeLensProviders: CodeLensProvider[];

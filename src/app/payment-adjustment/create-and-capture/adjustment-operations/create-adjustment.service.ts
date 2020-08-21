@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+
 import { PaymentAdjustmentCreationParams } from '.';
 import { ExecErrorResult, ExecResultType, ExecSuccessResult } from '../executor.service';
 import {
@@ -11,6 +13,7 @@ import { CreatePaymentAdjustmentErrorCodes } from './error-codes';
 import { ExecResultGroup } from './exec-result-group';
 import { PaymentAdjustmentCreationScope } from './payment-adjustment-creation-scope';
 
+@Injectable()
 export class CreateAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(creationParams: any[]): any[] {
         return creationParams.map((params) => ({

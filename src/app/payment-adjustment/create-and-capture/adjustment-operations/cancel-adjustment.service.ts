@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+
 import { ExecErrorResult, ExecResultType } from '../executor.service';
 import {
     AdjustmentOperationEvent,
@@ -10,6 +12,7 @@ import { PaymentAdjustmentCancelParams } from './adjustment-params';
 import { CancelPaymentAdjustmentErrorCodes } from './error-codes';
 import { ExecResultGroup } from './exec-result-group';
 
+@Injectable()
 export class CancelAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(cancelParams: any[]): any[] {
         return cancelParams.map((params) => ({
