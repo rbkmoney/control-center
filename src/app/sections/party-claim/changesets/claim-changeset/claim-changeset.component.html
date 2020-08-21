@@ -2,6 +2,7 @@
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
         <h3 class="cc-title">Changeset</h3>
         <cc-changesets-filter
+            fxFlex="0 1 266px"
             [changesetInfos]="changesetInfos$ | async"
             (filterChange)="filterChange($event)"
         ></cc-changesets-filter>

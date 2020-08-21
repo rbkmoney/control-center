@@ -8,7 +8,6 @@ import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from './changeset-
 @Component({
     selector: 'cc-claim-changeset',
     templateUrl: 'claim-changeset.component.html',
-    styleUrls: ['claim-changeset.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimChangesetComponent implements OnChanges {

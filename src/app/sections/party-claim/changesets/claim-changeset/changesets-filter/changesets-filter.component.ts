@@ -14,6 +14,7 @@ import { ChangesetsFilterService } from './changesets-filter.service';
 @Component({
     selector: 'cc-changesets-filter',
     templateUrl: 'changesets-filter.component.html',
+    styleUrls: ['changesets-filter.component.scss'],
     providers: [ChangesetsFilterService],
 })
 export class ChangesetsFilterComponent implements OnInit, OnChanges {
