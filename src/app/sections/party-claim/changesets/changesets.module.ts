@@ -18,6 +18,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { AnkModule } from '../../../thrift-services/ank';
 import { FileStorageModule } from '../../../thrift-services/file-storage';
 import { MessagesModule } from '../../../thrift-services/messages';
+import { ChangesetsFilterComponent } from './claim-changeset/changesets-filter/changesets-filter.component';
 import { ClaimChangesetComponent } from './claim-changeset/claim-changeset.component';
 import { ClaimTimelineItemHeaderComponent } from './claim-timeline-item-header/claim-timeline-item-header.component';
 import { CommentActionIconPipe } from './comment-timeline-item/comment-action-icon.pipe';
@@ -92,6 +93,7 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         StatusHeaderPipe,
         StatusActionIconPipe,
         StatusBadgeColorPipe,
+        ChangesetsFilterComponent,
     ],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })

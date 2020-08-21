@@ -1,0 +1,32 @@
+<form [formGroup]="changesetsFilterForm" fxFlex="0 1 266px">
+    <mat-form-field fxFlex>
+        <mat-label>Changeset filters</mat-label>
+        <mat-select formControlName="filters" multiple>
+            <mat-option class="changeset-filter-option" value="outdated"
+                >Hide outdated changes</mat-option
+            >
+            <mat-option class="changeset-filter-option" value="removed"
+                >Hide removed changes</mat-option
+            >
+            <mat-divider class="changeset-filter-divider"></mat-divider>
+            <mat-option
+                class="changeset-filter-option"
+                [value]="changesetInfoType.partyModification"
+                >Party mods</mat-option
+            >
+            <mat-option class="changeset-filter-option" [value]="changesetInfoType.fileModification"
+                >Files</mat-option
+            >
+            <mat-option
+                class="changeset-filter-option"
+                [value]="changesetInfoType.commentModification"
+                >Comments</mat-option
+            >
+            <mat-option
+                class="changeset-filter-option"
+                [value]="changesetInfoType.documentModification"
+                >Documents</mat-option
+            >
+        </mat-select>
+    </mat-form-field>
+</form>

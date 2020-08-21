@@ -1,40 +1,10 @@
 <div fxLayout="column" fxLayoutGap="24px">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
         <h3 class="cc-title">Changeset</h3>
-        <form [formGroup]="changesetsFilterForm" fxFlex="0 1 266px">
-            <mat-form-field fxFlex>
-                <mat-label>Changeset filters</mat-label>
-                <mat-select formControlName="filters" multiple>
-                    <mat-option class="changeset-filter-option" value="outdated"
-                        >Show outdated changes</mat-option
-                    >
-                    <mat-option class="changeset-filter-option" value="removed"
-                        >Show removed changes</mat-option
-                    >
-                    <mat-divider class="changeset-filter-divider"></mat-divider>
-                    <mat-option
-                        class="changeset-filter-option"
-                        [value]="changesetInfoType.partyModification"
-                        >Show party mods</mat-option
-                    >
-                    <mat-option
-                        class="changeset-filter-option"
-                        [value]="changesetInfoType.fileModification"
-                        >Show files</mat-option
-                    >
-                    <mat-option
-                        class="changeset-filter-option"
-                        [value]="changesetInfoType.commentModification"
-                        >Show comments</mat-option
-                    >
-                    <mat-option
-                        class="changeset-filter-option"
-                        [value]="changesetInfoType.documentModification"
-                        >Show documents</mat-option
-                    >
-                </mat-select>
-            </mat-form-field>
-        </form>
+        <cc-changesets-filter
+            [changesetInfos]="changesetInfos$ | async"
+            (filterChange)="filterChange($event)"
+        ></cc-changesets-filter>
     </div>
     <cc-timeline>
         <cc-created-timeline-item [createdAt]="createdAt"></cc-created-timeline-item>

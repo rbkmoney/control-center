@@ -15,7 +15,9 @@
     </cc-timeline-item-title>
 
     <cc-timeline-item-badge
-        [color]="changesetInfo.modificationType | ccCommentBadgeColor: changesetInfo.removed"
+        [color]="
+            changesetInfo.removed ? (changesetInfo.modificationType | ccCommentBadgeColor) : null
+        "
     >
         <mat-icon>{{ changesetInfo.modificationType | ccCommentActionIcon }}</mat-icon>
     </cc-timeline-item-badge>

@@ -6,12 +6,9 @@ import { ChangesetInfoModificationType } from '../claim-changeset/changeset-info
     name: 'ccFileBadgeColor',
 })
 export class FileBadgeColorPipe implements PipeTransform {
-    transform(
-        type: ChangesetInfoModificationType,
-        removed?: boolean
-    ): 'primary' | 'warn' | 'error' | 'success' {
+    transform(type: ChangesetInfoModificationType): 'primary' | 'warn' | 'error' | 'success' {
         return ({
-            [ChangesetInfoModificationType.creation]: !removed ? 'primary' : null,
+            [ChangesetInfoModificationType.creation]: 'primary',
             [ChangesetInfoModificationType.deletion]: null,
         } as const)[type];
     }
