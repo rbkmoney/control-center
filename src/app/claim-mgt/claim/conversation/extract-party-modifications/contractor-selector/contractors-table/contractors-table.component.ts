@@ -47,7 +47,6 @@ export class ContractorsTableComponent implements OnInit {
             .getParty(this.partyID)
             .pipe(
                 map((party) => {
-                    console.log(party);
                     const result = [];
                     party.contractors.forEach((data, id) => result.push({ data, id }));
                     return result;
