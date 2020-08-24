@@ -1,9 +1,0 @@
-@import '~@angular/material/theming';
-
-@mixin cc-timeline-item-loading-theme($theme) {
-    $foreground: map-get($theme, foreground);
-
-    .cc-timeline-item-loading-text {
-        color: mat-color($foreground, secondary-text);
-    }
-}
