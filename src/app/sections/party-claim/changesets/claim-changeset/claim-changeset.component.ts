@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } f
 
 import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
-import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from './changeset-infos';
+import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from '../../changeset-infos';
 
 @Component({
     selector: 'cc-claim-changeset',

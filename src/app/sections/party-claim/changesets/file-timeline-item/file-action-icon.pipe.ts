@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ChangesetInfoModificationType } from '../claim-changeset/changeset-infos';
+import { ChangesetInfoModificationType } from '../../changeset-infos';
 
 @Pipe({
     name: 'ccFileActionIcon',

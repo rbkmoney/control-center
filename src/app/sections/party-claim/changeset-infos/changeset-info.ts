@@ -1,7 +1,4 @@
-import {
-    Modification,
-    UserInfo,
-} from '../../../../../thrift-services/damsel/gen-model/claim_management';
+import { Modification, UserInfo } from '../../../thrift-services/damsel/gen-model/claim_management';
 
 export enum ChangesetInfoType {
     partyModification = 'partyModification',
@@ -17,9 +14,9 @@ export enum ChangesetInfoModificationType {
 }
 
 export interface ChangesetInfo {
-    createdAt: string;
+    createdAt?: string;
     modification: Modification;
-    userInfo: UserInfo;
+    userInfo?: UserInfo;
     type: ChangesetInfoType;
     modificationType: ChangesetInfoModificationType;
     hash: string;

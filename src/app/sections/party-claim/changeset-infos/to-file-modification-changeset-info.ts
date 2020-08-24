@@ -1,8 +1,8 @@
-import { getUnionKey } from '../../../../../shared/utils';
+import { getUnionKey } from '../../../shared/utils';
 import {
     FileModification,
     ModificationUnit,
-} from '../../../../../thrift-services/damsel/gen-model/claim_management';
+} from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ChangesetInfo, ChangesetInfoModificationType, ChangesetInfoType } from './changeset-info';
 import { markRemoved } from './mark-removed';
 

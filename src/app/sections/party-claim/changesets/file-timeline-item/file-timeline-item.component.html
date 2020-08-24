@@ -1,20 +1,24 @@
 <cc-timeline-item>
     <cc-timeline-item-title>
         <cc-claim-timeline-item-header
-            [createdAt]="changesetInfo.createdAt"
-            [text]="changesetInfo.modificationType | ccFileHeader"
-            [username]="changesetInfo.userInfo.username"
+            [createdAt]="changesetInfo?.createdAt"
+            [text]="changesetInfo?.modificationType | ccFileHeader"
+            [username]="changesetInfo?.userInfo.username"
         ></cc-claim-timeline-item-header>
         <div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_horiz</mat-icon>
             </button>
-            <mat-menu #menu="matMenu"></mat-menu>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngIf="index || index === 0" (click)="remove()">
+                    Remove
+                </button>
+            </mat-menu>
         </div>
     </cc-timeline-item-title>
 
-    <cc-timeline-item-badge [color]="changesetInfo.modificationType | ccFileBadgeColor">
-        <mat-icon>{{ changesetInfo.modificationType | ccFileActionIcon }}</mat-icon>
+    <cc-timeline-item-badge [color]="changesetInfo?.modificationType | ccFileBadgeColor">
+        <mat-icon>{{ changesetInfo?.modificationType | ccFileActionIcon }}</mat-icon>
     </cc-timeline-item-badge>
     <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
         <cc-file-content

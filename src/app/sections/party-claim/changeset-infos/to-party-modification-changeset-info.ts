@@ -1,5 +1,5 @@
-import { getUnionKey } from '../../../../../shared/utils';
-import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
+import { getUnionKey } from '../../../shared/utils';
+import { ModificationUnit } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
 import { markOutdated } from './mark-outdated';
 

@@ -1,4 +1,4 @@
-import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
+import { ModificationUnit } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
 
 const makeStatusChangesetInfo = (unit: ModificationUnit): ChangesetInfo =>

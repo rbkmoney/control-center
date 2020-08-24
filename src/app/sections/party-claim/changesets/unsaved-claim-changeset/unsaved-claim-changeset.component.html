@@ -1,12 +1,43 @@
-<div fxLayout="column" fxLayoutGap="24px">
-    <h3 class="cc-title">Unsaved changes</h3>
+<button (click)="addModification()">Add unsa</button>
+<div fxLayout="column" fxLayoutGap="24px" *ngIf="(unsavedChangesetInfos$ | async)?.length > 0">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3 class="cc-title">Unsaved changes</h3>
+        <button mat-raised-button (click)="save()" color="primary">SAVE CHANGES</button>
+    </div>
     <cc-timeline>
-        <cc-party-modification-timeline-item
-            [expanded]="true"
-        ></cc-party-modification-timeline-item>
-        <cc-party-modification-timeline-item
-            [expanded]="true"
-        ></cc-party-modification-timeline-item>
-        <cc-file-timeline-item></cc-file-timeline-item>
+        <ng-container
+            *ngFor="
+                let info of unsavedChangesetInfos$ | async;
+                let i = index;
+                trackBy: simpleTrackBy
+            "
+        >
+            <cc-file-timeline-item
+                *ngIf="info.type === changesetInfoTypes.fileModification"
+                [changesetInfo]="info"
+                [index]="i"
+            ></cc-file-timeline-item>
+            <cc-comment-timeline-item
+                *ngIf="info.type === changesetInfoTypes.commentModification"
+                [changesetInfo]="info"
+                [index]="i"
+            ></cc-comment-timeline-item>
+            <cc-party-modification-timeline-item
+                *ngIf="info.type === changesetInfoTypes.partyModification"
+                [changesetInfo]="info"
+                [index]="i"
+            ></cc-party-modification-timeline-item>
+            <cc-questionary-timeline-item
+                *ngIf="info.type === changesetInfoTypes.documentModification"
+                [changesetInfo]="info"
+                [partyID]="partyID"
+                [index]="i"
+            ></cc-questionary-timeline-item>
+            <cc-status-timeline-item
+                *ngIf="info.type === changesetInfoTypes.statusModification"
+                [changesetInfo]="info"
+                [index]="i"
+            ></cc-status-timeline-item>
+        </ng-container>
     </cc-timeline>
 </div>

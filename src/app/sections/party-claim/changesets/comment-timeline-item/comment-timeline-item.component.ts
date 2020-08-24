@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { ChangesetInfo } from '../claim-changeset/changeset-infos';
+import { ChangesetInfo } from '../../changeset-infos';
 import { CommentTimelineItemService } from './comment-timeline-item.service';
 
 @Component({
@@ -13,6 +13,9 @@ export class CommentTimelineItemComponent implements OnInit {
     @Input()
     changesetInfo: ChangesetInfo;
 
+    @Input()
+    index?: number;
+
     isLoading$ = this.commentTimelineItemService.isLoading$;
     message$ = this.commentTimelineItemService.message$;
     error$ = this.commentTimelineItemService.error$;
@@ -23,5 +26,9 @@ export class CommentTimelineItemComponent implements OnInit {
         this.commentTimelineItemService.getMessage([
             this.changesetInfo.modification.claim_modification.comment_modification.id,
         ]);
+    }
+
+    remove() {
+        this.unsavedClaimChangesetService.remove(this.index);
     }
 }

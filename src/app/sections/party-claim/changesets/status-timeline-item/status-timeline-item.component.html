@@ -16,7 +16,11 @@
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_horiz</mat-icon>
             </button>
-            <mat-menu #menu="matMenu"></mat-menu>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngIf="index || index === 0" (click)="remove()">
+                    Remove
+                </button>
+            </mat-menu>
         </div>
     </cc-timeline-item-title>
 

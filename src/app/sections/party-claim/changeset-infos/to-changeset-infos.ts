@@ -1,4 +1,4 @@
-import { ModificationUnit } from '../../../../../thrift-services/damsel/gen-model/claim_management';
+import { ModificationUnit } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
 import { toCommentModificationChangesetInfo } from './to-comment-modification-changeset-info';
 import { toDocumentModificationChangesetInfo } from './to-document-modification-changeset-info';

@@ -39,6 +39,7 @@ import { StatusTimelineItemComponent } from './status-timeline-item/status-timel
 import { TimelineItemErrorComponent } from './timeline-item-error/timeline-item-error.component';
 import { TimelineItemLoadingComponent } from './timeline-item-loading/timeline-item-loading.component';
 import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsaved-claim-changeset.component';
+import { UnsavedClaimChangesetService } from './unsaved-claim-changeset/unsaved-claim-changeset.service';
 
 @NgModule({
     imports: [
@@ -85,6 +86,7 @@ import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsave
         FileBadgeColorPipe,
         FileActionIconPipe,
     ],
+    providers: [UnsavedClaimChangesetService],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
 export class ChangesetsModule {}
