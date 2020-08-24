@@ -5,29 +5,30 @@ import { FlexModule } from '@angular/flex-layout';
 import { TimelineModule } from '../../../shared/components/timeline';
 import { ChangesetsFilterModule } from './changesets-filter';
 import { ClaimChangesetComponent } from './claim-changeset.component';
-import { CommentTimelineItemModule } from './comment-timeline-item/comment-timeline-item.module';
-import { CreatedTimelineItemModule } from './created-timeline-item';
-import { FileTimelineItemModule } from './file-timeline-item/file-timeline-item.module';
-import { PartyModificationTimelineItemModule } from './party-modification-timeline-item/party-modification-timeline-item.module';
-import { SerialNumberPipe } from './questionary-timeline-item';
-import { QuestionaryTimelineItemModule } from './questionary-timeline-item/questionary-timeline-item.module';
-import { StatusTimelineItemModule } from './status-timeline-item/status-timeline-item.module';
-import { UnsavedClaimChangesetComponent } from './unsaved-claim-changeset/unsaved-claim-changeset.component';
+import { CommentTimelineItemModule } from './timeline-items/comment-timeline-item/comment-timeline-item.module';
+import { CreatedTimelineItemModule } from './timeline-items/created-timeline-item';
+import { FileTimelineItemModule } from './timeline-items/file-timeline-item/file-timeline-item.module';
+import { PartyModificationTimelineItemModule } from './timeline-items/party-modification-timeline-item/party-modification-timeline-item.module';
+import { QuestionaryTimelineItemModule } from './timeline-items/questionary-timeline-item/questionary-timeline-item.module';
+import { StatusTimelineItemModule } from './timeline-items/status-timeline-item/status-timeline-item.module';
+import { TimelineItemsModule } from './timeline-items/timeline-items.module';
+import { UnsavedClaimChangesetComponent } from './unsaved-changeset/unsaved-claim-changeset.component';
 
 @NgModule({
     imports: [
-        TimelineModule,
         FlexModule,
         CommonModule,
         ChangesetsFilterModule,
+        TimelineItemsModule,
+        TimelineModule,
+        CreatedTimelineItemModule,
+        FileTimelineItemModule,
         CommentTimelineItemModule,
         PartyModificationTimelineItemModule,
-        StatusTimelineItemModule,
         QuestionaryTimelineItemModule,
-        FileTimelineItemModule,
-        CreatedTimelineItemModule,
+        StatusTimelineItemModule,
     ],
-    declarations: [ClaimChangesetComponent, UnsavedClaimChangesetComponent, SerialNumberPipe],
+    declarations: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
 })
 export class ClaimChangesetModule {}
