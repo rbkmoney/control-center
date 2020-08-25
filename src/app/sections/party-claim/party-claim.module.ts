@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
 import { SharedModule } from '../../shared/shared.module';
-import { ChangesetsModule } from './changesets/changesets.module';
+import { ClaimChangesetModule } from './claim-changeset/claim-changeset.module';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
 import { PartyClaimActionsComponent } from './party-claim-actions/party-claim-actions.component';
 import { PartyClaimRoutingModule } from './party-claim-routing.module';
@@ -31,7 +31,7 @@ import { SendCommentModule } from './send-comment/send-comment.module';
         MatInputModule,
         SendCommentModule,
         FileUploaderModule,
-        ChangesetsModule,
+        ClaimChangesetModule,
         SharedModule,
         MatProgressSpinnerModule,
     ],
