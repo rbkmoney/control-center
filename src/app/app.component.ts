@@ -14,8 +14,10 @@ export class AppComponent implements OnInit {
     constructor(private keycloakService: KeycloakService) {}
 
     ngOnInit() {
-        this.username = this.keycloakService.getUsername();
-        this.menuItems = this.getMenuItems();
+        this.keycloakService.loadUserProfile().then(() => {
+            this.username = this.keycloakService.getUsername();
+            this.menuItems = this.getMenuItems();
+        });
     }
 
     logout() {
