@@ -1,0 +1,39 @@
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <cc-timeline-item-header
+            [createdAt]="changesetInfo.createdAt"
+            [text]="changesetInfo.modificationType | ccCommentHeader"
+            [username]="changesetInfo.userInfo.username"
+            [removed]="changesetInfo.removed"
+        ></cc-timeline-item-header>
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngIf="index || index === 0" (click)="remove()">
+                    Remove
+                </button>
+            </mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge
+        [color]="
+            changesetInfo.removed ? (changesetInfo.modificationType | ccCommentBadgeColor) : null
+        "
+    >
+        <mat-icon>{{ changesetInfo.modificationType | ccCommentActionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
+        <cc-comment-content
+            *ngIf="message$ | async as message"
+            [text]="message.text"
+        ></cc-comment-content>
+        <cc-timeline-item-loading *ngIf="isLoading$ | async"></cc-timeline-item-loading>
+        <cc-timeline-item-error
+            *ngIf="error$ | async as error"
+            [text]="error"
+        ></cc-timeline-item-error>
+    </cc-timeline-item-content>
+</cc-timeline-item>

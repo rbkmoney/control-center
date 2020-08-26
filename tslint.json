@@ -1,6 +1,9 @@
 {
     "extends": ["./tslint.angular.json", "tslint-config-prettier"],
     "rules": {
+        "deprecation": {
+            "severity": "warning"
+        },
         "directive-selector": [true, ["attribute", "element"], "cc", ["camelCase", "kebab-case"]],
         "component-selector": [true, ["attribute", "element"], "cc", "kebab-case"],
         "template-no-negated-async": false,
