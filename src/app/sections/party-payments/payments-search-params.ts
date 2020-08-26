@@ -16,5 +16,5 @@ export interface PaymentsSearchParams {
     pan?: string;
     fromRevision: string;
     toRevision: string;
-    status?: string;
+    paymentStatus?: string;
 }

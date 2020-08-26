@@ -10,10 +10,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 
-import { OtherFiltersDialogComponent, OtherFiltersDialogModule } from './other-filters-dialog';
-import { SearchFormComponent } from './search-form.component';
+import { ExpandableRadioGroupModule } from '../../../../shared/components/expandable-radio-group';
+import { OtherFiltersDialogComponent } from './other-filters-dialog.component';
 
 @NgModule({
     imports: [
@@ -28,11 +27,9 @@ import { SearchFormComponent } from './search-form.component';
         MatDialogModule,
         MatDividerModule,
         FlexLayoutModule,
-        OtherFiltersDialogModule,
-        MatSelectModule,
+        ExpandableRadioGroupModule,
     ],
-    declarations: [SearchFormComponent],
-    exports: [SearchFormComponent],
-    entryComponents: [OtherFiltersDialogComponent],
+    declarations: [OtherFiltersDialogComponent],
+    exports: [OtherFiltersDialogComponent],
 })
-export class SearchFormModule {}
+export class OtherFiltersDialogModule {}

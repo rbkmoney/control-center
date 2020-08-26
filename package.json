@@ -58,7 +58,7 @@
     "transliteration": "^2.1.8",
     "tslib": "^2.0.0",
     "utility-types": "^3.10.0",
-    "uuid": "~3.3.2",
+    "uuid": "^3.3.3",
     "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#bc2c9f86cae470a0fe99730ca4a30b204058214b",
     "zone.js": "~0.10.2"
   },

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SearchFormValue } from '../claim-search-form';
@@ -15,13 +15,16 @@ export class PartyPaymentsComponent implements OnInit {
     payments$ = this.partyClaimsService.searchResult$;
     hasMore$ = this.partyClaimsService.hasMore$;
 
+    form = this.fb.group({ kek: '' });
+
     constructor(
+        private fb: FormBuilder,
         private partyClaimsService: PartyPaymentsService,
-        private snackBar: MatSnackBar,
-        private dialog: MatDialog
+        private snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
+        this.form.controls.kek.valueChanges.subscribe((k) => console.log('kek', k));
         this.partyClaimsService.errors$.subscribe((e) =>
             this.snackBar.open(`An error occurred while search claim (${e})`, 'OK')
         );
@@ -32,8 +35,6 @@ export class PartyPaymentsComponent implements OnInit {
     }
 
     search(v: SearchFormValue) {
-        console.log(v)
         this.partyClaimsService.search(v as any);
     }
-
 }

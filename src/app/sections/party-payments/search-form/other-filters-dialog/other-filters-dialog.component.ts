@@ -1,44 +1,44 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { BankCardTokenProvider, PaymentTool, BankCardPaymentSystem } from '../../../../thrift-services/damsel/gen-model/domain';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+
+import { removeEmptyProperties } from '../../../../shared/utils';
+import { clearQueryParams } from '../clear-query-params';
+import { paymentMethods, paymentStatuses, paymentSystems, tokenProviders } from './constants';
+import { FilterDialogValue } from './filter-dialog-value';
 
 @Component({
     templateUrl: 'other-filters-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OtherFiltersDialogComponent implements OnInit {
-    defaultParams = {
-        payerEmail: '',
-        terminalID: '',
-        providerID: '',
-        paymentStatus: '',
-        // domainRevisionFrom: '',
-        // domainRevisionTo: '',
-        // paymentAmountFrom: '',
-        // paymentAmountTo: '',
-        // paymentMethod: '',
-        // paymentSystem: '',
-    };
+export class OtherFiltersDialogComponent {
+    paymentStatuses = paymentStatuses;
+    paymentMethods = paymentMethods;
+    tokenProviders = tokenProviders;
+    paymentSystems = paymentSystems;
 
-    form: FormGroup;
-
-    paymentStatuses = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
-    paymentMethods: PaymentTool[] = [];
-    tokenProviders: BankCardTokenProvider[] = [];
-    paymentSystems: BankCardPaymentSystem[] = [];
+    count;
 
     constructor(
-        private fb: FormBuilder,
-        private snackBar: MatSnackBar,
-        private dialogRef: MatDialogRef<OtherFiltersDialogComponent>
-    ) {
+        private router: Router,
+        private route: ActivatedRoute,
+        private dialogRef: MatDialogRef<OtherFiltersDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public form: FormGroup
+    ) {}
 
+    cancel() {
+        this.dialogRef.close({ action: 'cancel' } as FilterDialogValue);
     }
 
-    ngOnInit() {
-        this.form = this.fb.group(this.defaultParams);
-        console.log(this.form)
+    save() {
+        this.route.queryParams.pipe(take(1)).subscribe((params) => {
+            const cleanParams = clearQueryParams(params, Object.keys(this.form.value));
+            this.router.navigate([location.pathname], {
+                queryParams: { ...cleanParams, ...removeEmptyProperties(this.form.value) },
+            });
+            this.dialogRef.close();
+        });
     }
 }

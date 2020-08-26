@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
-import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
-import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
+
 import { QueryDSL } from '../../query-dsl';
+import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
+import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
 import { PaymentsSearchParams } from './payments-search-params';
 
 const SEARCH_LIMIT = 20;
@@ -42,45 +44,52 @@ export class PartyPaymentsService extends PartialFetcher<StatPayment, PaymentsSe
             pan,
             fromRevision,
             toRevision,
-            status,
+            paymentStatus,
         } = params;
-        return this.partyID$.pipe(switchMap(partyID =>
-            this.merchantStatisticsService
-                .getPayments({
-                    dsl: JSON.stringify({
-                        query: {
-                            payments: {
-
-                                from_time: fromTime,
-                                to_time: toTime,
-                                size: SEARCH_LIMIT.toString(),
-                                ...(partyID ? { merchant_id: partyID } : {}),
-                                ...(shopID ? { shop_id: shopID } : {}),
-                                ...(shopIDs ? { shop_ids: shopIDs } : {}),
-                                ...(fromRevision ? { from_payment_domain_revision: fromRevision } : {}),
-                                ...(toRevision ? { to_payment_domain_revision: toRevision } : {}),
-                                ...(providerID ? { payment_provider_id: providerID } : {}),
-                                ...(terminalID ? { payment_terminal_id: terminalID } : {}),
-                                ...(status ? { payment_status: status } : {}),
-                                ...(invoiceID ? { invoice_id: invoiceID } : {}),
-                                ...(payerEmail ? { payment_email: payerEmail } : {}),
-                                ...(rrn ? { payment_rrn: rrn } : {}),
-                                ...(paymentSystem ? { payment_system: paymentSystem } : {}),
-                                ...(paymentMethod ? { payment_method: paymentMethod } : {}),
-                                ...(tokenProvider ? { payment_token_provider: tokenProvider } : {}),
-                                ...(bin ? { payment_first6: bin } : {}),
-                                ...(pan ? { payment_last4: pan } : {}),
+        return this.partyID$.pipe(
+            switchMap((partyID) =>
+                this.merchantStatisticsService
+                    .getPayments({
+                        dsl: JSON.stringify({
+                            query: {
+                                payments: {
+                                    from_time: moment(fromTime).utc().format(),
+                                    to_time: moment(toTime).utc().format(),
+                                    size: SEARCH_LIMIT.toString(),
+                                    ...(partyID ? { merchant_id: partyID } : {}),
+                                    ...(shopID ? { shop_id: shopID } : {}),
+                                    ...(shopIDs ? { shop_ids: shopIDs } : {}),
+                                    ...(fromRevision
+                                        ? { from_payment_domain_revision: fromRevision }
+                                        : {}),
+                                    ...(toRevision
+                                        ? { to_payment_domain_revision: toRevision }
+                                        : {}),
+                                    ...(providerID ? { payment_provider_id: providerID } : {}),
+                                    ...(terminalID ? { payment_terminal_id: terminalID } : {}),
+                                    ...(paymentStatus ? { payment_status: paymentStatus } : {}),
+                                    ...(invoiceID ? { invoice_id: invoiceID } : {}),
+                                    ...(payerEmail ? { payment_email: payerEmail } : {}),
+                                    ...(rrn ? { payment_rrn: rrn } : {}),
+                                    ...(paymentSystem ? { payment_system: paymentSystem } : {}),
+                                    ...(paymentMethod ? { payment_method: paymentMethod } : {}),
+                                    ...(tokenProvider
+                                        ? { payment_token_provider: tokenProvider }
+                                        : {}),
+                                    ...(bin ? { payment_first6: bin } : {}),
+                                    ...(pan ? { payment_last4: pan } : {}),
+                                },
                             },
-                        },
-                    } as QueryDSL),
-                    ...(continuationToken ? { continuation_token: continuationToken } : {}),
-                })
-                .pipe(
-                    map(({ data, continuation_token }) => ({
-                        result: data.payments,
-                        continuationToken: continuation_token,
-                    }))
-                )
-        ));
+                        } as QueryDSL),
+                        ...(continuationToken ? { continuation_token: continuationToken } : {}),
+                    })
+                    .pipe(
+                        map(({ data, continuation_token }) => ({
+                            result: data.payments,
+                            continuationToken: continuation_token,
+                        }))
+                    )
+            )
+        );
     }
 }

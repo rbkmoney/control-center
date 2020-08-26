@@ -4,3 +4,4 @@ export * from './empty-search-result';
 export * from './expandable-radio-group';
 export * from './pretty-json';
 export * from './timeline';
+export * from './status';

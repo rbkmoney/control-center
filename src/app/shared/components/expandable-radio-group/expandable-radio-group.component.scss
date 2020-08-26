@@ -1,0 +1,15 @@
+.show-others:hover {
+    cursor: pointer;
+}
+
+input {
+    display: none;
+}
+
+::ng-deep .mat-form-field-container .mat-form-field-underline {
+    background-color: transparent !important;
+}
+
+::ng-deep .mat-form-field-container .mat-form-field-infix {
+    border-top-width: 0;
+}
