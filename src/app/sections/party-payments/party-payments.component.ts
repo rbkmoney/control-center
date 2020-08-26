@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { SearchFormValue } from '../claim-search-form';
 import { PartyPaymentsService } from './party-payments.service';
+import { PaymentsSearchParams } from './payments-search-params';
 
 @Component({
     templateUrl: 'party-payments.component.html',
@@ -11,30 +10,26 @@ import { PartyPaymentsService } from './party-payments.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyPaymentsComponent implements OnInit {
-    doAction$ = this.partyClaimsService.doAction$;
-    payments$ = this.partyClaimsService.searchResult$;
-    hasMore$ = this.partyClaimsService.hasMore$;
-
-    form = this.fb.group({ kek: '' });
+    doAction$ = this.partyPaymentsService.doAction$;
+    payments$ = this.partyPaymentsService.searchResult$;
+    hasMore$ = this.partyPaymentsService.hasMore$;
 
     constructor(
-        private fb: FormBuilder,
-        private partyClaimsService: PartyPaymentsService,
+        private partyPaymentsService: PartyPaymentsService,
         private snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
-        this.form.controls.kek.valueChanges.subscribe((k) => console.log('kek', k));
-        this.partyClaimsService.errors$.subscribe((e) =>
-            this.snackBar.open(`An error occurred while search claim (${e})`, 'OK')
+        this.partyPaymentsService.errors$.subscribe((e) =>
+            this.snackBar.open(`An error occurred while search payments (${e})`, 'OK')
         );
     }
 
     fetchMore() {
-        this.partyClaimsService.fetchMore();
+        this.partyPaymentsService.fetchMore();
     }
 
-    search(v: SearchFormValue) {
-        this.partyClaimsService.search(v as any);
+    search(v: PaymentsSearchParams) {
+        this.partyPaymentsService.search(v);
     }
 }
