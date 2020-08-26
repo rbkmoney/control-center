@@ -1,10 +1,26 @@
-<form [formGroup]="form">
-    <mat-form-field>
-        <mat-radio-group [formGroupName]="formGroupName">
+<div fxLayout="column">
+    <mat-form-field fxFlexFill class="mat-form-field-container">
+        <mat-radio-group fxLayout="column" fxLayoutGap="16px" [formControl]="formControl">
+            <input matInput [formControl]="control" />
             <mat-radio-button>Any</mat-radio-button>
-            <ng-container>
-                <mat-radio-button *ngFor="let v of values" [value]="v">{{ v }}</mat-radio-button>
+            <ng-container *ngFor="let v of visibleValues; index as i">
+                <div *ngIf="!(i % 2)" fxLayout fxLayoutGap="16px">
+                    <mat-radio-button fxFlex [value]="v.value">{{ v.title }}</mat-radio-button>
+                    <mat-radio-button *ngIf="values[i + 1]" fxFlex [value]="values[i + 1].value">{{
+                        values[i + 1].title
+                    }}</mat-radio-button>
+                </div>
             </ng-container>
         </mat-radio-group>
     </mat-form-field>
-</form>
+    <div
+        class="show-others"
+        fxLayout
+        fxLayoutAlign="start center"
+        fxLayoutGap="8px"
+        (click)="changeVisibility(!isExpanded)"
+    >
+        <div class="mat-body-1">{{ isExpanded ? 'Show less' : 'Show others' }}</div>
+        <mat-icon>{{ isExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+    </div>
+</div>

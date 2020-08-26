@@ -7,7 +7,7 @@ import round from 'lodash-es/round';
 export class FormatAmountPipe implements PipeTransform {
     public transform(input: number): number {
         const value = round(input / 100, 2);
-        return value ? format(value, 2, 3, ' ', '.') : input;
+        return value ? format(value, 2, 3, ' ', ',') : input;
     }
 }
 

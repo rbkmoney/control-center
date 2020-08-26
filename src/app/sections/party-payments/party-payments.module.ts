@@ -4,17 +4,19 @@ import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { SharedModule } from '../../shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
+
+import { StatusModule } from '../../shared/components/status';
+import { SharedModule } from '../../shared/shared.module';
+import { PartyPaymentsRoutingModule } from './party-payments-routing.module';
 import { PartyPaymentsComponent } from './party-payments.component';
 import { PaymentsTableComponent } from './payments-table';
-import { MatMenuModule } from '@angular/material/menu';
 import { SearchFormModule } from './search-form';
-import { PartyPaymentsRoutingModule } from './party-payments-routing.module';
 
 @NgModule({
     imports: [
@@ -31,7 +33,8 @@ import { PartyPaymentsRoutingModule } from './party-payments-routing.module';
         MatMenuModule,
         MatIconModule,
         SearchFormModule,
-        PartyPaymentsRoutingModule
+        PartyPaymentsRoutingModule,
+        StatusModule,
     ],
     declarations: [PartyPaymentsComponent, PaymentsTableComponent],
 })
