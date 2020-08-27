@@ -21,7 +21,7 @@ export class PartyTargetService {
             map((party) => {
                 const result = [];
                 const target = this.getTarget(party, targetName);
-                target.forEach((item, id) => result.push({ item, id }));
+                target.forEach((item, id) => result.push({ data: item, id, checked: false }));
                 return result;
             })
         );
