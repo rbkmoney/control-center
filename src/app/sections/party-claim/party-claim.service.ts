@@ -17,6 +17,7 @@ export class PartyClaimService {
         switchMap(({ partyID, claimID }) =>
             this.claimManagementService.getClaim(partyID, new Int64(parseInt(claimID, 10))).pipe(
                 catchError((e) => {
+                    console.log(e);
                     this.snackBar.open('An error occurred while fetching claim', 'OK');
                     return of(e);
                 })

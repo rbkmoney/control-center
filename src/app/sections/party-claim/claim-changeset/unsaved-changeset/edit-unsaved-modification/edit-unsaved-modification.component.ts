@@ -9,14 +9,7 @@ import {
     PartyModification,
 } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 
-type ModificationType =
-    | 'contractor_modification'
-    | 'contract_modification'
-    | 'shop_modification'
-    | 'document_modification'
-    | 'file_modification'
-    | 'comment_modification'
-    | 'status_modification';
+type ModificationType = 'party_modification' | 'claim_modification';
 
 @Component({
     templateUrl: 'edit-unsaved-modification.component.html',
@@ -24,7 +17,7 @@ type ModificationType =
 export class EditUnsavedModificationComponent {
     mod: PartyModification | ClaimModification = getUnionValue(this.data);
     form: FormGroup = this.fb.group({});
-    modType: ModificationType = getUnionKey<PartyModification | ClaimModification>(this.mod);
+    formsType: ModificationType = getUnionKey<Modification>(this.data);
 
     constructor(
         private dialogRef: MatDialogRef<EditUnsavedModificationComponent>,
@@ -35,10 +28,10 @@ export class EditUnsavedModificationComponent {
     save() {
         this.dialogRef.close({
             [getUnionKey(this.data)]: {
-                [this.modType]: {
-                    id: this.mod[this.modType].id,
+                [this.formsType]: {
+                    id: this.mod[getUnionKey(this.mod)].id,
                     modification: {
-                        [getUnionKey(this.mod[this.modType].modification)]: this.form.value,
+                        [getUnionKey(this.mod[this.formsType].modification)]: this.form.value,
                     },
                 },
             },
