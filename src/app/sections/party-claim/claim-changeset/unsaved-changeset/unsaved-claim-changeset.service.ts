@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
@@ -13,6 +14,7 @@ import {
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo, toChangesetInfos } from '../changeset-infos';
+import { EditUnsavedModificationComponent } from './edit-unsaved-modification/edit-unsaved-modification.component';
 
 type PartyModificationPosition = number;
 
@@ -20,6 +22,7 @@ type PartyModificationPosition = number;
 export class UnsavedClaimChangesetService {
     private save$: Subject<{ partyID: PartyID; claimID: string }> = new Subject();
     private remove$: Subject<PartyModificationPosition> = new Subject();
+    private edit$: Subject<PartyModificationPosition> = new Subject();
     private unsaved$ = new BehaviorSubject<Modification[]>([]);
 
     changesetUpdated$ = new Subject<void>();
@@ -43,7 +46,8 @@ export class UnsavedClaimChangesetService {
     constructor(
         private claimManagementService: ClaimManagementService,
         private keycloakTokenInfoService: KeycloakTokenInfoService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog
     ) {
         this.unsavedChangesetInfos$.subscribe();
 
@@ -61,7 +65,6 @@ export class UnsavedClaimChangesetService {
                 ),
                 filter(([_, unsaved]) => unsaved.length > 0),
                 switchMap(([{ partyID, claimID }, unsaved]) => {
-                    console.log(unsaved);
                     return this.claimManagementService
                         .updateClaim(partyID, new Int64(parseInt(claimID, 10)), unsaved)
                         .pipe(catchError((e) => this.handleError(e)));
@@ -70,6 +73,23 @@ export class UnsavedClaimChangesetService {
             .subscribe(() => {
                 this.changesetUpdated$.next();
                 this.unsaved$.next([]);
+            });
+
+        this.edit$
+            .pipe(
+                switchMap((pos) => forkJoin([of(pos), this.unsaved$.pipe(first())])),
+                switchMap(([pos, mods]) => {
+                    const d = this.dialog.open(EditUnsavedModificationComponent, {
+                        disableClose: true,
+                        data: mods[pos],
+                    });
+                    return forkJoin([of(mods), of(pos), d.afterClosed()]);
+                }),
+                filter(([mods, pos, newMod]) => !!newMod)
+            )
+            .subscribe(([mods, pos, newMod]) => {
+                mods[pos] = newMod;
+                this.unsaved$.next(mods);
             });
     }
 
@@ -86,6 +106,10 @@ export class UnsavedClaimChangesetService {
 
     save(partyID: PartyID, claimID: string) {
         this.save$.next({ partyID, claimID });
+    }
+
+    edit(pos: number) {
+        this.edit$.next(pos);
     }
 
     addModification(mod: Modification) {

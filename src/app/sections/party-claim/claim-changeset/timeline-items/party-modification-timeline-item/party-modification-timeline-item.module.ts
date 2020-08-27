@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +25,7 @@ import { PartyModificationTimelineItemComponent } from './party-modification-tim
         MatExpansionModule,
         SharedModule,
         TimelineComponentsModule,
+        CommonModule,
     ],
     exports: [PartyModificationTimelineItemComponent],
 })

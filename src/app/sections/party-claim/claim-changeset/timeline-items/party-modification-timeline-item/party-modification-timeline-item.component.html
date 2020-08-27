@@ -11,6 +11,9 @@
                 <mat-icon>more_horiz</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngIf="index || index === 0" (click)="edit()">
+                    Edit
+                </button>
                 <button mat-menu-item *ngIf="index || index === 0" (click)="remove()">
                     Remove
                 </button>

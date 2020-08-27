@@ -23,4 +23,8 @@ export class PartyModificationTimelineItemComponent {
     remove() {
         this.unsavedClaimChangesetService.remove(this.index);
     }
+
+    edit() {
+        this.unsavedClaimChangesetService.edit(this.index);
+    }
 }
