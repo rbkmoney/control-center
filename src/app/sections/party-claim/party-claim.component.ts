@@ -23,4 +23,8 @@ export class PartyClaimComponent implements OnInit {
     ngOnInit(): void {
         this.partyClaimService.getClaim();
     }
+
+    changesetUpdated() {
+        this.partyClaimService.getClaim();
+    }
 }

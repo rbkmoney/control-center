@@ -64,15 +64,17 @@ export class UnsavedClaimChangesetService {
                     combineLatest([of({ partyID, claimID }), this.unsaved$])
                 ),
                 filter(([_, unsaved]) => unsaved.length > 0),
-                switchMap(([{ partyID, claimID }, unsaved]) => {
-                    return this.claimManagementService
+                switchMap(([{ partyID, claimID }, unsaved]) =>
+                    this.claimManagementService
                         .updateClaim(partyID, new Int64(parseInt(claimID, 10)), unsaved)
-                        .pipe(catchError((e) => this.handleError(e)));
-                })
+                        .pipe(catchError((e) => this.handleError(e)))
+                )
             )
-            .subscribe(() => {
-                this.changesetUpdated$.next();
-                this.unsaved$.next([]);
+            .subscribe((e) => {
+                if (!e) {
+                    this.changesetUpdated$.next();
+                    this.unsaved$.next([]);
+                }
             });
 
         this.edit$
