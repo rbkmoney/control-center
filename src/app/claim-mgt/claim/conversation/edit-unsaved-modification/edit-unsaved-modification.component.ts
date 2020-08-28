@@ -2,13 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { getUnionKey } from '../../../../shared/utils';
-import {
-    ContractModificationUnit,
-    ContractorModificationUnit,
-    PartyModification,
-    ShopModificationUnit,
-} from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { getUnionKey, getUnionValue } from '../../../../shared/utils';
+import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 
 type ModificationType = 'contractor_modification' | 'contract_modification' | 'shop_modification';
 
@@ -29,10 +24,7 @@ export class EditUnsavedModificationComponent {
     save() {
         this.dialogRef.close({
             [this.modType]: {
-                id: (this.mod[this.modType] as
-                    | ContractorModificationUnit
-                    | ContractModificationUnit
-                    | ShopModificationUnit).id,
+                id: getUnionValue(this.mod).id,
                 modification: {
                     [getUnionKey(this.mod[this.modType].modification)]: this.form.value,
                 },
