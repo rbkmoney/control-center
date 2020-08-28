@@ -74,6 +74,8 @@ export class UnsavedClaimChangesetService {
                 if (!e) {
                     this.changesetUpdated$.next();
                     this.unsaved$.next([]);
+                } else {
+                    console.error(e);
                 }
             });
 

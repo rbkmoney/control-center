@@ -42,10 +42,6 @@ export class UnsavedClaimChangesetComponent implements OnInit {
         });
     }
 
-    addModification() {
-        this.unsavedClaimChangesetService.addModification(this.changeset[11].modification);
-    }
-
     simpleTrackBy(index: number): number {
         return index;
     }

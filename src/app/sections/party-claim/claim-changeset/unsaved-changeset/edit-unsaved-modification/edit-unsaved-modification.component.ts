@@ -27,11 +27,11 @@ export class EditUnsavedModificationComponent {
 
     save() {
         this.dialogRef.close({
-            [getUnionKey(this.data)]: {
-                [this.formsType]: {
-                    id: this.mod[getUnionKey(this.mod)].id,
+            [this.formsType]: {
+                [getUnionKey(this.mod)]: {
+                    id: getUnionValue(this.mod).id,
                     modification: {
-                        [getUnionKey(this.mod[this.formsType].modification)]: this.form.value,
+                        [getUnionKey(getUnionValue(this.mod).modification)]: this.form.value,
                     },
                 },
             },
