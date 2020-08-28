@@ -8,11 +8,12 @@ import {
     Modification,
     PartyModification
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 type ModificationType = 'contractor_modification' | 'contract_modification' | 'shop_modification';
 
 @Component({
-    templateUrl: 'edit-unsaved-modification.component.html',
+    templateUrl: 'edit-unsaved-modification.component.html'
 })
 export class EditUnsavedModificationComponent {
     mod: PartyModification | ClaimModification = getUnionValue(this.data);
@@ -22,17 +23,24 @@ export class EditUnsavedModificationComponent {
     constructor(
         private dialogRef: MatDialogRef<EditUnsavedModificationComponent>,
         private fb: FormBuilder,
+        private snackbar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) private data: Modification
-    ) {}
+    ) {
+    }
 
     save() {
-        this.dialogRef.close({
-            [this.modType]: {
-                id: getUnionValue(this.mod).id,
-                modification: {
-                    [getUnionKey(getUnionValue(this.mod).modification)]: this.form.value,
-                },
-            },
-        });
+        const { id } = getUnionValue(this.mod);
+        if (id) {
+            this.dialogRef.close({
+                [this.modType]: {
+                    id,
+                    modification: {
+                        [getUnionKey(getUnionValue(this.mod).modification)]: this.form.value
+                    }
+                }
+            });
+        } else {
+            this.snackbar.open('Can\'t edit this type of modification', 'OK');
+        }
     }
 }
