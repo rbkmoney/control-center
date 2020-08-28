@@ -85,7 +85,7 @@ export class UnsavedClaimChangesetService {
                 switchMap(([pos, mods]) => {
                     const d = this.dialog.open(EditUnsavedModificationComponent, {
                         disableClose: true,
-                        data: mods[pos],
+                        data: mods[pos].party_modification,
                     });
                     return forkJoin([of(mods), of(pos), d.afterClosed()]);
                 }),

@@ -16,7 +16,6 @@ import { QuestionaryTimelineItemModule } from './timeline-items/questionary-time
 import { StatusTimelineItemModule } from './timeline-items/status-timeline-item/status-timeline-item.module';
 import { TimelineItemsModule } from './timeline-items/timeline-items.module';
 import { EditUnsavedModificationComponent } from './unsaved-changeset/edit-unsaved-modification/edit-unsaved-modification.component';
-import { PartyModificationFormsComponent } from './unsaved-changeset/edit-unsaved-modification/party-modification-forms/party-modification-forms.component';
 import { UnsavedClaimChangesetComponent } from './unsaved-changeset/unsaved-claim-changeset.component';
 import { UnsavedClaimChangesetService } from './unsaved-changeset/unsaved-claim-changeset.service';
 
@@ -42,7 +41,6 @@ import { UnsavedClaimChangesetService } from './unsaved-changeset/unsaved-claim-
         ClaimChangesetComponent,
         UnsavedClaimChangesetComponent,
         EditUnsavedModificationComponent,
-        PartyModificationFormsComponent,
     ],
     providers: [UnsavedClaimChangesetService],
     exports: [ClaimChangesetComponent, UnsavedClaimChangesetComponent],
