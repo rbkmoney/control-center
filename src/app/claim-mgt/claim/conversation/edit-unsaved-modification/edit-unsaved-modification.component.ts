@@ -26,7 +26,7 @@ export class EditUnsavedModificationComponent {
             [this.modType]: {
                 id: getUnionValue(this.mod).id,
                 modification: {
-                    [getUnionKey(this.mod[this.modType].modification)]: this.form.value,
+                    [getUnionKey(getUnionValue(this.mod).modification)]: this.form.value,
                 },
             },
         });
