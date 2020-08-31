@@ -25,6 +25,7 @@ export function isPrimitiveType(type: ValueType): type is ThriftType {
 }
 
 export const structureTypes = ['typedef', 'struct', 'union', 'exception', 'enum'] as const;
+export type StructureType = typeof structureTypes[number];
 
 export function parseNamespaceType(type: ValueType, currentNamespace?: string) {
     if (!isComplexType(type) && !isPrimitiveType(type) && type.includes('.')) {

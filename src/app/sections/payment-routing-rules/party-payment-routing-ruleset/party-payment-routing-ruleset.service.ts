@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { PartyService } from '../../papi/party.service';
-import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../thrift-services';
+import { PartyService } from '../../../papi/party.service';
+import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../../thrift-services';
 
 @Injectable()
-export class PaymentRoutingRulesService {
+export class PartyPaymentRoutingRulesetService {
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
 
     private party$ = this.partyID$.pipe(

@@ -1,1 +1,1 @@
-export * from './payment-routing-ruleset-header.component';
+export * from './payment-routing-ruleset-header.module';

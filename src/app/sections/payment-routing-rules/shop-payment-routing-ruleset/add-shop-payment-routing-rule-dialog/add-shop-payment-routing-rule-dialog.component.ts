@@ -3,9 +3,9 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
-import { RiskScore } from 'src/app/thrift-services/damsel/gen-model/domain';
 
 import { DomainTypedManager, PaymentRoutingRulesService } from '../../../../thrift-services';
+import { Predicate, RiskScore } from '../../../../thrift-services/damsel/gen-model/domain';
 
 enum TerminalType {
     new = 'new',
@@ -13,9 +13,9 @@ enum TerminalType {
 }
 
 @Component({
-    selector: 'cc-add-shop-payment-routing-rule-dilaog',
-    templateUrl: 'add-shop-payment-routing-rule-dilaog.component.html',
-    styleUrls: ['add-shop-payment-routing-rule-dilaog.component.scss'],
+    selector: 'cc-add-shop-payment-routing-rule-dialog',
+    templateUrl: 'add-shop-payment-routing-rule-dialog.component.html',
+    styleUrls: ['add-shop-payment-routing-rule-dialog.component.scss'],
 })
 export class AddShopPaymentRoutingRuleDialogComponent {
     form = this.fb.group({
@@ -34,6 +34,8 @@ export class AddShopPaymentRoutingRuleDialogComponent {
     terminalType = TerminalType;
     riskScore = RiskScore;
     terminals$ = this.domainTypedManager.getTerminalObjects();
+    predicateValid: boolean;
+    predicate: Predicate;
 
     get newTerminalOptionsForm() {
         return this.form.get('newTerminal').get('options') as FormArray;
@@ -95,6 +97,7 @@ export class AddShopPaymentRoutingRuleDialogComponent {
                         terminalID,
                         refID: this.data.refID,
                         partyID: this.data.partyID,
+                        predicate: this.predicate,
                     })
                 )
             )

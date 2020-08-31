@@ -2,14 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { PaymentRoutingRulesService } from '../../../thrift-services';
-import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
+import { PaymentRoutingRulesService } from '../../../../thrift-services';
+import { Shop } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
-    selector: 'cc-add-payment-routing-rule-dilaog',
-    templateUrl: 'add-payment-routing-rule-dilaog.component.html',
+    templateUrl: 'add-party-payment-routing-rule-dialog.component.html',
 })
-export class AddPaymentRoutingRuleDialogComponent {
+export class AddPartyPaymentRoutingRuleDialogComponent {
     form = this.fb.group({
         shopID: '',
         name: 'Ruleset[candidates]',
@@ -18,7 +17,7 @@ export class AddPaymentRoutingRuleDialogComponent {
 
     constructor(
         private fb: FormBuilder,
-        private dialogRef: MatDialogRef<AddPaymentRoutingRuleDialogComponent>,
+        private dialogRef: MatDialogRef<AddPartyPaymentRoutingRuleDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
         @Inject(MAT_DIALOG_DATA) public data: { partyID: string; shops: Shop[] }
     ) {}

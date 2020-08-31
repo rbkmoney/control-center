@@ -18,26 +18,26 @@
             <div fxLayout="column" fxLayoutGap="24px">
                 <div fxLayout fxLayoutGap="8px">
                     <div fxFlex fxLayout="column" fxLayoutGap="8px">
-                        <div class="mat-caption cc-payment-routing-rules-caption">Description</div>
+                        <div class="cc-caption cc-payment-routing-rules-caption">Description</div>
                         <div>{{ candidate.description }}</div>
                     </div>
                     <div fxFlex fxLayout="column" fxLayoutGap="8px">
-                        <div class="mat-caption cc-payment-routing-rules-caption">Weight</div>
+                        <div class="cc-caption cc-payment-routing-rules-caption">Weight</div>
                         <div>{{ candidate.weight }}</div>
                     </div>
                     <div fxFlex fxLayout="column" fxLayoutGap="8px">
-                        <div class="mat-caption cc-payment-routing-rules-caption">Priority</div>
+                        <div class="cc-caption cc-payment-routing-rules-caption">Priority</div>
                         <div>{{ candidate.priority }}</div>
                     </div>
                 </div>
                 <div fxLayout="column" fxLayoutGap="16px">
-                    <div class="mat-title">Predicate</div>
+                    <div class="cc-title">Predicate</div>
                     <cc-pretty-json
                         [object]="predicateToObject(candidate?.allowed)"
                     ></cc-pretty-json>
                 </div>
                 <div fxLayout="column" fxLayoutGap="16px">
-                    <div class="mat-title">Terminal</div>
+                    <div class="cc-title">Terminal</div>
                     <cc-pretty-json
                         [object]="
                             terminalToObject((terminalsMapID$ | async)[candidate.terminal.id])?.data
@@ -52,7 +52,7 @@
     </mat-accordion>
 
     <ng-template #emptyShopRules>
-        <div class="mat-display-1" fxFlexAlign="center">
+        <div class="cc-display-1" fxFlexAlign="center">
             Shop payment routing rules is empty
         </div>
     </ng-template>

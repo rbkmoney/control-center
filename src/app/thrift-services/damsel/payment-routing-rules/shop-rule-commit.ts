@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 
 import { createDamselInstance } from '../create-damsel-instance';
-import { PaymentRoutingCandidate, PaymentRoutingRulesObject } from '../gen-model/domain';
+import { PaymentRoutingCandidate, PaymentRoutingRulesObject, Predicate } from '../gen-model/domain';
 import { Commit } from '../gen-model/domain_config';
 
 const createShopRule = ({
@@ -9,17 +9,17 @@ const createShopRule = ({
     description,
     weight,
     priority,
+    predicate,
 }: {
     terminalID: number;
     description: string;
     weight: number;
     priority: number;
+    predicate: Predicate;
 }) =>
     createDamselInstance<PaymentRoutingCandidate>('domain', 'PaymentRoutingCandidate', {
         description,
-        allowed: {
-            constant: true,
-        },
+        allowed: predicate,
         terminal: {
             id: terminalID,
         },
@@ -42,14 +42,16 @@ export function shopRuleCommit({
     weight,
     priority,
     shopRuleset,
+    predicate,
 }: {
     terminalID: number;
     description: string;
     weight: number;
     priority: number;
     shopRuleset: PaymentRoutingRulesObject;
+    predicate: Predicate;
 }) {
-    const shopRule = createShopRule({ terminalID, description, weight, priority });
+    const shopRule = createShopRule({ terminalID, description, weight, priority, predicate });
     const newShopRule = addDelegateToRuleset(shopRuleset, shopRule);
     return createDamselInstance<Commit>('domain_config', 'Commit', {
         ops: [

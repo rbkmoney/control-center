@@ -1,0 +1,14 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <div fxLayout fxLayoutAlign="space-between center">
+        <div class="cc-subheading-2">
+            {{ title }}
+        </div>
+        <div fxLayout fxLayoutGap="16px">
+            <mat-icon class="action" fxFlexAlign="end" (click)="remove.emit()">clear</mat-icon>
+            <mat-icon class="action" fxFlexAlign="end" (click)="toggle()">{{
+                expanded ? 'expand_less' : 'expand_more'
+            }}</mat-icon>
+        </div>
+    </div>
+    <ng-content *ngIf="expanded"></ng-content>
+</div>

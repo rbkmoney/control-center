@@ -5,7 +5,12 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import { DomainCacheService } from '../domain-cache.service';
 import { DomainTypedManager } from '../domain-typed-manager';
 import { DomainService } from '../domain.service';
-import { Domain, PaymentRoutingDelegate, PaymentRoutingRulesObject } from '../gen-model/domain';
+import {
+    Domain,
+    PaymentRoutingDelegate,
+    PaymentRoutingRulesObject,
+    Predicate,
+} from '../gen-model/domain';
 import { Version } from '../gen-model/domain_config';
 import { findDomainObjects } from '../operations/utils';
 import { partyRulesetCommit } from './party-ruleset-commit';
@@ -142,6 +147,7 @@ export class PaymentRoutingRulesService {
         description: string;
         weight: number;
         priority: number;
+        predicate: Predicate;
     }): Observable<Version> {
         return combineLatest([
             this.domainTypedManager.getLastVersion(),

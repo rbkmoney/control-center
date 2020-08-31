@@ -1,5 +1,5 @@
 <form [formGroup]="form" fxLayout="column" fxLayoutGap="32px">
-    <div class="mat-headline">Shop payment routing rule params</div>
+    <div class="cc-headline">Shop payment routing rule params</div>
 
     <div fxLayout="column" fxLayoutGap="24px">
         <div fxLayout="column" fxLayoutGap="16px">
@@ -28,8 +28,18 @@
                 />
             </mat-form-field>
         </div>
+
         <mat-divider></mat-divider>
-        <div class="mat-title">Terminal</div>
+
+        <div class="cc-title">Predicate</div>
+        <cc-predicate
+            (validationChange)="predicateValid = $event"
+            (predicateChange)="predicate = $event"
+        ></cc-predicate>
+
+        <mat-divider></mat-divider>
+
+        <div class="cc-title">Terminal</div>
         <div fxLayout="column" fxLayoutGap="16px">
             <mat-radio-group formControlName="terminalType" fxLayout fxLayoutGap="8px">
                 <mat-radio-button [value]="terminalType.new" fxFlex>Create new</mat-radio-button>
@@ -55,7 +65,7 @@
                             required
                         />
                     </mat-form-field>
-                    <div class="mat-body-1">Risk coverage:</div>
+                    <div class="cc-body-1">Risk coverage:</div>
                     <mat-radio-group formControlName="riskCoverage" fxLayout fxLayoutGap="8px">
                         <mat-radio-button [value]="riskScore.low" fxFlex>Low</mat-radio-button>
                         <mat-radio-button [value]="riskScore.high" fxFlex>High</mat-radio-button>
@@ -63,7 +73,7 @@
                     </mat-radio-group>
                 </div>
                 <div fxLayout="column" fxLayoutGap="8px" formArrayName="options">
-                    <div class="mat-body-1">Options:</div>
+                    <div class="cc-body-1">Options:</div>
                     <div
                         *ngFor="let optionForm of newTerminalOptionsForm.controls; let idx = index"
                         [formGroup]="optionForm"
@@ -105,8 +115,15 @@
         </div>
     </div>
 
-    <div fxLayout fxLayoutGap="8px" fxLayoutAlign="space-between">
+    <div fxLayout fxLayoutAlign="space-between">
         <button mat-button (click)="cancel()">CANCEL</button>
-        <button mat-button color="primary" (click)="add()" [disabled]="form.invalid">ADD</button>
+        <button
+            mat-button
+            color="primary"
+            (click)="add()"
+            [disabled]="form.invalid || !predicateValid"
+        >
+            ADD
+        </button>
     </div>
 </form>

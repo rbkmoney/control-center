@@ -5,6 +5,7 @@ import {
     isComplexType,
     isPrimitiveType,
     parseNamespaceType,
+    StructureType,
     structureTypes,
 } from './namespace-type';
 
@@ -48,8 +49,10 @@ export function thriftInstanceToObject<T extends { [N in string]: any }, V exten
         }
     }
     const namespaceMeta = metadata.find((m) => m.name === namespace);
-    const structureType = structureTypes.find((t) => namespaceMeta.ast[t][type]);
-    if (!structureType) {
+    const structureType = (Object.keys(namespaceMeta.ast) as StructureType[]).find(
+        (t) => namespaceMeta.ast[t][type]
+    );
+    if (!structureType || !structureTypes.includes(structureType)) {
         throw new Error('Unknown thrift structure type');
     }
     const typeMeta = namespaceMeta.ast[structureType][type];
@@ -57,14 +60,15 @@ export function thriftInstanceToObject<T extends { [N in string]: any }, V exten
         case 'typedef':
             return internalThriftInstanceToObject(typeMeta.type, value);
         case 'union':
-            const [key, val] = Object.entries(value).find(([k, v]) => v !== null);
+            const [key, val] = Object.entries(value).find(([, v]) => v !== null);
             const fieldTypeMeta = typeMeta.find((m) => m.name === key);
-            return { [key]: internalThriftInstanceToObject(fieldTypeMeta, val) } as any;
+            return { [key]: internalThriftInstanceToObject(fieldTypeMeta.type, val) } as any;
+        default:
+            const result = {} as V;
+            for (const [k, v] of Object.entries(value)) {
+                const fieldTypeMeta = typeMeta.find((m) => m.name === k);
+                result[k] = internalThriftInstanceToObject(fieldTypeMeta.type, v);
+            }
+            return result;
     }
-    const result = {} as V;
-    for (const [k, v] of Object.entries(value)) {
-        const fieldTypeMeta = typeMeta.find((m) => m.name === k);
-        result[k] = internalThriftInstanceToObject(fieldTypeMeta.type, v);
-    }
-    return result;
 }

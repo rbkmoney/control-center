@@ -4,17 +4,17 @@ import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { AddPaymentRoutingRuleDialogComponent } from './add-payment-routing-rule-dilaog';
+import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
-import { PaymentRoutingRulesService } from './payment-routing-rules.service';
+import { PartyPaymentRoutingRulesetService } from './party-payment-routing-ruleset.service';
 
 const DIALOG_WIDTH = '548px';
 
 @Component({
-    selector: 'cc-payment-routing-rules',
-    templateUrl: 'payment-routing-rules.component.html',
-    styleUrls: ['payment-routing-rules.component.scss'],
-    providers: [PaymentRoutingRulesService],
+    selector: 'cc-party-payment-routing-ruleset',
+    templateUrl: 'party-payment-routing-ruleset.component.html',
+    styleUrls: ['party-payment-routing-ruleset.component.scss'],
+    providers: [PartyPaymentRoutingRulesetService],
 })
 export class PaymentRoutingRulesComponent {
     partyDelegate$ = this.paymentRoutingRulesService.partyDelegate$;
@@ -34,7 +34,7 @@ export class PaymentRoutingRulesComponent {
 
     constructor(
         private dialog: MatDialog,
-        private paymentRoutingRulesService: PaymentRoutingRulesService,
+        private paymentRoutingRulesService: PartyPaymentRoutingRulesetService,
         private router: Router
     ) {}
 
@@ -47,6 +47,7 @@ export class PaymentRoutingRulesComponent {
                         .open(InitializePaymentRoutingRulesDialogComponent, {
                             disableClose: true,
                             width: DIALOG_WIDTH,
+                            maxHeight: '90vh',
                             data: { partyID },
                         })
                         .afterClosed()
@@ -64,9 +65,10 @@ export class PaymentRoutingRulesComponent {
                 take(1),
                 switchMap(([partyID, shops]) =>
                     this.dialog
-                        .open(AddPaymentRoutingRuleDialogComponent, {
+                        .open(AddPartyPaymentRoutingRuleDialogComponent, {
                             disableClose: true,
                             width: DIALOG_WIDTH,
+                            maxHeight: '90vh',
                             data: { partyID, shops },
                         })
                         .afterClosed()

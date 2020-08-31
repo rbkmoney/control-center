@@ -4,8 +4,8 @@ import { combineLatest } from 'rxjs';
 import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 import { Predicate, TerminalObject } from 'src/app/thrift-services/damsel/gen-model/domain';
 
-import { damselInstanceToObject, DomainTypedManager } from '../../../thrift-services';
-import { AddShopPaymentRoutingRuleDialogComponent } from './add-shop-payment-routing-rule-dilaog';
+import { damselInstanceToObject, DomainTypedManager, objectToJSON } from '../../../thrift-services';
+import { AddShopPaymentRoutingRuleDialogComponent } from './add-shop-payment-routing-rule-dialog';
 import { ShopPaymentRoutingRulesetService } from './shop-payment-routing-ruleset.service';
 
 const DIALOG_WIDTH = '548px';
@@ -49,6 +49,7 @@ export class ShopPaymentRoutingRulesetComponent {
                         .open(AddShopPaymentRoutingRuleDialogComponent, {
                             disableClose: true,
                             width: DIALOG_WIDTH,
+                            maxHeight: '90vh',
                             data: { partyID, refID },
                         })
                         .afterClosed()
@@ -62,10 +63,12 @@ export class ShopPaymentRoutingRulesetComponent {
     }
 
     terminalToObject(terminal: TerminalObject) {
-        return damselInstanceToObject<TerminalObject>('domain', 'TerminalObject', terminal);
+        return objectToJSON(
+            damselInstanceToObject<TerminalObject>('domain', 'TerminalObject', terminal)
+        );
     }
 
     predicateToObject(predicate: Predicate) {
-        return damselInstanceToObject<Predicate>('domain', 'Predicate', predicate);
+        return objectToJSON(damselInstanceToObject<Predicate>('domain', 'Predicate', predicate));
     }
 }

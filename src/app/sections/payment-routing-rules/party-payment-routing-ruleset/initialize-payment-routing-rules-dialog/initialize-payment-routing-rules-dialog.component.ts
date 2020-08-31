@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { PaymentRoutingRulesService } from '../../../thrift-services';
+import { PaymentRoutingRulesService } from '../../../../thrift-services';
 
 @Component({
     selector: 'cc-initialize-payment-routing-rules-dialog',

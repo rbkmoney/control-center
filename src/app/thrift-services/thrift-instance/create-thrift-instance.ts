@@ -6,6 +6,7 @@ import {
     isPrimitiveType,
     isThriftObject,
     parseNamespaceType,
+    StructureType,
     structureTypes,
 } from './namespace-type';
 
@@ -32,11 +33,8 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
                     ])
                 ) as any;
             case 'list':
-                return value.map((v) => internalCreateThriftInstance(type.valueType, v));
             case 'set':
-                return new Set(
-                    value.map((v) => internalCreateThriftInstance(type.valueType, v))
-                ) as any;
+                return value.map((v) => internalCreateThriftInstance(type.valueType, v));
             default:
                 throw new Error('Unknown complex thrift type');
         }
@@ -49,18 +47,25 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
         }
     }
     const namespaceMeta = metadata.find((m) => m.name === namespace);
-    const structureType = structureTypes.find((t) => namespaceMeta.ast[t][type]);
-    if (!structureType) {
+    const structureType = (Object.keys(namespaceMeta.ast) as StructureType[]).find(
+        (t) => namespaceMeta.ast[t][type]
+    );
+    if (!structureType || !structureTypes.includes(structureType)) {
         throw new Error('Unknown thrift structure type');
     }
-    const typeMeta = namespaceMeta.ast[structureType][type];
-    if (structureType === 'typedef') {
-        return internalCreateThriftInstance(typeMeta.type, value);
+    switch (structureType) {
+        case 'enum':
+            return value;
+        default:
+            const typeMeta = namespaceMeta.ast[structureType][type];
+            if (structureType === 'typedef') {
+                return internalCreateThriftInstance(typeMeta.type, value);
+            }
+            const instance = new namespaces[namespace][type]();
+            for (const [k, v] of Object.entries(value)) {
+                const fieldTypeMeta = typeMeta.find((m) => m.name === k);
+                instance[k] = internalCreateThriftInstance(fieldTypeMeta.type, v);
+            }
+            return instance;
     }
-    const instance = new namespaces[namespace][type]();
-    for (const [k, v] of Object.entries(value)) {
-        const fieldTypeMeta = typeMeta.find((m) => m.name === k);
-        instance[k] = internalCreateThriftInstance(fieldTypeMeta.type, v);
-    }
-    return instance;
 }
