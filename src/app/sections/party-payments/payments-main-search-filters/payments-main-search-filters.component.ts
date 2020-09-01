@@ -5,7 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 
 import { PaymentsSearchParams } from '../payments-search-params';
 import { OtherFiltersDialogComponent } from './other-filters-dialog';
-import { SearchFormService } from './search-form.service';
+import { PaymentsMainSearchFiltersService } from './payments-main-search-filters.service';
+import { queryToSearchParams } from './query-to-search-params';
+import { map } from 'rxjs/operators';
 
 export const MY_FORMATS = {
     parse: {
@@ -20,12 +22,12 @@ export const MY_FORMATS = {
 };
 
 @Component({
-    selector: 'cc-search-form',
-    templateUrl: 'search-form.component.html',
+    selector: 'cc-payments-main-search-filters',
+    templateUrl: 'payments-main-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [SearchFormService, { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }],
+    providers: [PaymentsMainSearchFiltersService, { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }],
 })
-export class SearchFormComponent implements OnInit {
+export class PaymentsMainSearchFiltersComponent implements OnInit {
     @Output()
     valueChanges = new EventEmitter<PaymentsSearchParams>();
 
@@ -38,20 +40,21 @@ export class SearchFormComponent implements OnInit {
     otherFiltersForm = this.searchFormService.otherFiltersForm;
 
     constructor(
-        private searchFormService: SearchFormService,
+        private searchFormService: PaymentsMainSearchFiltersService,
         private route: ActivatedRoute,
         private dialog: MatDialog
     ) {}
 
     ngOnInit() {
-        this.route.queryParams.subscribe((v) => {
-            this.valueChanges.emit(v as any);
+        this.route.queryParams.pipe(map(queryToSearchParams)).subscribe((v) => {
+            this.valueChanges.emit(v);
         });
     }
 
     openOtherFiltersDialog() {
         this.dialog.open(OtherFiltersDialogComponent, {
             disableClose: true,
+            width: '460px',
             data: this.otherFiltersForm,
         });
     }

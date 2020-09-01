@@ -15,8 +15,8 @@ import { StatusModule } from '../../shared/components/status';
 import { SharedModule } from '../../shared/shared.module';
 import { PartyPaymentsRoutingModule } from './party-payments-routing.module';
 import { PartyPaymentsComponent } from './party-payments.component';
-import { PaymentsTableComponent } from './payments-table';
-import { SearchFormModule } from './search-form';
+import { PaymentsMainSearchFiltersModule } from './payments-main-search-filters';
+import { PaymentsTableModule } from './payments-table/payments-table.module';
 
 @NgModule({
     imports: [
@@ -32,10 +32,11 @@ import { SearchFormModule } from './search-form';
         MatTableModule,
         MatMenuModule,
         MatIconModule,
-        SearchFormModule,
+        PaymentsMainSearchFiltersModule,
         PartyPaymentsRoutingModule,
         StatusModule,
+        PaymentsTableModule,
     ],
-    declarations: [PartyPaymentsComponent, PaymentsTableComponent],
+    declarations: [PartyPaymentsComponent],
 })
 export class PartyPaymentsModule {}

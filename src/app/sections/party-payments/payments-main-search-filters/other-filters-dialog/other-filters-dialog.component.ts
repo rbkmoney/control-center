@@ -8,6 +8,7 @@ import { removeEmptyProperties } from '../../../../shared/utils';
 import { clearQueryParams } from '../clear-query-params';
 import { paymentMethods, paymentStatuses, paymentSystems, tokenProviders } from './constants';
 import { FilterDialogValue } from './filter-dialog-value';
+import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
 
 @Component({
     templateUrl: 'other-filters-dialog.component.html',
@@ -19,12 +20,15 @@ export class OtherFiltersDialogComponent {
     tokenProviders = tokenProviders;
     paymentSystems = paymentSystems;
 
+    currentDomainVersion$ = this.paymentsOtherSearchFiltersService.currentDomainVersion$;
+
     count;
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private dialogRef: MatDialogRef<OtherFiltersDialogComponent>,
+        private paymentsOtherSearchFiltersService: PaymentsOtherSearchFiltersService,
         @Inject(MAT_DIALOG_DATA) public form: FormGroup
     ) {}
 

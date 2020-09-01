@@ -12,9 +12,9 @@ import { clearQueryParams } from './clear-query-params';
 import { formValueToSearchParams } from './form-value-to-search-params';
 
 @Injectable()
-export class SearchFormService {
+export class PaymentsMainSearchFiltersService {
     defaultParams = {
-        fromTime: moment().subtract(7, 'd').startOf('d'),
+        fromTime: moment().subtract(1, 'month').startOf('d'),
         toTime: moment().endOf('d'),
         invoiceID: '',
         shopIDs: [],
@@ -69,6 +69,7 @@ export class SearchFormService {
                 });
             });
         this.route.queryParams.pipe(take(1), map(queryParamsToFormValue)).subscribe((v) => {
+            console.log('sda', v)
             this.form.patchValue(v);
             this.otherFiltersForm.patchValue(v);
         });

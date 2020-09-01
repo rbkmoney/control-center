@@ -3,7 +3,7 @@
     <div fxLayout="column" fxLayoutGap="24px">
         <mat-card>
             <mat-card-content>
-                <cc-search-form (valueChanges)="search($event)"></cc-search-form>
+                <cc-payments-main-search-filters (valueChanges)="search($event)"></cc-payments-main-search-filters>
             </mat-card-content>
             <mat-card-footer *ngIf="doAction$ | async">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -12,7 +12,7 @@
         <ng-container *ngIf="payments$ | async as payments">
             <cc-empty-search-result *ngIf="payments.length === 0"></cc-empty-search-result>
             <mat-card *ngIf="payments.length > 0" fxLayout="column" fxLayoutGap="16px">
-                <cc-payments-table [payments]="payments"></cc-payments-table>
+                <cc-payments-table [payments]="payments" (goToPaymentDetails)="navigateToPayment($event)"></cc-payments-table>
                 <button
                     fxFlex="100"
                     mat-button

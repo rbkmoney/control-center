@@ -60,6 +60,8 @@ export class ExpandableRadioGroupComponent extends CustomFormControl implements 
 
     ngOnChanges(changes?: SimpleChanges) {
         this.isExpandable = changes?.values?.currentValue > 4;
+        console.log('fff', this.form);
+        this.isExpanded = this.form.value && !this.values.slice(0, 2).map(v => v.value).includes(this.form.value);
         this.changeVisibility(this.isExpanded);
     }
 

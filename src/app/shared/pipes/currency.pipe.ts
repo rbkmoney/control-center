@@ -1,19 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { getCurrencySymbol } from '@angular/common';
+
 @Pipe({
     name: 'ccCurrency',
 })
 export class CurrencyPipe implements PipeTransform {
     public transform(input: string): string {
-        switch (input) {
-            case 'RUB':
-                return '₽';
-            case 'USD':
-                return '$';
-            case 'EUR':
-                return '€';
-            default:
-                return input;
-        }
+        return getCurrencySymbol(input, 'narrow');
     }
 }

@@ -10,7 +10,7 @@ import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
 import { PaymentsSearchParams } from './payments-search-params';
 
-const SEARCH_LIMIT = 20;
+const SEARCH_LIMIT = 10;
 
 @Injectable()
 export class PartyPaymentsService extends PartialFetcher<StatPayment, PaymentsSearchParams> {
@@ -46,6 +46,7 @@ export class PartyPaymentsService extends PartialFetcher<StatPayment, PaymentsSe
             toRevision,
             paymentStatus,
         } = params;
+        console.log(shopIDs)
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.merchantStatisticsService

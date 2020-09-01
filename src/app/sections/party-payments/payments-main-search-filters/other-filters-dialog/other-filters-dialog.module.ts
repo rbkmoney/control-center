@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { ExpandableRadioGroupModule } from '../../../../shared/components/expandable-radio-group';
 import { OtherFiltersDialogComponent } from './other-filters-dialog.component';
+import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
 
 @NgModule({
     imports: [
@@ -31,5 +32,6 @@ import { OtherFiltersDialogComponent } from './other-filters-dialog.component';
     ],
     declarations: [OtherFiltersDialogComponent],
     exports: [OtherFiltersDialogComponent],
+    providers: [PaymentsOtherSearchFiltersService]
 })
 export class OtherFiltersDialogModule {}

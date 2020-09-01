@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 import { OtherFiltersDialogComponent, OtherFiltersDialogModule } from './other-filters-dialog';
-import { SearchFormComponent } from './search-form.component';
+import { PaymentsMainSearchFiltersComponent } from './payments-main-search-filters.component';
 
 @NgModule({
     imports: [
@@ -31,8 +31,8 @@ import { SearchFormComponent } from './search-form.component';
         OtherFiltersDialogModule,
         MatSelectModule,
     ],
-    declarations: [SearchFormComponent],
-    exports: [SearchFormComponent],
+    declarations: [PaymentsMainSearchFiltersComponent],
+    exports: [PaymentsMainSearchFiltersComponent],
     entryComponents: [OtherFiltersDialogComponent],
 })
-export class SearchFormModule {}
+export class PaymentsMainSearchFiltersModule {}
