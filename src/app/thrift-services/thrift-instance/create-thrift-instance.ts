@@ -27,14 +27,16 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
         switch (type.name) {
             case 'map':
                 return new Map(
-                    Array.from(value).map(([k, v]) => [
+                    Array.from(value as any[]).map(([k, v]) => [
                         internalCreateThriftInstance(type.keyType, k),
                         internalCreateThriftInstance(type.valueType, v),
                     ])
-                ) as any;
+                ) as V;
             case 'list':
             case 'set':
-                return value.map((v) => internalCreateThriftInstance(type.valueType, v));
+                return (value as any[]).map((v) =>
+                    internalCreateThriftInstance(type.valueType, v)
+                ) as V;
             default:
                 throw new Error('Unknown complex thrift type');
         }

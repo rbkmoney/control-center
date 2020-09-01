@@ -1,5 +1,5 @@
 import isNil from 'lodash-es/isNil';
-import type { ValueType } from 'thrift-ts';
+import type { Int64, ValueType } from 'thrift-ts';
 
 import {
     isComplexType,
@@ -26,24 +26,26 @@ export function thriftInstanceToObject<T extends { [N in string]: any }, V exten
         switch (type.name) {
             case 'map':
                 return new Map(
-                    Array.from(value).map(([k, v]) => [
+                    Array.from(value as any[]).map(([k, v]) => [
                         internalThriftInstanceToObject(type.keyType, k),
                         internalThriftInstanceToObject(type.valueType, v),
                     ])
-                ) as any;
+                ) as V;
             case 'list':
-                return value.map((v) => internalThriftInstanceToObject(type.valueType, v));
+                return (value as any[]).map((v) =>
+                    internalThriftInstanceToObject(type.valueType, v)
+                ) as V;
             case 'set':
                 return new Set(
-                    value.map((v) => internalThriftInstanceToObject(type.valueType, v))
-                ) as any;
+                    (value as any[]).map((v) => internalThriftInstanceToObject(type.valueType, v))
+                ) as V;
             default:
                 throw new Error('Unknown complex thrift type');
         }
     } else if (isPrimitiveType(type)) {
         switch (type) {
             case 'i64':
-                return value.toNumber();
+                return (value as Int64).toNumber() as V;
             default:
                 return value;
         }
@@ -57,18 +59,21 @@ export function thriftInstanceToObject<T extends { [N in string]: any }, V exten
     }
     const typeMeta = namespaceMeta.ast[structureType][type];
     switch (structureType) {
-        case 'typedef':
+        case 'typedef': {
             return internalThriftInstanceToObject(typeMeta.type, value);
-        case 'union':
+        }
+        case 'union': {
             const [key, val] = Object.entries(value).find(([, v]) => v !== null);
             const fieldTypeMeta = typeMeta.find((m) => m.name === key);
             return { [key]: internalThriftInstanceToObject(fieldTypeMeta.type, val) } as any;
-        default:
+        }
+        default: {
             const result = {} as V;
             for (const [k, v] of Object.entries(value)) {
                 const fieldTypeMeta = typeMeta.find((m) => m.name === k);
                 result[k] = internalThriftInstanceToObject(fieldTypeMeta.type, v);
             }
             return result;
+        }
     }
 }
