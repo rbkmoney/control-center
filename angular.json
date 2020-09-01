@@ -23,6 +23,18 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
+                        "allowedCommonJsDependencies": [
+                            "moment",
+                            "keycloak-js",
+                            "uuid",
+                            "js-sha256",
+                            "jwt-decode",
+                            "rxjs",
+                            "thrift-ts",
+                            "buffer",
+                            "@rbkmoney/partial-fetcher",
+                            "humanize-duration"
+                        ],
                         "assets": [
                             {
                                 "glob": "**/*",

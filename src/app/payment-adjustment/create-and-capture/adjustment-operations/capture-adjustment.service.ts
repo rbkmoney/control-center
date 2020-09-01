@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+
 import { ExecErrorResult, ExecResultType } from '../executor.service';
 import {
     AdjustmentOperationEvent,
@@ -10,6 +12,7 @@ import { PaymentAdjustmentCaptureParams } from './adjustment-params';
 import { CapturePaymentAdjustmentErrorCodes } from './error-codes';
 import { ExecResultGroup } from './exec-result-group';
 
+@Injectable()
 export class CaptureAdjustmentService extends AdjustmentOperationService {
     protected toExecParams(captureParams: any[]): any[] {
         return captureParams.map((params) => ({
