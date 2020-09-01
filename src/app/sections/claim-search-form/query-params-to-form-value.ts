@@ -9,5 +9,6 @@ const statusesAndPrimitives = (v, k) =>
 export const queryParamsToFormValue = (params: Params) => ({
     ...params,
     // Query param ?statuses=accepted will be present as { statuses: 'accepted' } in form. Selector value must be an array in multiple-selection mode.
+    shopIDs: params.shopIDs && !Array.isArray(params.shopIDs) ? [params.shopIDs] : params.shopIDs,
     ...wrapValuesToArray(pickBy(params, statusesAndPrimitives)),
 });

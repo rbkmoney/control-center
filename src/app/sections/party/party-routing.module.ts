@@ -62,7 +62,7 @@ import { PartyComponent } from './party.component';
                             roles: [],
                         },
                     },
-                    { path: '', redirectTo: 'claims', pathMatch: 'full' },
+                    { path: '', redirectTo: 'payments', pathMatch: 'full' },
                 ],
             },
         ]),
