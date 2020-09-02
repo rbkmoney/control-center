@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+} from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
-import { UnsavedClaimChangesetService } from '../../unsaved-changeset/unsaved-claim-changeset.service';
+import { MenuConfigItem } from '../menu-config';
 import { CommentTimelineItemService } from './comment-timeline-item.service';
 
 @Component({
@@ -15,16 +22,16 @@ export class CommentTimelineItemComponent implements OnInit {
     changesetInfo: ChangesetInfo;
 
     @Input()
-    index?: number;
+    menuConfig: MenuConfigItem[];
+
+    @Output()
+    menuItemSelected: EventEmitter<MenuConfigItem> = new EventEmitter();
 
     isLoading$ = this.commentTimelineItemService.isLoading$;
     message$ = this.commentTimelineItemService.message$;
     error$ = this.commentTimelineItemService.error$;
 
-    constructor(
-        private commentTimelineItemService: CommentTimelineItemService,
-        private unsavedClaimChangesetService: UnsavedClaimChangesetService
-    ) {}
+    constructor(private commentTimelineItemService: CommentTimelineItemService) {}
 
     ngOnInit(): void {
         this.commentTimelineItemService.getMessage([
@@ -32,7 +39,7 @@ export class CommentTimelineItemComponent implements OnInit {
         ]);
     }
 
-    remove() {
-        this.unsavedClaimChangesetService.remove(this.index);
+    action(item: MenuConfigItem) {
+        this.menuItemSelected.emit(item);
     }
 }

@@ -6,13 +6,13 @@
             [username]="changesetInfo.userInfo?.username"
             [outdated]="changesetInfo.outdated"
         ></cc-timeline-item-header>
-        <div>
+        <div *ngIf="menuConfig.length > 0">
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_horiz</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item *ngIf="index || index === 0" (click)="remove()">
-                    Remove
+                <button mat-menu-item *ngFor="let item of menuConfig" (click)="action(item)">
+                    {{ item.label }}
                 </button>
             </mat-menu>
         </div>

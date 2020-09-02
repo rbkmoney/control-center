@@ -14,28 +14,33 @@
             <cc-file-timeline-item
                 *ngIf="info.type === changesetInfoTypes.fileModification"
                 [changesetInfo]="info"
-                [index]="i"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="fileMenuConfig"
             ></cc-file-timeline-item>
             <cc-comment-timeline-item
                 *ngIf="info.type === changesetInfoTypes.commentModification"
                 [changesetInfo]="info"
-                [index]="i"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="commentMenuConfig"
             ></cc-comment-timeline-item>
             <cc-party-modification-timeline-item
                 *ngIf="info.type === changesetInfoTypes.partyModification"
                 [changesetInfo]="info"
-                [index]="i"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="partyModMenuConfig"
             ></cc-party-modification-timeline-item>
             <cc-questionary-timeline-item
                 *ngIf="info.type === changesetInfoTypes.documentModification"
                 [changesetInfo]="info"
                 [partyID]="partyID"
-                [index]="i"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="questionaryMenuConfig"
             ></cc-questionary-timeline-item>
             <cc-status-timeline-item
                 *ngIf="info.type === changesetInfoTypes.statusModification"
                 [changesetInfo]="info"
-                [index]="i"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="statusMenuConfig"
             ></cc-status-timeline-item>
         </ng-container>
     </cc-timeline>

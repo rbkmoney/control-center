@@ -9,27 +9,39 @@
     </div>
     <cc-timeline>
         <cc-created-timeline-item [createdAt]="createdAt"></cc-created-timeline-item>
-        <ng-container *ngFor="let info of filteredChangesetInfos; trackBy: simpleTrackBy">
+        <ng-container
+            *ngFor="let info of filteredChangesetInfos; let i = index; trackBy: simpleTrackBy"
+        >
             <cc-file-timeline-item
                 *ngIf="info.type === changesetInfoType.fileModification"
                 [changesetInfo]="info"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="fileMenuConfig"
             ></cc-file-timeline-item>
             <cc-comment-timeline-item
                 *ngIf="info.type === changesetInfoType.commentModification"
                 [changesetInfo]="info"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="commentMenuConfig"
             ></cc-comment-timeline-item>
             <cc-party-modification-timeline-item
                 *ngIf="info.type === changesetInfoType.partyModification"
                 [changesetInfo]="info"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="partyModMenuConfig"
             ></cc-party-modification-timeline-item>
             <cc-questionary-timeline-item
                 *ngIf="info.type === changesetInfoType.documentModification"
                 [changesetInfo]="info"
                 [partyID]="partyID"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="questionaryMenuConfig"
             ></cc-questionary-timeline-item>
             <cc-status-timeline-item
                 *ngIf="info.type === changesetInfoType.statusModification"
                 [changesetInfo]="info"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="statusMenuConfig"
             ></cc-status-timeline-item>
         </ng-container>
     </cc-timeline>

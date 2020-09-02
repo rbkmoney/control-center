@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from '../changeset-infos';
+import { MenuConfigAction, MenuConfigItem } from '../timeline-items/menu-config';
 
 @Component({
     selector: 'cc-changeset',
@@ -22,6 +23,16 @@ export class ChangesetComponent {
     @Input()
     partyID: PartyID;
 
+    fileMenuConfig: MenuConfigItem[] = [
+        { action: MenuConfigAction.deleteFile, label: 'Delete file' },
+    ];
+    commentMenuConfig: MenuConfigItem[] = [
+        { action: MenuConfigAction.deleteComment, label: 'Delete comment' },
+    ];
+    partyModMenuConfig: MenuConfigItem[] = [];
+    questionaryMenuConfig: MenuConfigItem[] = [];
+    statusMenuConfig: MenuConfigItem[] = [];
+
     changesetInfoType = ChangesetInfoType;
     changesetInfos$ = new BehaviorSubject<ChangesetInfo[]>([]);
     filteredChangesetInfos: ChangesetInfo[] = [];
@@ -32,5 +43,12 @@ export class ChangesetComponent {
 
     filterChange($event: ChangesetInfo[]) {
         this.filteredChangesetInfos = $event;
+    }
+
+    menuItemSelected($event: MenuConfigItem, i: number) {
+        switch ($event.action) {
+            default:
+                console.warn('');
+        }
     }
 }

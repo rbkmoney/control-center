@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
 import { UnsavedClaimChangesetService } from '../../unsaved-changeset/unsaved-claim-changeset.service';
+import { MenuConfigItem } from '../menu-config';
 
 @Component({
     selector: 'cc-status-timeline-item',
@@ -13,16 +14,19 @@ export class StatusTimelineItemComponent {
     changesetInfo: ChangesetInfo;
 
     @Input()
-    index?: number;
+    menuConfig: MenuConfigItem[];
+
+    @Output()
+    menuItemSelected: EventEmitter<MenuConfigItem> = new EventEmitter();
 
     constructor(private unsavedClaimChangesetService: UnsavedClaimChangesetService) {}
-
-    remove() {
-        this.unsavedClaimChangesetService.remove(this.index);
-    }
 
     getReason(): string {
         const { status } = this.changesetInfo.modification.claim_modification.status_modification;
         return status.revoked?.reason || status.denied?.reason;
+    }
+
+    action(item: MenuConfigItem) {
+        this.menuItemSelected.emit(item);
     }
 }

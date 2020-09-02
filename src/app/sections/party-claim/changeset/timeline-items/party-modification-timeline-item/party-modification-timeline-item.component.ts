@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
-import { UnsavedClaimChangesetService } from '../../unsaved-changeset/unsaved-claim-changeset.service';
+import { MenuConfigItem } from '../menu-config';
 
 @Component({
     selector: 'cc-party-modification-timeline-item',
@@ -16,15 +16,12 @@ export class PartyModificationTimelineItemComponent {
     changesetInfo: ChangesetInfo;
 
     @Input()
-    index?: number;
+    menuConfig: MenuConfigItem[];
 
-    constructor(private unsavedClaimChangesetService: UnsavedClaimChangesetService) {}
+    @Output()
+    menuItemSelected: EventEmitter<MenuConfigItem> = new EventEmitter();
 
-    remove() {
-        this.unsavedClaimChangesetService.remove(this.index);
-    }
-
-    edit() {
-        this.unsavedClaimChangesetService.edit(this.index);
+    action(item: MenuConfigItem) {
+        this.menuItemSelected.emit(item);
     }
 }

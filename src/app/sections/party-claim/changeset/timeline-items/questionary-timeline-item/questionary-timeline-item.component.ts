@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo } from '../../changeset-infos';
-import { UnsavedClaimChangesetService } from '../../unsaved-changeset/unsaved-claim-changeset.service';
+import { MenuConfigItem } from '../menu-config';
 import { QuestionaryTimelineItemService } from './questionary-timeline-item.service';
 
 @Component({
@@ -18,16 +18,16 @@ export class QuestionaryTimelineItemComponent implements OnInit {
     partyID: PartyID;
 
     @Input()
-    index?: number;
+    menuConfig: MenuConfigItem[];
+
+    @Output()
+    menuItemSelected: EventEmitter<MenuConfigItem> = new EventEmitter();
 
     isLoading$ = this.questionaryTimelineItemService.isLoading$;
     error$ = this.questionaryTimelineItemService.error$;
     questionaryData$ = this.questionaryTimelineItemService.questionaryData$;
 
-    constructor(
-        private questionaryTimelineItemService: QuestionaryTimelineItemService,
-        private unsavedClaimChangesetService: UnsavedClaimChangesetService
-    ) {}
+    constructor(private questionaryTimelineItemService: QuestionaryTimelineItemService) {}
 
     ngOnInit() {
         this.questionaryTimelineItemService.getQuestionaryData(
@@ -36,7 +36,7 @@ export class QuestionaryTimelineItemComponent implements OnInit {
         );
     }
 
-    remove() {
-        this.unsavedClaimChangesetService.remove(this.index);
+    action(item: MenuConfigItem) {
+        this.menuItemSelected.emit(item);
     }
 }

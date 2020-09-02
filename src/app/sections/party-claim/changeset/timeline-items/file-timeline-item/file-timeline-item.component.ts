@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+} from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
-import { UnsavedClaimChangesetService } from '../../unsaved-changeset/unsaved-claim-changeset.service';
+import { MenuConfigItem } from '../menu-config';
 import { FileTimelineItemService } from './file-timeline-item.service';
 
 @Component({
@@ -15,16 +22,16 @@ export class FileTimelineItemComponent implements OnInit {
     changesetInfo: ChangesetInfo;
 
     @Input()
-    index?: number;
+    menuConfig: MenuConfigItem[];
+
+    @Output()
+    menuItemSelected: EventEmitter<MenuConfigItem> = new EventEmitter();
 
     isLoading$ = this.fileTimelineItemService.isLoading$;
     error$ = this.fileTimelineItemService.error$;
     fileData$ = this.fileTimelineItemService.fileData$;
 
-    constructor(
-        private fileTimelineItemService: FileTimelineItemService,
-        private unsavedClaimChangesetService: UnsavedClaimChangesetService
-    ) {}
+    constructor(private fileTimelineItemService: FileTimelineItemService) {}
 
     ngOnInit() {
         this.fileTimelineItemService.getFileInfo(
@@ -38,7 +45,7 @@ export class FileTimelineItemComponent implements OnInit {
         );
     }
 
-    remove() {
-        this.unsavedClaimChangesetService.remove(this.index);
+    action(item: MenuConfigItem) {
+        this.menuItemSelected.emit(item);
     }
 }
