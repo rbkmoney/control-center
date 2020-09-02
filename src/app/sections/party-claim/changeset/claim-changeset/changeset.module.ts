@@ -14,6 +14,8 @@ import { FileTimelineItemModule } from '../timeline-items/file-timeline-item/fil
 import { PartyModificationTimelineItemModule } from '../timeline-items/party-modification-timeline-item/party-modification-timeline-item.module';
 import { QuestionaryTimelineItemModule } from '../timeline-items/questionary-timeline-item/questionary-timeline-item.module';
 import { StatusTimelineItemModule } from '../timeline-items/status-timeline-item/status-timeline-item.module';
+import { EditClaimChangesetService } from '../unsaved-changeset/edit-claim-changeset.service';
+import { SaveClaimChangesetService } from '../unsaved-changeset/save-claim-changeset.service';
 import { UnsavedClaimChangesetComponent } from '../unsaved-changeset/unsaved-claim-changeset.component';
 import { UnsavedClaimChangesetService } from '../unsaved-changeset/unsaved-claim-changeset.service';
 import { ChangesetComponent } from './changeset.component';
@@ -36,7 +38,7 @@ import { ChangesetComponent } from './changeset.component';
         PartyModificationFormsModule,
     ],
     declarations: [ChangesetComponent, UnsavedClaimChangesetComponent],
-    providers: [UnsavedClaimChangesetService],
+    providers: [UnsavedClaimChangesetService, SaveClaimChangesetService, EditClaimChangesetService],
     exports: [ChangesetComponent, UnsavedClaimChangesetComponent],
 })
 export class ChangesetModule {}

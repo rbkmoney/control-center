@@ -8,10 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { EditUnsavedModificationModule } from 'src/app/claim-mgt/claim/conversation/edit-unsaved-modification/edit-unsaved-modification.module';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ChangesetModule } from './changeset';
+import { EditUnsavedModificationModule } from './changeset/unsaved-changeset/edit-unsaved-modification/edit-unsaved-modification.module';
 import { PartyClaimActionsModule } from './party-claim-actions';
 import { PartyClaimRoutingModule } from './party-claim-routing.module';
 import { PartyClaimTitleComponent } from './party-claim-title/party-claim-title.component';
