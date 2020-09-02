@@ -8,7 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { TimelineModule } from '../../../../../shared/components/timeline';
 import { MessagesModule } from '../../../../../thrift-services/messages';
-import { TimelineComponentsModule } from '../../timeline-components/timeline-components.module';
+import { TimelineComponentsModule } from '../../timeline-components';
 import { CommentActionIconPipe } from './comment-action-icon.pipe';
 import { CommentBadgeColorPipe } from './comment-badge-color.pipe';
 import { CommentContentComponent } from './comment-content/comment-content.component';

@@ -8,7 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { TimelineModule } from '../../../../../shared/components/timeline';
 import { SharedModule } from '../../../../../shared/shared.module';
-import { TimelineComponentsModule } from '../../timeline-components/timeline-components.module';
+import { TimelineComponentsModule } from '../../timeline-components';
 import { CommentTimelineItemModule } from '../comment-timeline-item/comment-timeline-item.module';
 import { PartyModificationContentComponent } from './party-modification-content/party-modification-content.component';
 import { PartyModificationTimelineItemComponent } from './party-modification-timeline-item.component';

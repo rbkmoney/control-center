@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 import { TimelineModule } from '../../../../../shared/components/timeline';
-import { TimelineComponentsModule } from '../../timeline-components/timeline-components.module';
+import { TimelineComponentsModule } from '../../timeline-components';
 import { CreatedTimelineItemComponent } from './created-timeline-item.component';
 
 @NgModule({

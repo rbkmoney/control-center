@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { ClaimChangeset } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
-import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from './changeset-infos';
+import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
+import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from '../changeset-infos';
 
 @Component({
-    selector: 'cc-claim-changeset',
-    templateUrl: 'claim-changeset.component.html',
+    selector: 'cc-changeset',
+    templateUrl: 'changeset.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClaimChangesetComponent {
+export class ChangesetComponent {
     @Input()
     createdAt: string;
 

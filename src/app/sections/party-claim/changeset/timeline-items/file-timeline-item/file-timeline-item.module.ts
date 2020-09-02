@@ -8,7 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { TimelineModule } from '../../../../../shared/components/timeline';
 import { FileStorageModule } from '../../../../../thrift-services/file-storage';
-import { TimelineComponentsModule } from '../../timeline-components/timeline-components.module';
+import { TimelineComponentsModule } from '../../timeline-components';
 import { FileActionIconPipe } from './file-action-icon.pipe';
 import { FileBadgeColorPipe } from './file-badge-color.pipe';
 import { FileContentComponent } from './file-content/file-content.component';

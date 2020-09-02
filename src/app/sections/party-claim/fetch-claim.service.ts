@@ -3,13 +3,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { of, ReplaySubject } from 'rxjs';
-import { catchError, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, filter, shareReplay, switchMap } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 
 @Injectable()
-export class PartyClaimService {
+export class FetchClaimService {
     private getClaim$ = new ReplaySubject();
 
     claim$ = this.getClaim$.asObservable().pipe(
@@ -19,10 +19,11 @@ export class PartyClaimService {
                 catchError((e) => {
                     console.error(e);
                     this.snackBar.open('An error occurred while fetching claim', 'OK');
-                    return of(e);
+                    return of('error');
                 })
             )
         ),
+        filter((result) => result !== 'error'),
         shareReplay(1)
     );
     isLoading$ = progress(this.getClaim$, this.claim$);

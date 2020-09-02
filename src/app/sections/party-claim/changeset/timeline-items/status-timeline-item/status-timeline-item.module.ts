@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { TimelineModule } from '../../../../../shared/components/timeline';
-import { TimelineComponentsModule } from '../../timeline-components/timeline-components.module';
+import { TimelineComponentsModule } from '../../timeline-components';
 import { CommentTimelineItemModule } from '../comment-timeline-item/comment-timeline-item.module';
 import { ReasonContentComponent } from './reason-content/reason-content.component';
 import { StatusActionIconPipe } from './status-action-icon.pipe';

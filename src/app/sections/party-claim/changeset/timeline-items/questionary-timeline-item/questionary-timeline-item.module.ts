@@ -9,7 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { TimelineModule } from '../../../../../shared/components/timeline';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { AnkModule } from '../../../../../thrift-services/ank';
-import { TimelineComponentsModule } from '../../timeline-components/timeline-components.module';
+import { TimelineComponentsModule } from '../../timeline-components';
 import { CommentTimelineItemModule } from '../comment-timeline-item/comment-timeline-item.module';
 import { QuestionaryContentComponent } from './questionary-content/questionary-content.component';
 import { QuestionaryTimelineItemComponent } from './questionary-timeline-item.component';
