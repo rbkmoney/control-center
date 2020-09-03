@@ -7,11 +7,11 @@ import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from '../changeset
 import { MenuConfigAction, MenuConfigItem } from '../timeline-items/menu-config';
 
 @Component({
-    selector: 'cc-changeset',
-    templateUrl: 'changeset.component.html',
+    selector: 'cc-claim-changeset',
+    templateUrl: 'claim-changeset.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangesetComponent {
+export class ClaimChangesetComponent {
     @Input()
     createdAt: string;
 
@@ -31,7 +31,6 @@ export class ChangesetComponent {
     ];
     partyModMenuConfig: MenuConfigItem[] = [];
     questionaryMenuConfig: MenuConfigItem[] = [];
-    statusMenuConfig: MenuConfigItem[] = [];
 
     changesetInfoType = ChangesetInfoType;
     changesetInfos$ = new BehaviorSubject<ChangesetInfo[]>([]);

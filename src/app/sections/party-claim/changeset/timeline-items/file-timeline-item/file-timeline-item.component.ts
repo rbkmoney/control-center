@@ -1,14 +1,7 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
-import { MenuConfigItem } from '../menu-config';
+import { TimelimeItem } from '../timelime-item';
 import { FileTimelineItemService } from './file-timeline-item.service';
 
 @Component({
@@ -17,21 +10,17 @@ import { FileTimelineItemService } from './file-timeline-item.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [FileTimelineItemService],
 })
-export class FileTimelineItemComponent implements OnInit {
+export class FileTimelineItemComponent extends TimelimeItem implements OnInit {
     @Input()
     changesetInfo: ChangesetInfo;
-
-    @Input()
-    menuConfig: MenuConfigItem[];
-
-    @Output()
-    menuItemSelected: EventEmitter<MenuConfigItem> = new EventEmitter();
 
     isLoading$ = this.fileTimelineItemService.isLoading$;
     error$ = this.fileTimelineItemService.error$;
     fileData$ = this.fileTimelineItemService.fileData$;
 
-    constructor(private fileTimelineItemService: FileTimelineItemService) {}
+    constructor(private fileTimelineItemService: FileTimelineItemService) {
+        super();
+    }
 
     ngOnInit() {
         this.fileTimelineItemService.getFileInfo(
@@ -43,9 +32,5 @@ export class FileTimelineItemComponent implements OnInit {
         this.fileTimelineItemService.downloadFile(
             this.changesetInfo.modification.claim_modification.file_modification.id
         );
-    }
-
-    action(item: MenuConfigItem) {
-        this.menuItemSelected.emit(item);
     }
 }

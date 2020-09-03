@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { pluck, shareReplay } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { first, pluck, shareReplay } from 'rxjs/operators';
 
 import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
 import { FetchClaimService } from './fetch-claim.service';
@@ -21,10 +22,18 @@ export class PartyClaimComponent implements OnInit {
     constructor(private route: ActivatedRoute, private fetchClaimService: FetchClaimService) {}
 
     ngOnInit(): void {
-        this.fetchClaimService.getClaim();
+        this.getClaim();
     }
 
     changesetUpdated() {
-        this.fetchClaimService.getClaim();
+        this.getClaim();
+    }
+
+    private getClaim() {
+        combineLatest([this.partyID$, this.claimID$])
+            .pipe(first())
+            .subscribe(([partyID, claimID]) => {
+                this.fetchClaimService.getClaim(partyID, claimID);
+            });
     }
 }

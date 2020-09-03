@@ -40,8 +40,6 @@
             <cc-status-timeline-item
                 *ngIf="info.type === changesetInfoType.statusModification"
                 [changesetInfo]="info"
-                (menuItemSelected)="menuItemSelected($event, i)"
-                [menuConfig]="statusMenuConfig"
             ></cc-status-timeline-item>
         </ng-container>
     </cc-timeline>

@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
-import { MenuConfigItem } from '../menu-config';
 
 @Component({
     selector: 'cc-status-timeline-item',
@@ -12,18 +11,8 @@ export class StatusTimelineItemComponent {
     @Input()
     changesetInfo: ChangesetInfo;
 
-    @Input()
-    menuConfig: MenuConfigItem[];
-
-    @Output()
-    menuItemSelected: EventEmitter<MenuConfigItem> = new EventEmitter();
-
     getReason(): string {
         const { status } = this.changesetInfo.modification.claim_modification.status_modification;
         return status.revoked?.reason || status.denied?.reason;
-    }
-
-    action(item: MenuConfigItem) {
-        this.menuItemSelected.emit(item);
     }
 }

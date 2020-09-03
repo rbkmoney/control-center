@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
 import { SharedModule } from '../../shared/shared.module';
-import { ChangesetModule } from './changeset';
+import { ClaimChangesetModule, UnsavedClaimChangesetModule } from './changeset';
 import { EditUnsavedModificationModule } from './changeset/unsaved-changeset/edit-unsaved-modification/edit-unsaved-modification.module';
 import { PartyClaimActionsModule } from './party-claim-actions';
 import { PartyClaimRoutingModule } from './party-claim-routing.module';
@@ -29,10 +29,11 @@ import { PartyClaimComponent } from './party-claim.component';
         ReactiveFormsModule,
         MatInputModule,
         EditUnsavedModificationModule,
-        ChangesetModule,
+        ClaimChangesetModule,
         SharedModule,
         MatProgressSpinnerModule,
         PartyClaimActionsModule,
+        UnsavedClaimChangesetModule,
     ],
     declarations: [PartyClaimComponent, PartyClaimTitleComponent],
 })

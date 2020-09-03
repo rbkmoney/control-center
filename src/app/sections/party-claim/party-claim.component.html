@@ -11,11 +11,11 @@
             [claimID]="claimID$ | async"
             [status]="status$ | async"
         ></cc-party-claim-title>
-        <cc-changeset
+        <cc-claim-changeset
             [createdAt]="createdAt$ | async"
             [changeset]="changeset$ | async"
             [partyID]="partyID$ | async"
-        ></cc-changeset>
+        ></cc-claim-changeset>
         <cc-unsaved-claim-changeset
             [changeset]="changeset$ | async"
             [partyID]="partyID$ | async"

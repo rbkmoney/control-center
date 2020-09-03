@@ -48,9 +48,6 @@ export class UnsavedClaimChangesetComponent implements OnInit {
     questionaryMenuConfig: MenuConfigItem[] = [
         { action: MenuConfigAction.removeUnsavedItem, label: 'Remove' },
     ];
-    statusMenuConfig: MenuConfigItem[] = [
-        { action: MenuConfigAction.removeUnsavedItem, label: 'Remove' },
-    ];
 
     constructor(private unsavedClaimChangesetService: UnsavedClaimChangesetService) {}
 

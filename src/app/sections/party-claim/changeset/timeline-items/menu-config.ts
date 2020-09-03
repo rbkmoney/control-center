@@ -7,5 +7,5 @@ export enum MenuConfigAction {
 
 export interface MenuConfigItem {
     action: MenuConfigAction;
-    label?: string;
+    label: string;
 }
