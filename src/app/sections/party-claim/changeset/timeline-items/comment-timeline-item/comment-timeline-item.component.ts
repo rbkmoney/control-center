@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
-import { MenuConfigItem } from '../menu-config';
 import { TimelimeItem } from '../timelime-item';
 import { CommentTimelineItemService } from './comment-timeline-item.service';
 
