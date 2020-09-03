@@ -6,7 +6,7 @@ import { MenuConfigItem } from './menu-config';
     template: '',
     selector: 'cc-timeline-item',
 })
-export class TimelimeItem {
+export class TimelimeItemComponent {
     @Input()
     menuConfig: MenuConfigItem[];
 

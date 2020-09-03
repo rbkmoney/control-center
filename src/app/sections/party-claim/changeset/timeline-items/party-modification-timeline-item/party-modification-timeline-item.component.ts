@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
-import { TimelimeItem } from '../timelime-item';
+import { TimelimeItemComponent } from '../timelime-item.component';
 
 @Component({
     selector: 'cc-party-modification-timeline-item',
     templateUrl: 'party-modification-timeline-item.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PartyModificationTimelineItemComponent extends TimelimeItem {
+export class PartyModificationTimelineItemComponent extends TimelimeItemComponent {
     @Input()
     expanded = false;
 

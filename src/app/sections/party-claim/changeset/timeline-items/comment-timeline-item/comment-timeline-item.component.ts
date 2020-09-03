@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ChangesetInfo } from '../../changeset-infos';
-import { TimelimeItem } from '../timelime-item';
+import { TimelimeItemComponent } from '../timelime-item.component';
 import { CommentTimelineItemService } from './comment-timeline-item.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { CommentTimelineItemService } from './comment-timeline-item.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CommentTimelineItemService],
 })
-export class CommentTimelineItemComponent extends TimelimeItem implements OnInit {
+export class CommentTimelineItemComponent extends TimelimeItemComponent implements OnInit {
     @Input()
     changesetInfo: ChangesetInfo;
 

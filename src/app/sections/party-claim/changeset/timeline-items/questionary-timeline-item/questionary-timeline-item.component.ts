@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo } from '../../changeset-infos';
-import { TimelimeItem } from '../timelime-item';
+import { TimelimeItemComponent } from '../timelime-item.component';
 import { QuestionaryTimelineItemService } from './questionary-timeline-item.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { QuestionaryTimelineItemService } from './questionary-timeline-item.serv
     templateUrl: 'questionary-timeline-item.component.html',
     providers: [QuestionaryTimelineItemService],
 })
-export class QuestionaryTimelineItemComponent extends TimelimeItem implements OnInit {
+export class QuestionaryTimelineItemComponent extends TimelimeItemComponent implements OnInit {
     @Input()
     changesetInfo: ChangesetInfo;
 
