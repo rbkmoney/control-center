@@ -1,6 +1,6 @@
 <mat-card fxLayout="column" fxLayoutGap="24px">
     <mat-card-content fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center">
-        <cc-send-comment fxFlex="100"></cc-send-comment>
+        <cc-send-comment fxFlex="100" [partyID]="partyID" [claimID]="claimID"></cc-send-comment>
         <cc-file-uploader></cc-file-uploader>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">

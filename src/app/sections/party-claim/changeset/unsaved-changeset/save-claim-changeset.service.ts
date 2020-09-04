@@ -24,6 +24,7 @@ export class SaveClaimChangesetService {
                     if (e) {
                         observer.error('error');
                     }
+                    observer.next();
                     observer.complete();
                 });
         });
@@ -41,6 +42,7 @@ export class SaveClaimChangesetService {
                     if (e) {
                         observer.error('error');
                     }
+                    observer.next();
                     observer.complete();
                 });
         });
