@@ -1,0 +1,34 @@
+<cc-timeline-item>
+    <cc-timeline-item-title>
+        <cc-timeline-item-header
+            [createdAt]="changesetInfo.createdAt"
+            [text]="changesetInfo.modificationType | ccFileHeader"
+            [username]="changesetInfo.userInfo.username"
+            [removed]="changesetInfo.removed"
+        ></cc-timeline-item-header>
+        <div *ngIf="menuConfig.length > 0">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let item of menuConfig" (click)="action(item)">
+                    {{ item.label }}
+                </button>
+            </mat-menu>
+        </div>
+    </cc-timeline-item-title>
+
+    <cc-timeline-item-badge
+        [color]="changesetInfo.removed ? (changesetInfo.modificationType | ccFileBadgeColor) : null"
+    >
+        <mat-icon>{{ changesetInfo.modificationType | ccFileActionIcon }}</mat-icon>
+    </cc-timeline-item-badge>
+    <cc-timeline-item-content fxLayout="column" fxLayoutGap="24px">
+        <cc-file-content
+            *ngIf="fileData$ | async as fileData"
+            [fileData]="fileData"
+        ></cc-file-content>
+        <cc-timeline-item-error [text]="error$ | async"></cc-timeline-item-error>
+        <cc-timeline-item-loading *ngIf="isLoading$ | async"></cc-timeline-item-loading>
+    </cc-timeline-item-content>
+</cc-timeline-item>

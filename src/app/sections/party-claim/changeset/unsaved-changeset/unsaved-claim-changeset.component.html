@@ -1,0 +1,45 @@
+<div fxLayout="column" fxLayoutGap="24px" *ngIf="(unsavedChangesetInfos$ | async)?.length > 0">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3 class="cc-title">Unsaved changes</h3>
+        <button mat-raised-button (click)="save()" color="primary">SAVE CHANGES</button>
+    </div>
+    <cc-timeline>
+        <ng-container
+            *ngFor="
+                let info of unsavedChangesetInfos$ | async;
+                let i = index;
+                trackBy: simpleTrackBy
+            "
+        >
+            <cc-file-timeline-item
+                *ngIf="info.type === changesetInfoTypes.fileModification"
+                [changesetInfo]="info"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="fileMenuConfig"
+            ></cc-file-timeline-item>
+            <cc-comment-timeline-item
+                *ngIf="info.type === changesetInfoTypes.commentModification"
+                [changesetInfo]="info"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="commentMenuConfig"
+            ></cc-comment-timeline-item>
+            <cc-party-modification-timeline-item
+                *ngIf="info.type === changesetInfoTypes.partyModification"
+                [changesetInfo]="info"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="partyModMenuConfig"
+            ></cc-party-modification-timeline-item>
+            <cc-questionary-timeline-item
+                *ngIf="info.type === changesetInfoTypes.documentModification"
+                [changesetInfo]="info"
+                [partyID]="partyID"
+                (menuItemSelected)="menuItemSelected($event, i)"
+                [menuConfig]="questionaryMenuConfig"
+            ></cc-questionary-timeline-item>
+            <cc-status-timeline-item
+                *ngIf="info.type === changesetInfoTypes.statusModification"
+                [changesetInfo]="info"
+            ></cc-status-timeline-item>
+        </ng-container>
+    </cc-timeline>
+</div>
