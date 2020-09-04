@@ -9,17 +9,15 @@ import * as uuid from 'uuid/v4';
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
 import { SHARE_REPLAY_CONF } from '../../../../shared/share-replay-conf';
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ConversationId, User } from '../../../../thrift-services/messages/gen-model/messages';
 import { MessagesService } from '../../../../thrift-services/messages/messages.service';
 import { createSingleMessageConversationParams } from '../../../../thrift-services/messages/utils';
-import { SaveClaimChangesetService } from '../../changeset/unsaved-changeset/save-claim-changeset.service';
-import { FetchClaimService } from '../../fetch-claim.service';
+import { UnsavedClaimChangesetService } from '../../changeset/unsaved-changeset/unsaved-claim-changeset.service';
 
 @Injectable()
 export class SendCommentService {
     private hasError$: Subject<any> = new Subject();
-    private sendComment$: Subject<{ partyID: PartyID; claimID: string }> = new Subject();
+    private sendComment$: Subject<null> = new Subject();
 
     form = this.fb.group({
         comment: ['', [Validators.maxLength(1000), Validators.required]],
@@ -27,14 +25,13 @@ export class SendCommentService {
 
     comment$ = this.sendComment$.pipe(
         tap(() => this.hasError$.next()),
-        switchMap(({ partyID, claimID }) => {
+        switchMap(() => {
             const text = this.form.value.comment;
             const { name, email, sub } = this.keycloakTokenInfoService.decodedUserToken;
             const user: User = { fullname: name, email, user_id: sub };
             const conversation_id = uuid();
             const conversation = createSingleMessageConversationParams(conversation_id, text, sub);
             return forkJoin([
-                of({ partyID, claimID }),
                 of(conversation_id),
                 this.messagesService.saveConversations([conversation], user).pipe(
                     catchError((e) => {
@@ -43,23 +40,17 @@ export class SendCommentService {
                             duration: 5000,
                         });
                         this.hasError$.next(e);
-                        return of(e);
+                        return of('error');
                     })
                 ),
             ]);
         }),
-        switchMap(([{ partyID, claimID }, conversationID]) =>
-            forkJoin([
-                of({ partyID, claimID }),
-                this.saveClaimChangesetService.instantSave(
-                    partyID,
-                    claimID,
-                    this.createModification(conversationID)
-                ),
-            ])
+        tap(([conversationID, _]) =>
+            this.unsavedClaimChangesetService.addModification(
+                this.createModification(conversationID)
+            )
         ),
         filter(([{ partyID, claimID }, result]) => result !== 'error'),
-        switchMap(([{ partyID, claimID }]) => this.fetchClaimService.getClaim(partyID, claimID)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -70,8 +61,7 @@ export class SendCommentService {
         private messagesService: MessagesService,
         private keycloakTokenInfoService: KeycloakTokenInfoService,
         private snackBar: MatSnackBar,
-        private saveClaimChangesetService: SaveClaimChangesetService,
-        private fetchClaimService: FetchClaimService
+        private unsavedClaimChangesetService: UnsavedClaimChangesetService
     ) {
         this.inProgress$.subscribe((inProgress) => {
             if (inProgress) {
@@ -86,8 +76,8 @@ export class SendCommentService {
         });
     }
 
-    sendComment(partyID: PartyID, claimID: string) {
-        this.sendComment$.next({ partyID, claimID });
+    sendComment() {
+        this.sendComment$.next();
     }
 
     private createModification(id: ConversationId): Modification {

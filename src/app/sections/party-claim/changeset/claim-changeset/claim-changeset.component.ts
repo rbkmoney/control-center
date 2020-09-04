@@ -47,7 +47,7 @@ export class ClaimChangesetComponent {
     menuItemSelected($event: MenuConfigItem, i: number) {
         switch ($event.action) {
             default:
-                console.warn('');
+                console.warn('Unsupported method', $event);
         }
     }
 }

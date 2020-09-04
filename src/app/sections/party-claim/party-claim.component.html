@@ -22,9 +22,6 @@
             [claimID]="claimID$ | async"
             (changesetUpdated)="changesetUpdated()"
         ></cc-unsaved-claim-changeset>
-        <cc-party-claim-actions
-            [partyID]="partyID$ | async"
-            [claimID]="claimID$ | async"
-        ></cc-party-claim-actions>
+        <cc-party-claim-actions></cc-party-claim-actions>
     </div>
 </div>
