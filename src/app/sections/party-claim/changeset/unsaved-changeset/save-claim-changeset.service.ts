@@ -35,7 +35,6 @@ export class SaveClaimChangesetService {
 
     private handleError(e: any) {
         this.snackBar.open('An error occurred while saving new modification', 'OK');
-        console.error(e);
         return of('error');
     }
 }
