@@ -3,6 +3,7 @@
 @import '../../sections/party-claim/party-claim-theme';
 @import '../../sections/party/party-theme';
 @import '../../sections/party-claim/send-comment/send-comment-theme';
+@import '../../sections/payment-routing-rules/payment-routing-rules-theme';
 @import '../../shared/components/status/status-theme';
 
 @mixin cc-theme($theme) {
@@ -11,6 +12,7 @@
         @include cc-party-claim-theme($theme);
         @include cc-party-theme($theme);
         @include cc-send-comment-theme($theme);
+        @include cc-payment-routing-rules-theme($theme);
         @include cc-status-theme($theme);
     }
 }

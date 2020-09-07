@@ -1,0 +1,129 @@
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="32px">
+    <div class="cc-headline">Shop payment routing rule params</div>
+
+    <div fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <mat-form-field>
+                <input
+                    matInput
+                    placeholder="Description (optional)"
+                    formControlName="description"
+                />
+            </mat-form-field>
+            <mat-form-field>
+                <input
+                    matInput
+                    placeholder="Weight (optional)"
+                    formControlName="weight"
+                    type="number"
+                />
+            </mat-form-field>
+            <mat-form-field>
+                <input
+                    matInput
+                    placeholder="Priority"
+                    formControlName="priority"
+                    type="number"
+                    required
+                />
+            </mat-form-field>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="cc-title">Predicate</div>
+        <cc-predicate
+            (validationChange)="predicateValid = $event"
+            (predicateChange)="predicate = $event"
+        ></cc-predicate>
+
+        <mat-divider></mat-divider>
+
+        <div class="cc-title">Terminal</div>
+        <div fxLayout="column" fxLayoutGap="16px">
+            <mat-radio-group formControlName="terminalType" fxLayout fxLayoutGap="8px">
+                <mat-radio-button [value]="terminalType.new" fxFlex>Create new</mat-radio-button>
+                <mat-radio-button [value]="terminalType.existent" fxFlex>
+                    Select existent
+                </mat-radio-button>
+            </mat-radio-group>
+            <div
+                *ngIf="form.value.terminalType === terminalType.new"
+                formGroupName="newTerminal"
+                fxLayout="column"
+                fxLayoutGap="24px"
+            >
+                <div fxLayout="column" fxLayoutGap="16px">
+                    <mat-form-field>
+                        <input matInput placeholder="Name" formControlName="name" required />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input
+                            matInput
+                            placeholder="Description"
+                            formControlName="description"
+                            required
+                        />
+                    </mat-form-field>
+                    <div class="cc-body-1">Risk coverage:</div>
+                    <mat-radio-group formControlName="riskCoverage" fxLayout fxLayoutGap="8px">
+                        <mat-radio-button [value]="riskScore.low" fxFlex>Low</mat-radio-button>
+                        <mat-radio-button [value]="riskScore.high" fxFlex>High</mat-radio-button>
+                        <mat-radio-button [value]="riskScore.fatal" fxFlex>Fatal</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div fxLayout="column" fxLayoutGap="8px" formArrayName="options">
+                    <div class="cc-body-1">Options:</div>
+                    <div
+                        *ngFor="let optionForm of newTerminalOptionsForm.controls; let idx = index"
+                        [formGroup]="optionForm"
+                        fxLayout
+                        fxLayoutGap="24px"
+                        fxLayoutAlign=" center"
+                    >
+                        <div fxFlex fxLayout>
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Key" formControlName="key" required />
+                            </mat-form-field>
+                            <mat-form-field fxFlex>
+                                <input
+                                    matInput
+                                    placeholder="Value"
+                                    formControlName="value"
+                                    required
+                                />
+                            </mat-form-field>
+                        </div>
+                        <mat-icon (click)="removeOption(idx)" class="action">clear</mat-icon>
+                    </div>
+                    <mat-icon fxFlexAlign="end" (click)="addOption()" class="action">add</mat-icon>
+                </div>
+            </div>
+            <div *ngIf="form.value.terminalType === terminalType.existent" fxLayout>
+                <mat-form-field fxFlex>
+                    <mat-label>Terminal</mat-label>
+                    <mat-select formControlName="existentTerminalID" required>
+                        <mat-option
+                            *ngFor="let terminal of terminals$ | async"
+                            [value]="terminal.ref.id"
+                        >
+                            {{ terminal.data.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div fxLayout fxLayoutAlign="space-between">
+        <button mat-button (click)="cancel()">CANCEL</button>
+        <button
+            mat-button
+            color="primary"
+            (click)="add()"
+            [disabled]="form.invalid || !predicateValid"
+        >
+            ADD
+        </button>
+    </div>
+</form>

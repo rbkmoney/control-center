@@ -12,7 +12,9 @@
         "emitDecoratorMetadata": true,
         "importHelpers": true,
         "target": "es2015",
-        "lib": ["esnext", "dom"]
+        "lib": ["esnext", "dom"],
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true
     },
     "angularCompilerOptions": {
         "fullTemplateTypeCheck": true,

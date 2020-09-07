@@ -1,0 +1,185 @@
+<div fxLayout="column" fxLayoutGap="24px" [formGroup]="form">
+    <mat-radio-group formControlName="type" fxLayout="column" fxLayoutGap="16px">
+        <mat-radio-button [value]="predicateType.condition">Condition</mat-radio-button>
+        <div fxLayout>
+            <mat-radio-button [value]="predicateType.constant" fxFlex>Constant</mat-radio-button>
+            <mat-radio-button [value]="predicateType.allOf" fxFlex>All of</mat-radio-button>
+        </div>
+        <div fxLayout>
+            <mat-radio-button [value]="predicateType.anyOf" fxFlex>Any of</mat-radio-button>
+            <mat-radio-button [value]="predicateType.isNot" fxFlex>Is not</mat-radio-button>
+        </div>
+    </mat-radio-group>
+
+    <div
+        *ngIf="
+            [predicateType.anyOf, predicateType.allOf, predicateType.isNot].includes(
+                form.value.type
+            ) && childrenForm?.controls?.length
+        "
+        fxLayout
+        fxLayoutGap="24px"
+    >
+        <mat-divider vertical></mat-divider>
+        <div fxLayout="column" fxLayoutGap="24px" fxFlex>
+            <cc-expander
+                *ngIf="form.value.type === predicateType.isNot; else allNAnyOf"
+                title="Is not predicate"
+                (remove)="removeAll()"
+            >
+                <cc-predicate [form]="childrenForm.controls[0]"></cc-predicate>
+            </cc-expander>
+            <ng-template #allNAnyOf>
+                <cc-expander
+                    *ngFor="let childForm of childrenForm.controls; let idx = index"
+                    [title]="
+                        (form.value.type === predicateType.anyOf ? 'Any' : 'All') +
+                        ' of predicate #' +
+                        (idx + 1)
+                    "
+                    (remove)="removeChild(idx)"
+                >
+                    <cc-predicate [form]="childForm"></cc-predicate>
+                </cc-expander>
+                <mat-icon class="action" fxFlexAlign="end" (click)="addChild()">add</mat-icon>
+            </ng-template>
+        </div>
+    </div>
+
+    <ng-container *ngIf="form.value.type === predicateType.constant">
+        <div class="cc-subheading-2">Constant</div>
+        <mat-radio-group formControlName="constant" fxLayout>
+            <mat-radio-button [value]="true" fxFlex>True</mat-radio-button>
+            <mat-radio-button [value]="false" fxFlex>False</mat-radio-button>
+        </mat-radio-group>
+    </ng-container>
+
+    <ng-container *ngIf="form.value.type === predicateType.condition" formGroupName="condition">
+        <div class="cc-subheading-2">Condition</div>
+        <mat-radio-group formControlName="type" fxLayout="column" fxLayoutGap="16px">
+            <mat-radio-button [value]="conditionType.paymentTool">Payment tool</mat-radio-button>
+        </mat-radio-group>
+        <ng-container
+            formGroupName="paymentTool"
+            *ngIf="form.value.condition.type === conditionType.paymentTool"
+        >
+            <div class="cc-subheading-2">Payment tool condition</div>
+            <mat-radio-group formControlName="type" fxLayout="column" fxLayoutGap="16px">
+                <mat-radio-button [value]="paymentToolType.bankCard">Bank Card</mat-radio-button>
+            </mat-radio-group>
+            <ng-container
+                formGroupName="bankCard"
+                *ngIf="form.value.condition.paymentTool.type === paymentToolType.bankCard"
+            >
+                <div class="cc-subheading-2">Bank card condition</div>
+                <mat-radio-group formControlName="type" fxLayout="column" fxLayoutGap="16px">
+                    <div fxLayout>
+                        <mat-radio-button [value]="bankCardType.issuerCountryIs" fxFlex
+                            >Issuer country is</mat-radio-button
+                        >
+                        <mat-radio-button [value]="bankCardType.paymentSystem" fxFlex
+                            >Payment system</mat-radio-button
+                        >
+                    </div>
+                    <mat-radio-button [value]="bankCardType.paymentSystemIs"
+                        >Payment system is (depricated)</mat-radio-button
+                    >
+                </mat-radio-group>
+                <div fxLayout="column">
+                    <mat-form-field
+                        *ngIf="
+                            form.value.condition.paymentTool.bankCard.type ===
+                            bankCardType.issuerCountryIs
+                        "
+                    >
+                        <input
+                            matInput
+                            placeholder="Residence"
+                            formControlName="residence"
+                            [matAutocomplete]="residenceAuto"
+                            required
+                        />
+                        <mat-autocomplete autoActiveFirstOption #residenceAuto="matAutocomplete">
+                            <mat-option *ngFor="let option of residences$ | async" [value]="option">
+                                {{ option }}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-hint>ISO_3166-1 Alpha-3 Code</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field
+                        *ngIf="
+                            form.value.condition.paymentTool.bankCard.type ===
+                                bankCardType.paymentSystem ||
+                            form.value.condition.paymentTool.bankCard.type ===
+                                bankCardType.paymentSystemIs
+                        "
+                    >
+                        <input
+                            matInput
+                            placeholder="Payment system"
+                            formControlName="paymentSystem"
+                            [matAutocomplete]="paymentSystemAuto"
+                            required
+                        />
+                        <mat-autocomplete
+                            autoActiveFirstOption
+                            #paymentSystemAuto="matAutocomplete"
+                        >
+                            <mat-option
+                                *ngFor="let option of paymentSystems$ | async"
+                                [value]="option"
+                            >
+                                {{ option }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <ng-container
+                        *ngIf="
+                            form.value.condition.paymentTool.bankCard.type ===
+                            bankCardType.paymentSystem
+                        "
+                    >
+                        <mat-form-field>
+                            <input
+                                matInput
+                                placeholder="Token provider"
+                                formControlName="tokenProvider"
+                                [matAutocomplete]="tokenProviderAuto"
+                            />
+                            <mat-autocomplete
+                                autoActiveFirstOption
+                                #tokenProviderAuto="matAutocomplete"
+                            >
+                                <mat-option
+                                    *ngFor="let option of tokenProviders$ | async"
+                                    [value]="option"
+                                >
+                                    {{ option }}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input
+                                matInput
+                                placeholder="Tokenization method"
+                                formControlName="tokenizationMethod"
+                                [matAutocomplete]="tokenizationMethodAuto"
+                            />
+                            <mat-autocomplete
+                                autoActiveFirstOption
+                                #tokenizationMethodAuto="matAutocomplete"
+                            >
+                                <mat-option
+                                    *ngFor="let option of tokenizationMethods$ | async"
+                                    [value]="option"
+                                >
+                                    {{ option }}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</div>

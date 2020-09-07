@@ -8,6 +8,9 @@ export const SupportedNamespaces = {
     domain_config: DomainConfigTypes,
 };
 
+/**
+ * @deprecated use create-thrift-instance
+ */
 export function getThriftInstance(namespace: string, name: string): any {
     try {
         return new SupportedNamespaces[namespace][name]();

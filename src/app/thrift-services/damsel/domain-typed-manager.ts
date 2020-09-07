@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { toGenReference } from '../converters';
 import { DomainCacheService } from './domain-cache.service';
@@ -109,6 +109,7 @@ export class DomainTypedManager {
     createTerminal(params: CreateTerminalParams): Observable<number> {
         let newTerminalID = null;
         return combineLatest([this.getLastVersion(), this.getTerminalObjects()]).pipe(
+            take(1),
             switchMap(([version, terminalObjects]) => {
                 const { commit, id } = getCreateTerminalCommit(terminalObjects, params);
                 newTerminalID = id;
