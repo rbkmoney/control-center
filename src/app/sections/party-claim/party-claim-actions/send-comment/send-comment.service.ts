@@ -50,7 +50,7 @@ export class SendCommentService {
                 this.createModification(conversationID)
             )
         ),
-        filter(([{ partyID, claimID }, result]) => result !== 'error'),
+        filter(([_, result]) => result !== 'error'),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
