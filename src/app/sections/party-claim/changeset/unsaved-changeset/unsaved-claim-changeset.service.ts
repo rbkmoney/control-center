@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
-import { first, map, shareReplay, switchMap } from 'rxjs/operators';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { catchError, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
 import { SHARE_REPLAY_CONF } from '../../../../shared/share-replay-conf';
@@ -21,6 +22,7 @@ export class UnsavedClaimChangesetService {
     private remove$: Subject<PartyModificationPosition> = new Subject();
     private edit$: Subject<PartyModificationPosition> = new Subject();
     private unsaved$ = new BehaviorSubject<Modification[]>([]);
+    private hasError$ = new Subject();
 
     changesetUpdated$ = new Subject<void>();
 
@@ -40,6 +42,8 @@ export class UnsavedClaimChangesetService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    inProgress$ = progress(this.save$, merge(this.changesetUpdated$, this.hasError$));
+
     constructor(
         private keycloakTokenInfoService: KeycloakTokenInfoService,
         private saveClaimChangesetService: SaveClaimChangesetService,
@@ -56,8 +60,16 @@ export class UnsavedClaimChangesetService {
 
         this.save$
             .pipe(
+                tap(() => this.hasError$.next()),
                 switchMap(({ partyID, claimID }) =>
-                    this.saveClaimChangesetService.save(partyID, claimID, this.unsaved$.getValue())
+                    this.saveClaimChangesetService
+                        .save(partyID, claimID, this.unsaved$.getValue())
+                        .pipe(
+                            catchError(() => {
+                                this.hasError$.next(true);
+                                return of();
+                            })
+                        )
                 )
             )
             .subscribe(() => {

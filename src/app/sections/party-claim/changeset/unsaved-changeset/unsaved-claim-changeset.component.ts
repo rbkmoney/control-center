@@ -31,6 +31,8 @@ export class UnsavedClaimChangesetComponent implements OnInit {
     @Output()
     changesetUpdated = new EventEmitter();
 
+    inProgress$ = this.unsavedClaimChangesetService.inProgress$;
+
     unsavedChangesetInfos$ = this.unsavedClaimChangesetService.unsavedChangesetInfos$;
 
     changesetInfoTypes = ChangesetInfoType;
