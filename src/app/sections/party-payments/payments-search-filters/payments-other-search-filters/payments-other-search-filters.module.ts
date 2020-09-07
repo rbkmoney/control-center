@@ -10,10 +10,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 
-import { OtherFiltersDialogComponent, OtherFiltersDialogModule } from './other-filters-dialog';
-import { PaymentsMainSearchFiltersComponent } from './payments-main-search-filters.component';
+import { ExpandableRadioGroupModule } from '../../../../shared/components/expandable-radio-group';
+import { OtherFiltersDialogModule } from './other-filters-dialog';
+import { PaymentsOtherSearchFiltersComponent } from './payments-other-search-filters.component';
+import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
 
 @NgModule({
     imports: [
@@ -28,11 +29,11 @@ import { PaymentsMainSearchFiltersComponent } from './payments-main-search-filte
         MatDialogModule,
         MatDividerModule,
         FlexLayoutModule,
+        ExpandableRadioGroupModule,
         OtherFiltersDialogModule,
-        MatSelectModule,
     ],
-    declarations: [PaymentsMainSearchFiltersComponent],
-    exports: [PaymentsMainSearchFiltersComponent],
-    entryComponents: [OtherFiltersDialogComponent],
+    declarations: [PaymentsOtherSearchFiltersComponent],
+    exports: [PaymentsOtherSearchFiltersComponent],
+    providers: [PaymentsOtherSearchFiltersService],
 })
-export class PaymentsMainSearchFiltersModule {}
+export class PaymentsOtherSearchFiltersModule {}

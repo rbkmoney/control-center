@@ -5,15 +5,18 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
+import { booleanDelay } from '../../custom-operators';
 import { QueryDSL } from '../../query-dsl';
 import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
-import { PaymentsSearchParams } from './payments-search-params';
+import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
 
 const SEARCH_LIMIT = 10;
 
 @Injectable()
-export class PartyPaymentsService extends PartialFetcher<StatPayment, PaymentsSearchParams> {
+export class FetchPaymentsService extends PartialFetcher<StatPayment, SearchFiltersParams> {
+    isLoading$ = this.doAction$.pipe(booleanDelay(), shareReplay(1));
+
     private partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
 
     constructor(
@@ -24,7 +27,7 @@ export class PartyPaymentsService extends PartialFetcher<StatPayment, PaymentsSe
     }
 
     protected fetch(
-        params: PaymentsSearchParams,
+        params: SearchFiltersParams,
         continuationToken: string
     ): Observable<FetchResult<StatPayment>> {
         const {
@@ -46,7 +49,6 @@ export class PartyPaymentsService extends PartialFetcher<StatPayment, PaymentsSe
             toRevision,
             paymentStatus,
         } = params;
-        console.log(shopIDs)
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.merchantStatisticsService

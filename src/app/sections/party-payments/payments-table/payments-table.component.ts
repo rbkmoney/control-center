@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { pluck, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../../party/party.service';
 import {
@@ -22,21 +22,20 @@ export class PaymentsTableComponent {
     payments: StatPayment[];
 
     @Output()
-    goToPaymentDetails = new EventEmitter<{invoiceID: string; paymentID: string}>();
+    goToPaymentDetails = new EventEmitter<{ invoiceID: string; paymentID: string }>();
 
     displayedColumns: string[] = ['amount', 'status', 'createdAt', 'shop', 'actions'];
 
-    constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        private partyService: PartyService
-    ) {}
+    constructor(private route: ActivatedRoute, private partyService: PartyService) {}
 
     navigateToPayment(invoiceID: InvoiceID, paymentID: InvoicePaymentID) {
         this.goToPaymentDetails.emit({ invoiceID, paymentID });
     }
 
     getShop(id: string): Observable<Shop> {
-        return this.route.params.pipe(pluck('partyID'), switchMap((partyID) => this.partyService.getShop(partyID, id)));
+        return this.route.params.pipe(
+            pluck('partyID'),
+            switchMap((partyID) => this.partyService.getShop(partyID, id))
+        );
     }
 }

@@ -1,6 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-
 import { getCurrencySymbol } from '@angular/common';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'ccCurrency',

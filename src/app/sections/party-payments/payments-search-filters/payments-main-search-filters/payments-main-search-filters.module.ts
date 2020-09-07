@@ -10,10 +10,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
-import { ExpandableRadioGroupModule } from '../../../../shared/components/expandable-radio-group';
-import { OtherFiltersDialogComponent } from './other-filters-dialog.component';
-import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
+import { PaymentsMainSearchFiltersComponent } from './payments-main-search-filters.component';
 
 @NgModule({
     imports: [
@@ -28,10 +27,9 @@ import { PaymentsOtherSearchFiltersService } from './payments-other-search-filte
         MatDialogModule,
         MatDividerModule,
         FlexLayoutModule,
-        ExpandableRadioGroupModule,
+        MatSelectModule,
     ],
-    declarations: [OtherFiltersDialogComponent],
-    exports: [OtherFiltersDialogComponent],
-    providers: [PaymentsOtherSearchFiltersService]
+    declarations: [PaymentsMainSearchFiltersComponent],
+    exports: [PaymentsMainSearchFiltersComponent],
 })
-export class OtherFiltersDialogModule {}
+export class PaymentsMainSearchFiltersModule {}
