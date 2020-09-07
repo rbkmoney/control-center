@@ -1,6 +1,6 @@
-<form [formGroup]="form">
-    <div fxLayout fxLayoutGap="16px">
-        <mat-form-field>
+<form fxLayout="column" fxLayoutGap="16px" [formGroup]="form">
+    <div fxLayout fxLayoutGap="16px" fxFlexFill>
+        <mat-form-field fxFlex>
             <mat-label>Date Range</mat-label>
             <mat-date-range-input [rangePicker]="picker">
                 <input matStartDate matInput formControlName="fromTime" placeholder="Start Date" />
@@ -28,19 +28,8 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <div fxLayoutAlign="center center" fxFlex>
-            <button
-                mat-button
-                [matBadge]="count$ | async"
-                matBadgePosition="after"
-                matBadgeColor="accent"
-                (click)="openOtherFiltersDialog()"
-            >
-                OTHER FILTERS
-            </button>
-        </div>
     </div>
-    <div fxLayout fxLayoutGap="16px">
+    <div fxLayout fxLayoutGap="16px" fxFlexFill>
         <mat-form-field fxFlex>
             <input
                 matInput
@@ -68,6 +57,5 @@
                 autocomplete="false"
             />
         </mat-form-field>
-        <div fxFlex></div>
     </div>
 </form>

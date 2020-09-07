@@ -1,7 +1,7 @@
-export interface PaymentsSearchParams {
-    partyID: string;
-    fromTime: string;
-    toTime: string;
+export interface SearchFiltersParams {
+    partyID?: string;
+    fromTime?: string;
+    toTime?: string;
     invoiceID?: string;
     shopID?: string;
     shopIDs?: string[];
@@ -14,7 +14,7 @@ export interface PaymentsSearchParams {
     tokenProvider?: string;
     bin?: string;
     pan?: string;
-    fromRevision: string;
-    toRevision: string;
+    fromRevision?: string;
+    toRevision?: string;
     paymentStatus?: string;
 }

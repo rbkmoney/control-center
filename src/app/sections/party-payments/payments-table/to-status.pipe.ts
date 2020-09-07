@@ -11,4 +11,4 @@ export class ToStatusPipe implements PipeTransform {
 
 export const getStatus = (status: object): string => {
     return Object.entries(status).filter((entry) => !!entry[1])[0][0];
-}
+};
