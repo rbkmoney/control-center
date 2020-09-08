@@ -42,6 +42,17 @@ import { PartyComponent } from './party.component';
                             roles: ['get_claims'],
                         },
                     },
+                    {
+                        path: 'payment-routing-rules',
+                        loadChildren: () =>
+                            import('../payment-routing-rules').then(
+                                (m) => m.PaymentRoutingRulesModule
+                            ),
+                        canActivate: [AppAuthGuardService],
+                        data: {
+                            roles: [],
+                        },
+                    },
                     { path: '', redirectTo: 'claims', pathMatch: 'full' },
                 ],
             },

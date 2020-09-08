@@ -1,0 +1,13 @@
+<div fxLayout="column" fxLayoutGap="8px">
+    <div fxLayout fxLayoutGap="8px" fxLayoutAlign="space-between center">
+        <div class="cc-headline title" fxLayout fxLayoutGap="8px" fxLayoutAlign=" center">
+            <mat-icon *ngIf="backTo" (click)="navigateBack()" class="back">arrow_back</mat-icon>
+            <div><ng-content></ng-content></div>
+        </div>
+        <button mat-button (click)="add.emit($event)">ADD RULE</button>
+    </div>
+    <div *ngIf="description" class="cc-subheading-2 cc-payment-routing-rules-caption">
+        {{ description }}
+    </div>
+    <div class="cc-caption cc-payment-routing-rules-caption">Ruleset ref ID: {{ refID }}</div>
+</div>

@@ -6,6 +6,7 @@ import { DomainTypedManager } from './domain-typed-manager';
 import { DomainService } from './domain.service';
 import { MerchantStatisticsService } from './merchant-statistics.service';
 import { PaymentProcessingService } from './payment-processing.service';
+import { PaymentRoutingRulesService } from './payment-routing-rules';
 
 @NgModule({
     providers: [
@@ -15,6 +16,7 @@ import { PaymentProcessingService } from './payment-processing.service';
         MerchantStatisticsService,
         DomainCacheService,
         ClaimManagementService,
+        PaymentRoutingRulesService,
     ],
 })
 export class DamselModule {}

@@ -12,6 +12,7 @@ export class PartyComponent {
     links = [
         { name: 'Claims', url: 'claims' },
         { name: 'Shops', url: 'shops' },
+        { name: 'Payment Routing Rules', url: 'payment-routing-rules' },
     ];
 
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));
