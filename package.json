@@ -2,7 +2,7 @@
   "name": "control-center",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve --proxy-config proxy.conf.json --port 7000 --prod",
+    "start": "ng serve --proxy-config proxy.conf.json --port 7000",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
