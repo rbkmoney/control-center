@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { combineLatest, of, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo } from '../../changeset-infos';
@@ -22,6 +24,8 @@ export class QuestionaryTimelineItemComponent extends TimelimeItemComponent impl
     error$ = this.questionaryTimelineItemService.error$;
     questionaryData$ = this.questionaryTimelineItemService.questionaryData$;
 
+    private extractPartyMod$ = new Subject<MenuConfigItem>();
+
     constructor(private questionaryTimelineItemService: QuestionaryTimelineItemService) {
         super();
     }
@@ -31,14 +35,19 @@ export class QuestionaryTimelineItemComponent extends TimelimeItemComponent impl
             this.changesetInfo.modification.claim_modification.document_modification.id,
             this.partyID
         );
+
+        this.extractPartyMod$
+            .pipe(switchMap((item) => combineLatest([of(item), this.questionaryData$])))
+            .subscribe(([item, questionary]) => {
+                this.menuItemSelected.emit({ ...item, data: questionary });
+            });
     }
 
     action(item: MenuConfigItem) {
         switch (item.action) {
             case MenuConfigAction.extractPartyModifications:
-                this.questionaryData$.subscribe((questionary) => {
-                    this.menuItemSelected.emit({ ...item, data: questionary });
-                });
+                this.extractPartyMod$.next(item);
+                break;
         }
     }
 }
