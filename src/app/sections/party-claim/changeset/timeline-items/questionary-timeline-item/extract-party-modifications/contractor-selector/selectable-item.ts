@@ -3,5 +3,6 @@ import { Contractor } from '../../../../../../../thrift-services/damsel/gen-mode
 export class SelectableItem {
     id: string;
     data: Contractor;
-    checked: boolean;
+    checked?: boolean;
+    unsaved?: boolean;
 }

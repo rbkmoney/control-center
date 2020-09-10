@@ -15,5 +15,6 @@
         @include cc-timeline-theme($theme);
         @include cc-details-item-theme($theme);
         @include cc-party-claim-theme($theme);
+        @include cc-extract-party-modifications-theme($theme);
     }
 }

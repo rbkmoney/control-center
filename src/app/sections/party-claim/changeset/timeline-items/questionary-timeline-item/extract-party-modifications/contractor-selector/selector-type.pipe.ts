@@ -11,7 +11,7 @@ export class SelectorTypePipe implements PipeTransform {
             case ActionType.attachNew:
                 return 'Attach new';
             case ActionType.attach:
-                return 'Select from party';
+                return 'Select from party or from unsaved';
             default:
                 return value;
         }

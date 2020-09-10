@@ -86,6 +86,27 @@ export class UnsavedClaimChangesetService {
             .subscribe((mods) => {
                 this.unsaved$.next(mods);
             });
+
+        this.addModification({
+            party_modification: {
+                contractor_modification: {
+                    id: 'af53796a-5cfa-4e0e-a113-f2a68c7807e4',
+                    modification: {
+                        creation: {
+                            legal_entity: {
+                                international_legal_entity: {
+                                    legal_name: 'выфвыфывф',
+                                    trading_name: 'выфвыфывф',
+                                    registered_address: 'выфвыф',
+                                    actual_address: 'вфывыфвфы',
+                                    registered_number: '',
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        });
     }
 
     save(partyID: PartyID, claimID: string) {
