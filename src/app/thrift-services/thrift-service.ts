@@ -1,6 +1,4 @@
 import { NgZone } from '@angular/core';
-import moment from 'moment';
-import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 import connectClient from 'woody_js';
 
@@ -69,8 +67,8 @@ export class ThriftService {
                 },
                 deadlineConfig: {
                     amount: 1,
-                    unitOfTime: 'm'
-                }
+                    unitOfTime: 'm',
+                },
             },
             errorCb
         );
