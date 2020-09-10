@@ -66,6 +66,10 @@ export class ThriftService {
                     'x-rbk-meta-user-identity.username': preferred_username,
                     'x-rbk-meta-user-identity.id': sub,
                 },
+                deadlineConfig: {
+                    amount: 1,
+                    unitOfTime: 'm',
+                },
             },
             errorCb
         );
