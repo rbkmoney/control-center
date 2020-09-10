@@ -11,6 +11,7 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { AnkModule } from '../../../../../thrift-services/ank';
 import { TimelineComponentsModule } from '../../timeline-components';
 import { CommentTimelineItemModule } from '../comment-timeline-item/comment-timeline-item.module';
+import { ExtractPartyModificationModule } from './extract-party-modifications/extract-party-modification.module';
 import { QuestionaryContentComponent } from './questionary-content/questionary-content.component';
 import { QuestionaryTimelineItemComponent } from './questionary-timeline-item.component';
 import { SerialNumberPipe } from './serial-number.pipe';
@@ -29,6 +30,7 @@ import { SerialNumberPipe } from './serial-number.pipe';
         MatExpansionModule,
         SharedModule,
         TimelineComponentsModule,
+        ExtractPartyModificationModule,
     ],
     exports: [QuestionaryTimelineItemComponent],
 })

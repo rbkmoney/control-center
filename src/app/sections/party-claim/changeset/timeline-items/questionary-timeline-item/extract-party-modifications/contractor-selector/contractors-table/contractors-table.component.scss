@@ -1,0 +1,20 @@
+table {
+    overflow: auto;
+}
+
+.mat-column-select,
+.mat-column-id {
+    padding-left: 8px;
+    padding-right: 16px;
+}
+
+.mat-column-data {
+    padding-left: 16px;
+    white-space: nowrap;
+}
+
+.table-container {
+    width: 100%;
+    max-width: 735px;
+    overflow: auto;
+}

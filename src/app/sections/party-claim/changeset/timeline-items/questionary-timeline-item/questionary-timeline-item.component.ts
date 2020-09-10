@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo } from '../../changeset-infos';
+import { MenuConfigAction, MenuConfigItem } from '../menu-config';
 import { TimelimeItemComponent } from '../timelime-item.component';
 import { QuestionaryTimelineItemService } from './questionary-timeline-item.service';
 
@@ -30,5 +31,14 @@ export class QuestionaryTimelineItemComponent extends TimelimeItemComponent impl
             this.changesetInfo.modification.claim_modification.document_modification.id,
             this.partyID
         );
+    }
+
+    action(item: MenuConfigItem) {
+        switch (item.action) {
+            case MenuConfigAction.extractPartyModifications:
+                this.questionaryData$.subscribe((questionary) => {
+                    this.menuItemSelected.emit({ ...item, data: questionary });
+                });
+        }
     }
 }
