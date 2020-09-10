@@ -1,4 +1,5 @@
 import { NgZone } from '@angular/core';
+import moment from 'moment';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 import connectClient from 'woody_js';
@@ -66,6 +67,10 @@ export class ThriftService {
                     'x-rbk-meta-user-identity.username': preferred_username,
                     'x-rbk-meta-user-identity.id': sub,
                 },
+                deadlineConfig: {
+                    amount: 1,
+                    unitOfTime: 'm'
+                }
             },
             errorCb
         );
