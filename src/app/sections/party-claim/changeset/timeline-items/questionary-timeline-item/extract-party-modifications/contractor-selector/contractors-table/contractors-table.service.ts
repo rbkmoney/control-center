@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../../../../../../../papi/party.service';
 import { PartyID } from '../../../../../../../../thrift-services/damsel/gen-model/domain';
@@ -30,7 +30,8 @@ export class ContractorsTableService {
                         this.snackBar.open('An error occurred when receiving contractors', 'OK');
                         this.hasError$.next();
                         return of('error');
-                    })
+                    }),
+                    filter((result) => result !== 'error')
                 ),
                 this.unsavedClaimChangesetService.unsavedChangesetInfos$.pipe(
                     map(changesetInfosToSelectableItems)

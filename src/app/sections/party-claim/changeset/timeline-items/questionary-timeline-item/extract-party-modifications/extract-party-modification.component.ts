@@ -12,7 +12,7 @@ export interface ExtractPartyModification {
 
 @Component({
     templateUrl: 'extract-party-modification.component.html',
-    providers: [ExtractPartyModificationsService],
+    providers: [ExtractPartyModificationsService]
 })
 export class ExtractPartyModificationComponent {
     form = this.extractPartyModificationsService.form;
