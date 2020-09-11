@@ -67,7 +67,7 @@ export class ThriftService {
                     'x-rbk-meta-user-identity.id': sub,
                 },
                 deadlineConfig: {
-                    amount: 1,
+                    amount: 3,
                     unitOfTime: 'm',
                 },
             },
