@@ -2,13 +2,19 @@
     <mat-form-field fxFlexFill class="mat-form-field-container">
         <mat-radio-group fxLayout="column" fxLayoutGap="16px" [formControl]="formControl">
             <input matInput [formControl]="control" />
-            <mat-radio-button>Any</mat-radio-button>
+            <mat-radio-button color="primary">Any</mat-radio-button>
             <ng-container *ngFor="let v of visibleValues; index as i">
                 <div *ngIf="!(i % 2)" fxLayout fxLayoutGap="16px">
-                    <mat-radio-button fxFlex [value]="v.value">{{ v.title }}</mat-radio-button>
-                    <mat-radio-button *ngIf="values[i + 1]" fxFlex [value]="values[i + 1].value">{{
-                        values[i + 1].title
+                    <mat-radio-button color="primary" fxFlex [value]="v.value">{{
+                        v.title
                     }}</mat-radio-button>
+                    <mat-radio-button
+                        color="primary"
+                        *ngIf="values[i + 1]"
+                        fxFlex
+                        [value]="values[i + 1].value"
+                        >{{ values[i + 1].title }}</mat-radio-button
+                    >
                 </div>
             </ng-container>
         </mat-radio-group>
