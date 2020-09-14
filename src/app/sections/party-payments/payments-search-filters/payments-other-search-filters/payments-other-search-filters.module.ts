@@ -14,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { ExpandableRadioGroupModule } from '../../../../shared/components/expandable-radio-group';
 import { OtherFiltersDialogModule } from './other-filters-dialog';
 import { PaymentsOtherSearchFiltersComponent } from './payments-other-search-filters.component';
-import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
 
 @NgModule({
     imports: [
@@ -30,10 +29,9 @@ import { PaymentsOtherSearchFiltersService } from './payments-other-search-filte
         MatDividerModule,
         FlexLayoutModule,
         ExpandableRadioGroupModule,
-        OtherFiltersDialogModule,
+        OtherFiltersDialogModule
     ],
     declarations: [PaymentsOtherSearchFiltersComponent],
-    exports: [PaymentsOtherSearchFiltersComponent],
-    providers: [PaymentsOtherSearchFiltersService],
+    exports: [PaymentsOtherSearchFiltersComponent]
 })
 export class PaymentsOtherSearchFiltersModule {}

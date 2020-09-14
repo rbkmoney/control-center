@@ -10,6 +10,7 @@ import {
     Shop,
 } from '../../../thrift-services/damsel/gen-model/domain';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
+import { NavigationParams } from '../navigation-params';
 
 @Component({
     selector: 'cc-payments-table',
@@ -22,7 +23,7 @@ export class PaymentsTableComponent {
     payments: StatPayment[];
 
     @Output()
-    goToPaymentDetails = new EventEmitter<{ invoiceID: string; paymentID: string }>();
+    goToPaymentDetails = new EventEmitter<NavigationParams>();
 
     displayedColumns: string[] = ['amount', 'status', 'createdAt', 'shop', 'actions'];
 

@@ -15,9 +15,9 @@ const SEARCH_LIMIT = 10;
 
 @Injectable()
 export class FetchPaymentsService extends PartialFetcher<StatPayment, SearchFiltersParams> {
-    isLoading$ = this.doAction$.pipe(booleanDelay(), shareReplay(1));
-
     private partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
+
+    isLoading$ = this.doAction$.pipe(booleanDelay(), shareReplay(1));
 
     constructor(
         private merchantStatisticsService: MerchantStatisticsService,
