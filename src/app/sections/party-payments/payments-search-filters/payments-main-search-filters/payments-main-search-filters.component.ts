@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import isEqual from 'lodash-es/isEqual';
 
 import { SearchFiltersParams } from '../search-filters-params';
 import { PaymentsMainSearchFiltersService } from './payments-main-search-filters.service';
@@ -26,7 +35,7 @@ export const MY_FORMATS = {
         { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     ],
 })
-export class PaymentsMainSearchFiltersComponent implements OnInit {
+export class PaymentsMainSearchFiltersComponent implements OnChanges {
     @Input()
     initParams: SearchFiltersParams;
 
@@ -40,11 +49,16 @@ export class PaymentsMainSearchFiltersComponent implements OnInit {
     form = this.paymentsMainSearchFiltersService.form;
 
     constructor(private paymentsMainSearchFiltersService: PaymentsMainSearchFiltersService) {
-        this.searchParamsChanges$.subscribe(params => this.valueChanges.emit(params));
+        this.searchParamsChanges$.subscribe((params) => this.valueChanges.emit(params));
     }
 
-    ngOnInit() {
-        this.form.patchValue(this.initParams);
-        this.paymentsMainSearchFiltersService.setInitParams(this.initParams);
+    ngOnChanges(changes: SimpleChanges) {
+        if (
+            changes.initParams &&
+            !isEqual(changes.initParams.currentValue, changes.initParams.previousValue)
+        ) {
+            this.form.patchValue(this.initParams);
+            this.paymentsMainSearchFiltersService.setInitParams(this.initParams);
+        }
     }
 }

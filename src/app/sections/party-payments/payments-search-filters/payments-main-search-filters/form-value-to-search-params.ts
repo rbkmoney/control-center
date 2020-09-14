@@ -1,6 +1,6 @@
+import { getShopIDs } from '../../../../shared/utils';
 import { SearchFiltersParams } from '../search-filters-params';
 import { FormValue } from './form-value';
-import { getShopIDs } from '../../../../shared/utils';
 
 export const formValueToSearchParams = (value: FormValue): SearchFiltersParams => {
     return {

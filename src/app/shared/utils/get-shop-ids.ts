@@ -3,4 +3,4 @@ export const getShopIDs = (shopIDs: string | string[]): string[] => {
         return !Array.isArray(shopIDs) ? [shopIDs] : shopIDs;
     }
     return null;
-} ;
+};
