@@ -43,7 +43,7 @@ export class ThriftService {
                         cb(e);
                     }
                 });
-            }).pipe(timeout(60000))) as any;
+            }).pipe(timeout(120000))) as any;
     }
 
     private createClient(errorCb: (cb: () => void) => void) {
@@ -55,14 +55,20 @@ export class ThriftService {
             this.service,
             {
                 headers: {
-                    'woody.meta-user-identity.email': email,
-                    'woody.meta-user-identity.realm': this.realm,
-                    'woody.meta-user-identity.username': preferred_username,
-                    'woody.meta-user-identity.id': sub,
+                    'woody.meta.user-identity.email': email,
+                    'woody.meta.user-identity.realm': this.realm,
+                    'woody.meta.user-identity.username': preferred_username,
+                    'woody.meta.user-identity.id': sub,
+
+                    // Deprecated
                     'x-rbk-meta-user-identity.email': email,
                     'x-rbk-meta-user-identity.realm': this.realm,
                     'x-rbk-meta-user-identity.username': preferred_username,
                     'x-rbk-meta-user-identity.id': sub,
+                },
+                deadlineConfig: {
+                    amount: 3,
+                    unitOfTime: 'm',
                 },
             },
             errorCb
