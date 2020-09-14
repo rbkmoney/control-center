@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map, pluck, shareReplay } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { pluck, shareReplay } from 'rxjs/operators';
 
 import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
 
@@ -10,18 +10,24 @@ import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
 })
 export class PartyComponent {
     links = [
-        { name: 'Payments', url: 'payments' },
-        { name: 'Claims', url: 'claims' },
+        { name: 'Payments', url: 'payments', otherActiveUrlFragments: ['payment', 'invoice'] },
+        { name: 'Claims', url: 'claims', otherActiveUrlFragments: ['claim'] },
         { name: 'Shops', url: 'shops' },
         { name: 'Payment Routing Rules', url: 'payment-routing-rules' },
     ];
 
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));
-    hasClaimID$ = this.route.firstChild.params.pipe(
-        pluck('claimID'),
-        map((claimID) => !!claimID),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
 
-    constructor(private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute, private router: Router) {}
+
+    hasActiveFragments(fragments: string[]): boolean {
+        if (fragments?.length) {
+            const ulrFragments = this.router.url.split('/');
+            return (
+                ulrFragments.filter((fragment) => fragments.includes(fragment)).length ===
+                fragments.length
+            );
+        }
+        return false;
+    }
 }
