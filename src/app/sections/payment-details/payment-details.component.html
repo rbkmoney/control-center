@@ -1,0 +1,34 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <cc-headline>Payment details</cc-headline>
+    <mat-card *ngIf="payment$ | async as payment">
+        <mat-card-content fxLayout="column" fxLayoutGap="16px">
+            <div fxLayout fxLayoutGap="16px">
+                <cc-details-item fxFlex title="Amount"
+                    >{{ payment.amount | ccThriftInt64 | ccFormatAmount }}
+                    {{ payment.currency_symbolic_code | ccCurrency }}</cc-details-item
+                >
+                <cc-details-item fxFlex title="Created At">{{
+                    payment.created_at | date: 'dd.MM.yyyy HH:mm:ss'
+                }}</cc-details-item>
+                <cc-details-item fxFlex title="Status"
+                    ><cc-status [color]="payment.status | toStatus | toColor">{{
+                        payment.status | toStatus | firstLetterToUppercase
+                    }}</cc-status></cc-details-item
+                >
+            </div>
+            <div fxLayout fxLayoutGap="16px">
+                <cc-details-item fxFlex title="Payer">{{ payment | toPayer }}</cc-details-item>
+                <cc-details-item fxFlex title="Payment Tool"
+                    ><cc-payment-tool [paymentTool]="payment | toPaymentTool"></cc-payment-tool
+                ></cc-details-item>
+                <cc-details-item fxFlex title="Invoice">#{{ payment.invoice_id }}</cc-details-item>
+            </div>
+            <cc-details-item *ngIf="shop$ | async as shop" fxFlex title="Shop"
+                >{{ shop.details.name }} ({{ shop.location.url }})</cc-details-item
+            >
+        </mat-card-content>
+    </mat-card>
+    <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
+        <mat-spinner diameter="64"></mat-spinner>
+    </div>
+</div>

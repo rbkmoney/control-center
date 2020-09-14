@@ -9,7 +9,7 @@
                 [routerLink]="link.url"
                 routerLinkActive
                 #rla="routerLinkActive"
-                [active]="rla.isActive || (hasClaimID$ | async)"
+                [active]="rla.isActive || hasActiveFragments(link.otherActiveUrlFragments)"
             >
                 {{ link.name }}
             </a>

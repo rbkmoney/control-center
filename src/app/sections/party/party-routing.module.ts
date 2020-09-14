@@ -52,6 +52,15 @@ import { PartyComponent } from './party.component';
                         },
                     },
                     {
+                        path: 'invoice/:invoiceID/payment/:paymentID',
+                        loadChildren: () =>
+                            import('../payment-details').then((m) => m.PaymentDetailsModule),
+                        canActivate: [AppAuthGuardService],
+                        data: {
+                            roles: ['get_claims'],
+                        },
+                    },
+                    {
                         path: 'payment-routing-rules',
                         loadChildren: () =>
                             import('../payment-routing-rules').then(
