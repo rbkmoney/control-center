@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { pluck } from 'rxjs/operators';
 
-import { InvoiceID, InvoicePaymentID } from '../../thrift-services/damsel/gen-model/domain';
 import { FetchPaymentsService } from './fetch-payments.service';
 import { PaymentsSearchFiltersStore } from './payments-search-filters-store.service';
 import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
+import { NavigationParams } from './navigation-params';
+import { PartyPaymentsService } from './party-payments.service';
 
 @Component({
     templateUrl: 'party-payments.component.html',
     styleUrls: ['party-payments.component.scss'],
-    providers: [FetchPaymentsService, PaymentsSearchFiltersStore],
+    providers: [FetchPaymentsService, PaymentsSearchFiltersStore, PartyPaymentsService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyPaymentsComponent implements OnInit {
@@ -26,8 +26,13 @@ export class PartyPaymentsComponent implements OnInit {
         private route: ActivatedRoute,
         private fetchPaymentsService: FetchPaymentsService,
         private paymentsSearchFiltersStore: PaymentsSearchFiltersStore,
+        private partyPaymentsService: PartyPaymentsService,
         private snackBar: MatSnackBar
-    ) {}
+    ) {
+        this.partyPaymentsService.paymentNavigationLink$.subscribe(link => {
+            this.router.navigate([link]);
+        });
+    }
 
     ngOnInit() {
         this.fetchPaymentsService.errors$.subscribe((e) =>
@@ -44,15 +49,8 @@ export class PartyPaymentsComponent implements OnInit {
         this.paymentsSearchFiltersStore.preserve(p);
     }
 
-    navigateToPayment({
-        invoiceID,
-        paymentID,
-    }: {
-        invoiceID: InvoiceID;
-        paymentID: InvoicePaymentID;
-    }) {
-        this.route.params.pipe(pluck('partyID')).subscribe((partyID) => {
-            this.router.navigate([`/party/${partyID}/invoice/${invoiceID}/payment/${paymentID}`]);
-        });
+    navigateToPayment(params: NavigationParams) {
+        this.partyPaymentsService.updatePaymentNavigationLink(params);
+
     }
 }

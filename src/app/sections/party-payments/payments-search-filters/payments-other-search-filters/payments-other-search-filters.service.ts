@@ -1,18 +1,18 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { clearParams } from '../clear-params';
 import { SearchFiltersParams } from '../search-filters-params';
 import { OtherFiltersDialogComponent } from './other-filters-dialog';
+import { paramsToSearchParams } from '../params-to-search-params';
+import { countActiveFilters } from './count-active-filters';
 
 @Injectable()
 export class PaymentsOtherSearchFiltersService {
-    searchParamsChanges$ = new EventEmitter<SearchFiltersParams>();
-
-    defaultParams = {
+    private defaultParams = {
         payerEmail: ['', [Validators.email]],
         terminalID: '',
         providerID: '',
@@ -23,37 +23,42 @@ export class PaymentsOtherSearchFiltersService {
         paymentAmountTo: '',
         paymentMethod: null,
         tokenProvider: null,
-        paymentSystem: null,
+        paymentSystem: null
     };
 
-    form = this.fb.group(this.defaultParams);
+    private openFiltersDialog$ = new Subject<SearchFiltersParams>();
 
-    filtersCount$ = new BehaviorSubject<number>(null);
-
-    constructor(private fb: FormBuilder, private dialog: MatDialog) {}
-
-    openOtherFiltersDialog(initParams: SearchFiltersParams) {
-        this.dialog
+    searchParamsChanges$ = this.openFiltersDialog$.pipe(
+        switchMap((initParams) => forkJoin([of(initParams), this.dialog
             .open(OtherFiltersDialogComponent, {
                 disableClose: true,
                 width: '460px',
-                data: this.form,
+                data: this.form
             })
-            .afterClosed()
-            .pipe(filter((v) => !!v))
-            .subscribe((value) => {
-                const cleanParams = clearParams(initParams, Object.keys(this.defaultParams));
-                this.searchParamsChanges$.emit({ ...cleanParams, ...value });
-                this.updateActiveFiltersCount(value);
-            });
+            .afterClosed()])),
+        filter((v) => !!v[1]),
+        map(([initParams, formParams]) => paramsToSearchParams(initParams, formParams, Object.keys(this.defaultParams))),
+        shareReplay(1)
+    );
+
+    private updateActiveFiltersCount$ = new ReplaySubject<SearchFiltersParams>();
+
+    form = this.fb.group(this.defaultParams);
+
+    filtersCount$ = this.updateActiveFiltersCount$.pipe(
+        map(params => countActiveFilters(params, Object.keys(this.defaultParams))),
+        shareReplay(1)
+    );
+
+    constructor(private fb: FormBuilder, private dialog: MatDialog) {
+        this.searchParamsChanges$.subscribe(params => this.updateActiveFiltersCount(params));
     }
 
-    updateActiveFiltersCount = (params: object) => {
-        const formFields = Object.keys(this.defaultParams);
-        const paramsFields = Object.keys(params);
-        const count =
-            paramsFields.reduce((acc, curr) => (formFields.includes(curr) ? ++acc : acc), 0) ||
-            null;
-        this.filtersCount$.next(count);
+    openOtherFiltersDialog(initParams: SearchFiltersParams) {
+        this.openFiltersDialog$.next(initParams);
+    }
+
+    updateActiveFiltersCount = (params: SearchFiltersParams) => {
+        this.updateActiveFiltersCount$.next(params);
     };
 }

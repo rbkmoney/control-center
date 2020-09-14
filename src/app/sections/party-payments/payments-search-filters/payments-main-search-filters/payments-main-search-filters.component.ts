@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 import { SearchFiltersParams } from '../search-filters-params';
@@ -31,13 +31,17 @@ export class PaymentsMainSearchFiltersComponent implements OnInit {
     initParams: SearchFiltersParams;
 
     @Output()
-    valueChanges = this.paymentsMainSearchFiltersService.searchParamsChanges$;
+    valueChanges = new EventEmitter<SearchFiltersParams>();
+
+    searchParamsChanges$ = this.paymentsMainSearchFiltersService.searchParamsChanges$;
 
     shops$ = this.paymentsMainSearchFiltersService.shops$;
 
     form = this.paymentsMainSearchFiltersService.form;
 
-    constructor(private paymentsMainSearchFiltersService: PaymentsMainSearchFiltersService) {}
+    constructor(private paymentsMainSearchFiltersService: PaymentsMainSearchFiltersService) {
+        this.searchParamsChanges$.subscribe(params => this.valueChanges.emit(params));
+    }
 
     ngOnInit() {
         this.form.patchValue(this.initParams);

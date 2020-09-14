@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { QueryParamsStore } from '../../shared/services';
 import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
+import { getShopIDs } from '../../shared/utils';
 
 @Injectable()
 export class PaymentsSearchFiltersStore extends QueryParamsStore<SearchFiltersParams> {
@@ -13,10 +14,7 @@ export class PaymentsSearchFiltersStore extends QueryParamsStore<SearchFiltersPa
     mapToData(queryParams: Params): SearchFiltersParams {
         return {
             ...queryParams,
-            shopIDs:
-                queryParams.shopIDs && !Array.isArray(queryParams.shopIDs)
-                    ? [queryParams.shopIDs]
-                    : queryParams.shopIDs,
+            shopIDs: getShopIDs(queryParams.shopIDs)
         } as SearchFiltersParams;
     }
 

@@ -67,6 +67,6 @@
     </mat-dialog-content>
     <mat-dialog-actions fxLayout fxLayoutAlign="space-between">
         <button mat-button (click)="cancel()">CANCEL</button>
-        <button mat-button color="primary" (click)="save()">SAVE</button>
+        <button mat-button color="primary" [disabled]="form.invalid" (click)="save()">SAVE</button>
     </mat-dialog-actions>
 </div>
