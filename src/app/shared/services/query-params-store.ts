@@ -1,7 +1,7 @@
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import isEqual from 'lodash-es/isEqual';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
-import isEqual from 'lodash-es/isEqual';
 
 export abstract class QueryParamsStore<D> {
     data$: Observable<D> = this.route.queryParams.pipe(

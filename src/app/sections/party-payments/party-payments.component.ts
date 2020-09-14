@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { FetchPaymentsService } from './fetch-payments.service';
-import { PaymentsSearchFiltersStore } from './payments-search-filters-store.service';
-import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
 import { NavigationParams } from './navigation-params';
 import { PartyPaymentsService } from './party-payments.service';
+import { PaymentsSearchFiltersStore } from './payments-search-filters-store.service';
+import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
 
 @Component({
     templateUrl: 'party-payments.component.html',
@@ -23,13 +23,12 @@ export class PartyPaymentsComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
         private fetchPaymentsService: FetchPaymentsService,
         private paymentsSearchFiltersStore: PaymentsSearchFiltersStore,
         private partyPaymentsService: PartyPaymentsService,
         private snackBar: MatSnackBar
     ) {
-        this.partyPaymentsService.paymentNavigationLink$.subscribe(link => {
+        this.partyPaymentsService.paymentNavigationLink$.subscribe((link) => {
             this.router.navigate([link]);
         });
     }
@@ -51,6 +50,5 @@ export class PartyPaymentsComponent implements OnInit {
 
     navigateToPayment(params: NavigationParams) {
         this.partyPaymentsService.updatePaymentNavigationLink(params);
-
     }
 }

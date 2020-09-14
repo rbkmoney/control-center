@@ -29,9 +29,9 @@ import { PaymentsOtherSearchFiltersComponent } from './payments-other-search-fil
         MatDividerModule,
         FlexLayoutModule,
         ExpandableRadioGroupModule,
-        OtherFiltersDialogModule
+        OtherFiltersDialogModule,
     ],
     declarations: [PaymentsOtherSearchFiltersComponent],
-    exports: [PaymentsOtherSearchFiltersComponent]
+    exports: [PaymentsOtherSearchFiltersComponent],
 })
 export class PaymentsOtherSearchFiltersModule {}
