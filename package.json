@@ -59,7 +59,7 @@
     "tslib": "^2.0.0",
     "utility-types": "^3.10.0",
     "uuid": "~3.3.2",
-    "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#14e154f78a63029a700954fbc92a2183cb13e1df",
+    "woody_js": "git+ssh://git@github.com/rbkmoney/woody_js.git#19da32be428acf1ecb21b1e877ae2b0fadeb29e0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
