@@ -12,13 +12,18 @@ export class DomainService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/v1/domain/repository', Repository);
     }
 
-    checkout: (reference: Reference) => Observable<Snapshot> = this.toObservableAction('Checkout', false);
+    checkout: (reference: Reference) => Observable<Snapshot> = this.toObservableAction(
+        'Checkout',
+        false
+    );
 
     commit: (version: Version, commit: Commit) => Observable<Version> = this.toObservableAction(
-        'Commit', false
+        'Commit',
+        false
     );
 
     pullRange: (after: Version, limit: Limit) => Observable<History> = this.toObservableAction(
-        'PullRange', false
+        'PullRange',
+        false
     );
 }
