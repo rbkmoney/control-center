@@ -4,10 +4,12 @@ import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs'
 import { catchError, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
+import { PartyModificationEmitter } from '../../../../party-modification-creator';
 import { SHARE_REPLAY_CONF } from '../../../../shared/share-replay-conf';
 import {
     Modification,
     ModificationUnit,
+    PartyModification,
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo, toChangesetInfos } from '../changeset-infos';
@@ -47,7 +49,8 @@ export class UnsavedClaimChangesetService {
     constructor(
         private keycloakTokenInfoService: KeycloakTokenInfoService,
         private saveClaimChangesetService: SaveClaimChangesetService,
-        private editClaimChangesetService: EditClaimChangesetService
+        private editClaimChangesetService: EditClaimChangesetService,
+        private partyModificationEmitter: PartyModificationEmitter
     ) {
         this.unsavedChangesetInfos$.subscribe();
 
@@ -86,6 +89,10 @@ export class UnsavedClaimChangesetService {
             .subscribe((mods) => {
                 this.unsaved$.next(mods);
             });
+
+        this.partyModificationEmitter.modification$.subscribe(
+            (party_modification: PartyModification) => this.addModification({ party_modification })
+        );
     }
 
     save(partyID: PartyID, claimID: string) {

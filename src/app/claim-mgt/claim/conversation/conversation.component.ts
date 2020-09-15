@@ -19,7 +19,7 @@ import { ClaimStatus } from '../../../papi/model';
 import {
     PartyModificationEmitter,
     UnitActionsNavListComponent,
-} from '../../../party-modification-creator';
+} from '../../../party-modification-creator-legacy';
 import { extractClaimStatus } from '../../../shared/extract-claim-status';
 import { getUnionKey } from '../../../shared/utils';
 import { Questionary } from '../../../thrift-services/ank/gen-model/questionary_manager';

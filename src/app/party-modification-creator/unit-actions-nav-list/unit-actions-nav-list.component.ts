@@ -96,7 +96,7 @@ export class UnitActionsNavListComponent implements OnInit {
                 partyID: this.data.partyID,
                 unitID: this.data.unitID,
             },
-            width: '800px',
+            width: '900px',
             disableClose: true,
         };
         this.dialog.open<CreateModificationDialogComponent>(

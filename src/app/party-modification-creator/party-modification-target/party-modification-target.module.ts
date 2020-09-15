@@ -6,15 +6,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 
 import { SharedModule } from '../../shared/shared.module';
 import { FillInUnitIdComponent } from './fill-in-unit-id/fill-in-unit-id.component';
 import { PartyItemNamePipe } from './party-item-name.pipe';
 import { PartyModificationTargetComponent } from './party-modification-target.component';
-import { PartyTargetComponent } from './party-target/party-target.component';
+import { TargetTableComponent } from './target-table/target-table.component';
 
 @NgModule({
     imports: [
@@ -29,11 +31,14 @@ import { PartyTargetComponent } from './party-target/party-target.component';
         MatSnackBarModule,
         MatCheckboxModule,
         SharedModule,
+        MatTableModule,
+        MatTableModule,
+        MatPaginatorModule,
     ],
     declarations: [
         PartyModificationTargetComponent,
         FillInUnitIdComponent,
-        PartyTargetComponent,
+        TargetTableComponent,
         PartyItemNamePipe,
     ],
     exports: [PartyModificationTargetComponent],

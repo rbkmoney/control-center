@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { UnitActionsNavListComponent } from '../../party-modification-creator';
+import { UnitActionsNavListComponent } from '../../party-modification-creator-legacy';
 import { AcceptClaimComponent } from '../accept-claim/accept-claim.component';
 import { ClaimActionType } from '../claim-action-type';
 import { ClaimService } from '../claim.service';

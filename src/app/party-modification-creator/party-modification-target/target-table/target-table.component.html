@@ -1,0 +1,51 @@
+<div fxLayout="column">
+    <div *ngIf="inProgress$ | async" fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="!(inProgress$ | async) && dataSource.data">
+        <div fxLayout fxLayoutAlign="space-between">
+            <mat-form-field fxFlex="35">
+                <input
+                    matInput
+                    type="text"
+                    (keyup)="applyFilter($event.target.value)"
+                    placeholder="Filter"
+                />
+            </mat-form-field>
+        </div>
+        <div class="table-container" fxLayout="column">
+            <table mat-table [dataSource]="dataSource" fxFlex>
+                <ng-container matColumnDef="select" sticky>
+                    <th mat-header-cell *matHeaderCellDef class="mat-column-select"></th>
+                    <td mat-cell *matCellDef="let item" class="mat-column-select">
+                        <mat-checkbox
+                            [checked]="item.checked"
+                            (change)="change(item, $event)"
+                        ></mat-checkbox>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef class="mat-column-id">ID</th>
+                    <td mat-cell *matCellDef="let item" class="mat-column-id">
+                        {{ item.data.id }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="data">
+                    <th mat-header-cell *matHeaderCellDef>Data</th>
+                    <td mat-cell *matCellDef="let item" class="mat-column-data">
+                        <cc-pretty-json inline="true" [object]="item.data"></cc-pretty-json>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+    </div>
+    <mat-paginator
+        #paginator
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+    ></mat-paginator>
+</div>
