@@ -25,7 +25,10 @@ export class ThriftService {
         this.service = thriftService;
     }
 
-    protected toObservableAction<T extends (...A: any[]) => Observable<any>>(name: string): T {
+    protected toObservableAction<T extends (...A: any[]) => Observable<any>>(
+        name: string,
+        deprecatedHeaders = true
+    ): T {
         return ((...args) =>
             new Observable<any>((observer) => {
                 const cb = (msg) => {
@@ -34,7 +37,7 @@ export class ThriftService {
                 };
                 this.zone.run(() => {
                     try {
-                        const client = this.createClient(cb);
+                        const client = this.createClient(cb, deprecatedHeaders);
                         client[name](...args, (ex: Exception, result) => {
                             ex ? observer.error(ex) : observer.next(result);
                             observer.complete();
@@ -43,10 +46,10 @@ export class ThriftService {
                         cb(e);
                     }
                 });
-            }).pipe(timeout(120000))) as any;
+            }).pipe(timeout(60000 * 3))) as any;
     }
 
-    private createClient(errorCb: (cb: () => void) => void) {
+    private createClient(errorCb: (cb: () => void) => void, deprecatedHeaders: boolean) {
         const { email, preferred_username, sub } = this.keycloakTokenInfoService.decodedUserToken;
         return connectClient(
             location.hostname,
@@ -59,13 +62,20 @@ export class ThriftService {
                     'woody.meta.user-identity.realm': this.realm,
                     'woody.meta.user-identity.username': preferred_username,
                     'woody.meta.user-identity.id': sub,
-
-                    // Deprecated
-                    'x-rbk-meta-user-identity.email': email,
-                    'x-rbk-meta-user-identity.realm': this.realm,
-                    'x-rbk-meta-user-identity.username': preferred_username,
-                    'x-rbk-meta-user-identity.id': sub,
+                    ...(deprecatedHeaders
+                        ? {
+                              'x-rbk-meta-user-identity.email': email,
+                              'x-rbk-meta-user-identity.realm': this.realm,
+                              'x-rbk-meta-user-identity.username': preferred_username,
+                              'x-rbk-meta-user-identity.id': sub,
+                          }
+                        : undefined),
                 },
+                deadlineConfig: {
+                    amount: 3,
+                    unitOfTime: 'm',
+                },
+                deprecatedHeaders,
             },
             errorCb
         );
