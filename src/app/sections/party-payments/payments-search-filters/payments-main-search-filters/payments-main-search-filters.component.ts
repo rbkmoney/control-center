@@ -3,15 +3,15 @@ import {
     Component,
     EventEmitter,
     Input,
-    OnChanges,
+    OnInit,
     Output,
-    SimpleChanges,
 } from '@angular/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
-import isEqual from 'lodash-es/isEqual';
 
+import { paramsToSearchParams } from '../params-to-search-params';
 import { SearchFiltersParams } from '../search-filters-params';
 import { PaymentsMainSearchFiltersService } from './payments-main-search-filters.service';
+import { searchParamsToFormParams } from './search-params-to-form-params';
 
 export const MY_FORMATS = {
     parse: {
@@ -35,7 +35,10 @@ export const MY_FORMATS = {
         { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     ],
 })
-export class PaymentsMainSearchFiltersComponent implements OnChanges {
+export class PaymentsMainSearchFiltersComponent implements OnInit {
+    @Input()
+    partyID: string;
+
     @Input()
     initParams: SearchFiltersParams;
 
@@ -49,16 +52,19 @@ export class PaymentsMainSearchFiltersComponent implements OnChanges {
     form = this.paymentsMainSearchFiltersService.form;
 
     constructor(private paymentsMainSearchFiltersService: PaymentsMainSearchFiltersService) {
-        this.searchParamsChanges$.subscribe((params) => this.valueChanges.emit(params));
+        this.searchParamsChanges$.subscribe((params) => {
+            this.valueChanges.emit(
+                paramsToSearchParams(
+                    this.initParams,
+                    params,
+                    Object.keys(Object.keys(this.form.value))
+                )
+            );
+        });
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (
-            changes.initParams &&
-            !isEqual(changes.initParams.currentValue, changes.initParams.previousValue)
-        ) {
-            this.form.patchValue(this.initParams);
-            this.paymentsMainSearchFiltersService.setInitParams(this.initParams);
-        }
+    ngOnInit() {
+        this.form.patchValue(searchParamsToFormParams(this.initParams));
+        this.paymentsMainSearchFiltersService.setPartyID(this.partyID);
     }
 }

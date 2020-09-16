@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import pickBy from 'lodash-es/pickBy';
 
 import { QueryParamsStore } from '../../shared/services';
-import { getShopIDs } from '../../shared/utils';
 import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
+
+const wrapValuesToArray = (params: {}): {} =>
+    Object.entries(params).reduce((acc, [k, v]) => ({ ...acc, [k]: [v] }), {});
+
+const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
 
 @Injectable()
 export class PaymentsSearchFiltersStore extends QueryParamsStore<SearchFiltersParams> {
@@ -14,7 +19,7 @@ export class PaymentsSearchFiltersStore extends QueryParamsStore<SearchFiltersPa
     mapToData(queryParams: Params): SearchFiltersParams {
         return {
             ...queryParams,
-            shopIDs: getShopIDs(queryParams.shopIDs),
+            ...wrapValuesToArray(pickBy(queryParams, shopIDsAndPrimitives)),
         } as SearchFiltersParams;
     }
 

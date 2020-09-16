@@ -33,7 +33,7 @@ export const paymentMethods: RadioButtonObject[] = [
         title: 'Bank Card',
     },
     {
-        value: 'payment_terminal',
+        value: 'terminal',
         title: 'Terminal',
     },
     {

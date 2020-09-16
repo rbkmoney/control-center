@@ -15,6 +15,7 @@ import {
     ClaimStatusThriftPipe,
     CurrencyPipe,
     FormatAmountPipe,
+    ShopNamePipe,
     ThriftViewPipe,
 } from './pipes';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
@@ -30,6 +31,7 @@ const declarations = [
     CardContainerComponent,
     EmptySearchResultComponent,
     ClaimSourcePipe,
+    ShopNamePipe,
 ];
 
 @NgModule({

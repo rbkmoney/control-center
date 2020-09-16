@@ -34,7 +34,7 @@ export class PaymentsOtherSearchFiltersService {
                 this.dialog
                     .open(OtherFiltersDialogComponent, {
                         disableClose: true,
-                        width: '460px',
+                        width: '552px',
                         data: this.form,
                     })
                     .afterClosed(),

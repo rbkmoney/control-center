@@ -45,8 +45,10 @@ export class FetchPaymentsService extends PartialFetcher<StatPayment, SearchFilt
             tokenProvider,
             bin,
             pan,
-            fromRevision,
-            toRevision,
+            domainRevisionFrom,
+            domainRevisionTo,
+            paymentAmountFrom,
+            paymentAmountTo,
             paymentStatus,
         } = params;
         return this.partyID$.pipe(
@@ -62,11 +64,17 @@ export class FetchPaymentsService extends PartialFetcher<StatPayment, SearchFilt
                                     ...(partyID ? { merchant_id: partyID } : {}),
                                     ...(shopID ? { shop_id: shopID } : {}),
                                     ...(shopIDs ? { shop_ids: shopIDs } : {}),
-                                    ...(fromRevision
-                                        ? { from_payment_domain_revision: fromRevision }
+                                    ...(domainRevisionFrom
+                                        ? { from_payment_domain_revision: domainRevisionFrom }
                                         : {}),
-                                    ...(toRevision
-                                        ? { to_payment_domain_revision: toRevision }
+                                    ...(domainRevisionTo
+                                        ? { to_payment_domain_revision: domainRevisionTo }
+                                        : {}),
+                                    ...(paymentAmountFrom
+                                        ? { payment_amount_from: paymentAmountFrom }
+                                        : {}),
+                                    ...(paymentAmountTo
+                                        ? { payment_amount_to: paymentAmountTo }
                                         : {}),
                                     ...(providerID ? { payment_provider_id: providerID } : {}),
                                     ...(terminalID ? { payment_terminal_id: terminalID } : {}),
