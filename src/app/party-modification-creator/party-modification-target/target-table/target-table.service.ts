@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { combineLatest, merge, Observable, Subject } from 'rxjs';
-import { map, switchMap } from 'rxjs/internal/operators';
+import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/internal/operators';
 
 import { PartyService } from '../../../papi/party.service';
-import { UnsavedClaimChangesetService } from '../../../sections/party-claim/changeset/unsaved-changeset/unsaved-claim-changeset.service';
+import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import {
     Contract,
     Party,
@@ -12,16 +13,21 @@ import {
     Shop,
 } from '../../../thrift-services/damsel/gen-model/domain';
 import { PartyTarget } from '../party-target';
-import { changesetInfosToSelectableItems } from './changeset-infos-to-selectable-items';
+import { modificationsToSelectableItems } from './modifications-to-selectable-items';
 import { SelectableItem } from './selectable-item';
 
 @Injectable()
 export class TargetTableService {
-    private getSelectableItems$ = new Subject<{ partyID: string; targetName: PartyTarget }>();
+    private getSelectableItems$ = new Subject<{
+        partyID: string;
+        targetName: PartyTarget;
+        unsaved: Modification[];
+    }>();
     private hasError$ = new Subject();
 
     selectableItems$: Observable<SelectableItem[]> = this.getSelectableItems$.pipe(
-        switchMap(({ partyID, targetName }) =>
+        tap(() => this.hasError$.next()),
+        switchMap(({ partyID, targetName, unsaved }) =>
             combineLatest([
                 this.partyService.getParty(partyID).pipe(
                     map((party) => {
@@ -31,29 +37,25 @@ export class TargetTableService {
                             result.push({ data: item, id, checked: false })
                         );
                         return result;
+                    }),
+                    catchError(() => {
+                        this.snackBar.open('An error occured while fetching party', 'OK');
+                        this.hasError$.next(true);
+                        return of('error');
                     })
                 ),
-                this.unsavedClaimChangesetService.unsavedChangesetInfos$.pipe(
-                    map((infos) => changesetInfosToSelectableItems(infos, targetName))
-                ),
+                of(modificationsToSelectableItems(unsaved, targetName)),
             ])
         ),
-        map(([items, unsavedItems]) => {
-            console.log(unsavedItems);
-            console.log(items);
-            return [...unsavedItems, ...items];
-        })
+        map(([items, unsavedItems]) => [...unsavedItems, ...items])
     );
 
     inProgress$ = progress(this.getSelectableItems$, merge(this.selectableItems$, this.hasError$));
 
-    constructor(
-        private partyService: PartyService,
-        private unsavedClaimChangesetService: UnsavedClaimChangesetService
-    ) {}
+    constructor(private partyService: PartyService, private snackBar: MatSnackBar) {}
 
-    getSelectableItems(partyID: string, targetName: PartyTarget) {
-        this.getSelectableItems$.next({ partyID, targetName });
+    getSelectableItems(partyID: string, targetName: PartyTarget, unsaved: Modification[]) {
+        this.getSelectableItems$.next({ partyID, targetName, unsaved });
     }
 
     private getTarget(

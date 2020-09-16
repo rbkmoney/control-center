@@ -6,6 +6,7 @@
 @import '../../sections/party/party-theme';
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
 @import '../../sections/party-claim/party-claim-theme';
+@import '../../party-modification-creator/party-modification-creator-theme';
 
 @mixin cc-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -15,5 +16,6 @@
         @include cc-timeline-theme($theme);
         @include cc-details-item-theme($theme);
         @include cc-party-claim-theme($theme);
+        @include cc-party-modification-creator-theme($theme);
     }
 }

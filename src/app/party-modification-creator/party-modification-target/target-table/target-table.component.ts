@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyTarget } from '../party-target';
 import { itemsFilterPredicate } from './items-filter-predicate';
 import { SelectableItem } from './selectable-item';
@@ -30,6 +30,9 @@ export class TargetTableComponent implements OnInit {
     @Input()
     partyTarget: PartyTarget;
 
+    @Input()
+    unsaved: Modification[];
+
     @Output()
     valueChanges: EventEmitter<string> = new EventEmitter();
 
@@ -39,7 +42,7 @@ export class TargetTableComponent implements OnInit {
     dataSource: MatTableDataSource<SelectableItem> = new MatTableDataSource();
     inProgress$ = this.targetService.inProgress$;
 
-    constructor(private targetService: TargetTableService, private snackBar: MatSnackBar) {
+    constructor(private targetService: TargetTableService) {
         this.targetService.selectableItems$.subscribe((items) => {
             this.dataSource = new MatTableDataSource(items);
             this.dataSource.paginator = this.paginator.first;
@@ -57,7 +60,7 @@ export class TargetTableComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.targetService.getSelectableItems(this.partyID, this.partyTarget);
+        this.targetService.getSelectableItems(this.partyID, this.partyTarget, this.unsaved);
     }
 
     applyFilter(filterValue: string) {

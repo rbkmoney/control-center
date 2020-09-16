@@ -6,10 +6,10 @@ import { CreateModificationDialogComponent } from '../create-modification-dialog
 import {
     ActionType,
     ContractModificationName,
+    ContractorModificationName,
     ShopModificationName,
     UnitActionData,
 } from '../model';
-import { ContractorModificationName } from '../model/contractor-modification-name';
 
 @Component({
     templateUrl: 'unit-actions-nav-list.component.html',
@@ -95,6 +95,7 @@ export class UnitActionsNavListComponent implements OnInit {
                 },
                 partyID: this.data.partyID,
                 unitID: this.data.unitID,
+                unsaved: this.data.unsaved,
             },
             width: '900px',
             disableClose: true,

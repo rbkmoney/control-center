@@ -1,41 +1,40 @@
-import { ChangesetInfo } from '../../../sections/party-claim/changeset/changeset-infos';
-import { getOr } from '../../../shared/utils';
+import { getOr, getUnionValue } from '../../../shared/utils';
+import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyTarget } from '../party-target';
 import { SelectableItem } from './selectable-item';
 
-export const changesetInfosToSelectableItems = (
-    infos: ChangesetInfo[],
+export const modificationsToSelectableItems = (
+    mods: Modification[],
     target: PartyTarget
 ): SelectableItem[] =>
-    infos
-        .map((info) => info.modification)
+    mods
         .filter((mod) => {
             switch (target) {
                 case PartyTarget.contract:
-                    return getOr(
+                    return !!getOr(
                         mod,
                         'party_modification.contract_modification.modification.creation',
                         false
                     );
                 case PartyTarget.contractor:
-                    return getOr(
+                    return !!getOr(
                         mod,
                         'party_modification.contractor_modification.modification.creation',
                         false
                     );
                 case PartyTarget.shop:
-                    return getOr(
+                    return !!getOr(
                         mod,
                         'party_modification.shop_modification.modification.creation',
                         false
                     );
             }
         })
-        .map((info) => {
-            const { id, modification } = info.party_modification;
+        .map((mod) => {
+            const data = getUnionValue(getUnionValue(mod)) as any;
             return {
-                id,
-                data: modification,
+                id: getOr(data, 'id', null),
+                data,
                 unsaved: true,
             };
         });
