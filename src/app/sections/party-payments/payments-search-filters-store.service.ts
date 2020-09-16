@@ -3,10 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import pickBy from 'lodash-es/pickBy';
 
 import { QueryParamsStore } from '../../shared/services';
+import { wrapValuesToArray } from '../../shared/utils';
 import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
-
-const wrapValuesToArray = (params: {}): {} =>
-    Object.entries(params).reduce((acc, [k, v]) => ({ ...acc, [k]: [v] }), {});
 
 const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
 
