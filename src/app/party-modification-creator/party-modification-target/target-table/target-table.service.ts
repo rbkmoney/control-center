@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/internal/operators';
+import { filter } from 'rxjs/operators';
 
 import { PartyService } from '../../../papi/party.service';
 import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
@@ -42,7 +43,8 @@ export class TargetTableService {
                         this.snackBar.open('An error occured while fetching party', 'OK');
                         this.hasError$.next(true);
                         return of('error');
-                    })
+                    }),
+                    filter((result) => result !== 'error')
                 ),
                 of(modificationsToSelectableItems(unsaved, targetName)),
             ])
