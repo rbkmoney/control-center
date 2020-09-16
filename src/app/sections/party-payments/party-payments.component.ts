@@ -15,6 +15,7 @@ import { SearchFiltersParams } from './payments-search-filters/search-filters-pa
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyPaymentsComponent implements OnInit {
+    partyID$ = this.partyPaymentsService.partyID$;
     isLoading$ = this.fetchPaymentsService.isLoading$;
     doAction$ = this.fetchPaymentsService.doAction$;
     payments$ = this.fetchPaymentsService.searchResult$;

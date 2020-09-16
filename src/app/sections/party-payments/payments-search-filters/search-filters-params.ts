@@ -14,7 +14,9 @@ export interface SearchFiltersParams {
     tokenProvider?: string;
     bin?: string;
     pan?: string;
-    fromRevision?: string;
-    toRevision?: string;
+    domainRevisionFrom?: string;
+    domainRevisionTo?: string;
+    paymentAmountFrom?: string;
+    paymentAmountTo?: string;
     paymentStatus?: string;
 }

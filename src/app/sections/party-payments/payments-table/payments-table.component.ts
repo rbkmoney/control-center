@@ -20,6 +20,9 @@ import { NavigationParams } from '../navigation-params';
 })
 export class PaymentsTableComponent {
     @Input()
+    partyID: string;
+
+    @Input()
     payments: StatPayment[];
 
     @Output()

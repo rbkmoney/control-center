@@ -11,6 +11,7 @@ import isEqual from 'lodash-es/isEqual';
 
 import { SearchFiltersParams } from '../search-filters-params';
 import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
+import { searchToFormParams } from './search-to-form-params';
 
 @Component({
     selector: 'cc-payments-other-search-filters',
@@ -39,7 +40,7 @@ export class PaymentsOtherSearchFiltersComponent implements OnChanges {
             changes.initParams &&
             !isEqual(changes.initParams.currentValue, changes.initParams.previousValue)
         ) {
-            this.form.patchValue(this.initParams);
+            this.form.patchValue(searchToFormParams(this.initParams));
             this.paymentsOtherSearchFiltersService.updateActiveFiltersCount(this.initParams);
         }
     }

@@ -5,6 +5,7 @@
             <mat-card-content fxLayout>
                 <cc-payments-main-search-filters
                     fxFlex="75"
+                    [partyID]="partyID$ | async"
                     (valueChanges)="searchParamsChanges($event)"
                     [initParams]="initSearchParams$ | async"
                 ></cc-payments-main-search-filters>
@@ -26,6 +27,7 @@
             ></cc-empty-search-result>
             <mat-card *ngIf="payments.length > 0" fxLayout="column" fxLayoutGap="16px">
                 <cc-payments-table
+                    [partyID]="partyID$ | async"
                     [payments]="payments"
                     (goToPaymentDetails)="navigateToPayment($event)"
                 ></cc-payments-table>
