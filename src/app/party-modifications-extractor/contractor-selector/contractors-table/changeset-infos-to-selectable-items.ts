@@ -1,4 +1,4 @@
-import { ChangesetInfo } from '../../../../../changeset-infos';
+import { ChangesetInfo } from '../../../sections/party-claim/changeset/changeset-infos';
 import { SelectableItem } from '../selectable-item';
 
 export const changesetInfosToSelectableItems = (infos: ChangesetInfo[]): SelectableItem[] =>

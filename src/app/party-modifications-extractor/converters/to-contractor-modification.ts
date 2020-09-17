@@ -3,7 +3,7 @@ import * as uuid from 'uuid/v4';
 import {
     ContractorModification,
     PartyModification,
-} from '../../../../../../../thrift-services/damsel/gen-model/claim_management';
+} from '../../thrift-services/damsel/gen-model/claim_management';
 
 export const toContractorModification = (
     modification: ContractorModification,

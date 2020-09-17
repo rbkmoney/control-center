@@ -1,6 +1,6 @@
-import { getOr } from '../../../../../../../shared/utils';
-import { QuestionaryData } from '../../../../../../../thrift-services/ank/gen-model/questionary_manager';
-import { InternationalLegalEntity } from '../../../../../../../thrift-services/damsel/gen-model/domain';
+import { getOr } from '../../shared/utils';
+import { QuestionaryData } from '../../thrift-services/ank/gen-model/questionary_manager';
+import { InternationalLegalEntity } from '../../thrift-services/damsel/gen-model/domain';
 
 const path = 'contractor.legal_entity.international_legal_entity';
 

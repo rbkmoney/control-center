@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import * as uuid from 'uuid/v4';
 
-import { QuestionaryData } from '../../../../../../thrift-services/ank/gen-model/questionary_manager';
-import { PartyModification } from '../../../../../../thrift-services/damsel/gen-model/claim_management';
+import { QuestionaryData } from '../thrift-services/ank/gen-model/questionary_manager';
+import { PartyModification } from '../thrift-services/damsel/gen-model/claim_management';
 import { createContractCreation, createPayoutToolCreation, createShopCreation } from './creators';
 import { createContractor } from './creators/create-contractor';
 import { createShopAccountCreation } from './creators/create-shop-account-creation';
 import { ExtractFormValue } from './extract-form-value';
 
 @Injectable()
-export class ExtractPartyModificationsService {
+export class PartyModificationsExtractorService {
     form = this.fb.group({
         category: this.fb.group({}),
         payment_institution: this.fb.group({}),

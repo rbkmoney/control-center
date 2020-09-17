@@ -1,4 +1,4 @@
-import { PartyModification } from '../../../../../../../thrift-services/damsel/gen-model/claim_management';
+import { PartyModification } from '../../thrift-services/damsel/gen-model/claim_management';
 
 export const createShopAccountCreation = (shopID: string): PartyModification => ({
     shop_modification: {

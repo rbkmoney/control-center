@@ -1,7 +1,7 @@
 import get from 'lodash-es/get';
 
-import { QuestionaryData } from '../../../../../../../thrift-services/ank/gen-model/questionary_manager';
-import { PartyModification } from '../../../../../../../thrift-services/damsel/gen-model/claim_management';
+import { QuestionaryData } from '../../thrift-services/ank/gen-model/questionary_manager';
+import { PartyModification } from '../../thrift-services/damsel/gen-model/claim_management';
 import { toIndividualEntityPartyModification, toLegalEntityPartyModification } from '../converters';
 
 export const createContractor = (d: QuestionaryData, contractorID: string): PartyModification => {

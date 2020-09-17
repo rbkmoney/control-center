@@ -1,7 +1,4 @@
-import {
-    CategoryRef,
-    PaymentInstitutionRef,
-} from '../../../../../../thrift-services/damsel/gen-model/domain';
+import { CategoryRef, PaymentInstitutionRef } from '../thrift-services/damsel/gen-model/domain';
 
 interface ContractorID {
     id: string;

@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 
-import { SharedModule } from '../../../../../../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ContractorSelectorComponent } from './contractor-selector.component';
 import { ContractorsTableComponent } from './contractors-table/contractors-table.component';
 import { SelectorTypePipe } from './selector-type.pipe';

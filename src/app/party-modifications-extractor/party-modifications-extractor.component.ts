@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Questionary } from '../../../../../../thrift-services/ank/gen-model/questionary_manager';
-import { PartyID } from '../../../../../../thrift-services/damsel/gen-model/domain';
-import { ExtractPartyModificationsService } from './extract-party-modifications.service';
+import { Questionary } from '../thrift-services/ank/gen-model/questionary_manager';
+import { PartyID } from '../thrift-services/damsel/gen-model/domain';
+import { PartyModificationsExtractorService } from './party-modifications-extractor.service';
 
 export interface ExtractPartyModification {
     questionary: Questionary;
@@ -11,17 +11,17 @@ export interface ExtractPartyModification {
 }
 
 @Component({
-    templateUrl: 'extract-party-modification.component.html',
-    providers: [ExtractPartyModificationsService],
+    templateUrl: 'party-modifications-extractor.component.html',
+    providers: [PartyModificationsExtractorService],
 })
-export class ExtractPartyModificationComponent {
+export class PartyModificationsExtractorComponent {
     form = this.extractPartyModificationsService.form;
     partyID: string;
     isContractorAvailable: boolean;
 
     constructor(
-        private dialogRef: MatDialogRef<ExtractPartyModificationComponent>,
-        private extractPartyModificationsService: ExtractPartyModificationsService,
+        private dialogRef: MatDialogRef<PartyModificationsExtractorComponent>,
+        private extractPartyModificationsService: PartyModificationsExtractorService,
         @Inject(MAT_DIALOG_DATA) private data: ExtractPartyModification
     ) {
         this.partyID = this.data.partyID;

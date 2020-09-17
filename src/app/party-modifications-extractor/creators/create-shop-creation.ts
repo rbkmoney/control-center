@@ -1,6 +1,6 @@
-import { getOr } from '../../../../../../../shared/utils';
-import { QuestionaryData } from '../../../../../../../thrift-services/ank/gen-model/questionary_manager';
-import { PartyModification } from '../../../../../../../thrift-services/damsel/gen-model/claim_management';
+import { getOr } from '../../shared/utils';
+import { QuestionaryData } from '../../thrift-services/ank/gen-model/questionary_manager';
+import { PartyModification } from '../../thrift-services/damsel/gen-model/claim_management';
 
 export const createShopCreation = (
     d: QuestionaryData,

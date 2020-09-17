@@ -1,6 +1,6 @@
-import { getOr } from '../../../../../../../shared/utils';
-import { QuestionaryData } from '../../../../../../../thrift-services/ank/gen-model/questionary_manager';
-import { RussianLegalEntity } from '../../../../../../../thrift-services/damsel/gen-model/domain';
+import { getOr } from '../../shared/utils';
+import { QuestionaryData } from '../../thrift-services/ank/gen-model/questionary_manager';
+import { RussianLegalEntity } from '../../thrift-services/damsel/gen-model/domain';
 import { createRussianBankAccount } from '../creators/create-russian-bank-account';
 
 const path = 'contractor.legal_entity.russian_legal_entity';

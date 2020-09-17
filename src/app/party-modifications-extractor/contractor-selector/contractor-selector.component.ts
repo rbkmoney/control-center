@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 
-import { PartyID } from '../../../../../../../thrift-services/damsel/gen-model/domain';
+import { PartyID } from '../../thrift-services/damsel/gen-model/domain';
 import { ActionType } from './action-type';
 
 @Component({

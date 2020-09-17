@@ -1,6 +1,6 @@
-import { getOr } from '../../../../../../../shared/utils';
-import { QuestionaryData } from '../../../../../../../thrift-services/ank/gen-model/questionary_manager';
-import { RussianBankAccount } from '../../../../../../../thrift-services/damsel/gen-model/domain';
+import { getOr } from '../../shared/utils';
+import { QuestionaryData } from '../../thrift-services/ank/gen-model/questionary_manager';
+import { RussianBankAccount } from '../../thrift-services/damsel/gen-model/domain';
 
 const path = 'bank_account.russian_bank_account';
 

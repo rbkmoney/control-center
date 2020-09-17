@@ -4,9 +4,9 @@ import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
-import { PartyService } from '../../../../../../../../papi/party.service';
-import { PartyID } from '../../../../../../../../thrift-services/damsel/gen-model/domain';
-import { UnsavedClaimChangesetService } from '../../../../../unsaved-changeset/unsaved-claim-changeset.service';
+import { PartyService } from '../../../papi/party.service';
+import { UnsavedClaimChangesetService } from '../../../sections/party-claim/changeset/unsaved-changeset/unsaved-claim-changeset.service';
+import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import { SelectableItem } from '../selectable-item';
 import { changesetInfosToSelectableItems } from './changeset-infos-to-selectable-items';
 

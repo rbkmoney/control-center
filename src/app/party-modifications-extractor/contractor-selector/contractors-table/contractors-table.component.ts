@@ -4,8 +4,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { getUnionValue } from '../../../../../../../../shared/utils';
-import { PartyID } from '../../../../../../../../thrift-services/damsel/gen-model/domain';
+import { getUnionValue } from '../../../shared/utils';
+import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import { SelectableItem } from '../selectable-item';
 import { ContractorsTableService } from './contractors-table.service';
 import { itemsFilterPredicate } from './items-filter-predicate';

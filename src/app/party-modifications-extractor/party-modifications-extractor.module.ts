@@ -9,14 +9,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 
-import { PartyModificationFormsModule } from '../../../../../../party-modification-forms';
-import { ContractorSelectorModule } from './contractor-selector/contractor-selector.module';
+import { PartyModificationFormsModule } from '../party-modification-forms';
+import { ContractorSelectorModule } from './contractor-selector';
 import { ExtractFormCheckboxNamePipe } from './extract-form-checkbox-name.pipe';
-import { ExtractPartyModificationComponent } from './extract-party-modification.component';
+import { PartyModificationsExtractorDialogService } from './party-modifications-extractor-dialog.service';
+import { PartyModificationsExtractorComponent } from './party-modifications-extractor.component';
 
 @NgModule({
-    declarations: [ExtractPartyModificationComponent, ExtractFormCheckboxNamePipe],
-    exports: [ExtractPartyModificationComponent],
+    declarations: [PartyModificationsExtractorComponent, ExtractFormCheckboxNamePipe],
+    exports: [PartyModificationsExtractorComponent],
     imports: [
         FlexModule,
         MatDialogModule,
@@ -30,6 +31,7 @@ import { ExtractPartyModificationComponent } from './extract-party-modification.
         MatRadioModule,
         ContractorSelectorModule,
     ],
-    entryComponents: [ExtractPartyModificationComponent],
+    entryComponents: [PartyModificationsExtractorComponent],
+    providers: [PartyModificationsExtractorDialogService],
 })
-export class ExtractPartyModificationModule {}
+export class PartyModificationsExtractorModule {}
