@@ -1,0 +1,5 @@
+@mixin cc-contractors-table($theme) {
+    .cc-contractors-table-unsaved {
+        color: map-get($theme, red);
+    }
+}

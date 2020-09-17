@@ -5,14 +5,13 @@ import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/cla
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from '../changeset-infos';
 import { MenuConfigAction, MenuConfigItem } from '../timeline-items/menu-config';
-import { UnsavedClaimChangesetService } from '../unsaved-changeset/unsaved-claim-changeset.service';
-import { createDeleteCommentModification } from './create-delete-comment-modification';
-import { createDeleteFileModification } from './create-delete-file-modification';
+import { ClaimChangesetService } from './claim-changeset.service';
 
 @Component({
     selector: 'cc-claim-changeset',
     templateUrl: 'claim-changeset.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [ClaimChangesetService],
 })
 export class ClaimChangesetComponent {
     @Input()
@@ -33,13 +32,18 @@ export class ClaimChangesetComponent {
         { action: MenuConfigAction.deleteComment, label: 'Delete comment' },
     ];
     partyModMenuConfig: MenuConfigItem[] = [];
-    questionaryMenuConfig: MenuConfigItem[] = [];
+    questionaryMenuConfig: MenuConfigItem[] = [
+        {
+            action: MenuConfigAction.extractPartyModifications,
+            label: 'Extract party modifications',
+        },
+    ];
 
     changesetInfoType = ChangesetInfoType;
     changesetInfos$ = new BehaviorSubject<ChangesetInfo[]>([]);
     filteredChangesetInfos: ChangesetInfo[] = [];
 
-    constructor(private unsavedClaimChangesetService: UnsavedClaimChangesetService) {}
+    constructor(private claimChangesetService: ClaimChangesetService) {}
 
     simpleTrackBy(index: number): number {
         return index;
@@ -50,19 +54,10 @@ export class ClaimChangesetComponent {
     }
 
     menuItemSelected($event: MenuConfigItem, i: number) {
-        switch ($event.action) {
-            case MenuConfigAction.deleteComment:
-                this.unsavedClaimChangesetService.addModification(
-                    createDeleteCommentModification(this.changesetInfos$.getValue()[i])
-                );
-                break;
-            case MenuConfigAction.deleteFile:
-                this.unsavedClaimChangesetService.addModification(
-                    createDeleteFileModification(this.changesetInfos$.getValue()[i])
-                );
-                break;
-            default:
-                console.warn('Unsupported method', $event);
-        }
+        this.claimChangesetService.menuItemSelected(
+            $event,
+            this.changesetInfos$.getValue()[i],
+            this.partyID
+        );
     }
 }
