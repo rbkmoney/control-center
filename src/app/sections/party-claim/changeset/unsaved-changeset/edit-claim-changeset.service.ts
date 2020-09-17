@@ -16,6 +16,7 @@ export class EditClaimChangesetService {
             const d = this.dialog.open(EditUnsavedModificationComponent, {
                 disableClose: true,
                 data: mods[pos].party_modification,
+                width: '800px',
             });
             d.afterClosed().subscribe((newMod) => {
                 if (newMod) {
