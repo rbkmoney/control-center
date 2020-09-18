@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {
     BankCardPaymentSystem,
     BankCardTokenProvider,
-} from '../../../../thrift-services/damsel/gen-model/domain';
-import { BankCard } from '../../../../thrift-services/damsel/gen-model/merch_stat';
+} from '../../../../../thrift-services/damsel/gen-model/domain';
+import { BankCard } from '../../../../../thrift-services/damsel/gen-model/merch_stat';
 
 @Component({
     selector: 'cc-bank-card',

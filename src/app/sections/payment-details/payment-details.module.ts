@@ -10,9 +10,8 @@ import { StatusModule } from '../../shared/components/status';
 import { SharedModule } from '../../shared/shared.module';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { PaymentDetailsComponent } from './payment-details.component';
-import { PaymentToolModule } from './payment-tool';
-import { ToPayerPipe } from './to-payer.pipe';
-import { ToPaymentToolPipe } from './to-payment-tool.pipe';
+import { PaymentMainInfoModule } from './payment-main-info';
+import { PaymentToolModule } from './payment-main-info/payment-tool';
 
 @NgModule({
     imports: [
@@ -26,7 +25,8 @@ import { ToPaymentToolPipe } from './to-payment-tool.pipe';
         StatusModule,
         PaymentToolModule,
         MatProgressSpinnerModule,
+        PaymentMainInfoModule,
     ],
-    declarations: [PaymentDetailsComponent, ToPayerPipe, ToPaymentToolPipe],
+    declarations: [PaymentDetailsComponent],
 })
 export class PaymentDetailsModule {}

@@ -3,11 +3,11 @@
     {{ paymentTool.crypto_currency | toCryptoCurrency }}
 </div>
 <div *ngIf="paymentTool.digital_wallet">
-    {{ paymentTool.digital_wallet | toDigitalWallet }}
+    {{ paymentTool.digital_wallet?.provider | toDigitalWallet }}
 </div>
 <div *ngIf="paymentTool.mobile_commerce">
     {{ paymentTool.mobile_commerce.phone }}
 </div>
 <div *ngIf="paymentTool.payment_terminal">
-    {{ paymentTool.payment_terminal | toPaymentTerminal }}
+    {{ paymentTool.payment_terminal.terminal_type | toPaymentTerminal }}
 </div>

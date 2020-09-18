@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 
 import { FirstLetterToUppercasePipe } from './first-letter-to-uppercase.pipe';
 import { StatusComponent } from './status.component';
-import { ToColorPipe } from './to-color.pipe';
-import { ToStatusPipe } from './to-status.pipe';
+import { ToPaymentColorPipe } from './to-payment-color.pipe';
+import { ToPaymentStatusPipe } from './to-payment-status.pipe';
 
 @NgModule({
-    declarations: [StatusComponent, FirstLetterToUppercasePipe, ToColorPipe, ToStatusPipe],
-    exports: [StatusComponent, FirstLetterToUppercasePipe, ToColorPipe, ToStatusPipe],
+    declarations: [
+        StatusComponent,
+        FirstLetterToUppercasePipe,
+        ToPaymentColorPipe,
+        ToPaymentStatusPipe,
+    ],
+    exports: [StatusComponent, FirstLetterToUppercasePipe, ToPaymentColorPipe, ToPaymentStatusPipe],
 })
 export class StatusModule {}
