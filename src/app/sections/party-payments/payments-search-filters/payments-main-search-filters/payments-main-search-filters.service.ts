@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { ReplaySubject } from 'rxjs';
-import { debounceTime, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../../../party/party.service';
 import { removeEmptyProperties } from '../../../../shared/utils';
