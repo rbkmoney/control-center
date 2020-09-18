@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { ReplaySubject } from 'rxjs';
-import { debounceTime, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { debounceTime, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { PartyService } from '../../../../party/party.service';
 import { removeEmptyProperties } from '../../../../shared/utils';
+import { clearParams } from '../clear-params';
+import { FormValue } from './form-value';
 import { formValueToSearchParams } from './form-value-to-search-params';
 
 @Injectable()
@@ -28,7 +30,8 @@ export class PaymentsMainSearchFiltersService {
         debounceTime(600),
         filter(() => this.form.valid),
         map(removeEmptyProperties),
-        map(formValueToSearchParams)
+        map(formValueToSearchParams),
+        tap((d) => console.log('MAIN PARAMS', d))
     );
 
     shops$ = this.partyID$.pipe(
@@ -40,5 +43,10 @@ export class PaymentsMainSearchFiltersService {
 
     setPartyID(id: string) {
         this.partyID$.next(id);
+    }
+
+    patchFormValue(params: FormValue) {
+        const cleanParams = clearParams(params, Object.keys(this.defaultParams));
+        this.form.patchValue(cleanParams);
     }
 }

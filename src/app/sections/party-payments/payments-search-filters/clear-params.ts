@@ -1,5 +1,5 @@
-export const clearParams = (queryParams: object, filterParams: string[]): object => {
-    return Object.fromEntries(
-        Object.entries(queryParams).filter((param) => !filterParams.includes(param[0]))
-    );
+import pickBy from 'lodash-es/pickBy';
+
+export const clearParams = (params: object, paramsToSave: string[]): object => {
+    return pickBy(params, (v, k) => paramsToSave.includes(k));
 };
