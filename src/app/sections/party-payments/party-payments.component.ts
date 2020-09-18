@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 import { FetchPaymentsService } from './fetch-payments.service';
 import { NavigationParams } from './navigation-params';
