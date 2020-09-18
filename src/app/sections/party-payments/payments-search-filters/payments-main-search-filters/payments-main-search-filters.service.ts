@@ -30,8 +30,7 @@ export class PaymentsMainSearchFiltersService {
         debounceTime(600),
         filter(() => this.form.valid),
         map(removeEmptyProperties),
-        map(formValueToSearchParams),
-        tap((d) => console.log('MAIN PARAMS', d))
+        map(formValueToSearchParams)
     );
 
     shops$ = this.partyID$.pipe(

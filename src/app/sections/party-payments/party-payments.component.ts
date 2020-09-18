@@ -20,10 +20,7 @@ export class PartyPaymentsComponent implements OnInit {
     mainSearchParams$ = new Subject<SearchFiltersParams>();
     otherSearchParams$ = new BehaviorSubject<SearchFiltersParams>({});
 
-    searchParamsChanges$ = combineLatest([
-        this.mainSearchParams$.pipe(tap((d) => console.log('COMBINE MAIN ', d))),
-        this.otherSearchParams$,
-    ]);
+    searchParamsChanges$ = combineLatest([this.mainSearchParams$, this.otherSearchParams$]);
 
     partyID$ = this.partyPaymentsService.partyID$;
     isLoading$ = this.fetchPaymentsService.isLoading$;
@@ -43,10 +40,7 @@ export class PartyPaymentsComponent implements OnInit {
             this.router.navigate([link]);
         });
         this.searchParamsChanges$.subscribe(([mainParams, otherParams]) => {
-            console.log('main', mainParams);
-            console.log('other', otherParams);
             const params = { ...mainParams, ...otherParams };
-            console.log('PARAMS', params);
             this.fetchPaymentsService.search(params);
             this.paymentsSearchFiltersStore.preserve(params);
         });
