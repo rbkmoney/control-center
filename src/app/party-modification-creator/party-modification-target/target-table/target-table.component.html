@@ -34,7 +34,11 @@
                 <ng-container matColumnDef="data">
                     <th mat-header-cell *matHeaderCellDef>Data</th>
                     <td mat-cell *matCellDef="let item" class="mat-column-data">
-                        <cc-pretty-json inline="true" [object]="item.data"></cc-pretty-json>
+                        <cc-pretty-json
+                            inline="true"
+                            [cleanLook]="true"
+                            [object]="item.data"
+                        ></cc-pretty-json>
                     </td>
                 </ng-container>
 
