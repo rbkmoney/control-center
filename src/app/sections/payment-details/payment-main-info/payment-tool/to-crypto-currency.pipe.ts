@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { CryptoCurrency } from '../../../thrift-services/damsel/gen-model/merch_stat';
+import { CryptoCurrency } from '../../../../thrift-services/damsel/gen-model/merch_stat';
 
 @Pipe({
     name: 'toCryptoCurrency',

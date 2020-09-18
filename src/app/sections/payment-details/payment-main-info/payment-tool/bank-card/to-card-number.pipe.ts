@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { BankCard } from '../../../../thrift-services/damsel/gen-model/merch_stat';
+import { BankCard } from '../../../../../thrift-services/damsel/gen-model/merch_stat';
 
 @Pipe({
     name: 'toCardNumber',

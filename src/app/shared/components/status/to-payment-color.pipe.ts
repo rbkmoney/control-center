@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StatusColor } from '../../../shared/components/status/status-color';
+import { StatusColor } from './status-color';
 
 @Pipe({
-    name: 'toColor',
+    name: 'toPaymentColor',
 })
-export class ToColorPipe implements PipeTransform {
+export class ToPaymentColorPipe implements PipeTransform {
     transform(status: string): StatusColor {
         return getStatusColor(status);
     }

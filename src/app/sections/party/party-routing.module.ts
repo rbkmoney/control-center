@@ -56,9 +56,6 @@ import { PartyComponent } from './party.component';
                         loadChildren: () =>
                             import('../payment-details').then((m) => m.PaymentDetailsModule),
                         canActivate: [AppAuthGuardService],
-                        data: {
-                            roles: ['get_claims'],
-                        },
                     },
                     {
                         path: 'payment-routing-rules',

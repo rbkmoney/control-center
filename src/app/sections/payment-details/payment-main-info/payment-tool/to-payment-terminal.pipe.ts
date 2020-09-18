@@ -1,21 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import {
-    PaymentTerminal,
-    TerminalPaymentProvider,
-} from '../../../thrift-services/damsel/gen-model/merch_stat';
+import { TerminalPaymentProvider } from '../../../../thrift-services/damsel/gen-model/merch_stat';
 
 @Pipe({
     name: 'toPaymentTerminal',
 })
 export class ToPaymentTerminalPipe implements PipeTransform {
-    transform(terminal: PaymentTerminal): string {
-        return toPaymentTerminal(terminal);
+    transform(terminalType: TerminalPaymentProvider): string {
+        return toPaymentTerminal(terminalType);
     }
 }
 
-export const toPaymentTerminal = (terminal: PaymentTerminal): string => {
-    switch (terminal.terminal_type) {
+export const toPaymentTerminal = (terminalType: TerminalPaymentProvider): string => {
+    switch (terminalType) {
         case TerminalPaymentProvider.euroset:
             return 'Евросеть';
         case TerminalPaymentProvider.wechat:
