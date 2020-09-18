@@ -1,14 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { getUnionKey } from '../../../shared/utils';
+
 @Pipe({
     name: 'toStatus',
 })
 export class ToStatusPipe implements PipeTransform {
     transform(status: object): string {
-        return getStatus(status);
+        return getUnionKey(status);
     }
 }
-
-export const getStatus = (status: object): string => {
-    return Object.entries(status).filter((entry) => !!entry[1])[0][0];
-};

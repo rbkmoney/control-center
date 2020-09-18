@@ -9,7 +9,7 @@ import { NavigationParams } from './navigation-params';
 export class PartyPaymentsService {
     private navigationParamsChanges$ = new Subject<NavigationParams>();
 
-    private partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
+    partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
 
     paymentNavigationLink$ = this.navigationParamsChanges$.pipe(
         switchMap((params) => combineLatest([of(params), this.partyID$])),

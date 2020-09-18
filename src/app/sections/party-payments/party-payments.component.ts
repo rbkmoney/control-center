@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { FetchPaymentsService } from './fetch-payments.service';
 import { NavigationParams } from './navigation-params';
@@ -15,6 +17,15 @@ import { SearchFiltersParams } from './payments-search-filters/search-filters-pa
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyPaymentsComponent implements OnInit {
+    mainSearchParams$ = new Subject<SearchFiltersParams>();
+    otherSearchParams$ = new BehaviorSubject<SearchFiltersParams>({});
+
+    searchParamsChanges$ = combineLatest([
+        this.mainSearchParams$.pipe(tap((d) => console.log('COMBINE MAIN ', d))),
+        this.otherSearchParams$,
+    ]);
+
+    partyID$ = this.partyPaymentsService.partyID$;
     isLoading$ = this.fetchPaymentsService.isLoading$;
     doAction$ = this.fetchPaymentsService.doAction$;
     payments$ = this.fetchPaymentsService.searchResult$;
@@ -31,6 +42,14 @@ export class PartyPaymentsComponent implements OnInit {
         this.partyPaymentsService.paymentNavigationLink$.subscribe((link) => {
             this.router.navigate([link]);
         });
+        this.searchParamsChanges$.subscribe(([mainParams, otherParams]) => {
+            console.log('main', mainParams);
+            console.log('other', otherParams);
+            const params = { ...mainParams, ...otherParams };
+            console.log('PARAMS', params);
+            this.fetchPaymentsService.search(params);
+            this.paymentsSearchFiltersStore.preserve(params);
+        });
     }
 
     ngOnInit() {
@@ -43,9 +62,12 @@ export class PartyPaymentsComponent implements OnInit {
         this.fetchPaymentsService.fetchMore();
     }
 
-    searchParamsChanges(p: SearchFiltersParams) {
-        this.fetchPaymentsService.search(p);
-        this.paymentsSearchFiltersStore.preserve(p);
+    mainSearchParamsChanges(params: SearchFiltersParams) {
+        this.mainSearchParams$.next(params);
+    }
+
+    otherSearchParamsChanges(params: SearchFiltersParams) {
+        this.otherSearchParams$.next(params);
     }
 
     navigateToPayment(params: NavigationParams) {

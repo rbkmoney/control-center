@@ -5,14 +5,15 @@
             <mat-card-content fxLayout>
                 <cc-payments-main-search-filters
                     fxFlex="75"
-                    (valueChanges)="searchParamsChanges($event)"
+                    [partyID]="partyID$ | async"
+                    (valueChanges)="mainSearchParamsChanges($event)"
                     [initParams]="initSearchParams$ | async"
                 ></cc-payments-main-search-filters>
                 <cc-payments-other-search-filters
                     class="other-filters-button"
                     fxFlex
                     fxLayoutAlign="center start"
-                    (valueChanges)="searchParamsChanges($event)"
+                    (valueChanges)="otherSearchParamsChanges($event)"
                     [initParams]="initSearchParams$ | async"
                 ></cc-payments-other-search-filters>
             </mat-card-content>
@@ -26,6 +27,7 @@
             ></cc-empty-search-result>
             <mat-card *ngIf="payments.length > 0" fxLayout="column" fxLayoutGap="16px">
                 <cc-payments-table
+                    [partyID]="partyID$ | async"
                     [payments]="payments"
                     (goToPaymentDetails)="navigateToPayment($event)"
                 ></cc-payments-table>
