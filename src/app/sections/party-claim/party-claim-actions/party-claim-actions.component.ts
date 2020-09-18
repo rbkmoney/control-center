@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { map, take } from 'rxjs/operators';
 
-import { UnitActionsNavListComponent } from '../../../party-modification-creator/unit-actions-nav-list';
+import {
+    PartyModificationCreatorDialogService,
+    UnitActionType,
+} from '../../../party-modification-creator';
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import { UnsavedClaimChangesetService } from '../changeset/unsaved-changeset/unsaved-claim-changeset.service';
 
@@ -16,8 +18,8 @@ export class PartyClaimActionsComponent {
     partyID: PartyID;
 
     constructor(
-        private bottomSheet: MatBottomSheet,
-        private unsavedClaimChangesetService: UnsavedClaimChangesetService
+        private unsavedClaimChangesetService: UnsavedClaimChangesetService,
+        private partyModificationCreatorDialogService: PartyModificationCreatorDialogService
     ) {}
 
     addPartyModification() {
@@ -26,14 +28,12 @@ export class PartyClaimActionsComponent {
                 take(1),
                 map((infos) => infos.map((info) => info.modification))
             )
-            .subscribe((mods) => {
-                this.bottomSheet.open(UnitActionsNavListComponent, {
-                    data: {
-                        type: 'allActions',
-                        partyID: this.partyID,
-                        unsaved: mods,
-                    },
-                });
-            });
+            .subscribe((unsaved) =>
+                this.partyModificationCreatorDialogService.open(
+                    UnitActionType.allActions,
+                    this.partyID,
+                    unsaved
+                )
+            );
     }
 }
