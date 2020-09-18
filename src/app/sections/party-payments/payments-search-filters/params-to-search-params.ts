@@ -1,6 +1,6 @@
 import { toMinor } from '../../../shared/utils/to-minor';
-import { SearchFiltersParams } from './search-filters-params';
 import { filterParams } from './filter-params';
+import { SearchFiltersParams } from './search-filters-params';
 
 export const paramsToSearchParams = (
     initParams: SearchFiltersParams,
