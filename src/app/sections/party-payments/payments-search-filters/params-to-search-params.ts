@@ -1,15 +1,15 @@
 import { toMinor } from '../../../shared/utils/to-minor';
-import { clearParams } from './clear-params';
 import { SearchFiltersParams } from './search-filters-params';
+import { filterParams } from './filter-params';
 
 export const paramsToSearchParams = (
     initParams: SearchFiltersParams,
     formSearchParams: SearchFiltersParams,
-    clearParamsKeys: string[]
+    paramsToFilter: string[]
 ): SearchFiltersParams => {
-    const cleanParams = clearParams(initParams, clearParamsKeys);
+    const filteredParams = filterParams(initParams, paramsToFilter);
     return {
-        ...cleanParams,
+        ...filteredParams,
         ...formSearchParams,
         ...(formSearchParams.paymentAmountFrom
             ? { paymentAmountFrom: toMinor(Number(formSearchParams.paymentAmountFrom)).toString() }

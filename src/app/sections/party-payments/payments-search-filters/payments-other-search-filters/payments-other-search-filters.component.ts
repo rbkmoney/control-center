@@ -3,11 +3,9 @@ import {
     Component,
     EventEmitter,
     Input,
-    OnChanges,
+    OnInit,
     Output,
-    SimpleChanges,
 } from '@angular/core';
-import isEqual from 'lodash-es/isEqual';
 
 import { SearchFiltersParams } from '../search-filters-params';
 import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
@@ -19,7 +17,7 @@ import { searchToFormParams } from './search-to-form-params';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [PaymentsOtherSearchFiltersService],
 })
-export class PaymentsOtherSearchFiltersComponent implements OnChanges {
+export class PaymentsOtherSearchFiltersComponent implements OnInit {
     @Input()
     initParams: SearchFiltersParams;
 
@@ -29,23 +27,17 @@ export class PaymentsOtherSearchFiltersComponent implements OnChanges {
     private searchParamsChanges$ = this.paymentsOtherSearchFiltersService.searchParamsChanges$;
 
     count$ = this.paymentsOtherSearchFiltersService.filtersCount$;
-    form = this.paymentsOtherSearchFiltersService.form;
 
     constructor(private paymentsOtherSearchFiltersService: PaymentsOtherSearchFiltersService) {
         this.searchParamsChanges$.subscribe((params) => this.valueChanges.emit(params));
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (
-            changes.initParams &&
-            !isEqual(changes.initParams.currentValue, changes.initParams.previousValue)
-        ) {
-            this.form.patchValue(searchToFormParams(this.initParams));
-            this.paymentsOtherSearchFiltersService.updateActiveFiltersCount(this.initParams);
-        }
+    ngOnInit() {
+        this.paymentsOtherSearchFiltersService.updateParams(searchToFormParams(this.initParams));
+        this.paymentsOtherSearchFiltersService.updateActiveFiltersCount(this.initParams);
     }
 
     openOtherFiltersDialog() {
-        this.paymentsOtherSearchFiltersService.openOtherFiltersDialog(this.initParams);
+        this.paymentsOtherSearchFiltersService.openOtherFiltersDialog();
     }
 }

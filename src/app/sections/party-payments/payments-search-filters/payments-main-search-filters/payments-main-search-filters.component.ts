@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
-import { paramsToSearchParams } from '../params-to-search-params';
 import { SearchFiltersParams } from '../search-filters-params';
 import { PaymentsMainSearchFiltersService } from './payments-main-search-filters.service';
 import { searchParamsToFormParams } from './search-params-to-form-params';
@@ -53,18 +52,14 @@ export class PaymentsMainSearchFiltersComponent implements OnInit {
 
     constructor(private paymentsMainSearchFiltersService: PaymentsMainSearchFiltersService) {
         this.searchParamsChanges$.subscribe((params) => {
-            this.valueChanges.emit(
-                paramsToSearchParams(
-                    this.initParams,
-                    params,
-                    Object.keys(Object.keys(this.form.value))
-                )
-            );
+            this.valueChanges.emit(params);
         });
     }
 
     ngOnInit() {
-        this.form.patchValue(searchParamsToFormParams(this.initParams));
+        this.paymentsMainSearchFiltersService.patchFormValue(
+            searchParamsToFormParams(this.initParams)
+        );
         this.paymentsMainSearchFiltersService.setPartyID(this.partyID);
     }
 }
