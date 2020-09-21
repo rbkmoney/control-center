@@ -48,12 +48,8 @@ export class PartyPaymentsComponent implements OnInit {
         this.fetchPaymentsService.fetchMore();
     }
 
-    mainSearchParamsChanges(params: SearchFiltersParams) {
-        this.partyPaymentsService.mainSearchParamsChanges(params);
-    }
-
-    otherSearchParamsChanges(params: SearchFiltersParams) {
-        this.partyPaymentsService.otherSearchParamsChanges(params);
+    searchParamsChanges(params: SearchFiltersParams) {
+        this.partyPaymentsService.searchParamsChanges(params);
     }
 
     navigateToPayment(params: NavigationParams) {

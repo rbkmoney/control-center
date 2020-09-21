@@ -7,7 +7,7 @@ import { DomainService } from '../../../../../domain';
 export class OtherFiltersDialogService {
     currentDomainVersion$ = this.domainService.version$;
 
-    defaultParams = {
+    form = this.fb.group({
         payerEmail: ['', [Validators.email]],
         terminalID: '',
         providerID: '',
@@ -19,9 +19,7 @@ export class OtherFiltersDialogService {
         paymentMethod: null,
         tokenProvider: null,
         paymentSystem: null,
-    };
-
-    form = this.fb.group(this.defaultParams);
+    });
 
     constructor(private fb: FormBuilder, private domainService: DomainService) {}
 }
