@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 
 import { FetchPaymentsService } from './fetch-payments.service';
 import { NavigationParams } from './navigation-params';
@@ -16,11 +15,6 @@ import { SearchFiltersParams } from './payments-search-filters/search-filters-pa
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyPaymentsComponent implements OnInit {
-    mainSearchParams$ = new Subject<SearchFiltersParams>();
-    otherSearchParams$ = new BehaviorSubject<SearchFiltersParams>({});
-
-    searchParamsChanges$ = combineLatest([this.mainSearchParams$, this.otherSearchParams$]);
-
     partyID$ = this.partyPaymentsService.partyID$;
     isLoading$ = this.fetchPaymentsService.isLoading$;
     doAction$ = this.fetchPaymentsService.doAction$;
@@ -38,8 +32,7 @@ export class PartyPaymentsComponent implements OnInit {
         this.partyPaymentsService.paymentNavigationLink$.subscribe((link) => {
             this.router.navigate([link]);
         });
-        this.searchParamsChanges$.subscribe(([mainParams, otherParams]) => {
-            const params = { ...mainParams, ...otherParams };
+        this.partyPaymentsService.searchParamsChanges$.subscribe((params) => {
             this.fetchPaymentsService.search(params);
             this.paymentsSearchFiltersStore.preserve(params);
         });
@@ -56,11 +49,11 @@ export class PartyPaymentsComponent implements OnInit {
     }
 
     mainSearchParamsChanges(params: SearchFiltersParams) {
-        this.mainSearchParams$.next(params);
+        this.partyPaymentsService.mainSearchParamsChanges(params);
     }
 
     otherSearchParamsChanges(params: SearchFiltersParams) {
-        this.otherSearchParams$.next(params);
+        this.partyPaymentsService.otherSearchParamsChanges(params);
     }
 
     navigateToPayment(params: NavigationParams) {
