@@ -23,6 +23,6 @@ export class PaymentsTableComponent {
     displayedColumns: string[] = ['amount', 'status', 'createdAt', 'shop', 'actions'];
 
     navigateToPayment(invoiceID: InvoiceID, paymentID: InvoicePaymentID) {
-        this.goToPaymentDetails.emit({ invoiceID, paymentID });
+        this.goToPaymentDetails.emit({ partyID: this.partyID, invoiceID, paymentID });
     }
 }

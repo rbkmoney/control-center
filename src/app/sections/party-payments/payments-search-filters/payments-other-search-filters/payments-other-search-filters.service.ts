@@ -5,10 +5,11 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '../../../../shared/utils';
-import { clearParams } from '../clear-params';
 import { SearchFiltersParams } from '../search-filters-params';
 import { countActiveFilters } from './count-active-filters';
+import { formParamsToSearchParams } from './form-params-to-search-params';
 import { OtherFiltersDialogComponent } from './other-filters-dialog';
+import { searchParamsToFormParams } from './search-params-to-form-params';
 
 @Injectable()
 export class PaymentsOtherSearchFiltersService {
@@ -34,7 +35,11 @@ export class PaymentsOtherSearchFiltersService {
 
     form = this.fb.group(this.defaultParams);
 
-    searchParamsChanges$ = this.updateParams$.pipe(map(removeEmptyProperties), shareReplay(1));
+    searchParamsChanges$ = this.updateParams$.pipe(
+        map(removeEmptyProperties),
+        map(formParamsToSearchParams),
+        shareReplay(1)
+    );
 
     filtersCount$ = this.updateActiveFiltersCount$.pipe(
         map((params) => countActiveFilters(params, Object.keys(this.defaultParams))),
@@ -59,10 +64,10 @@ export class PaymentsOtherSearchFiltersService {
         this.searchParamsChanges$.subscribe((params) => this.updateActiveFiltersCount(params));
     }
 
-    updateParams(params: SearchFiltersParams) {
-        const cleanParams = clearParams(params, Object.keys(this.defaultParams));
-        this.form.patchValue(cleanParams);
-        this.updateParams$.next(cleanParams);
+    init(params: SearchFiltersParams) {
+        this.form.patchValue(searchParamsToFormParams(params));
+        this.updateParams$.next(this.form.value);
+        this.updateActiveFiltersCount(params);
     }
 
     openOtherFiltersDialog() {

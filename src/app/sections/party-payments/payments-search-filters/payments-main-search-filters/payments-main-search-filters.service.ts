@@ -6,9 +6,9 @@ import { debounceTime, filter, map, shareReplay, switchMap } from 'rxjs/operator
 
 import { PartyService } from '../../../../party/party.service';
 import { removeEmptyProperties } from '../../../../shared/utils';
-import { clearParams } from '../clear-params';
-import { FormValue } from './form-value';
+import { SearchFiltersParams } from '../search-filters-params';
 import { formValueToSearchParams } from './form-value-to-search-params';
+import { searchParamsToFormParams } from './search-params-to-form-params';
 
 @Injectable()
 export class PaymentsMainSearchFiltersService {
@@ -44,8 +44,7 @@ export class PaymentsMainSearchFiltersService {
         this.partyID$.next(id);
     }
 
-    patchFormValue(params: FormValue) {
-        const cleanParams = clearParams(params, Object.keys(this.defaultParams));
-        this.form.patchValue(cleanParams);
+    init(params: SearchFiltersParams) {
+        this.form.patchValue(searchParamsToFormParams(params));
     }
 }

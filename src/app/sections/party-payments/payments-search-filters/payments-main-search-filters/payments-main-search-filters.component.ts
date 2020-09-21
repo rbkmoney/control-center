@@ -10,7 +10,6 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 import { SearchFiltersParams } from '../search-filters-params';
 import { PaymentsMainSearchFiltersService } from './payments-main-search-filters.service';
-import { searchParamsToFormParams } from './search-params-to-form-params';
 
 export const MY_FORMATS = {
     parse: {
@@ -44,22 +43,18 @@ export class PaymentsMainSearchFiltersComponent implements OnInit {
     @Output()
     valueChanges = new EventEmitter<SearchFiltersParams>();
 
-    searchParamsChanges$ = this.paymentsMainSearchFiltersService.searchParamsChanges$;
-
     shops$ = this.paymentsMainSearchFiltersService.shops$;
 
     form = this.paymentsMainSearchFiltersService.form;
 
     constructor(private paymentsMainSearchFiltersService: PaymentsMainSearchFiltersService) {
-        this.searchParamsChanges$.subscribe((params) => {
+        this.paymentsMainSearchFiltersService.searchParamsChanges$.subscribe((params) => {
             this.valueChanges.emit(params);
         });
     }
 
     ngOnInit() {
-        this.paymentsMainSearchFiltersService.patchFormValue(
-            searchParamsToFormParams(this.initParams)
-        );
+        this.paymentsMainSearchFiltersService.init(this.initParams);
         this.paymentsMainSearchFiltersService.setPartyID(this.partyID);
     }
 }

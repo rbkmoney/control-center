@@ -9,7 +9,6 @@ import {
 
 import { SearchFiltersParams } from '../search-filters-params';
 import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
-import { searchToFormParams } from './search-to-form-params';
 
 @Component({
     selector: 'cc-payments-other-search-filters',
@@ -33,8 +32,7 @@ export class PaymentsOtherSearchFiltersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.paymentsOtherSearchFiltersService.updateParams(searchToFormParams(this.initParams));
-        this.paymentsOtherSearchFiltersService.updateActiveFiltersCount(this.initParams);
+        this.paymentsOtherSearchFiltersService.init(this.initParams);
     }
 
     openOtherFiltersDialog() {
