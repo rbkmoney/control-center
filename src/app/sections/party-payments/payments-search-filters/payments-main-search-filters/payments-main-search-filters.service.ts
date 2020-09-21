@@ -12,7 +12,7 @@ import { searchParamsToFormParams } from './search-params-to-form-params';
 
 @Injectable()
 export class PaymentsMainSearchFiltersService {
-    private partyID$ = new ReplaySubject<string>();
+    private getShops$ = new ReplaySubject<string>();
 
     private defaultParams = {
         fromTime: [moment().subtract(1, 'month').startOf('d'), Validators.required],
@@ -33,15 +33,15 @@ export class PaymentsMainSearchFiltersService {
         map(formValueToSearchParams)
     );
 
-    shops$ = this.partyID$.pipe(
+    shops$ = this.getShops$.pipe(
         switchMap((partyID) => this.partyService.getShops(partyID)),
         shareReplay(1)
     );
 
     constructor(private partyService: PartyService, private fb: FormBuilder) {}
 
-    setPartyID(id: string) {
-        this.partyID$.next(id);
+    getShops(id: string) {
+        this.getShops$.next(id);
     }
 
     init(params: SearchFiltersParams) {
