@@ -11,7 +11,7 @@
         <th mat-header-cell *matHeaderCellDef>Status</th>
         <td mat-cell *matCellDef="let payment">
             <cc-status [color]="payment.status | toStatus | toColor">{{
-                payment.status | toStatus | firstLetterToUppercase
+                payment.status | toStatus
             }}</cc-status>
         </td>
     </ng-container>

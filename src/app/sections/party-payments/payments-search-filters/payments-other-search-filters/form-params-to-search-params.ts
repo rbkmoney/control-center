@@ -5,10 +5,12 @@ export const formParamsToSearchParams = (params: SearchFiltersParams): SearchFil
     return {
         ...params,
         ...(params.paymentAmountFrom
-            ? { paymentAmountFrom: toMinor(Number(params.paymentAmountFrom)).toString() }
+            ? { paymentAmountFrom: amountToMinor(params.paymentAmountFrom) }
             : {}),
         ...(params.paymentAmountTo
-            ? { paymentAmountTo: toMinor(Number(params.paymentAmountTo)).toString() }
+            ? { paymentAmountTo: amountToMinor(params.paymentAmountTo) }
             : {}),
     };
 };
+
+const amountToMinor = (amount: string): string => toMinor(Number(amount)).toString();

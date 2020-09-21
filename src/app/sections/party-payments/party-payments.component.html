@@ -6,14 +6,14 @@
                 <cc-payments-main-search-filters
                     fxFlex="75"
                     [partyID]="partyID$ | async"
-                    (valueChanges)="mainSearchParamsChanges($event)"
+                    (valueChanges)="searchParamsChanges($event)"
                     [initParams]="initSearchParams$ | async"
                 ></cc-payments-main-search-filters>
                 <cc-payments-other-search-filters
                     class="other-filters-button"
                     fxFlex
                     fxLayoutAlign="center start"
-                    (valueChanges)="otherSearchParamsChanges($event)"
+                    (valueChanges)="searchParamsChanges($event)"
                     [initParams]="initSearchParams$ | async"
                 ></cc-payments-other-search-filters>
             </mat-card-content>

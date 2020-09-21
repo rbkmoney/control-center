@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, ReplaySubject, Subject } from 'rxjs';
-import { map, pluck, shareReplay } from 'rxjs/operators';
+import { ReplaySubject, Subject } from 'rxjs';
+import { map, pluck, scan, shareReplay } from 'rxjs/operators';
 
+import { removeEmptyProperties } from '../../shared/utils';
 import { NavigationParams } from './navigation-params';
 import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
 
@@ -10,14 +11,11 @@ import { SearchFiltersParams } from './payments-search-filters/search-filters-pa
 export class PartyPaymentsService {
     private navigationParamsChanges$ = new Subject<NavigationParams>();
 
-    private mainSearchParamsChanges$ = new ReplaySubject<SearchFiltersParams>();
-    private otherSearchParamsChanges$ = new ReplaySubject<SearchFiltersParams>();
+    private searchParamsChange$ = new ReplaySubject<SearchFiltersParams>();
 
-    searchParamsChanges$ = combineLatest([
-        this.mainSearchParamsChanges$,
-        this.otherSearchParamsChanges$,
-    ]).pipe(
-        map(([mainParams, otherParams]) => ({ ...mainParams, ...otherParams })),
+    searchParamsChanges$ = this.searchParamsChange$.pipe(
+        scan((acc, curr) => ({ ...acc, ...curr })),
+        map(removeEmptyProperties),
         shareReplay(1)
     );
 
@@ -32,12 +30,8 @@ export class PartyPaymentsService {
 
     constructor(private route: ActivatedRoute) {}
 
-    mainSearchParamsChanges(params: SearchFiltersParams) {
-        this.mainSearchParamsChanges$.next(params);
-    }
-
-    otherSearchParamsChanges(params: SearchFiltersParams) {
-        this.otherSearchParamsChanges$.next(params);
+    searchParamsChanges(params: SearchFiltersParams) {
+        this.searchParamsChange$.next(params);
     }
 
     updatePaymentNavigationLink(params: NavigationParams) {
