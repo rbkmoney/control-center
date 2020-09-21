@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import isEmpty from 'lodash-es/isEmpty';
 import { ReplaySubject, Subject } from 'rxjs';
-import { map, pluck, scan, shareReplay } from 'rxjs/operators';
+import { filter, map, pluck, scan, shareReplay } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '../../shared/utils';
 import { NavigationParams } from './navigation-params';
@@ -14,6 +15,7 @@ export class PartyPaymentsService {
     private searchParamsChange$ = new ReplaySubject<SearchFiltersParams>();
 
     searchParamsChanges$ = this.searchParamsChange$.pipe(
+        filter((v) => !isEmpty(v)),
         scan((acc, curr) => ({ ...acc, ...curr })),
         map(removeEmptyProperties),
         shareReplay(1)
