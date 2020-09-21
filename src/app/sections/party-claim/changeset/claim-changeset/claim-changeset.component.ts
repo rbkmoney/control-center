@@ -56,7 +56,8 @@ export class ClaimChangesetComponent {
     menuItemSelected($event: MenuConfigItem, i: number) {
         this.claimChangesetService.menuItemSelected(
             $event,
-            this.changesetInfos$.getValue()[i],
+            this.changesetInfos$.getValue(),
+            i,
             this.partyID
         );
     }
