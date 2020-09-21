@@ -20,7 +20,13 @@ export class ClaimChangesetService {
         });
     }
 
-    menuItemSelected($event: MenuConfigItem, changesetInfo: ChangesetInfo, partyID: PartyID) {
+    menuItemSelected(
+        $event: MenuConfigItem,
+        changesetInfos: ChangesetInfo[],
+        index: number,
+        partyID: PartyID
+    ) {
+        const changesetInfo = changesetInfos[index];
         switch ($event.action) {
             case MenuConfigAction.deleteComment:
                 this.unsavedClaimChangesetService.addModification(
