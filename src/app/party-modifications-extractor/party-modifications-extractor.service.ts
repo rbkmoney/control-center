@@ -1,66 +1,46 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import * as uuid from 'uuid/v4';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable, Subject } from 'rxjs';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
 
-import { QuestionaryData } from '../thrift-services/ank/gen-model/questionary_manager';
+import { Questionary } from '../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../thrift-services/damsel/gen-model/claim_management';
-import { createContractCreation, createPayoutToolCreation, createShopCreation } from './creators';
-import { createContractor } from './creators/create-contractor';
-import { createShopAccountCreation } from './creators/create-shop-account-creation';
-import { ExtractFormValue } from './extract-form-value';
+import { PartyID } from '../thrift-services/damsel/gen-model/domain';
+import { PartyModificationsExtractorDialogComponent } from './party-modifications-extractor-dialog.component';
 
 @Injectable()
 export class PartyModificationsExtractorService {
-    form = this.fb.group({
-        category: this.fb.group({}),
-        payment_institution: this.fb.group({}),
-        contractor: this.fb.group({}),
-    });
+    private destroy$: Subject<void> = new Subject();
+    private extractMods$: Subject<{ partyID: PartyID; questionary: Questionary }> = new Subject();
+    private extracted$: Subject<PartyModification[]> = new Subject();
 
-    constructor(private fb: FormBuilder) {}
+    modsExtracted$: Observable<PartyModification[]> = this.extracted$.asObservable();
 
-    mapToModifications(d: QuestionaryData): PartyModification[] {
-        const {
-            category,
-            payment_institution,
-            contractor: { id },
-        }: ExtractFormValue = this.form.value;
-        const contractorID = uuid();
-        const shopID = uuid();
-        const contractID = uuid();
-        const payoutToolID = uuid();
+    constructor(private dialog: MatDialog) {}
 
-        const result = [];
+    init() {
+        this.extractMods$
+            .pipe(
+                takeUntil(this.destroy$),
+                switchMap(({ partyID, questionary }) =>
+                    this.dialog
+                        .open(PartyModificationsExtractorDialogComponent, {
+                            disableClose: true,
+                            data: { questionary, partyID },
+                            width: '800px',
+                        })
+                        .afterClosed()
+                        .pipe(filter((r) => r.length > 0))
+                )
+            )
+            .subscribe((r) => this.extracted$.next(r));
+    }
 
-        if (d.contractor) {
-            const contractorCreationModification = createContractor(d, contractorID);
-            result.push(contractorCreationModification);
-        }
+    extractMods(partyID: PartyID, questionary: Questionary) {
+        this.extractMods$.next({ partyID, questionary });
+    }
 
-        const contractCreationModification = createContractCreation(
-            d.contractor ? contractorID : id,
-            contractID,
-            payment_institution
-        );
-        result.push(contractCreationModification);
-
-        const payoutToolCreationModification = createPayoutToolCreation(
-            d,
-            contractID,
-            payoutToolID
-        );
-        result.push(payoutToolCreationModification);
-
-        const shopCreationModification = createShopCreation(
-            d,
-            contractID,
-            payoutToolID,
-            category.id,
-            shopID
-        );
-        const shopAccountCreation = createShopAccountCreation(shopID);
-        result.push(shopCreationModification, shopAccountCreation);
-
-        return result;
+    destroy() {
+        this.destroy$.next();
     }
 }

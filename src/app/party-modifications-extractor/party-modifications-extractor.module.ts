@@ -12,11 +12,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PartyModificationFormsModule } from '../party-modification-forms';
 import { ContractorSelectorModule } from './contractor-selector';
 import { ExtractFormCheckboxNamePipe } from './extract-form-checkbox-name.pipe';
-import { PartyModificationsExtractorDialogService } from './party-modifications-extractor-dialog.service';
-import { PartyModificationsExtractorComponent } from './party-modifications-extractor.component';
+import { PartyModificationsExtractorDialogComponent } from './party-modifications-extractor-dialog.component';
+import { PartyModificationsExtractorService } from './party-modifications-extractor.service';
 
 @NgModule({
-    declarations: [PartyModificationsExtractorComponent, ExtractFormCheckboxNamePipe],
+    declarations: [PartyModificationsExtractorDialogComponent, ExtractFormCheckboxNamePipe],
     imports: [
         FlexModule,
         MatDialogModule,
@@ -30,7 +30,7 @@ import { PartyModificationsExtractorComponent } from './party-modifications-extr
         MatRadioModule,
         ContractorSelectorModule,
     ],
-    entryComponents: [PartyModificationsExtractorComponent],
-    providers: [PartyModificationsExtractorDialogService],
+    entryComponents: [PartyModificationsExtractorDialogComponent],
+    providers: [PartyModificationsExtractorService],
 })
 export class PartyModificationsExtractorModule {}
