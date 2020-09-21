@@ -1,7 +1,8 @@
 import { toMajor } from '../../../../shared/utils/to-major';
 import { SearchFiltersParams } from '../search-filters-params';
+import { FormParams } from './form-params';
 
-export const searchParamsToFormParams = (params: SearchFiltersParams): SearchFiltersParams => {
+export const searchParamsToFormParams = (params: SearchFiltersParams): FormParams => {
     return {
         ...params,
         ...(params.paymentAmountFrom
