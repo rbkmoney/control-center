@@ -5,10 +5,10 @@ import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '../../../../shared/utils';
 import { SearchFiltersParams } from '../search-filters-params';
-import { clearParams } from './clear-params';
 import { formParamsToSearchParams } from './form-params-to-search-params';
 import { OtherFiltersDialogComponent } from './other-filters-dialog';
 import { searchParamsToFormParams } from './search-params-to-form-params';
+import { toFiltersCount } from './to-filters-count';
 
 @Injectable()
 export class PaymentsOtherSearchFiltersService {
@@ -16,7 +16,7 @@ export class PaymentsOtherSearchFiltersService {
 
     private formParams = new ReplaySubject<SearchFiltersParams>();
 
-    private filterKeys = [
+    private countableKeys = [
         'payerEmail',
         'terminalID',
         'providerID',
@@ -34,7 +34,7 @@ export class PaymentsOtherSearchFiltersService {
 
     filtersCount$ = this.searchParamsChanges$.pipe(
         map(removeEmptyProperties),
-        map((params) => Object.keys(params).length || null),
+        map(toFiltersCount(this.countableKeys)),
         shareReplay(1)
     );
 
@@ -57,8 +57,7 @@ export class PaymentsOtherSearchFiltersService {
     }
 
     init(params: SearchFiltersParams) {
-        const filteredParams = clearParams(params, this.filterKeys);
-        this.formParams.next(searchParamsToFormParams(filteredParams));
+        this.formParams.next(searchParamsToFormParams(params));
     }
 
     openOtherFiltersDialog() {
