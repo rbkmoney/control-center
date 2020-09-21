@@ -17,7 +17,6 @@ import { PartyModificationsExtractorComponent } from './party-modifications-extr
 
 @NgModule({
     declarations: [PartyModificationsExtractorComponent, ExtractFormCheckboxNamePipe],
-    exports: [PartyModificationsExtractorComponent],
     imports: [
         FlexModule,
         MatDialogModule,
