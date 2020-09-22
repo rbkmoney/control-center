@@ -10,6 +10,7 @@ import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
 })
 export class PartyComponent {
     links = [
+        { name: 'Payments', url: 'payments' },
         { name: 'Claims', url: 'claims' },
         { name: 'Shops', url: 'shops' },
         { name: 'Payment Routing Rules', url: 'payment-routing-rules' },

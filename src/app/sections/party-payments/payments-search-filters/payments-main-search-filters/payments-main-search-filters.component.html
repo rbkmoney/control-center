@@ -1,0 +1,61 @@
+<form fxLayout="column" fxLayoutGap="16px" [formGroup]="form">
+    <div fxLayout fxLayoutGap="16px" fxFlexFill>
+        <mat-form-field fxFlex>
+            <mat-label>Date Range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate matInput formControlName="fromTime" placeholder="Start Date" />
+                <input matEndDate matInput formControlName="toTime" placeholder="End Date" />
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <input
+                matInput
+                placeholder="Invoice ID"
+                formControlName="invoiceID"
+                type="string"
+                autocomplete="false"
+            />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>Shops</mat-label>
+            <mat-select multiple formControlName="shopIDs" class="select">
+                <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
+                    {{ shop.details.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxLayout fxLayoutGap="16px" fxFlexFill>
+        <mat-form-field fxFlex>
+            <input
+                matInput
+                placeholder="Card Bin"
+                formControlName="bin"
+                type="string"
+                autocomplete="false"
+            />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <input
+                matInput
+                placeholder="Card Pan"
+                formControlName="pan"
+                type="string"
+                autocomplete="false"
+            />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <input
+                matInput
+                placeholder="Payment RRN"
+                formControlName="rrn"
+                type="string"
+                autocomplete="false"
+            />
+        </mat-form-field>
+    </div>
+</form>
