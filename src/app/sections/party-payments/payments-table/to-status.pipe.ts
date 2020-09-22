@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import startCase from 'lodash-es/startCase';
 
 import { getUnionKey } from '../../../shared/utils';
 
@@ -7,6 +8,6 @@ import { getUnionKey } from '../../../shared/utils';
 })
 export class ToStatusPipe implements PipeTransform {
     transform(status: object): string {
-        return getUnionKey(status);
+        return startCase(getUnionKey(status));
     }
 }

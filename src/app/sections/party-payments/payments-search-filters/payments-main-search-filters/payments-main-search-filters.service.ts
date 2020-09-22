@@ -5,7 +5,6 @@ import { ReplaySubject } from 'rxjs';
 import { debounceTime, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../../../party/party.service';
-import { removeEmptyProperties } from '../../../../shared/utils';
 import { SearchFiltersParams } from '../search-filters-params';
 import { formValueToSearchParams } from './form-value-to-search-params';
 import { searchParamsToFormParams } from './search-params-to-form-params';
@@ -14,7 +13,7 @@ import { searchParamsToFormParams } from './search-params-to-form-params';
 export class PaymentsMainSearchFiltersService {
     private getShops$ = new ReplaySubject<string>();
 
-    private defaultParams = {
+    form = this.fb.group({
         fromTime: [moment().subtract(1, 'month').startOf('d'), Validators.required],
         toTime: [moment().endOf('d'), Validators.required],
         invoiceID: '',
@@ -22,15 +21,13 @@ export class PaymentsMainSearchFiltersService {
         bin: ['', [Validators.pattern(/\d{6}$/), Validators.maxLength(6)]],
         pan: ['', [Validators.pattern(/\d{4}$/), Validators.maxLength(4)]],
         rrn: '',
-    };
-
-    form = this.fb.group(this.defaultParams);
+    });
 
     searchParamsChanges$ = this.form.valueChanges.pipe(
         debounceTime(600),
         filter(() => this.form.valid),
-        map(removeEmptyProperties),
-        map(formValueToSearchParams)
+        map(formValueToSearchParams),
+        shareReplay(1)
     );
 
     shops$ = this.getShops$.pipe(
