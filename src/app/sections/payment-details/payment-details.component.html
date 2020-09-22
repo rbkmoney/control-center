@@ -1,0 +1,11 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <cc-headline>Payment details</cc-headline>
+    <mat-card *ngIf="payment$ | async as payment">
+        <mat-card-content>
+            <cc-payment-main-info [payment]="payment" [shop]="shop$ | async"></cc-payment-main-info>
+        </mat-card-content>
+    </mat-card>
+    <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
+        <mat-spinner diameter="64"></mat-spinner>
+    </div>
+</div>

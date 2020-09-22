@@ -5,3 +5,4 @@ dist
 build_utils
 .scannerwork
 gen-*
+src/assets/icons

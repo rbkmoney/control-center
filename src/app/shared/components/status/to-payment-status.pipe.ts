@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import startCase from 'lodash-es/startCase';
 
-import { getUnionKey } from '../../../shared/utils';
+import { getUnionKey } from '../../utils';
 
 @Pipe({
-    name: 'toStatus',
+    name: 'toPaymentStatus',
 })
-export class ToStatusPipe implements PipeTransform {
+export class ToPaymentStatusPipe implements PipeTransform {
     transform(status: object): string {
         return startCase(getUnionKey(status));
     }
