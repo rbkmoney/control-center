@@ -6,6 +6,8 @@
 @import '../../shared/components/status/status-theme';
 @import '../../shared/components/details-item/details-item-theme';
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
+@import '../../shared/components/status/status-theme';
+@import '../../shared/components/details-item/details-item-theme';
 
 @mixin cc-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -16,5 +18,7 @@
         @include cc-status-theme($theme);
         @include cc-details-item-theme($theme);
         @include cc-payment-routing-rules-theme($theme);
+        @include cc-status-theme($theme);
+        @include cc-details-item-theme($theme);
     }
 }
