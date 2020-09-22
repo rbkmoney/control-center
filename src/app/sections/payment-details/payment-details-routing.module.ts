@@ -11,9 +11,6 @@ import { PaymentDetailsComponent } from './payment-details.component';
                 path: '',
                 component: PaymentDetailsComponent,
                 canActivate: [AppAuthGuardService],
-                data: {
-                    roles: ['get_claims'],
-                },
             },
         ]),
     ],
