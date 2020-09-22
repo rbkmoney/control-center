@@ -9,14 +9,14 @@
         }}</cc-details-item>
         <cc-details-item fxFlex title="Status"
             ><cc-status [color]="payment.status | toPaymentStatus | toPaymentColor">{{
-                payment.status | toPaymentStatus | firstLetterToUppercase
+                payment.status | toPaymentStatus
             }}</cc-status></cc-details-item
         >
     </div>
     <div fxLayout fxLayoutGap="16px">
-        <cc-details-item fxFlex title="Payer">{{ payment.payer | toPayer }}</cc-details-item>
+        <cc-details-item fxFlex title="Payer">{{ getPayerEmail(payment.payer) }}</cc-details-item>
         <cc-details-item fxFlex title="Payment Tool"
-            ><cc-payment-tool [paymentTool]="payment.payer | toPaymentTool"></cc-payment-tool
+            ><cc-payment-tool [paymentTool]="getPaymentTool(payment.payer)"></cc-payment-tool
         ></cc-details-item>
         <cc-details-item fxFlex title="Invoice">#{{ payment.invoice_id }}</cc-details-item>
     </div>

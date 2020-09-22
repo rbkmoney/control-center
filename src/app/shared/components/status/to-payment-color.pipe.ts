@@ -12,7 +12,8 @@ export class ToPaymentColorPipe implements PipeTransform {
 }
 
 const getStatusColor = (status: string): StatusColor => {
-    switch (status) {
+    const s = status.toLowerCase();
+    switch (s) {
         case 'processed':
         case 'captured':
             return StatusColor.success;

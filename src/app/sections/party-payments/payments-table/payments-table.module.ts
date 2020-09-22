@@ -9,8 +9,6 @@ import { MatTableModule } from '@angular/material/table';
 import { StatusModule } from '../../../shared/components/status';
 import { SharedModule } from '../../../shared/shared.module';
 import { PaymentsTableComponent } from './payments-table.component';
-import { ToColorPipe } from './to-color.pipe';
-import { ToStatusPipe } from './to-status.pipe';
 
 @NgModule({
     imports: [
@@ -23,7 +21,7 @@ import { ToStatusPipe } from './to-status.pipe';
         MatIconModule,
         MatMenuModule,
     ],
-    declarations: [PaymentsTableComponent, ToStatusPipe, ToColorPipe],
+    declarations: [PaymentsTableComponent],
     exports: [PaymentsTableComponent],
 })
 export class PaymentsTableModule {}
