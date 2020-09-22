@@ -8,8 +8,7 @@ import { StatusModule } from '../../../shared/components/status';
 import { SharedModule } from '../../../shared/shared.module';
 import { PaymentMainInfoComponent } from './payment-main-info.component';
 import { PaymentToolModule } from './payment-tool';
-import { ToPayerPipe } from './to-payer.pipe';
-import { ToPaymentToolPipe } from './to-payment-tool.pipe';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -20,7 +19,7 @@ import { ToPaymentToolPipe } from './to-payment-tool.pipe';
         PaymentToolModule,
         SharedModule,
     ],
-    declarations: [PaymentMainInfoComponent, ToPayerPipe, ToPaymentToolPipe],
+    declarations: [PaymentMainInfoComponent],
     exports: [PaymentMainInfoComponent],
 })
 export class PaymentMainInfoModule {}
