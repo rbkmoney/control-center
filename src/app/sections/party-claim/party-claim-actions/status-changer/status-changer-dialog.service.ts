@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { merge, Observable, of, Subject } from 'rxjs';
+import { merge, of, Subject } from 'rxjs';
 import {
     catchError,
     distinctUntilChanged,
@@ -16,12 +16,11 @@ import {
 import Int64 from 'thrift-ts/lib/int64';
 
 import { ClaimManagementService } from '../../../../thrift-services/damsel/claim-management.service';
-import { ClaimID } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatus } from './claim-status';
 
 class UpdateClaim {
     partyID: string;
-    claimID: ClaimID;
+    claimID: string;
     action: ClaimStatus;
 }
 
@@ -32,7 +31,7 @@ export class StatusChangerDialogService {
 
     form = this.initForm();
 
-    statusChanged$: Observable<void> = this.updateClaim$.pipe(
+    statusChanged$ = this.updateClaim$.pipe(
         tap(() => this.hasError$.next()),
         switchMap(({ partyID, claimID, action }) => {
             const intClaimID = new Int64(parseInt(claimID, 10));
@@ -92,7 +91,7 @@ export class StatusChangerDialogService {
             });
     }
 
-    updateClaim(partyID: string, claimID: ClaimID) {
+    updateClaim(partyID: string, claimID: string) {
         this.updateClaim$.next({ partyID, claimID, action: this.form.getRawValue().type });
     }
 

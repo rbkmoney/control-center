@@ -2,17 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { AppAuthGuardService } from '../../../../app-auth-guard.service';
-import {
-    ClaimID,
-    ClaimStatus as CMClaimStatus,
-} from '../../../../thrift-services/damsel/gen-model/claim_management';
+import { ClaimStatus as CMClaimStatus } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatus } from './claim-status';
 import { getAvailableClaimStatuses } from './get-available-claim-statuses';
 import { StatusChangerDialogService } from './status-changer-dialog.service';
 
 interface ActionsInterface {
     partyID: string;
-    claimID: ClaimID;
+    claimID: string;
     claimStatus: CMClaimStatus;
 }
 
