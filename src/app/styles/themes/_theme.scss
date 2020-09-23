@@ -4,7 +4,6 @@
 @import '../../shared/components/details-item/details-item-theme';
 
 @import '../../sections/party/party-theme';
-@import '../../sections/party-claim/send-comment/send-comment-theme';
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
 @import '../../sections/party-claim/party-claim-theme';
 
@@ -12,10 +11,10 @@
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
         @include cc-party-theme($theme);
-        @include cc-send-comment-theme($theme);
         @include cc-payment-routing-rules-theme($theme);
         @include cc-timeline-theme($theme);
         @include cc-details-item-theme($theme);
         @include cc-party-claim-theme($theme);
+        @include cc-extract-party-modifications-theme($theme);
     }
 }

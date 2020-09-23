@@ -6,6 +6,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { PartyModificationsExtractorModule } from '../../../../../party-modifications-extractor';
 import { TimelineModule } from '../../../../../shared/components/timeline';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { AnkModule } from '../../../../../thrift-services/ank';
@@ -29,6 +30,7 @@ import { SerialNumberPipe } from './serial-number.pipe';
         MatExpansionModule,
         SharedModule,
         TimelineComponentsModule,
+        PartyModificationsExtractorModule,
     ],
     exports: [QuestionaryTimelineItemComponent],
 })
