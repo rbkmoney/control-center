@@ -3,7 +3,6 @@ import { map } from 'rxjs/operators';
 
 import { PartyModificationsExtractorService } from '../../../../party-modifications-extractor';
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
-import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo } from '../changeset-infos';
 import { MenuConfigAction, MenuConfigItem } from '../timeline-items/menu-config';
@@ -18,11 +17,7 @@ export class ClaimChangesetService {
         private partyModificationsExtractorService: PartyModificationsExtractorService
     ) {
         this.partyModificationsExtractorService.modsExtracted$
-            .pipe(
-                map((mods) =>
-                    mods.map((party_modifications) => ({ party_modifications } as Modification))
-                )
-            )
+            .pipe(map((mods) => mods.map((party_modification) => ({ party_modification }))))
             .subscribe((mods) => {
                 mods.forEach((mod) => this.unsavedClaimChangesetService.addModification(mod));
             });
@@ -55,7 +50,6 @@ export class ClaimChangesetService {
     }
 
     extractPartyModifications(questionary: Questionary, partyID: PartyID) {
-        this.partyModificationsExtractorService.init();
         this.partyModificationsExtractorService.extractMods(partyID, questionary);
     }
 }
