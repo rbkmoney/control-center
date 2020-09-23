@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
-import { UnitActionsNavListComponent } from '../../party-modification-creator';
+import { UnitActionsNavListComponent } from '../../party-modification-creator-legacy';
 import { ClaimService } from '../claim.service';
 import { ModificationGroupType, PartyModificationUnit } from '../model';
 

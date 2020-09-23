@@ -15,7 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MonacoEditorModule } from '../../../monaco-editor';
-import { PartyModificationCreatorModule } from '../../../party-modification-creator';
+import { PartyModificationCreatorLegacyModule } from '../../../party-modification-creator-legacy';
 import { QuestionaryDocumentModule } from '../../../questionary-document';
 import { TimelineModule } from '../../../shared/components/timeline';
 import { HumanizeDurationModule } from '../../../shared/humanize-duration';
@@ -60,7 +60,7 @@ import { SendCommentComponent } from './send-comment';
         MatListModule,
         QuestionaryModule,
         UnsavedPartyModificationsModule,
-        PartyModificationCreatorModule,
+        PartyModificationCreatorLegacyModule,
         MatDividerModule,
         ExtractPartyModificationModule,
         MatMenuModule,

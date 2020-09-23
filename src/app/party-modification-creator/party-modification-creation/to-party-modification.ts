@@ -1,5 +1,5 @@
-import { ContractModificationName, ShopModificationName } from '..';
 import { ActionType, ModificationAction } from '../../claim/modification-action';
+import { ContractModificationName, ShopModificationName } from '../model';
 import { UnitName } from './unit-name';
 
 const removeLegacyMark = (name: ShopModificationName | ContractModificationName): string =>

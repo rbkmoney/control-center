@@ -5,7 +5,7 @@
             <mat-checkbox [checked]="item.checked" (change)="change(item, $event)"
                 >{{ item.id }}
             </mat-checkbox>
-            <cc-pretty-json [object]="item.data"></cc-pretty-json>
+            <cc-pretty-json [object]="item.data" [cleanLook]="true"></cc-pretty-json>
         </div>
     </div>
 </div>

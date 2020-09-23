@@ -6,21 +6,18 @@ import { CreateModificationDialogComponent } from '../create-modification-dialog
 import {
     ActionType,
     ContractModificationName,
+    ContractorModificationName,
     ShopModificationName,
     UnitActionData,
+    UnitActionType,
 } from '../model';
-import { ContractorModificationName } from '../model/contractor-modification-name';
 
 @Component({
     templateUrl: 'unit-actions-nav-list.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnitActionsNavListComponent implements OnInit {
-    constructor(
-        private bottomSheetRef: MatBottomSheetRef,
-        private dialog: MatDialog,
-        @Inject(MAT_BOTTOM_SHEET_DATA) public data: UnitActionData
-    ) {}
+    unitActionType = UnitActionType;
 
     contractorActions = {
         type: ActionType.contractorAction,
@@ -54,9 +51,15 @@ export class UnitActionsNavListComponent implements OnInit {
         ],
     };
 
+    constructor(
+        private bottomSheetRef: MatBottomSheetRef,
+        private dialog: MatDialog,
+        @Inject(MAT_BOTTOM_SHEET_DATA) public data: UnitActionData
+    ) {}
+
     ngOnInit() {
         switch (this.data.type) {
-            case 'allActions':
+            case UnitActionType.allActions:
                 this.contractActions.visible = true;
                 this.shopActions.visible = true;
                 this.contractorActions.visible = true;
@@ -71,13 +74,13 @@ export class UnitActionsNavListComponent implements OnInit {
                     ...this.contractorActions.names,
                 ];
                 break;
-            case 'contractActions':
+            case UnitActionType.contractActions:
                 this.contractActions.visible = true;
                 break;
-            case 'shopActions':
+            case UnitActionType.shopActions:
                 this.shopActions.visible = true;
                 break;
-            case 'contractorActions':
+            case UnitActionType.contractorActions:
                 this.contractorActions.visible = true;
         }
     }
@@ -95,8 +98,9 @@ export class UnitActionsNavListComponent implements OnInit {
                 },
                 partyID: this.data.partyID,
                 unitID: this.data.unitID,
+                unsaved: this.data.unsaved,
             },
-            width: '800px',
+            width: '900px',
             disableClose: true,
         };
         this.dialog.open<CreateModificationDialogComponent>(

@@ -23,8 +23,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { PapiModule } from '../papi/papi.module';
 import {
     ModificationNameModule,
-    PartyModificationCreatorModule,
-} from '../party-modification-creator';
+    PartyModificationCreatorLegacyModule,
+} from '../party-modification-creator-legacy';
 import { SharedModule } from '../shared/shared.module';
 import { DamselModule } from '../thrift-services/damsel/damsel.module';
 import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
@@ -70,7 +70,7 @@ import { PersistentContainerService } from './persistent-container.service';
         MatStepperModule,
         FormsModule,
         ReactiveFormsModule,
-        PartyModificationCreatorModule,
+        PartyModificationCreatorLegacyModule,
         ModificationNameModule,
     ],
     declarations: [

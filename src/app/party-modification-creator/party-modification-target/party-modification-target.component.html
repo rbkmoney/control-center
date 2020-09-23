@@ -13,11 +13,12 @@
         (valueChanges)="unitIDChanges($event)"
     >
     </cc-fill-in-unit-id>
-    <cc-party-target
+    <cc-target-table
         *ngIf="selectedTarget === t.partyItem"
         [partyID]="partyID"
         [partyTarget]="partyTarget"
+        [unsaved]="unsaved"
         (valueChanges)="unitIDChanges($event)"
     >
-    </cc-party-target>
+    </cc-target-table>
 </div>

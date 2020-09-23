@@ -1,0 +1,5 @@
+@mixin cc-target-table-theme($theme) {
+    .cc-target-table-unsaved {
+        color: map-get($theme, red);
+    }
+}

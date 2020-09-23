@@ -2,7 +2,7 @@ import {
     ContractModificationName,
     ContractorModificationName,
     ShopModificationName,
-} from '../party-modification-creator';
+} from '../party-modification-creator-legacy';
 
 export enum ActionType {
     contractAction = 'contractAction',
