@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { PartyModificationsExtractorService } from '../../../../party-modifications-extractor';
 import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from '../changeset-infos';
@@ -13,7 +14,7 @@ import { ClaimChangesetService } from './claim-changeset.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ClaimChangesetService],
 })
-export class ClaimChangesetComponent {
+export class ClaimChangesetComponent implements OnInit, OnDestroy {
     @Input()
     createdAt: string;
 
@@ -43,7 +44,18 @@ export class ClaimChangesetComponent {
     changesetInfos$ = new BehaviorSubject<ChangesetInfo[]>([]);
     filteredChangesetInfos: ChangesetInfo[] = [];
 
-    constructor(private claimChangesetService: ClaimChangesetService) {}
+    constructor(
+        private claimChangesetService: ClaimChangesetService,
+        private partyModificationsExtractorService: PartyModificationsExtractorService
+    ) {}
+
+    ngOnInit(): void {
+        this.partyModificationsExtractorService.init();
+    }
+
+    ngOnDestroy(): void {
+        this.partyModificationsExtractorService.destroy();
+    }
 
     simpleTrackBy(index: number): number {
         return index;

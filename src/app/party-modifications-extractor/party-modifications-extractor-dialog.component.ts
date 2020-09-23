@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Questionary } from '../thrift-services/ank/gen-model/questionary_manager';
 import { PartyID } from '../thrift-services/damsel/gen-model/domain';
-import { PartyModificationsExtractorService } from './party-modifications-extractor.service';
+import { PartyModificationsExtractorDialogService } from './party-modifications-extractor-dialog.service';
 
 export interface ExtractPartyModification {
     questionary: Questionary;
@@ -11,17 +11,17 @@ export interface ExtractPartyModification {
 }
 
 @Component({
-    templateUrl: 'party-modifications-extractor.component.html',
-    providers: [PartyModificationsExtractorService],
+    templateUrl: 'party-modifications-extractor-dialog.component.html',
+    providers: [PartyModificationsExtractorDialogService],
 })
-export class PartyModificationsExtractorComponent {
-    form = this.extractPartyModificationsService.form;
+export class PartyModificationsExtractorDialogComponent {
+    form = this.partyModificationsExtractorDialogService.form;
     partyID: string;
     isContractorAvailable: boolean;
 
     constructor(
-        private dialogRef: MatDialogRef<PartyModificationsExtractorComponent>,
-        private extractPartyModificationsService: PartyModificationsExtractorService,
+        private dialogRef: MatDialogRef<PartyModificationsExtractorDialogComponent>,
+        private partyModificationsExtractorDialogService: PartyModificationsExtractorDialogService,
         @Inject(MAT_DIALOG_DATA) private data: ExtractPartyModification
     ) {
         this.partyID = this.data.partyID;
@@ -32,7 +32,9 @@ export class PartyModificationsExtractorComponent {
 
     extract() {
         this.dialogRef.close(
-            this.extractPartyModificationsService.mapToModifications(this.data.questionary.data)
+            this.partyModificationsExtractorDialogService.mapToModifications(
+                this.data.questionary.data
+            )
         );
     }
 }

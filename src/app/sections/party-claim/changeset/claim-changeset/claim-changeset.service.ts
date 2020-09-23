@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 
-import { PartyModificationsExtractorDialogService } from '../../../../party-modifications-extractor';
+import { PartyModificationsExtractorService } from '../../../../party-modifications-extractor';
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo } from '../changeset-infos';
@@ -13,11 +14,13 @@ import { createDeleteFileModification } from './create-delete-file-modification'
 export class ClaimChangesetService {
     constructor(
         private unsavedClaimChangesetService: UnsavedClaimChangesetService,
-        private extractPartyModificationsDialogService: PartyModificationsExtractorDialogService
+        private partyModificationsExtractorService: PartyModificationsExtractorService
     ) {
-        this.extractPartyModificationsDialogService.extracted$.subscribe((mods) => {
-            mods.forEach((mod) => this.unsavedClaimChangesetService.addModification(mod));
-        });
+        this.partyModificationsExtractorService.modsExtracted$
+            .pipe(map((mods) => mods.map((party_modification) => ({ party_modification }))))
+            .subscribe((mods) => {
+                mods.forEach((mod) => this.unsavedClaimChangesetService.addModification(mod));
+            });
     }
 
     menuItemSelected(
@@ -47,6 +50,6 @@ export class ClaimChangesetService {
     }
 
     extractPartyModifications(questionary: Questionary, partyID: PartyID) {
-        this.extractPartyModificationsDialogService.extract(partyID, questionary);
+        this.partyModificationsExtractorService.extractMods(partyID, questionary);
     }
 }
