@@ -45,9 +45,7 @@ export class StatusChangerDialogComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.statusChangerDialogService.statusChanged$.subscribe(() => {
-            this.dialogRef.close(true);
-        });
+        this.statusChangerDialogService.statusChanged$.subscribe(() => this.dialogRef.close(true));
     }
 
     private statusFilter(status: ClaimStatus): boolean {
