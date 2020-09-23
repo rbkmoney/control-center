@@ -8,7 +8,7 @@ import {
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatus } from './claim-status';
 import { getAvailableClaimStatuses } from './get-available-claim-statuses';
-import { StatusChangerService } from './status-changer.service';
+import { StatusChangerDialogService } from './status-changer-dialog.service';
 
 interface ActionsInterface {
     partyID: string;
@@ -17,28 +17,26 @@ interface ActionsInterface {
 }
 
 @Component({
-    templateUrl: 'status-changer.component.html',
-    providers: [StatusChangerService],
-    styleUrls: ['status-changer.component.scss'],
+    templateUrl: 'status-changer-dialog.component.html',
+    providers: [StatusChangerDialogService],
+    styleUrls: ['status-changer-dialog.component.scss'],
 })
-export class StatusChangerComponent implements OnInit {
-    actions = getAvailableClaimStatuses(this.data.claimStatus).filter((status) =>
+export class StatusChangerDialogComponent implements OnInit {
+    statuses = getAvailableClaimStatuses(this.data.claimStatus).filter((status) =>
         this.statusFilter(status)
     );
-    form = this.actionsService.form;
-    inProgress$ = this.actionsService.inProgress$;
+    form = this.statusChangerDialogService.form;
+    inProgress$ = this.statusChangerDialogService.inProgress$;
 
     constructor(
-        private dialogRef: MatDialogRef<StatusChangerComponent>,
-        private actionsService: StatusChangerService,
+        private dialogRef: MatDialogRef<StatusChangerDialogComponent>,
+        private statusChangerDialogService: StatusChangerDialogService,
         private appAuthGuardService: AppAuthGuardService,
         @Inject(MAT_DIALOG_DATA) private data: ActionsInterface
-    ) {
-        console.log(this.data);
-    }
+    ) {}
 
     confirm() {
-        this.actionsService.updateClaim(this.data.partyID, this.data.claimID);
+        this.statusChangerDialogService.updateClaim(this.data.partyID, this.data.claimID);
     }
 
     isReasonVisible(): boolean {
@@ -47,7 +45,7 @@ export class StatusChangerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.actionsService.claim$.subscribe(() => {
+        this.statusChangerDialogService.statusChanged$.subscribe(() => {
             this.dialogRef.close(true);
         });
     }

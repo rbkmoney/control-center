@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+} from '@angular/core';
 import { map, take } from 'rxjs/operators';
 
 import {
@@ -8,7 +16,7 @@ import {
 import { ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import { UnsavedClaimChangesetService } from '../changeset/unsaved-changeset/unsaved-claim-changeset.service';
-import { StatusChangerDialogService } from './status-changer';
+import { StatusChangerService } from './status-changer';
 import { getAvailableClaimStatuses } from './status-changer/get-available-claim-statuses';
 
 @Component({
@@ -16,7 +24,7 @@ import { getAvailableClaimStatuses } from './status-changer/get-available-claim-
     templateUrl: 'party-claim-actions.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PartyClaimActionsComponent {
+export class PartyClaimActionsComponent implements OnInit, OnDestroy {
     @Input()
     partyID: PartyID;
 
@@ -32,8 +40,17 @@ export class PartyClaimActionsComponent {
     constructor(
         private unsavedClaimChangesetService: UnsavedClaimChangesetService,
         private partyModificationCreatorDialogService: PartyModificationCreatorDialogService,
-        private statusChangerDialogService: StatusChangerDialogService
+        private statusChangerService: StatusChangerService
     ) {}
+
+    ngOnInit(): void {
+        this.statusChangerService.init();
+        this.statusChangerService.statusChanged$.subscribe(() => this.changesetUpdated.emit());
+    }
+
+    ngOnDestroy(): void {
+        this.statusChangerService.destroy();
+    }
 
     addPartyModification() {
         this.unsavedClaimChangesetService.unsavedChangesetInfos$
@@ -51,10 +68,7 @@ export class PartyClaimActionsComponent {
     }
 
     changeStatus() {
-        this.statusChangerDialogService.changed$.pipe(take(1)).subscribe(() => {
-            this.changesetUpdated.emit();
-        });
-        this.statusChangerDialogService.open(this.partyID, this.claimID, this.status);
+        this.statusChangerService.changeStatus(this.partyID, this.claimID, this.status);
     }
 
     canChangeStatus(): boolean {

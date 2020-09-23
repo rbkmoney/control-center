@@ -3,8 +3,8 @@
     <form fxLayout="column" fxLayoutAlign="stretch" [formGroup]="form">
         <mat-form-field>
             <mat-select placeholder="Status" formControlName="type">
-                <mat-option *ngFor="let action of actions" [value]="action">{{
-                    action
+                <mat-option *ngFor="let status of statuses" [value]="status">{{
+                    status | ccClaimStatus
                 }}</mat-option>
             </mat-select>
         </mat-form-field>

@@ -9,9 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 
+import { SharedModule } from '../../../../shared/shared.module';
 import { DamselModule } from '../../../../thrift-services/damsel';
-import { StatusChangerDialogService } from './status-changer-dialog.service';
-import { StatusChangerComponent } from './status-changer.component';
+import { StatusChangerDialogComponent } from './status-changer-dialog.component';
+import { StatusChangerService } from './status-changer.service';
 
 @NgModule({
     imports: [
@@ -25,9 +26,10 @@ import { StatusChangerComponent } from './status-changer.component';
         MatInputModule,
         ReactiveFormsModule,
         MatButtonModule,
+        SharedModule,
     ],
-    declarations: [StatusChangerComponent],
-    entryComponents: [StatusChangerComponent],
-    providers: [StatusChangerDialogService],
+    declarations: [StatusChangerDialogComponent],
+    entryComponents: [StatusChangerDialogComponent],
+    providers: [StatusChangerService],
 })
 export class StatusChangerModule {}
