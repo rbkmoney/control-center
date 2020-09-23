@@ -35,34 +35,27 @@ export class StatusChangerDialogService {
     statusChanged$: Observable<void> = this.updateClaim$.pipe(
         tap(() => this.hasError$.next()),
         switchMap(({ partyID, claimID, action }) => {
+            const intClaimID = new Int64(parseInt(claimID, 10));
             switch (action) {
                 case ClaimStatus.denied:
                     return this.claimManagementService
-                        .denyClaim(
-                            partyID,
-                            new Int64(parseInt(claimID, 10)),
-                            this.form.getRawValue().reason
-                        )
+                        .denyClaim(partyID, intClaimID, this.form.getRawValue().reason)
                         .pipe(catchError(() => this.handleError()));
                 case ClaimStatus.pending:
                     return this.claimManagementService
-                        .requestClaimChanges(partyID, new Int64(parseInt(claimID, 10)))
+                        .requestClaimChanges(partyID, intClaimID)
                         .pipe(catchError(() => this.handleError()));
                 case ClaimStatus.review:
                     return this.claimManagementService
-                        .requestClaimReview(partyID, new Int64(parseInt(claimID, 10)))
+                        .requestClaimReview(partyID, intClaimID)
                         .pipe(catchError(() => this.handleError()));
                 case ClaimStatus.accepted:
                     return this.claimManagementService
-                        .acceptClaim(partyID, new Int64(parseInt(claimID, 10)))
+                        .acceptClaim(partyID, intClaimID)
                         .pipe(catchError(() => this.handleError()));
                 case ClaimStatus.revoked:
                     return this.claimManagementService
-                        .revokeClaim(
-                            partyID,
-                            new Int64(parseInt(claimID, 10)),
-                            this.form.getRawValue().reason
-                        )
+                        .revokeClaim(partyID, intClaimID, this.form.getRawValue().reason)
                         .pipe(catchError(() => this.handleError()));
                 default:
                     throw new Error('Wrong action type!');
