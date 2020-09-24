@@ -4,5 +4,6 @@ node_modules
 dist
 build_utils
 .scannerwork
-gen-*
+src/app/thrift-services/**/gen-*/**/*.ts
+src/app/thrift-services/**/gen-*/**/*.js
 src/assets/icons

@@ -39,7 +39,8 @@ testem.log
 Thumbs.db
 
 /src/assets/meta-*.json
-/src/app/thrift-services/**/gen-*
+/src/app/thrift-services/**/gen-*/**/*.ts
+/src/app/thrift-services/**/gen-*/**/*.js
 
 # Sonar
 .scannerwork
