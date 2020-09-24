@@ -17,6 +17,7 @@ import {
     CurrencyPipe,
     FormatAmountPipe,
     PartyModificationNamePipe,
+    ShopNamePipe,
     ThriftViewPipe,
 } from './pipes';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
@@ -31,6 +32,7 @@ const declarations = [
     PrettyJsonComponent,
     EmptySearchResultComponent,
     ClaimSourcePipe,
+    ShopNamePipe,
     PartyModificationNamePipe,
     CardContainerComponent,
     PartyModificationNamePipe,

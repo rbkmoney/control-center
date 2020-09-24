@@ -1,0 +1,6 @@
+<div class="cc-headline" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
+    <mat-icon *ngIf="isBackAvailable" class="back" (click)="back()">arrow_back</mat-icon>
+    <div>
+        <ng-content></ng-content>
+    </div>
+</div>

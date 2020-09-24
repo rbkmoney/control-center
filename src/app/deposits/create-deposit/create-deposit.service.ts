@@ -4,15 +4,16 @@ import { KeycloakService } from 'keycloak-angular';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import Int64 from 'thrift-ts/lib/int64';
 import * as uuid from 'uuid/v4';
 
 import { createDepositStopPollingCondition, poll } from '../../custom-operators';
+import { toMinor } from '../../shared/utils/to-minor';
 import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
 import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';
 import { DepositParams } from '../../thrift-services/fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../thrift-services/fistful/gen-model/fistful_stat';
 import { SearchFormParams } from '../search-form/search-form-params';
-import { toMajor } from '../to-major-amount';
 
 export interface CurrencySource {
     source: string;
@@ -67,7 +68,7 @@ export class CreateDepositService {
             source: currency.source,
             destination,
             body: {
-                amount: toMajor(amount),
+                amount: new Int64(toMinor(amount)),
                 currency: {
                     symbolic_code: currency.currency,
                 },

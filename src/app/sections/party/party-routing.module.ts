@@ -16,6 +16,15 @@ import { PartyComponent } from './party.component';
                 },
                 children: [
                     {
+                        path: 'payments',
+                        loadChildren: () =>
+                            import('../party-payments').then((m) => m.PartyPaymentsModule),
+                        canActivate: [AppAuthGuardService],
+                        data: {
+                            roles: ['get_claims'],
+                        },
+                    },
+                    {
                         path: 'claims',
                         loadChildren: () =>
                             import('../party-claims').then((m) => m.PartyClaimsModule),
@@ -43,6 +52,12 @@ import { PartyComponent } from './party.component';
                         },
                     },
                     {
+                        path: 'invoice/:invoiceID/payment/:paymentID',
+                        loadChildren: () =>
+                            import('../payment-details').then((m) => m.PaymentDetailsModule),
+                        canActivate: [AppAuthGuardService],
+                    },
+                    {
                         path: 'payment-routing-rules',
                         loadChildren: () =>
                             import('../payment-routing-rules').then(
@@ -53,7 +68,7 @@ import { PartyComponent } from './party.component';
                             roles: [],
                         },
                     },
-                    { path: '', redirectTo: 'claims', pathMatch: 'full' },
+                    { path: '', redirectTo: 'payments', pathMatch: 'full' },
                 ],
             },
         ]),

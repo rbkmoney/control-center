@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../utils/palette';
 @import './theme';
 
 body.light {
@@ -17,6 +18,9 @@ $theme: (
 *
 */ name: 'light',
     gray: mat-palette($mat-grey),
+    success-base: mat-color(mat-palette($cc-success), 400),
+    pending-base: mat-color(mat-palette($cc-pending), 800),
+    warn-base: mat-color(mat-palette($cc-warn), 300),
     white: white,
     blue: #0366d6,
     orange: #dbab09,

@@ -1,0 +1,49 @@
+<table mat-table [dataSource]="payments" fxFlex="100">
+    <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let payment">
+            {{ payment.amount | ccFormatAmount }}
+            {{ payment.currency_symbolic_code | ccCurrency }}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let payment">
+            <cc-status [color]="payment.status | toPaymentStatus | toPaymentColor">{{
+                payment.status | toPaymentStatus
+            }}</cc-status>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <td mat-cell *matCellDef="let payment">
+            {{ payment.created_at | date: 'dd.MM.yyyy HH:mm:ss' }}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="shop">
+        <th mat-header-cell *matHeaderCellDef>Shop</th>
+        <td mat-cell *matCellDef="let payment">
+            {{ payment.shop_id | shopName: partyID }}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="action-cell"></th>
+        <td mat-cell *matCellDef="let payment" class="action-cell">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="navigateToPayment(payment.invoice_id, payment.id)">
+                    Details
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

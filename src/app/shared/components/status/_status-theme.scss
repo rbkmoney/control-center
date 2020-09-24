@@ -1,0 +1,21 @@
+@mixin cc-status-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    $success-base: map-get($theme, success-base);
+    $pending-base: map-get($theme, pending-base);
+    $warn-base: map-get($theme, warn-base);
+
+    .cc-status {
+        &-success {
+            color: $success-base;
+        }
+
+        &-pending {
+            color: $pending-base;
+        }
+
+        &-warn {
+            color: $warn-base;
+        }
+    }
+}

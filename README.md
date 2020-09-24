@@ -4,7 +4,7 @@
 
 ```sh
 make wc_shell
-make clean-compile
+make compile
 ```
 
 ## Запуск Sonar'a
