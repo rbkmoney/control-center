@@ -1,0 +1,11 @@
+<span [ngClass]="{ 'cc-body-2': true, outdated: outdated, removed: removed }">{{ username }}</span>
+<span [ngClass]="{ 'cc-body-1': true, outdated: outdated, removed: removed }">
+    {{ text }}
+    <span *ngIf="createdAt"
+        >at {{ createdAt | date: 'dd.MM.yyyy HH:mm:ss' }} ({{
+            createdAt | humanizedDuration: { largest: 1, hasAgoEnding: true }
+        }})</span
+    >
+</span>
+<span class="cc-body-1" *ngIf="outdated"> (Outdated)</span>
+<span class="cc-body-1" *ngIf="removed"> (Removed)</span>

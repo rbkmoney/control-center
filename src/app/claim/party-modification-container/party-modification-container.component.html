@@ -7,7 +7,10 @@
                     {{ 'unit ' + (index + 1) }}
                     <span class="unsaved-label">{{ unit.saved ? '' : '*' }}</span>
                 </ng-template>
-                <cc-pretty-json [object]="unit.modificationUnit"></cc-pretty-json>
+                <cc-pretty-json
+                    [object]="unit.modificationUnit"
+                    [cleanLook]="true"
+                ></cc-pretty-json>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

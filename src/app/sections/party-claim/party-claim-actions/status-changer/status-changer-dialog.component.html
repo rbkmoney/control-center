@@ -1,0 +1,27 @@
+<div class="mat-dialog-title">Change claim status</div>
+<mat-dialog-content>
+    <form fxLayout="column" fxLayoutAlign="stretch" [formGroup]="form">
+        <mat-form-field>
+            <mat-select placeholder="Status" formControlName="type">
+                <mat-option *ngFor="let status of statuses" [value]="status">{{
+                    status | ccClaimStatus
+                }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field [ngClass]="{ hidden: !isReasonVisible() }">
+            <textarea matInput formControlName="reason" placeholder="Reason"></textarea>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout fxLayoutAlign="end center">
+    <button [disabled]="inProgress$ | async" mat-button [mat-dialog-close]="false">CANCEL</button>
+    <button
+        mat-button
+        [disabled]="!form.valid || (inProgress$ | async)"
+        color="primary"
+        (click)="confirm()"
+    >
+        CONFIRM
+    </button>
+    <mat-progress-bar *ngIf="inProgress$ | async" mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>

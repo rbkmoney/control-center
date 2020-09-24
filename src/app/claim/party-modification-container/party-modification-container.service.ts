@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { ContractModificationName, ShopModificationName } from '../../party-modification-creator';
+import {
+    ContractModificationName,
+    ShopModificationName,
+} from '../../party-modification-creator-legacy';
 import {
     ContractModificationUnit,
     ShopModificationUnit,

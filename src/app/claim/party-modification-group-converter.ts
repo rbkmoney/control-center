@@ -1,7 +1,7 @@
 import groupBy from 'lodash-es/groupBy';
 import map from 'lodash-es/map';
 
-import { UnitName } from '../party-modification-creator/party-modification-creation/unit-name';
+import { UnitName } from '../party-modification-creator-legacy/party-modification-creation/unit-name';
 import {
     ContractModificationUnit,
     ContractorModificationUnit,

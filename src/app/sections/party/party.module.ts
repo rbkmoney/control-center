@@ -5,18 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { SharedModule } from '../../shared/shared.module';
-import { PartyMgtRouting } from './party-routing.module';
+import { PartyRouting } from './party-routing.module';
 import { PartyComponent } from './party.component';
 
 @NgModule({
-    imports: [
-        PartyMgtRouting,
-        CommonModule,
-        MatTabsModule,
-        SharedModule,
-        FlexModule,
-        MatButtonModule,
-    ],
+    imports: [PartyRouting, CommonModule, MatTabsModule, SharedModule, FlexModule, MatButtonModule],
     declarations: [PartyComponent],
 })
 export class PartyModule {}

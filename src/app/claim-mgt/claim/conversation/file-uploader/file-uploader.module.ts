@@ -5,11 +5,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ngfModule } from 'angular-file';
 
+import { FileStorageModule } from '../../../../thrift-services/file-storage';
 import { FileUploaderComponent } from './file-uploader.component';
 import { FileUploaderService } from './file-uploader.service';
 
 @NgModule({
-    imports: [FlexModule, ngfModule, CommonModule, MatIconModule, MatButtonModule],
+    imports: [
+        FlexModule,
+        ngfModule,
+        CommonModule,
+        MatIconModule,
+        MatButtonModule,
+        FileStorageModule,
+    ],
     exports: [FileUploaderComponent],
     declarations: [FileUploaderComponent],
     providers: [FileUploaderService],

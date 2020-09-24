@@ -6,12 +6,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
-import { FileUploaderModule } from './file-uploader/file-uploader.module';
+import { PartyModificationCreatorModule } from '../../party-modification-creator';
+import { SharedModule } from '../../shared/shared.module';
+import { ClaimChangesetModule, UnsavedClaimChangesetModule } from './changeset';
+import { EditUnsavedModificationModule } from './changeset/unsaved-changeset/edit-unsaved-modification/edit-unsaved-modification.module';
+import { PartyClaimActionsModule } from './party-claim-actions';
 import { PartyClaimRoutingModule } from './party-claim-routing.module';
+import { PartyClaimTitleComponent } from './party-claim-title/party-claim-title.component';
 import { PartyClaimComponent } from './party-claim.component';
-import { SendCommentModule } from './send-comment/send-comment.module';
 
 @NgModule({
     imports: [
@@ -19,14 +24,19 @@ import { SendCommentModule } from './send-comment/send-comment.module';
         FlexModule,
         MatSelectModule,
         MatCardModule,
-        FileUploaderModule,
         CommonModule,
         MatButtonModule,
         MatIconModule,
         ReactiveFormsModule,
         MatInputModule,
-        SendCommentModule,
+        EditUnsavedModificationModule,
+        ClaimChangesetModule,
+        SharedModule,
+        MatProgressSpinnerModule,
+        PartyClaimActionsModule,
+        UnsavedClaimChangesetModule,
+        PartyModificationCreatorModule,
     ],
-    declarations: [PartyClaimComponent],
+    declarations: [PartyClaimComponent, PartyClaimTitleComponent],
 })
 export class PartyClaimModule {}

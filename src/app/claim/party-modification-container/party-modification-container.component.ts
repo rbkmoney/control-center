@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { CreateModificationDialogComponent } from '../../party-modification-creator';
+import { CreateModificationDialogComponent } from '../../party-modification-creator-legacy';
 import {
     ModificationGroupType,
     ModificationUnitContainer,

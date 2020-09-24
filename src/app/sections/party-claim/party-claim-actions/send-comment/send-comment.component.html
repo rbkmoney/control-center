@@ -1,0 +1,16 @@
+<form fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="end start" [formGroup]="form">
+    <mat-form-field fxFlex>
+        <mat-label>Leave a comment...</mat-label>
+        <input formControlName="comment" matInput type="text" autocomplete="off" />
+        <mat-hint>{{ form.controls.comment.value?.length || 0 }}/1000</mat-hint>
+    </mat-form-field>
+    <div class="send-comment-action">
+        <button
+            mat-icon-button
+            [disabled]="!form.valid || (inProgress$ | async)"
+            (click)="sendComment()"
+        >
+            <mat-icon>send</mat-icon>
+        </button>
+    </div>
+</form>

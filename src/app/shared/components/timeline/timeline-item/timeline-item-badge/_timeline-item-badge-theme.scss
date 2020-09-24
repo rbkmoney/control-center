@@ -1,0 +1,43 @@
+@import '~@angular/material/theming';
+
+@mixin cc-timeline-item-badge-theme($theme) {
+    $blue: map-get($theme, blue);
+    $orange: map-get($theme, orange);
+    $red: map-get($theme, red);
+    $green: map-get($theme, green);
+    $white: map-get($theme, white);
+
+    .cc-timeline-item-badge {
+        &.primary {
+            background-color: $blue;
+
+            mat-icon {
+                color: $white;
+            }
+        }
+
+        &.warn {
+            background-color: $orange;
+
+            mat-icon {
+                color: $white;
+            }
+        }
+
+        &.error {
+            background-color: $red;
+
+            mat-icon {
+                color: $white;
+            }
+        }
+
+        &.success {
+            background-color: $green;
+
+            mat-icon {
+                color: $white;
+            }
+        }
+    }
+}

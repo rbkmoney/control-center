@@ -9,12 +9,14 @@ import {
     EmptySearchResultComponent,
     PrettyJsonComponent,
 } from './components';
+import { JsonCleanLookPipe } from './components/pretty-json/json-clean-look.pipe';
 import {
     ClaimSourcePipe,
     ClaimStatusPipe,
     ClaimStatusThriftPipe,
     CurrencyPipe,
     FormatAmountPipe,
+    PartyModificationNamePipe,
     ShopNamePipe,
     ThriftViewPipe,
 } from './pipes';
@@ -28,10 +30,13 @@ const declarations = [
     ClaimStatusThriftPipe,
     ClaimStatusPipe,
     PrettyJsonComponent,
-    CardContainerComponent,
     EmptySearchResultComponent,
     ClaimSourcePipe,
     ShopNamePipe,
+    PartyModificationNamePipe,
+    CardContainerComponent,
+    PartyModificationNamePipe,
+    JsonCleanLookPipe,
 ];
 
 @NgModule({

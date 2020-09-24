@@ -21,6 +21,11 @@ $theme: (
     success-base: mat-color(mat-palette($cc-success), 400),
     pending-base: mat-color(mat-palette($cc-pending), 800),
     warn-base: mat-color(mat-palette($cc-warn), 300),
+    white: white,
+    blue: #0366d6,
+    orange: #dbab09,
+    red: #cb2431,
+    green: #2cbe4e,
 );
 
 @include cc-theme($theme);

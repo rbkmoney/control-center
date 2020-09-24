@@ -1,0 +1,11 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading && items">
+    <div fxLayout="column" *ngFor="let item of items">
+        <div fxLayout="column">
+            <mat-checkbox [checked]="item.checked" (change)="change(item, $event)"
+                >{{ item.id }}
+            </mat-checkbox>
+            <cc-pretty-json [object]="item.data" [cleanLook]="true"></cc-pretty-json>
+        </div>
+    </div>
+</div>

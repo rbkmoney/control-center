@@ -1,24 +1,30 @@
 @import '~@angular/material/theming';
 
-@import '../../sections/party-claim/party-claim-theme';
+@import '../../shared/components/timeline/timeline-theme';
+@import '../../shared/components/details-item/details-item-theme';
+
 @import '../../sections/party/party-theme';
-@import '../../sections/party-claim/send-comment/send-comment-theme';
 @import '../../shared/components/status/status-theme';
 @import '../../shared/components/details-item/details-item-theme';
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
 @import '../../shared/components/status/status-theme';
 @import '../../shared/components/details-item/details-item-theme';
+@import '../../sections/party-claim/party-claim-theme';
+@import '../../party-modification-creator/party-modification-creator-theme';
 
 @mixin cc-theme($theme) {
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
-        @include cc-party-claim-theme($theme);
         @include cc-party-theme($theme);
-        @include cc-send-comment-theme($theme);
         @include cc-status-theme($theme);
         @include cc-details-item-theme($theme);
         @include cc-payment-routing-rules-theme($theme);
         @include cc-status-theme($theme);
         @include cc-details-item-theme($theme);
+        @include cc-timeline-theme($theme);
+        @include cc-details-item-theme($theme);
+        @include cc-party-claim-theme($theme);
+        @include cc-extract-party-modifications-theme($theme);
+        @include cc-party-modification-creator-theme($theme);
     }
 }

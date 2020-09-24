@@ -14,7 +14,7 @@ import {
 
 import { ClaimService as ClaimPapi } from '../papi/claim.service';
 import { ClaimInfo, ClaimStatus, PartyModificationUnit } from '../papi/model';
-import { PartyModificationEmitter } from '../party-modification-creator';
+import { PartyModificationEmitter } from '../party-modification-creator-legacy';
 import { PartyModification } from '../thrift-services/damsel/gen-model/claim_management';
 import { ClaimActionType } from './claim-action-type';
 import { ClaimInfoContainer, ModificationGroup, PersistentContainer } from './model';

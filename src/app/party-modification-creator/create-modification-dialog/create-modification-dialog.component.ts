@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
     ContractModificationUnit,
     ContractorModificationUnit,
+    Modification,
     PartyModification,
     ShopModificationUnit,
 } from '../../thrift-services/damsel/gen-model/claim_management';
@@ -16,6 +17,7 @@ export interface CreateModificationData {
     partyID: string;
     unitID?: string;
     modification?: ShopModificationUnit | ContractModificationUnit | ContractorModificationUnit;
+    unsaved: Modification[];
 }
 
 enum Step {
@@ -41,6 +43,8 @@ export class CreateModificationDialogComponent implements OnInit {
 
     currentStep = Step.prepareTarget;
 
+    unsaved: Modification[];
+
     constructor(
         private dialogRef: MatDialogRef<CreateModificationDialogComponent>,
         private partyModificationEmitter: PartyModificationEmitter,
@@ -54,6 +58,7 @@ export class CreateModificationDialogComponent implements OnInit {
         }
         this.partyID = this.data.partyID;
         this.action = this.data.action;
+        this.unsaved = this.data.unsaved;
         this.initialized = true;
     }
 
