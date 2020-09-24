@@ -60,4 +60,4 @@ import { PartyComponent } from './party.component';
     ],
     exports: [RouterModule],
 })
-export class PartyMgtRouting {}
+export class PartyRouting {}

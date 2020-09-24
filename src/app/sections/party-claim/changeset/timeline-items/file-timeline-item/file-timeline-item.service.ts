@@ -4,9 +4,9 @@ import * as moment from 'moment';
 import { merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { download } from '../../../../../claim-mgt/claim/conversation/file-container/download';
 import { FileStorageService } from '../../../../../thrift-services/file-storage/file-storage.service';
 import { FileData } from '../../../../../thrift-services/file-storage/gen-model/file_storage';
+import { download } from './download';
 
 @Injectable()
 export class FileTimelineItemService {
