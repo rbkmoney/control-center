@@ -1,10 +1,28 @@
 <div fxLayout="column" fxLayoutGap="24px">
     <cc-headline>Payment details</cc-headline>
-    <mat-card *ngIf="payment$ | async as payment">
-        <mat-card-content>
-            <cc-payment-main-info [payment]="payment" [shop]="shop$ | async"></cc-payment-main-info>
-        </mat-card-content>
-    </mat-card>
+    <ng-container *ngIf="payment$ | async as payment">
+        <mat-card>
+            <mat-card-content>
+                <cc-payment-main-info
+                    [payment]="payment"
+                    [shop]="shop$ | async"
+                ></cc-payment-main-info>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="payment$ | async as payment" fxLayout="column" fxLayoutGap="32px">
+            <div fxLayout fxLayoutAlign="space-between">
+                <h2 class="cc-headline">Chargebacks</h2>
+                <button mat-raised-button color="primary" (click)="createChargeback()">
+                    CREATE CHARGEBACK
+                </button>
+            </div>
+            <cc-chargebacks-table
+                [partyID]="partyID$ | async"
+                [searchParams]="chargebackSerchParams$ | async"
+                [displayedColumns]="['createdAt', 'status', 'stage', 'levyAmount', 'actions']"
+            ></cc-chargebacks-table>
+        </mat-card>
+    </ng-container>
     <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
         <mat-spinner diameter="64"></mat-spinner>
     </div>

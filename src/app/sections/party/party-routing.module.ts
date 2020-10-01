@@ -64,9 +64,12 @@ import { PartyComponent } from './party.component';
                                 (m) => m.PaymentRoutingRulesModule
                             ),
                         canActivate: [AppAuthGuardService],
-                        data: {
-                            roles: [],
-                        },
+                    },
+                    {
+                        path: 'chargebacks',
+                        loadChildren: () =>
+                            import('../party-chargebacks').then((m) => m.PartyChargebacksModule),
+                        canActivate: [AppAuthGuardService],
                     },
                     { path: '', redirectTo: 'payments', pathMatch: 'full' },
                 ],

@@ -16,6 +16,7 @@ import {
     ClaimStatusThriftPipe,
     CurrencyPipe,
     FormatAmountPipe,
+    MapUnionPipe,
     PartyModificationNamePipe,
     ShopNamePipe,
     ThriftViewPipe,
@@ -37,6 +38,7 @@ const declarations = [
     CardContainerComponent,
     PartyModificationNamePipe,
     JsonCleanLookPipe,
+    MapUnionPipe,
 ];
 
 @NgModule({

@@ -1,0 +1,6 @@
+{
+    "include": "node_modules/@rbkmoney/angular-templates/**",
+    "template": {
+        "prefix": "cc"
+    }
+}

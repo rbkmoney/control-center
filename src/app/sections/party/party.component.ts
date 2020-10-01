@@ -14,6 +14,7 @@ export class PartyComponent {
         { name: 'Claims', url: 'claims', otherActiveUrlFragments: ['claim'] },
         { name: 'Shops', url: 'shops' },
         { name: 'Payment Routing Rules', url: 'payment-routing-rules' },
+        { name: 'Chargebacks', url: 'chargebacks' },
     ];
 
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));

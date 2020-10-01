@@ -59,15 +59,25 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
         case 'enum':
             return value;
         default:
-            const typeMeta = namespaceMeta.ast[structureType][type];
-            if (structureType === 'typedef') {
-                return internalCreateThriftInstance(typeMeta.type, value);
+            try {
+                const typeMeta = namespaceMeta.ast[structureType][type];
+                if (structureType === 'typedef') {
+                    return internalCreateThriftInstance(typeMeta.type, value);
+                }
+                const instance = new namespaces[namespace][type]();
+                for (const [k, v] of Object.entries(value)) {
+                    const fieldTypeMeta = typeMeta.find((m) => m.name === k);
+                    instance[k] = internalCreateThriftInstance(fieldTypeMeta.type, v);
+                }
+                return instance;
+            } catch (e) {
+                console.error(
+                    `Thrift ${namespace}`,
+                    type,
+                    `instance creation error, value:`,
+                    value
+                );
+                throw e;
             }
-            const instance = new namespaces[namespace][type]();
-            for (const [k, v] of Object.entries(value)) {
-                const fieldTypeMeta = typeMeta.find((m) => m.name === k);
-                instance[k] = internalCreateThriftInstance(fieldTypeMeta.type, v);
-            }
-            return instance;
     }
 }

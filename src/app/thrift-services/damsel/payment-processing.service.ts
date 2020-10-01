@@ -1,13 +1,16 @@
 import { Injectable, NgZone } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 import { Observable, timer } from 'rxjs';
-import { first, share, switchMap } from 'rxjs/operators';
+import { first, map, share, switchMap } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../thrift-service';
-import { InvoiceID } from './gen-model/domain';
+import { createDamselInstance, damselInstanceToObject } from './create-damsel-instance';
+import { InvoiceID, InvoicePaymentChargeback, InvoicePaymentID } from './gen-model/domain';
 import {
     InvoicePaymentAdjustment,
     InvoicePaymentAdjustmentParams,
+    InvoicePaymentChargebackParams,
     InvoiceRepairScenario,
     UserInfo,
 } from './gen-model/payment_processing';
@@ -20,7 +23,11 @@ import {
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {
-    constructor(zone: NgZone, keycloakTokenInfoService: KeycloakTokenInfoService) {
+    constructor(
+        zone: NgZone,
+        keycloakTokenInfoService: KeycloakTokenInfoService,
+        private keycloakService: KeycloakService
+    ) {
         super(zone, keycloakTokenInfoService, '/v1/processing/invoicing', Invoicing);
     }
 
@@ -96,4 +103,24 @@ export class PaymentProcessingService extends ThriftService {
             id,
             new InvoiceRepairScenarioObject(scenario)
         );
+
+    createChargeback = (
+        invoiceID: InvoiceID,
+        paymentID: InvoicePaymentID,
+        params: InvoicePaymentChargebackParams
+    ): Observable<InvoicePaymentChargeback> => {
+        return this.toObservableAction('CreateChargeback')(
+            this.getUser(),
+            createDamselInstance('domain', 'InvoiceID', invoiceID),
+            createDamselInstance('domain', 'InvoicePaymentID', paymentID),
+            createDamselInstance('payment_processing', 'InvoicePaymentChargebackParams', params)
+        ).pipe(map((r) => damselInstanceToObject('domain', 'InvoicePaymentChargeback', r)));
+    };
+
+    private getUser(): UserInfo {
+        return createDamselInstance('payment_processing', 'UserInfo', {
+            id: this.keycloakService.getUsername(),
+            type: { internal_user: {} },
+        });
+    }
 }
