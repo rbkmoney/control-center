@@ -14,11 +14,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 
+import { PrettyJsonModule } from '@cc/components/pretty-json';
+import { TimelineModule } from '@cc/components/timeline';
+import { HumanizeDurationModule } from '@cc/pipes/humanize-duration';
+
 import { MonacoEditorModule } from '../../../monaco-editor';
 import { PartyModificationCreatorLegacyModule } from '../../../party-modification-creator-legacy';
 import { QuestionaryDocumentModule } from '../../../questionary-document';
-import { TimelineModule } from '../../../shared/components/timeline';
-import { HumanizeDurationModule } from '../../../shared/humanize-duration';
 import { SharedModule } from '../../../shared/shared.module';
 import { AnkModule } from '../../../thrift-services';
 import { MessagesModule } from '../../../thrift-services/messages';
@@ -64,6 +66,7 @@ import { SendCommentComponent } from './send-comment';
         MatDividerModule,
         ExtractPartyModificationModule,
         MatMenuModule,
+        PrettyJsonModule,
     ],
     declarations: [
         ConversationComponent,

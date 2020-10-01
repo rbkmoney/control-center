@@ -1,4 +1,5 @@
-import { getOr } from '../../shared/utils';
+import { getOr } from '@cc/utils/index';
+
 import { QuestionaryData } from '../../thrift-services/ank/gen-model/questionary_manager';
 import { InternationalLegalEntity } from '../../thrift-services/damsel/gen-model/domain';
 

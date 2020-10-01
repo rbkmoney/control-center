@@ -1,4 +1,4 @@
-import { RadioButtonObject } from '../../../../../shared/components/utils';
+import { RadioButtonObject } from '@cc/components/utils';
 
 export const paymentStatuses: RadioButtonObject[] = [
     {

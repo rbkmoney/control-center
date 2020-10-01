@@ -20,13 +20,16 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import { CardContainerModule } from '@cc/components/card-container/card-container.module';
+import { PrettyJsonModule } from '@cc/components/pretty-json';
+
 import { PapiModule } from '../papi/papi.module';
 import {
     ModificationNameModule,
     PartyModificationCreatorLegacyModule,
 } from '../party-modification-creator-legacy';
 import { SharedModule } from '../shared/shared.module';
-import { DamselModule } from '../thrift-services/damsel/damsel.module';
+import { DamselModule } from '../thrift-services/damsel';
 import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
 import { ClaimInfoDetailsComponent } from './claim-info/claim-info-details/claim-info-details.component';
 import { ClaimInfoComponent } from './claim-info/claim-info.component';
@@ -72,6 +75,8 @@ import { PersistentContainerService } from './persistent-container.service';
         ReactiveFormsModule,
         PartyModificationCreatorLegacyModule,
         ModificationNameModule,
+        PrettyJsonModule,
+        CardContainerModule,
     ],
     declarations: [
         ClaimComponent,

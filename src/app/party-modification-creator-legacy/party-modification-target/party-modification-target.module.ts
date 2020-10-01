@@ -10,6 +10,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { PrettyJsonModule } from '@cc/components/pretty-json';
+
 import { SharedModule } from '../../shared/shared.module';
 import { FillInUnitIdComponent } from './fill-in-unit-id/fill-in-unit-id.component';
 import { PartyItemNamePipe } from './party-item-name.pipe';
@@ -29,6 +31,7 @@ import { PartyTargetComponent } from './party-target/party-target.component';
         MatSnackBarModule,
         MatCheckboxModule,
         SharedModule,
+        PrettyJsonModule,
     ],
     declarations: [
         PartyModificationTargetComponent,

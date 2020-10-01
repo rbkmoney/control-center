@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { removeEmptyProperties } from '../../../../shared/utils';
+import { removeEmptyProperties } from '@cc/utils/index';
+
 import { SearchFiltersParams } from '../search-filters-params';
 import { formParamsToSearchParams } from './form-params-to-search-params';
 import { OtherFiltersDialogComponent } from './other-filters-dialog';

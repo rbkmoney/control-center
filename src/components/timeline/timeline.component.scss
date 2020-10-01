@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+@import './src/app/styles/themes/light';
+
+$size: 36px;
+$line-size: 2px;
+
+$neutral: map-get($theme, neutral);
+$line-color: mat-color($neutral, 200);
+
+.cc-timeline {
+    position: relative;
+    border-bottom: $line-size * 2 solid;
+    border-bottom-color: $line-color;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: $line-size;
+        left: $size / 2 - $line-size / 2;
+        background-color: $line-color;
+    }
+}

@@ -35,7 +35,7 @@ export class PartiesComponent implements OnInit {
                 this.isLoading = false;
                 this.router.navigate(['party', partyId]);
             },
-            (err) => {
+            () => {
                 this.isLoading = false;
                 this.snackBar
                     .open(`An error occurred while receiving party`, 'RETRY')

@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { decode, encode } from '@cc/utils/index';
+
 import { ConfigService } from '../core/config.service';
-import { decode, encode } from '../shared/java-thrift-formatter';
 import { ClaimCreated, ClaimInfo, PartyModificationUnit } from './model';
 import { ClaimAcceptParams, ClaimDenyParams, ClaimSearchParams } from './params';
 

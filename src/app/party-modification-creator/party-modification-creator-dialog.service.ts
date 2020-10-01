@@ -11,14 +11,13 @@ import { UnitActionsNavListComponent } from './unit-actions-nav-list';
 @Injectable()
 export class PartyModificationCreatorDialogService {
     private open$ = new Subject<{
-        type: UnitActionType;
         partyID: PartyID;
         unsaved: Modification[];
     }>();
 
     opened$ = this.open$.pipe(
         switchMap(
-            ({ type, partyID, unsaved }) =>
+            ({ partyID, unsaved }) =>
                 new Observable((observer) => {
                     this.bottomSheet.open(UnitActionsNavListComponent, {
                         data: {
@@ -36,7 +35,7 @@ export class PartyModificationCreatorDialogService {
         this.opened$.subscribe();
     }
 
-    open(type: UnitActionType, partyID: PartyID, unsaved: Modification[]) {
-        this.open$.next({ type, partyID, unsaved });
+    open(partyID: PartyID, unsaved: Modification[]) {
+        this.open$.next({ partyID, unsaved });
     }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 
-import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
+import { SHARE_REPLAY_CONF } from '@cc/utils/index';
 
 @Component({
     templateUrl: 'party.component.html',

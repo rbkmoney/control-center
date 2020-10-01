@@ -2,7 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { getUnionKey, getUnionValue } from '../../../../../shared/utils';
+import { getUnionKey, getUnionValue } from '@cc/utils/index';
+
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 
 type ModificationType = 'contractor_modification' | 'contract_modification' | 'shop_modification';

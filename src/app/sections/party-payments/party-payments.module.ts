@@ -12,7 +12,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 
-import { StatusModule } from '../../shared/components/status';
+import { EmptySearchResultModule } from '@cc/components/empty-search-result';
+import { StatusModule } from '@cc/components/status';
+
 import { SharedModule } from '../../shared/shared.module';
 import { PartyPaymentsRoutingModule } from './party-payments-routing.module';
 import { PartyPaymentsComponent } from './party-payments.component';
@@ -40,6 +42,7 @@ import { PaymentsTableModule } from './payments-table/payments-table.module';
         PaymentsTableModule,
         MatBadgeModule,
         PaymentsOtherSearchFiltersModule,
+        EmptySearchResultModule,
     ],
     declarations: [PartyPaymentsComponent],
 })

@@ -6,8 +6,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/operators';
 
+import { getUnionValue } from '@cc/utils/index';
+
 import { PartyService } from '../../../../../../papi/party.service';
-import { getUnionValue } from '../../../../../../shared/utils';
 import { PartyID } from '../../../../../../thrift-services/damsel/gen-model/domain';
 import { SelectableItem } from '../selectable-item';
 

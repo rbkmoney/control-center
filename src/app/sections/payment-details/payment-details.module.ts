@@ -4,9 +4,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { DetailsItemModule } from '../../shared/components/details-item';
-import { HeadlineModule } from '../../shared/components/headline';
-import { StatusModule } from '../../shared/components/status';
+import { DetailsItemModule } from '@cc/components/details-item';
+import { HeadlineModule } from '@cc/components/headline';
+import { StatusModule } from '@cc/components/status';
+
 import { SharedModule } from '../../shared/shared.module';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { PaymentDetailsComponent } from './payment-details.component';

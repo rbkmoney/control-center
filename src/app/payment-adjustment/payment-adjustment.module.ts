@@ -22,6 +22,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { CardContainerModule } from '@cc/components/card-container/card-container.module';
+import { PipesModule } from '@cc/pipes/pipes.module';
+
 import { DomainModule } from '../domain';
 import { PapiModule } from '../papi/papi.module';
 import { SharedModule } from '../shared/shared.module';
@@ -66,6 +69,8 @@ import { TableComponent } from './table/table.component';
         MatSelectModule,
         DomainModule,
         MatRadioModule,
+        CardContainerModule,
+        PipesModule,
     ],
     declarations: [
         PaymentAdjustmentComponent,

@@ -1,15 +1,13 @@
 @import '~@angular/material/theming';
 
-@import '../../shared/components/timeline/timeline-theme';
-@import '../../shared/components/details-item/details-item-theme';
+@import '../../../components/timeline/timeline-theme';
+@import '../../../components/details-item/details-item-theme';
+@import '../../../components/status/status-theme';
 
 @import '../../sections/party/party-theme';
-@import '../../shared/components/status/status-theme';
-@import '../../shared/components/details-item/details-item-theme';
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
-@import '../../shared/components/status/status-theme';
-@import '../../shared/components/details-item/details-item-theme';
 @import '../../sections/party-claim/party-claim-theme';
+
 @import '../../party-modification-creator/party-modification-creator-theme';
 
 @mixin cc-theme($theme) {

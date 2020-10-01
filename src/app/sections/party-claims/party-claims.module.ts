@@ -12,6 +12,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 
+import { EmptySearchResultModule } from '@cc/components/empty-search-result';
+
 import { SharedModule } from '../../shared/shared.module';
 import { ClaimSearchFormModule } from '../claim-search-form';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
@@ -35,6 +37,7 @@ import { PartyClaimsComponent } from './party-claims.component';
         MatProgressSpinnerModule,
         SharedModule,
         ClaimSearchFormModule,
+        EmptySearchResultModule,
     ],
     declarations: [PartyClaimsComponent, ClaimsTableComponent],
 })

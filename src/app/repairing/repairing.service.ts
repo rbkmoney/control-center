@@ -4,7 +4,6 @@ import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { execute } from '../shared/execute';
 import {
     InvoiceRepairScenario,
     UserInfo,
@@ -13,6 +12,7 @@ import { PaymentProcessingService } from '../thrift-services/damsel/payment-proc
 import { RepairScenario } from '../thrift-services/fistful/gen-model/withdrawal_session';
 import { RepairerService } from '../thrift-services/fistful/repairer.service';
 import { AutomatonService } from '../thrift-services/machinegun/automaton.service';
+import { execute } from './execute';
 
 @Injectable()
 export class RepairingService {

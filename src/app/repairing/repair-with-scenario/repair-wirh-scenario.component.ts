@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import { ExecStateType } from '../../shared/execute';
 import { InvoiceRepairScenario } from '../../thrift-services/damsel/gen-model/payment_processing';
+import { ExecStateType } from '../execute';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 import { RepairingService } from '../repairing.service';
 import {

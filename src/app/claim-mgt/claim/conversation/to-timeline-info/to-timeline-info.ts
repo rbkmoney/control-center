@@ -1,4 +1,5 @@
-import { getUnionKey, sortUnitsByCreatedAtAsc } from '../../../../shared/utils';
+import { getUnionKey, sortUnitsByCreatedAtAsc } from '@cc/utils/index';
+
 import {
     ClaimModification,
     Modification,

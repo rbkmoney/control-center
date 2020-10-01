@@ -1,4 +1,5 @@
-import { toOptional } from '../../shared/utils';
+import { toOptional } from '@cc/utils/index';
+
 import { ContactInfo } from '../../thrift-services/ank/gen-model/questionary';
 
 export function getContactInfo(contactInfo: ContactInfo): string {

@@ -14,6 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
+import { PrettyJsonModule } from '@cc/components/pretty-json';
+
 import { SharedModule } from '../../../shared/shared.module';
 import { DomainGroupComponent } from './domain-group.component';
 import { DomainObjectsTypeSelectorComponent } from './domain-objects-type-selector';
@@ -43,6 +45,7 @@ import { GroupTableComponent } from './group-table';
         MatSelectModule,
         SharedModule,
         MatSortModule,
+        PrettyJsonModule,
     ],
     exports: [DomainGroupComponent],
 })

@@ -1,5 +1,5 @@
 import { ClaimStatus as ClaimStatusEnum } from '../../../papi/model';
-import { extractClaimStatus } from '../../../shared/extract-claim-status';
+import { extractClaimStatus } from '../../../shared/utils/extract-claim-status';
 import { ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatuses } from '../claim-statuses';
 

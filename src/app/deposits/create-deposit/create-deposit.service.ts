@@ -7,8 +7,9 @@ import { map, switchMap } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 import * as uuid from 'uuid/v4';
 
+import { toMinor } from '@cc/utils/index';
+
 import { createDepositStopPollingCondition, poll } from '../../custom-operators';
-import { toMinor } from '../../shared/utils/to-minor';
 import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
 import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';
 import { DepositParams } from '../../thrift-services/fistful/gen-model/fistful_admin';

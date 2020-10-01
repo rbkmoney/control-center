@@ -9,10 +9,7 @@ import {
 } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 
-import {
-    PartyModificationCreatorDialogService,
-    UnitActionType,
-} from '../../../party-modification-creator';
+import { PartyModificationCreatorDialogService } from '../../../party-modification-creator';
 import { ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import { UnsavedClaimChangesetService } from '../changeset/unsaved-changeset/unsaved-claim-changeset.service';
@@ -59,11 +56,7 @@ export class PartyClaimActionsComponent implements OnInit, OnDestroy {
                 map((infos) => infos.map((info) => info.modification))
             )
             .subscribe((unsaved) =>
-                this.partyModificationCreatorDialogService.open(
-                    UnitActionType.allActions,
-                    this.partyID,
-                    unsaved
-                )
+                this.partyModificationCreatorDialogService.open(this.partyID, unsaved)
             );
     }
 

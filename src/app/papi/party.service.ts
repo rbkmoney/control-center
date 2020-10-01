@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { decode } from '@cc/utils/index';
+
 import { ConfigService } from '../core/config.service';
-import { decode } from '../shared/java-thrift-formatter';
 import { Party } from '../thrift-services/damsel/gen-model/domain';
 import { ContractTemplate } from './model';
 
