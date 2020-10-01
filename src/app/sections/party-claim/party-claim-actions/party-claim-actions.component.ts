@@ -10,7 +10,10 @@ import {
 import { map, take } from 'rxjs/operators';
 
 import { PartyModificationCreatorDialogService } from '../../../party-modification-creator';
-import { ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
+import {
+    ClaimChangeset,
+    ClaimStatus,
+} from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import { UnsavedClaimChangesetService } from '../changeset/unsaved-changeset/unsaved-claim-changeset.service';
 import { StatusChangerService } from './status-changer';
@@ -30,6 +33,9 @@ export class PartyClaimActionsComponent implements OnInit, OnDestroy {
 
     @Input()
     status: ClaimStatus;
+
+    @Input()
+    changeset: ClaimChangeset;
 
     @Output()
     changesetUpdated = new EventEmitter();
@@ -56,7 +62,10 @@ export class PartyClaimActionsComponent implements OnInit, OnDestroy {
                 map((infos) => infos.map((info) => info.modification))
             )
             .subscribe((unsaved) =>
-                this.partyModificationCreatorDialogService.open(this.partyID, unsaved)
+                this.partyModificationCreatorDialogService.open(this.partyID, [
+                    ...unsaved,
+                    ...this.changeset.map((item) => item.modification),
+                ])
             );
     }
 

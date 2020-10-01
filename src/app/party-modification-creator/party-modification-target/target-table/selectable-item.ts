@@ -17,5 +17,5 @@ export class SelectableItem {
         | FileModificationUnit
         | CommentModificationUnit;
     checked?: boolean;
-    unsaved?: boolean;
+    fromClaim?: boolean;
 }

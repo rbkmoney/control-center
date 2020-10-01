@@ -17,7 +17,7 @@ export interface CreateModificationData {
     partyID: string;
     unitID?: string;
     modification?: ShopModificationUnit | ContractModificationUnit | ContractorModificationUnit;
-    unsaved: Modification[];
+    fromClaim: Modification[];
 }
 
 enum Step {
@@ -43,7 +43,7 @@ export class CreateModificationDialogComponent implements OnInit {
 
     currentStep = Step.prepareTarget;
 
-    unsaved: Modification[];
+    fromClaim: Modification[];
 
     constructor(
         private dialogRef: MatDialogRef<CreateModificationDialogComponent>,
@@ -58,7 +58,7 @@ export class CreateModificationDialogComponent implements OnInit {
         }
         this.partyID = this.data.partyID;
         this.action = this.data.action;
-        this.unsaved = this.data.unsaved;
+        this.fromClaim = this.data.fromClaim;
         this.initialized = true;
     }
 

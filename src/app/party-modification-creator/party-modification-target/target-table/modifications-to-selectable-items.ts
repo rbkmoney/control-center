@@ -36,6 +36,6 @@ export const modificationsToSelectableItems = (
             return {
                 id: getOr(data, 'id', null),
                 data,
-                unsaved: true,
+                fromClaim: true,
             };
         });

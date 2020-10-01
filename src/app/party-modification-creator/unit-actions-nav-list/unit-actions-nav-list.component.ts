@@ -98,7 +98,7 @@ export class UnitActionsNavListComponent implements OnInit {
                 },
                 partyID: this.data.partyID,
                 unitID: this.data.unitID,
-                unsaved: this.data.unsaved,
+                fromClaim: this.data.fromClaim,
             },
             width: '900px',
             disableClose: true,

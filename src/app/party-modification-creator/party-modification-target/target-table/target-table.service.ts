@@ -22,13 +22,13 @@ export class TargetTableService {
     private getSelectableItems$ = new Subject<{
         partyID: string;
         targetName: PartyTarget;
-        unsaved: Modification[];
+        fromClaim: Modification[];
     }>();
     private hasError$ = new Subject();
 
     selectableItems$: Observable<SelectableItem[]> = this.getSelectableItems$.pipe(
         tap(() => this.hasError$.next()),
-        switchMap(({ partyID, targetName, unsaved }) =>
+        switchMap(({ partyID, targetName, fromClaim }) =>
             combineLatest([
                 this.partyService.getParty(partyID).pipe(
                     map((party) => {
@@ -46,18 +46,18 @@ export class TargetTableService {
                     }),
                     filter((result) => result !== 'error')
                 ),
-                of(modificationsToSelectableItems(unsaved, targetName)),
+                of(modificationsToSelectableItems(fromClaim, targetName)),
             ])
         ),
-        map(([items, unsavedItems]) => [...unsavedItems, ...items])
+        map(([items, modsFromClaimItems]) => [...modsFromClaimItems, ...items])
     );
 
     inProgress$ = progress(this.getSelectableItems$, merge(this.selectableItems$, this.hasError$));
 
     constructor(private partyService: PartyService, private snackBar: MatSnackBar) {}
 
-    getSelectableItems(partyID: string, targetName: PartyTarget, unsaved: Modification[]) {
-        this.getSelectableItems$.next({ partyID, targetName, unsaved });
+    getSelectableItems(partyID: string, targetName: PartyTarget, fromClaim: Modification[]) {
+        this.getSelectableItems$.next({ partyID, targetName, fromClaim });
     }
 
     private getTarget(
