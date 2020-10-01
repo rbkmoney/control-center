@@ -1,8 +1,6 @@
 @import '~@angular/material/theming';
 
-@import '../../../components/timeline/timeline-theme';
-@import '../../../components/details-item/details-item-theme';
-@import '../../../components/status/status-theme';
+@import '../../../components/components-themes';
 
 @import '../../sections/party/party-theme';
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
@@ -14,13 +12,8 @@
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
         @include cc-party-theme($theme);
-        @include cc-status-theme($theme);
-        @include cc-details-item-theme($theme);
+        @include cc-components-themes($theme);
         @include cc-payment-routing-rules-theme($theme);
-        @include cc-status-theme($theme);
-        @include cc-details-item-theme($theme);
-        @include cc-timeline-theme($theme);
-        @include cc-details-item-theme($theme);
         @include cc-party-claim-theme($theme);
         @include cc-extract-party-modifications-theme($theme);
         @include cc-party-modification-creator-theme($theme);

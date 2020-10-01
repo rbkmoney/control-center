@@ -1,4 +1,4 @@
-import { extractClaimStatus } from '../../../../shared/utils/extract-claim-status';
+import { extractClaimStatus } from '../../../../shared/utils';
 import { ClaimStatus as CMClaimStatus } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatus } from './claim-status';
 

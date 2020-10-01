@@ -1,4 +1,5 @@
-import { clearNullFields } from '../shared/utils/thrift-utils';
+import { clearNullFields } from '@cc/utils/thrift-utils';
+
 import { DepositStatus } from '../thrift-services/fistful/gen-model/fistful_stat';
 
 export const depositStatus = (status: DepositStatus): string =>

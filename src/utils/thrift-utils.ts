@@ -1,5 +1,3 @@
-import { DomainObject } from '../../thrift-services/damsel/gen-model/domain';
-
 export function clearNullFields(union: object): object {
     if (!union) {
         return;
@@ -15,7 +13,7 @@ export function clearNullFields(union: object): object {
     return result;
 }
 
-export function extract(domainObject: DomainObject): object {
+export function extract(domainObject: object): object {
     if (!domainObject) {
         return;
     }

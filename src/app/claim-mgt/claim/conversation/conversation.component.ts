@@ -22,7 +22,7 @@ import {
     PartyModificationEmitter,
     UnitActionsNavListComponent,
 } from '../../../party-modification-creator-legacy';
-import { extractClaimStatus } from '../../../shared/utils/extract-claim-status';
+import { extractClaimStatus } from '../../../shared/utils';
 import { Questionary } from '../../../thrift-services/ank/gen-model/questionary_manager';
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';

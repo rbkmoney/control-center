@@ -1,5 +1,4 @@
-import { getOr } from '@cc/utils/get-or';
-import { getUnionValue } from '@cc/utils/index';
+import { getOr, getUnionValue } from '@cc/utils/index';
 
 import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyTarget } from '../party-target';

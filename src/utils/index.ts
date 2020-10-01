@@ -14,3 +14,4 @@ export * from './to-minor';
 export * from './to-major';
 export * from './java-thrift-formatter';
 export * from './share-replay-conf';
+export * from './thrift-utils';

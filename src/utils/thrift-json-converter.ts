@@ -2,7 +2,7 @@ import has from 'lodash-es/has';
 import isArray from 'lodash-es/isArray';
 import isObject from 'lodash-es/isObject';
 
-import { clearNullFields } from '../app/shared/utils/thrift-utils';
+import { clearNullFields } from './thrift-utils';
 
 function resolveArray(arr: any[]): any[] {
     let result = [];
