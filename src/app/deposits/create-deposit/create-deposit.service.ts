@@ -9,7 +9,7 @@ import * as uuid from 'uuid/v4';
 
 import { toMinor } from '@cc/utils/index';
 
-import { createDepositStopPollingCondition, poll } from '../../custom-operators';
+import { createDepositStopPollingCondition, poll } from '../../../operators';
 import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
 import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';
 import { DepositParams } from '../../thrift-services/fistful/gen-model/fistful_admin';

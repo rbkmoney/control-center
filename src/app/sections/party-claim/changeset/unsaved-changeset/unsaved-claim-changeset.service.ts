@@ -6,7 +6,7 @@ import { catchError, first, map, shareReplay, switchMap, tap } from 'rxjs/operat
 import { SHARE_REPLAY_CONF } from '@cc/utils/index';
 
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
-import { PartyModificationEmitter } from '../../../../party-modification-creator';
+import { PartyModificationEmitter } from '../../../../shared/components/party-modification-creator';
 import {
     Modification,
     ModificationUnit,

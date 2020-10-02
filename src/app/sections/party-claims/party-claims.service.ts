@@ -4,9 +4,9 @@ import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map, pluck, switchMap } from 'rxjs/operators';
 
+import { SearchFormValue } from '../../shared/components/claim-search-form';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
-import { SearchFormValue } from '../claim-search-form';
 
 const SEARCH_LIMIT = 20;
 

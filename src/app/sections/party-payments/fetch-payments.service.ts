@@ -5,11 +5,11 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { booleanDelay } from '../../custom-operators';
+import { booleanDelay } from '../../../operators';
 import { QueryDSL } from '../../query-dsl';
+import { SearchFiltersParams } from '../../shared/components/payments-search-filters/search-filters-params';
 import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
-import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
 
 const SEARCH_LIMIT = 10;
 

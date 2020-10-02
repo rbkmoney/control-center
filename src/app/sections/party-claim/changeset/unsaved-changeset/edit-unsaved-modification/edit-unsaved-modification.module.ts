@@ -4,7 +4,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { PartyModificationFormsModule } from '../../../../../party-modification-forms';
+import { PartyModificationFormsModule } from '../../../../../shared/components/party-modification-forms';
 import { EditUnsavedModificationComponent } from './edit-unsaved-modification.component';
 
 @NgModule({

@@ -4,7 +4,7 @@ import pickBy from 'lodash-es/pickBy';
 
 import { wrapValuesToArray } from '@cc/utils/index';
 
-import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
+import { SearchFiltersParams } from '../../shared/components/payments-search-filters/search-filters-params';
 import { QueryParamsStore } from './query-params-store';
 
 const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';

@@ -14,14 +14,14 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 
+import { QuestionaryDocumentModule } from '@cc/app/shared/components';
+import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 import { TimelineModule } from '@cc/components/timeline';
 import { HumanizeDurationModule } from '@cc/pipes/humanize-duration';
 
 import { MonacoEditorModule } from '../../../monaco-editor';
 import { PartyModificationCreatorLegacyModule } from '../../../party-modification-creator-legacy';
-import { QuestionaryDocumentModule } from '../../../questionary-document';
-import { SharedModule } from '../../../shared/shared.module';
 import { AnkModule } from '../../../thrift-services';
 import { MessagesModule } from '../../../thrift-services/messages';
 import { UnsavedPartyModificationsModule } from '../unsaved-party-modifications';
@@ -45,7 +45,7 @@ import { SendCommentComponent } from './send-comment';
         MatInputModule,
         TimelineModule,
         MatIconModule,
-        SharedModule,
+        PipesModule,
         CommonModule,
         ReactiveFormsModule,
         MatExpansionModule,

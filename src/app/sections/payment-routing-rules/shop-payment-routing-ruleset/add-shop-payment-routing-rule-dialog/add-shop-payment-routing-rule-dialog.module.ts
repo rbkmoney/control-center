@@ -12,7 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
-import { SharedModule } from '../../../../shared/shared.module';
+import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
+
 import { AddShopPaymentRoutingRuleDialogComponent } from './add-shop-payment-routing-rule-dialog.component';
 import { ExpanderComponent } from './expander';
 import { PredicateComponent } from './predicate';
@@ -30,7 +31,7 @@ import { PredicateComponent } from './predicate';
         MatIconModule,
         MatSelectModule,
         MatRadioModule,
-        SharedModule,
+        PipesModule,
         MatAutocompleteModule,
     ],
     declarations: [AddShopPaymentRoutingRuleDialogComponent, PredicateComponent, ExpanderComponent],

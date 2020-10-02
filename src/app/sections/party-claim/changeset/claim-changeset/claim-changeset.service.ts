@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { PartyModificationsExtractorService } from '../../../../party-modifications-extractor';
+import { PartyModificationsExtractorService } from '../../../../shared/components/party-modifications-extractor';
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo } from '../changeset-infos';

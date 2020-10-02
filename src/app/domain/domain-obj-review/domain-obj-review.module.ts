@@ -7,8 +7,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
+import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
+
 import { MonacoEditorModule } from '../../monaco-editor';
-import { SharedModule } from '../../shared/shared.module';
 import { DomainObjReviewComponent } from './domain-obj-review.component';
 
 @NgModule({
@@ -21,7 +22,7 @@ import { DomainObjReviewComponent } from './domain-obj-review.component';
         MatButtonModule,
         MatCheckboxModule,
         MonacoEditorModule,
-        SharedModule,
+        PipesModule,
         MatIconModule,
     ],
     exports: [DomainObjReviewComponent],

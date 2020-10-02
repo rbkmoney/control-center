@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { TimelineModule } from '@cc/components/timeline';
 
-import { PartyModificationFormsModule } from '../../../../party-modification-forms';
+import { PartyModificationFormsModule } from '../../../../shared/components/party-modification-forms';
 import { ChangesetsFilterModule } from '../changesets-filter';
 import { CommentTimelineItemModule } from '../timeline-items/comment-timeline-item/comment-timeline-item.module';
 import { CreatedTimelineItemModule } from '../timeline-items/created-timeline-item';

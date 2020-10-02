@@ -1,5 +1,0 @@
-@import './contractor-selector/contractors-table/contractors-table-theme';
-
-@mixin cc-extract-party-modifications-theme($theme) {
-    @include cc-contractors-table($theme);
-}

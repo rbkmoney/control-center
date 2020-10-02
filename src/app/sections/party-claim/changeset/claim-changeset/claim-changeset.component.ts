@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { PartyModificationsExtractorService } from '../../../../party-modifications-extractor';
+import { PartyModificationsExtractorService } from '../../../../shared/components/party-modifications-extractor';
 import { ClaimChangeset } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo, ChangesetInfoType, toChangesetInfos } from '../changeset-infos';

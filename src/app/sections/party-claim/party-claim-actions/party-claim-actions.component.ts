@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 
-import { PartyModificationCreatorDialogService } from '../../../party-modification-creator';
+import { PartyModificationCreatorDialogService } from '../../../shared/components/party-modification-creator';
 import {
     ClaimChangeset,
     ClaimStatus,

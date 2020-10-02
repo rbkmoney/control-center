@@ -6,8 +6,8 @@ import { filter, map, pluck, scan, shareReplay } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '@cc/utils/index';
 
+import { SearchFiltersParams } from '../../shared/components/payments-search-filters/search-filters-params';
 import { NavigationParams } from './navigation-params';
-import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
 
 @Injectable()
 export class PartyPaymentsService {

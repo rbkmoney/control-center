@@ -1,0 +1,7 @@
+@import '../../../../../../../node_modules/@angular/material/theming';
+
+@mixin cc-target-table-theme($theme) {
+    .cc-target-table-from-claim {
+        color: map-get($theme, red);
+    }
+}
