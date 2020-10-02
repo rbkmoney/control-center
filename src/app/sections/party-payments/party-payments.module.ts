@@ -16,7 +16,7 @@ import {
     PaymentsMainSearchFiltersModule,
     PaymentsOtherSearchFiltersModule,
 } from '@cc/app/shared/components';
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 import { StatusModule } from '@cc/components/status';
 
@@ -28,7 +28,7 @@ import { PartyPaymentsComponent } from './party-payments.component';
     imports: [
         FlexModule,
         MatCardModule,
-        PipesModule,
+        SharedPipesModule,
         MatProgressBarModule,
         CommonModule,
         MatButtonModule,

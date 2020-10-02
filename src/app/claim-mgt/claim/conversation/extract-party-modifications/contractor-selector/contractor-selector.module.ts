@@ -10,9 +10,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
+import { SharedPipesModule } from '../../../../../shared/pipes/shared-pipes.module';
 import { ContractorSelectorComponent } from './contractor-selector.component';
 import { ContractorsTableComponent } from './contractors-table/contractors-table.component';
 import { SelectorTypePipe } from './selector-type.pipe';
@@ -27,7 +27,7 @@ import { SelectorTypePipe } from './selector-type.pipe';
         MatInputModule,
         MatProgressSpinnerModule,
         MatCheckboxModule,
-        PipesModule,
+        SharedPipesModule,
         MatTableModule,
         MatPaginatorModule,
         PrettyJsonModule,

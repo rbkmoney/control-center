@@ -6,17 +6,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { StatusModule } from '@cc/components/status';
 import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
 
+import { SharedPipesModule } from '../../pipes/shared-pipes.module';
 import { PaymentsTableComponent } from './payments-table.component';
 
 @NgModule({
     imports: [
         CommonModule,
         MatTableModule,
-        PipesModule,
+        SharedPipesModule,
         FlexModule,
         StatusModule,
         MatButtonModule,

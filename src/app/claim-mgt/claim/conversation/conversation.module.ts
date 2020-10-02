@@ -15,7 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 
 import { QuestionaryDocumentModule } from '@cc/app/shared/components';
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 import { TimelineModule } from '@cc/components/timeline';
 import { HumanizeDurationModule } from '@cc/pipes/humanize-duration';
@@ -45,7 +45,7 @@ import { SendCommentComponent } from './send-comment';
         MatInputModule,
         TimelineModule,
         MatIconModule,
-        PipesModule,
+        SharedPipesModule,
         CommonModule,
         ReactiveFormsModule,
         MatExpansionModule,

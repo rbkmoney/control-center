@@ -6,10 +6,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 import { TimelineModule } from '@cc/components/timeline';
 
+import { SharedPipesModule } from '../../../../../shared/pipes/shared-pipes.module';
 import { TimelineComponentsModule } from '../../timeline-components';
 import { CommentTimelineItemModule } from '../comment-timeline-item/comment-timeline-item.module';
 import { PartyModificationContentComponent } from './party-modification-content/party-modification-content.component';
@@ -25,7 +25,7 @@ import { PartyModificationTimelineItemComponent } from './party-modification-tim
         MatMenuModule,
         FlexModule,
         MatExpansionModule,
-        PipesModule,
+        SharedPipesModule,
         TimelineComponentsModule,
         CommonModule,
         PrettyJsonModule,

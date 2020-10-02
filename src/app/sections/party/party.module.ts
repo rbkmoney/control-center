@@ -4,13 +4,19 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
-
+import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
 import { PartyRouting } from './party-routing.module';
 import { PartyComponent } from './party.component';
 
 @NgModule({
-    imports: [PartyRouting, CommonModule, MatTabsModule, PipesModule, FlexModule, MatButtonModule],
+    imports: [
+        PartyRouting,
+        CommonModule,
+        MatTabsModule,
+        SharedPipesModule,
+        FlexModule,
+        MatButtonModule,
+    ],
     declarations: [PartyComponent],
 })
 export class PartyModule {}

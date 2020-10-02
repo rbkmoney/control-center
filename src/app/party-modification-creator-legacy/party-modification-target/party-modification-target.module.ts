@@ -10,9 +10,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
+import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
 import { FillInUnitIdComponent } from './fill-in-unit-id/fill-in-unit-id.component';
 import { PartyItemNamePipe } from './party-item-name.pipe';
 import { PartyModificationTargetComponent } from './party-modification-target.component';
@@ -30,7 +30,7 @@ import { PartyTargetComponent } from './party-target/party-target.component';
         MatProgressSpinnerModule,
         MatSnackBarModule,
         MatCheckboxModule,
-        PipesModule,
+        SharedPipesModule,
         PrettyJsonModule,
     ],
     declarations: [

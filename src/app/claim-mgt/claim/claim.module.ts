@@ -12,9 +12,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { ConfirmActionDialogModule } from '@cc/components/confirm-action-dialog';
 
+import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ConversationModule } from './conversation/conversation.module';
@@ -24,7 +24,7 @@ import { StatusChangerComponent } from './status-changer/status-changer.componen
 @NgModule({
     imports: [
         ClaimRoutingModule,
-        PipesModule,
+        SharedPipesModule,
         CommonModule,
         MatCardModule,
         FlexModule,

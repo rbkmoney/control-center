@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { PartyModificationsExtractorModule } from '@cc/app/shared/components';
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 import { TimelineModule } from '@cc/components/timeline';
 
@@ -30,7 +30,7 @@ import { SerialNumberPipe } from './serial-number.pipe';
         FlexModule,
         CommonModule,
         MatExpansionModule,
-        PipesModule,
+        SharedPipesModule,
         TimelineComponentsModule,
         PartyModificationsExtractorModule,
         PrettyJsonModule,

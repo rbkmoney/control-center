@@ -17,8 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
-
+import { SharedPipesModule } from '../../../shared/pipes/shared-pipes.module';
 import { DamselModule } from '../../../thrift-services';
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
 import { AddPartyPaymentRoutingRuleDialogModule } from './add-party-payment-routing-rule-dialog';
@@ -47,7 +46,7 @@ import { PaymentRoutingRulesComponent } from './party-payment-routing-ruleset.co
         MatSelectModule,
         MatRadioModule,
         MatExpansionModule,
-        PipesModule,
+        SharedPipesModule,
         PaymentRoutingRulesetHeaderModule,
         AddPartyPaymentRoutingRuleDialogModule,
         InitializePaymentRoutingRulesDialogModule,

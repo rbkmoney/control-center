@@ -21,10 +21,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
+import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
 import { AddProviderComponent } from './add-provider/add-provider.component';
 import { SelectProviderComponent } from './add-provider/select-provider/select-provider.component';
 import { CreateTerminalFormComponent } from './add-provider/select-terminal/create-terminal-form/create-terminal-form.component';
@@ -66,7 +66,7 @@ import { TerminalsComponent } from './terminals/terminals.component';
         MatMenuModule,
         MatProgressBarModule,
         MatChipsModule,
-        PipesModule,
+        SharedPipesModule,
         PrettyJsonModule,
         CardContainerModule,
     ],

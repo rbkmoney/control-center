@@ -15,10 +15,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 
 import { PapiModule } from '../papi/papi.module';
+import { SharedPipesModule } from '../shared/pipes/shared-pipes.module';
 import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
 import { ClaimsRoutingModule } from './claims-routing.module';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
@@ -45,7 +45,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatMenuModule,
         MatDialogModule,
         CdkTableModule,
-        PipesModule,
+        SharedPipesModule,
         CardContainerModule,
     ],
     declarations: [

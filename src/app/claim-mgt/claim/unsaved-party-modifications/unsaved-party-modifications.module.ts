@@ -5,9 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 
-import { PipesModule } from '@cc/app/shared/pipes/pipes.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
+import { SharedPipesModule } from '../../../shared/pipes/shared-pipes.module';
 import { EditUnsavedModificationModule } from '../conversation/edit-unsaved-modification/edit-unsaved-modification.module';
 import { UnsavedPartyModificationsComponent } from './unsaved-party-modifications.component';
 
@@ -15,7 +15,7 @@ import { UnsavedPartyModificationsComponent } from './unsaved-party-modification
     imports: [
         CommonModule,
         MatExpansionModule,
-        PipesModule,
+        SharedPipesModule,
         MatButtonModule,
         FlexLayoutModule,
         MatDialogModule,
