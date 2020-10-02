@@ -8,9 +8,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 
-import { SharedPipesModule } from '../shared/pipes/shared-pipes.module';
 import { PartiesRoutingModule } from './parties-routing.module';
 import { PartiesComponent } from './parties.component';
 

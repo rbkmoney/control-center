@@ -5,7 +5,8 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { booleanDelay } from '../../../operators';
+import { booleanDelay } from '@cc/operators/index';
+
 import { QueryDSL } from '../../query-dsl';
 import { SearchFiltersParams } from '../../shared/components/payments-search-filters/search-filters-params';
 import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';

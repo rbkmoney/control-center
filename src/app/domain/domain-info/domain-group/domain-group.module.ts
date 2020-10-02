@@ -14,9 +14,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
-import { SharedPipesModule } from '../../../shared/pipes/shared-pipes.module';
 import { DomainGroupComponent } from './domain-group.component';
 import { DomainObjectsTypeSelectorComponent } from './domain-objects-type-selector';
 import { GroupControlComponent } from './group-control';

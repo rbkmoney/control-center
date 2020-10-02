@@ -12,7 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
-import { SharedPipesModule } from '../../../../shared/pipes/shared-pipes.module';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog.component';
 
 @NgModule({

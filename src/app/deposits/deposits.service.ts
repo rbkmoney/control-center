@@ -5,7 +5,8 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { filter, shareReplay } from 'rxjs/operators';
 
-import { booleanDelay } from '../../operators';
+import { booleanDelay } from '@cc/operators/index';
+
 import { FistfulStatisticsService } from '../thrift-services/fistful/fistful-stat.service';
 import { StatDeposit } from '../thrift-services/fistful/gen-model/fistful_stat';
 import { CreateDepositComponent } from './create-deposit/create-deposit.component';

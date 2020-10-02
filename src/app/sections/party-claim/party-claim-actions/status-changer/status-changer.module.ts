@@ -9,7 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 
-import { SharedPipesModule } from '../../../../shared/pipes/shared-pipes.module';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+
 import { DamselModule } from '../../../../thrift-services/damsel';
 import { StatusChangerDialogComponent } from './status-changer-dialog.component';
 import { StatusChangerService } from './status-changer.service';

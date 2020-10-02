@@ -3,10 +3,10 @@ import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
+import { PartyModificationEmitter } from '@cc/app/shared/components';
 import { SHARE_REPLAY_CONF } from '@cc/utils/index';
 
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
-import { PartyModificationEmitter } from '../../../../shared/components/party-modification-creator';
 import {
     Modification,
     ModificationUnit,

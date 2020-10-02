@@ -1,4 +1,4 @@
-@import 'party-modification-target/target-table/target-table-theme';
+@import './party-modification-target/target-table/target-table-theme';
 
 @mixin cc-party-modification-creator-theme($theme) {
     @include cc-target-table-theme($theme);

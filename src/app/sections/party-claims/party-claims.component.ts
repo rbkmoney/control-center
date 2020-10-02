@@ -3,8 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs/operators';
 
-import { ConfirmActionDialogComponent } from '../../../components/confirm-action-dialog';
-import { SearchFormValue } from '../../shared/components/claim-search-form';
+import { SearchFormValue } from '@cc/app/shared/components';
+import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
+
 import { CreateClaimService } from './create-claim.service';
 import { PartyClaimsService } from './party-claims.service';
 

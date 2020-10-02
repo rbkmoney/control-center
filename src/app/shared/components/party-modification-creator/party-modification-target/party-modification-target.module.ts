@@ -12,9 +12,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
-import { SharedPipesModule } from '../../../pipes/shared-pipes.module';
 import { FillInUnitIdComponent } from './fill-in-unit-id/fill-in-unit-id.component';
 import { PartyItemNamePipe } from './party-item-name.pipe';
 import { PartyModificationTargetComponent } from './party-modification-target.component';

@@ -20,6 +20,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
@@ -28,7 +29,6 @@ import {
     ModificationNameModule,
     PartyModificationCreatorLegacyModule,
 } from '../party-modification-creator-legacy';
-import { SharedPipesModule } from '../shared/pipes/shared-pipes.module';
 import { DamselModule } from '../thrift-services/damsel';
 import { AcceptClaimComponent } from './accept-claim/accept-claim.component';
 import { ClaimInfoDetailsComponent } from './claim-info/claim-info-details/claim-info-details.component';

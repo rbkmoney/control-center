@@ -4,7 +4,8 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+
 import { PartyRouting } from './party-routing.module';
 import { PartyComponent } from './party.component';
 
