@@ -4,7 +4,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { getUnionValue } from '../../../../../../utils';
+import { getUnionValue } from '@cc/utils/get-union-key';
+
 import { ChangesetInfo } from '../../../../../sections/party-claim/changeset/changeset-infos';
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { SelectableItem } from '../selectable-item';

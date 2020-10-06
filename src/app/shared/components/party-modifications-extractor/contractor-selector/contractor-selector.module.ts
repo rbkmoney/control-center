@@ -10,7 +10,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 
-import { PrettyJsonModule } from '../../../../../components/pretty-json';
+import { PrettyJsonModule } from '@cc/components/pretty-json';
+
 import { SharedPipesModule } from '../../../pipes';
 import { ContractorSelectorComponent } from './contractor-selector.component';
 import { ContractorsTableComponent } from './contractors-table/contractors-table.component';

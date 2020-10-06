@@ -1,6 +1,7 @@
 import get from 'lodash-es/get';
 
-import { toOptional } from '../../../../../utils';
+import { toOptional } from '@cc/utils/to-optional';
+
 import { BeneficialOwner } from '../../../../thrift-services/ank/gen-model/questionary';
 import {
     createEnding,

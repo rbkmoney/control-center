@@ -1,4 +1,5 @@
-import { getOr } from '../../../../../utils';
+import { getOr } from '@cc/utils/get-or';
+
 import { QuestionaryData } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { createRussianBankAccount } from '../creators/create-russian-bank-account';

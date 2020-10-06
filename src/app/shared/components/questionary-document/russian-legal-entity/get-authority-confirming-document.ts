@@ -1,4 +1,5 @@
-import { toOptional } from '../../../../../utils';
+import { toOptional } from '@cc/utils/to-optional';
+
 import { AuthorityConfirmingDocumentType } from '../../../../model/questionary';
 import { AuthorityConfirmingDocument } from '../../../../thrift-services/ank/gen-model/questionary';
 import { getDate } from '../select-data';
