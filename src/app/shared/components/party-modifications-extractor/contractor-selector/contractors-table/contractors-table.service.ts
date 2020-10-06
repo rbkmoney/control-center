@@ -5,18 +5,18 @@ import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../../../../papi/party.service';
-import { UnsavedClaimChangesetService } from '../../../../../sections/party-claim/changeset/unsaved-changeset/unsaved-claim-changeset.service';
+import { ChangesetInfo } from '../../../../../sections/party-claim/changeset/changeset-infos';
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { SelectableItem } from '../selectable-item';
 import { changesetInfosToSelectableItems } from './changeset-infos-to-selectable-items';
 
 @Injectable()
 export class ContractorsTableService {
-    private getContractors$ = new Subject<PartyID>();
+    private getContractors$ = new Subject<{ partyID: PartyID; unsaved?: ChangesetInfo[] }>();
     private hasError$ = new Subject();
 
     selectableItems$: Observable<SelectableItem[]> = this.getContractors$.pipe(
-        switchMap((partyID) =>
+        switchMap(({ partyID, unsaved }) =>
             combineLatest([
                 this.partyService.getParty(partyID).pipe(
                     map((party) => {
@@ -33,9 +33,7 @@ export class ContractorsTableService {
                     }),
                     filter((result) => result !== 'error')
                 ),
-                this.unsavedClaimChangesetService.unsavedChangesetInfos$.pipe(
-                    map(changesetInfosToSelectableItems)
-                ),
+                of(changesetInfosToSelectableItems(unsaved)),
             ]).pipe(
                 map(([partyContractors, unsavedContractors]) => [
                     ...unsavedContractors,
@@ -46,13 +44,9 @@ export class ContractorsTableService {
     );
     inProgress$ = progress(this.getContractors$, merge(this.hasError$, this.selectableItems$));
 
-    constructor(
-        private partyService: PartyService,
-        private snackBar: MatSnackBar,
-        private unsavedClaimChangesetService: UnsavedClaimChangesetService
-    ) {}
+    constructor(private partyService: PartyService, private snackBar: MatSnackBar) {}
 
-    getContractors(partyID: PartyID) {
-        this.getContractors$.next(partyID);
+    getContractors(partyID: PartyID, unsaved?: ChangesetInfo[]) {
+        this.getContractors$.next({ partyID, unsaved });
     }
 }

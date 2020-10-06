@@ -4,8 +4,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { getUnionValue } from '@cc/utils/index';
-
+import { getUnionValue } from '../../../../../../utils';
+import { ChangesetInfo } from '../../../../../sections/party-claim/changeset/changeset-infos';
 import { PartyID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { SelectableItem } from '../selectable-item';
 import { ContractorsTableService } from './contractors-table.service';
@@ -23,6 +23,9 @@ export class ContractorsTableComponent implements OnInit {
 
     @Input()
     contractorForm: FormGroup;
+
+    @Input()
+    unsaved?: ChangesetInfo[];
 
     dataSource: MatTableDataSource<SelectableItem> = new MatTableDataSource();
 
@@ -49,7 +52,7 @@ export class ContractorsTableComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.contractorsTableService.getContractors(this.partyID);
+        this.contractorsTableService.getContractors(this.partyID, this.unsaved);
     }
 
     applyFilter(filterValue: string) {

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 
+import { ChangesetInfo } from '../../../../sections/party-claim/changeset/changeset-infos';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ActionType } from './action-type';
 
@@ -15,6 +16,9 @@ export class ContractorSelectorComponent implements OnInit {
 
     @Input()
     contractorForm: FormGroup;
+
+    @Input()
+    unsaved?: ChangesetInfo[];
 
     actionType = ActionType;
     actionTypes = [ActionType.attachNew, ActionType.attach];

@@ -6,6 +6,7 @@
                 <cc-contractor-selector
                     *ngIf="!isContractorAvailable"
                     [partyID]="partyID"
+                    [unsaved]="unsaved"
                     [contractorForm]="form.get('contractor')"
                 ></cc-contractor-selector>
                 <mat-divider *ngIf="!isContractorAvailable"></mat-divider>

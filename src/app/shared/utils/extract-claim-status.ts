@@ -1,5 +1,4 @@
-import { getUnionKey } from '@cc/utils/index';
-
+import { getUnionKey } from '../../../utils';
 import { ClaimStatus } from '../../papi/model';
 import { ClaimStatus as UnionClaimStatus } from '../../thrift-services/damsel/gen-model/claim_management';
 

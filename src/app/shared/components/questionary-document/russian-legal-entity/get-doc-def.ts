@@ -1,8 +1,7 @@
 import get from 'lodash-es/get';
 import isEmpty from 'lodash-es/isEmpty';
 
-import { getUnionKey, toOptional } from '@cc/utils/index';
-
+import { getUnionKey, toOptional } from '../../../../../utils';
 import {
     MonthOperationCount,
     MonthOperationSum,

@@ -1,5 +1,4 @@
-import { toMinor } from '@cc/utils/index';
-
+import { toMinor } from '../../../../../utils';
 import { SearchFiltersParams } from '../search-filters-params';
 
 export const formParamsToSearchParams = (params: SearchFiltersParams): SearchFiltersParams => {

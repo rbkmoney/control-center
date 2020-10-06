@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 import { PartyModificationsExtractorService } from '@cc/app/shared/components';
 
@@ -51,6 +51,10 @@ export class ClaimChangesetService {
     }
 
     extractPartyModifications(questionary: Questionary, partyID: PartyID) {
-        this.partyModificationsExtractorService.extractMods(partyID, questionary);
+        this.unsavedClaimChangesetService.unsavedChangesetInfos$
+            .pipe(first())
+            .subscribe((unsaved) => {
+                this.partyModificationsExtractorService.extractMods(partyID, questionary, unsaved);
+            });
     }
 }

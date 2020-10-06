@@ -11,8 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-import { ExpandableRadioGroupModule } from '@cc/components/expandable-radio-group';
-
+import { ExpandableRadioGroupModule } from '../../../../../components/expandable-radio-group';
 import { OtherFiltersDialogModule } from './other-filters-dialog';
 import { PaymentsOtherSearchFiltersComponent } from './payments-other-search-filters.component';
 

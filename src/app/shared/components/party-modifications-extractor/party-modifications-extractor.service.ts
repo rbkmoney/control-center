@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 
+import { ChangesetInfo } from '../../../sections/party-claim/changeset/changeset-infos';
 import { Questionary } from '../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
@@ -11,7 +12,11 @@ import { PartyModificationsExtractorDialogComponent } from './party-modification
 @Injectable()
 export class PartyModificationsExtractorService {
     private destroy$: Subject<void> = new Subject();
-    private extractMods$: Subject<{ partyID: PartyID; questionary: Questionary }> = new Subject();
+    private extractMods$: Subject<{
+        partyID: PartyID;
+        questionary: Questionary;
+        unsaved: ChangesetInfo[];
+    }> = new Subject();
     private extracted$: Subject<PartyModification[]> = new Subject();
 
     modsExtracted$: Observable<PartyModification[]> = this.extracted$.asObservable();
@@ -22,11 +27,11 @@ export class PartyModificationsExtractorService {
         this.extractMods$
             .pipe(
                 takeUntil(this.destroy$),
-                switchMap(({ partyID, questionary }) =>
+                switchMap(({ partyID, questionary, unsaved }) =>
                     this.dialog
                         .open(PartyModificationsExtractorDialogComponent, {
                             disableClose: true,
-                            data: { questionary, partyID },
+                            data: { questionary, partyID, unsaved },
                             width: '800px',
                         })
                         .afterClosed()
@@ -36,8 +41,8 @@ export class PartyModificationsExtractorService {
             .subscribe((r) => this.extracted$.next(r));
     }
 
-    extractMods(partyID: PartyID, questionary: Questionary) {
-        this.extractMods$.next({ partyID, questionary });
+    extractMods(partyID: PartyID, questionary: Questionary, unsaved: ChangesetInfo[]) {
+        this.extractMods$.next({ partyID, questionary, unsaved });
     }
 
     destroy() {

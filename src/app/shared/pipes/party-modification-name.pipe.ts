@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { getUnionKey } from '@cc/utils/index';
-
+import { getUnionKey } from '../../../utils';
 import {
     ContractModificationUnit,
     ContractorModificationUnit,

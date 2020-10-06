@@ -1,7 +1,6 @@
 import get from 'lodash-es/get';
 
-import { getUnionKey, toOptional } from '@cc/utils/index';
-
+import { getUnionKey, toOptional } from '../../../../../utils';
 import {
     AdditionalInfo,
     WithoutChiefAccountant,

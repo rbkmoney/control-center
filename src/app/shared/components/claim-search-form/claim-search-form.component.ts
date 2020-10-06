@@ -10,8 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, map, take } from 'rxjs/operators';
 
-import { removeEmptyProperties } from '@cc/utils/index';
-
+import { removeEmptyProperties } from '../../../../utils';
 import { formValueToSearchParams } from './form-value-to-search-params';
 import { queryParamsToFormValue } from './query-params-to-form-value';
 import { SearchFormValue } from './search-form-value';

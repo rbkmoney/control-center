@@ -6,10 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 
-import { PaymentsTableComponent } from '@cc/app/shared/components';
-import { SharedPipesModule } from '@cc/app/shared/pipes';
-import { StatusModule } from '@cc/components/status';
-import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
+import { StatusModule } from '../../../../components/status';
+import { CommonPipesModule } from '../../../../pipes/common-pipes.module';
+import { PaymentsTableComponent } from '../../components';
+import { SharedPipesModule } from '../../pipes';
 
 @NgModule({
     imports: [
