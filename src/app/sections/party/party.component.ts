@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 
-import { SHARE_REPLAY_CONF } from '@cc/utils/index';
+import { hasActiveFragments, SHARE_REPLAY_CONF } from '@cc/utils/index';
 
 @Component({
     templateUrl: 'party.component.html',
@@ -21,13 +21,7 @@ export class PartyComponent {
     constructor(private route: ActivatedRoute, private router: Router) {}
 
     hasActiveFragments(fragments: string[]): boolean {
-        if (fragments?.length) {
-            const ulrFragments = this.router.url.split('/');
-            return (
-                ulrFragments.filter((fragment) => fragments.includes(fragment)).length ===
-                fragments.length
-            );
-        }
-        return false;
+        const ulrFragments = this.router.url.split('/');
+        return hasActiveFragments(fragments, ulrFragments);
     }
 }

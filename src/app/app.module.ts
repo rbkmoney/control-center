@@ -30,6 +30,7 @@ import { PartyModule as OldPartyModule } from './party/party.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PayoutsModule } from './payouts/payouts.module';
 import { RepairingModule } from './repairing/repairing.module';
+import { OperationsModule } from './sections/operations/operations.module';
 import { PartyModule } from './sections/party/party.module';
 import { SearchClaimsModule } from './sections/search-claims/search-claims.module';
 import { SettingsModule } from './settings';
@@ -69,6 +70,7 @@ moment.locale('en');
         PartyModule,
         OldPartyModule,
         SearchClaimsModule,
+        OperationsModule,
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
