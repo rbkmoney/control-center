@@ -95,9 +95,7 @@
             fxLayoutAlign="space-between center"
             *ngIf="canAddClaimMod"
         >
-            <cc-file-uploader
-                (filesUploaded)="updateConversation(timelineAction.filesAdded, $event)"
-            ></cc-file-uploader>
+            <cc-file-uploader (filesUploaded)="updateConversation($event)"></cc-file-uploader>
             <cc-send-comment
                 fxFlex="100"
                 *ngIf="
@@ -105,7 +103,7 @@
                     claimStatus !== claimStatuses.revoked &&
                     canAddClaimMod
                 "
-                (conversationSaved)="updateConversation(timelineAction.commentAdded, $event)"
+                (conversationSaved)="updateConversation($event)"
             ></cc-send-comment>
         </mat-card-content>
         <mat-card-actions *ngIf="canAddPartyMod">

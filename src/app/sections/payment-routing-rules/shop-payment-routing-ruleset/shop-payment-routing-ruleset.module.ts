@@ -18,6 +18,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
+import { PrettyJsonModule } from '@cc/components/pretty-json';
+
 import { SharedModule } from '../../../shared/shared.module';
 import { DamselModule } from '../../../thrift-services';
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
@@ -50,6 +52,7 @@ import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-rules
         PaymentRoutingRulesetHeaderModule,
         MatAutocompleteModule,
         AddShopPaymentRoutingRuleDialogModule,
+        PrettyJsonModule,
     ],
     declarations: [ShopPaymentRoutingRulesetComponent],
 })

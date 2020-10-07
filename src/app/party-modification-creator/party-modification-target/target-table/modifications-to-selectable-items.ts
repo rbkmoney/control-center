@@ -1,4 +1,5 @@
-import { getOr, getUnionValue } from '../../../shared/utils';
+import { getOr, getUnionValue } from '@cc/utils/index';
+
 import { Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyTarget } from '../party-target';
 import { SelectableItem } from './selectable-item';

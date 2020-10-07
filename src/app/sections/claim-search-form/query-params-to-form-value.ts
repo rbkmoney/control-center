@@ -1,7 +1,7 @@
 import { Params } from '@angular/router';
 import pickBy from 'lodash-es/pickBy';
 
-import { wrapValuesToArray } from '../../shared/utils';
+import { wrapValuesToArray } from '@cc/utils/index';
 
 const statusesAndPrimitives = (v, k) =>
     k === 'statuses' && (typeof v === 'string' || typeof v === 'number');

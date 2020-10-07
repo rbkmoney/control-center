@@ -4,7 +4,8 @@ import isEmpty from 'lodash-es/isEmpty';
 import { ReplaySubject, Subject } from 'rxjs';
 import { filter, map, pluck, scan, shareReplay } from 'rxjs/operators';
 
-import { removeEmptyProperties } from '../../shared/utils';
+import { removeEmptyProperties } from '@cc/utils/index';
+
 import { NavigationParams } from './navigation-params';
 import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
 

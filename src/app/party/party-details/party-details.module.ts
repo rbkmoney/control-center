@@ -9,6 +9,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 
+import { CardContainerModule } from '@cc/components/card-container/card-container.module';
+
 import { SharedModule } from '../../shared/shared.module';
 import { PartyDetailsComponent } from './party-details.component';
 import { PartyInfoComponent } from './party-info/party-info.component';
@@ -26,6 +28,7 @@ import { ShopsTableComponent } from './shops-table/shops-table.component';
         MatFormFieldModule,
         MatInputModule,
         SharedModule,
+        CardContainerModule,
     ],
     declarations: [PartyDetailsComponent, ShopsTableComponent, PartyInfoComponent],
 })

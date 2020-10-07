@@ -6,8 +6,9 @@ import { forkJoin, merge, of, Subject } from 'rxjs';
 import { catchError, filter, shareReplay, switchMap, tap } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 
+import { SHARE_REPLAY_CONF } from '@cc/utils/index';
+
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
-import { SHARE_REPLAY_CONF } from '../../../../shared/share-replay-conf';
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { ConversationId, User } from '../../../../thrift-services/messages/gen-model/messages';
 import { MessagesService } from '../../../../thrift-services/messages/messages.service';

@@ -1,24 +1,11 @@
-import {
-    CancellationToken,
-    CompletionContext,
-    CompletionList,
-    CompletionProvider,
-    ITextModel,
-    Position,
-    ProviderResult,
-} from '../../monaco-editor/model';
+import { CompletionList, CompletionProvider, ProviderResult } from '../../monaco-editor';
 
 export class DomainObjCompletionProvider implements CompletionProvider {
     get language() {
         return 'json';
     }
 
-    provideCompletionItems(
-        model: ITextModel,
-        position: Position,
-        context: CompletionContext,
-        token: CancellationToken
-    ): ProviderResult<CompletionList> {
+    provideCompletionItems(): ProviderResult<CompletionList> {
         return {
             suggestions: [
                 {

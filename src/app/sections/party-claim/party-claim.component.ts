@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { first, pluck, shareReplay } from 'rxjs/operators';
 
-import { SHARE_REPLAY_CONF } from '../../shared/share-replay-conf';
+import { SHARE_REPLAY_CONF } from '@cc/utils/index';
+
 import { FetchClaimService } from './fetch-claim.service';
 
 @Component({

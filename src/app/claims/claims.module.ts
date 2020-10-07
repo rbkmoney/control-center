@@ -15,6 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
+import { CardContainerModule } from '@cc/components/card-container/card-container.module';
+
 import { PapiModule } from '../papi/papi.module';
 import { SharedModule } from '../shared/shared.module';
 import { ClaimActionsComponent } from './claim-actions/claim-actions.component';
@@ -44,6 +46,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatDialogModule,
         CdkTableModule,
         SharedModule,
+        CardContainerModule,
     ],
     declarations: [
         ClaimsComponent,

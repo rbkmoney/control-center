@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import { ExecStateType } from '../../shared/execute';
 import { RepairScenario } from '../../thrift-services/fistful/gen-model/withdrawal_session';
+import { ExecStateType } from '../execute';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 import { RepairingService } from '../repairing.service';
 import { DialogData, RepairSettingsComponent } from './repair-settings/repair-settings.component';

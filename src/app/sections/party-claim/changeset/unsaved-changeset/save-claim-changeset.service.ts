@@ -22,7 +22,7 @@ export class SaveClaimChangesetService {
             }
             this.claimManagementService
                 .updateClaim(partyID, new Int64(parseInt(claimID, 10)), mods)
-                .pipe(catchError((e) => this.handleError(e)))
+                .pipe(catchError(() => this.handleError()))
                 .subscribe((e) => {
                     if (e) {
                         observer.error('error');
@@ -33,7 +33,7 @@ export class SaveClaimChangesetService {
         });
     }
 
-    private handleError(e: any) {
+    private handleError() {
         this.snackBar.open('An error occurred while saving new modification', 'OK');
         return of('error');
     }

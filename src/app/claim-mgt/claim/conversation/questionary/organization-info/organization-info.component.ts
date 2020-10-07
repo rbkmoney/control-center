@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { getUnionValue } from '../../../../../shared/utils';
+import { getUnionValue } from '@cc/utils/index';
+
 import { Contractor } from '../../../../../thrift-services/ank/gen-model/questionary';
 
 @Component({

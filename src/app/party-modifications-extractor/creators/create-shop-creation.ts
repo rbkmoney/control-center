@@ -1,4 +1,5 @@
-import { getOr } from '../../shared/utils';
+import { getOr } from '@cc/utils/index';
+
 import { QuestionaryData } from '../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyModification } from '../../thrift-services/damsel/gen-model/claim_management';
 

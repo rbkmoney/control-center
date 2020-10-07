@@ -1,5 +1,6 @@
+import { getUnionKey } from '@cc/utils/index';
+
 import { ClaimStatus } from '../../../../papi/model';
-import { getUnionKey } from '../../../../shared/utils';
 import {
     ClaimModification,
     StatusModificationUnit,

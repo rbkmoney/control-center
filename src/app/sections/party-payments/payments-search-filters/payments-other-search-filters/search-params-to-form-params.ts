@@ -1,4 +1,5 @@
-import { toMajor } from '../../../../shared/utils/to-major';
+import { toMajor } from '@cc/utils/index';
+
 import { SearchFiltersParams } from '../search-filters-params';
 
 export const searchParamsToFormParams = (params: SearchFiltersParams): SearchFiltersParams => {
