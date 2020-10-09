@@ -12,7 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
-import { SharedModule } from '../../../../shared/shared.module';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog.component';
 
 @NgModule({
@@ -28,7 +29,7 @@ import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-r
         MatIconModule,
         MatSelectModule,
         MatRadioModule,
-        SharedModule,
+        SharedPipesModule,
         MatAutocompleteModule,
     ],
     declarations: [AddPartyPaymentRoutingRuleDialogComponent],

@@ -6,7 +6,7 @@
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
 @import '../../sections/party-claim/party-claim-theme';
 
-@import '../../party-modification-creator/party-modification-creator-theme';
+@import '../../shared/components/party-modification-creator/party-modification-creator-theme';
 
 @mixin cc-theme($theme) {
     body.#{map-get($theme, name)} {

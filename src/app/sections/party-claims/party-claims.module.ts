@@ -12,10 +12,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 
+import { ClaimSearchFormModule } from '@cc/app/shared/components';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 
-import { SharedModule } from '../../shared/shared.module';
-import { ClaimSearchFormModule } from '../claim-search-form';
 import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { PartyClaimsRoutingModule } from './party-claims-routing.module';
 import { PartyClaimsComponent } from './party-claims.component';
@@ -35,7 +35,7 @@ import { PartyClaimsComponent } from './party-claims.component';
         MatSelectModule,
         ReactiveFormsModule,
         MatProgressSpinnerModule,
-        SharedModule,
+        SharedPipesModule,
         ClaimSearchFormModule,
         EmptySearchResultModule,
     ],

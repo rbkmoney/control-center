@@ -8,8 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+
 import { MonacoEditorModule } from '../../monaco-editor';
-import { SharedModule } from '../../shared/shared.module';
 import { DomainObjModificationComponent } from './domain-obj-modification.component';
 import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confirm-dialog.component';
 
@@ -24,7 +25,7 @@ import { ResetConfirmDialogComponent } from './reset-confirm-dialog/reset-confir
         MatButtonModule,
         MatIconModule,
         MonacoEditorModule,
-        SharedModule,
+        SharedPipesModule,
         MatDialogModule,
     ],
     entryComponents: [ResetConfirmDialogComponent],

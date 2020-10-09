@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
-import { PartyModificationsExtractorService } from '../../../../party-modifications-extractor';
+import { PartyModificationsExtractorService } from '@cc/app/shared/components';
+
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { ChangesetInfo } from '../changeset-infos';
@@ -50,6 +51,10 @@ export class ClaimChangesetService {
     }
 
     extractPartyModifications(questionary: Questionary, partyID: PartyID) {
-        this.partyModificationsExtractorService.extractMods(partyID, questionary);
+        this.unsavedClaimChangesetService.unsavedChangesetInfos$
+            .pipe(first())
+            .subscribe((unsaved) => {
+                this.partyModificationsExtractorService.extractMods(partyID, questionary, unsaved);
+            });
     }
 }

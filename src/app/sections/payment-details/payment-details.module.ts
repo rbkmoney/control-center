@@ -4,11 +4,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { DetailsItemModule } from '@cc/components/details-item';
 import { HeadlineModule } from '@cc/components/headline';
 import { StatusModule } from '@cc/components/status';
 
-import { SharedModule } from '../../shared/shared.module';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentMainInfoModule } from './payment-main-info';
@@ -22,7 +22,7 @@ import { PaymentToolModule } from './payment-main-info/payment-tool';
         PaymentDetailsRoutingModule,
         MatCardModule,
         DetailsItemModule,
-        SharedModule,
+        SharedPipesModule,
         StatusModule,
         PaymentToolModule,
         MatProgressSpinnerModule,

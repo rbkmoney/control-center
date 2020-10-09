@@ -18,9 +18,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 
-import { SharedModule } from '../shared/shared.module';
 import { FistfulModule } from '../thrift-services/fistful/fistful.module';
 import { MachinegunModule } from '../thrift-services/machinegun/machinegun.module';
 import { AddIdsInputComponent } from './add-ids-input/add-ids-input.component';
@@ -40,7 +40,7 @@ import { SimpleRepairComponent } from './simple-repair/simple-repair.component';
         RepairingRoutingModule,
         MatCardModule,
         MatButtonModule,
-        SharedModule,
+        SharedPipesModule,
         MatProgressBarModule,
         MatTabsModule,
         MatTableModule,

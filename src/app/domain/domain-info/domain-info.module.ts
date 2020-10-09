@@ -9,11 +9,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 
 import { MonacoEditorModule } from '../../monaco-editor';
-import { SharedModule } from '../../shared/shared.module';
-import { DamselModule } from '../../thrift-services/damsel/damsel.module';
+import { DamselModule } from '../../thrift-services/damsel';
 import { DomainGroupModule } from './domain-group';
 import { DomainInfoComponent } from './domain-info.component';
 import { DomainObjDetailsComponent } from './domain-obj-details';
@@ -33,7 +33,7 @@ import { DomainObjDetailsComponent } from './domain-obj-details';
         MatProgressSpinnerModule,
         MonacoEditorModule,
         DamselModule,
-        SharedModule,
+        SharedPipesModule,
         CardContainerModule,
     ],
 })
