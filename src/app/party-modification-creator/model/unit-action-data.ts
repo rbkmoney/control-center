@@ -11,5 +11,5 @@ export interface UnitActionData {
     type: UnitActionType;
     partyID: string;
     unitID?: string;
-    unsaved: Modification[];
+    fromClaim: Modification[];
 }

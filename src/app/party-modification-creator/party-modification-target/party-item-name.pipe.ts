@@ -10,7 +10,7 @@ export class PartyItemNamePipe implements PipeTransform {
         switch (value) {
             case TargetType.partyItem:
                 const name = args.length > 0 ? args[0] : 'item';
-                return `Select ${name} from party or unsaved`;
+                return `Select ${name} from party or claim`;
             case TargetType.fillIn:
                 return 'Fill in party modification unit ID';
             default:

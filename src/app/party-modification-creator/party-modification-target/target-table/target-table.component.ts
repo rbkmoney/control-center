@@ -31,7 +31,7 @@ export class TargetTableComponent implements OnInit {
     partyTarget: PartyTarget;
 
     @Input()
-    unsaved: Modification[];
+    fromClaim: Modification[];
 
     @Output()
     valueChanges: EventEmitter<string> = new EventEmitter();
@@ -60,7 +60,7 @@ export class TargetTableComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.targetService.getSelectableItems(this.partyID, this.partyTarget, this.unsaved);
+        this.targetService.getSelectableItems(this.partyID, this.partyTarget, this.fromClaim);
     }
 
     applyFilter(filterValue: string) {

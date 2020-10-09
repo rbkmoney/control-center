@@ -12,18 +12,18 @@ import { UnitActionsNavListComponent } from './unit-actions-nav-list';
 export class PartyModificationCreatorDialogService {
     private open$ = new Subject<{
         partyID: PartyID;
-        unsaved: Modification[];
+        fromClaim: Modification[];
     }>();
 
     opened$ = this.open$.pipe(
         switchMap(
-            ({ partyID, unsaved }) =>
+            ({ partyID, fromClaim }) =>
                 new Observable((observer) => {
                     this.bottomSheet.open(UnitActionsNavListComponent, {
                         data: {
                             type: UnitActionType.allActions,
                             partyID,
-                            unsaved,
+                            fromClaim,
                         },
                     });
                     observer.next();
@@ -35,7 +35,7 @@ export class PartyModificationCreatorDialogService {
         this.opened$.subscribe();
     }
 
-    open(partyID: PartyID, unsaved: Modification[]) {
-        this.open$.next({ partyID, unsaved });
+    open(partyID: PartyID, fromClaim: Modification[]) {
+        this.open$.next({ partyID, fromClaim });
     }
 }

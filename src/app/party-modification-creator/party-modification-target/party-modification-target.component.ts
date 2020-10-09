@@ -20,7 +20,7 @@ export class PartyModificationTargetComponent {
     partyTarget: PartyTarget;
 
     @Input()
-    unsaved: Modification[];
+    fromClaim: Modification[];
 
     @Output()
     valueChanges: EventEmitter<string> = new EventEmitter();
