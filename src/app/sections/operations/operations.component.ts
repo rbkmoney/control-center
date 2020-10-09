@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { hasActiveFragments } from '@cc/utils/index';
 
@@ -10,7 +10,7 @@ import { hasActiveFragments } from '@cc/utils/index';
 export class OperationsComponent {
     links = [{ name: 'Payments', url: 'payments', otherActiveUrlFragments: ['payment'] }];
 
-    constructor(private route: ActivatedRoute, private router: Router) {}
+    constructor(private router: Router) {}
 
     hasActiveFragments(fragments: string[]): boolean {
         const ulrFragments = this.router.url.split('/');
