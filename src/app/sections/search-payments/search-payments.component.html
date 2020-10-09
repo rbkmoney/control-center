@@ -1,1 +1,17 @@
-search-payments
+<mat-card>
+    <mat-card-content fxLayout>
+        <cc-payments-main-search-filters
+            fxFlex="75"
+            (valueChanges)="searchParamsChanges($event)"
+        ></cc-payments-main-search-filters>
+        <cc-payments-other-search-filters
+            class="other-filters-button"
+            fxFlex
+            fxLayoutAlign="center start"
+            (valueChanges)="searchParamsChanges($event)"
+        ></cc-payments-other-search-filters>
+    </mat-card-content>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>
