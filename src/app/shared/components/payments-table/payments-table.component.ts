@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { NavigationParams } from '../../../sections/party-payments/navigation-params';
+import { NavigationParams } from '@cc/app/shared/components/payments-searcher/navigation-params';
+
 import { InvoiceID, InvoicePaymentID } from '../../../thrift-services/damsel/gen-model/domain';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
 

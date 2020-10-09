@@ -2,7 +2,7 @@ import {
     InvoiceID,
     InvoicePaymentID,
     PartyID,
-} from '../../thrift-services/damsel/gen-model/domain';
+} from '../../../thrift-services/damsel/gen-model/domain';
 
 export interface NavigationParams {
     partyID: PartyID;

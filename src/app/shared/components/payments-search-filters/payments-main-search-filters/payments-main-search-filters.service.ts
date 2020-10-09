@@ -17,6 +17,7 @@ export class PaymentsMainSearchFiltersService {
         fromTime: [moment().subtract(1, 'month').startOf('d'), Validators.required],
         toTime: [moment().endOf('d'), Validators.required],
         invoiceID: '',
+        partyID: '',
         shopIDs: [],
         bin: ['', [Validators.pattern(/\d{6}$/), Validators.maxLength(6)]],
         pan: ['', [Validators.pattern(/\d{4}$/), Validators.maxLength(4)]],

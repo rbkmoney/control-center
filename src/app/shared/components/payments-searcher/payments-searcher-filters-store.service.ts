@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import pickBy from 'lodash-es/pickBy';
 
-import { SearchFiltersParams } from '@cc/app/shared/components/payments-search-filters/search-filters-params';
 import { wrapValuesToArray } from '@cc/utils/index';
 
-import { QueryParamsStore } from './query-params-store';
+import { QueryParamsStore } from '../../utils/query-params-store';
+import { SearchFiltersParams } from '../payments-search-filters/search-filters-params';
 
 const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
 

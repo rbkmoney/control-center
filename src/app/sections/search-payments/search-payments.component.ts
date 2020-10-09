@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-
-import { SearchFiltersParams } from '@cc/app/shared/components/payments-search-filters/search-filters-params';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     templateUrl: 'search-payments.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchPaymentsComponent {
-    searchParamsChanges($event: SearchFiltersParams) {
-        console.log($event);
-    }
-}
+export class SearchPaymentsComponent {}

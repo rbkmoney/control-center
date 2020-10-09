@@ -20,7 +20,16 @@
                 autocomplete="false"
             />
         </mat-form-field>
-        <mat-form-field fxFlex>
+        <mat-form-field fxFlex *ngIf="!partyID">
+            <input
+                matInput
+                placeholder="Party ID"
+                formControlName="partyID"
+                type="string"
+                autocomplete="false"
+            />
+        </mat-form-field>
+        <mat-form-field fxFlex *ngIf="partyID">
             <mat-label>Shops</mat-label>
             <mat-select multiple formControlName="shopIDs" class="select">
                 <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">

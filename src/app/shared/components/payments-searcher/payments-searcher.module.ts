@@ -16,14 +16,12 @@ import {
     PaymentsMainSearchFiltersModule,
     PaymentsOtherSearchFiltersModule,
 } from '@cc/app/shared/components';
-import { PaymentsSearcherModule } from '@cc/app/shared/components/payments-searcher';
 import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 import { StatusModule } from '@cc/components/status';
 
-import { PaymentsTableModule } from '../../shared/components/payments-table/payments-table.module';
-import { PartyPaymentsRoutingModule } from './party-payments-routing.module';
-import { PartyPaymentsComponent } from './party-payments.component';
+import { PaymentsTableModule } from '../payments-table/payments-table.module';
+import { PaymentsSearcherComponent } from './payments-searcher.component';
 
 @NgModule({
     imports: [
@@ -40,14 +38,13 @@ import { PartyPaymentsComponent } from './party-payments.component';
         MatMenuModule,
         MatIconModule,
         PaymentsMainSearchFiltersModule,
-        PartyPaymentsRoutingModule,
         StatusModule,
         PaymentsTableModule,
         MatBadgeModule,
         PaymentsOtherSearchFiltersModule,
         EmptySearchResultModule,
-        PaymentsSearcherModule,
     ],
-    declarations: [PartyPaymentsComponent],
+    declarations: [PaymentsSearcherComponent],
+    exports: [PaymentsSearcherComponent],
 })
-export class PartyPaymentsModule {}
+export class PaymentsSearcherModule {}
