@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/c
 import { Router } from '@angular/router';
 
 import { ChargebacksParams } from '../../query-dsl';
-import { ComponentChanges } from '../../shared/type-helpers';
+import { ComponentChanges } from '../../shared/utils';
 import {
     InvoicePaymentChargebackID,
     InvoicePaymentChargebackStage,

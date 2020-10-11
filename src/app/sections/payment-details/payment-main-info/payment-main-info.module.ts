@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 
-import { DetailsItemModule } from '../../../shared/components/details-item';
-import { StatusModule } from '../../../shared/components/status';
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { DetailsItemModule } from '@cc/components/details-item';
+import { StatusModule } from '@cc/components/status';
+import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
+
 import { PaymentMainInfoComponent } from './payment-main-info.component';
 import { PaymentToolModule } from './payment-tool';
 
@@ -17,7 +19,8 @@ import { PaymentToolModule } from './payment-tool';
         DetailsItemModule,
         StatusModule,
         PaymentToolModule,
-        SharedModule,
+        CommonPipesModule,
+        SharedPipesModule,
     ],
     declarations: [PaymentMainInfoComponent],
     exports: [PaymentMainInfoComponent],

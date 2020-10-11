@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 
-import { TimelineModule } from '../../../../shared/components/timeline';
+import { TimelineModule } from '@cc/components/timeline';
+
 import { CommentTimelineItemModule } from '../timeline-items/comment-timeline-item/comment-timeline-item.module';
 import { FileTimelineItemModule } from '../timeline-items/file-timeline-item/file-timeline-item.module';
 import { PartyModificationTimelineItemModule } from '../timeline-items/party-modification-timeline-item/party-modification-timeline-item.module';

@@ -7,8 +7,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 
-import { StatusModule } from '../../shared/components/status';
-import { SharedModule } from '../../shared/shared.module';
+import { EmptySearchResultModule } from '@cc/components/empty-search-result';
+import { StatusModule } from '@cc/components/status';
+import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
+
+import { SharedPipesModule } from '../../shared';
 import { ChargebacksTableComponent } from './chargebacks-table.component';
 import { FetchChargebacksService } from './fetch-chargebacks.service';
 
@@ -16,13 +19,15 @@ import { FetchChargebacksService } from './fetch-chargebacks.service';
     imports: [
         CommonModule,
         MatTableModule,
-        SharedModule,
         FlexModule,
         StatusModule,
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
         MatProgressSpinnerModule,
+        EmptySearchResultModule,
+        CommonPipesModule,
+        SharedPipesModule,
     ],
     declarations: [ChargebacksTableComponent],
     exports: [ChargebacksTableComponent],

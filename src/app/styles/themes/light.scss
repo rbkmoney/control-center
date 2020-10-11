@@ -26,6 +26,7 @@ $theme: (
     orange: #dbab09,
     red: #cb2431,
     green: #2cbe4e,
+    neutral: mat-palette($mat-grey),
 );
 
 @include cc-theme($theme);

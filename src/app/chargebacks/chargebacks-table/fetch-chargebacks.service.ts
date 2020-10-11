@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { booleanDelay } from '../../custom-operators';
+import { booleanDelay } from '@cc/operators/index';
 import { ChargebacksParams, createDSL } from '../../query-dsl';
 import { StatChargeback } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';

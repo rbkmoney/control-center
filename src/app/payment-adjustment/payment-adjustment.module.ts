@@ -22,10 +22,13 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { CardContainerModule } from '@cc/components/card-container/card-container.module';
+import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
+
 import { DomainModule } from '../domain';
 import { PapiModule } from '../papi/papi.module';
-import { SharedModule } from '../shared/shared.module';
-import { DamselModule } from '../thrift-services/damsel/damsel.module';
+import { DamselModule } from '../thrift-services/damsel';
 import { ActionItemComponent } from './create-and-capture/action-item/action-item.component';
 import { CancelActionsComponent } from './create-and-capture/cancel-actions/cancel-actions.component';
 import { CaptureActionsComponent } from './create-and-capture/capture-actions/capture-actions.component';
@@ -40,7 +43,6 @@ import { TableComponent } from './table/table.component';
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         PaymentAdjustmentRoutingModule,
         FlexLayoutModule,
         ReactiveFormsModule,
@@ -66,6 +68,9 @@ import { TableComponent } from './table/table.component';
         MatSelectModule,
         DomainModule,
         MatRadioModule,
+        CardContainerModule,
+        SharedPipesModule,
+        CommonPipesModule,
     ],
     declarations: [
         PaymentAdjustmentComponent,

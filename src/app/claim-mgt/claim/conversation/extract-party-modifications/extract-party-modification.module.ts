@@ -9,7 +9,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 
-import { PartyModificationFormsModule } from '../../../../party-modification-forms';
+import { PartyModificationFormsModule } from '@cc/app/shared/components';
+
 import { ContractorSelectorModule } from './contractor-selector/contractor-selector.module';
 import { ExtractFormCheckboxNamePipe } from './extract-form-checkbox-name.pipe';
 import { ExtractPartyModificationComponent } from './extract-party-modification.component';

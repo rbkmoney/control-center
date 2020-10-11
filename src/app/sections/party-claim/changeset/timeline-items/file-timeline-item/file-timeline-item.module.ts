@@ -6,7 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { TimelineModule } from '../../../../../shared/components/timeline';
+import { TimelineModule } from '@cc/components/timeline';
+
 import { FileStorageModule } from '../../../../../thrift-services/file-storage';
 import { TimelineComponentsModule } from '../../timeline-components';
 import { FileActionIconPipe } from './file-action-icon.pipe';

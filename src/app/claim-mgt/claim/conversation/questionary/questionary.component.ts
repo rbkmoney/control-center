@@ -5,9 +5,10 @@ import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { Observable } from 'rxjs';
 import { slugify } from 'transliteration';
 
-import { QuestionaryDocumentService } from '../../../../questionary-document';
-import { getCompanyInfo } from '../../../../questionary-document/select-data';
-import { getUnionValue } from '../../../../shared/utils';
+import { QuestionaryDocumentService } from '@cc/app/shared/components';
+import { getCompanyInfo } from '@cc/app/shared/components/questionary-document/select-data';
+import { getUnionValue } from '@cc/utils/index';
+
 import { BeneficialOwner } from '../../../../thrift-services/ank/gen-model/questionary';
 import { Questionary } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 

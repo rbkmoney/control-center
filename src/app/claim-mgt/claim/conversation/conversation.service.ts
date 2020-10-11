@@ -26,7 +26,6 @@ export class ConversationService {
     updateConversation(
         party_id: string,
         claim_id: ClaimID,
-        action: TimelineAction,
         modifications: Modification[]
     ): Observable<void> {
         return this.claimManagementService.updateClaim(party_id, claim_id, modifications);

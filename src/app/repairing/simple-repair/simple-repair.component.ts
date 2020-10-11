@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { ExecStateType } from '../../shared/execute';
 import { Machine } from '../../thrift-services/machinegun/gen-model/state_processing';
 import { Namespace } from '../../thrift-services/machinegun/model/namespace';
+import { ExecStateType } from '../execute';
 import { RepairingStatusType } from '../repairing-status/repairing-status.component';
 import { RepairingService } from '../repairing.service';
 

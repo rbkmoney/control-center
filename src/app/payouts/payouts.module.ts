@@ -21,8 +21,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { CardContainerModule } from '@cc/components/card-container/card-container.module';
+import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
+
 import { PapiModule } from '../papi/papi.module';
-import { SharedModule } from '../shared/shared.module';
 import { CancelPayoutComponent } from './cancel-payout/cancel-payout.component';
 import { ConfirmPayoutsComponent } from './confirm-payouts/confirm-payouts.component';
 import { CreatePayoutComponent } from './create-payout/create-payout.component';
@@ -51,7 +54,6 @@ import { SearchFormComponent } from './search-form/search-form.component';
         CdkTableModule,
         MatTableModule,
         MatCheckboxModule,
-        SharedModule,
         MatButtonModule,
         MatDialogModule,
         MatIconModule,
@@ -61,6 +63,9 @@ import { SearchFormComponent } from './search-form/search-form.component';
         MatMenuModule,
         MatTooltipModule,
         MatPaginatorModule,
+        CardContainerModule,
+        SharedPipesModule,
+        CommonPipesModule,
     ],
     declarations: [
         PayoutsComponent,

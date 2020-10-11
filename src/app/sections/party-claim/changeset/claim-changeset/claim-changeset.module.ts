@@ -4,8 +4,9 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { PartyModificationFormsModule } from '../../../../party-modification-forms';
-import { TimelineModule } from '../../../../shared/components/timeline';
+import { PartyModificationFormsModule } from '@cc/app/shared/components';
+import { TimelineModule } from '@cc/components/timeline';
+
 import { ChangesetsFilterModule } from '../changesets-filter';
 import { CommentTimelineItemModule } from '../timeline-items/comment-timeline-item/comment-timeline-item.module';
 import { CreatedTimelineItemModule } from '../timeline-items/created-timeline-item';

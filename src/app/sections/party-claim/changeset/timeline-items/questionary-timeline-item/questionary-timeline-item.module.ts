@@ -6,9 +6,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { PartyModificationsExtractorModule } from '../../../../../party-modifications-extractor';
-import { TimelineModule } from '../../../../../shared/components/timeline';
-import { SharedModule } from '../../../../../shared/shared.module';
+import { PartyModificationsExtractorModule } from '@cc/app/shared/components';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { PrettyJsonModule } from '@cc/components/pretty-json';
+import { TimelineModule } from '@cc/components/timeline';
+
 import { AnkModule } from '../../../../../thrift-services/ank';
 import { TimelineComponentsModule } from '../../timeline-components';
 import { CommentTimelineItemModule } from '../comment-timeline-item/comment-timeline-item.module';
@@ -28,9 +30,10 @@ import { SerialNumberPipe } from './serial-number.pipe';
         FlexModule,
         CommonModule,
         MatExpansionModule,
-        SharedModule,
+        SharedPipesModule,
         TimelineComponentsModule,
         PartyModificationsExtractorModule,
+        PrettyJsonModule,
     ],
     exports: [QuestionaryTimelineItemComponent],
 })

@@ -1,8 +1,8 @@
 import * as uuid from 'uuid/v4';
 
+import { extract, toJson } from '@cc/utils/index';
+
 import { MonacoFile } from '../monaco-editor';
-import { toJson } from '../shared/thrift-json-converter';
-import { extract } from '../shared/thrift-utils';
 import { DomainObject, Reference } from '../thrift-services/damsel/gen-model/domain';
 
 export function parseRef(ref: string): Reference {

@@ -12,9 +12,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 
+import { StatusModule } from '@cc/components/status';
+
 import { ChargebacksTableModule } from '../../chargebacks';
-import { StatusModule } from '../../shared/components/status';
-import { SharedModule } from '../../shared/shared.module';
 import { ChargebacksSearchFiltersModule } from './chargebacks-search-filters';
 import { PartyChargebacksRoutingModule } from './party-chargebacks-routing.module';
 import { PartyChargebacksComponent } from './party-chargebacks.component';
@@ -23,7 +23,6 @@ import { PartyChargebacksComponent } from './party-chargebacks.component';
     imports: [
         FlexModule,
         MatCardModule,
-        SharedModule,
         MatProgressBarModule,
         CommonModule,
         MatButtonModule,

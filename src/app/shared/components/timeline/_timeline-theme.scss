@@ -1,5 +1,0 @@
-@import './timeline-item/timeline-item-badge/timeline-item-badge-theme';
-
-@mixin cc-timeline-theme($theme) {
-    @include cc-timeline-item-badge-theme($theme);
-}

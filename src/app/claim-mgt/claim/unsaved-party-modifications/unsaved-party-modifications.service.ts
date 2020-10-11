@@ -34,7 +34,7 @@ export class UnsavedPartyModificationService {
                     });
                     return forkJoin([of(mods), of(pos), d.afterClosed()]);
                 }),
-                filter(([mods, pos, newMod]) => !!newMod)
+                filter(([, , newMod]) => !!newMod)
             )
             .subscribe(([mods, pos, newMod]) => {
                 mods[pos] = newMod;

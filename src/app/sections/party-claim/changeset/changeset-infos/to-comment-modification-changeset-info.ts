@@ -1,4 +1,5 @@
-import { getUnionKey } from '../../../../shared/utils';
+import { getUnionKey } from '@cc/utils/index';
+
 import {
     CommentModification,
     ModificationUnit,

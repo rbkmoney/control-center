@@ -14,14 +14,15 @@ import { Router } from '@angular/router';
 import { combineLatest, from, of } from 'rxjs';
 import { filter, first, map, switchMap } from 'rxjs/operators';
 
+import { getUnionKey } from '@cc/utils/index';
+
 import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimStatus } from '../../../papi/model';
 import {
     PartyModificationEmitter,
     UnitActionsNavListComponent,
 } from '../../../party-modification-creator-legacy';
-import { extractClaimStatus } from '../../../shared/extract-claim-status';
-import { getUnionKey } from '../../../shared/utils';
+import { extractClaimStatus } from '../../../shared/utils';
 import { Questionary } from '../../../thrift-services/ank/gen-model/questionary_manager';
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';
@@ -115,9 +116,9 @@ export class ConversationComponent implements OnChanges, OnInit {
         this.savePartyModService.save();
     }
 
-    updateConversation(action: TimelineAction, modifications: Modification[]) {
+    updateConversation(modifications: Modification[]) {
         this.conversationService
-            .updateConversation(this.claim.party_id, this.claim.id, action, modifications)
+            .updateConversation(this.claim.party_id, this.claim.id, modifications)
             .subscribe(() => this.conversationChangedEvent.emit());
     }
 

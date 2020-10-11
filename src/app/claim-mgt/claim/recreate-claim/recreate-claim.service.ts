@@ -6,7 +6,8 @@ import negate from 'lodash-es/negate';
 import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, switchMapTo, tap } from 'rxjs/operators';
 
-import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
+import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
+
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { extractModificationsReducer, extractSeed } from './extract-modifications-reducer';

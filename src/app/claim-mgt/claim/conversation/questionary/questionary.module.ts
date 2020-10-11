@@ -7,7 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 
-import { DetailsItemModule } from '../../../../shared/components/details-item';
+import { DetailsItemModule } from '@cc/components/details-item';
+
 import { AuthorityConfirmingDocumentTitlePipe } from './authority-confirming-document-title.pipe';
 import { BankAccountInfoComponent } from './bank-account-info';
 import { BeneficialOwnerInfoComponent } from './beneficial-owner-info';

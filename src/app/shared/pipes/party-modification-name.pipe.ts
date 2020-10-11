@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { getUnionKey } from '@cc/utils/get-union-key';
+
 import {
     ContractModificationUnit,
     ContractorModificationUnit,
     PartyModification,
     ShopModificationUnit,
 } from '../../thrift-services/damsel/gen-model/claim_management';
-import { getUnionKey } from '../utils';
 
 function getContractorModificationName(mod: ContractorModificationUnit): string {
     switch (getUnionKey(mod.modification)) {

@@ -1,0 +1,24 @@
+@import '../timeline-item.scss';
+
+$size: 36px;
+$line-size: 2px;
+
+.cc-timeline-item-badge {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    height: $size;
+    width: $size;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    z-index: 10;
+
+    ::ng-deep > *,
+    ::ng-deep > * mat-icon {
+        height: $icons-size;
+        width: $icons-size;
+        font-size: $icons-size;
+    }
+}

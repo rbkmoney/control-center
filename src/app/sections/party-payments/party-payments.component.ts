@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
+import { SearchFiltersParams } from '../../shared/components/payments-search-filters/search-filters-params';
 import { FetchPaymentsService } from './fetch-payments.service';
 import { NavigationParams } from './navigation-params';
 import { PartyPaymentsService } from './party-payments.service';
 import { PaymentsSearchFiltersStore } from './payments-search-filters-store.service';
-import { SearchFiltersParams } from './payments-search-filters/search-filters-params';
 
 @Component({
     templateUrl: 'party-payments.component.html',

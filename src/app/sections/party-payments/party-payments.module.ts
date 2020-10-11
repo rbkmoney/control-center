@@ -12,19 +12,23 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 
-import { StatusModule } from '../../shared/components/status';
-import { SharedModule } from '../../shared/shared.module';
+import {
+    PaymentsMainSearchFiltersModule,
+    PaymentsOtherSearchFiltersModule,
+} from '@cc/app/shared/components';
+import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { EmptySearchResultModule } from '@cc/components/empty-search-result';
+import { StatusModule } from '@cc/components/status';
+
+import { PaymentsTableModule } from '../../shared/components/payments-table/payments-table.module';
 import { PartyPaymentsRoutingModule } from './party-payments-routing.module';
 import { PartyPaymentsComponent } from './party-payments.component';
-import { PaymentsMainSearchFiltersModule } from './payments-search-filters/payments-main-search-filters';
-import { PaymentsOtherSearchFiltersModule } from './payments-search-filters/payments-other-search-filters';
-import { PaymentsTableModule } from './payments-table/payments-table.module';
 
 @NgModule({
     imports: [
         FlexModule,
         MatCardModule,
-        SharedModule,
+        SharedPipesModule,
         MatProgressBarModule,
         CommonModule,
         MatButtonModule,
@@ -40,6 +44,7 @@ import { PaymentsTableModule } from './payments-table/payments-table.module';
         PaymentsTableModule,
         MatBadgeModule,
         PaymentsOtherSearchFiltersModule,
+        EmptySearchResultModule,
     ],
     declarations: [PartyPaymentsComponent],
 })
