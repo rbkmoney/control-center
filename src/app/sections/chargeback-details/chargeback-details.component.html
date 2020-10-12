@@ -45,7 +45,12 @@
 
             <ng-container *ngIf="(shop$ | async) && (payment$ | async)">
                 <mat-divider inset></mat-divider>
-                <h2 class="cc-title">Payment</h2>
+                <div fxLayout fxLayoutAlign="space-between center">
+                    <h2 class="cc-title">Payment</h2>
+                    <button mat-icon-button (click)="navigateToPayment()">
+                        <mat-icon>open_in_new</mat-icon>
+                    </button>
+                </div>
                 <cc-payment-main-info
                     [shop]="shop$ | async"
                     [payment]="payment$ | async"

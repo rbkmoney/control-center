@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { first, switchMap } from 'rxjs/operators';
 import {
@@ -37,7 +38,8 @@ export class ChargebackDetailsComponent {
 
     constructor(
         private chargebackDetailsService: ChargebackDetailsService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private router: Router
     ) {}
 
     changeStatus() {
@@ -78,5 +80,20 @@ export class ChargebackDetailsComponent {
                 )
             )
             .subscribe(() => this.chargebackDetailsService.loadChargeback());
+    }
+
+    navigateToPayment() {
+        this.payment$
+            .pipe(first())
+            .subscribe((p) =>
+                this.router.navigate([
+                    'party',
+                    p.owner_id,
+                    'invoice',
+                    p.invoice_id,
+                    'payment',
+                    p.id,
+                ])
+            );
     }
 }
