@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
             { name: 'Parties', route: '/parties', activateRoles: ['party:get'] },
             { name: 'Repairing', route: '/repairing', activateRoles: ['party:get'] },
             { name: 'Deposits', route: '/deposits', activateRoles: ['deposit:write'] },
+            { name: 'Operations', route: '/operations', activateRoles: ['party:get'] },
         ];
         const userRoles = this.keycloakService.getUserRoles();
         return menuItems.filter(
