@@ -71,6 +71,12 @@ import { PartyComponent } from './party.component';
                             import('../party-chargebacks').then((m) => m.PartyChargebacksModule),
                         canActivate: [AppAuthGuardService],
                     },
+                    {
+                        path: 'invoice/:invoiceID/payment/:paymentID/chargeback/:chargebackID',
+                        loadChildren: () =>
+                            import('../chargeback-details').then((m) => m.ChargebackDetailsModule),
+                        canActivate: [AppAuthGuardService],
+                    },
                     { path: '', redirectTo: 'payments', pathMatch: 'full' },
                 ],
             },

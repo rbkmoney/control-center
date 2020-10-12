@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { StatChargeback } from 'src/app/thrift-services/damsel/gen-model/merch_stat';
 
 import { ChargebacksParams } from '../../query-dsl';
 import { ComponentChanges } from '../../shared/utils';
 import {
-    InvoicePaymentChargebackID,
     InvoicePaymentChargebackStage,
     InvoicePaymentChargebackStatus,
 } from '../../thrift-services/damsel/gen-model/domain';
@@ -50,8 +50,10 @@ export class ChargebacksTableComponent implements OnChanges {
         }
     }
 
-    navigateToChargeback(chargebackID: InvoicePaymentChargebackID) {
-        this.router.navigate([`/party/${this.partyID}/chargeback/${chargebackID}`]);
+    navigateToChargeback({ chargeback_id, invoice_id, payment_id }: StatChargeback) {
+        this.router.navigate([
+            `/party/${this.partyID}/invoice/${invoice_id}/payment/${payment_id}/chargeback/${chargeback_id}`,
+        ]);
     }
 
     fetchMore() {

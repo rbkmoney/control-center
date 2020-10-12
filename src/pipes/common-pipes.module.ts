@@ -5,6 +5,7 @@ import { FormatAmountPipe } from './format-amount.pipe';
 import { MapUnionPipe } from './map-union.pipe';
 import { ThriftInt64Pipe } from './thrift-int64.pipe';
 import { ThriftViewPipe } from './thrift-view.pipe';
+import { UnionKeyPipe } from './union-key';
 
 const declarations = [
     FormatAmountPipe,
@@ -12,6 +13,7 @@ const declarations = [
     ThriftInt64Pipe,
     ThriftViewPipe,
     MapUnionPipe,
+    UnionKeyPipe,
 ];
 
 @NgModule({

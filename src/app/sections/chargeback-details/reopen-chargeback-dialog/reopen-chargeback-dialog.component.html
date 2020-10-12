@@ -1,0 +1,29 @@
+<div fxLayout="column" fxLayoutGap="32px">
+    <h1 class="mat-headline">Reopen chargeback</h1>
+    <mat-dialog-content [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
+        <mat-form-field fxFlex>
+            <mat-label>Reopen stage (optional)</mat-label>
+            <mat-select formControlName="stage">
+                <mat-option *ngFor="let c of stages" [value]="c">
+                    {{ c }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div fxLayout fxLayoutGap="24px">
+            <mat-form-field fxFlex>
+                <mat-label>Leavy amount (optional)</mat-label>
+                <input matInput type="number" formControlName="leavyAmount" />
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>Body amount (optional)</mat-label>
+                <input matInput type="number" formControlName="bodyAmount" />
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout fxLayoutAlign="space-between">
+        <button mat-button (click)="cancel()">CANCEL</button>
+        <button mat-button color="primary" [disabled]="form.invalid" (click)="changeStatus()">
+            REOPEN
+        </button>
+    </mat-dialog-actions>
+</div>

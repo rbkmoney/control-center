@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { pluck, shareReplay } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map, pluck, shareReplay, startWith } from 'rxjs/operators';
 
 import { SHARE_REPLAY_CONF } from '@cc/utils/index';
 
@@ -14,21 +14,41 @@ export class PartyComponent {
         { name: 'Claims', url: 'claims', otherActiveUrlFragments: ['claim'] },
         { name: 'Shops', url: 'shops' },
         { name: 'Payment Routing Rules', url: 'payment-routing-rules' },
-        { name: 'Chargebacks', url: 'chargebacks' },
+        {
+            name: 'Chargebacks',
+            url: 'chargebacks',
+            otherActiveUrlFragments: ['payment', 'invoice', 'chargeback'],
+        },
     ];
-
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));
+    activeLinkByFragment$ = this.router.events.pipe(
+        filter((e) => e instanceof NavigationEnd),
+        startWith(undefined),
+        map(
+            () =>
+                this.links
+                    .map(
+                        (link) =>
+                            [link, this.activeFragments(link.otherActiveUrlFragments)] as const
+                    )
+                    .filter(([, l]) => l)
+                    .sort(([, a], [, b]) => b - a)?.[0]?.[0]
+        ),
+        shareReplay(1)
+    );
 
     constructor(private route: ActivatedRoute, private router: Router) {}
 
-    hasActiveFragments(fragments: string[]): boolean {
+    activeFragments(fragments: string[]): number {
         if (fragments?.length) {
             const ulrFragments = this.router.url.split('/');
-            return (
+            if (
                 ulrFragments.filter((fragment) => fragments.includes(fragment)).length ===
                 fragments.length
-            );
+            ) {
+                return fragments.length;
+            }
         }
-        return false;
+        return 0;
     }
 }
