@@ -44,6 +44,7 @@
     "lodash-es": "~4.17.15",
     "machinegun_proto": "git+ssh://git@github.com/rbkmoney/machinegun_proto.git#eac772bb8446fcd2f439232bf10fa086c336aca6",
     "messages-proto": "git+ssh://git@github.com:rbkmoney/messages-proto.git#a177efb574136961bcd0a8236b4bfc425264de29",
+    "deanonimus-proto": "git+ssh://git@github.com:rbkmoney/deanonimus-proto.git#b9fab4fd1c7690186efdc5974d113c82bd5765e9",
     "moment": "~2.22.2",
     "monaco-editor": "~0.15.6",
     "pdfmake": "^0.1.64",

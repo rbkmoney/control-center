@@ -5,3 +5,4 @@ export * from './ank';
 export * from './file-storage';
 export * from './messages';
 export * from './damsel';
+export * from './deanonimus';
