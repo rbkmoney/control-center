@@ -57,7 +57,7 @@ export class ChargebackDetailsComponent {
                         .afterClosed()
                 )
             )
-            .subscribe();
+            .subscribe(() => this.chargebackDetailsService.loadChargeback());
     }
 
     reopen() {
@@ -77,6 +77,6 @@ export class ChargebackDetailsComponent {
                         .afterClosed()
                 )
             )
-            .subscribe();
+            .subscribe(() => this.chargebackDetailsService.loadChargeback());
     }
 }
