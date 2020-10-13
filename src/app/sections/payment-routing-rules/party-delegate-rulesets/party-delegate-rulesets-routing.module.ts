@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppAuthGuardService } from '../../../app-auth-guard.service';
-import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-ruleset.component';
+import { PartyDelegateRulesetsComponent } from './party-delegate-rulesets.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
-                path: 'shop-ruleset/:refID',
-                component: ShopPaymentRoutingRulesetComponent,
+                path: '',
+                component: PartyDelegateRulesetsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: [],
@@ -18,4 +18,4 @@ import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-rules
         ]),
     ],
 })
-export class ShopPaymentRoutingRulesetRoutingModule {}
+export class PartyDelegateRulesetsRoutingModule {}
