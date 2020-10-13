@@ -25,7 +25,6 @@
         ></cc-empty-search-result>
         <mat-card *ngIf="payments.length > 0" fxLayout="column" fxLayoutGap="16px">
             <cc-payments-table
-                [partyID]="partyID"
                 [payments]="payments"
                 (goToPaymentDetails)="navigateToPayment($event)"
             ></cc-payments-table>

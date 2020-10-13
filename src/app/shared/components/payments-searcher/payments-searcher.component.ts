@@ -37,8 +37,14 @@ export class PaymentsSearcherComponent implements OnInit {
             this.router.navigate([link]);
         });
         this.partyPaymentsService.searchParamsChanges$.subscribe((params) => {
-            this.fetchPaymentsService.search(params);
-            this.paymentsSearchFiltersStore.preserve(params);
+            this.fetchPaymentsService.search({
+                ...params,
+                partyID: params.partyID ? params.partyID : this.partyID,
+            });
+            this.paymentsSearchFiltersStore.preserve({
+                ...params,
+                partyID: params.partyID ? params.partyID : this.partyID,
+            });
         });
     }
 
@@ -53,10 +59,16 @@ export class PaymentsSearcherComponent implements OnInit {
     }
 
     searchParamsChanges(params: SearchFiltersParams) {
-        this.partyPaymentsService.searchParamsChanges(params);
+        this.partyPaymentsService.searchParamsChanges({
+            ...params,
+            partyID: params.partyID ? params.partyID : this.partyID,
+        });
     }
 
     navigateToPayment(params: NavigationParams) {
-        this.partyPaymentsService.updatePaymentNavigationLink(params);
+        this.partyPaymentsService.updatePaymentNavigationLink({
+            ...params,
+            partyID: params.partyID ? params.partyID : this.partyID,
+        });
     }
 }

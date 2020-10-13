@@ -26,7 +26,7 @@
     <ng-container matColumnDef="shop">
         <th mat-header-cell *matHeaderCellDef>Shop</th>
         <td mat-cell *matCellDef="let payment">
-            {{ payment.shop_id | shopName: partyID }}
+            {{ payment.shop_id | shopName: payment.owner_id }}
         </td>
     </ng-container>
 
@@ -37,7 +37,10 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="navigateToPayment(payment.invoice_id, payment.id)">
+                <button
+                    mat-menu-item
+                    (click)="navigateToPayment(payment.invoice_id, payment.id, payment.owner_id)"
+                >
                     Details
                 </button>
             </mat-menu>

@@ -2,7 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 
 import { NavigationParams } from '@cc/app/shared/components/payments-searcher/navigation-params';
 
-import { InvoiceID, InvoicePaymentID } from '../../../thrift-services/damsel/gen-model/domain';
+import {
+    InvoiceID,
+    InvoicePaymentID,
+    PartyID,
+} from '../../../thrift-services/damsel/gen-model/domain';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
 
 @Component({
@@ -13,9 +17,6 @@ import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_sta
 })
 export class PaymentsTableComponent {
     @Input()
-    partyID: string;
-
-    @Input()
     payments: StatPayment[];
 
     @Output()
@@ -23,7 +24,7 @@ export class PaymentsTableComponent {
 
     displayedColumns: string[] = ['amount', 'status', 'createdAt', 'shop', 'actions'];
 
-    navigateToPayment(invoiceID: InvoiceID, paymentID: InvoicePaymentID) {
-        this.goToPaymentDetails.emit({ partyID: this.partyID, invoiceID, paymentID });
+    navigateToPayment(invoiceID: InvoiceID, paymentID: InvoicePaymentID, partyID: PartyID) {
+        this.goToPaymentDetails.emit({ partyID, invoiceID, paymentID });
     }
 }

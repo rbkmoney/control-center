@@ -20,15 +20,7 @@
                 autocomplete="false"
             />
         </mat-form-field>
-        <mat-form-field fxFlex *ngIf="!partyID">
-            <input
-                matInput
-                placeholder="Party ID"
-                formControlName="partyID"
-                type="string"
-                autocomplete="false"
-            />
-        </mat-form-field>
+        <cc-merchant-searcher *ngIf="!partyID" fxFlex></cc-merchant-searcher>
         <mat-form-field fxFlex *ngIf="partyID">
             <mat-label>Shops</mat-label>
             <mat-select multiple formControlName="shopIDs" class="select">
