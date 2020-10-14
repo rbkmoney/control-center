@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { first, switchMap, take } from 'rxjs/operators';
 
+import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
 import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service';
 
 @Component({
@@ -16,10 +18,25 @@ export class PartyDelegateRulesetsComponent {
 
     constructor(
         private partyDelegateRulesetsService: PartyDelegateRulesetsService,
-        private router: Router
+        private router: Router,
+        private dialog: MatDialog
     ) {}
 
-    attachNewRuleset() {}
+    attachNewRuleset() {
+        this.partyDelegateRulesetsService.partyID$
+            .pipe(
+                take(1),
+                switchMap((partyID) =>
+                    this.dialog
+                        .open(AttachNewRulesetDialogComponent, {
+                            ...AttachNewRulesetDialogComponent.defaultConfig,
+                            data: { partyID },
+                        })
+                        .afterClosed()
+                )
+            )
+            .subscribe();
+    }
 
     navigateToPartyRuleset(id: string) {
         this.partyDelegateRulesetsService.partyID$

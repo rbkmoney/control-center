@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { cloneDeep } from 'lodash-es';
 import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 
@@ -12,7 +13,7 @@ import {
     Predicate,
 } from '../gen-model/domain';
 import { Version } from '../gen-model/domain_config';
-import { findDomainObjects } from '../operations/utils';
+import { findDomainObjects, generateID } from '../operations/utils';
 import { partyRulesetCommit } from './party-ruleset-commit';
 import { removeShopRuleCommit } from './remove-shop-rule-commit';
 import { shopRuleCommit } from './shop-rule-commit';
@@ -191,6 +192,63 @@ export class PaymentRoutingRulesService {
                 )
             ),
             tap(() => this.dmtCacheService.forceReload())
+        );
+    }
+
+    attachPartyDelegateRuleset({
+        mainRulesetRefID,
+        partyID,
+        mainDelegateDescription,
+        ruleset: { name, description },
+    }: {
+        mainRulesetRefID: number;
+        partyID: string;
+        mainDelegateDescription?: string;
+        ruleset: { name: string; description?: string };
+    }): Observable<Version> {
+        return this.dmtCacheService.getObject('payment_routing_rules').pipe(
+            take(1),
+            switchMap((rulesets) => {
+                const mainRuleset = rulesets.find((r) => r?.ref?.id === mainRulesetRefID);
+                const rulesetID = generateID(rulesets);
+                const newMainPaymentRoutingRuleset = cloneDeep(mainRuleset);
+                if (!newMainPaymentRoutingRuleset.data.decisions.delegates) {
+                    newMainPaymentRoutingRuleset.data.decisions.delegates = [];
+                }
+                newMainPaymentRoutingRuleset.data.decisions.delegates.push({
+                    description: mainDelegateDescription,
+                    allowed: {
+                        condition: {
+                            party: { id: partyID },
+                        },
+                    },
+                    ruleset: {
+                        id: rulesetID,
+                    },
+                });
+                const ruleset: PaymentRoutingRulesObject = {
+                    ref: { id: rulesetID },
+                    data: {
+                        name,
+                        description,
+                        decisions: { delegates: [] },
+                    },
+                };
+                console.log(ruleset, newMainPaymentRoutingRuleset);
+                return this.dmtCacheService.commit({
+                    ops: [
+                        {
+                            insert: { object: { payment_routing_rules: ruleset } },
+                        },
+                        {
+                            update: {
+                                old_object: { payment_routing_rules: mainRuleset },
+                                new_object: { payment_routing_rules: newMainPaymentRoutingRuleset },
+                            },
+                        },
+                    ],
+                });
+            })
         );
     }
 }
