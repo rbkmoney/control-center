@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
@@ -28,6 +29,7 @@ import { FetchChargebacksService } from './fetch-chargebacks.service';
         EmptySearchResultModule,
         CommonPipesModule,
         SharedPipesModule,
+        MatSnackBarModule,
     ],
     declarations: [ChargebacksTableComponent],
     exports: [ChargebacksTableComponent],

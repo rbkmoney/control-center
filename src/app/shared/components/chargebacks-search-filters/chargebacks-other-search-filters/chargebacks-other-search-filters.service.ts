@@ -11,15 +11,17 @@ import { OtherFiltersDialogComponent } from './other-filters-dialog';
 export class ChargebacksOtherSearchFiltersService {
     formParams$ = new ReplaySubject<ChargebacksParams>(1);
     filtersCount$ = this.formParams$.pipe(
-        map(
-            (params) =>
-                Object.values(params).filter((p) => (Array.isArray(p) ? p?.length : p)).length ||
-                null
-        ),
+        map((p) => this.getActiveParamsCount(p) || null),
         shareReplay(1)
     );
 
     constructor(private dialog: MatDialog) {}
+
+    init(params: ChargebacksParams) {
+        this.formParams$.next(
+            pick(params, ['chargeback_statuses', 'chargeback_categories', 'chargeback_stages'])
+        );
+    }
 
     openOtherFiltersDialog() {
         this.formParams$
@@ -39,9 +41,7 @@ export class ChargebacksOtherSearchFiltersService {
             .subscribe((p) => this.formParams$.next(p));
     }
 
-    init(params: ChargebacksParams) {
-        this.formParams$.next(
-            pick(params, ['chargeback_statuses', 'chargeback_categories', 'chargeback_stages'])
-        );
+    private getActiveParamsCount(params: any) {
+        return Object.values(params).filter((p) => (Array.isArray(p) ? p?.length : p)).length;
     }
 }

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StatChargeback } from 'src/app/thrift-services/damsel/gen-model/merch_stat';
 
@@ -16,7 +17,7 @@ import { FetchChargebacksService } from './fetch-chargebacks.service';
     styleUrls: ['chargebacks-table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChargebacksTableComponent implements OnChanges {
+export class ChargebacksTableComponent implements OnInit, OnChanges {
     @Input() partyID: string;
     @Input() searchParams: ChargebacksParams;
     @Input() displayedColumns = ['createdAt', 'status', 'stage', 'levyAmount', 'shop', 'actions'];
@@ -39,7 +40,17 @@ export class ChargebacksTableComponent implements OnChanges {
         pre_arbitration: 'Pre-arbitration',
     };
 
-    constructor(private router: Router, private fetchChargebacksService: FetchChargebacksService) {}
+    constructor(
+        private router: Router,
+        private fetchChargebacksService: FetchChargebacksService,
+        private snackBar: MatSnackBar
+    ) {}
+
+    ngOnInit() {
+        this.fetchChargebacksService.errors$.subscribe((e) =>
+            this.snackBar.open(`An error occurred while search chargebacks (${e})`, 'OK')
+        );
+    }
 
     ngOnChanges({ searchParams }: ComponentChanges<ChargebacksTableComponent>) {
         if (searchParams) {
