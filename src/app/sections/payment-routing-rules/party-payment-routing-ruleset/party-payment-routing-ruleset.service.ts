@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 
 import { PartyService } from '../../../papi/party.service';
