@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import pickBy from 'lodash-es/pickBy';
+
+import { wrapValuesToArray } from '@cc/utils/index';
 
 import { QueryParamsStore } from '../party-payments/query-params-store';
 import { FormValue } from './chargebacks-search-filters/form-value';
@@ -10,7 +13,6 @@ const ARRAY_PARAMS: (keyof FormValue)[] = [
     'chargeback_stages',
     'chargeback_categories',
 ];
-const SEPARATOR = ',';
 
 @Injectable()
 export class ChargebacksSearchFiltersStore extends QueryParamsStore<FormValue> {
@@ -19,29 +21,15 @@ export class ChargebacksSearchFiltersStore extends QueryParamsStore<FormValue> {
     }
 
     mapToData(queryParams: Params = {}) {
-        return Object.fromEntries(
-            Object.entries(queryParams).map(([k, v]) => [
-                k,
-                ARRAY_PARAMS.includes(k as keyof FormValue)
-                    ? v.split(SEPARATOR).filter((i) => i)
-                    : v,
-            ])
-        ) as FormValue;
+        return {
+            ...queryParams,
+            ...wrapValuesToArray(
+                pickBy(queryParams, (_, k: keyof FormValue) => ARRAY_PARAMS.includes(k))
+            ),
+        } as FormValue;
     }
 
     mapToParams({ from_time, to_time, ...data }: Partial<FormValue> = {}): Params {
-        const dataWithStrArrays = Object.fromEntries(
-            Object.entries(data).map(([k, v]) => [
-                k,
-                ARRAY_PARAMS.includes(k as keyof FormValue) && Array.isArray(v)
-                    ? v.join(SEPARATOR)
-                    : v,
-            ])
-        );
-        return Object.assign(
-            dataWithStrArrays,
-            !!from_time && { from_time },
-            !!to_time && { to_time }
-        );
+        return Object.assign(data, !!from_time && { from_time }, !!to_time && { to_time });
     }
 }
