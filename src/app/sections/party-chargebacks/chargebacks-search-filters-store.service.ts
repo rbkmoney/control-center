@@ -24,12 +24,17 @@ export class ChargebacksSearchFiltersStore extends QueryParamsStore<FormValue> {
         return {
             ...queryParams,
             ...wrapValuesToArray(
-                pickBy(queryParams, (_, k: keyof FormValue) => ARRAY_PARAMS.includes(k))
+                pickBy(
+                    queryParams,
+                    (v, k: keyof FormValue) => typeof v === 'string' && ARRAY_PARAMS.includes(k)
+                )
             ),
         } as FormValue;
     }
 
-    mapToParams({ from_time, to_time, ...data }: Partial<FormValue> = {}): Params {
-        return Object.assign(data, !!from_time && { from_time }, !!to_time && { to_time });
+    mapToParams(data: Partial<FormValue> = {}): Params {
+        return Object.fromEntries(
+            Object.entries(data).filter(([k, v]) => (Array.isArray(v) ? v?.length : v))
+        );
     }
 }
