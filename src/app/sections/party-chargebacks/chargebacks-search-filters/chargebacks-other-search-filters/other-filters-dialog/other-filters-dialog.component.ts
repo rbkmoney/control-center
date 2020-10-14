@@ -29,7 +29,6 @@ export class OtherFiltersDialogComponent {
         @Inject(MAT_DIALOG_DATA) public initParams: ChargebacksParams,
         private fb: FormBuilder
     ) {
-        console.log(this.initParams);
         this.form.patchValue(this.initParams);
     }
 

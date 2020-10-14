@@ -24,22 +24,13 @@ export class PartyComponent {
     activeLinkByFragment$ = this.router.events.pipe(
         filter((e) => e instanceof NavigationEnd),
         startWith(undefined),
-        map(
-            () =>
-                this.links
-                    .map(
-                        (link) =>
-                            [link, this.activeFragments(link.otherActiveUrlFragments)] as const
-                    )
-                    .filter(([, l]) => l)
-                    .sort(([, a], [, b]) => b - a)?.[0]?.[0]
-        ),
+        map(() => this.findLinkWithMaxActiveFragments()),
         shareReplay(1)
     );
 
     constructor(private route: ActivatedRoute, private router: Router) {}
 
-    activeFragments(fragments: string[]): number {
+    private activeFragments(fragments: string[]): number {
         if (fragments?.length) {
             const ulrFragments = this.router.url.split('/');
             if (
@@ -50,5 +41,14 @@ export class PartyComponent {
             }
         }
         return 0;
+    }
+
+    private findLinkWithMaxActiveFragments() {
+        return this.links.reduce(([maxLink, maxActiveFragments], link) => {
+            const activeFragments = this.activeFragments(link.otherActiveUrlFragments);
+            return maxActiveFragments > activeFragments
+                ? [maxLink, maxActiveFragments]
+                : [link, activeFragments];
+        }, [])?.[0];
     }
 }
