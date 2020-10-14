@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
@@ -20,8 +20,9 @@ export class PaymentRoutingRulesComponent {
     partyDelegate$ = this.paymentRoutingRulesService.partyDelegate$;
     partyRuleset$ = this.paymentRoutingRulesService.partyRuleset$;
     dataSource$ = combineLatest([this.partyRuleset$, this.paymentRoutingRulesService.shops$]).pipe(
-        map(([{ data }, shops]) =>
-            data.decisions.delegates
+        filter(([r]) => !!r),
+        map(([ruleset, shops]) =>
+            ruleset.data.decisions.delegates
                 .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
                 .map((d) => ({
                     id: d.ruleset.id,
@@ -30,6 +31,7 @@ export class PaymentRoutingRulesComponent {
         ),
         shareReplay(1)
     );
+    partyID$ = this.paymentRoutingRulesService.partyID$;
     displayedColumns = ['shop', 'id', 'actions'];
 
     constructor(
@@ -78,10 +80,20 @@ export class PaymentRoutingRulesComponent {
     }
 
     navigateToShopRuleset(refID: string) {
-        this.paymentRoutingRulesService.partyID$
+        combineLatest([
+            this.paymentRoutingRulesService.partyID$,
+            this.paymentRoutingRulesService.refID$,
+        ])
             .pipe(take(1))
-            .subscribe((partyID) =>
-                this.router.navigate(['party', partyID, 'payment-routing-rules', refID])
+            .subscribe(([partyID, partyRefID]) =>
+                this.router.navigate([
+                    'party',
+                    partyID,
+                    'payment-routing-rules',
+                    partyRefID,
+                    'shop-ruleset',
+                    refID,
+                ])
             );
     }
 }

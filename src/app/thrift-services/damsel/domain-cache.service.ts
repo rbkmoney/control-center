@@ -36,7 +36,7 @@ export class DomainCacheService {
         this.reload$.next();
     }
 
-    getObject = <T extends keyof DomainObject>(objectType: T): Observable<DomainObject[T][]> =>
+    getObjects = <T extends keyof DomainObject>(objectType: T): Observable<DomainObject[T][]> =>
         this.domain$.pipe(
             map((d) =>
                 Array.from(d.values())

@@ -42,13 +42,7 @@ export class PartyDelegateRulesetsComponent {
         this.partyDelegateRulesetsService.partyID$
             .pipe(first())
             .subscribe((partyID) =>
-                this.router.navigate([
-                    'party',
-                    partyID,
-                    'payment-routing-rules',
-                    'party-ruleset',
-                    id,
-                ])
+                this.router.navigate(['party', partyID, 'payment-routing-rules', id])
             );
     }
 }

@@ -19,7 +19,8 @@ export class AddPartyPaymentRoutingRuleDialogComponent {
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<AddPartyPaymentRoutingRuleDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
-        @Inject(MAT_DIALOG_DATA) public data: { partyID: string; shops: Shop[] }
+        @Inject(MAT_DIALOG_DATA)
+        public data: { partyID: string; shops: Shop[] }
     ) {}
 
     add() {

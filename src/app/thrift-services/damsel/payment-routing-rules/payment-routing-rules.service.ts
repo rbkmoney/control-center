@@ -206,7 +206,7 @@ export class PaymentRoutingRulesService {
         mainDelegateDescription?: string;
         ruleset: { name: string; description?: string };
     }): Observable<Version> {
-        return this.dmtCacheService.getObject('payment_routing_rules').pipe(
+        return this.dmtCacheService.getObjects('payment_routing_rules').pipe(
             take(1),
             switchMap((rulesets) => {
                 const mainRuleset = rulesets.find((r) => r?.ref?.id === mainRulesetRefID);

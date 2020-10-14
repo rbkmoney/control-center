@@ -26,7 +26,7 @@ export class AttachNewRulesetDialogComponent {
         }),
     });
 
-    paymentInstitutions$ = this.domainService.getObject('payment_institution');
+    paymentInstitutions$ = this.domainService.getObjects('payment_institution');
 
     constructor(
         private fb: FormBuilder,
@@ -59,7 +59,7 @@ export class AttachNewRulesetDialogComponent {
 
     getRulesetById(id: number) {
         return this.domainService
-            .getObject('payment_routing_rules')
+            .getObjects('payment_routing_rules')
             .pipe(map((rulesets) => rulesets.find((r) => r?.ref?.id === id)));
     }
 }
