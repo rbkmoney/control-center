@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { DamselModule } from '../../thrift-services/damsel';
+import { DamselModule } from '../../../thrift-services/damsel';
 import { CreateChargebackDialogComponent } from './create-chargeback-dialog.component';
 
 const EXPORTED_DECLARATIONS = [CreateChargebackDialogComponent];

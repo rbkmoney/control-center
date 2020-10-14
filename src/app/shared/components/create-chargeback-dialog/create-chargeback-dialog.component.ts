@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Moment } from 'moment';
 import uuid from 'uuid';
 
-import { InvoicePaymentChargebackCategory } from '../../thrift-services/damsel/gen-model/domain';
-import { PaymentProcessingService } from '../../thrift-services/damsel/payment-processing.service';
+import { InvoicePaymentChargebackCategory } from '../../../thrift-services/damsel/gen-model/domain';
+import { PaymentProcessingService } from '../../../thrift-services/damsel/payment-processing.service';
 
 @Component({
     selector: 'cc-create-chargeback-dialog',

@@ -6,12 +6,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { ChargebacksTableModule } from '@cc/app/shared/components/chargebacks-table';
+import { CreateChargebackDialogModule } from '@cc/app/shared/components/create-chargeback-dialog';
 import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { DetailsItemModule } from '@cc/components/details-item';
 import { HeadlineModule } from '@cc/components/headline';
 import { StatusModule } from '@cc/components/status';
 
-import { ChargebacksTableModule, CreateChargebackDialogModule } from '../../chargebacks';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentMainInfoModule } from './payment-main-info';

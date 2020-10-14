@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { merge, Subject } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
-import { CreateChargebackDialogComponent } from '../../chargebacks';
+import { CreateChargebackDialogComponent } from '@cc/app/shared/components/create-chargeback-dialog';
+
 import { ChargebacksParams } from '../../query-dsl';
 import { PaymentDetailsService } from './payment-details.service';
 

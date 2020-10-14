@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/c
 import { Router } from '@angular/router';
 import { StatChargeback } from 'src/app/thrift-services/damsel/gen-model/merch_stat';
 
-import { ChargebacksParams } from '../../query-dsl';
-import { ComponentChanges } from '../../shared/utils';
+import { ChargebacksParams } from '../../../query-dsl';
+import { ComponentChanges } from '../../../shared/utils';
 import {
     InvoicePaymentChargebackStage,
     InvoicePaymentChargebackStatus,
-} from '../../thrift-services/damsel/gen-model/domain';
+} from '../../../thrift-services/damsel/gen-model/domain';
 import { FetchChargebacksService } from './fetch-chargebacks.service';
 
 @Component({
