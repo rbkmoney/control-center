@@ -1,0 +1,29 @@
+<div fxLayout="column" fxLayoutGap="32px">
+    <h1 class="mat-headline">Change chargeback status</h1>
+    <mat-dialog-content [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
+        <mat-form-field fxFlex>
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status" required>
+                <mat-option *ngFor="let c of statuses" [value]="c">
+                    {{ c }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <input
+                matInput
+                formControlName="date"
+                [matDatepicker]="datepicker"
+                placeholder="Date of decision (optional)"
+            />
+            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout fxLayoutAlign="space-between">
+        <button mat-button (click)="cancel()">CANCEL</button>
+        <button mat-button color="primary" [disabled]="form.invalid" (click)="changeStatus()">
+            CHANGE STATUS
+        </button>
+    </mat-dialog-actions>
+</div>

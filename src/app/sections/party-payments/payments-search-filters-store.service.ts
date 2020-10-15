@@ -3,9 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import pickBy from 'lodash-es/pickBy';
 
 import { SearchFiltersParams } from '@cc/app/shared/components/payments-search-filters/search-filters-params';
+import { QueryParamsStore } from '@cc/app/shared/services';
 import { wrapValuesToArray } from '@cc/utils/index';
-
-import { QueryParamsStore } from './query-params-store';
 
 const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
 

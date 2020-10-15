@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin cc-chargeback-details-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .cc-chargeback-details-caption {
+        color: mat-color($foreground, secondary-text);
+    }
+}
