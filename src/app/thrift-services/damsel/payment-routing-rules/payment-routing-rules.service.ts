@@ -234,7 +234,6 @@ export class PaymentRoutingRulesService {
                         decisions: { delegates: [] },
                     },
                 };
-                console.log(ruleset, newMainPaymentRoutingRuleset);
                 return this.dmtCacheService.commit({
                     ops: [
                         {
