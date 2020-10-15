@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import pickBy from 'lodash-es/pickBy';
 
-import { wrapValuesToArray } from '@cc/utils/index';
+import { removeEmptyProperties, wrapValuesToArray } from '@cc/utils/index';
 
 import { QueryParamsStore } from '../party-payments/query-params-store';
 import { FormValue } from './chargebacks-search-filters';
@@ -33,8 +33,6 @@ export class ChargebacksSearchFiltersStore extends QueryParamsStore<FormValue> {
     }
 
     mapToParams(data: Partial<FormValue> = {}): Params {
-        return Object.fromEntries(
-            Object.entries(data).filter(([k, v]) => (Array.isArray(v) ? v?.length : v))
-        );
+        return data;
     }
 }
