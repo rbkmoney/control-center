@@ -1,7 +1,16 @@
-<mat-card>
-    <mat-card-content>
-        <div fxLayout="row" fxLayoutAlign="center center">
-            <h2 class="mat-headline empty-result">Search result is empty</h2>
-        </div>
-    </mat-card-content>
-</mat-card>
+<ng-template #content>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <h2 class="mat-headline empty-result">Search result is empty</h2>
+    </div>
+</ng-template>
+
+<ng-template #wrapped>
+    <mat-card>
+        <mat-card-content>
+            <ng-container *ngTemplateOutlet="content"></ng-container>
+        </mat-card-content>
+    </mat-card>
+</ng-template>
+<ng-container *ngIf="unwrapped; else wrapped">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+</ng-container>

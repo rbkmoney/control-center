@@ -1,0 +1,67 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <div fxLayout="column" fxLayoutGap="8px">
+        <div fxLayout fxLayoutAlign="space-between">
+            <cc-headline fxLayout fxLayoutAlign="space-between">Chargeback</cc-headline>
+            <div class="cc-headline">
+                {{ (chargeback$ | async)?.status | ccMapUnion: mapStatus }}
+            </div>
+        </div>
+        <div fxLayout fxLayoutAlign="space-between">
+            <div class="cc-subheading-1 cc-chargeback-details-caption">
+                #{{ (chargeback$ | async)?.id }}
+            </div>
+            <div class="cc-subheading-1 cc-chargeback-details-caption">
+                {{ (chargeback$ | async)?.stage | ccMapUnion: mapStage }}
+            </div>
+        </div>
+    </div>
+    <mat-card *ngIf="chargeback$ | async as chargeback">
+        <mat-card-content fxLayout="column" fxLayoutGap="24px">
+            <h2 class="cc-subheading-1">Chargeback data</h2>
+            <div gdColumns="1fr 1fr 1fr" gdGap="16px">
+                <cc-details-item gdColumn="1 / span 3" title="Created At">
+                    {{ chargeback.created_at | date: 'dd.MM.yy HH:mm:ss' }}
+                </cc-details-item>
+                <cc-details-item *ngIf="chargeback.levy" title="Levy Amount">
+                    {{ chargeback.levy.amount | ccFormatAmount }}
+                    {{ chargeback.levy.currency.symbolic_code | ccCurrency }}
+                </cc-details-item>
+                <cc-details-item *ngIf="chargeback.body" title="Body Amount">
+                    {{ chargeback.body.amount | ccFormatAmount }}
+                    {{ chargeback.body.currency.symbolic_code | ccCurrency }}
+                </cc-details-item>
+            </div>
+
+            <mat-divider inset></mat-divider>
+            <h2 class="cc-title">Reason</h2>
+            <div gdColumns="1fr 1fr 1fr" gdGap="16px">
+                <cc-details-item title="Category">
+                    {{ chargeback.reason.category | ccUnionKey }}
+                </cc-details-item>
+                <cc-details-item title="Code">
+                    {{ chargeback.reason.code }}
+                </cc-details-item>
+            </div>
+
+            <ng-container *ngIf="(shop$ | async) && (payment$ | async)">
+                <mat-divider inset></mat-divider>
+                <div fxLayout fxLayoutAlign="space-between center">
+                    <h2 class="cc-title">Payment</h2>
+                    <button mat-icon-button (click)="navigateToPayment()">
+                        <mat-icon>open_in_new</mat-icon>
+                    </button>
+                </div>
+                <cc-payment-main-info
+                    [shop]="shop$ | async"
+                    [payment]="payment$ | async"
+                ></cc-payment-main-info>
+            </ng-container>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-content fxLayout fxLayoutAlign="space-between">
+            <button mat-button (click)="changeStatus()">CHANGE STATUS</button>
+            <button mat-button (click)="reopen()">REOPEN</button>
+        </mat-card-content>
+    </mat-card>
+</div>
