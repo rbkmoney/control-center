@@ -61,7 +61,6 @@ export class PaymentsSearcherComponent implements OnInit {
                 ...params,
                 partyID: params.partyID ? params.partyID : this.tableType.partyID,
             });
-            // this.paymentsSearchFiltersStore.preserve();
         });
     }
 
