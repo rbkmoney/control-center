@@ -8,9 +8,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
     PaymentsMainSearchFiltersModule,
     PaymentsOtherSearchFiltersModule,
+    PaymentsSearcherModule,
+    PaymentsTableModule,
 } from '@cc/app/shared/components';
-import { PaymentsSearcherModule } from '@cc/app/shared/components/payments-searcher';
-import { PaymentsTableModule } from '@cc/app/shared/components/payments-table/payments-table.module';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 
 import { PartyPaymentsModule } from '../party-payments';

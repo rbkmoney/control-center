@@ -15,8 +15,8 @@ import { MatTableModule } from '@angular/material/table';
 import {
     PaymentsMainSearchFiltersModule,
     PaymentsOtherSearchFiltersModule,
+    PaymentsSearcherModule,
 } from '@cc/app/shared/components';
-import { PaymentsSearcherModule } from '@cc/app/shared/components/payments-searcher';
 import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 import { StatusModule } from '@cc/components/status';

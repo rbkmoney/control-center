@@ -6,7 +6,6 @@ import { SearchFiltersParams } from '@cc/app/shared/components';
 import { QueryParamsStore } from '@cc/app/shared/utils';
 import { wrapValuesToArray } from '@cc/utils/wrap-values-to-array';
 
-@Injectable()
 const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
 
 @Injectable()

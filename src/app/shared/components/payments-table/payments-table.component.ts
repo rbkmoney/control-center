@@ -22,6 +22,8 @@ export class PaymentsTableComponent {
 
     @ViewChild(MatTable) table: MatTable<StatPayment>;
 
+    partyID: string;
+
     @Input()
     set type(type: PaymentsTableType) {
         this.displayedColumns = [
@@ -31,6 +33,7 @@ export class PaymentsTableComponent {
             ...(type.type === TableType.PartyTable ? ['shop'] : []),
             'actions',
         ];
+        this.partyID = type.partyID;
     }
 
     displayedColumns: string[];

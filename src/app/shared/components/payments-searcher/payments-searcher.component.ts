@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { PaymentsTableType, SearchFiltersParams, TableType } from '@cc/app/shared/components';
-
+import { SearchFiltersParams } from '../payments-search-filters';
+import { PaymentsTableType, TableType } from '../payments-table';
 import { FetchPaymentsService } from './fetch-payments.service';
 import { PaymentsSearcherService } from './payments-searcher.service';
 import { SearcherType, SearchType } from './searcher-type';
@@ -32,6 +32,7 @@ export class PaymentsSearcherComponent implements OnInit {
                 type.type === SearchType.GlobalSearcher
                     ? TableType.GlobalTable
                     : TableType.PartyTable,
+            ...(type.partyID ? { partyID: type.partyID } : {}),
         };
     }
 

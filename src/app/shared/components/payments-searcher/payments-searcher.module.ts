@@ -12,14 +12,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 
-import {
-    PaymentsMainSearchFiltersModule,
-    PaymentsOtherSearchFiltersModule,
-} from '@cc/app/shared/components';
-import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 import { StatusModule } from '@cc/components/status';
 
+import { SharedPipesModule } from '../../pipes';
+import {
+    PaymentsMainSearchFiltersModule,
+    PaymentsOtherSearchFiltersModule,
+} from '../payments-search-filters';
 import { PaymentsTableModule } from '../payments-table/payments-table.module';
 import { PaymentsSearcherComponent } from './payments-searcher.component';
 

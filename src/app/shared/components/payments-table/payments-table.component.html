@@ -26,7 +26,7 @@
     <ng-container matColumnDef="shop">
         <th mat-header-cell *matHeaderCellDef>Shop</th>
         <td mat-cell *matCellDef="let payment">
-            {{ payment.shop_id | shopName: payment.owner_id }}
+            {{ payment.shop_id | shopName: partyID }}
         </td>
     </ng-container>
 
