@@ -1,5 +1,5 @@
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import isEqual from 'lodash-es/isequal';
+import isEqual from 'lodash-es/isEqual';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 
