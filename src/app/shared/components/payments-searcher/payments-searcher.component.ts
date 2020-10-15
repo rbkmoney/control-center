@@ -1,50 +1,71 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 
-import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
+import {
+    PaymentsTableType,
+    TableType,
+} from '@cc/app/shared/components/payments-table/payments-table';
+
 import { SearchFiltersParams } from '../payments-search-filters/search-filters-params';
 import { FetchPaymentsService } from './fetch-payments.service';
-import { NavigationParams } from './navigation-params';
-import { PaymentsSearchFiltersStore } from './payments-searcher-filters-store.service';
 import { PaymentsSearcherService } from './payments-searcher.service';
+import { SearcherType, SearchType } from './searcher-type';
 
 @Component({
     selector: 'cc-payments-searcher',
     templateUrl: 'payments-searcher.component.html',
     styleUrls: ['payments-searcher.component.scss'],
-    providers: [FetchPaymentsService, PaymentsSearchFiltersStore, PaymentsSearcherService],
+    providers: [FetchPaymentsService, PaymentsSearcherService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentsSearcherComponent implements OnInit {
+    private searcherType: SearcherType;
+
     @Input()
-    partyID?: PartyID;
+    set type(type: SearcherType) {
+        this.searcherType = type;
+        this.tableType = {
+            type:
+                type.type === SearchType.GlobalSearcher
+                    ? TableType.GlobalTable
+                    : TableType.PartyTable,
+        };
+    }
+
+    @Input()
+    initSearchParams: SearchFiltersParams;
+
+    @Output()
+    searchParams$: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
     isLoading$ = this.fetchPaymentsService.isLoading$;
     doAction$ = this.fetchPaymentsService.doAction$;
     payments$ = this.fetchPaymentsService.searchResult$;
     hasMore$ = this.fetchPaymentsService.hasMore$;
-    initSearchParams$ = this.paymentsSearchFiltersStore.data$;
+    tableType: PaymentsTableType;
 
     constructor(
-        private router: Router,
         private fetchPaymentsService: FetchPaymentsService,
-        private paymentsSearchFiltersStore: PaymentsSearchFiltersStore,
         private partyPaymentsService: PaymentsSearcherService,
         private snackBar: MatSnackBar
     ) {
-        this.partyPaymentsService.paymentNavigationLink$.subscribe((link) => {
-            this.router.navigate([link]);
-        });
         this.partyPaymentsService.searchParamsChanges$.subscribe((params) => {
             this.fetchPaymentsService.search({
                 ...params,
-                partyID: params.partyID ? params.partyID : this.partyID,
+                partyID: params.partyID ? params.partyID : this.tableType.partyID,
             });
-            this.paymentsSearchFiltersStore.preserve({
+            this.searchParams$.emit({
                 ...params,
-                partyID: params.partyID ? params.partyID : this.partyID,
+                partyID: params.partyID ? params.partyID : this.tableType.partyID,
             });
+            // this.paymentsSearchFiltersStore.preserve();
         });
     }
 
@@ -61,14 +82,7 @@ export class PaymentsSearcherComponent implements OnInit {
     searchParamsChanges(params: SearchFiltersParams) {
         this.partyPaymentsService.searchParamsChanges({
             ...params,
-            partyID: params.partyID ? params.partyID : this.partyID,
-        });
-    }
-
-    navigateToPayment(params: NavigationParams) {
-        this.partyPaymentsService.updatePaymentNavigationLink({
-            ...params,
-            partyID: params.partyID ? params.partyID : this.partyID,
+            partyID: params.partyID ? params.partyID : this.tableType.partyID,
         });
     }
 }

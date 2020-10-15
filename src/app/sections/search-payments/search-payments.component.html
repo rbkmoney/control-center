@@ -1,4 +1,8 @@
 <div fxLayout="column" fxLayoutGap="24px">
     <div class="cc-headline">Payments</div>
-    <cc-payments-searcher></cc-payments-searcher>
+    <cc-payments-searcher
+        [type]="searchType"
+        [initSearchParams]="initsearchParams$ | async"
+        (searchParams$)="searchParamsUpdated($event)"
+    ></cc-payments-searcher>
 </div>

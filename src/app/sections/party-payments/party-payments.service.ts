@@ -6,11 +6,10 @@ import { SearchFiltersParams } from '@cc/app/shared/components/payments-search-f
 import { QueryParamsStore } from '@cc/app/shared/utils';
 import { wrapValuesToArray } from '@cc/utils/wrap-values-to-array';
 
-@Injectable()
 const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
 
 @Injectable()
-export class SearchPaymentsService extends QueryParamsStore<SearchFiltersParams> {
+export class PartyPaymentsService extends QueryParamsStore<SearchFiltersParams> {
     constructor(protected route: ActivatedRoute, protected router: Router) {
         super(router, route);
     }

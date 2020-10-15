@@ -1,4 +1,9 @@
 <div fxLayout="column" fxLayoutGap="24px">
     <div class="cc-headline">Merchant's payments</div>
-    <cc-payments-searcher [partyID]="partyID$ | async"></cc-payments-searcher>
+    <cc-payments-searcher
+        *ngIf="searchType"
+        [type]="searchType"
+        [initSearchParams]="initsearchParams$ | async"
+        (searchParams$)="searchParamsUpdated($event)"
+    ></cc-payments-searcher>
 </div>

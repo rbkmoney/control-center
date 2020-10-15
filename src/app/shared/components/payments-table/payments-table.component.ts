@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { NavigationParams } from '@cc/app/shared/components/payments-searcher/navigation-params';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { MatTable } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 import {
     InvoiceID,
@@ -8,6 +8,7 @@ import {
     PartyID,
 } from '../../../thrift-services/damsel/gen-model/domain';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
+import { PaymentsTableType, TableType } from './payments-table';
 
 @Component({
     selector: 'cc-payments-table',
@@ -19,12 +20,24 @@ export class PaymentsTableComponent {
     @Input()
     payments: StatPayment[];
 
-    @Output()
-    goToPaymentDetails = new EventEmitter<NavigationParams>();
+    @ViewChild(MatTable) table: MatTable<StatPayment>;
 
-    displayedColumns: string[] = ['amount', 'status', 'createdAt', 'shop', 'actions'];
+    @Input()
+    set type(type: PaymentsTableType) {
+        this.displayedColumns = [
+            'amount',
+            'status',
+            'createdAt',
+            ...(type.type === TableType.PartyTable ? ['shop'] : []),
+            'actions',
+        ];
+    }
+
+    displayedColumns: string[];
+
+    constructor(private router: Router) {}
 
     navigateToPayment(invoiceID: InvoiceID, paymentID: InvoicePaymentID, partyID: PartyID) {
-        this.goToPaymentDetails.emit({ partyID, invoiceID, paymentID });
+        this.router.navigate([`/party/${partyID}/invoice/${invoiceID}/payment/${paymentID}`]);
     }
 }

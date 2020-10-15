@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="payments" fxFlex="100">
+<table mat-table [dataSource]="payments" fxFlex="100" *ngIf="displayedColumns">
     <ng-container matColumnDef="amount">
         <th mat-header-cell *matHeaderCellDef>Amount</th>
         <td mat-cell *matCellDef="let payment">
