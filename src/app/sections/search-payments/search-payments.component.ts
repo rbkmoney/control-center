@@ -1,10 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { SearchFiltersParams } from '@cc/app/shared/components';
-import {
-    SearcherType,
-    SearchType,
-} from '@cc/app/shared/components/payments-searcher/searcher-type';
+import { SearcherType, SearchFiltersParams, SearchType } from '@cc/app/shared/components';
 
 import { SearchPaymentsService } from './search-payments.service';
 

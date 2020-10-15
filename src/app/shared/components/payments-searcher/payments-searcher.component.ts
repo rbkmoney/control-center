@@ -8,11 +8,7 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { SearchFiltersParams } from '@cc/app/shared/components';
-import {
-    PaymentsTableType,
-    TableType,
-} from '@cc/app/shared/components/payments-table/payments-table';
+import { PaymentsTableType, SearchFiltersParams, TableType } from '@cc/app/shared/components';
 
 import { FetchPaymentsService } from './fetch-payments.service';
 import { PaymentsSearcherService } from './payments-searcher.service';

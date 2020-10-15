@@ -3,7 +3,7 @@ import isEmpty from 'lodash-es/isEmpty';
 import { ReplaySubject } from 'rxjs';
 import { filter, map, scan, shareReplay } from 'rxjs/operators';
 
-import { removeEmptyProperties } from '@cc/utils/index';
+import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
 
 import { SearchFiltersParams } from '../payments-search-filters/search-filters-params';
 
