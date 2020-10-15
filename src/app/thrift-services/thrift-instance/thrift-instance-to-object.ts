@@ -71,7 +71,9 @@ export function thriftInstanceToObject<T extends { [N in string]: any }, V exten
             const result = {} as V;
             for (const [k, v] of Object.entries(value)) {
                 const fieldTypeMeta = typeMeta.find((m) => m.name === k);
-                result[k] = internalThriftInstanceToObject(fieldTypeMeta.type, v);
+                if (v !== null && v !== undefined) {
+                    result[k] = internalThriftInstanceToObject(fieldTypeMeta.type, v);
+                }
             }
             return result;
         }

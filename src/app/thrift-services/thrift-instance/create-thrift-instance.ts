@@ -59,8 +59,8 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
         case 'enum':
             return value;
         default:
+            const typeMeta = namespaceMeta.ast[structureType][type];
             try {
-                const typeMeta = namespaceMeta.ast[structureType][type];
                 if (structureType === 'typedef') {
                     return internalCreateThriftInstance(typeMeta.type, value);
                 }
@@ -70,14 +70,19 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
                     instance[k] = internalCreateThriftInstance(fieldTypeMeta.type, v);
                 }
                 return instance;
-            } catch (e) {
+            } catch (error) {
                 console.error(
-                    `Thrift ${namespace}`,
+                    'Thrift structure',
+                    structureType,
+                    'creation error:',
+                    namespace,
                     type,
-                    `instance creation error, value:`,
+                    '(meta type:',
+                    typeMeta,
+                    '), value:',
                     value
                 );
-                throw e;
+                throw error;
             }
     }
 }

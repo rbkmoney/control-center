@@ -9,9 +9,14 @@ import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '
 @Injectable()
 export class ShopPaymentRoutingRulesetService {
     partyID$: Observable<string> = this.route.params.pipe(pluck('partyID'), shareReplay(1));
+    partyRulesetRefID$: Observable<number> = this.route.params.pipe(
+        pluck('partyRefID'),
+        map((p) => +p),
+        shareReplay(1)
+    );
     refID$: Observable<number> = this.route.params.pipe(
         pluck('refID'),
-        map((p) => parseInt(p, 10)),
+        map((p) => +p),
         shareReplay(1)
     );
     shopDelegate$ = combineLatest([this.partyID$, this.refID$]).pipe(
