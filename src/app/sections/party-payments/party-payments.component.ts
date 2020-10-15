@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 
-import { SearchFiltersParams } from '@cc/app/shared/components/payments-search-filters/search-filters-params';
+import { SearchFiltersParams } from '@cc/app/shared/components';
 import {
     SearcherType,
     SearchType,
