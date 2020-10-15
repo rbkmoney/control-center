@@ -8,8 +8,6 @@ import {
 } from '@angular/core';
 import { ChargebacksParams } from 'src/app/query-dsl';
 
-import { removeEmptyProperties } from '@cc/operators/index';
-
 import { ChargebacksOtherSearchFiltersService } from './chargebacks-other-search-filters.service';
 
 @Component({
@@ -27,11 +25,9 @@ export class ChargebacksOtherSearchFiltersComponent implements OnInit {
     constructor(
         private chargebacksOtherSearchFiltersService: ChargebacksOtherSearchFiltersService
     ) {
-        this.chargebacksOtherSearchFiltersService.formParams$
-            .pipe(removeEmptyProperties)
-            .subscribe((params) => {
-                this.valueChanges.emit(params);
-            });
+        this.chargebacksOtherSearchFiltersService.formParams$.subscribe((params) => {
+            this.valueChanges.emit(params);
+        });
     }
 
     ngOnInit() {

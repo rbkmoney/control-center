@@ -8,8 +8,6 @@ import {
 } from '@angular/core';
 import moment from 'moment';
 
-import { removeEmptyProperties } from '@cc/operators/index';
-
 import { ChargebacksParams } from '../../../../query-dsl';
 import { ChargebacksMainSearchFiltersService } from './chargebacks-main-search-filters.service';
 
@@ -30,9 +28,9 @@ export class ChargebacksMainSearchFiltersComponent implements OnInit {
     form = this.chargebacksMainSearchFiltersService.form;
 
     constructor(private chargebacksMainSearchFiltersService: ChargebacksMainSearchFiltersService) {
-        this.chargebacksMainSearchFiltersService.searchParamsChanges$
-            .pipe(removeEmptyProperties)
-            .subscribe((params) => this.valueChanges.emit(params));
+        this.chargebacksMainSearchFiltersService.searchParamsChanges$.subscribe((params) =>
+            this.valueChanges.emit(params)
+        );
     }
 
     ngOnInit() {
