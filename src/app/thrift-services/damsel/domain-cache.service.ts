@@ -9,6 +9,7 @@ import { createDamselInstance, damselInstanceToObject } from './create-damsel-in
 import { DomainService } from './domain.service';
 import { DomainObject } from './gen-model/domain';
 import { Commit, Version } from './gen-model/domain_config';
+
 @Injectable()
 export class DomainCacheService {
     private reload$ = new ReplaySubject(1);
