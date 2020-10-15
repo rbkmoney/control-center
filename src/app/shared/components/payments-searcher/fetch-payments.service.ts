@@ -57,7 +57,7 @@ export class FetchPaymentsService extends PartialFetcher<StatPayment, SearchFilt
                             size: SEARCH_LIMIT.toString(),
                             ...(partyID ? { merchant_id: partyID } : {}),
                             ...(shopID ? { shop_id: shopID } : {}),
-                            ...(shopIDs ? { shop_ids: shopIDs } : {}),
+                            ...(shopIDs?.length ? { shop_ids: shopIDs } : {}),
                             ...(domainRevisionFrom
                                 ? { from_payment_domain_revision: domainRevisionFrom }
                                 : {}),
