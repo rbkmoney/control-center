@@ -7,6 +7,8 @@ import {
     Output,
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import isEqual from 'lodash-es/isEqual';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 import { SearchFiltersParams } from '../payments-search-filters';
 import { PaymentsTableType, TableType } from '../payments-table';
@@ -53,16 +55,18 @@ export class PaymentsSearcherComponent implements OnInit {
         private partyPaymentsService: PaymentsSearcherService,
         private snackBar: MatSnackBar
     ) {
-        this.partyPaymentsService.searchParamsChanges$.subscribe((params) => {
-            this.fetchPaymentsService.search({
-                ...params,
-                partyID: params.partyID ? params.partyID : this.tableType.partyID,
+        this.partyPaymentsService.searchParamsChanges$
+            .pipe(distinctUntilChanged(isEqual))
+            .subscribe((params) => {
+                this.fetchPaymentsService.search({
+                    ...params,
+                    partyID: params.partyID ? params.partyID : this.tableType.partyID,
+                });
+                this.searchParams$.emit({
+                    ...params,
+                    partyID: params.partyID ? params.partyID : this.tableType.partyID,
+                });
             });
-            this.searchParams$.emit({
-                ...params,
-                partyID: params.partyID ? params.partyID : this.tableType.partyID,
-            });
-        });
     }
 
     ngOnInit() {
