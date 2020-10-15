@@ -12,10 +12,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 
-import { ChargebacksSearchFiltersModule } from '@cc/app/shared/components/chargebacks-search-filters';
 import { ChargebacksTableModule } from '@cc/app/shared/components/chargebacks-table';
 import { StatusModule } from '@cc/components/status';
 
+import {
+    ChargebacksMainSearchFiltersModule,
+    ChargebacksOtherSearchFiltersModule,
+} from './chargebacks-search-filters';
 import { PartyChargebacksRoutingModule } from './party-chargebacks-routing.module';
 import { PartyChargebacksComponent } from './party-chargebacks.component';
 
@@ -36,7 +39,8 @@ import { PartyChargebacksComponent } from './party-chargebacks.component';
         StatusModule,
         ChargebacksTableModule,
         MatBadgeModule,
-        ChargebacksSearchFiltersModule,
+        ChargebacksMainSearchFiltersModule,
+        ChargebacksOtherSearchFiltersModule,
     ],
     declarations: [PartyChargebacksComponent],
 })

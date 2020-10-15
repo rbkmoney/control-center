@@ -13,9 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { ChargebacksMainSearchFiltersComponent } from './chargebacks-main-search-filters';
-import { ChargebacksOtherSearchFiltersComponent } from './chargebacks-other-search-filters';
-import { OtherFiltersDialogComponent } from './chargebacks-other-search-filters/other-filters-dialog';
+import { ChargebacksMainSearchFiltersComponent } from './chargebacks-main-search-filters.component';
 
 export const RU_DATE_FORMATS = {
     parse: {
@@ -47,12 +45,8 @@ export const RU_DATE_FORMATS = {
         FormsModule,
         MatOptionModule,
     ],
-    declarations: [
-        ChargebacksMainSearchFiltersComponent,
-        ChargebacksOtherSearchFiltersComponent,
-        OtherFiltersDialogComponent,
-    ],
-    exports: [ChargebacksMainSearchFiltersComponent, ChargebacksOtherSearchFiltersComponent],
+    declarations: [ChargebacksMainSearchFiltersComponent],
+    exports: [ChargebacksMainSearchFiltersComponent],
     providers: [{ provide: MAT_DATE_FORMATS, useValue: RU_DATE_FORMATS }],
 })
-export class ChargebacksSearchFiltersModule {}
+export class ChargebacksMainSearchFiltersModule {}

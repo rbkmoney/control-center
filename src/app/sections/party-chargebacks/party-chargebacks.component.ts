@@ -3,8 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest, ReplaySubject } from 'rxjs';
 import { map, pluck, shareReplay } from 'rxjs/operators';
 
-import { FormValue } from '@cc/app/shared/components/chargebacks-search-filters';
-
+import { FormValue } from './chargebacks-search-filters';
 import { ChargebacksSearchFiltersStore } from './chargebacks-search-filters-store.service';
 
 @Component({
