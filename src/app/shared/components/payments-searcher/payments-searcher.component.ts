@@ -8,7 +8,11 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { SearchFiltersParams } from '../payments-search-filters';
+import {
+    MainFilterSearchType,
+    MainSearchType,
+    SearchFiltersParams,
+} from '../payments-search-filters';
 import { PaymentsTableType, TableType } from '../payments-table';
 import { FetchPaymentsService } from './fetch-payments.service';
 import { PaymentsSearcherService } from './payments-searcher.service';
@@ -27,13 +31,22 @@ export class PaymentsSearcherComponent implements OnInit {
     @Input()
     set type(type: SearcherType) {
         this.searcherType = type;
-        this.tableType = {
-            type:
-                type.type === SearchType.GlobalSearcher
-                    ? TableType.GlobalTable
-                    : TableType.PartyTable,
-            ...(type.partyID ? { partyID: type.partyID } : {}),
-        };
+        switch (type.type) {
+            case SearchType.GlobalSearcher:
+                this.tableType = { type: TableType.GlobalTable };
+                this.mainFilterSearchType = { type: MainSearchType.GlobalSearchFilter };
+                break;
+            case SearchType.PartySearcher:
+                this.tableType = { type: TableType.PartyTable, partyID: type.partyID };
+                this.mainFilterSearchType = {
+                    type: MainSearchType.PartySearchFilter,
+                    partyID: type.partyID,
+                };
+                break;
+            default:
+                console.error('Wrong search type for payments searcher');
+                break;
+        }
     }
 
     @Input()
@@ -47,6 +60,7 @@ export class PaymentsSearcherComponent implements OnInit {
     payments$ = this.fetchPaymentsService.searchResult$;
     hasMore$ = this.fetchPaymentsService.hasMore$;
     tableType: PaymentsTableType;
+    mainFilterSearchType: MainFilterSearchType;
 
     constructor(
         private fetchPaymentsService: FetchPaymentsService,
@@ -56,11 +70,11 @@ export class PaymentsSearcherComponent implements OnInit {
         this.partyPaymentsService.searchParamsChanges$.subscribe((params) => {
             this.fetchPaymentsService.search({
                 ...params,
-                partyID: params.partyID ? params.partyID : this.tableType.partyID,
+                partyID: params.partyID ? params.partyID : this.searcherType.partyID,
             });
             this.searchParams$.emit({
                 ...params,
-                partyID: params.partyID ? params.partyID : this.tableType.partyID,
+                partyID: params.partyID ? params.partyID : this.searcherType.partyID,
             });
         });
     }
@@ -78,7 +92,7 @@ export class PaymentsSearcherComponent implements OnInit {
     searchParamsChanges(params: SearchFiltersParams) {
         this.partyPaymentsService.searchParamsChanges({
             ...params,
-            partyID: params.partyID ? params.partyID : this.tableType.partyID,
+            partyID: params.partyID ? params.partyID : this.searcherType.partyID,
         });
     }
 }
