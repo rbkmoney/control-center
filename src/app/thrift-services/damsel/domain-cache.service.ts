@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
-import { map, pluck, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
+import { map, pluck, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
 
 import { getUnionKey } from '@cc/utils/index';
 
@@ -48,6 +48,7 @@ export class DomainCacheService {
 
     commit = (commit: Commit, version?: Version) => {
         return (version ? of(version) : this.version$).pipe(
+            take(1),
             switchMap((v) =>
                 this.dmtService.commit(
                     createDamselInstance('domain_config', 'Version', v),
