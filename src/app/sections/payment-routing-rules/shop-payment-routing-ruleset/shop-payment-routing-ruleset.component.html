@@ -2,7 +2,9 @@
     <cc-payment-routing-ruleset-header
         [refID]="(shopDelegate$ | async)?.ruleset?.id"
         [description]="(shop$ | async)?.details?.name"
-        [backTo]="'party/' + (partyID$ | async) + '/payment-routing-rules'"
+        [backTo]="
+            'party/' + (partyID$ | async) + '/payment-routing-rules/' + (partyRulesetRefID$ | async)
+        "
         (add)="addShopRule()"
     >
         Shop payment routing rules

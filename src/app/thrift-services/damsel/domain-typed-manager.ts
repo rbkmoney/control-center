@@ -37,6 +37,9 @@ const findTerminalObjects = (domain: Domain): TerminalObject[] =>
 const findPaymentInstitutions = (domain: Domain): PaymentInstitutionObject[] =>
     findDomainObjects(domain, 'payment_institution');
 
+/**
+ * deprecated use DomainCacheService
+ */
 @Injectable()
 export class DomainTypedManager {
     constructor(private dmtService: DomainService, private dmtCacheService: DomainCacheService) {}

@@ -2,6 +2,7 @@
     <cc-payment-routing-ruleset-header
         [refID]="(partyDelegate$ | async).ruleset.id"
         (add)="addPartyRule()"
+        [backTo]="'party/' + (partyID$ | async) + '/payment-routing-rules'"
     >
         Party payment routing rules
     </cc-payment-routing-ruleset-header>

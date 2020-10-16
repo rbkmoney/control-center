@@ -8,7 +8,7 @@ import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-rules
     imports: [
         RouterModule.forChild([
             {
-                path: ':refID',
+                path: ':partyRefID/shop-ruleset/:refID',
                 component: ShopPaymentRoutingRulesetComponent,
                 canActivate: [AppAuthGuardService],
                 data: {

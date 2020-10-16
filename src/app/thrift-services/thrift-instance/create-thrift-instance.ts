@@ -60,14 +60,29 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
             return value;
         default:
             const typeMeta = namespaceMeta.ast[structureType][type];
-            if (structureType === 'typedef') {
-                return internalCreateThriftInstance(typeMeta.type, value);
+            try {
+                if (structureType === 'typedef') {
+                    return internalCreateThriftInstance(typeMeta.type, value);
+                }
+                const instance = new namespaces[namespace][type]();
+                for (const [k, v] of Object.entries(value)) {
+                    const fieldTypeMeta = typeMeta.find((m) => m.name === k);
+                    instance[k] = internalCreateThriftInstance(fieldTypeMeta.type, v);
+                }
+                return instance;
+            } catch (error) {
+                console.error(
+                    'Thrift structure',
+                    structureType,
+                    'creation error:',
+                    namespace,
+                    type,
+                    '(meta type:',
+                    typeMeta,
+                    '), value:',
+                    value
+                );
+                throw error;
             }
-            const instance = new namespaces[namespace][type]();
-            for (const [k, v] of Object.entries(value)) {
-                const fieldTypeMeta = typeMeta.find((m) => m.name === k);
-                instance[k] = internalCreateThriftInstance(fieldTypeMeta.type, v);
-            }
-            return instance;
     }
 }

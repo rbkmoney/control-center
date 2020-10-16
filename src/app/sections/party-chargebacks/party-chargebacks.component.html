@@ -1,0 +1,28 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <div class="cc-headline">Merchant’s chargebacks</div>
+    <div fxLayout="column" fxLayoutGap="24px">
+        <mat-card>
+            <mat-card-content fxLayout fxLayoutAlign=" center">
+                <cc-chargebacks-main-search-filters
+                    fxFlex="75"
+                    [partyID]="partyID$ | async"
+                    (valueChanges)="searchParamsChanges$.next($event)"
+                    [initParams]="initSearchParams$ | async"
+                ></cc-chargebacks-main-search-filters>
+                <cc-chargebacks-other-search-filters
+                    class="other-filters-button"
+                    fxFlex
+                    fxLayoutAlign="center start"
+                    (valueChanges)="otherSearchParamsChanges$.next($event)"
+                    [initParams]="initSearchParams$ | async"
+                ></cc-chargebacks-other-search-filters>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <cc-chargebacks-table
+                [partyID]="partyID$ | async"
+                [searchParams]="searchParams$ | async"
+            ></cc-chargebacks-table>
+        </mat-card>
+    </div>
+</div>

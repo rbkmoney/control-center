@@ -1,0 +1,45 @@
+<div fxLayout="column" fxLayoutGap="32px">
+    <h1 class="mat-headline">Create chargeback params</h1>
+    <mat-dialog-content [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+                <input
+                    matInput
+                    formControlName="date"
+                    [matDatepicker]="datepicker"
+                    placeholder="Pretension date"
+                    required
+                />
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>Leavy amount</mat-label>
+                <input matInput type="number" formControlName="leavyAmount" required />
+            </mat-form-field>
+        </div>
+
+        <mat-divider></mat-divider>
+        <h2 class="cc-title">Reason (optional)</h2>
+        <div fxLayout fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category" required>
+                    <mat-option *ngFor="let c of categories" [value]="c">
+                        {{ c }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>Code (optional)</mat-label>
+                <input matInput formControlName="code" />
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout fxLayoutAlign="space-between">
+        <button mat-button (click)="cancel()">CANCEL</button>
+        <button mat-button color="primary" [disabled]="form.invalid" (click)="create()">
+            CREATE
+        </button>
+    </mat-dialog-actions>
+</div>

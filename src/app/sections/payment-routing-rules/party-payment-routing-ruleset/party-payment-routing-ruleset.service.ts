@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 
 import { PartyService } from '../../../papi/party.service';
 import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../../thrift-services';
@@ -8,6 +10,11 @@ import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '
 @Injectable()
 export class PartyPaymentRoutingRulesetService {
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
+    refID$ = this.route.params.pipe(
+        pluck('partyRefID'),
+        map((r) => +r),
+        shareReplay(1)
+    );
 
     private party$ = this.partyID$.pipe(
         switchMap((partyID) => this.partyService.getParty(partyID)),
@@ -24,14 +31,18 @@ export class PartyPaymentRoutingRulesetService {
         shareReplay(1)
     );
 
-    partyRuleset$ = this.partyID$.pipe(
-        switchMap((partyID) => this.paymentRoutingRulesService.getPartyRuleset(partyID)),
+    partyRuleset$ = combineLatest([
+        this.domainService.getObjects('payment_routing_rules'),
+        this.refID$,
+    ]).pipe(
+        map(([rules, refID]) => rules.find((r) => r?.ref?.id === refID)),
         shareReplay(1)
     );
 
     constructor(
         private paymentRoutingRulesService: PaymentRoutingRulesDamselService,
         private route: ActivatedRoute,
-        private partyService: PartyService
+        private partyService: PartyService,
+        private domainService: DomainCacheService
     ) {}
 }

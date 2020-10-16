@@ -8,7 +8,7 @@ import { PaymentRoutingRulesComponent } from './party-payment-routing-ruleset.co
     imports: [
         RouterModule.forChild([
             {
-                path: '',
+                path: ':partyRefID',
                 component: PaymentRoutingRulesComponent,
                 canActivate: [AppAuthGuardService],
                 data: {

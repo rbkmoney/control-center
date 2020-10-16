@@ -18,6 +18,7 @@ const DIALOG_WIDTH = '548px';
 export class ShopPaymentRoutingRulesetComponent {
     shopDelegate$ = this.shopPaymentRoutingRulesetService.shopDelegate$;
     partyID$ = this.shopPaymentRoutingRulesetService.partyID$;
+    partyRulesetRefID$ = this.shopPaymentRoutingRulesetService.partyRulesetRefID$;
     shop$ = this.shopPaymentRoutingRulesetService.shop$;
     candidates$ = this.shopPaymentRoutingRulesetService.shopRuleset$.pipe(
         map((r) => r.data.decisions.candidates),

@@ -1,0 +1,30 @@
+<form [formGroup]="form" fxLayout fxLayoutGap="16px">
+    <mat-form-field fxFlex>
+        <mat-label>Date Range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate matInput formControlName="from_time" placeholder="Start Date" />
+            <input matEndDate matInput formControlName="to_time" placeholder="End Date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input
+            matInput
+            placeholder="Invoice ID"
+            formControlName="invoice_id"
+            type="string"
+            autocomplete="false"
+        />
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <mat-label>Shops</mat-label>
+        <mat-select multiple formControlName="shop_ids" class="select">
+            <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
+                {{ shop.details.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
