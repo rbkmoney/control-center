@@ -10,9 +10,9 @@ export class PaymentsSearcherService {
     private searchParamsChange$ = new ReplaySubject<SearchFiltersParams>();
 
     searchParamsChanges$ = this.searchParamsChange$.pipe(
-        skip(1),
         filter((v) => !isEmpty(v)),
         scan((acc, curr) => ({ ...acc, ...curr })),
+        skip(1),
         shareReplay(1)
     );
 

@@ -58,6 +58,8 @@ export class PaymentsMainSearchFiltersComponent implements OnInit {
 
     ngOnInit() {
         this.paymentsMainSearchFiltersService.init(this.initParams);
-        this.paymentsMainSearchFiltersService.getShops(this.type);
+        if (this.type.type === MainSearchType.PartySearchFilter) {
+            this.paymentsMainSearchFiltersService.getShops(this.type.partyID);
+        }
     }
 }
