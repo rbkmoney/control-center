@@ -4,11 +4,10 @@ import * as moment from 'moment';
 import { ReplaySubject } from 'rxjs';
 import { debounceTime, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { MainFilterSearchType, MainSearchType } from '../payments-main-search-filters';
-
 import { PartyService } from '../../../../party/party.service';
 import { SearchFiltersParams } from '../search-filters-params';
 import { formValueToSearchParams } from './form-value-to-search-params';
+import { MainFilterSearchType, MainSearchType } from './main-filter-search-type';
 import { searchParamsToFormParams } from './search-params-to-form-params';
 
 @Injectable()

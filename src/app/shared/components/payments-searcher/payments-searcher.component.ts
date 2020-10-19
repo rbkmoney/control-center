@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import {
     MainFilterSearchType,
     MainSearchType,
@@ -27,6 +28,7 @@ import { SearcherType, SearchType } from './searcher-type';
 })
 export class PaymentsSearcherComponent implements OnInit {
     private searcherType: SearcherType;
+    private partyID: PartyID;
 
     @Input()
     set type(type: SearcherType) {
@@ -68,14 +70,8 @@ export class PaymentsSearcherComponent implements OnInit {
         private snackBar: MatSnackBar
     ) {
         this.paymentsSearcherService.searchParamsChanges$.subscribe((params) => {
-            this.fetchPaymentsService.search({
-                ...params,
-                partyID: params.partyID ? params.partyID : this.searcherType.partyID,
-            });
-            this.searchParamsChanged$.emit({
-                ...params,
-                partyID: params.partyID ? params.partyID : this.searcherType.partyID,
-            });
+            this.fetchPaymentsService.search(params);
+            this.searchParamsChanged$.emit(params);
         });
     }
 
