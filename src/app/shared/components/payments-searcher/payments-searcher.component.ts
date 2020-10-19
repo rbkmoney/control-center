@@ -53,7 +53,7 @@ export class PaymentsSearcherComponent implements OnInit {
     initSearchParams: SearchFiltersParams;
 
     @Output()
-    searchParams$: EventEmitter<SearchFiltersParams> = new EventEmitter();
+    searchParamsChanged$: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
     isLoading$ = this.fetchPaymentsService.isLoading$;
     doAction$ = this.fetchPaymentsService.doAction$;
@@ -64,15 +64,15 @@ export class PaymentsSearcherComponent implements OnInit {
 
     constructor(
         private fetchPaymentsService: FetchPaymentsService,
-        private partyPaymentsService: PaymentsSearcherService,
+        private paymentsSearcherService: PaymentsSearcherService,
         private snackBar: MatSnackBar
     ) {
-        this.partyPaymentsService.searchParamsChanges$.subscribe((params) => {
+        this.paymentsSearcherService.searchParamsChanges$.subscribe((params) => {
             this.fetchPaymentsService.search({
                 ...params,
                 partyID: params.partyID ? params.partyID : this.searcherType.partyID,
             });
-            this.searchParams$.emit({
+            this.searchParamsChanged$.emit({
                 ...params,
                 partyID: params.partyID ? params.partyID : this.searcherType.partyID,
             });
@@ -90,7 +90,7 @@ export class PaymentsSearcherComponent implements OnInit {
     }
 
     searchParamsChanges(params: SearchFiltersParams) {
-        this.partyPaymentsService.searchParamsChanges({
+        this.paymentsSearcherService.searchParamsChanges({
             ...params,
             partyID: params.partyID ? params.partyID : this.searcherType.partyID,
         });

@@ -9,7 +9,7 @@ import {
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 import { SearchFiltersParams } from '../search-filters-params';
-import { MainFilterSearchType } from './main-filter-search-type';
+import { MainFilterSearchType, MainSearchType } from './main-filter-search-type';
 import { PaymentsMainSearchFiltersService } from './payments-main-search-filters.service';
 
 export const MY_FORMATS = {
@@ -44,6 +44,8 @@ export class PaymentsMainSearchFiltersComponent implements OnInit {
     @Output()
     valueChanges = new EventEmitter<SearchFiltersParams>();
 
+    mainSearchType = MainSearchType;
+
     shops$ = this.paymentsMainSearchFiltersService.shops$;
 
     form = this.paymentsMainSearchFiltersService.form;
@@ -56,6 +58,6 @@ export class PaymentsMainSearchFiltersComponent implements OnInit {
 
     ngOnInit() {
         this.paymentsMainSearchFiltersService.init(this.initParams);
-        this.paymentsMainSearchFiltersService.getShops(this.type.partyID);
+        this.paymentsMainSearchFiltersService.getShops(this.type);
     }
 }

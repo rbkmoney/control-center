@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import { ReplaySubject } from 'rxjs';
 import { debounceTime, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
+import { MainFilterSearchType, MainSearchType } from '../payments-main-search-filters';
+
 import { PartyService } from '../../../../party/party.service';
 import { SearchFiltersParams } from '../search-filters-params';
 import { formValueToSearchParams } from './form-value-to-search-params';
@@ -38,8 +40,10 @@ export class PaymentsMainSearchFiltersService {
 
     constructor(private partyService: PartyService, private fb: FormBuilder) {}
 
-    getShops(id: string) {
-        this.getShops$.next(id);
+    getShops(type: MainFilterSearchType) {
+        if (type.type === MainSearchType.PartySearchFilter) {
+            this.getShops$.next(type.partyID);
+        }
     }
 
     init(params: SearchFiltersParams) {

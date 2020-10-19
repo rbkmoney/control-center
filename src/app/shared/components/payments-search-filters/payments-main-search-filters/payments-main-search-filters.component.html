@@ -20,8 +20,11 @@
                 autocomplete="false"
             />
         </mat-form-field>
-        <cc-merchant-searcher *ngIf="!type.partyID" fxFlex></cc-merchant-searcher>
-        <mat-form-field fxFlex *ngIf="type.partyID">
+        <cc-merchant-searcher
+            *ngIf="type.type === mainSearchType.GlobalSearchFilter"
+            fxFlex
+        ></cc-merchant-searcher>
+        <mat-form-field fxFlex *ngIf="type.type === mainSearchType.PartySearchFilter">
             <mat-label>Shops</mat-label>
             <mat-select multiple formControlName="shopIDs" class="select">
                 <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
