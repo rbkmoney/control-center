@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import {
     MainFilterSearchType,
     MainSearchType,
