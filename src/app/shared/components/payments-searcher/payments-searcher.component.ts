@@ -8,6 +8,9 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { PaymentActions } from '@cc/app/shared/components/payments-table/payment-actions';
+import { PaymentMenuItemEvent } from '@cc/app/shared/components/payments-table/payment-menu-item-event';
+
 import {
     MainFilterSearchType,
     MainSearchType,
@@ -55,6 +58,9 @@ export class PaymentsSearcherComponent implements OnInit {
     @Output()
     searchParamsChanged$: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
+    @Output()
+    paymentEventFired$: EventEmitter<PaymentMenuItemEvent> = new EventEmitter();
+
     isLoading$ = this.fetchPaymentsService.isLoading$;
     doAction$ = this.fetchPaymentsService.doAction$;
     payments$ = this.fetchPaymentsService.searchResult$;
@@ -88,5 +94,13 @@ export class PaymentsSearcherComponent implements OnInit {
             ...params,
             partyID: params.partyID ? params.partyID : this.searcherType.partyID,
         });
+    }
+
+    paymentMenuItemSelected(paymentMenuItemEvent: PaymentMenuItemEvent) {
+        switch (paymentMenuItemEvent.action) {
+            case PaymentActions.navigateToPayment:
+                this.paymentEventFired$.emit(paymentMenuItemEvent);
+                break;
+        }
     }
 }

@@ -24,7 +24,11 @@
             *ngIf="!(isLoading$ | async) && payments.length === 0"
         ></cc-empty-search-result>
         <mat-card *ngIf="payments.length > 0" fxLayout="column" fxLayoutGap="16px">
-            <cc-payments-table [payments]="payments" [type]="tableType"></cc-payments-table>
+            <cc-payments-table
+                [payments]="payments"
+                [type]="tableType"
+                (menuItemSelected$)="paymentMenuItemSelected($event)"
+            ></cc-payments-table>
             <button
                 fxFlex="100"
                 mat-button

@@ -4,5 +4,6 @@
         [type]="searchType"
         [initSearchParams]="initsearchParams$ | async"
         (searchParamsChanged$)="searchParamsUpdated($event)"
+        (paymentEventFired$)="paymentEventFired($event)"
     ></cc-payments-searcher>
 </div>
