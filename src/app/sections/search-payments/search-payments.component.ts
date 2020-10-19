@@ -1,9 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SearcherType, SearchFiltersParams, SearchType } from '@cc/app/shared/components';
-import { PaymentActions } from '@cc/app/shared/components/payments-table/payment-actions';
-import { PaymentMenuItemEvent } from '@cc/app/shared/components/payments-table/payment-menu-item-event';
+import {
+    PaymentActions,
+    PaymentMenuItemEvent,
+    SearcherType,
+    SearchFiltersParams,
+    SearchType,
+} from '@cc/app/shared/components';
 
 import { SearchPaymentsService } from './search-payments.service';
 

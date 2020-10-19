@@ -8,15 +8,17 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { PaymentActions } from '@cc/app/shared/components/payments-table/payment-actions';
-import { PaymentMenuItemEvent } from '@cc/app/shared/components/payments-table/payment-menu-item-event';
-
 import {
     MainFilterSearchType,
     MainSearchType,
     SearchFiltersParams,
 } from '../payments-search-filters';
-import { PaymentsTableType, TableType } from '../payments-table';
+import {
+    PaymentActions,
+    PaymentMenuItemEvent,
+    PaymentsTableType,
+    TableType,
+} from '../payments-table';
 import { FetchPaymentsService } from './fetch-payments.service';
 import { PaymentsSearcherService } from './payments-searcher.service';
 import { SearcherType, SearchType } from './searcher-type';

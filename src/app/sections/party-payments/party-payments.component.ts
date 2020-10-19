@@ -2,9 +2,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 
-import { SearcherType, SearchFiltersParams, SearchType } from '@cc/app/shared/components';
-import { PaymentActions } from '@cc/app/shared/components/payments-table/payment-actions';
-import { PaymentMenuItemEvent } from '@cc/app/shared/components/payments-table/payment-menu-item-event';
+import {
+    PaymentActions,
+    PaymentMenuItemEvent,
+    SearcherType,
+    SearchFiltersParams,
+    SearchType,
+} from '@cc/app/shared/components';
 
 import { PartyPaymentsService } from './party-payments.service';
 

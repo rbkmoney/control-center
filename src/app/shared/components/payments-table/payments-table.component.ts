@@ -8,15 +8,14 @@ import {
 } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 
-import { PaymentActions } from '@cc/app/shared/components/payments-table/payment-actions';
-import { PaymentMenuItemEvent } from '@cc/app/shared/components/payments-table/payment-menu-item-event';
-
 import {
     InvoiceID,
     InvoicePaymentID,
     PartyID,
 } from '../../../thrift-services/damsel/gen-model/domain';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
+import { PaymentActions } from './payment-actions';
+import { PaymentMenuItemEvent } from './payment-menu-item-event';
 import { PaymentsTableType, TableType } from './payments-table';
 
 @Component({

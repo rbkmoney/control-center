@@ -6,11 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 
-import { PaymentActionsPipe } from '@cc/app/shared/components/payments-table/payment-actions.pipe';
 import { StatusModule } from '@cc/components/status';
 import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
 
 import { SharedPipesModule } from '../../pipes';
+import { PaymentActionsPipe } from './payment-actions.pipe';
 import { PaymentsTableComponent } from './payments-table.component';
 
 @NgModule({
