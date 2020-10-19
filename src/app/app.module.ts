@@ -68,6 +68,7 @@ moment.locale('en');
         DepositsModule,
         ClaimMgtModule,
         PartyModule,
+        PartiesModule,
         OldPartyModule,
         SearchClaimsModule,
         OperationsModule,
