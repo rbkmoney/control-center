@@ -28,5 +28,11 @@
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
+    },
+    "/deanon": {
+        "target": "https://iddqd.rbk.money",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }
