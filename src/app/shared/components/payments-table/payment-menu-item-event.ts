@@ -1,4 +1,8 @@
-import { InvoiceID, InvoicePaymentID, PartyID } from '../../../thrift-services/damsel/gen-model/domain';
+import {
+    InvoiceID,
+    InvoicePaymentID,
+    PartyID,
+} from '../../../thrift-services/damsel/gen-model/domain';
 import { PaymentActions } from './payment-actions';
 
 export interface PaymentMenuItemEvent {
