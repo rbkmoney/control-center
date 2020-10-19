@@ -28,7 +28,6 @@ import { SearcherType, SearchType } from './searcher-type';
 })
 export class PaymentsSearcherComponent implements OnInit {
     private searcherType: SearcherType;
-    private partyID: PartyID;
 
     @Input()
     set type(type: SearcherType) {
