@@ -34,14 +34,14 @@ export class TargetRulesetFormComponent implements OnChanges {
     @Output() valueChanges = new EventEmitter<TargetRuleset>();
     @Input() value: TargetRuleset;
 
-    target = Target;
-
     form = this.fb.group({
         target: Target.paymentInstitution,
         paymentInstitution: '',
         mainRulesetRefID: '',
         mainDelegateDescription: 'Main delegate[party]',
     });
+
+    target = Target;
 
     paymentInstitutions$ = this.domainService
         .getObjects('payment_institution')

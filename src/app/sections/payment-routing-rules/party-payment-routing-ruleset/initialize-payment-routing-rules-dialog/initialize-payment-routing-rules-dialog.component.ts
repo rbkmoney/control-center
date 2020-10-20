@@ -19,7 +19,7 @@ export class InitializePaymentRoutingRulesDialogComponent {
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<InitializePaymentRoutingRulesDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
-        @Inject(MAT_DIALOG_DATA) public data: { partyID: string }
+        @Inject(MAT_DIALOG_DATA) public data: { partyID: string; refID: number }
     ) {}
 
     init() {
@@ -28,6 +28,7 @@ export class InitializePaymentRoutingRulesDialogComponent {
             .addPartyRuleset({
                 name,
                 partyID: this.data.partyID,
+                mainRulesetRefID: this.data.refID,
                 description,
                 delegateDescription,
             })

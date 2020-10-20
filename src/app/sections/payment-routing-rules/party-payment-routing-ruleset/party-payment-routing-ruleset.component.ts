@@ -40,16 +40,19 @@ export class PaymentRoutingRulesComponent {
     ) {}
 
     initialize() {
-        this.paymentRoutingRulesService.partyID$
+        combineLatest([
+            this.paymentRoutingRulesService.partyID$,
+            this.paymentRoutingRulesService.refID$,
+        ])
             .pipe(
                 take(1),
-                switchMap((partyID) =>
+                switchMap(([partyID, refID]) =>
                     this.dialog
                         .open(InitializePaymentRoutingRulesDialogComponent, {
                             disableClose: true,
                             width: DIALOG_WIDTH,
                             maxHeight: '90vh',
-                            data: { partyID },
+                            data: { partyID, refID },
                         })
                         .afterClosed()
                 )
@@ -59,18 +62,19 @@ export class PaymentRoutingRulesComponent {
 
     addPartyRule() {
         combineLatest([
-            this.paymentRoutingRulesService.partyID$,
+            this.paymentRoutingRulesService.refID$,
             this.paymentRoutingRulesService.shops$,
+            this.paymentRoutingRulesService.partyID$,
         ])
             .pipe(
                 take(1),
-                switchMap(([partyID, shops]) =>
+                switchMap(([refID, shops, partyID]) =>
                     this.dialog
                         .open(AddPartyPaymentRoutingRuleDialogComponent, {
                             disableClose: true,
                             width: DIALOG_WIDTH,
                             maxHeight: '90vh',
-                            data: { partyID, shops },
+                            data: { refID, shops, partyID },
                         })
                         .afterClosed()
                 )

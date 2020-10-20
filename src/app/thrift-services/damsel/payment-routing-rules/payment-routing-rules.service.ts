@@ -1,46 +1,22 @@
 import { Injectable } from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { combineLatest, Observable } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
 import { DomainCacheService } from '../domain-cache.service';
 import { DomainTypedManager } from '../domain-typed-manager';
 import { DomainService } from '../domain.service';
-import {
-    Domain,
-    PaymentRoutingDelegate,
-    PaymentRoutingRulesObject,
-    Predicate,
-} from '../gen-model/domain';
+import { PaymentRoutingRulesObject, Predicate } from '../gen-model/domain';
 import { Version } from '../gen-model/domain_config';
-import { findDomainObjects, generateID } from '../operations/utils';
+import { generateID } from '../operations/utils';
 import { partyRulesetCommit } from './party-ruleset-commit';
 import { removeShopRuleCommit } from './remove-shop-rule-commit';
 import { shopRuleCommit } from './shop-rule-commit';
 import { shopRulesetCommit } from './shop-ruleset-commit';
 
-const MAIN_RULESET_NAME = 'Main ruleset';
-
-const findPaymentRoutingRulesObjects = (domain: Domain): PaymentRoutingRulesObject[] =>
-    findDomainObjects(domain, 'payment_routing_rules');
-
 const sortPaymentRoutingRulesObjects = (
     objs: PaymentRoutingRulesObject[]
 ): PaymentRoutingRulesObject[] => objs.sort((a, b) => a.ref.id - b.ref.id);
-
-const findMainRuleset = (objs: PaymentRoutingRulesObject[]): PaymentRoutingRulesObject =>
-    objs.find((o) => o?.data?.name === MAIN_RULESET_NAME);
-
-const findPartyDelegate = (mainRuleset: PaymentRoutingRulesObject, partyID: string) =>
-    mainRuleset.data.decisions.delegates.find((d) => d?.allowed?.condition?.party?.id === partyID);
-
-const findShopDelegate = (partyRuleset: PaymentRoutingRulesObject, refID: number) =>
-    partyRuleset.data.decisions.delegates.find((d) => d?.ruleset?.id === refID);
-
-const findRulesetByDelegate = (
-    rulesets: PaymentRoutingRulesObject[],
-    delgeate: PaymentRoutingDelegate
-) => rulesets.find((r) => r.ref.id === delgeate.ruleset.id);
 
 @Injectable()
 export class PaymentRoutingRulesService {
@@ -50,51 +26,29 @@ export class PaymentRoutingRulesService {
         private domainTypedManager: DomainTypedManager
     ) {}
 
-    getRulesets(): Observable<PaymentRoutingRulesObject[]> {
-        return this.dmtCacheService.domain.pipe(
-            map(findPaymentRoutingRulesObjects),
-            map(sortPaymentRoutingRulesObjects)
-        );
+    rulesets$: Observable<PaymentRoutingRulesObject[]> = this.dmtCacheService
+        .getObjects('payment_routing_rules')
+        .pipe(map(sortPaymentRoutingRulesObjects), shareReplay(1));
+
+    getRuleset(refID: number): Observable<PaymentRoutingRulesObject> {
+        return this.rulesets$.pipe(map((rulesets) => rulesets.find((r) => r?.ref?.id === refID)));
     }
 
-    getMainRuleset(): Observable<PaymentRoutingRulesObject> {
-        return this.getRulesets().pipe(map(findMainRuleset));
-    }
-
-    getPartyDelegate(partyID: string): Observable<PaymentRoutingDelegate> {
-        return this.getMainRuleset().pipe(
-            map((mainRuleset) => findPartyDelegate(mainRuleset, partyID))
-        );
-    }
-
-    getShopDelegate(partyID: string, refID: number): Observable<PaymentRoutingDelegate> {
-        return this.getPartyRuleset(partyID).pipe(
-            map((partyRuleset) => findShopDelegate(partyRuleset, refID))
-        );
-    }
-
-    getPartyRuleset(partyID: string): Observable<PaymentRoutingRulesObject> {
-        return combineLatest([this.getPartyDelegate(partyID), this.getRulesets()]).pipe(
-            map(([partyDelegate, rulesets]) => findRulesetByDelegate(rulesets, partyDelegate))
-        );
-    }
-
-    getShopRuleset(partyID: string, refID: number): Observable<PaymentRoutingRulesObject> {
-        return combineLatest([this.getShopDelegate(partyID, refID), this.getRulesets()]).pipe(
-            map(([shopDelegate, rulesets]) => findRulesetByDelegate(rulesets, shopDelegate))
-        );
+    generateID() {
+        return this.rulesets$.pipe(map((rulesets) => generateID(rulesets)));
     }
 
     addPartyRuleset(params: {
         name: string;
+        mainRulesetRefID: number;
         partyID: string;
         description?: string;
         delegateDescription?: string;
     }): Observable<Version> {
         return combineLatest([
             this.domainTypedManager.getLastVersion(),
-            this.getRulesets(),
-            this.getMainRuleset(),
+            this.rulesets$,
+            this.getRuleset(params.mainRulesetRefID),
         ]).pipe(
             take(1),
             switchMap(([version, paymentRoutingRulesObjects, mainRuleset]) =>
@@ -115,12 +69,13 @@ export class PaymentRoutingRulesService {
         name: string;
         shopID: string;
         partyID: string;
+        partyRulesetRefID: number;
         description?: string;
     }): Observable<Version> {
         return combineLatest([
             this.domainTypedManager.getLastVersion(),
-            this.getRulesets(),
-            this.getPartyRuleset(params.partyID),
+            this.rulesets$,
+            this.getRuleset(params.partyRulesetRefID),
         ]).pipe(
             take(1),
             switchMap(([version, paymentRoutingRulesObjects, partyRuleset]) =>
@@ -139,10 +94,8 @@ export class PaymentRoutingRulesService {
 
     addShopRule({
         refID,
-        partyID,
         ...params
     }: {
-        partyID: string;
         refID: number;
         terminalID: number;
         description: string;
@@ -152,7 +105,7 @@ export class PaymentRoutingRulesService {
     }): Observable<Version> {
         return combineLatest([
             this.domainTypedManager.getLastVersion(),
-            this.getShopRuleset(partyID, refID),
+            this.getRuleset(refID),
         ]).pipe(
             take(1),
             switchMap(([version, shopRuleset]) =>
@@ -170,16 +123,14 @@ export class PaymentRoutingRulesService {
 
     removeShopRule({
         refID,
-        partyID,
         candidateIdx,
     }: {
-        partyID: string;
         refID: number;
         candidateIdx: number;
     }): Observable<Version> {
         return combineLatest([
             this.domainTypedManager.getLastVersion(),
-            this.getShopRuleset(partyID, refID),
+            this.getRuleset(refID),
         ]).pipe(
             take(1),
             switchMap(([version, shopRuleset]) =>
@@ -206,11 +157,9 @@ export class PaymentRoutingRulesService {
         mainDelegateDescription?: string;
         ruleset: { name: string; description?: string };
     }): Observable<Version> {
-        return this.dmtCacheService.getObjects('payment_routing_rules').pipe(
+        return combineLatest([this.getRuleset(mainRulesetRefID), this.generateID()]).pipe(
             take(1),
-            switchMap((rulesets) => {
-                const mainRuleset = rulesets.find((r) => r?.ref?.id === mainRulesetRefID);
-                const rulesetID = generateID(rulesets);
+            switchMap(([mainRuleset, rulesetID]) => {
                 const newMainPaymentRoutingRuleset = cloneDeep(mainRuleset);
                 if (!newMainPaymentRoutingRuleset.data.decisions.delegates) {
                     newMainPaymentRoutingRuleset.data.decisions.delegates = [];
@@ -262,15 +211,13 @@ export class PaymentRoutingRulesService {
         rulesetID: number;
         mainDelegateDescription?: string;
     }): Observable<Version> {
-        return this.dmtCacheService.getObjects('payment_routing_rules').pipe(
+        return combineLatest([
+            this.getRuleset(mainRulesetRefID),
+            this.getRuleset(previousMainRulesetRefID),
+        ]).pipe(
             take(1),
-            switchMap((rulesets) => {
-                const mainRuleset = rulesets.find((r) => r?.ref?.id === mainRulesetRefID);
-                const previousMainRuleset = rulesets.find(
-                    (r) => r?.ref?.id === previousMainRulesetRefID
-                );
-
-                const newPreviousMainRuleset = cloneDeep(mainRuleset);
+            switchMap(([mainRuleset, previousMainRuleset]) => {
+                const newPreviousMainRuleset = cloneDeep(previousMainRuleset);
                 const delegateIdx = newPreviousMainRuleset.data.decisions.delegates.findIndex(
                     (d) => d?.ruleset?.id === rulesetID
                 );
