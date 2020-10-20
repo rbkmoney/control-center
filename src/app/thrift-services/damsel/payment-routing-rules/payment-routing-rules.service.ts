@@ -250,4 +250,60 @@ export class PaymentRoutingRulesService {
             })
         );
     }
+
+    changePartyDelegateRuleset({
+        previousMainRulesetRefID,
+        mainRulesetRefID,
+        rulesetID,
+        mainDelegateDescription,
+    }: {
+        previousMainRulesetRefID: number;
+        mainRulesetRefID: number;
+        rulesetID: number;
+        mainDelegateDescription?: string;
+    }): Observable<Version> {
+        return this.dmtCacheService.getObjects('payment_routing_rules').pipe(
+            take(1),
+            switchMap((rulesets) => {
+                const mainRuleset = rulesets.find((r) => r?.ref?.id === mainRulesetRefID);
+                const previousMainRuleset = rulesets.find(
+                    (r) => r?.ref?.id === previousMainRulesetRefID
+                );
+
+                const newPreviousMainRuleset = cloneDeep(mainRuleset);
+                const delegateIdx = newPreviousMainRuleset.data.decisions.delegates.findIndex(
+                    (d) => d?.ruleset?.id === rulesetID
+                );
+                const [delegate] = newPreviousMainRuleset.data.decisions.delegates.splice(
+                    delegateIdx,
+                    1
+                );
+
+                const newMainPaymentRoutingRuleset = cloneDeep(mainRuleset);
+                if (!newMainPaymentRoutingRuleset.data.decisions.delegates) {
+                    newMainPaymentRoutingRuleset.data.decisions.delegates = [];
+                }
+                newMainPaymentRoutingRuleset.data.decisions.delegates.push({
+                    ...delegate,
+                    description: mainDelegateDescription,
+                });
+                return this.dmtCacheService.commit({
+                    ops: [
+                        {
+                            update: {
+                                old_object: { payment_routing_rules: previousMainRuleset },
+                                new_object: { payment_routing_rules: newPreviousMainRuleset },
+                            },
+                        },
+                        {
+                            update: {
+                                old_object: { payment_routing_rules: mainRuleset },
+                                new_object: { payment_routing_rules: newMainPaymentRoutingRuleset },
+                            },
+                        },
+                    ],
+                });
+            })
+        );
+    }
 }

@@ -17,7 +17,6 @@ const DIALOG_WIDTH = '548px';
     providers: [PartyPaymentRoutingRulesetService],
 })
 export class PaymentRoutingRulesComponent {
-    partyDelegate$ = this.paymentRoutingRulesService.partyDelegate$;
     partyRuleset$ = this.paymentRoutingRulesService.partyRuleset$;
     dataSource$ = combineLatest([this.partyRuleset$, this.paymentRoutingRulesService.shops$]).pipe(
         filter(([r]) => !!r),

@@ -26,11 +26,6 @@ export class PartyPaymentRoutingRulesetService {
         map((shops) => Array.from(shops.values()))
     );
 
-    partyDelegate$ = this.partyID$.pipe(
-        switchMap((partyID) => this.paymentRoutingRulesService.getPartyDelegate(partyID)),
-        shareReplay(1)
-    );
-
     partyRuleset$ = combineLatest([
         this.domainService.getObjects('payment_routing_rules'),
         this.refID$,
