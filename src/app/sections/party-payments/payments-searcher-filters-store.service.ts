@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import pickBy from 'lodash-es/pickBy';
 
-import { SearchFiltersParams } from '@cc/app/shared/components/payments-search-filters/search-filters-params';
+import { SearchFiltersParams } from '@cc/app/shared/components';
 import { QueryParamsStore } from '@cc/app/shared/services';
 import { wrapValuesToArray } from '@cc/utils/index';
 

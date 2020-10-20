@@ -9,8 +9,9 @@ import { MatTableModule } from '@angular/material/table';
 import { StatusModule } from '@cc/components/status';
 import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
 
-import { PaymentsTableComponent } from '../../components';
 import { SharedPipesModule } from '../../pipes';
+import { PaymentActionsPipe } from './payment-actions.pipe';
+import { PaymentsTableComponent } from './payments-table.component';
 
 @NgModule({
     imports: [
@@ -24,7 +25,7 @@ import { SharedPipesModule } from '../../pipes';
         MatMenuModule,
         CommonPipesModule,
     ],
-    declarations: [PaymentsTableComponent],
+    declarations: [PaymentsTableComponent, PaymentActionsPipe],
     exports: [PaymentsTableComponent],
 })
 export class PaymentsTableModule {}

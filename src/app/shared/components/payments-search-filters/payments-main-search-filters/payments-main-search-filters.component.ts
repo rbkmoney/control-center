@@ -9,6 +9,7 @@ import {
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 import { SearchFiltersParams } from '../search-filters-params';
+import { MainFilterSearchType, MainSearchType } from './main-filter-search-type';
 import { PaymentsMainSearchFiltersService } from './payments-main-search-filters.service';
 
 export const MY_FORMATS = {
@@ -35,26 +36,30 @@ export const MY_FORMATS = {
 })
 export class PaymentsMainSearchFiltersComponent implements OnInit {
     @Input()
-    partyID: string;
+    initParams: SearchFiltersParams;
 
     @Input()
-    initParams: SearchFiltersParams;
+    type: MainFilterSearchType;
 
     @Output()
     valueChanges = new EventEmitter<SearchFiltersParams>();
+
+    mainSearchType = MainSearchType;
 
     shops$ = this.paymentsMainSearchFiltersService.shops$;
 
     form = this.paymentsMainSearchFiltersService.form;
 
     constructor(private paymentsMainSearchFiltersService: PaymentsMainSearchFiltersService) {
-        this.paymentsMainSearchFiltersService.searchParamsChanges$.subscribe((params) => {
-            this.valueChanges.emit(params);
-        });
+        this.paymentsMainSearchFiltersService.searchParamsChanges$.subscribe((params) =>
+            this.valueChanges.emit(params)
+        );
     }
 
     ngOnInit() {
         this.paymentsMainSearchFiltersService.init(this.initParams);
-        this.paymentsMainSearchFiltersService.getShops(this.partyID);
+        if (this.type.type === MainSearchType.PartySearchFilter) {
+            this.paymentsMainSearchFiltersService.getShops(this.type.partyID);
+        }
     }
 }

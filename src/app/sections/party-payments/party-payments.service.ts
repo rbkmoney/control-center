@@ -1,43 +1,27 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import isEmpty from 'lodash-es/isEmpty';
-import { ReplaySubject, Subject } from 'rxjs';
-import { filter, map, pluck, scan, shareReplay } from 'rxjs/operators';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import pickBy from 'lodash-es/pickBy';
 
-import { removeEmptyProperties } from '@cc/utils/index';
+import { SearchFiltersParams } from '@cc/app/shared/components';
+import { QueryParamsStore } from '@cc/app/shared/services';
+import { wrapValuesToArray } from '@cc/utils/wrap-values-to-array';
 
-import { SearchFiltersParams } from '../../shared/components/payments-search-filters/search-filters-params';
-import { NavigationParams } from './navigation-params';
+const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
 
 @Injectable()
-export class PartyPaymentsService {
-    private navigationParamsChanges$ = new Subject<NavigationParams>();
-
-    private searchParamsChange$ = new ReplaySubject<SearchFiltersParams>();
-
-    searchParamsChanges$ = this.searchParamsChange$.pipe(
-        filter((v) => !isEmpty(v)),
-        scan((acc, curr) => ({ ...acc, ...curr })),
-        map(removeEmptyProperties),
-        shareReplay(1)
-    );
-
-    partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
-
-    paymentNavigationLink$ = this.navigationParamsChanges$.pipe(
-        map(
-            ({ partyID, invoiceID, paymentID }) =>
-                `/party/${partyID}/invoice/${invoiceID}/payment/${paymentID}`
-        )
-    );
-
-    constructor(private route: ActivatedRoute) {}
-
-    searchParamsChanges(params: SearchFiltersParams) {
-        this.searchParamsChange$.next(params);
+export class PartyPaymentsService extends QueryParamsStore<SearchFiltersParams> {
+    constructor(protected route: ActivatedRoute, protected router: Router) {
+        super(router, route);
     }
 
-    updatePaymentNavigationLink(params: NavigationParams) {
-        this.navigationParamsChanges$.next(params);
+    mapToData(queryParams: Params): SearchFiltersParams {
+        return {
+            ...queryParams,
+            ...wrapValuesToArray(pickBy(queryParams, shopIDsAndPrimitives)),
+        } as SearchFiltersParams;
+    }
+
+    mapToParams(data: SearchFiltersParams): Params {
+        return data;
     }
 }
