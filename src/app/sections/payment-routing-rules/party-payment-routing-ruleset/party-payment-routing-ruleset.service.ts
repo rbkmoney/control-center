@@ -5,7 +5,6 @@ import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 
 import { PartyService } from '../../../papi/party.service';
-import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../../thrift-services';
 
 @Injectable()
 export class PartyPaymentRoutingRulesetService {
@@ -35,7 +34,6 @@ export class PartyPaymentRoutingRulesetService {
     );
 
     constructor(
-        private paymentRoutingRulesService: PaymentRoutingRulesDamselService,
         private route: ActivatedRoute,
         private partyService: PartyService,
         private domainService: DomainCacheService
