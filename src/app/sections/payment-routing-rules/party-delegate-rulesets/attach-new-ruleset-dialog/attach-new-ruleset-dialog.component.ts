@@ -3,7 +3,6 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { PaymentRoutingRulesService } from 'src/app/thrift-services';
-import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 
 import { TargetRuleset } from '../target-ruleset-form';
 
@@ -32,7 +31,6 @@ export class AttachNewRulesetDialogComponent {
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<AttachNewRulesetDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
-        private domainService: DomainCacheService,
         @Inject(MAT_DIALOG_DATA) public data: { partyID: string }
     ) {}
 
