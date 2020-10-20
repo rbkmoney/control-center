@@ -1,11 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { SearchFiltersParams } from '../search-filters-params';
 import { PaymentsOtherSearchFiltersService } from './payments-other-search-filters.service';
@@ -16,9 +9,11 @@ import { PaymentsOtherSearchFiltersService } from './payments-other-search-filte
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [PaymentsOtherSearchFiltersService],
 })
-export class PaymentsOtherSearchFiltersComponent implements OnInit {
+export class PaymentsOtherSearchFiltersComponent {
     @Input()
-    initParams: SearchFiltersParams;
+    set initParams(initParams: SearchFiltersParams) {
+        this.paymentsOtherSearchFiltersService.init(initParams);
+    }
 
     @Output()
     valueChanges = new EventEmitter<SearchFiltersParams>();
@@ -29,10 +24,6 @@ export class PaymentsOtherSearchFiltersComponent implements OnInit {
 
     constructor(private paymentsOtherSearchFiltersService: PaymentsOtherSearchFiltersService) {
         this.searchParamsChanges$.subscribe((params) => this.valueChanges.emit(params));
-    }
-
-    ngOnInit() {
-        this.paymentsOtherSearchFiltersService.init(this.initParams);
     }
 
     openOtherFiltersDialog() {

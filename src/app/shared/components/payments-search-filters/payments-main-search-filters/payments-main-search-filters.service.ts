@@ -5,6 +5,7 @@ import { ReplaySubject } from 'rxjs';
 import { debounceTime, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../../../party/party.service';
+import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { SearchFiltersParams } from '../search-filters-params';
 import { formValueToSearchParams } from './form-value-to-search-params';
 import { searchParamsToFormParams } from './search-params-to-form-params';
@@ -17,6 +18,7 @@ export class PaymentsMainSearchFiltersService {
         fromTime: [moment().subtract(1, 'month').startOf('d'), Validators.required],
         toTime: [moment().endOf('d'), Validators.required],
         invoiceID: '',
+        partyID: '',
         shopIDs: [],
         bin: ['', [Validators.pattern(/\d{6}$/), Validators.maxLength(6)]],
         pan: ['', [Validators.pattern(/\d{4}$/), Validators.maxLength(4)]],
@@ -37,8 +39,8 @@ export class PaymentsMainSearchFiltersService {
 
     constructor(private partyService: PartyService, private fb: FormBuilder) {}
 
-    getShops(id: string) {
-        this.getShops$.next(id);
+    getShops(partyID: PartyID) {
+        this.getShops$.next(partyID);
     }
 
     init(params: SearchFiltersParams) {

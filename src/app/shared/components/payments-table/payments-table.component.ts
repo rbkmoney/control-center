@@ -1,8 +1,22 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild,
+} from '@angular/core';
+import { MatTable } from '@angular/material/table';
 
-import { NavigationParams } from '../../../sections/party-payments/navigation-params';
-import { InvoiceID, InvoicePaymentID } from '../../../thrift-services/damsel/gen-model/domain';
+import {
+    InvoiceID,
+    InvoicePaymentID,
+    PartyID,
+} from '../../../thrift-services/damsel/gen-model/domain';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
+import { PaymentActions } from './payment-actions';
+import { PaymentMenuItemEvent } from './payment-menu-item-event';
+import { PaymentsTableType, TableType } from './payments-table';
 
 @Component({
     selector: 'cc-payments-table',
@@ -12,17 +26,43 @@ import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_sta
 })
 export class PaymentsTableComponent {
     @Input()
+    payments: StatPayment[];
+
+    @ViewChild(MatTable) table: MatTable<StatPayment>;
+
     partyID: string;
 
     @Input()
-    payments: StatPayment[];
+    set type(type: PaymentsTableType) {
+        this.displayedColumns = [
+            'amount',
+            'status',
+            'createdAt',
+            ...(type.type === TableType.PartyTable ? ['shop'] : []),
+            'actions',
+        ];
+        this.partyID = type.partyID;
+    }
 
     @Output()
-    goToPaymentDetails = new EventEmitter<NavigationParams>();
+    menuItemSelected$: EventEmitter<PaymentMenuItemEvent> = new EventEmitter();
 
-    displayedColumns: string[] = ['amount', 'status', 'createdAt', 'shop', 'actions'];
+    paymentActions = Object.keys(PaymentActions);
 
-    navigateToPayment(invoiceID: InvoiceID, paymentID: InvoicePaymentID) {
-        this.goToPaymentDetails.emit({ partyID: this.partyID, invoiceID, paymentID });
+    displayedColumns: string[];
+
+    menuItemSelected(
+        action: string,
+        paymentID: InvoicePaymentID,
+        invoiceID: InvoiceID,
+        partyID: PartyID
+    ) {
+        switch (action) {
+            case PaymentActions.navigateToPayment:
+                this.menuItemSelected$.emit({ action, paymentID, invoiceID, partyID });
+                break;
+            default:
+                console.log('Wrong payment action type.');
+        }
     }
 }
