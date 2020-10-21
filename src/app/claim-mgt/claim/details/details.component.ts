@@ -2,9 +2,8 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
-import { ClaimManagementRole } from '@cc/app/shared/services';
+import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
 
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimService } from '../claim.service';
 import { RecreateClaimService } from '../recreate-claim';

@@ -62,11 +62,11 @@ export enum ClaimManagementRole {
     UpdateClaim = 'update_claim',
     CreateClaim = 'create_claim',
     // Unused:
-    // 'claim:update'
-    // 'claim.action:get'
-    // 'claim.comment:add',
-    // 'claim.comment:get',
-    // 'claim:get',
+    // claim:update
+    // claim.action:get
+    // claim.comment:add,
+    // claim.comment:get,
+    // claim:get,
     // claim:accept
     // merchant:create
     // merchant:update

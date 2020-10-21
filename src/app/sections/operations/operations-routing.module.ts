@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { OperationRole } from '@cc/app/shared/services';
+import { AppAuthGuardService, OperationRole } from '@cc/app/shared/services';
 
-import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { OperationsComponent } from './operations.component';
 
 @NgModule({

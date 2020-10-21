@@ -14,10 +14,9 @@ import { Router } from '@angular/router';
 import { combineLatest, from, of } from 'rxjs';
 import { filter, first, map, switchMap } from 'rxjs/operators';
 
-import { ClaimManagementRole } from '@cc/app/shared/services';
+import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
 import { getUnionKey } from '@cc/utils/index';
 
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimStatus } from '../../../papi/model';
 import {
     PartyModificationEmitter,

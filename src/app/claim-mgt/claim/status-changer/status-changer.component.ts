@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ClaimManagementRole } from '@cc/app/shared/services';
+import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
 
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
 import { ClaimID, ClaimStatus } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimStatuses } from '../claim-statuses';
 import { getAvailableClaimStatuses } from './get-available-claim-statuses';

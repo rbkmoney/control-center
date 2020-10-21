@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../app-auth-guard.service';
+import { AppAuthGuardService } from '@cc/app/shared/services';
+
 import { ClaimComponent } from './claim.component';
 
 @NgModule({

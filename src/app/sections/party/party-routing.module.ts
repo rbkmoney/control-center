@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import {
+    AppAuthGuardService,
     ChargebackRole,
     ClaimManagementRole,
     DomainConfigRole,
@@ -9,7 +10,6 @@ import {
     PartyRole,
 } from '@cc/app/shared/services';
 
-import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { PartyComponent } from './party.component';
 
 @NgModule({
