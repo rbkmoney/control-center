@@ -10,6 +10,7 @@ import {
     InvoicePaymentChargebackStage,
     InvoicePaymentChargebackStatus,
 } from '../../../thrift-services/damsel/gen-model/domain';
+import { ComponentChanges } from '../../utils/component-changes';
 import { FetchChargebacksService } from './fetch-chargebacks.service';
 
 @Component({

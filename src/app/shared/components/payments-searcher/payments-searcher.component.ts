@@ -13,7 +13,12 @@ import {
     MainSearchType,
     SearchFiltersParams,
 } from '../payments-search-filters';
-import { PaymentsTableType, TableType } from '../payments-table';
+import {
+    PaymentActions,
+    PaymentMenuItemEvent,
+    PaymentsTableType,
+    TableType,
+} from '../payments-table';
 import { FetchPaymentsService } from './fetch-payments.service';
 import { PaymentsSearcherService } from './payments-searcher.service';
 import { SearcherType, SearchType } from './searcher-type';
@@ -53,7 +58,10 @@ export class PaymentsSearcherComponent implements OnInit {
     initSearchParams: SearchFiltersParams;
 
     @Output()
-    searchParams$: EventEmitter<SearchFiltersParams> = new EventEmitter();
+    searchParamsChanged$: EventEmitter<SearchFiltersParams> = new EventEmitter();
+
+    @Output()
+    paymentEventFired$: EventEmitter<PaymentMenuItemEvent> = new EventEmitter();
 
     isLoading$ = this.fetchPaymentsService.isLoading$;
     doAction$ = this.fetchPaymentsService.doAction$;
@@ -64,18 +72,12 @@ export class PaymentsSearcherComponent implements OnInit {
 
     constructor(
         private fetchPaymentsService: FetchPaymentsService,
-        private partyPaymentsService: PaymentsSearcherService,
+        private paymentsSearcherService: PaymentsSearcherService,
         private snackBar: MatSnackBar
     ) {
-        this.partyPaymentsService.searchParamsChanges$.subscribe((params) => {
-            this.fetchPaymentsService.search({
-                ...params,
-                partyID: params.partyID ? params.partyID : this.searcherType.partyID,
-            });
-            this.searchParams$.emit({
-                ...params,
-                partyID: params.partyID ? params.partyID : this.searcherType.partyID,
-            });
+        this.paymentsSearcherService.searchParamsChanges$.subscribe((params) => {
+            this.fetchPaymentsService.search(params);
+            this.searchParamsChanged$.emit(params);
         });
     }
 
@@ -90,9 +92,17 @@ export class PaymentsSearcherComponent implements OnInit {
     }
 
     searchParamsChanges(params: SearchFiltersParams) {
-        this.partyPaymentsService.searchParamsChanges({
+        this.paymentsSearcherService.searchParamsChanges({
             ...params,
             partyID: params.partyID ? params.partyID : this.searcherType.partyID,
         });
+    }
+
+    paymentMenuItemSelected(paymentMenuItemEvent: PaymentMenuItemEvent) {
+        switch (paymentMenuItemEvent.action) {
+            case PaymentActions.navigateToPayment:
+                this.paymentEventFired$.emit(paymentMenuItemEvent);
+                break;
+        }
     }
 }
