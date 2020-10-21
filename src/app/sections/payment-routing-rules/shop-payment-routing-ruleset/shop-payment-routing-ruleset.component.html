@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="64px">
     <cc-payment-routing-ruleset-header
-        [refID]="(shopDelegate$ | async)?.ruleset?.id"
+        [refID]="(shopRuleset$ | async)?.ref?.id"
         [description]="(shop$ | async)?.details?.name"
         [backTo]="
             'party/' + (partyID$ | async) + '/payment-routing-rules/' + (partyRulesetRefID$ | async)

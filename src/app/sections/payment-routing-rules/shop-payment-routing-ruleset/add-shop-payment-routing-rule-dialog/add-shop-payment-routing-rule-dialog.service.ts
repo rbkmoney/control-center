@@ -89,7 +89,6 @@ export class AddShopPaymentRoutingRuleDialogService {
                         priority,
                         terminalID,
                         refID: this.data.refID,
-                        partyID: this.data.partyID,
                         predicate,
                     })
                 )

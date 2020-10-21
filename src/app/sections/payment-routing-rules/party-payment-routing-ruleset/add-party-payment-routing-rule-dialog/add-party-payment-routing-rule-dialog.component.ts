@@ -20,7 +20,7 @@ export class AddPartyPaymentRoutingRuleDialogComponent {
         private dialogRef: MatDialogRef<AddPartyPaymentRoutingRuleDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
         @Inject(MAT_DIALOG_DATA)
-        public data: { partyID: string; shops: Shop[] }
+        public data: { refID: number; partyID: string; shops: Shop[] }
     ) {}
 
     add() {
@@ -29,6 +29,7 @@ export class AddPartyPaymentRoutingRuleDialogComponent {
             .addShopRuleset({
                 name,
                 description,
+                partyRulesetRefID: this.data.refID,
                 partyID: this.data.partyID,
                 shopID,
             })
