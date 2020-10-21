@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { PartyRole } from '@cc/app/shared/services';
+
 import { AppAuthGuardService } from '../app-auth-guard.service';
 import { PartyDetailsComponent } from './party-details/party-details.component';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
@@ -13,7 +15,7 @@ import { ShopDetailsComponent } from './shop-details/shop-details.component';
                 component: PartyDetailsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['party:get'],
+                    roles: [PartyRole.Get],
                 },
             },
             {
@@ -21,7 +23,7 @@ import { ShopDetailsComponent } from './shop-details/shop-details.component';
                 component: ShopDetailsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['party:get'],
+                    roles: [PartyRole.Get],
                 },
             },
         ]),

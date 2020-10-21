@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { PartyRole } from '@cc/app/shared/services';
+
 import { AppAuthGuardService } from '../app-auth-guard.service';
 import { PartiesComponent } from './parties.component';
 
@@ -12,7 +14,7 @@ import { PartiesComponent } from './parties.component';
                 component: PartiesComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['party:get'],
+                    roles: [PartyRole.Get],
                 },
             },
         ]),

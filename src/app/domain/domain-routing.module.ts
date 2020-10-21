@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { DomainConfigRole } from '@cc/app/shared/services';
+
 import { AppAuthGuardService } from '../app-auth-guard.service';
 import { DomainInfoComponent } from './domain-info';
 import { DomainObjModificationComponent } from './domain-obj-modification';
@@ -14,7 +16,7 @@ import { DomainObjReviewComponent } from './domain-obj-review';
                 component: DomainInfoComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['dmt:checkout'],
+                    roles: [DomainConfigRole.Checkout],
                 },
             },
             {
@@ -22,7 +24,7 @@ import { DomainObjReviewComponent } from './domain-obj-review';
                 component: DomainObjModificationComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['dmt:checkout'],
+                    roles: [DomainConfigRole.Checkout],
                 },
             },
             {
@@ -30,7 +32,7 @@ import { DomainObjReviewComponent } from './domain-obj-review';
                 component: DomainObjReviewComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['dmt:checkout'],
+                    roles: [DomainConfigRole.Checkout],
                 },
             },
         ]),

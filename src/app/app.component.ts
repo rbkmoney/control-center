@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 
-import { GeneralRole } from '@cc/app/shared/services';
+import {
+    ClaimManagementRole,
+    DepositRole,
+    DomainConfigRole,
+    OperationRole,
+    PartyRole,
+    PaymentAdjustmentRole,
+    PayoutRole,
+} from '@cc/app/shared/services';
 
 import { AppAuthGuardService } from './app-auth-guard.service';
 
@@ -33,23 +41,27 @@ export class AppComponent implements OnInit {
 
     private getMenuItems() {
         const menuItems = [
-            { name: 'Domain config', route: '/domain', activateRoles: [GeneralRole.Domain] },
-            { name: 'Payouts', route: '/payouts', activateRoles: [GeneralRole.Payout] },
+            { name: 'Domain config', route: '/domain', activateRoles: [DomainConfigRole.Checkout] },
+            { name: 'Payouts', route: '/payouts', activateRoles: [PayoutRole.Read] },
             {
                 name: 'Claims-Deprecated',
                 route: '/claims-deprecated',
-                activateRoles: [GeneralRole.Claim],
+                activateRoles: [ClaimManagementRole.GetClaims],
             },
-            { name: 'Claims', route: '/claims', activateRoles: [GeneralRole.Claim] },
+            { name: 'Claims', route: '/claims', activateRoles: [ClaimManagementRole.GetClaims] },
             {
                 name: 'Payment adjustment',
                 route: '/payment-adjustment',
-                activateRoles: [GeneralRole.Adjustment],
+                activateRoles: [PaymentAdjustmentRole.Create],
             },
-            { name: 'Parties', route: '/parties', activateRoles: [GeneralRole.Party] },
-            { name: 'Repairing', route: '/repairing', activateRoles: [GeneralRole.Domain] },
-            { name: 'Deposits', route: '/deposits', activateRoles: [GeneralRole.Deposit] },
-            { name: 'Operations', route: '/operations', activateRoles: [GeneralRole.Party] },
+            { name: 'Parties', route: '/parties', activateRoles: [PartyRole.Get] },
+            { name: 'Repairing', route: '/repairing', activateRoles: [DomainConfigRole.Checkout] },
+            { name: 'Deposits', route: '/deposits', activateRoles: [DepositRole.Write] },
+            {
+                name: 'Operations',
+                route: '/operations',
+                activateRoles: [OperationRole.SearchOperations],
+            },
         ];
         return menuItems.filter((item) =>
             this.appAuthGuardService.userHasRoles(item.activateRoles)

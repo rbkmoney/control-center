@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { KeycloakService } from 'keycloak-angular';
-import { filter } from 'rxjs/internal/operators';
+import { filter } from 'rxjs/operators';
 
+import { PayoutRole } from '@cc/app/shared/services';
+
+import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { Payout, PayoutStatus } from '../../papi/model';
 import { ConfirmPayoutsComponent } from '../confirm-payouts/confirm-payouts.component';
 import { CreatePayoutComponent } from '../create-payout/create-payout.component';
@@ -12,20 +14,16 @@ import { PayPayoutsComponent } from '../pay-payouts/pay-payouts.component';
     selector: 'cc-payouts-actions',
     templateUrl: 'payouts-actions.component.html',
 })
-export class PayoutsActionsComponent implements OnInit {
+export class PayoutsActionsComponent {
     @Input()
     selectedPayouts: Payout[];
 
     @Output()
     doAction: EventEmitter<void> = new EventEmitter();
 
-    roles: string[];
+    PayoutRole = PayoutRole;
 
-    constructor(private keycloakService: KeycloakService, private dialogRef: MatDialog) {}
-
-    ngOnInit() {
-        this.roles = this.keycloakService.getUserRoles();
-    }
+    constructor(private dialogRef: MatDialog, private appAuthGuardService: AppAuthGuardService) {}
 
     pay() {
         this.dialogRef
@@ -58,8 +56,8 @@ export class PayoutsActionsComponent implements OnInit {
             .subscribe(() => this.doAction.emit());
     }
 
-    hasRole(role: string): boolean {
-        return this.roles.includes(role);
+    hasRole(role: PayoutRole): boolean {
+        return this.appAuthGuardService.userHasRoles([role]);
     }
 
     isCanPay(): boolean {

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { OperationRole } from '@cc/app/shared/services';
+
 import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { OperationsComponent } from './operations.component';
 
@@ -12,7 +14,7 @@ import { OperationsComponent } from './operations.component';
                 component: OperationsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims'],
+                    roles: [OperationRole.SearchOperations],
                 },
                 children: [
                     {
@@ -21,7 +23,7 @@ import { OperationsComponent } from './operations.component';
                             import('../search-payments').then((m) => m.SearchPaymentsModule),
                         canActivate: [AppAuthGuardService],
                         data: {
-                            roles: ['get_claims'],
+                            roles: [OperationRole.SearchPayments],
                         },
                     },
                     { path: '', redirectTo: 'payments', pathMatch: 'full' },

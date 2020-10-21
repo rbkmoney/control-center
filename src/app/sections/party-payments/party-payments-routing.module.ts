@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { OperationRole } from '@cc/app/shared/services';
+
 import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { PartyPaymentsComponent } from './party-payments.component';
 
@@ -12,7 +14,7 @@ import { PartyPaymentsComponent } from './party-payments.component';
                 component: PartyPaymentsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims'],
+                    roles: [OperationRole.SearchPayments],
                 },
             },
         ]),
