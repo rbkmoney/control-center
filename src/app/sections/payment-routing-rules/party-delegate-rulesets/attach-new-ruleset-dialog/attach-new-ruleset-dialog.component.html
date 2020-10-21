@@ -2,49 +2,10 @@
     <div class="cc-headline">Attach party delegate ruleset</div>
 
     <div fxLayout="column" fxLayoutGap="24px">
-        <div class="cc-title">Target Ruleset</div>
-
-        <div fxLayout="column" fxLayoutGap="39px">
-            <mat-radio-group fxLayout disabled>
-                <mat-radio-button value="0" fxFlex checked>Payment Institution</mat-radio-button>
-                <mat-radio-button value="1" fxFlex>Manual Target</mat-radio-button>
-            </mat-radio-group>
-
-            <div fxLayout="column" fxLayoutGap="16px">
-                <mat-form-field>
-                    <mat-label>Payment Institution</mat-label>
-                    <mat-select formControlName="paymentInstitution" required>
-                        <mat-option *ngFor="let i of paymentInstitutions$ | async" [value]="i">
-                            #{{ i.ref.id }} {{ i.data.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <ng-container *ngIf="form.value.paymentInstitution as paymentInstitution">
-                    <cc-details-item title="Payment Routing Ruleset (policies)">
-                        <ng-container
-                            *ngIf="
-                                paymentInstitution?.data?.payment_routing?.policies
-                                    ?.id as policiesID;
-                                else notFound
-                            "
-                        >
-                            #{{ policiesID }}
-                            {{ (getRulesetById(policiesID) | async)?.data?.name }}
-                        </ng-container>
-                        <ng-template #notFound>Not found</ng-template>
-                    </cc-details-item>
-                    <mat-divider></mat-divider>
-                </ng-container>
-            </div>
-        </div>
-
-        <mat-form-field>
-            <input
-                matInput
-                placeholder="Main deligate description"
-                formControlName="mainDelegateDescription"
-            />
-        </mat-form-field>
+        <cc-target-ruleset-form
+            (valueChanges)="targetRuleset$.next($event)"
+            (valid)="targetRulesetValid$.next($event)"
+        ></cc-target-ruleset-form>
 
         <ng-container formGroupName="ruleset">
             <mat-divider></mat-divider>
@@ -66,7 +27,12 @@
 
     <div fxLayout fxLayoutAlign="space-between">
         <button mat-button (click)="cancel()">CANCEL</button>
-        <button mat-button color="primary" (click)="attach()" [disabled]="form.invalid">
+        <button
+            mat-button
+            color="primary"
+            (click)="attach()"
+            [disabled]="form.invalid || !(targetRulesetValid$ | async)"
+        >
             ATTACH
         </button>
     </div>

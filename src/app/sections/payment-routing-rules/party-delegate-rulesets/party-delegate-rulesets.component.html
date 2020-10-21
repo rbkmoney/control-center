@@ -40,6 +40,17 @@
                             >
                                 Details
                             </button>
+                            <button
+                                mat-menu-item
+                                (click)="
+                                    changeTarget(
+                                        element?.mainRuleset?.ref?.id,
+                                        element?.partyDelegate?.ruleset?.id
+                                    )
+                                "
+                            >
+                                Change target
+                            </button>
                         </mat-menu>
                     </td>
                 </ng-container>
