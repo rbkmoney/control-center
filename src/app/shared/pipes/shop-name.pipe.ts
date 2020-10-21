@@ -17,8 +17,8 @@ export class ShopNamePipe implements PipeTransform, OnDestroy {
     constructor(private partyService: PartyService, private ref: ChangeDetectorRef) {
         combineLatest([
             this.partyIDChange$.pipe(
-                switchMap((id) => this.partyService.getShops(id)),
-                distinctUntilChanged()
+                distinctUntilChanged(),
+                switchMap((id) => this.partyService.getShops(id))
             ),
             this.shopIDChange$.pipe(distinctUntilChanged()),
         ])

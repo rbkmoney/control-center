@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
+import { MerchantSearcherModule } from '../../merchant-searcher';
 import { PaymentsMainSearchFiltersComponent } from './payments-main-search-filters.component';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PaymentsMainSearchFiltersComponent } from './payments-main-search-filte
         MatDividerModule,
         FlexLayoutModule,
         MatSelectModule,
+        MerchantSearcherModule,
     ],
     declarations: [PaymentsMainSearchFiltersComponent],
     exports: [PaymentsMainSearchFiltersComponent],
