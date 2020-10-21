@@ -6,3 +6,5 @@ export * from './payments-search-filters';
 export * from './payments-table';
 export * from './questionary-document';
 export * from './payments-searcher';
+export * from './parties-search-filters';
+export * from './parties-table';

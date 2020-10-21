@@ -25,12 +25,12 @@ import { CoreModule } from './core/core.module';
 import { DepositsModule } from './deposits/deposits.module';
 import { DomainModule } from './domain';
 import icons from './icons.json';
-import { PartiesModule } from './parties/parties.module';
 import { PartyModule as OldPartyModule } from './party/party.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PayoutsModule } from './payouts/payouts.module';
 import { RepairingModule } from './repairing/repairing.module';
 import { OperationsModule } from './sections/operations/operations.module';
+import { PartiesModule } from './sections/parties/parties.module';
 import { PartyModule } from './sections/party/party.module';
 import { SearchClaimsModule } from './sections/search-claims/search-claims.module';
 import { SettingsModule } from './settings';
@@ -59,7 +59,6 @@ moment.locale('en');
         ClaimModule,
         PayoutsModule,
         PaymentAdjustmentModule,
-        PartiesModule,
         PartyModule,
         DomainModule,
         RepairingModule,

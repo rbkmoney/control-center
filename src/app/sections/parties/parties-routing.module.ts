@@ -3,13 +3,12 @@ import { RouterModule } from '@angular/router';
 
 import { AppAuthGuardService } from '../../app-auth-guard.service';
 import { PartiesComponent } from './parties.component';
-import { PartyComponent } from './party.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
-                path: '',
+                path: 'parties',
                 component: PartiesComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
