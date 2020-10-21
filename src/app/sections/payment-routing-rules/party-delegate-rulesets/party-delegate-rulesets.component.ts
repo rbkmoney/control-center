@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { first, switchMap, take } from 'rxjs/operators';
 
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
+import { ChangeTargetDialogComponent } from './change-target-dialog';
 import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service';
 
 @Component({
@@ -44,5 +45,21 @@ export class PartyDelegateRulesetsComponent {
             .subscribe((partyID) =>
                 this.router.navigate(['party', partyID, 'payment-routing-rules', id])
             );
+    }
+
+    changeTarget(mainRulesetRefID: string, rulesetID: string) {
+        this.partyDelegateRulesetsService.partyID$
+            .pipe(
+                take(1),
+                switchMap((partyID) =>
+                    this.dialog
+                        .open(ChangeTargetDialogComponent, {
+                            ...ChangeTargetDialogComponent.defaultConfig,
+                            data: { mainRulesetRefID, rulesetID },
+                        })
+                        .afterClosed()
+                )
+            )
+            .subscribe();
     }
 }

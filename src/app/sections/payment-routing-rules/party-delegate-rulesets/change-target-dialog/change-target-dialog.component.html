@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutGap="32px">
+    <div class="cc-headline">Change party delegate ruleset</div>
+
+    <cc-target-ruleset-form
+        (valueChanges)="targetRuleset$.next($event)"
+        [value]="initValue"
+        (valid)="targetRulesetValid$.next($event)"
+    ></cc-target-ruleset-form>
+
+    <div fxLayout fxLayoutAlign="space-between">
+        <button mat-button (click)="cancel()">CANCEL</button>
+        <button
+            mat-button
+            color="primary"
+            (click)="changeTarget()"
+            [disabled]="!(targetRulesetValid$ | async)"
+        >
+            CHANGE TARGET
+        </button>
+    </div>
+</div>
