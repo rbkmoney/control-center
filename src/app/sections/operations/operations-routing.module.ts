@@ -20,10 +20,6 @@ import { OperationsComponent } from './operations.component';
                         path: 'payments',
                         loadChildren: () =>
                             import('../search-payments').then((m) => m.SearchPaymentsModule),
-                        canActivate: [AppAuthGuardService],
-                        data: {
-                            roles: [OperationRole.SearchPayments],
-                        },
                     },
                     { path: '', redirectTo: 'payments', pathMatch: 'full' },
                 ],

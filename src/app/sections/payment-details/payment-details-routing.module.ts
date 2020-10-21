@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '@cc/app/shared/services';
+import { AppAuthGuardService, OperationRole } from '@cc/app/shared/services';
 
 import { PaymentDetailsComponent } from './payment-details.component';
 
@@ -12,6 +12,9 @@ import { PaymentDetailsComponent } from './payment-details.component';
                 path: '',
                 component: PaymentDetailsComponent,
                 canActivate: [AppAuthGuardService],
+                data: {
+                    roles: [OperationRole.SearchPayments],
+                },
             },
         ]),
     ],

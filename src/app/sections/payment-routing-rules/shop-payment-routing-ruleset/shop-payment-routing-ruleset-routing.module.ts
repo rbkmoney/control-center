@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '@cc/app/shared/services';
+import { AppAuthGuardService, DomainConfigRole } from '@cc/app/shared/services';
 
 import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-ruleset.component';
 
@@ -13,7 +13,7 @@ import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-rules
                 component: ShopPaymentRoutingRulesetComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: [],
+                    roles: [DomainConfigRole.Checkout],
                 },
             },
         ]),
