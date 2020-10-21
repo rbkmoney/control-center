@@ -1,8 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 
-import { SearcherType, SearchFiltersParams, SearchType } from '@cc/app/shared/components';
+import {
+    PaymentActions,
+    PaymentMenuItemEvent,
+    SearcherType,
+    SearchFiltersParams,
+    SearchType,
+} from '@cc/app/shared/components';
 
 import { PartyPaymentsService } from './party-payments.service';
 
@@ -15,7 +21,11 @@ export class PartyPaymentsComponent {
     searchType: SearcherType;
     initsearchParams$ = this.partyPaymentsService.data$;
 
-    constructor(private route: ActivatedRoute, private partyPaymentsService: PartyPaymentsService) {
+    constructor(
+        private route: ActivatedRoute,
+        private partyPaymentsService: PartyPaymentsService,
+        private router: Router
+    ) {
         this.route.params.pipe(pluck('partyID'), shareReplay(1)).subscribe((partyID) => {
             this.searchType = {
                 type: SearchType.PartySearcher,
@@ -26,5 +36,15 @@ export class PartyPaymentsComponent {
 
     searchParamsUpdated($event: SearchFiltersParams) {
         this.partyPaymentsService.preserve($event);
+    }
+
+    paymentEventFired($event: PaymentMenuItemEvent) {
+        const { partyID, invoiceID, paymentID } = $event;
+        switch ($event.action) {
+            case PaymentActions.navigateToPayment:
+                this.router.navigate([
+                    `/party/${partyID}/invoice/${invoiceID}/payment/${paymentID}`,
+                ]);
+        }
     }
 }

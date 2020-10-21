@@ -4,6 +4,7 @@
         *ngIf="searchType"
         [type]="searchType"
         [initSearchParams]="initsearchParams$ | async"
-        (searchParams$)="searchParamsUpdated($event)"
+        (searchParamsChanged$)="searchParamsUpdated($event)"
+        (paymentEventFired$)="paymentEventFired($event)"
     ></cc-payments-searcher>
 </div>

@@ -3,13 +3,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StatChargeback } from 'src/app/thrift-services/damsel/gen-model/merch_stat';
 
-import { ComponentChanges } from '@cc/app/shared/utils/component-changes';
-
 import { ChargebacksParams } from '../../../query-dsl';
 import {
     InvoicePaymentChargebackStage,
     InvoicePaymentChargebackStatus,
 } from '../../../thrift-services/damsel/gen-model/domain';
+import { ComponentChanges } from '../../utils/component-changes';
 import { FetchChargebacksService } from './fetch-chargebacks.service';
 
 @Component({
