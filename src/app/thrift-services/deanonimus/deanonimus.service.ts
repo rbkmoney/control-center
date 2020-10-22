@@ -8,7 +8,7 @@ import * as Deanonimus from './gen-nodejs/Deanonimus';
 @Injectable()
 export class DeanonimusService extends ThriftService {
     constructor(zone: NgZone, keycloakTokenInfoService: KeycloakTokenInfoService) {
-        super(zone, keycloakTokenInfoService, '/deanon', Deanonimus);
+        super(zone, keycloakTokenInfoService, '/deanonimus', Deanonimus);
     }
 
     searchParty = (text: string): Observable<SearchHit[]> =>
