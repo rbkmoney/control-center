@@ -5,9 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 
-import { PartyActionsPipe } from '@cc/app/shared/components/parties-table/party-actions.pipe';
-
 import { PartiesTableComponent } from './parties-table.component';
+import { PartyActionsPipe } from './party-actions.pipe';
 
 @NgModule({
     exports: [PartiesTableComponent],

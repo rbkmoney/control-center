@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { of, Subject } from 'rxjs';
+import { merge, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
 import { PartiesSearchFiltersParams } from '@cc/app/shared/components';
@@ -25,7 +25,7 @@ export class FetchPartiesService {
         filter((r) => r !== 'error'),
         map((hits: SearchHit[]) => hits.map((hit) => hit.party))
     );
-    isLoading$ = progress(this.searchParties$, this.parties$);
+    isLoading$ = progress(this.searchParties$, merge(this.parties$, this.hasError$));
 
     constructor(private deanonimusService: DeanonimusService) {}
 

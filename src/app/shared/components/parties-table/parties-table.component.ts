@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { PartyActions } from '@cc/app/shared/components/parties-table/party-actions';
-import { PartyMenuItemEvent } from '@cc/app/shared/components/parties-table/party-menu-item-event';
-
 import { PartyID } from '../../../thrift-services/damsel/gen-model/domain';
 import { Party } from '../../../thrift-services/deanonimus/gen-model/deanonimus';
+import { PartyActions } from './party-actions';
+import { PartyMenuItemEvent } from './party-menu-item-event';
 
 @Component({
     selector: 'cc-parties-table',
