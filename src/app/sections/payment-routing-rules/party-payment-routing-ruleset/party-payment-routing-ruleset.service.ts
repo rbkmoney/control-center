@@ -5,7 +5,6 @@ import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 
 import { PartyService } from '../../../papi/party.service';
-import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../../thrift-services';
 
 @Injectable()
 export class PartyPaymentRoutingRulesetService {
@@ -26,11 +25,6 @@ export class PartyPaymentRoutingRulesetService {
         map((shops) => Array.from(shops.values()))
     );
 
-    partyDelegate$ = this.partyID$.pipe(
-        switchMap((partyID) => this.paymentRoutingRulesService.getPartyDelegate(partyID)),
-        shareReplay(1)
-    );
-
     partyRuleset$ = combineLatest([
         this.domainService.getObjects('payment_routing_rules'),
         this.refID$,
@@ -40,7 +34,6 @@ export class PartyPaymentRoutingRulesetService {
     );
 
     constructor(
-        private paymentRoutingRulesService: PaymentRoutingRulesDamselService,
         private route: ActivatedRoute,
         private partyService: PartyService,
         private domainService: DomainCacheService
