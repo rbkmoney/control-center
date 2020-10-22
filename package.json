@@ -50,6 +50,7 @@
     "pdfmake": "^0.1.64",
     "rxjs": "^6.5.5",
     "skipper-proto": "github:rbkmoney/skipper-proto#d33d87cd9080925861f755b11ee1f16378076f74",
+    "deanonimus-proto": "github:rbkmoney/deanonimus-proto#b9fab4fd1c7690186efdc5974d113c82bd5765e9",
     "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#a5e3830ad30d5717e5e627ddcefa8f4d8918b174",
     "transliteration": "^2.1.8",
     "tslib": "^2.0.0",
