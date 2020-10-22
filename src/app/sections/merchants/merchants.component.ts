@@ -15,7 +15,7 @@ import { MerchantsService } from './merchants.service';
 })
 export class MerchantsComponent {
     initSearchParams$ = this.merchantsService.data$;
-    isLoading$ = this.fetchPartiesService.isLoading$;
+    inProgress$ = this.fetchPartiesService.inProgress$;
     parties$ = this.fetchPartiesService.parties$;
 
     constructor(

@@ -7,6 +7,9 @@
                 (searchParamsChanged$)="searchParamsUpdated($event)"
             ></cc-parties-search-filters>
         </mat-card-content>
+        <mat-card-footer *ngIf="inProgress$ | async">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
     </mat-card>
 
     <ng-container *ngIf="parties$ | async as parties">

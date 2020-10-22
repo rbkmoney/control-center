@@ -25,7 +25,7 @@ export class FetchPartiesService {
         filter((r) => r !== 'error'),
         map((hits: SearchHit[]) => hits.map((hit) => hit.party))
     );
-    isLoading$ = progress(this.searchParties$, merge(this.parties$, this.hasError$));
+    inProgress$ = progress(this.searchParties$, merge(this.parties$, this.hasError$));
 
     constructor(private deanonimusService: DeanonimusService) {}
 
