@@ -19,25 +19,21 @@ export class ShopPaymentRoutingRulesetService {
         map((p) => +p),
         shareReplay(1)
     );
-    shopDelegate$ = combineLatest([this.partyID$, this.refID$]).pipe(
-        switchMap(([partyID, refID]) =>
-            this.paymentRoutingRulesService.getShopDelegate(partyID, refID)
-        ),
-        shareReplay(1)
-    );
-    shopRuleset$ = combineLatest([this.partyID$, this.refID$]).pipe(
-        switchMap(([partyID, refID]) =>
-            this.paymentRoutingRulesService.getShopRuleset(partyID, refID)
-        ),
+    shopRuleset$ = this.refID$.pipe(
+        switchMap((refID) => this.paymentRoutingRulesService.getRuleset(refID)),
         shareReplay(1)
     );
     private party$ = this.partyID$.pipe(
         switchMap((partyID) => this.partyService.getParty(partyID)),
         shareReplay(1)
     );
-    shop$ = combineLatest([this.party$, this.shopDelegate$]).pipe(
-        map(([{ shops }, shopDelegate]) =>
-            shops.get(shopDelegate?.allowed?.condition?.party?.definition?.shop_is)
+    shop$ = combineLatest([this.party$, this.shopRuleset$]).pipe(
+        map(([{ shops }, ruleset]) =>
+            shops.get(
+                ruleset?.data?.decisions?.delegates?.find(
+                    (d) => d?.allowed?.condition?.party?.definition?.shop_is
+                )?.allowed?.condition?.party?.definition?.shop_is
+            )
         ),
         shareReplay(1)
     );
@@ -49,13 +45,12 @@ export class ShopPaymentRoutingRulesetService {
     ) {}
 
     removeShopRule(candidateIdx: number) {
-        combineLatest([this.refID$, this.partyID$])
+        this.refID$
             .pipe(
                 take(1),
-                switchMap(([refID, partyID]) =>
+                switchMap((refID) =>
                     this.paymentRoutingRulesService.removeShopRule({
                         refID,
-                        partyID,
                         candidateIdx,
                     })
                 )

@@ -16,7 +16,7 @@ const DIALOG_WIDTH = '548px';
     providers: [ShopPaymentRoutingRulesetService],
 })
 export class ShopPaymentRoutingRulesetComponent {
-    shopDelegate$ = this.shopPaymentRoutingRulesetService.shopDelegate$;
+    shopRuleset$ = this.shopPaymentRoutingRulesetService.shopRuleset$;
     partyID$ = this.shopPaymentRoutingRulesetService.partyID$;
     partyRulesetRefID$ = this.shopPaymentRoutingRulesetService.partyRulesetRefID$;
     shop$ = this.shopPaymentRoutingRulesetService.shop$;
