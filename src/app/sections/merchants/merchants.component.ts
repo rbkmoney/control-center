@@ -14,18 +14,18 @@ import { MerchantsService } from './merchants.service';
     providers: [MerchantsService, FetchPartiesService],
 })
 export class MerchantsComponent {
-    initsearchParams$ = this.partiesService.data$;
+    initSearchParams$ = this.merchantsService.data$;
     isLoading$ = this.fetchPartiesService.isLoading$;
     parties$ = this.fetchPartiesService.parties$;
 
     constructor(
-        private partiesService: MerchantsService,
+        private merchantsService: MerchantsService,
         private fetchPartiesService: FetchPartiesService,
         private router: Router
     ) {}
 
     searchParamsUpdated($event: PartiesSearchFiltersParams) {
-        this.partiesService.preserve($event);
+        this.merchantsService.preserve($event);
         this.fetchPartiesService.search($event);
     }
 
