@@ -12,7 +12,7 @@ import { MerchantsComponent } from './merchants.component';
                 component: MerchantsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims'],
+                    roles: ['party:get'],
                 },
             },
         ]),
