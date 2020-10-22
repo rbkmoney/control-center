@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppAuthGuardService } from '../../app-auth-guard.service';
-import { PartiesComponent } from './parties.component';
+import { MerchantsComponent } from './merchants.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
-                path: 'parties',
-                component: PartiesComponent,
+                path: 'merchants',
+                component: MerchantsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: ['get_claims'],
@@ -19,4 +19,4 @@ import { PartiesComponent } from './parties.component';
     ],
     exports: [RouterModule],
 })
-export class PartiesRoutingModule {}
+export class MerchantsRoutingModule {}

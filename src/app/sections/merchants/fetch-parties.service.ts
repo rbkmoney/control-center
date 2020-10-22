@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { of, Subject } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
 import { PartiesSearchFiltersParams } from '@cc/app/shared/components';
 
 import { DeanonimusService } from '../../thrift-services/deanonimus';
+import { SearchHit } from '../../thrift-services/deanonimus/gen-model/deanonimus';
 
 @Injectable()
 export class FetchPartiesService {
@@ -17,14 +18,12 @@ export class FetchPartiesService {
             this.deanonimusService.searchParty(params).pipe(
                 catchError((_) => {
                     this.hasError$.next();
-                    return of();
+                    return of('error');
                 })
             )
         ),
-        map((hits) => {
-            console.log(hits);
-            return hits;
-        })
+        filter((r) => r !== 'error'),
+        map((hits: SearchHit[]) => hits.map((hit) => hit.party))
     );
     isLoading$ = progress(this.searchParties$, this.parties$);
 

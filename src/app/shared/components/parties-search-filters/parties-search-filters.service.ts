@@ -7,7 +7,7 @@ import { PartiesSearchFiltersParams } from './parties-search-filters-params';
 @Injectable()
 export class PartiesSearchFiltersService {
     form = this.fb.group({
-        searchText: '',
+        text: '',
     });
 
     searchParamsChanged$ = this.form.valueChanges.pipe(

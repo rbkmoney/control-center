@@ -1,12 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    Output,
-    ViewChild,
-} from '@angular/core';
-import { MatTable } from '@angular/material/table';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import {
     InvoiceID,
@@ -27,8 +19,6 @@ import { PaymentsTableType, TableType } from './payments-table';
 export class PaymentsTableComponent {
     @Input()
     payments: StatPayment[];
-
-    @ViewChild(MatTable) table: MatTable<StatPayment>;
 
     partyID: string;
 

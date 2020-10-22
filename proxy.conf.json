@@ -29,7 +29,7 @@
         "logLevel": "debug",
         "changeOrigin": true
     },
-    "/deanon": {
+    "/deanonimus": {
         "target": "https://iddqd.rbk.money",
         "secure": false,
         "logLevel": "debug",

@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
                 route: '/payment-adjustment',
                 activateRoles: ['adjustment:create'],
             },
-            { name: 'Parties', route: '/parties', activateRoles: ['party:get'] },
+            { name: 'Merchants', route: '/merchants', activateRoles: ['party:get'] },
             { name: 'Repairing', route: '/repairing', activateRoles: ['party:get'] },
             { name: 'Deposits', route: '/deposits', activateRoles: ['deposit:write'] },
             { name: 'Operations', route: '/operations', activateRoles: ['party:get'] },

@@ -29,8 +29,8 @@ import { PartyModule as OldPartyModule } from './party/party.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PayoutsModule } from './payouts/payouts.module';
 import { RepairingModule } from './repairing/repairing.module';
+import { MerchantsModule } from './sections/merchants/merchants.module';
 import { OperationsModule } from './sections/operations/operations.module';
-import { PartiesModule } from './sections/parties/parties.module';
 import { PartyModule } from './sections/party/party.module';
 import { SearchClaimsModule } from './sections/search-claims/search-claims.module';
 import { SettingsModule } from './settings';
@@ -67,7 +67,7 @@ moment.locale('en');
         DepositsModule,
         ClaimMgtModule,
         PartyModule,
-        PartiesModule,
+        MerchantsModule,
         OldPartyModule,
         SearchClaimsModule,
         OperationsModule,

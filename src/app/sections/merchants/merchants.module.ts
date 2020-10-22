@@ -4,21 +4,23 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 
 import { PartiesSearchFiltersModule, PartiesTableModule } from '@cc/app/shared/components';
+import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 
 import { DeanonimusModule } from '../../thrift-services/deanonimus';
-import { PartiesRoutingModule } from './parties-routing.module';
-import { PartiesComponent } from './parties.component';
+import { MerchantsRoutingModule } from './merchants-routing.module';
+import { MerchantsComponent } from './merchants.component';
 
 @NgModule({
     imports: [
-        PartiesRoutingModule,
+        MerchantsRoutingModule,
         FlexModule,
         MatCardModule,
         PartiesSearchFiltersModule,
         PartiesTableModule,
         CommonModule,
         DeanonimusModule,
+        EmptySearchResultModule,
     ],
-    declarations: [PartiesComponent],
+    declarations: [MerchantsComponent],
 })
-export class PartiesModule {}
+export class MerchantsModule {}
