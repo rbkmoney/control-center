@@ -19,10 +19,17 @@ import { DetailsItemModule } from '@cc/components/details-item';
 
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
+import { ChangeTargetDialogComponent } from './change-target-dialog';
 import { PartyDelegateRulesetsRoutingModule } from './party-delegate-rulesets-routing.module';
 import { PartyDelegateRulesetsComponent } from './party-delegate-rulesets.component';
+import { TargetRulesetFormComponent } from './target-ruleset-form';
 
-const EXPORTED_DECLARATIONS = [PartyDelegateRulesetsComponent, AttachNewRulesetDialogComponent];
+const EXPORTED_DECLARATIONS = [
+    PartyDelegateRulesetsComponent,
+    AttachNewRulesetDialogComponent,
+    ChangeTargetDialogComponent,
+    TargetRulesetFormComponent,
+];
 
 @NgModule({
     imports: [
