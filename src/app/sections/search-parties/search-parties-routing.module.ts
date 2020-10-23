@@ -3,14 +3,14 @@ import { RouterModule } from '@angular/router';
 
 import { AppAuthGuardService, PartyRole } from '@cc/app/shared/services';
 
-import { PartiesComponent } from './parties.component';
+import { SearchPartiesComponent } from './search-parties.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
                 path: 'parties',
-                component: PartiesComponent,
+                component: SearchPartiesComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
                     roles: [PartyRole.Get],
@@ -20,4 +20,4 @@ import { PartiesComponent } from './parties.component';
     ],
     exports: [RouterModule],
 })
-export class PartiesRoutingModule {}
+export class SearchPartiesRoutingModule {}

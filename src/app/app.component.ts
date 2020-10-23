@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
                 route: '/payment-adjustment',
                 activateRoles: [PaymentAdjustmentRole.Create],
             },
-            { name: 'Parties', route: '/parties', activateRoles: [PartyRole.Get] },
+            { name: 'Merchants', route: '/parties', activateRoles: [PartyRole.Get] },
             { name: 'Repairing', route: '/repairing', activateRoles: [DomainConfigRole.Checkout] },
             { name: 'Deposits', route: '/deposits', activateRoles: [DepositRole.Write] },
             {

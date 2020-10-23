@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../thrift-service';
 import { SearchHit } from './gen-model/deanonimus';
@@ -11,6 +12,6 @@ export class DeanonimusService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/deanonimus', Deanonimus);
     }
 
-    searchParty = (text: string): Observable<SearchHit[]> =>
-        this.toObservableAction('searchParty')(text);
+    searchParty = (params: { text: string }): Observable<SearchHit[]> =>
+        this.toObservableAction('searchParty')(params.text);
 }
