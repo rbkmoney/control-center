@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
+import { AppAuthGuardService, DomainConfigRole } from '@cc/app/shared/services';
+
 import { PaymentRoutingRulesComponent } from './party-payment-routing-ruleset.component';
 
 @NgModule({
@@ -12,7 +13,7 @@ import { PaymentRoutingRulesComponent } from './party-payment-routing-ruleset.co
                 component: PaymentRoutingRulesComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: [],
+                    roles: [DomainConfigRole.Checkout],
                 },
             },
         ]),

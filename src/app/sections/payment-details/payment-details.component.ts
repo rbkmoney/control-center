@@ -5,6 +5,7 @@ import { merge, Subject } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { CreateChargebackDialogComponent } from '@cc/app/shared/components/create-chargeback-dialog';
+import { AppAuthGuardService, ChargebackRole } from '@cc/app/shared/services';
 
 import { ChargebacksParams } from '../../query-dsl';
 import { PaymentDetailsService } from './payment-details.service';
@@ -28,10 +29,13 @@ export class PaymentDetailsComponent {
         shareReplay(1)
     );
 
+    ChargebackRole = ChargebackRole;
+
     constructor(
         private paymentDetailsService: PaymentDetailsService,
         private route: ActivatedRoute,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private appAuthGuardService: AppAuthGuardService
     ) {}
 
     createChargeback() {
@@ -48,5 +52,9 @@ export class PaymentDetailsComponent {
                 )
             )
             .subscribe(() => this.updateSearchParams$.next());
+    }
+
+    userHasRole(role: ChargebackRole): boolean {
+        return this.appAuthGuardService.userHasRoles([role]);
     }
 }

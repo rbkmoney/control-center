@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 
+import {
+    AppAuthGuardService,
+    ClaimManagementRole,
+    DepositRole,
+    DomainConfigRole,
+    OperationRole,
+    PartyRole,
+    PaymentAdjustmentRole,
+    PayoutRole,
+} from '@cc/app/shared/services';
+
 @Component({
     selector: 'cc-root',
     templateUrl: './app.component.html',
@@ -11,7 +22,10 @@ export class AppComponent implements OnInit {
 
     menuItems: { name: string; route: string }[] = [];
 
-    constructor(private keycloakService: KeycloakService) {}
+    constructor(
+        private keycloakService: KeycloakService,
+        private appAuthGuardService: AppAuthGuardService
+    ) {}
 
     ngOnInit() {
         this.keycloakService.loadUserProfile().then(() => {
@@ -26,27 +40,30 @@ export class AppComponent implements OnInit {
 
     private getMenuItems() {
         const menuItems = [
-            { name: 'Domain config', route: '/domain', activateRoles: ['dmt:checkout'] },
-            { name: 'Payouts', route: '/payouts', activateRoles: ['payout:read'] },
+            { name: 'Domain config', route: '/domain', activateRoles: [DomainConfigRole.Checkout] },
+            { name: 'Payouts', route: '/payouts', activateRoles: [PayoutRole.Read] },
             {
                 name: 'Claims-Deprecated',
                 route: '/claims-deprecated',
-                activateRoles: ['claim:get'],
+                activateRoles: [ClaimManagementRole.GetClaims],
             },
-            { name: 'Claims', route: '/claims', activateRoles: ['get_claims'] },
+            { name: 'Claims', route: '/claims', activateRoles: [ClaimManagementRole.GetClaims] },
             {
                 name: 'Payment adjustment',
                 route: '/payment-adjustment',
-                activateRoles: ['adjustment:create'],
+                activateRoles: [PaymentAdjustmentRole.Create],
             },
-            { name: 'Parties', route: '/parties', activateRoles: ['party:get'] },
-            { name: 'Repairing', route: '/repairing', activateRoles: ['party:get'] },
-            { name: 'Deposits', route: '/deposits', activateRoles: ['deposit:write'] },
-            { name: 'Operations', route: '/operations', activateRoles: ['party:get'] },
+            { name: 'Parties', route: '/parties', activateRoles: [PartyRole.Get] },
+            { name: 'Repairing', route: '/repairing', activateRoles: [DomainConfigRole.Checkout] },
+            { name: 'Deposits', route: '/deposits', activateRoles: [DepositRole.Write] },
+            {
+                name: 'Operations',
+                route: '/operations',
+                activateRoles: [OperationRole.SearchOperations],
+            },
         ];
-        const userRoles = this.keycloakService.getUserRoles();
-        return menuItems.filter(
-            (item) => item.activateRoles.filter((role) => userRoles.includes(role)).length > 0
+        return menuItems.filter((item) =>
+            this.appAuthGuardService.userHasRoles(item.activateRoles)
         );
     }
 }

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../../app-auth-guard.service';
+import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
+
 import { ClaimComponent } from './claim.component';
 
 @NgModule({
@@ -12,7 +13,7 @@ import { ClaimComponent } from './claim.component';
                 component: ClaimComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['claim:get'],
+                    roles: [ClaimManagementRole.GetClaims],
                 },
             },
         ]),

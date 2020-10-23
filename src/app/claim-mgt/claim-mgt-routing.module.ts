@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../app-auth-guard.service';
+import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
 
 @NgModule({
     imports: [
@@ -11,7 +11,7 @@ import { AppAuthGuardService } from '../app-auth-guard.service';
                 loadChildren: () => import('./claim').then((m) => m.ClaimModule),
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims'],
+                    roles: [ClaimManagementRole.GetClaims],
                 },
             },
         ]),

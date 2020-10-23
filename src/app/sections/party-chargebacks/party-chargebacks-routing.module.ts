@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../../app-auth-guard.service';
+import { AppAuthGuardService, ChargebackRole } from '@cc/app/shared/services';
+
 import { PartyChargebacksComponent } from './party-chargebacks.component';
 
 @NgModule({
@@ -11,6 +12,9 @@ import { PartyChargebacksComponent } from './party-chargebacks.component';
                 path: '',
                 component: PartyChargebacksComponent,
                 canActivate: [AppAuthGuardService],
+                data: {
+                    roles: [ChargebackRole.View],
+                },
             },
         ]),
     ],

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../app-auth-guard.service';
+import { AppAuthGuardService, DepositRole } from '@cc/app/shared/services';
+
 import { DepositsComponent } from './deposits.component';
 
 @NgModule({
@@ -12,7 +13,7 @@ import { DepositsComponent } from './deposits.component';
                 component: DepositsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['deposit:write'],
+                    roles: [DepositRole.Write],
                 },
             },
         ]),
