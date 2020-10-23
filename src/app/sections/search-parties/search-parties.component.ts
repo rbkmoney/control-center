@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PartiesSearchFiltersParams } from '@cc/app/shared/components';
-import { PartyActions } from '@cc/app/shared/parties-table/party-actions';
-import { PartyMenuItemEvent } from '@cc/app/shared/parties-table/party-menu-item-event';
-
 import { FetchPartiesService } from './fetch-parties.service';
+import { PartiesSearchFiltersParams } from './parties-search-filters';
+import { PartyActions } from './parties-table/party-actions';
+import { PartyMenuItemEvent } from './parties-table/party-menu-item-event';
 import { SearchPartiesService } from './search-parties.service';
 
 @Component({

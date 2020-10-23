@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { PartiesSearchFiltersParams } from '@cc/app/shared/components';
 import { QueryParamsStore } from '@cc/app/shared/services';
+
+import { PartiesSearchFiltersParams } from './parties-search-filters';
 
 @Injectable()
 export class SearchPartiesService extends QueryParamsStore<PartiesSearchFiltersParams> {
