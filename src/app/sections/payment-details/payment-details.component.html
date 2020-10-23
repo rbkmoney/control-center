@@ -9,10 +9,15 @@
                 ></cc-payment-main-info>
             </mat-card-content>
         </mat-card>
-        <mat-card *ngIf="payment$ | async as payment" fxLayout="column" fxLayoutGap="32px">
+        <mat-card *ngIf="userHasRole(ChargebackRole.View)" fxLayout="column" fxLayoutGap="32px">
             <div fxLayout fxLayoutAlign="space-between">
                 <h2 class="cc-headline">Chargebacks</h2>
-                <button mat-raised-button color="primary" (click)="createChargeback()">
+                <button
+                    *ngIf="userHasRole(ChargebackRole.Manage)"
+                    mat-raised-button
+                    color="primary"
+                    (click)="createChargeback()"
+                >
                     CREATE CHARGEBACK
                 </button>
             </div>

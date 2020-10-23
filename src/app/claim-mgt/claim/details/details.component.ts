@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
-import { AppAuthGuardService } from '../../../app-auth-guard.service';
+import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
+
 import { Claim } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { ClaimService } from '../claim.service';
 import { RecreateClaimService } from '../recreate-claim';
@@ -18,8 +19,8 @@ export class DetailsComponent {
 
     recreateClaimInProcess$ = this.recreateClaimService.isInProcess$;
 
-    canRecreate = this.appAuthGuardService.userHasRoles(['create_claim']);
-    canAddClaimMod = this.appAuthGuardService.userHasRoles(['add_claim_mod']);
+    canRecreate = this.appAuthGuardService.userHasRoles([ClaimManagementRole.CreateClaim]);
+    canAddClaimMod = this.appAuthGuardService.userHasRoles([ClaimManagementRole.AddPartyMod]);
 
     constructor(
         private dialog: MatDialog,

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../../app-auth-guard.service';
+import { AppAuthGuardService, OperationRole } from '@cc/app/shared/services';
+
 import { SearchPaymentsComponent } from './search-payments.component';
 
 @NgModule({
@@ -12,7 +13,7 @@ import { SearchPaymentsComponent } from './search-payments.component';
                 component: SearchPaymentsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims'],
+                    roles: [OperationRole.SearchPayments],
                 },
             },
         ]),

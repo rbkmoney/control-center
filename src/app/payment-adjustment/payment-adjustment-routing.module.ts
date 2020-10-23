@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppAuthGuardService } from '../app-auth-guard.service';
+import { AppAuthGuardService, PaymentAdjustmentRole } from '@cc/app/shared/services';
+
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
 
 const routes: Routes = [
@@ -10,7 +11,7 @@ const routes: Routes = [
         component: PaymentAdjustmentComponent,
         canActivate: [AppAuthGuardService],
         data: {
-            roles: ['adjustment:create'],
+            roles: [PaymentAdjustmentRole.Create],
         },
     },
 ];

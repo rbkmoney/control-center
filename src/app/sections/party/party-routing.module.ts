@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../../app-auth-guard.service';
+import { AppAuthGuardService, PartyRole } from '@cc/app/shared/services';
+
 import { PartyComponent } from './party.component';
 
 @NgModule({
@@ -12,50 +13,33 @@ import { PartyComponent } from './party.component';
                 component: PartyComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['get_claims'],
+                    roles: [PartyRole.Get],
                 },
                 children: [
                     {
                         path: 'payments',
                         loadChildren: () =>
                             import('../party-payments').then((m) => m.PartyPaymentsModule),
-                        canActivate: [AppAuthGuardService],
-                        data: {
-                            roles: ['get_claims'],
-                        },
                     },
                     {
                         path: 'claims',
                         loadChildren: () =>
                             import('../party-claims').then((m) => m.PartyClaimsModule),
-                        canActivate: [AppAuthGuardService],
-                        data: {
-                            roles: ['get_claims'],
-                        },
                     },
                     {
                         path: 'claim/:claimID',
                         loadChildren: () =>
                             import('../party-claim').then((m) => m.PartyClaimModule),
-                        canActivate: [AppAuthGuardService],
-                        data: {
-                            roles: ['get_claims'],
-                        },
                     },
                     {
                         path: 'shops',
                         loadChildren: () =>
                             import('../party-shops').then((m) => m.PartyShopsModule),
-                        canActivate: [AppAuthGuardService],
-                        data: {
-                            roles: ['get_claims'],
-                        },
                     },
                     {
                         path: 'invoice/:invoiceID/payment/:paymentID',
                         loadChildren: () =>
                             import('../payment-details').then((m) => m.PaymentDetailsModule),
-                        canActivate: [AppAuthGuardService],
                     },
                     {
                         path: 'payment-routing-rules',
@@ -63,19 +47,16 @@ import { PartyComponent } from './party.component';
                             import('../payment-routing-rules').then(
                                 (m) => m.PaymentRoutingRulesModule
                             ),
-                        canActivate: [AppAuthGuardService],
                     },
                     {
                         path: 'chargebacks',
                         loadChildren: () =>
                             import('../party-chargebacks').then((m) => m.PartyChargebacksModule),
-                        canActivate: [AppAuthGuardService],
                     },
                     {
                         path: 'invoice/:invoiceID/payment/:paymentID/chargeback/:chargebackID',
                         loadChildren: () =>
                             import('../chargeback-details').then((m) => m.ChargebackDetailsModule),
-                        canActivate: [AppAuthGuardService],
                     },
                     { path: '', redirectTo: 'payments', pathMatch: 'full' },
                 ],

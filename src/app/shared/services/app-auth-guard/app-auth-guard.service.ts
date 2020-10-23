@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
+import { isRolesAllowed } from './is-roles-allowed';
+
 @Injectable()
 export class AppAuthGuardService extends KeycloakAuthGuard {
     constructor(protected router: Router, protected keycloakAngular: KeycloakService) {
@@ -9,11 +11,10 @@ export class AppAuthGuardService extends KeycloakAuthGuard {
     }
 
     async isAccessAllowed(route: ActivatedRouteSnapshot): Promise<boolean> {
-        return Array.isArray(this.roles) && route.data.roles.every((v) => this.roles.includes(v));
+        return isRolesAllowed(this.roles, route.data.roles);
     }
 
     userHasRoles(roles: string[]): boolean {
-        const userRoles = this.keycloakAngular.getUserRoles();
-        return roles.some((role) => userRoles.includes(role));
+        return isRolesAllowed(this.keycloakAngular.getUserRoles(), roles);
     }
 }

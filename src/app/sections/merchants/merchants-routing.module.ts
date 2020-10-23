@@ -1,22 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppAuthGuardService } from '../../app-auth-guard.service';
-import { MerchantsComponent } from './merchants.component';
+import { AppAuthGuardService, PartyRole } from '@cc/app/shared/services';
+
+import { PartiesComponent } from './parties.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
-                path: 'merchants',
-                component: MerchantsComponent,
+                path: 'parties',
+                component: PartiesComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: ['party:get'],
+                    roles: [PartyRole.Get],
                 },
             },
         ]),
     ],
     exports: [RouterModule],
 })
-export class MerchantsRoutingModule {}
+export class PartiesRoutingModule {}

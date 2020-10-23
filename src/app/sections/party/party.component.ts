@@ -2,6 +2,14 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, pluck, shareReplay, startWith } from 'rxjs/operators';
 
+import {
+    AppAuthGuardService,
+    ChargebackRole,
+    ClaimManagementRole,
+    DomainConfigRole,
+    OperationRole,
+    PartyRole,
+} from '@cc/app/shared/services';
 import { SHARE_REPLAY_CONF } from '@cc/utils/index';
 
 @Component({
@@ -9,17 +17,7 @@ import { SHARE_REPLAY_CONF } from '@cc/utils/index';
     styleUrls: ['party.component.scss'],
 })
 export class PartyComponent {
-    links = [
-        { name: 'Payments', url: 'payments', otherActiveUrlFragments: ['payment', 'invoice'] },
-        { name: 'Claims', url: 'claims', otherActiveUrlFragments: ['claim'] },
-        { name: 'Shops', url: 'shops' },
-        { name: 'Payment Routing Rules', url: 'payment-routing-rules' },
-        {
-            name: 'Chargebacks',
-            url: 'chargebacks',
-            otherActiveUrlFragments: ['payment', 'invoice', 'chargeback'],
-        },
-    ];
+    links = this.getLinks();
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));
     activeLinkByFragment$ = this.router.events.pipe(
         filter((e) => e instanceof NavigationEnd),
@@ -28,7 +26,41 @@ export class PartyComponent {
         shareReplay(1)
     );
 
-    constructor(private route: ActivatedRoute, private router: Router) {}
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private appAuthGuardService: AppAuthGuardService
+    ) {}
+
+    private getLinks() {
+        const links = [
+            {
+                name: 'Payments',
+                url: 'payments',
+                otherActiveUrlFragments: ['payment', 'invoice'],
+                activateRoles: [OperationRole.SearchPayments],
+            },
+            {
+                name: 'Claims',
+                url: 'claims',
+                otherActiveUrlFragments: ['claim'],
+                activateRoles: [ClaimManagementRole.GetClaims],
+            },
+            { name: 'Shops', url: 'shops', activateRoles: [PartyRole.Get] },
+            {
+                name: 'Payment Routing Rules',
+                url: 'payment-routing-rules',
+                activateRoles: [DomainConfigRole.Checkout],
+            },
+            {
+                name: 'Chargebacks',
+                url: 'chargebacks',
+                otherActiveUrlFragments: ['payment', 'invoice', 'chargeback'],
+                activateRoles: [ChargebackRole.View],
+            },
+        ];
+        return links.filter((item) => this.appAuthGuardService.userHasRoles(item.activateRoles));
+    }
 
     private activeFragments(fragments: string[]): number {
         if (fragments?.length) {
