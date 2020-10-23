@@ -5,7 +5,7 @@ import { PartiesSearchFiltersParams } from '@cc/app/shared/components';
 import { QueryParamsStore } from '@cc/app/shared/services';
 
 @Injectable()
-export class MerchantsService extends QueryParamsStore<PartiesSearchFiltersParams> {
+export class SearchPartiesService extends QueryParamsStore<PartiesSearchFiltersParams> {
     constructor(protected route: ActivatedRoute, protected router: Router) {
         super(router, route);
     }

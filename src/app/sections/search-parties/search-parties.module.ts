@@ -4,16 +4,17 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { PartiesSearchFiltersModule, PartiesTableModule } from '@cc/app/shared/components';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 
 import { DeanonimusModule } from '../../thrift-services/deanonimus';
-import { MerchantsRoutingModule } from './merchants-routing.module';
-import { MerchantsComponent } from './merchants.component';
+import { PartiesSearchFiltersModule } from './parties-search-filters';
+import { PartiesTableModule } from './parties-table';
+import { SearchPartiesRoutingModule } from './search-parties-routing.module';
+import { SearchPartiesComponent } from './search-parties.component';
 
 @NgModule({
     imports: [
-        MerchantsRoutingModule,
+        SearchPartiesRoutingModule,
         FlexModule,
         MatCardModule,
         PartiesSearchFiltersModule,
@@ -23,6 +24,6 @@ import { MerchantsComponent } from './merchants.component';
         EmptySearchResultModule,
         MatProgressBarModule,
     ],
-    declarations: [MerchantsComponent],
+    declarations: [SearchPartiesComponent],
 })
-export class MerchantsModule {}
+export class SearchPartiesModule {}
