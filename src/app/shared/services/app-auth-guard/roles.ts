@@ -1,9 +1,3 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
-
-import { environment } from '../../../environments/environment';
-
 // Unused:
 // accounting_report:get,
 // internal_report:get
@@ -70,33 +64,4 @@ export enum ClaimManagementRole {
     // claim:accept
     // merchant:create
     // merchant:update
-}
-
-const isRolesAllowed = (
-    availableRoles: string[],
-    searchRoles: string[],
-    isEnvProd = environment.production
-): boolean => {
-    if (!isEnvProd) {
-        return true;
-    }
-    if (!Array.isArray(availableRoles) || !Array.isArray(searchRoles)) {
-        return false;
-    }
-    return availableRoles.every((r) => searchRoles.includes(r));
-};
-
-@Injectable()
-export class AppAuthGuardService extends KeycloakAuthGuard {
-    constructor(protected router: Router, protected keycloakAngular: KeycloakService) {
-        super(router, keycloakAngular);
-    }
-
-    async isAccessAllowed(route: ActivatedRouteSnapshot): Promise<boolean> {
-        return isRolesAllowed(this.roles, route.data.roles);
-    }
-
-    userHasRoles(roles: string[]): boolean {
-        return isRolesAllowed(this.keycloakAngular.getUserRoles(), roles);
-    }
 }
