@@ -72,6 +72,20 @@ export enum ClaimManagementRole {
     // merchant:update
 }
 
+const isRolesAllowed = (
+    availableRoles: string[],
+    searchRoles: string[],
+    isEnvProd = environment.production
+): boolean => {
+    if (!isEnvProd) {
+        return true;
+    }
+    if (!Array.isArray(availableRoles) || !Array.isArray(searchRoles)) {
+        return false;
+    }
+    return availableRoles.every((r) => searchRoles.includes(r));
+};
+
 @Injectable()
 export class AppAuthGuardService extends KeycloakAuthGuard {
     constructor(protected router: Router, protected keycloakAngular: KeycloakService) {
@@ -79,14 +93,10 @@ export class AppAuthGuardService extends KeycloakAuthGuard {
     }
 
     async isAccessAllowed(route: ActivatedRouteSnapshot): Promise<boolean> {
-        return (
-            !environment.production ||
-            (Array.isArray(this.roles) && route.data.roles.every((v) => this.roles.includes(v)))
-        );
+        return isRolesAllowed(this.roles, route.data.roles);
     }
 
     userHasRoles(roles: string[]): boolean {
-        const userRoles = this.keycloakAngular.getUserRoles();
-        return !environment.production || roles.some((role) => userRoles.includes(role));
+        return isRolesAllowed(this.keycloakAngular.getUserRoles(), roles);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, pluck, shareReplay, startWith } from 'rxjs/operators';
 
@@ -16,8 +16,8 @@ import { SHARE_REPLAY_CONF } from '@cc/utils/index';
     templateUrl: 'party.component.html',
     styleUrls: ['party.component.scss'],
 })
-export class PartyComponent implements OnInit {
-    links = [];
+export class PartyComponent {
+    links = this.getLinks();
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));
     activeLinkByFragment$ = this.router.events.pipe(
         filter((e) => e instanceof NavigationEnd),
@@ -31,10 +31,6 @@ export class PartyComponent implements OnInit {
         private router: Router,
         private appAuthGuardService: AppAuthGuardService
     ) {}
-
-    ngOnInit() {
-        this.links = this.getLinks();
-    }
 
     private getLinks() {
         const links = [

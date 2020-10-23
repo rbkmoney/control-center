@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppAuthGuardService, OperationRole } from '@cc/app/shared/services';
@@ -8,14 +8,10 @@ import { hasActiveFragments } from '@cc/utils/index';
     templateUrl: 'operations.component.html',
     styleUrls: ['operations.component.scss'],
 })
-export class OperationsComponent implements OnInit {
-    links = [];
+export class OperationsComponent {
+    links = this.getLinks();
 
     constructor(private router: Router, private appAuthGuardService: AppAuthGuardService) {}
-
-    ngOnInit() {
-        this.links = this.getLinks();
-    }
 
     private getLinks() {
         const links = [
