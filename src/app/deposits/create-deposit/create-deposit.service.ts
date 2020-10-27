@@ -8,7 +8,8 @@ import Int64 from 'thrift-ts/lib/int64';
 import * as uuid from 'uuid/v4';
 
 import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
-import { poll, toMinor } from '@cc/utils/index';
+import { poll } from '@cc/utils/poll';
+import { toMinor } from '@cc/utils/to-minor';
 
 import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
 import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';

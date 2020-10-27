@@ -4,7 +4,7 @@ import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs'
 import { catchError, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { PartyModificationEmitter } from '@cc/app/shared/components';
-import { SHARE_REPLAY_CONF } from '@cc/utils/index';
+import { SHARE_REPLAY_CONF } from '@cc/utils/share-replay-conf';
 
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
 import {

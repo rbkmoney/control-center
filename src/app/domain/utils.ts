@@ -1,6 +1,7 @@
 import * as uuid from 'uuid/v4';
 
-import { extract, toJson } from '@cc/utils/index';
+import { toJson } from '@cc/utils/thrift-json-converter';
+import { extract } from '@cc/utils/thrift-utils';
 
 import { MonacoFile } from '../monaco-editor';
 import { DomainObject, Reference } from '../thrift-services/damsel/gen-model/domain';

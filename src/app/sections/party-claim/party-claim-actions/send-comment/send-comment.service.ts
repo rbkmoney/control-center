@@ -6,7 +6,7 @@ import { forkJoin, merge, of, Subject } from 'rxjs';
 import { catchError, filter, shareReplay, switchMap, tap } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 
-import { SHARE_REPLAY_CONF } from '@cc/utils/index';
+import { SHARE_REPLAY_CONF } from '@cc/utils/share-replay-conf';
 
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';

@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { combineLatest, Subject } from 'rxjs';
 import { map, shareReplay, startWith } from 'rxjs/operators';
 
-import { SHARE_REPLAY_CONF } from '@cc/utils/index';
+import { SHARE_REPLAY_CONF } from '@cc/utils/share-replay-conf';
 
 import { ChangesetInfo, ChangesetInfoType } from '../changeset-infos';
 import { infosFilter } from './infos-filter';
