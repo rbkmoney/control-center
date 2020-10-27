@@ -13,9 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { CommonPipesModule } from '@cc/app/shared/pipes/common-pipes.module';
 import { DetailsItemModule } from '@cc/components/details-item';
 import { HeadlineModule } from '@cc/components/headline';
-import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
 
 import { PaymentMainInfoModule } from '../payment-details/payment-main-info';
 import { ChangeChargebackStatusDialogComponent } from './change-chargeback-status-dialog';
