@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
+import { PartyID } from '../../../../thrift-services/deanonimus/gen-model/deanonimus';
 import { SearchFiltersParams } from '../search-filters-params';
 import { MainFilterSearchType, MainSearchType } from './main-filter-search-type';
 import { PaymentsMainSearchFiltersService } from './payments-main-search-filters.service';
@@ -61,5 +62,11 @@ export class PaymentsMainSearchFiltersComponent implements OnInit {
         if (this.type.type === MainSearchType.PartySearchFilter) {
             this.paymentsMainSearchFiltersService.getShops(this.type.partyID);
         }
+    }
+
+    partySelected(partyID: PartyID) {
+        this.form.patchValue({
+            partyID,
+        });
     }
 }

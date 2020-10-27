@@ -22,6 +22,8 @@
         </mat-form-field>
         <cc-merchant-searcher
             *ngIf="type.type === mainSearchType.GlobalSearchFilter"
+            [initValue]="form.value.partyID"
+            (partySelected$)="partySelected($event)"
             fxFlex
         ></cc-merchant-searcher>
         <mat-form-field fxFlex *ngIf="type.type === mainSearchType.PartySearchFilter">
