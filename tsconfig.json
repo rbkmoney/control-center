@@ -19,8 +19,6 @@
         "paths": {
             "@cc/components/*": ["src/components/*"],
             "@cc/utils/*": ["src/utils/*"],
-            "@cc/pipes/*": ["src/pipes/*"],
-            "@cc/operators/*": ["src/operators/*"],
             "@cc/app/shared/*": ["src/app/shared/*"]
         }
     },

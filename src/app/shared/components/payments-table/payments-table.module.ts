@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 
-import { CommonPipesModule } from '@cc/app/shared/pipes/common-pipes.module';
 import { StatusModule } from '@cc/components/status';
 
 import { SharedPipesModule } from '../../pipes';
@@ -23,7 +22,6 @@ import { PaymentsTableComponent } from './payments-table.component';
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
-        CommonPipesModule,
     ],
     declarations: [PaymentsTableComponent, PaymentActionsPipe],
     exports: [PaymentsTableComponent],

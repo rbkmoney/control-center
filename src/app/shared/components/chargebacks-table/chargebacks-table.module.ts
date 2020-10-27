@@ -8,7 +8,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
-import { CommonPipesModule } from '@cc/app/shared/pipes/common-pipes.module';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 import { StatusModule } from '@cc/components/status';
 
@@ -27,7 +26,6 @@ import { FetchChargebacksService } from './fetch-chargebacks.service';
         MatMenuModule,
         MatProgressSpinnerModule,
         EmptySearchResultModule,
-        CommonPipesModule,
         SharedPipesModule,
         MatSnackBarModule,
     ],
