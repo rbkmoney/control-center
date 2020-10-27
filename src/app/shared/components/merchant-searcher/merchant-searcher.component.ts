@@ -2,9 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
-import { FetchPartiesService } from '@cc/app/shared/services';
-
 import { PartyID } from '../../../thrift-services/deanonimus/gen-model/deanonimus';
+import { FetchPartiesService } from '../../services';
 
 @Component({
     selector: 'cc-merchant-searcher',

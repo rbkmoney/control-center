@@ -9,7 +9,7 @@
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
         <mat-option
             *ngFor="let party of parties$ | async"
-            [value]="party.email"
+            [value]="party.id"
             (onSelectionChange)="partySelected(party.id)"
         >
             {{ party.email }}
