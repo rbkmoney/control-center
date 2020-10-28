@@ -41,7 +41,7 @@ export class ReopenChargebackDialogComponent {
         private paymentProcessingService: PaymentProcessingService
     ) {}
 
-    changeStatus() {
+    reopen() {
         const { stage, leavyAmount, bodyAmount } = this.form.value;
         this.paymentProcessingService
             .reopenChargeback(

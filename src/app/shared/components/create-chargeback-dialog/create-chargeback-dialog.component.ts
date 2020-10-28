@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Moment } from 'moment';
-import uuid from 'uuid';
+import * as short from 'short-uuid';
 
 import { InvoicePaymentChargebackCategory } from '../../../thrift-services/damsel/gen-model/domain';
 import { PaymentProcessingService } from '../../../thrift-services/damsel/payment-processing.service';
@@ -48,7 +48,7 @@ export class CreateChargebackDialogComponent {
         const { leavyAmount, code, category, date } = this.form.value;
         this.paymentProcessingService
             .createChargeback(this.params.invoiceID, this.params.paymentID, {
-                id: uuid(),
+                id: short().new(),
                 occurred_at: (date as Moment).utc().format(),
                 reason: {
                     code,

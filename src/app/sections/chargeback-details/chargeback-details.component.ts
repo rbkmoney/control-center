@@ -2,11 +2,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { first, switchMap } from 'rxjs/operators';
+import { first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import {
     InvoicePaymentChargebackStage,
     InvoicePaymentChargebackStatus,
 } from 'src/app/thrift-services/damsel/gen-model/domain';
+
+import { getUnionKey } from '@cc/utils/index';
 
 import { ChangeChargebackStatusDialogComponent } from './change-chargeback-status-dialog';
 import { ChargebackDetailsService } from './chargeback-details.service';
@@ -35,6 +37,20 @@ export class ChargebackDetailsComponent {
     chargeback$ = this.chargebackDetailsService.chargeback$;
     shop$ = this.chargebackDetailsService.shop$;
     payment$ = this.chargebackDetailsService.payment$;
+
+    reopenAvailable$ = this.chargeback$.pipe(
+        pluck('status'),
+        map(getUnionKey),
+        map((s) => s === 'rejected'),
+        shareReplay(1)
+    );
+
+    changeStatusAvailable$ = this.chargeback$.pipe(
+        pluck('status'),
+        map(getUnionKey),
+        map((s) => s === 'pending'),
+        shareReplay(1)
+    );
 
     constructor(
         private chargebackDetailsService: ChargebackDetailsService,

@@ -60,8 +60,16 @@
     </mat-card>
     <mat-card>
         <mat-card-content fxLayout fxLayoutAlign="space-between">
-            <button mat-button (click)="changeStatus()">CHANGE STATUS</button>
-            <button mat-button (click)="reopen()">REOPEN</button>
+            <button
+                mat-button
+                [disabled]="!(changeStatusAvailable$ | async)"
+                (click)="changeStatus()"
+            >
+                CHANGE STATUS
+            </button>
+            <button mat-button [disabled]="!(reopenAvailable$ | async)" (click)="reopen()">
+                REOPEN
+            </button>
         </mat-card-content>
     </mat-card>
 </div>
