@@ -39,9 +39,7 @@ export class ChargebackDetailsComponent {
     payment$ = this.chargebackDetailsService.payment$;
 
     reopenAvailable$ = this.chargeback$.pipe(
-        pluck('status'),
-        map(getUnionKey),
-        map((s) => s === 'rejected'),
+        map((c) => getUnionKey(c.status) === 'rejected' && getUnionKey(c.stage) !== 'arbitration'),
         shareReplay(1)
     );
 

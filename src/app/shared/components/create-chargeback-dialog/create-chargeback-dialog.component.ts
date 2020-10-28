@@ -5,6 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Moment } from 'moment';
 import * as short from 'short-uuid';
 
+import { toMinor } from '@cc/utils/index';
+
 import { InvoicePaymentChargebackCategory } from '../../../thrift-services/damsel/gen-model/domain';
 import { PaymentProcessingService } from '../../../thrift-services/damsel/payment-processing.service';
 
@@ -55,7 +57,7 @@ export class CreateChargebackDialogComponent {
                     category: { [category]: {} },
                 },
                 levy: {
-                    amount: (leavyAmount * 100) as any,
+                    amount: toMinor(leavyAmount) as any,
                     currency: { symbolic_code: 'RUB' },
                 },
             })
