@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, merge, Subject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, Subject } from 'rxjs';
+import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import { PartyService } from 'src/app/party/party.service';
 import { createDSL } from 'src/app/query-dsl';
 import { MerchantStatisticsService } from 'src/app/thrift-services/damsel/merchant-statistics.service';
@@ -36,10 +36,9 @@ export class ChargebackDetailsService {
         shareReplay(1)
     );
 
-    chargeback$ = merge(
-        this.route.params,
-        this.loadChargeback$.pipe(withLatestFrom(this.route.params, (_, p) => p))
-    ).pipe(
+    chargeback$ = this.loadChargeback$.pipe(
+        startWith(null),
+        switchMap(() => this.route.params),
         switchMap((p) =>
             this.paymentProcessingService.getChargeback(p.invoiceID, p.paymentID, p.chargebackID)
         ),
