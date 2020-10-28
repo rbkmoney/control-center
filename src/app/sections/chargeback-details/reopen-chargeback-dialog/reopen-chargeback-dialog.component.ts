@@ -24,11 +24,7 @@ export class ReopenChargebackDialogComponent {
         bodyAmount: '',
         date: '',
     });
-    stages: (keyof InvoicePaymentChargebackStage)[] = [
-        'arbitration',
-        'chargeback',
-        'pre_arbitration',
-    ];
+    stages: (keyof InvoicePaymentChargebackStage)[] = ['arbitration'];
 
     constructor(
         private fb: FormBuilder,
@@ -37,6 +33,7 @@ export class ReopenChargebackDialogComponent {
             invoiceID: string;
             paymentID: string;
             chargebackID: string;
+            stage: keyof InvoicePaymentChargebackStage;
         },
         private dialogRef: MatDialogRef<ReopenChargebackDialogComponent>,
         private snackBar: MatSnackBar,

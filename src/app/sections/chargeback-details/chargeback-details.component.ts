@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { delay, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import {
     InvoicePaymentChargebackStage,
     InvoicePaymentChargebackStatus,
@@ -71,7 +71,8 @@ export class ChargebackDetailsComponent {
                             },
                         })
                         .afterClosed()
-                )
+                ),
+                delay(1000)
             )
             .subscribe(() => this.chargebackDetailsService.loadChargeback());
     }
@@ -80,18 +81,21 @@ export class ChargebackDetailsComponent {
         combineLatest([this.chargeback$, this.payment$])
             .pipe(
                 first(),
-                switchMap(([{ id: chargebackID }, { id: paymentID, invoice_id: invoiceID }]) =>
-                    this.dialog
-                        .open(ReopenChargebackDialogComponent, {
-                            ...ReopenChargebackDialogComponent.defaultConfig,
-                            data: {
-                                invoiceID,
-                                paymentID,
-                                chargebackID,
-                            },
-                        })
-                        .afterClosed()
-                )
+                switchMap(
+                    ([{ id: chargebackID, stage }, { id: paymentID, invoice_id: invoiceID }]) =>
+                        this.dialog
+                            .open(ReopenChargebackDialogComponent, {
+                                ...ReopenChargebackDialogComponent.defaultConfig,
+                                data: {
+                                    invoiceID,
+                                    paymentID,
+                                    chargebackID,
+                                    stage: getUnionKey(stage),
+                                },
+                            })
+                            .afterClosed()
+                ),
+                delay(1000)
             )
             .subscribe(() => this.chargebackDetailsService.loadChargeback());
     }
