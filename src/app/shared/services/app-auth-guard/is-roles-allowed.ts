@@ -11,5 +11,5 @@ export const isRolesAllowed = (
     if (!Array.isArray(availableRoles) || !Array.isArray(searchRoles)) {
         return false;
     }
-    return searchRoles.every((r) => availableRoles.includes(r));
+    return availableRoles.every((r) => searchRoles.includes(r));
 };
