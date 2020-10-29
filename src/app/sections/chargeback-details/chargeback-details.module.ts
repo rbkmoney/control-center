@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { CommonPipesModule } from '@cc/app/shared/pipes/common-pipes.module';
 import { DetailsItemModule } from '@cc/components/details-item';
 import { HeadlineModule } from '@cc/components/headline';
 
@@ -36,6 +37,7 @@ const EXPORTED_DECLARATIONS = [
         MatCardModule,
         MatDividerModule,
         DetailsItemModule,
+        CommonPipesModule,
         FlexLayoutModule,
         PaymentMainInfoModule,
         MatButtonModule,

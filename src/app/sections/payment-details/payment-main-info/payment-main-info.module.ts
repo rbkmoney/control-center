@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 
 import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { CommonPipesModule } from '@cc/app/shared/pipes/common-pipes.module';
 import { DetailsItemModule } from '@cc/components/details-item';
 import { StatusModule } from '@cc/components/status';
 
@@ -18,6 +19,7 @@ import { PaymentToolModule } from './payment-tool';
         DetailsItemModule,
         StatusModule,
         PaymentToolModule,
+        CommonPipesModule,
         SharedPipesModule,
     ],
     declarations: [PaymentMainInfoComponent],

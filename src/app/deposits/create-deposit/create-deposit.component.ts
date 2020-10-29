@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { PollingTimeoutError } from '@cc/utils/poll';
+import { PollingTimeoutError } from '@cc/operators/index';
 
 import { CreateDepositService, currencies } from './create-deposit.service';
 

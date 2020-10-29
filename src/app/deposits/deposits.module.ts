@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 
 import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { CommonPipesModule } from '@cc/app/shared/pipes/common-pipes.module';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 
 import { FistfulAdminService } from '../thrift-services/fistful/fistful-admin.service';
@@ -47,6 +48,7 @@ import { SearchFormService } from './search-form/search-form.service';
         MatDialogModule,
         MatDatepickerModule,
         CardContainerModule,
+        CommonPipesModule,
     ],
     declarations: [
         DepositsComponent,
