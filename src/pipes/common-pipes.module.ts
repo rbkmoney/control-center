@@ -14,7 +14,6 @@ const declarations = [
     ThriftViewPipe,
     MapUnionPipe,
     UnionKeyPipe,
-    CurrencyPipe,
 ];
 
 @NgModule({

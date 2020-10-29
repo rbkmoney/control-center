@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { booleanDelay } from '@cc/utils/boolean-delay';
+import { booleanDelay } from '@cc/operators/index';
 
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import { FileData } from '../../../../thrift-services/file-storage/gen-model/file_storage';

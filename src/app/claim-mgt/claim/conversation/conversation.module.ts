@@ -16,9 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { QuestionaryDocumentModule } from '@cc/app/shared/components';
 import { SharedPipesModule } from '@cc/app/shared/pipes';
-import { HumanizeDurationModule } from '@cc/app/shared/pipes/humanize-duration';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 import { TimelineModule } from '@cc/components/timeline';
+import { HumanizeDurationModule } from '@cc/pipes/humanize-duration';
 
 import { MonacoEditorModule } from '../../../monaco-editor';
 import { PartyModificationCreatorLegacyModule } from '../../../party-modification-creator-legacy';
@@ -50,6 +50,7 @@ import { SendCommentComponent } from './send-comment';
         ReactiveFormsModule,
         MatExpansionModule,
         MonacoEditorModule,
+        HumanizeDurationModule,
         MessagesModule,
         MatCardModule,
         HumanizeDurationModule,

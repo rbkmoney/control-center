@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { booleanDelay } from '@cc/utils/boolean-delay';
+import { booleanDelay } from '@cc/operators/index';
 
 import { QueryDSL } from '../../../query-dsl';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
