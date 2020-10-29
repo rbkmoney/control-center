@@ -1,4 +1,4 @@
-import { toJson } from '@cc/utils/thrift-json-converter';
+import { toJson } from '@cc/utils/index';
 
 import { DomainGroup } from '../domain-group';
 import { TableDataSource, TableGroup } from './model';

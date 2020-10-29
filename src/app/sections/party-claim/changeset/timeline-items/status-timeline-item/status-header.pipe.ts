@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { getUnionKey } from '@cc/utils/get-union-key';
+import { getUnionKey } from '@cc/utils/index';
 
 import { ClaimStatus } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 

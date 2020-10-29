@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { map, pluck, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
 
-import { getUnionKey } from '@cc/utils/get-union-key';
+import { getUnionKey } from '@cc/utils/index';
 
 import { toGenReference } from '../converters';
 import { createDamselInstance, damselInstanceToObject } from './create-damsel-instance';

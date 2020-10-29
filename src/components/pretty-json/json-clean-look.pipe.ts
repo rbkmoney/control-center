@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { skipNullValues } from '@cc/utils/skip-null-values';
+import { skipNullValues } from '@cc/utils/index';
 
 @Pipe({
     name: 'ccJsonCleanLook',

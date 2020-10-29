@@ -12,7 +12,7 @@ import { map, startWith } from 'rxjs/operators';
 import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 import { PaymentInstitutionObject } from 'src/app/thrift-services/damsel/gen-model/domain';
 
-import { ComponentChanges } from '@cc/app/shared/utils';
+import { ComponentChanges } from '@cc/app/shared/index';
 
 enum Target {
     manual = 'manual',

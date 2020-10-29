@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { decode } from '@cc/utils/java-thrift-formatter';
+import { decode } from '@cc/utils/index';
 
 import { ConfigService } from '../core/config.service';
 import { Party } from '../thrift-services/damsel/gen-model/domain';

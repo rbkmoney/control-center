@@ -10,7 +10,7 @@ import {
     OperationRole,
     PartyRole,
 } from '@cc/app/shared/services';
-import { SHARE_REPLAY_CONF } from '@cc/utils/share-replay-conf';
+import { SHARE_REPLAY_CONF } from '@cc/utils/index';
 
 @Component({
     templateUrl: 'party.component.html',
