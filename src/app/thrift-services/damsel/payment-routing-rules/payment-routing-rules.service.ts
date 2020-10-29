@@ -200,6 +200,45 @@ export class PaymentRoutingRulesService {
         );
     }
 
+    deleteRulesetAndDelegate({
+        mainRulesetRefID,
+        rulesetRefID,
+    }: {
+        mainRulesetRefID: number;
+        rulesetRefID: number;
+    }): Observable<Version> {
+        return combineLatest([
+            this.getRuleset(mainRulesetRefID),
+            this.getRuleset(rulesetRefID),
+        ]).pipe(
+            take(1),
+            switchMap(([mainRuleset, ruleset]) => {
+                const newMainPaymentRoutingRuleset = cloneDeep(mainRuleset);
+                newMainPaymentRoutingRuleset.data.decisions.delegates.splice(
+                    newMainPaymentRoutingRuleset.data.decisions.delegates.findIndex(
+                        (d) => d.ruleset.id === rulesetRefID
+                    ),
+                    1
+                );
+                return this.dmtCacheService.commit({
+                    ops: [
+                        {
+                            update: {
+                                old_object: { payment_routing_rules: mainRuleset },
+                                new_object: { payment_routing_rules: newMainPaymentRoutingRuleset },
+                            },
+                        },
+                        {
+                            remove: {
+                                object: { payment_routing_rules: ruleset },
+                            },
+                        },
+                    ],
+                });
+            })
+        );
+    }
+
     changePartyDelegateRuleset({
         previousMainRulesetRefID,
         mainRulesetRefID,

@@ -1,6 +1,10 @@
-<div *ngIf="partyRuleset$ | async; else emptyPartyDelegate" fxLayout="column" fxLayoutGap="64px">
+<div
+    *ngIf="partyRuleset$ | async as partyRuleset; else emptyPartyDelegate"
+    fxLayout="column"
+    fxLayoutGap="64px"
+>
     <cc-payment-routing-ruleset-header
-        [refID]="(partyRuleset$ | async).ref.id"
+        [refID]="partyRuleset.ref.id"
         (add)="addPartyRule()"
         [backTo]="'party/' + (partyID$ | async) + '/payment-routing-rules'"
     >
@@ -32,6 +36,9 @@
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item (click)="navigateToShopRuleset(element.id)">
                                 Details
+                            </button>
+                            <button mat-menu-item (click)="deleteRuleset(element.id)">
+                                Delete
                             </button>
                         </mat-menu>
                     </td>
