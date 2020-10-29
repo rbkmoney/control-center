@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="32px">
     <h1 class="mat-headline">Reopen chargeback</h1>
     <mat-dialog-content [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
-        <mat-form-field fxFlex>
+        <mat-form-field fxFlex *ngIf="params?.stage === 'chargeback'">
             <mat-label>Reopen stage (optional)</mat-label>
             <mat-select formControlName="stage">
                 <mat-option *ngFor="let c of stages" [value]="c">
@@ -22,7 +22,7 @@
     </mat-dialog-content>
     <mat-dialog-actions fxLayout fxLayoutAlign="space-between">
         <button mat-button (click)="cancel()">CANCEL</button>
-        <button mat-button color="primary" [disabled]="form.invalid" (click)="changeStatus()">
+        <button mat-button color="primary" [disabled]="form.invalid" (click)="reopen()">
             REOPEN
         </button>
     </mat-dialog-actions>

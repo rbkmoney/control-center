@@ -5,6 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { InvoicePaymentChargebackStage } from 'src/app/thrift-services/damsel/gen-model/domain';
 import { PaymentProcessingService } from 'src/app/thrift-services/damsel/payment-processing.service';
 
+import { toMinor } from '@cc/utils/index';
+
 @Component({
     selector: 'cc-reopen-chargeback-dialog',
     templateUrl: 'reopen-chargeback-dialog.component.html',
@@ -22,11 +24,7 @@ export class ReopenChargebackDialogComponent {
         bodyAmount: '',
         date: '',
     });
-    stages: (keyof InvoicePaymentChargebackStage)[] = [
-        'arbitration',
-        'chargeback',
-        'pre_arbitration',
-    ];
+    stages: (keyof InvoicePaymentChargebackStage)[] = ['arbitration'];
 
     constructor(
         private fb: FormBuilder,
@@ -35,13 +33,14 @@ export class ReopenChargebackDialogComponent {
             invoiceID: string;
             paymentID: string;
             chargebackID: string;
+            stage: keyof InvoicePaymentChargebackStage;
         },
         private dialogRef: MatDialogRef<ReopenChargebackDialogComponent>,
         private snackBar: MatSnackBar,
         private paymentProcessingService: PaymentProcessingService
     ) {}
 
-    changeStatus() {
+    reopen() {
         const { stage, leavyAmount, bodyAmount } = this.form.value;
         this.paymentProcessingService
             .reopenChargeback(
@@ -52,12 +51,16 @@ export class ReopenChargebackDialogComponent {
                     {},
                     !!stage && { move_to_stage: { [stage]: {} } },
                     !!bodyAmount && {
-                        amount: bodyAmount,
-                        currency: { symbolic_code: 'RUB' },
+                        body: {
+                            amount: toMinor(bodyAmount) as any,
+                            currency: { symbolic_code: 'RUB' },
+                        },
                     },
                     !!leavyAmount && {
-                        amount: leavyAmount,
-                        currency: { symbolic_code: 'RUB' },
+                        levy: {
+                            amount: toMinor(leavyAmount) as any,
+                            currency: { symbolic_code: 'RUB' },
+                        },
                     }
                 )
             )
