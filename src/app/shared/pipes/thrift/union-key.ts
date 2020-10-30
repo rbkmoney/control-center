@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { getUnionKey } from '../utils';
+import { getUnionKey } from '@cc/utils/get-union-key';
 
 @Pipe({
     name: 'ccUnionKey',

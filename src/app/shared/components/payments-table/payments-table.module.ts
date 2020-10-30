@@ -6,10 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 
-import { StatusModule } from '@cc/components/status';
-import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
-
-import { SharedPipesModule } from '../../pipes';
+import { ApiModelPipesModule, CommonPipesModule } from '../../pipes';
+import { StatusModule } from '../status';
 import { PaymentActionsPipe } from './payment-actions.pipe';
 import { PaymentsTableComponent } from './payments-table.component';
 
@@ -17,13 +15,13 @@ import { PaymentsTableComponent } from './payments-table.component';
     imports: [
         CommonModule,
         MatTableModule,
-        SharedPipesModule,
         FlexModule,
         StatusModule,
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
         CommonPipesModule,
+        ApiModelPipesModule,
     ],
     declarations: [PaymentsTableComponent, PaymentActionsPipe],
     exports: [PaymentsTableComponent],

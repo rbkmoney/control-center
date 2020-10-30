@@ -16,12 +16,11 @@ import {
     PaymentsMainSearchFiltersModule,
     PaymentsOtherSearchFiltersModule,
     PaymentsSearcherModule,
+    PaymentsTableModule,
+    StatusModule,
 } from '@cc/app/shared/components';
-import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
-import { StatusModule } from '@cc/components/status';
 
-import { PaymentsTableModule } from '../../shared/components/payments-table/payments-table.module';
 import { PartyPaymentsRoutingModule } from './party-payments-routing.module';
 import { PartyPaymentsComponent } from './party-payments.component';
 
@@ -29,7 +28,6 @@ import { PartyPaymentsComponent } from './party-payments.component';
     imports: [
         FlexModule,
         MatCardModule,
-        SharedPipesModule,
         MatProgressBarModule,
         CommonModule,
         MatButtonModule,

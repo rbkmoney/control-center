@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import startCase from 'lodash-es/startCase';
 
-import { getUnionKey } from '@cc/utils/index';
+import { getUnionKey } from '@cc/utils/get-union-key';
 
 @Pipe({
     name: 'toPaymentStatus',

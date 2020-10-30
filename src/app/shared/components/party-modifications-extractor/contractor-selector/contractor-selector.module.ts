@@ -12,7 +12,6 @@ import { MatTableModule } from '@angular/material/table';
 
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
-import { SharedPipesModule } from '../../../pipes';
 import { ContractorSelectorComponent } from './contractor-selector.component';
 import { ContractorsTableComponent } from './contractors-table/contractors-table.component';
 import { SelectorTypePipe } from './selector-type.pipe';
@@ -27,7 +26,6 @@ import { SelectorTypePipe } from './selector-type.pipe';
         MatInputModule,
         MatProgressSpinnerModule,
         MatCheckboxModule,
-        SharedPipesModule,
         MatTableModule,
         MatPaginatorModule,
         PrettyJsonModule,
