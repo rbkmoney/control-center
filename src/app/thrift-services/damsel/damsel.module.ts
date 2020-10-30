@@ -6,7 +6,7 @@ import { DomainTypedManager } from './domain-typed-manager';
 import { DomainService } from './domain.service';
 import { MerchantStatisticsService } from './merchant-statistics.service';
 import { PaymentProcessingService } from './payment-processing.service';
-import { PaymentRoutingRulesService } from './payment-routing-rules';
+import { PaymentRoutingRulesService } from './payment-routing-rules.service';
 
 @NgModule({
     providers: [

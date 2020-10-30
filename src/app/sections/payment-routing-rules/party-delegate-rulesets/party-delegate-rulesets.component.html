@@ -51,6 +51,17 @@
                             >
                                 Change target
                             </button>
+                            <button
+                                mat-menu-item
+                                (click)="
+                                    deleteRuleset(
+                                        element?.mainRuleset?.ref?.id,
+                                        element?.partyDelegate?.ruleset?.id
+                                    )
+                                "
+                            >
+                                Delete
+                            </button>
                         </mat-menu>
                     </td>
                 </ng-container>
