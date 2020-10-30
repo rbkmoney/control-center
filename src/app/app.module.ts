@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FlexModule } from '@angular/flex-layout';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
@@ -25,6 +26,7 @@ import { CoreModule } from './core/core.module';
 import { DepositsModule } from './deposits/deposits.module';
 import { DomainModule } from './domain';
 import icons from './icons.json';
+import { NotFoundComponent } from './not-found';
 import { PartyModule as OldPartyModule } from './party/party.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PayoutsModule } from './payouts/payouts.module';
@@ -43,7 +45,7 @@ import { ThemeManager, ThemeManagerModule, ThemeName } from './theme-manager';
 moment.locale('en');
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, NotFoundComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -71,6 +73,7 @@ moment.locale('en');
         OldPartyModule,
         SearchClaimsModule,
         OperationsModule,
+        FlexModule,
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },

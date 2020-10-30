@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 
 import { AppAuthGuardService } from '@cc/app/shared/services';
 
+import { NotFoundComponent } from './not-found';
+
 @NgModule({
     imports: [
         RouterModule.forRoot(
@@ -10,13 +12,22 @@ import { AppAuthGuardService } from '@cc/app/shared/services';
                 {
                     path: '',
                     redirectTo: '/payouts',
-                    pathMatch: 'full',
+                    pathMatch: 'full'
                 },
+                {
+                    path: '404',
+                    component: NotFoundComponent
+                },
+                // {
+                //     path: '**',
+                //     redirectTo: '/404'
+                // }
             ],
             { paramsInheritanceStrategy: 'always' }
-        ),
+        )
     ],
     providers: [AppAuthGuardService],
-    exports: [RouterModule],
+    exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
