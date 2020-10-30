@@ -15,7 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 
 import { QuestionaryDocumentModule } from '@cc/app/shared/components';
-import { HumanizeDurationModule } from '@cc/app/shared/pipes/common/humanize-duration';
+import { HumanizeDurationModule } from '@cc/app/shared/pipes/humanize-duration';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 import { TimelineModule } from '@cc/components/timeline';
 
