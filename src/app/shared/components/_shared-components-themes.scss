@@ -1,0 +1,7 @@
+@import './status/status-theme';
+@import './party-modification-creator/party-modification-creator-theme';
+
+@mixin cc-shared-components-themes($theme) {
+    @include cc-status-theme($theme);
+    @include cc-party-modification-creator-theme($theme);
+}

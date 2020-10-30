@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { CommonPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
 import { DetailsItemModule } from '@cc/components/details-item';
 import { HeadlineModule } from '@cc/components/headline';
 
@@ -48,7 +48,8 @@ const EXPORTED_DECLARATIONS = [
         MatSelectModule,
         MatInputModule,
         MatIconModule,
-        SharedPipesModule,
+        ThriftPipesModule,
+        CommonPipesModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

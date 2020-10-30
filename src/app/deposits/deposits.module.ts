@@ -13,7 +13,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 
-import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { CommonPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 
 import { FistfulAdminService } from '../thrift-services/fistful/fistful-admin.service';
@@ -35,7 +35,6 @@ import { SearchFormService } from './search-form/search-form.service';
         DepositsRoutingModule,
         FlexLayoutModule,
         MatCardModule,
-        SharedPipesModule,
         MatButtonToggleModule,
         MatButtonModule,
         MatFormFieldModule,
@@ -47,6 +46,8 @@ import { SearchFormService } from './search-form/search-form.service';
         MatDialogModule,
         MatDatepickerModule,
         CardContainerModule,
+        ThriftPipesModule,
+        CommonPipesModule,
     ],
     declarations: [
         DepositsComponent,

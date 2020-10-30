@@ -18,7 +18,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 
 import { FistfulModule } from '../thrift-services/fistful/fistful.module';
@@ -40,7 +39,7 @@ import { SimpleRepairComponent } from './simple-repair/simple-repair.component';
         RepairingRoutingModule,
         MatCardModule,
         MatButtonModule,
-        SharedPipesModule,
+
         MatProgressBarModule,
         MatTabsModule,
         MatTableModule,

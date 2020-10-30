@@ -18,7 +18,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
-import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
 import { DamselModule } from '../../../thrift-services';
@@ -48,7 +47,6 @@ import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-rules
         MatSelectModule,
         MatRadioModule,
         MatExpansionModule,
-        SharedPipesModule,
         PaymentRoutingRulesetHeaderModule,
         MatAutocompleteModule,
         AddShopPaymentRoutingRuleDialogModule,

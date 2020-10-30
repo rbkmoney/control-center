@@ -4,7 +4,6 @@ import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs'
 import { catchError, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { PartyModificationEmitter } from '@cc/app/shared/components';
-import { SHARE_REPLAY_CONF } from '@cc/utils/share-replay-conf';
 
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
 import {
@@ -42,7 +41,7 @@ export class UnsavedClaimChangesetService {
                 )
             );
         }),
-        shareReplay(SHARE_REPLAY_CONF)
+        shareReplay(1)
     );
 
     inProgress$ = progress(this.save$, merge(this.changesetUpdated$, this.hasError$));

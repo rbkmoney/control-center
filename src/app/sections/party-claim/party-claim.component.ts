@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { first, pluck, shareReplay } from 'rxjs/operators';
 
-import { SHARE_REPLAY_CONF } from '@cc/utils/share-replay-conf';
-
 import { FetchClaimService } from './fetch-claim.service';
 
 @Component({
@@ -13,8 +11,8 @@ import { FetchClaimService } from './fetch-claim.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartyClaimComponent implements OnInit {
-    claimID$ = this.route.params.pipe(pluck('claimID'), shareReplay(SHARE_REPLAY_CONF));
-    partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));
+    claimID$ = this.route.params.pipe(pluck('claimID'), shareReplay(1));
+    partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
     isLoading$ = this.fetchClaimService.isLoading$;
     createdAt$ = this.fetchClaimService.claim$.pipe(pluck('created_at'));
     changeset$ = this.fetchClaimService.claim$.pipe(pluck('changeset'));
