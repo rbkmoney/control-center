@@ -16,7 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
 import { ClaimSearchFormModule } from '@cc/app/shared/components';
-import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { ApiModelPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
@@ -43,10 +43,11 @@ import { SearchTableComponent } from './search-table/search-table.component';
         MatTableModule,
         ReactiveFormsModule,
         FlexLayoutModule,
-        SharedPipesModule,
         MatExpansionModule,
         ClaimSearchFormModule,
         EmptySearchResultModule,
+        ApiModelPipesModule,
+        ThriftPipesModule,
     ],
     declarations: [SearchClaimsComponent, SearchTableComponent, ClaimMailPipePipe],
     providers: [SearchClaimsService, ClaimManagementService],

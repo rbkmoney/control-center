@@ -1,13 +1,12 @@
 @import '~@angular/material/theming';
 
 @import '../../../components/components-themes';
+@import '../../shared/components/shared-components-themes';
 
 @import '../../sections/party/party-theme';
 @import '../../sections/chargeback-details/chargeback-details-theme';
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
 @import '../../sections/party-claim/party-claim-theme';
-
-@import '../../shared/components/party-modification-creator/party-modification-creator-theme';
 
 @mixin cc-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -15,9 +14,9 @@
         @include cc-party-theme($theme);
         @include cc-chargeback-details-theme($theme);
         @include cc-components-themes($theme);
+        @include cc-shared-components-themes($theme);
         @include cc-payment-routing-rules-theme($theme);
         @include cc-party-claim-theme($theme);
         @include cc-extract-party-modifications-theme($theme);
-        @include cc-party-modification-creator-theme($theme);
     }
 }

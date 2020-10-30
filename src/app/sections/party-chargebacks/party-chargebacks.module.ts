@@ -12,8 +12,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 
+import { StatusModule } from '@cc/app/shared/components';
 import { ChargebacksTableModule } from '@cc/app/shared/components/chargebacks-table';
-import { StatusModule } from '@cc/components/status';
 
 import {
     ChargebacksMainSearchFiltersModule,

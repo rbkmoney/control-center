@@ -10,7 +10,6 @@ import {
     OperationRole,
     PartyRole,
 } from '@cc/app/shared/services';
-import { SHARE_REPLAY_CONF } from '@cc/utils/index';
 
 @Component({
     templateUrl: 'party.component.html',
@@ -18,7 +17,7 @@ import { SHARE_REPLAY_CONF } from '@cc/utils/index';
 })
 export class PartyComponent {
     links = this.getLinks();
-    partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(SHARE_REPLAY_CONF));
+    partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
     activeLinkByFragment$ = this.router.events.pipe(
         filter((e) => e instanceof NavigationEnd),
         startWith(undefined),

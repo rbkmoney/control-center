@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
 import { PartyModificationCreatorModule } from '@cc/app/shared/components';
-import { SharedPipesModule } from '@cc/app/shared/pipes';
+import { ApiModelPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
 
 import { ClaimChangesetModule, UnsavedClaimChangesetModule } from './changeset';
 import { EditUnsavedModificationModule } from './changeset/unsaved-changeset/edit-unsaved-modification/edit-unsaved-modification.module';
@@ -32,11 +32,12 @@ import { PartyClaimComponent } from './party-claim.component';
         MatInputModule,
         EditUnsavedModificationModule,
         ClaimChangesetModule,
-        SharedPipesModule,
         MatProgressSpinnerModule,
         PartyClaimActionsModule,
         UnsavedClaimChangesetModule,
         PartyModificationCreatorModule,
+        ThriftPipesModule,
+        ApiModelPipesModule,
     ],
     declarations: [PartyClaimComponent, PartyClaimTitleComponent],
 })

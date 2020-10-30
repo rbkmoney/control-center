@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { decode, encode } from '@cc/utils/index';
+import { decode, encode } from '@cc/utils/java-thrift-formatter';
 
 import { ConfigService } from '../core/config.service';
 import { ClaimCreated, ClaimInfo, PartyModificationUnit } from './model';
