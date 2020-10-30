@@ -29,7 +29,6 @@ import { PartyTargetComponent } from './party-target/party-target.component';
         MatProgressSpinnerModule,
         MatSnackBarModule,
         MatCheckboxModule,
-
         PrettyJsonModule,
     ],
     declarations: [

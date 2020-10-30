@@ -27,7 +27,6 @@ import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payme
         MatIconModule,
         MatSelectModule,
         MatRadioModule,
-
         MatAutocompleteModule,
     ],
     declarations: [InitializePaymentRoutingRulesDialogComponent],

@@ -26,7 +26,6 @@ import { SelectorTypePipe } from './selector-type.pipe';
         MatInputModule,
         MatProgressSpinnerModule,
         MatCheckboxModule,
-
         MatTableModule,
         MatPaginatorModule,
         PrettyJsonModule,

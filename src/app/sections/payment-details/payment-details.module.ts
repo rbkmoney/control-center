@@ -25,7 +25,6 @@ import { PaymentToolModule } from './payment-main-info/payment-tool';
         PaymentDetailsRoutingModule,
         MatCardModule,
         DetailsItemModule,
-
         StatusModule,
         PaymentToolModule,
         MatProgressSpinnerModule,

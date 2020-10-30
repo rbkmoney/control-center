@@ -28,7 +28,6 @@ import { PartyPaymentsComponent } from './party-payments.component';
     imports: [
         FlexModule,
         MatCardModule,
-
         MatProgressBarModule,
         CommonModule,
         MatButtonModule,

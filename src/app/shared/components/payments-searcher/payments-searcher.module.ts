@@ -26,7 +26,6 @@ import { PaymentsSearcherComponent } from './payments-searcher.component';
     imports: [
         FlexModule,
         MatCardModule,
-
         MatProgressBarModule,
         CommonModule,
         MatButtonModule,

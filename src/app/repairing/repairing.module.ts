@@ -39,7 +39,6 @@ import { SimpleRepairComponent } from './simple-repair/simple-repair.component';
         RepairingRoutingModule,
         MatCardModule,
         MatButtonModule,
-
         MatProgressBarModule,
         MatTabsModule,
         MatTableModule,

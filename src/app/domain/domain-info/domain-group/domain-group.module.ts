@@ -42,7 +42,6 @@ import { GroupTableComponent } from './group-table';
         MatCardModule,
         MatCheckboxModule,
         MatSelectModule,
-
         MatSortModule,
         PrettyJsonModule,
     ],

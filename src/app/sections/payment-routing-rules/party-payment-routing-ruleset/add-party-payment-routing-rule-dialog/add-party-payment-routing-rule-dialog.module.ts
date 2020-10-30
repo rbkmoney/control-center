@@ -27,7 +27,6 @@ import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-r
         MatIconModule,
         MatSelectModule,
         MatRadioModule,
-
         MatAutocompleteModule,
     ],
     declarations: [AddPartyPaymentRoutingRuleDialogComponent],

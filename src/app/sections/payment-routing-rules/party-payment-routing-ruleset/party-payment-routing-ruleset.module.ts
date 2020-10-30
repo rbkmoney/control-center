@@ -45,7 +45,6 @@ import { PaymentRoutingRulesComponent } from './party-payment-routing-ruleset.co
         MatSelectModule,
         MatRadioModule,
         MatExpansionModule,
-
         PaymentRoutingRulesetHeaderModule,
         AddPartyPaymentRoutingRuleDialogModule,
         InitializePaymentRoutingRulesDialogModule,
