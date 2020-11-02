@@ -58,7 +58,12 @@
             ></cc-pretty-json>
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngIf="questionary?.data?.contact_info">
+        <mat-expansion-panel
+            *ngIf="
+                questionary?.data?.contact_info?.email ||
+                questionary?.data?.contact_info?.phone_number
+            "
+        >
             <mat-expansion-panel-header>
                 <mat-panel-title>Contact Info</mat-panel-title>
             </mat-expansion-panel-header>

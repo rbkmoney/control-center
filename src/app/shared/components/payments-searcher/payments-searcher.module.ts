@@ -13,21 +13,19 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
-import { StatusModule } from '@cc/components/status';
 
-import { SharedPipesModule } from '../../pipes';
 import {
     PaymentsMainSearchFiltersModule,
     PaymentsOtherSearchFiltersModule,
 } from '../payments-search-filters';
 import { PaymentsTableModule } from '../payments-table/payments-table.module';
+import { StatusModule } from '../status';
 import { PaymentsSearcherComponent } from './payments-searcher.component';
 
 @NgModule({
     imports: [
         FlexModule,
         MatCardModule,
-        SharedPipesModule,
         MatProgressBarModule,
         CommonModule,
         MatButtonModule,

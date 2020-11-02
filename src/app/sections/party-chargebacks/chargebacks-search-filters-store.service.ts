@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import pickBy from 'lodash-es/pickBy';
 
 import { QueryParamsStore } from '@cc/app/shared/services';
-import { wrapValuesToArray } from '@cc/utils/index';
+import { wrapValuesToArray } from '@cc/utils/wrap-values-to-array';
 
 import { FormValue } from './chargebacks-search-filters';
 

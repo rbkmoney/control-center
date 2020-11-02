@@ -15,14 +15,14 @@ import { combineLatest, from, of } from 'rxjs';
 import { filter, first, map, switchMap } from 'rxjs/operators';
 
 import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
-import { getUnionKey } from '@cc/utils/index';
+import { extractClaimStatus } from '@cc/app/shared/utils';
+import { getUnionKey } from '@cc/utils/get-union-key';
 
 import { ClaimStatus } from '../../../papi/model';
 import {
     PartyModificationEmitter,
     UnitActionsNavListComponent,
 } from '../../../party-modification-creator-legacy';
-import { extractClaimStatus } from '../../../shared/utils';
 import { Questionary } from '../../../thrift-services/ank/gen-model/questionary_manager';
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
 import { PartyModification } from '../../../thrift-services/damsel/gen-model/payment_processing';

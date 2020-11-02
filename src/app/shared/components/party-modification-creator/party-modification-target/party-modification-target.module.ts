@@ -14,7 +14,6 @@ import { MatTableModule } from '@angular/material/table';
 
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
-import { SharedPipesModule } from '../../../pipes';
 import { FillInUnitIdComponent } from './fill-in-unit-id/fill-in-unit-id.component';
 import { PartyItemNamePipe } from './party-item-name.pipe';
 import { PartyModificationTargetComponent } from './party-modification-target.component';
@@ -32,7 +31,6 @@ import { TargetTableComponent } from './target-table/target-table.component';
         MatProgressSpinnerModule,
         MatSnackBarModule,
         MatCheckboxModule,
-        SharedPipesModule,
         MatTableModule,
         MatTableModule,
         MatPaginatorModule,

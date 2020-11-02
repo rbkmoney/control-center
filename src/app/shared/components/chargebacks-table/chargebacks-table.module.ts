@@ -9,10 +9,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
-import { StatusModule } from '@cc/components/status';
-import { CommonPipesModule } from '@cc/pipes/common-pipes.module';
 
-import { SharedPipesModule } from '../../../shared';
+import {
+    ApiModelPipesModule,
+    CommonPipesModule,
+    StatusModule,
+    ThriftPipesModule,
+} from '../../../shared';
 import { ChargebacksTableComponent } from './chargebacks-table.component';
 import { FetchChargebacksService } from './fetch-chargebacks.service';
 
@@ -27,9 +30,10 @@ import { FetchChargebacksService } from './fetch-chargebacks.service';
         MatMenuModule,
         MatProgressSpinnerModule,
         EmptySearchResultModule,
-        CommonPipesModule,
-        SharedPipesModule,
         MatSnackBarModule,
+        ThriftPipesModule,
+        CommonPipesModule,
+        ApiModelPipesModule,
     ],
     declarations: [ChargebacksTableComponent],
     exports: [ChargebacksTableComponent],
