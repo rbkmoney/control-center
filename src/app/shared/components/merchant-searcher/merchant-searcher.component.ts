@@ -1,23 +1,14 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
-import {
-    AfterViewInit,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Optional,
-    Output,
-    Self,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, Optional, Self } from '@angular/core';
 import { FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { debounceTime, filter } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 
 import { CustomFormControl } from '@cc/components/utils';
 
-import { Party } from '../../../thrift-services/deanonimus/gen-model/deanonimus';
 import { FetchPartiesService } from '../../services';
 
 @Component({
@@ -26,15 +17,9 @@ import { FetchPartiesService } from '../../services';
     styleUrls: ['merchant-searcher.component.scss'],
     providers: [FetchPartiesService],
 })
-export class MerchantSearcherComponent extends CustomFormControl implements AfterViewInit {
-    @Output()
-    partySelected$ = new EventEmitter<Party>();
-
+export class MerchantSearcherComponent extends CustomFormControl implements OnInit {
     searchControl = new FormControl();
     parties$ = this.fetchMarchantsService.parties$;
-    isOptionsLoading$ = this.fetchMarchantsService.inProgress$;
-
-    private initialized = false;
 
     constructor(
         private fetchMarchantsService: FetchPartiesService,
@@ -65,8 +50,7 @@ export class MerchantSearcherComponent extends CustomFormControl implements Afte
             }
         });
 
-        this.parties$.pipe(filter(() => !this.initialized)).subscribe((parties) => {
-            this.initialized = true;
+        this.parties$.pipe(take(1)).subscribe((parties) => {
             const { value } = this.formControl;
             if (value && value !== '') {
                 const party = parties?.find((p) => p.id === this.formControl.value);
@@ -83,7 +67,7 @@ export class MerchantSearcherComponent extends CustomFormControl implements Afte
         this.searchControl.patchValue(value.email);
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
         super.ngAfterViewInit();
         const { value } = this.formControl;
         if (value && value !== '') {
