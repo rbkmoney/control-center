@@ -1,8 +1,23 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
+import { AutofillMonitor } from '@angular/cdk/text-field';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Optional,
+    Output,
+    Self,
+} from '@angular/core';
+import { FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { debounceTime } from 'rxjs/operators';
 
-import { PartyID } from '../../../thrift-services/deanonimus/gen-model/deanonimus';
+import { CustomFormControl } from '@cc/components/utils';
+
+import { Party } from '../../../thrift-services/deanonimus/gen-model/deanonimus';
 import { FetchPartiesService } from '../../services';
 
 @Component({
@@ -11,29 +26,52 @@ import { FetchPartiesService } from '../../services';
     styleUrls: ['merchant-searcher.component.scss'],
     providers: [FetchPartiesService],
 })
-export class MerchantSearcherComponent {
-    @Input()
-    set initValue(partyID: string) {
-        this.searchControl.patchValue(partyID);
-    }
-
+export class MerchantSearcherComponent extends CustomFormControl implements AfterViewInit {
     @Output()
-    partySelected$: EventEmitter<PartyID> = new EventEmitter();
+    partySelected$ = new EventEmitter<Party>();
 
-    parties$ = this.fetchMarchantsService.parties$;
     searchControl = new FormControl();
+    parties$ = this.fetchMarchantsService.parties$;
+    isOptionsLoading$ = this.fetchMarchantsService.inProgress$;
 
-    constructor(private fetchMarchantsService: FetchPartiesService) {
-        this.searchControl.valueChanges.pipe(debounceTime(400)).subscribe((text) => {
-            if (text !== '') {
-                this.fetchMarchantsService.search({ text });
+    constructor(
+        private fetchMarchantsService: FetchPartiesService,
+        focusMonitor: FocusMonitor,
+        elementRef: ElementRef<HTMLElement>,
+        @Optional() @Self() public ngControl: NgControl,
+        platform: Platform,
+        autofillMonitor: AutofillMonitor,
+        defaultErrorStateMatcher: ErrorStateMatcher,
+        @Optional() parentForm: NgForm,
+        @Optional() parentFormGroup: FormGroupDirective
+    ) {
+        super(
+            focusMonitor,
+            elementRef,
+            platform,
+            ngControl,
+            autofillMonitor,
+            defaultErrorStateMatcher,
+            parentForm,
+            parentFormGroup
+        );
+        this.searchControl.valueChanges.pipe(debounceTime(400)).subscribe((v) => {
+            if (v === '') {
+                this.formControl.patchValue(v);
             } else {
-                this.partySelected$.emit('');
+                this.fetchMarchantsService.searchParties({ text: v });
             }
         });
     }
 
-    partySelected(partyID: PartyID) {
-        this.partySelected$.emit(partyID);
+    optionSelectedHandler(e: MatAutocompleteSelectedEvent) {
+        const { value } = e.option;
+        this.formControl.patchValue(value.id);
+        this.searchControl.patchValue(value.email);
+    }
+
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+        this.searchControl.patchValue(this.formControl.value);
     }
 }

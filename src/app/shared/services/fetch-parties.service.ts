@@ -24,11 +24,12 @@ export class FetchPartiesService {
         filter((r) => r !== 'error'),
         map((hits: SearchHit[]) => hits.map((hit) => hit.party))
     );
+
     inProgress$ = progress(this.searchParties$, merge(this.parties$, this.hasError$));
 
     constructor(private deanonimusService: DeanonimusService) {}
 
-    search(params: PartiesSearchFiltersParams) {
+    searchParties(params: PartiesSearchFiltersParams) {
         this.searchParties$.next(params);
     }
 }
