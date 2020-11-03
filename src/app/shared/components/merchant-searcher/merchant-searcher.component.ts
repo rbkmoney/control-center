@@ -13,7 +13,7 @@ import {
 import { FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
 
 import { CustomFormControl } from '@cc/components/utils';
 
@@ -33,6 +33,8 @@ export class MerchantSearcherComponent extends CustomFormControl implements Afte
     searchControl = new FormControl();
     parties$ = this.fetchMarchantsService.parties$;
     isOptionsLoading$ = this.fetchMarchantsService.inProgress$;
+
+    private initialized = false;
 
     constructor(
         private fetchMarchantsService: FetchPartiesService,
@@ -62,6 +64,15 @@ export class MerchantSearcherComponent extends CustomFormControl implements Afte
                 this.fetchMarchantsService.searchParties({ text: v });
             }
         });
+
+        this.parties$.pipe(filter(() => !this.initialized)).subscribe((parties) => {
+            this.initialized = true;
+            const { value } = this.formControl;
+            if (value && value !== '') {
+                const { email } = parties.find((party) => party.id === this.formControl.value);
+                this.searchControl.patchValue(email);
+            }
+        });
     }
 
     optionSelectedHandler(e: MatAutocompleteSelectedEvent) {
@@ -72,6 +83,9 @@ export class MerchantSearcherComponent extends CustomFormControl implements Afte
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
-        this.searchControl.patchValue(this.formControl.value);
+        const { value } = this.formControl;
+        if (value && value !== '') {
+            this.fetchMarchantsService.searchParties({ text: value });
+        }
     }
 }
