@@ -69,8 +69,10 @@ export class MerchantSearcherComponent extends CustomFormControl implements Afte
             this.initialized = true;
             const { value } = this.formControl;
             if (value && value !== '') {
-                const { email } = parties.find((party) => party.id === this.formControl.value);
-                this.searchControl.patchValue(email);
+                const party = parties?.find((p) => p.id === this.formControl.value);
+                if (party) {
+                    this.searchControl.patchValue(party.email);
+                }
             }
         });
     }
@@ -85,6 +87,7 @@ export class MerchantSearcherComponent extends CustomFormControl implements Afte
         super.ngAfterViewInit();
         const { value } = this.formControl;
         if (value && value !== '') {
+            this.searchControl.patchValue(value);
             this.fetchMarchantsService.searchParties({ text: value });
         }
     }
