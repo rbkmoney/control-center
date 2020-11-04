@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { first, switchMap, take } from 'rxjs/operators';
+import { filter, first, switchMap, take } from 'rxjs/operators';
 
+import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
+
+import { PaymentRoutingRulesService } from '../../../thrift-services';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
 import { ChangeTargetDialogComponent } from './change-target-dialog';
 import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service';
@@ -19,6 +22,7 @@ export class PartyDelegateRulesetsComponent {
 
     constructor(
         private partyDelegateRulesetsService: PartyDelegateRulesetsService,
+        private paymentRoutingRulesService: PaymentRoutingRulesService,
         private router: Router,
         private dialog: MatDialog
     ) {}
@@ -48,16 +52,26 @@ export class PartyDelegateRulesetsComponent {
     }
 
     changeTarget(mainRulesetRefID: string, rulesetID: string) {
-        this.partyDelegateRulesetsService.partyID$
+        this.dialog
+            .open(ChangeTargetDialogComponent, {
+                ...ChangeTargetDialogComponent.defaultConfig,
+                data: { mainRulesetRefID, rulesetID },
+            })
+            .afterClosed()
+            .subscribe();
+    }
+
+    deleteRuleset(mainRulesetRefID: number, rulesetRefID: number) {
+        this.dialog
+            .open(ConfirmActionDialogComponent)
+            .afterClosed()
             .pipe(
-                take(1),
-                switchMap((partyID) =>
-                    this.dialog
-                        .open(ChangeTargetDialogComponent, {
-                            ...ChangeTargetDialogComponent.defaultConfig,
-                            data: { mainRulesetRefID, rulesetID },
-                        })
-                        .afterClosed()
+                filter((r) => r === 'confirm'),
+                switchMap(() =>
+                    this.paymentRoutingRulesService.deleteRulesetAndDelegate({
+                        mainRulesetRefID,
+                        rulesetRefID,
+                    })
                 )
             )
             .subscribe();

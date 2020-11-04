@@ -7,7 +7,7 @@ import {
     ContractorModificationUnit,
     PartyModification,
     ShopModificationUnit,
-} from '../../thrift-services/damsel/gen-model/claim_management';
+} from '../../../thrift-services/damsel/gen-model/claim_management';
 
 function getContractorModificationName(mod: ContractorModificationUnit): string {
     switch (getUnionKey(mod.modification)) {

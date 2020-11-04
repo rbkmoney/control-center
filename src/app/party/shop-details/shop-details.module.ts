@@ -21,7 +21,6 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { SharedPipesModule } from '@cc/app/shared/pipes';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
@@ -66,7 +65,6 @@ import { TerminalsComponent } from './terminals/terminals.component';
         MatMenuModule,
         MatProgressBarModule,
         MatChipsModule,
-        SharedPipesModule,
         PrettyJsonModule,
         CardContainerModule,
     ],

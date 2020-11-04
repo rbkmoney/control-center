@@ -1,4 +1,4 @@
-import { getUnionKey } from '@cc/utils/index';
+import { getUnionKey } from '@cc/utils/get-union-key';
 
 import { ModificationUnit } from '../../../../thrift-services/damsel/gen-model/claim_management';
 import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
