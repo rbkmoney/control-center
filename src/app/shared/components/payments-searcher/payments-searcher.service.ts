@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import isEmpty from 'lodash-es/isEmpty';
 import { ReplaySubject } from 'rxjs';
-import { filter, scan, shareReplay, skip } from 'rxjs/operators';
+import { scan, shareReplay, skip } from 'rxjs/operators';
 
 import { SearchFiltersParams } from '../payments-search-filters/search-filters-params';
 
@@ -10,7 +9,6 @@ export class PaymentsSearcherService {
     private searchParamsChange$ = new ReplaySubject<SearchFiltersParams>();
 
     searchParamsChanges$ = this.searchParamsChange$.pipe(
-        filter((v) => !isEmpty(v)),
         scan((acc, curr) => ({ ...acc, ...curr })),
         skip(1),
         shareReplay(1)
