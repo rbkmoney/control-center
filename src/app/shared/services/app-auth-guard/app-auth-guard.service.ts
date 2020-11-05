@@ -18,7 +18,23 @@ export class AppAuthGuardService extends KeycloakAuthGuard {
         return isRolesAllowed(this.keycloakAngular.getUserRoles(), roles);
     }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-        return super.canActivate(route, state);
+    canActivate(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ): Promise<boolean | UrlTree> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                this.authenticated = await this.keycloakAngular.isLoggedIn();
+                this.roles = await this.keycloakAngular.getUserRoles(true);
+
+                const result = await this.isAccessAllowed(route);
+                if (!result) {
+                    this.router.navigate(['404']);
+                }
+                resolve(result);
+            } catch (error) {
+                reject('An error happened during access validation. Details:' + error);
+            }
+        });
     }
 }
