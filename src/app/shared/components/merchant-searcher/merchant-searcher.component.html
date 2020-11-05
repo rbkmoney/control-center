@@ -1,3 +1,18 @@
 <mat-form-field fxFlex>
-    <input disabled type="text" placeholder="Merchant" matInput />
+    <input
+        type="text"
+        matInput
+        placeholder="Merchant"
+        [formControl]="searchControl"
+        [matAutocomplete]="auto"
+    />
+    <mat-autocomplete
+        autoActiveFirstOption
+        #auto="matAutocomplete"
+        (optionSelected)="optionSelectedHandler($event)"
+    >
+        <mat-option *ngFor="let party of parties$ | async" [value]="party">
+            {{ party.email }}
+        </mat-option>
+    </mat-autocomplete>
 </mat-form-field>

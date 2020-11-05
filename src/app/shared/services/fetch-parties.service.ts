@@ -3,9 +3,9 @@ import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { merge, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
+import { PartiesSearchFiltersParams } from '../../sections/search-parties/parties-search-filters';
 import { DeanonimusService } from '../../thrift-services/deanonimus';
 import { SearchHit } from '../../thrift-services/deanonimus/gen-model/deanonimus';
-import { PartiesSearchFiltersParams } from './parties-search-filters';
 
 @Injectable()
 export class FetchPartiesService {
@@ -24,11 +24,12 @@ export class FetchPartiesService {
         filter((r) => r !== 'error'),
         map((hits: SearchHit[]) => hits.map((hit) => hit.party))
     );
+
     inProgress$ = progress(this.searchParties$, merge(this.parties$, this.hasError$));
 
     constructor(private deanonimusService: DeanonimusService) {}
 
-    search(params: PartiesSearchFiltersParams) {
+    searchParties(params: PartiesSearchFiltersParams) {
         this.searchParties$.next(params);
     }
 }
