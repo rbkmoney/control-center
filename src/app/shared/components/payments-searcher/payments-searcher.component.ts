@@ -76,8 +76,15 @@ export class PaymentsSearcherComponent implements OnInit {
         private snackBar: MatSnackBar
     ) {
         this.paymentsSearcherService.searchParamsChanges$.subscribe((params) => {
-            this.fetchPaymentsService.search(params);
-            this.searchParamsChanged$.emit(params);
+            const searchParams = {
+                ...params,
+                partyID:
+                    this.mainFilterSearchType.type === MainSearchType.PartySearchFilter
+                        ? this.searcherType.partyID
+                        : params.partyID,
+            };
+            this.fetchPaymentsService.search(searchParams);
+            this.searchParamsChanged$.emit(searchParams);
         });
     }
 
@@ -92,10 +99,7 @@ export class PaymentsSearcherComponent implements OnInit {
     }
 
     searchParamsChanges(params: SearchFiltersParams) {
-        this.paymentsSearcherService.searchParamsChanges({
-            ...params,
-            partyID: params.partyID ? params.partyID : this.searcherType.partyID,
-        });
+        this.paymentsSearcherService.searchParamsChanges(params);
     }
 
     paymentMenuItemSelected(paymentMenuItemEvent: PaymentMenuItemEvent) {
