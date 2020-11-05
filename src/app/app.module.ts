@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FlexModule } from '@angular/flex-layout';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
@@ -73,7 +72,6 @@ moment.locale('en');
         OldPartyModule,
         SearchClaimsModule,
         OperationsModule,
-        FlexModule,
         // It is important that NotFoundModule module should be last
         NotFoundModule,
     ],
