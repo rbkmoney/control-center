@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FetchPartiesService } from './fetch-parties.service';
+import { FetchPartiesService } from '@cc/app/shared/services/fetch-parties.service';
+
 import { PartiesSearchFiltersParams } from './parties-search-filters';
 import { PartyActions } from './parties-table/party-actions';
 import { PartyMenuItemEvent } from './parties-table/party-menu-item-event';
@@ -25,7 +26,7 @@ export class SearchPartiesComponent {
 
     searchParamsUpdated($event: PartiesSearchFiltersParams) {
         this.partiesService.preserve($event);
-        this.fetchPartiesService.search($event);
+        this.fetchPartiesService.searchParties($event);
     }
 
     partyMenuItemSelected(event: PartyMenuItemEvent) {
