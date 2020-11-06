@@ -25,6 +25,7 @@ import { CoreModule } from './core/core.module';
 import { DepositsModule } from './deposits/deposits.module';
 import { DomainModule } from './domain';
 import icons from './icons.json';
+import { NotFoundModule } from './not-found';
 import { PartyModule as OldPartyModule } from './party/party.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PayoutsModule } from './payouts/payouts.module';
@@ -71,6 +72,8 @@ moment.locale('en');
         OldPartyModule,
         SearchClaimsModule,
         OperationsModule,
+        // It is important that NotFoundModule module should be last
+        NotFoundModule,
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
