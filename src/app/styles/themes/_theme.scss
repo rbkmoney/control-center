@@ -8,6 +8,8 @@
 @import '../../sections/payment-routing-rules/payment-routing-rules-theme';
 @import '../../sections/party-claim/party-claim-theme';
 
+@import '../../not-found/not-found-theme';
+
 @mixin cc-theme($theme) {
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
@@ -18,5 +20,6 @@
         @include cc-payment-routing-rules-theme($theme);
         @include cc-party-claim-theme($theme);
         @include cc-extract-party-modifications-theme($theme);
+        @include cc-not-found-theme($theme);
     }
 }
