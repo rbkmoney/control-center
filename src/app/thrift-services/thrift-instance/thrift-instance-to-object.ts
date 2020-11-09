@@ -26,7 +26,7 @@ export function thriftInstanceToObject<T extends { [N in string]: any }, V exten
         switch (type.name) {
             case 'map':
                 return new Map(
-                    Array.from(value as any[]).map(([k, v]) => [
+                    Array.from(value as Map<any, any>).map(([k, v]) => [
                         internalThriftInstanceToObject(type.keyType, k),
                         internalThriftInstanceToObject(type.valueType, v),
                     ])
@@ -37,7 +37,9 @@ export function thriftInstanceToObject<T extends { [N in string]: any }, V exten
                 ) as V;
             case 'set':
                 return new Set(
-                    (value as any[]).map((v) => internalThriftInstanceToObject(type.valueType, v))
+                    Array.from(value as Set<any>).map((v) =>
+                        internalThriftInstanceToObject(type.valueType, v)
+                    )
                 ) as V;
             default:
                 throw new Error('Unknown complex thrift type');
