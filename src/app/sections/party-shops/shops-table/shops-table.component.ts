@@ -33,9 +33,15 @@ export class ShopsTableComponent implements OnChanges {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    navigateToShop(shopID: string) {
+    navigateToDeprecatedShop(shopID: string) {
         this.route.params.pipe(pluck('partyID')).subscribe((partyID) => {
             this.router.navigate([`/party-old/${partyID}/shop/${shopID}`]);
+        });
+    }
+
+    navigateToShop(shopID: string) {
+        this.route.params.pipe(pluck('partyID')).subscribe((partyID) => {
+            this.router.navigate([`/party/${partyID}/shop/${shopID}`]);
         });
     }
 }

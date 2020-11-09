@@ -37,6 +37,11 @@ import { PartyComponent } from './party.component';
                             import('../party-shops').then((m) => m.PartyShopsModule),
                     },
                     {
+                        path: 'shop/:shopID',
+                        loadChildren: () =>
+                            import('../shop-details').then((m) => m.ShopDetailsModule),
+                    },
+                    {
                         path: 'invoice/:invoiceID/payment/:paymentID',
                         loadChildren: () =>
                             import('../payment-details').then((m) => m.PaymentDetailsModule),
