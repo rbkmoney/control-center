@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { pluck, shareReplay } from 'rxjs/operators';
 
 import { FetchShopService } from './fetch-shop.service';
 
@@ -8,6 +9,9 @@ import { FetchShopService } from './fetch-shop.service';
     providers: [FetchShopService],
 })
 export class ShopDetailsComponent {
+    partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
+    shopID$ = this.route.params.pipe(pluck('shopID'), shareReplay(1));
+
     shop$ = this.fetchShopService.shop$;
     inProgress$ = this.fetchShopService.inProgress$;
 

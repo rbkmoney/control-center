@@ -36,7 +36,7 @@
         </div>
         <div *ngIf="shop?.category?.id" fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">Category:</label>
-            <div><cc-category [categoryID]="shop.category.id"></cc-category></div>
+            <div><cc-category [category]="shop.category.id"></cc-category></div>
         </div>
         <div *ngIf="shop?.location?.url" fxLayout="row" fxLayout.xs="column">
             <label fxFlex="20">URL:</label>

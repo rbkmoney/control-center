@@ -6,6 +6,10 @@
                 <cc-shop-main-info [shop]="shop"></cc-shop-main-info>
             </mat-card-content>
         </mat-card>
+        <cc-shop-providers
+            [partyID]="partyID$ | async"
+            [shopID]="shopID$ | async"
+        ></cc-shop-providers>
     </ng-container>
     <div *ngIf="inProgress$ | async" fxLayout fxLayoutAlign="center center">
         <mat-spinner diameter="64"></mat-spinner>
