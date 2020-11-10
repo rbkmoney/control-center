@@ -4,7 +4,7 @@ import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { combineLatest, of } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { PartyService } from '../../party/party.service';
+import { PartyService } from '../../papi/party.service';
 import { QueryDSL } from '../../query-dsl';
 import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
 
