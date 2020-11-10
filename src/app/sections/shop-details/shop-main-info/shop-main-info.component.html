@@ -14,9 +14,9 @@
         <cc-details-item *ngIf="shop.created_at" fxFlex title="Created at">{{
             shop.created_at | date: 'dd.MM.yyyy HH:mm:ss'
         }}</cc-details-item>
-        <cc-details-item *ngIf="shop.location.url" fxFlex title="URL">{{
-            shop.location.url
-        }}</cc-details-item>
+        <cc-details-item *ngIf="shop.location.url" fxFlex title="URL"
+            ><a href="{{ shop.location.url }}">{{ shop.location.url }}</a></cc-details-item
+        >
         <cc-details-item *ngIf="shop.account.currency.symbolic_code" fxFlex title="Currency">{{
             shop.account.currency.symbolic_code
         }}</cc-details-item>
