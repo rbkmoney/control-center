@@ -1,1 +1,13 @@
-shop-details
+<div fxLayout="column" fxLayoutGap="24px">
+    <cc-headline>Shop details</cc-headline>
+    <ng-container *ngIf="shop$ | async as shop">
+        <mat-card>
+            <mat-card-content>
+                <cc-shop-main-info [shop]="shop"></cc-shop-main-info>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+    <div *ngIf="inProgress$ | async" fxLayout fxLayoutAlign="center center">
+        <mat-spinner diameter="64"></mat-spinner>
+    </div>
+</div>

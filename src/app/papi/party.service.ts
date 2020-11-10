@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { decode } from '@cc/utils/java-thrift-formatter';
 
 import { ConfigService } from '../core/config.service';
-import { Party } from '../thrift-services/damsel/gen-model/domain';
+import { Party, Shop } from '../thrift-services/damsel/gen-model/domain';
 import { ContractTemplate } from './model';
 
 @Injectable()
@@ -22,4 +22,10 @@ export class PartyService {
             .get<ContractTemplate[]>(`${this.papiEndpoint}/parties/${partyId}`)
             .pipe(map((party) => decode(party)));
     }
+
+    getShops = (partyID: string): Observable<Shop[]> =>
+        this.getParty(partyID).pipe(map((party) => Array.from(party.shops.values())));
+
+    getShop = (partyID: string, shopID: string): Observable<Shop> =>
+        this.getShops(partyID).pipe(map((shops) => shops.find((shop) => shop.id === shopID)));
 }
