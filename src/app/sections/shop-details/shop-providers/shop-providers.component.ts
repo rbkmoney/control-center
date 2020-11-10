@@ -6,7 +6,7 @@ import { FetchShopProvidersService } from './fetch-shop-providers.service';
 @Component({
     selector: 'cc-shop-providers',
     templateUrl: 'shop-providers.component.html',
-    providers: [FetchShopProvidersService]
+    providers: [FetchShopProvidersService],
 })
 export class ShopProvidersComponent implements OnInit {
     @Input()
@@ -18,7 +18,7 @@ export class ShopProvidersComponent implements OnInit {
     providers$ = this.fetchProvidersService.providers$;
 
     constructor(private fetchProvidersService: FetchShopProvidersService) {
-        this.providers$.subscribe(q => console.log(q));
+        this.providers$.subscribe((q) => console.log(q));
     }
 
     ngOnInit() {
