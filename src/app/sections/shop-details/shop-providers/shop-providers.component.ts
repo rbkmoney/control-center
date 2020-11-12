@@ -15,13 +15,20 @@ export class ShopProvidersComponent implements OnInit {
     @Input()
     shopID: ShopID;
 
-    providers$ = this.fetchProvidersService.providers$;
+    providerInfos$ = this.fetchProvidersService.providerInfos$;
 
     constructor(private fetchProvidersService: FetchShopProvidersService) {
-        this.providers$.subscribe((q) => console.log(q));
     }
 
     ngOnInit() {
-        this.fetchProvidersService.getProviders(this.partyID, this.shopID);
+        this.getProviders();
+    }
+
+    terminalChanged() {
+        this.getProviders();
+    }
+
+    getProviders() {
+        this.fetchProvidersService.getProviderInfos(this.partyID, this.shopID);
     }
 }

@@ -1,11 +1,12 @@
 <div fxLayout="column" fxLayoutGap="24px">
-    <cc-headline>Shop details</cc-headline>
     <ng-container *ngIf="shop$ | async as shop">
+        <cc-headline>Shop details</cc-headline>
         <mat-card>
             <mat-card-content>
                 <cc-shop-main-info [shop]="shop"></cc-shop-main-info>
             </mat-card-content>
         </mat-card>
+        <cc-headline>Shop providers</cc-headline>
         <cc-shop-providers
             [partyID]="partyID$ | async"
             [shopID]="shopID$ | async"

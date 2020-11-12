@@ -1,0 +1,5 @@
+<cc-provider
+    *ngFor="let providerInfo of providerInfos$ | async"
+    [providerInfo]="providerInfo"
+    (terminalChanged)="terminalChanged()"
+></cc-provider>

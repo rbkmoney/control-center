@@ -9,48 +9,27 @@ import { toProviderInfos } from './to-provider-infos';
 
 @Injectable()
 export class FetchShopProvidersService {
-    private getProviders$ = new Subject<{ partyID: PartyID; shopID: ShopID }>();
+    private getProviderInfos$ = new Subject<{ partyID: PartyID; shopID: ShopID }>();
 
-    providers$ = this.getProviders$.pipe(
+    providerInfos$ = this.getProviderInfos$.pipe(
         switchMap(({ partyID, shopID }) =>
             combineLatest([
                 this.partyService.getShop(partyID, shopID),
                 this.dtm.getProviderObjects(),
                 this.dtm.getTerminalObjects(),
             ]).pipe(
-                switchMap(([shop, providers, terminalObjects]) =>
-                    this.partyService.getContract(partyID, shop.contract_id).pipe(
-                        map((contract) => ({
-                            contract,
-                            providerInfo: toProviderInfos(
-                                providers,
-                                terminalObjects,
-                                partyID,
-                                shopID
-                            ),
-                            shop,
-                        }))
-                    )
-                ),
-                switchMap(({ contract, providerInfo, shop }) =>
-                    this.partyService.getPayoutTool(partyID, contract.id, shop.payout_tool_id).pipe(
-                        map((payoutTool) => ({
-                            payoutTool,
-                            shop,
-                            providerInfo,
-                            contract,
-                        }))
-                    )
+                map(([shop, providers, terminalObjects]) =>
+                    toProviderInfos(providers, terminalObjects, partyID, shopID)
                 )
             )
         )
     );
 
     constructor(private partyService: PartyService, private dtm: DomainTypedManager) {
-        this.providers$.subscribe();
+        this.providerInfos$.subscribe();
     }
 
-    getProviders(partyID: PartyID, shopID: ShopID) {
-        this.getProviders$.next({ partyID, shopID });
+    getProviderInfos(partyID: PartyID, shopID: ShopID) {
+        this.getProviderInfos$.next({ partyID, shopID });
     }
 }
