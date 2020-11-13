@@ -10,7 +10,7 @@ import { StatRefund } from '../../../thrift-services/damsel/gen-model/merch_stat
 import { MerchantStatisticsService } from '../../../thrift-services/damsel/merchant-statistics.service';
 import { RefundsSearchParams } from './refunds-search-params';
 
-const SEARCH_LIMIT = 10;
+const SEARCH_LIMIT = 5;
 
 @Injectable()
 export class FetchRefundsService extends PartialFetcher<StatRefund, RefundsSearchParams> {
