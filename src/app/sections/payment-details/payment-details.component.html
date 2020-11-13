@@ -12,10 +12,10 @@
         <mat-card>
             <mat-card-content>
                 <h2 class="cc-headline">Refunds</h2>
-                <cc-refunds-table
+                <cc-payment-refunds
                     [paymentID]="payment.id"
                     [invoiceID]="payment.invoice_id"
-                ></cc-refunds-table>
+                ></cc-payment-refunds>
             </mat-card-content>
         </mat-card>
         <mat-card *ngIf="userHasRole(ChargebackRole.View)" fxLayout="column" fxLayoutGap="32px">
