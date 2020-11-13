@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { RefundsTableModule, StatusModule } from '@cc/app/shared/components';
+import { StatusModule } from '@cc/app/shared/components';
 import { ChargebacksTableModule } from '@cc/app/shared/components/chargebacks-table';
 import { CreateChargebackDialogModule } from '@cc/app/shared/components/create-chargeback-dialog';
 import { DetailsItemModule } from '@cc/components/details-item';
@@ -16,6 +16,7 @@ import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentMainInfoModule } from './payment-main-info';
 import { PaymentToolModule } from './payment-main-info/payment-tool';
+import { RefundsTableModule } from './refunds-table';
 
 @NgModule({
     imports: [

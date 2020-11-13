@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { ComponentChanges } from '@cc/app/shared/utils/component-changes';
+
 import { RefundsParams } from '../../../query-dsl';
 import { InvoiceID, InvoicePaymentID } from '../../../thrift-services/damsel/gen-model/domain';
 import { InvoicePaymentRefundStatus } from '../../../thrift-services/damsel/gen-model/merch_stat';
-import { ComponentChanges } from '../../utils/component-changes';
 import { FetchRefundsService } from './fetch-refunds.service';
 
 @Component({

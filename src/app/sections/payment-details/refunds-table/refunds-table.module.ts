@@ -8,10 +8,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
+import { StatusModule } from '@cc/app/shared/components/status';
+import { CommonPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 
-import { CommonPipesModule, ThriftPipesModule } from '../../pipes';
-import { StatusModule } from '../status';
 import { FetchRefundsService } from './fetch-refunds.service';
 import { RefundsTableComponent } from './refunds-table.component';
 
