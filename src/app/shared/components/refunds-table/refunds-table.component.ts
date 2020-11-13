@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 
 import { RefundsParams } from '../../../query-dsl';
 import { InvoiceID, InvoicePaymentID } from '../../../thrift-services/damsel/gen-model/domain';
