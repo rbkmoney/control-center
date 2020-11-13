@@ -30,10 +30,7 @@ export class RefundsTableComponent implements OnInit, OnChanges {
         failed: 'Failed',
     };
 
-    constructor(
-        private fetchRefundsService: FetchRefundsService,
-        private snackBar: MatSnackBar
-    ) {}
+    constructor(private fetchRefundsService: FetchRefundsService, private snackBar: MatSnackBar) {}
 
     ngOnInit() {
         this.fetchRefundsService.search({
