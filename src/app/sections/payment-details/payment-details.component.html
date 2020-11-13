@@ -9,6 +9,15 @@
                 ></cc-payment-main-info>
             </mat-card-content>
         </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <h2 class="cc-headline">Refunds</h2>
+                <cc-refunds-table
+                    [paymentID]="payment.id"
+                    [invoiceID]="payment.invoice_id"
+                ></cc-refunds-table>
+            </mat-card-content>
+        </mat-card>
         <mat-card *ngIf="userHasRole(ChargebackRole.View)" fxLayout="column" fxLayoutGap="32px">
             <div fxLayout fxLayoutAlign="space-between">
                 <h2 class="cc-headline">Chargebacks</h2>
@@ -23,7 +32,7 @@
             </div>
             <cc-chargebacks-table
                 [partyID]="partyID$ | async"
-                [searchParams]="chargebackSerchParams$ | async"
+                [searchParams]="chargebackSearchParams$ | async"
                 [displayedColumns]="['createdAt', 'status', 'stage', 'levyAmount', 'actions']"
             ></cc-chargebacks-table>
         </mat-card>
