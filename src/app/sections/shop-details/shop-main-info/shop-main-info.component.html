@@ -1,41 +1,58 @@
 <div fxLayout="column" fxLayoutGap="16px">
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxLayout.lt-sm="column">
-        <cc-details-item *ngIf="shop.details.name" fxFlex title="Name">{{
-            shop.details.name
-        }}</cc-details-item>
-        <cc-details-item *ngIf="shop.details.description" fxFlex title="Description">{{
-            shop.details.description
-        }}</cc-details-item>
-        <cc-details-item *ngIf="shop.category.id" fxFlex title="Category">
+    <div
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        fxLayoutGap="16px"
+        fxLayout.lt-sm="column"
+        fxLayoutAlign.lt-sm="start"
+    >
+        <cc-details-item fxFlex title="Name">{{ shop.details.name }}</cc-details-item>
+        <cc-details-item fxFlex title="Description">{{ shop.details.description }}</cc-details-item>
+        <cc-details-item fxFlex title="Category">
             <cc-category [category]="shop.category.id"></cc-category>
         </cc-details-item>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxLayout.lt-sm="column">
-        <cc-details-item *ngIf="shop.created_at" fxFlex title="Created at">{{
+    <div
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        fxLayoutGap="16px"
+        fxLayout.lt-sm="column"
+        fxLayoutAlign.lt-sm="start"
+    >
+        <cc-details-item fxFlex title="Created at">{{
             shop.created_at | date: 'dd.MM.yyyy HH:mm:ss'
         }}</cc-details-item>
-        <cc-details-item *ngIf="shop.location.url" fxFlex title="URL">{{
-            shop.location.url
-        }}</cc-details-item>
-        <cc-details-item *ngIf="shop.account.currency.symbolic_code" fxFlex title="Currency">{{
+        <cc-details-item fxFlex title="URL"
+            ><a href="{{ shop.location.url }}">{{ shop.location.url }}</a></cc-details-item
+        >
+        <cc-details-item fxFlex title="Currency">{{
             shop.account.currency.symbolic_code
         }}</cc-details-item>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxLayout.lt-sm="column">
-        <cc-details-item *ngIf="shop.blocking" fxFlex title="Blocking">{{
+    <div
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        fxLayoutGap="16px"
+        fxLayout.lt-sm="column"
+        fxLayoutAlign.lt-sm="start"
+    >
+        <cc-details-item fxFlex title="Blocking">{{
             shop.blocking | ccBlockingPipe
         }}</cc-details-item>
-        <cc-details-item *ngIf="shop.suspension" fxFlex title="Suspension">
+        <cc-details-item fxFlex title="Suspension">
             {{ shop.suspension | ccSuspensionPipe }}
         </cc-details-item>
+        <div fxFlex title="Suspension"></div>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxLayout.lt-sm="column">
-        <cc-details-item *ngIf="shop.payout_tool_id" fxFlex title="Payout tool ID">{{
-            shop.payout_tool_id
-        }}</cc-details-item>
-        <cc-details-item *ngIf="shop.id" fxFlex title="Shop ID">{{ shop.id }}</cc-details-item>
-        <cc-details-item *ngIf="shop.contract_id" fxFlex title="Contract ID">{{
-            shop.contract_id
-        }}</cc-details-item>
+    <div
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        fxLayoutGap="16px"
+        fxLayout.lt-sm="column"
+        fxLayoutAlign.lt-sm="start"
+    >
+        <cc-details-item fxFlex title="Payout tool ID">{{ shop.payout_tool_id }}</cc-details-item>
+        <cc-details-item fxFlex title="Shop ID">{{ shop.id }}</cc-details-item>
+        <cc-details-item fxFlex title="Contract ID">{{ shop.contract_id }}</cc-details-item>
     </div>
 </div>
