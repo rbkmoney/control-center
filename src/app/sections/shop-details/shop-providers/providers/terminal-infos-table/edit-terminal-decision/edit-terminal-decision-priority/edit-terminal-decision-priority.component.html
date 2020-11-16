@@ -1,0 +1,17 @@
+<div class="mat-dialog-title">Edit priority</div>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <mat-form-field fxFlex>
+            <input matInput type="number" formControlName="value" />
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div>
+        <button mat-button (click)="edit()" [disabled]="isLoading$ | async">SAVE</button>
+        <button mat-button [mat-dialog-close]="false" [disabled]="isLoading$ | async">
+            CANCEL
+        </button>
+    </div>
+    <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>

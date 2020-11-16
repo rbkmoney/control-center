@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 
@@ -7,6 +7,7 @@ import { FetchShopService } from './fetch-shop.service';
 @Component({
     templateUrl: 'shop-details.component.html',
     providers: [FetchShopService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopDetailsComponent {
     partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));

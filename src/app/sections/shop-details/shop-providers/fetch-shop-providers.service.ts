@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { combineLatest, Subject } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { PartyService } from '../../../papi/party.service';
 import { DomainTypedManager } from '../../../thrift-services/damsel';
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
 import { toProviderInfos } from './to-provider-infos';
@@ -13,19 +13,18 @@ export class FetchShopProvidersService {
 
     providerInfos$ = this.getProviderInfos$.pipe(
         switchMap(({ partyID, shopID }) =>
-            combineLatest([
-                this.partyService.getShop(partyID, shopID),
-                this.dtm.getProviderObjects(),
-                this.dtm.getTerminalObjects(),
-            ]).pipe(
-                map(([shop, providers, terminalObjects]) =>
+            combineLatest([this.dtm.getProviderObjects(), this.dtm.getTerminalObjects()]).pipe(
+                map(([providers, terminalObjects]) =>
                     toProviderInfos(providers, terminalObjects, partyID, shopID)
                 )
             )
-        )
+        ),
+        shareReplay(1)
     );
 
-    constructor(private partyService: PartyService, private dtm: DomainTypedManager) {
+    inProgress$ = progress(this.getProviderInfos$, this.providerInfos$).pipe(startWith(true));
+
+    constructor(private dtm: DomainTypedManager) {
         this.providerInfos$.subscribe();
     }
 

@@ -54,20 +54,19 @@
             <mat-menu #appMenu="matMenu">
                 <button
                     mat-menu-item
+                    (click)="editPriority(terminalInfo.terminal.ref.id)"
                     [disabled]="!isWeightOrPriorityEditable(terminalInfo.predicateType)"
                 >
-                    <mat-icon>edit</mat-icon>
                     <span>Edit priority</span>
                 </button>
                 <button
                     mat-menu-item
+                    (click)="editWeight(terminalInfo.terminal.ref.id)"
                     [disabled]="!isWeightOrPriorityEditable(terminalInfo.predicateType)"
                 >
-                    <mat-icon>edit</mat-icon>
                     <span>Edit weight</span>
                 </button>
                 <button mat-menu-item [disabled]="!isEditable(terminalInfo.predicateType)">
-                    <mat-icon>delete</mat-icon>
                     <span>Remove</span>
                 </button>
             </mat-menu>
