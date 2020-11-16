@@ -1,0 +1,20 @@
+<div *ngIf="(refunds$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="24px">
+    <cc-refunds-table [refunds]="refunds$ | async"></cc-refunds-table>
+    <button
+        fxFlex="100"
+        mat-button
+        *ngIf="hasMore$ | async"
+        (click)="fetchMore()"
+        [disabled]="doAction$ | async"
+    >
+        {{ (doAction$ | async) ? 'LOADING...' : 'SHOW MORE' }}
+    </button>
+</div>
+<ng-template #empty>
+    <div *ngIf="isLoading$ | async; else emptyResult" fxLayout fxLayoutAlign="center center">
+        <mat-spinner diameter="64"></mat-spinner>
+    </div>
+    <ng-template #emptyResult>
+        <cc-empty-search-result unwrapped></cc-empty-search-result>
+    </ng-template>
+</ng-template>
