@@ -22,4 +22,7 @@ export class MerchantStatisticsService extends ThriftService {
         this.toObservableAction('GetChargebacks')(
             createDamselInstance('merch_stat', 'StatRequest', req)
         ).pipe(map((r) => damselInstanceToObject('merch_stat', 'StatResponse', r)));
+
+    getStatistics = (req: StatRequest): Observable<StatResponse> =>
+        this.toObservableAction('GetStatistics')(new ThriftStatRequest(req));
 }

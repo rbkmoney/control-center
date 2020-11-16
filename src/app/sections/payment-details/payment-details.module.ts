@@ -16,6 +16,7 @@ import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentMainInfoModule } from './payment-main-info';
 import { PaymentToolModule } from './payment-main-info/payment-tool';
+import { PaymentRefundsModule } from './payment-refunds';
 
 @NgModule({
     imports: [
@@ -33,6 +34,7 @@ import { PaymentToolModule } from './payment-main-info/payment-tool';
         MatButtonModule,
         MatDialogModule,
         CreateChargebackDialogModule,
+        PaymentRefundsModule,
     ],
     declarations: [PaymentDetailsComponent],
 })
