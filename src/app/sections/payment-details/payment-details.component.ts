@@ -21,7 +21,7 @@ export class PaymentDetailsComponent {
     isLoading$ = this.paymentDetailsService.isLoading$;
     shop$ = this.paymentDetailsService.shop$;
     updateSearchParams$ = new Subject();
-    chargebackSerchParams$ = merge(
+    chargebackSearchParams$ = merge(
         this.payment$,
         this.updateSearchParams$.pipe(withLatestFrom(this.payment$, (_, p) => p))
     ).pipe(
