@@ -1,0 +1,4 @@
+<ng-container *ngIf="category$ | async as category; else isLoading">
+    {{ category?.name }} (ID: {{ categoryID }})
+</ng-container>
+<ng-template #isLoading> ID: {{ categoryID }} </ng-template>

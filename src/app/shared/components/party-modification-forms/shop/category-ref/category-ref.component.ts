@@ -46,7 +46,7 @@ export class CategoryRefComponent implements OnInit {
                 this.required ? Validators.required : null
             )
         );
-        this.categories$ = this.categoryService.getCategories().pipe(
+        this.categories$ = this.categoryService.categories$.pipe(
             map((categories) => sortBy(categories, 'id')),
             tap(
                 () => {
