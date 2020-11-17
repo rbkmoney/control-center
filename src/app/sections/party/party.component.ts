@@ -45,7 +45,12 @@ export class PartyComponent {
                 otherActiveUrlFragments: ['claim'],
                 activateRoles: [ClaimManagementRole.GetClaims],
             },
-            { name: 'Shops', url: 'shops', activateRoles: [PartyRole.Get] },
+            {
+                name: 'Shops',
+                url: 'shops',
+                activateRoles: [PartyRole.Get],
+                otherActiveUrlFragments: ['shop'],
+            },
             {
                 name: 'Payment Routing Rules',
                 url: 'payment-routing-rules',
