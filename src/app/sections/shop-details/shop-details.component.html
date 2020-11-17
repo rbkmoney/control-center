@@ -7,10 +7,14 @@
             </mat-card-content>
         </mat-card>
         <cc-headline>Shop providers</cc-headline>
-        <cc-shop-providers
-            [partyID]="partyID$ | async"
-            [shopID]="shopID$ | async"
-        ></cc-shop-providers>
+        <mat-card>
+            <mat-card-content>
+                <cc-shop-providers
+                    [partyID]="partyID$ | async"
+                    [shopID]="shopID$ | async"
+                ></cc-shop-providers>
+            </mat-card-content>
+        </mat-card>
     </ng-container>
     <div *ngIf="inProgress$ | async" fxLayout fxLayoutAlign="center center">
         <mat-spinner diameter="64"></mat-spinner>

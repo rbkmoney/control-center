@@ -1,8 +1,2 @@
-<mat-card>
-    <mat-card-content>
-        <mat-card-subtitle> {{ providerInfo.provider.data.name }} </mat-card-subtitle>
-        <cc-terminal-infos-table
-            [terminalInfos]="providerInfo.terminalInfos"
-        ></cc-terminal-infos-table>
-    </mat-card-content>
-</mat-card>
+<mat-card-subtitle> {{ providerInfo.provider.data.name }} </mat-card-subtitle>
+<cc-terminal-infos-table [terminalInfos]="providerInfo.terminalInfos"></cc-terminal-infos-table>

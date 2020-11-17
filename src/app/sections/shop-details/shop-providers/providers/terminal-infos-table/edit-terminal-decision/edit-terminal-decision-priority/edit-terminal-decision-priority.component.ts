@@ -1,5 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { EditTerminalDecisionPriorityService } from './edit-terminal-decision-priority.service';
@@ -15,26 +14,19 @@ export interface EditPriorityData {
     templateUrl: 'edit-terminal-decision-priority.component.html',
     providers: [EditTerminalDecisionPriorityService],
 })
-export class EditTerminalDecisionPriorityComponent implements OnInit {
-    isLoading$;
-    form: FormGroup;
+export class EditTerminalDecisionPriorityComponent {
+    inProgress$ = this.editPriorityService.inProgress$;
+    form = this.editPriorityService.form;
 
     constructor(
         private dialogRef: MatDialogRef<EditTerminalDecisionPriorityComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: EditPriorityData,
-        private editPriorityService: EditTerminalDecisionPriorityService
-    ) {}
-
-    ngOnInit() {
-        const { isLoading$, form } = this.editPriorityService;
-        this.isLoading$ = isLoading$;
-        this.form = form;
-        this.editPriorityService.terminalChanged.subscribe(() => {
-            this.dialogRef.close(true);
-        });
+        private editPriorityService: EditTerminalDecisionPriorityService,
+        @Inject(MAT_DIALOG_DATA) public data: EditPriorityData
+    ) {
+        this.editPriorityService.terminalEdited$.subscribe(() => this.dialogRef.close(true));
     }
 
     edit() {
-        this.editPriorityService.edit(this.data);
+        this.editPriorityService.editTerminal(this.data);
     }
 }

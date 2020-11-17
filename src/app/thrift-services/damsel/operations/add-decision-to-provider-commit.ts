@@ -1,13 +1,15 @@
 import { toGenCommit } from '../../converters';
-import { ProviderObject } from '../gen-model/domain';
+import { TerminalID } from '../../fistful/gen-model/fistful';
+import { ProviderID } from '../../fistful/gen-model/provider';
+import { PartyID, ProviderObject, ShopID } from '../gen-model/domain';
 import { Commit } from '../gen-model/domain_config';
 import { createAddTerminalToProviderOperation } from './create-add-terminal-to-provider-operation';
 
 export class AddDecisionToProvider {
-    partyID: string;
-    shopID: string;
-    terminalID: number;
-    providerID: number;
+    partyID: PartyID;
+    shopID: ShopID;
+    terminalID: TerminalID;
+    providerID: ProviderID;
 }
 
 export const addDecisionToProviderCommit = (

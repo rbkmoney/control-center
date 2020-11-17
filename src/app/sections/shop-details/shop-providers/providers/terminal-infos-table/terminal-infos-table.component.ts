@@ -2,21 +2,26 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
-import { PredicateType } from '../../../../../party/shop-details/extract-terminal-info';
 import { PartyID, ShopID } from '../../../../../thrift-services/damsel/gen-model/domain';
+import { TerminalFromShopParams } from '../../../../../thrift-services/damsel/operations/terminal-from-shop-params';
 import { ProviderID } from '../../../../../thrift-services/fistful/gen-model/provider';
+import { PredicateType } from '../../extract-terminal-info';
 import { TerminalInfo } from '../../provider-info';
-import {
-    EditTerminalDecisionPriorityComponent,
-    EditTerminalDecisionPriorityService,
-} from './edit-terminal-decision';
+import { EditTerminalDecisionPriorityComponent } from './edit-terminal-decision/edit-terminal-decision-priority';
 import { EditTerminalDecisionWeightComponent } from './edit-terminal-decision/edit-terminal-decision-weight';
+import { RemoveTerminalDecisionService } from './remove-terminal-decision.service';
+
+export enum TerminalEditAction {
+    editWeight = 'editWeight',
+    editPriority = 'editPriority',
+    removeTerminal = 'removeTerminal',
+}
 
 @Component({
     selector: 'cc-terminal-infos-table',
     templateUrl: 'terminal-infos-table.component.html',
     styleUrls: ['terminal-infos-table.component.scss'],
-    providers: [EditTerminalDecisionPriorityService],
+    providers: [RemoveTerminalDecisionService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TerminalInfosTableComponent {
@@ -35,79 +40,52 @@ export class TerminalInfosTableComponent {
     @Output()
     terminalChanged: EventEmitter<void> = new EventEmitter();
 
+    terminalEditAction = TerminalEditAction;
     displayedColumns = ['name', 'description', 'type', 'priority', 'weight', 'status', 'actions'];
+    terminalRemoved$ = this.removeTerminalDecision.terminalRemoved$;
 
     constructor(
         private dialog: MatDialog,
-        private editPriorityService: EditTerminalDecisionPriorityService
-    ) {}
+        private removeTerminalDecision: RemoveTerminalDecisionService
+    ) {
+        this.terminalRemoved$.subscribe(() => this.terminalChanged.emit());
+    }
 
-    isWeightOrPriorityEditable(predicate: PredicateType) {
+    canEdit(predicate: PredicateType) {
         return predicate === PredicateType.condition;
     }
 
-    isEditable(predicateType: PredicateType) {
+    canRemove(predicateType: PredicateType) {
         return predicateType === PredicateType.condition || predicateType === PredicateType.any_of;
     }
 
-    editPriority(terminalID: number) {
-        const config = {
-            data: this.getModalData(terminalID),
-            width: '300px',
-            disableClose: true,
-        };
-        const dialog = this.dialog.open(EditTerminalDecisionPriorityComponent, config);
-        dialog
-            .afterClosed()
-            .pipe(filter((result) => result))
-            .subscribe(() => {
-                this.terminalChanged.emit();
-            });
-    }
-
-    editWeight(terminalID: number) {
-        const config = {
-            data: this.getModalData(terminalID),
-            width: '300px',
-            disableClose: true,
-        };
-        const dialog = this.dialog.open(EditTerminalDecisionWeightComponent, config);
-        dialog
-            .afterClosed()
-            .pipe(filter((result) => result))
-            .subscribe(() => {
-                this.terminalChanged.emit();
-            });
-    }
-
-    changePriority(op: string, i: number) {
-        const terminalID = this.terminalInfos[i].terminal.ref.id;
-        const basePriority = this.terminalInfos[i].priority.toNumber();
-        const prevInfo = this.terminalInfos[i - 1];
-        const nexInfo = this.terminalInfos[i + 1];
-
-        let diffPlus50;
-        if (op === 'plus') {
-            diffPlus50 = prevInfo ? prevInfo.priority.toNumber() + 50 : basePriority + 50;
-            this.editPriorityService.edit(this.getModalData(terminalID), {
-                property: 'priority',
-                value: diffPlus50,
-            });
-        } else if (op === 'minus') {
-            diffPlus50 = nexInfo ? nexInfo.priority.toNumber() - 50 : 0;
-            this.editPriorityService.edit(this.getModalData(terminalID), {
-                property: 'priority',
-                value: diffPlus50,
-            });
-        }
-    }
-
-    private getModalData(terminalID: number) {
-        return {
+    action(terminalID: number, action: TerminalEditAction) {
+        const data = {
             shopID: this.shopID,
             partyID: this.partyID,
             providerID: this.providerID,
             terminalID,
+        } as TerminalFromShopParams;
+        const config = {
+            data,
+            width: '300px',
+            disableClose: true,
         };
+        let dialog;
+        switch (action) {
+            case TerminalEditAction.editPriority:
+                dialog = this.dialog.open(EditTerminalDecisionPriorityComponent, config);
+                break;
+            case TerminalEditAction.editWeight:
+                dialog = this.dialog.open(EditTerminalDecisionWeightComponent, config);
+                break;
+            case TerminalEditAction.removeTerminal:
+                this.removeTerminalDecision.removeTerminal(data);
+                break;
+        }
+        dialog
+            .afterClosed()
+            .pipe(filter((result) => !!result))
+            .subscribe(() => this.terminalChanged.emit());
     }
 }

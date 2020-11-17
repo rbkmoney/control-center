@@ -8,10 +8,10 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <div>
-        <button mat-button (click)="edit()" [disabled]="isLoading$ | async">SAVE</button>
-        <button mat-button [mat-dialog-close]="false" [disabled]="isLoading$ | async">
+        <button mat-button (click)="edit()" [disabled]="inProgress$ | async">SAVE</button>
+        <button mat-button [mat-dialog-close]="false" [disabled]="inProgress$ | async">
             CANCEL
         </button>
     </div>
-    <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar *ngIf="inProgress$ | async" mode="indeterminate"></mat-progress-bar>
 </mat-dialog-actions>

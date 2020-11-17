@@ -3,6 +3,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { toGenReference } from '../converters';
+import { ProviderID } from '../fistful/gen-model/provider';
 import { DomainCacheService } from './domain-cache.service';
 import { DomainService } from './domain.service';
 import {
@@ -22,7 +23,7 @@ import {
 import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
 import { editTerminalDecisionPropertyForShopCommit } from './operations/edit-terminal-decision-property-for-shop-commit';
 import { EditTerminalDecisionPropertyParams } from './operations/edit-terminal-decision-property-params';
-import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
+import { TerminalFromShopParams } from './operations/terminal-from-shop-params';
 import { findDomainObject, findDomainObjects } from './operations/utils';
 
 const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
@@ -50,7 +51,7 @@ export class DomainTypedManager {
         );
     }
 
-    getBusinessScheduleObject(id: number): Observable<BusinessScheduleObject> {
+    getBusinessScheduleObject(id: string): Observable<BusinessScheduleObject> {
         return this.dmtCacheService.domain.pipe(
             map((domain) => findBusinessScheduleObjects(domain)),
             map((objects) => findDomainObject(objects, id))
@@ -61,7 +62,7 @@ export class DomainTypedManager {
         return this.dmtCacheService.domain.pipe(map((domain) => findProviderObjects(domain)));
     }
 
-    getProviderObject(id: number): Observable<ProviderObject> {
+    getProviderObject(id: ProviderID): Observable<ProviderObject> {
         return this.dmtCacheService.domain.pipe(
             map((domain) => findProviderObjects(domain)),
             map((objects) => findDomainObject(objects, id))
@@ -72,7 +73,7 @@ export class DomainTypedManager {
         return this.dmtCacheService.domain.pipe(map((domain) => findTerminalObjects(domain)));
     }
 
-    getTerminalObject(id: number): Observable<TerminalObject> {
+    getTerminalObject(id: string): Observable<TerminalObject> {
         return this.dmtCacheService.domain.pipe(
             map((domain) => findTerminalObjects(domain)),
             map((objects) => findDomainObject(objects, id))
@@ -94,7 +95,7 @@ export class DomainTypedManager {
         );
     }
 
-    removeTerminalFromShop(params: RemoveTerminalFromShopParams) {
+    removeTerminalFromShop(params: TerminalFromShopParams) {
         return combineLatest([
             this.getLastVersion(),
             this.getProviderObject(params.providerID),
