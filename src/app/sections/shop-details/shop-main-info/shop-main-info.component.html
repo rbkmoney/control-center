@@ -7,7 +7,9 @@
         fxLayoutAlign.lt-sm="start"
     >
         <cc-details-item fxFlex title="Name">{{ shop.details.name }}</cc-details-item>
-        <cc-details-item fxFlex title="Description">{{ shop.details.description }}</cc-details-item>
+        <cc-details-item fxFlex title="Description">{{
+            shop.details.description ? shop.details.description : '-'
+        }}</cc-details-item>
         <cc-details-item fxFlex title="Category">
             <cc-category [category]="shop.category.id"></cc-category>
         </cc-details-item>
@@ -26,7 +28,7 @@
             ><a href="{{ shop.location.url }}">{{ shop.location.url }}</a></cc-details-item
         >
         <cc-details-item fxFlex title="Currency">{{
-            shop.account.currency.symbolic_code
+            shop.account?.currency?.symbolic_code ? shop.account.currency.symbolic_code : '-'
         }}</cc-details-item>
     </div>
     <div
@@ -51,7 +53,9 @@
         fxLayout.lt-sm="column"
         fxLayoutAlign.lt-sm="start"
     >
-        <cc-details-item fxFlex title="Payout tool ID">{{ shop.payout_tool_id }}</cc-details-item>
+        <cc-details-item fxFlex title="Payout tool ID">{{
+            shop.payout_tool_id ? shop.payout_tool_id : '-'
+        }}</cc-details-item>
         <cc-details-item fxFlex title="Shop ID">{{ shop.id }}</cc-details-item>
         <cc-details-item fxFlex title="Contract ID">{{ shop.contract_id }}</cc-details-item>
     </div>
