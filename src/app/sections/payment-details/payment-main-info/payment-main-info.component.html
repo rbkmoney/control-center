@@ -7,20 +7,46 @@
         <cc-details-item fxFlex title="Created At">{{
             payment.created_at | date: 'dd.MM.yyyy HH:mm:ss'
         }}</cc-details-item>
-        <cc-details-item fxFlex title="Status"
-            ><cc-status [color]="payment.status | toPaymentStatus | toPaymentColor">{{
+        <cc-details-item fxFlex title="Status">
+            <cc-status [color]="payment.status | toPaymentStatus | toPaymentColor">{{
                 payment.status | toPaymentStatus
-            }}</cc-status></cc-details-item
-        >
+            }}</cc-status>
+        </cc-details-item>
     </div>
     <div fxLayout fxLayoutGap="16px">
         <cc-details-item fxFlex title="Payer">{{ getPayerEmail(payment.payer) }}</cc-details-item>
-        <cc-details-item fxFlex title="Payment Tool"
-            ><cc-payment-tool [paymentTool]="getPaymentTool(payment.payer)"></cc-payment-tool
-        ></cc-details-item>
+        <cc-details-item fxFlex title="Payment Tool">
+            <cc-payment-tool [paymentTool]="getPaymentTool(payment.payer)"></cc-payment-tool>
+        </cc-details-item>
         <cc-details-item fxFlex title="Invoice">#{{ payment.invoice_id }}</cc-details-item>
     </div>
     <cc-details-item *ngIf="shop" fxFlex title="Shop"
-        >{{ shop.details.name }} ({{ shop.location.url }})</cc-details-item
-    >
+        >{{ shop.details.name }} ({{ shop.location.url }})
+    </cc-details-item>
+    <mat-divider></mat-divider>
+    <div class="cc-title">Terminal</div>
+    <div fxLayout fxLayoutGap="16px">
+        <cc-details-item fxFlex title="ID">{{ payment.terminal_id.id }}</cc-details-item>
+        <cc-details-item fxFlex title="Name">{{
+            payment.terminal_id.id | ccTerminalName
+        }}</cc-details-item>
+        <div fxFlex></div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="cc-title">Provider</div>
+    <div fxLayout fxLayoutGap="16px">
+        <cc-details-item fxFlex title="ID">{{ payment.provider_id.id }}</cc-details-item>
+        <cc-details-item fxFlex title="Name">{{
+            payment.provider_id.id | ccProviderName
+        }}</cc-details-item>
+        <div fxFlex></div>
+    </div>
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="payment && shop">
+        <div class="cc-title">Contractor</div>
+        <cc-contractor-details
+            [partyID]="payment?.owner_id"
+            [contractID]="shop.contract_id"
+        ></cc-contractor-details>
+    </ng-container>
 </div>

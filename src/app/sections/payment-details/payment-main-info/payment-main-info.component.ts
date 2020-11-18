@@ -10,6 +10,7 @@ import {
 @Component({
     selector: 'cc-payment-main-info',
     templateUrl: 'payment-main-info.component.html',
+    styleUrls: ['payment-main-info.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentMainInfoComponent {

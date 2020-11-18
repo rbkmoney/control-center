@@ -1,4 +1,5 @@
 import { toGenCommit } from '../../converters';
+import { ProviderID } from '../../fistful/gen-model/provider';
 import { ProviderObject } from '../gen-model/domain';
 import { Commit } from '../gen-model/domain_config';
 import { createAddTerminalToProviderOperation } from './create-add-terminal-to-provider-operation';
@@ -7,7 +8,7 @@ export class AddDecisionToProvider {
     partyID: string;
     shopID: string;
     terminalID: number;
-    providerID: number;
+    providerID: ProviderID;
 }
 
 export const addDecisionToProviderCommit = (

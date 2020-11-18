@@ -1,0 +1,5 @@
+<div fxLayout fxLayoutGap="16px" *ngIf="contractor$ | async as contractor">
+    <cc-details-item fxFlex title="INN">{{ getINN(contractor) }}</cc-details-item>
+    <cc-details-item fxFlex title="Registered Name">{{ getRegName(contractor) }}</cc-details-item>
+    <div fxFlex></div>
+</div>
