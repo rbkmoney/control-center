@@ -8,12 +8,6 @@ export const editTerminalDecisionPropertyForShopCommit = (
     providerObject: ProviderObject,
     params: EditTerminalDecisionPropertyParams
 ): Commit => {
-    const { old_object, new_object } = editTerminalDecisionPropertyForShopOperation(
-        providerObject,
-        params
-    );
-    console.log(old_object);
-    console.log(new_object);
     const updateProvider = {
         update: editTerminalDecisionPropertyForShopOperation(providerObject, params),
     };
