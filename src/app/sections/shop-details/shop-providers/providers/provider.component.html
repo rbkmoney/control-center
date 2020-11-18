@@ -1,2 +1,7 @@
 <mat-card-subtitle> {{ providerInfo.provider.data.name }} </mat-card-subtitle>
-<cc-terminal-infos-table [terminalInfos]="providerInfo.terminalInfos"></cc-terminal-infos-table>
+<cc-terminal-infos-table
+    [terminalInfos]="providerInfo.terminalInfos"
+    [shopID]="shopID"
+    [partyID]="shopID"
+    [providerID]="providerInfo.provider.ref.id"
+></cc-terminal-infos-table>

@@ -8,11 +8,6 @@ import { DomainTypedManager } from '../../../../../../thrift-services/damsel';
 import { EditPriorityData } from './edit-terminal-decision-priority';
 import { EditWeightData } from './edit-terminal-decision-weight';
 
-export interface EditTerminalDecisionFormValues {
-    property: string;
-    value: any;
-}
-
 export class EditTerminalDecision {
     private editTerminal$ = new Subject<EditPriorityData | EditWeightData>();
 
@@ -31,10 +26,10 @@ export class EditTerminalDecision {
                     this.hasError$.next();
                     return of('error');
                 }),
-                filter((result) => result !== 'error'),
-                shareReplay(1)
+                filter((result) => result !== 'error')
             );
-        })
+        }),
+        shareReplay(1)
     );
 
     inProgress$ = progress(this.editTerminal$, merge(this.terminalEdited$, this.hasError$));

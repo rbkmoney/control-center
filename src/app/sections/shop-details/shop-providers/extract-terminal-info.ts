@@ -122,19 +122,19 @@ function extractIds({ decisions, value }: any): number[] {
         return extractIdsFromDecisions(decisions);
     }
     if (value) {
-        return extractIdsFromValue(value);
+        return extractIdsFromValue(Array.from(value));
     }
 }
 
 function extractWeights({ value }: any): number {
     if (value) {
-        return value.map((val) => val.weight);
+        return Array.from(value).map((val) => val.weight);
     }
 }
 
 function extractPriorities({ value }: any): Int64 {
     if (value) {
-        return value.map((val) => val.priority);
+        return Array.from(value).map((val) => val.priority);
     }
 }
 

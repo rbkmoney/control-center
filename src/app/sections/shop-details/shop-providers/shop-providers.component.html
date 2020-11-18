@@ -2,6 +2,8 @@
     <cc-provider
         *ngFor="let providerInfo of providerInfos$ | async"
         [providerInfo]="providerInfo"
+        [partyID]="partyID"
+        [shopID]="shopID"
         (terminalChanged)="terminalChanged()"
     ></cc-provider>
 </div>

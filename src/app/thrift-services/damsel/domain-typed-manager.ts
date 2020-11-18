@@ -46,35 +46,35 @@ export class DomainTypedManager {
     constructor(private dmtService: DomainService, private dmtCacheService: DomainCacheService) {}
 
     getBusinessScheduleObjects(): Observable<BusinessScheduleObject[]> {
-        return this.dmtCacheService.domain.pipe(
+        return this.dmtCacheService.domain$.pipe(
             map((domain) => findBusinessScheduleObjects(domain))
         );
     }
 
     getBusinessScheduleObject(id: string): Observable<BusinessScheduleObject> {
-        return this.dmtCacheService.domain.pipe(
+        return this.dmtCacheService.domain$.pipe(
             map((domain) => findBusinessScheduleObjects(domain)),
             map((objects) => findDomainObject(objects, id))
         );
     }
 
     getProviderObjects(): Observable<ProviderObject[]> {
-        return this.dmtCacheService.domain.pipe(map((domain) => findProviderObjects(domain)));
+        return this.dmtCacheService.domain$.pipe(map((domain) => findProviderObjects(domain)));
     }
 
     getProviderObject(id: ProviderID): Observable<ProviderObject> {
-        return this.dmtCacheService.domain.pipe(
+        return this.dmtCacheService.domain$.pipe(
             map((domain) => findProviderObjects(domain)),
             map((objects) => findDomainObject(objects, id))
         );
     }
 
     getTerminalObjects(): Observable<TerminalObject[]> {
-        return this.dmtCacheService.domain.pipe(map((domain) => findTerminalObjects(domain)));
+        return this.dmtCacheService.domain$.pipe(map((domain) => findTerminalObjects(domain)));
     }
 
     getTerminalObject(id: string): Observable<TerminalObject> {
-        return this.dmtCacheService.domain.pipe(
+        return this.dmtCacheService.domain$.pipe(
             map((domain) => findTerminalObjects(domain)),
             map((objects) => findDomainObject(objects, id))
         );
@@ -141,6 +141,6 @@ export class DomainTypedManager {
     }
 
     getPaymentInstitutions(): Observable<PaymentInstitutionObject[]> {
-        return this.dmtCacheService.domain.pipe(map((domain) => findPaymentInstitutions(domain)));
+        return this.dmtCacheService.domain$.pipe(map((domain) => findPaymentInstitutions(domain)));
     }
 }

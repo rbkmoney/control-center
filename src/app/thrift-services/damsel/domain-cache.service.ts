@@ -21,10 +21,6 @@ export class DomainCacheService {
         switchMap(() => this.dmtService.checkout(toGenReference())),
         shareReplay(1)
     );
-    /**
-     * @deprecated use domain$
-     */
-    domain = this.snapshot.pipe(pluck('domain'), shareReplay(1));
 
     snapshot$ = this.snapshot.pipe(
         map((s) => damselInstanceToObject('domain_config', 'Snapshot', s)),
