@@ -42,11 +42,10 @@
         <div fxFlex></div>
     </div>
     <mat-divider></mat-divider>
-    <ng-container *ngIf="payment && shop">
-        <div class="cc-title">Contractor</div>
-        <cc-contractor-details
-            [partyID]="payment?.owner_id"
-            [contractID]="shop.contract_id"
-        ></cc-contractor-details>
-    </ng-container>
+    <div class="cc-title">Contractor</div>
+    <cc-contractor-details
+        *ngIf="payment && shop"
+        [partyID]="payment?.owner_id"
+        [contractID]="shop.contract_id"
+    ></cc-contractor-details>
 </div>
