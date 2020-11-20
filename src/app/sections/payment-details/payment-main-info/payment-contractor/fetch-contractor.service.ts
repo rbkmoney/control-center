@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../../../papi/party.service';
 import { ContractID, PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
@@ -13,10 +13,10 @@ export class FetchContractorService {
 
     contractor$ = this.getContractor$.pipe(
         switchMap(
-            ({ partyID, contractID }): Observable<[PartyID, any]> =>
+            ({ partyID, contractID }): Observable<[ContractID, any]> =>
                 forkJoin([
-                    of(partyID),
-                    this.partyService.getContract(partyID, contractID).pipe(
+                    of(contractID),
+                    this.partyService.getParty(partyID).pipe(
                         catchError(() => {
                             this.hasError$.next();
                             return of('error');
@@ -25,16 +25,10 @@ export class FetchContractorService {
                     ),
                 ])
         ),
-        switchMap(([partyID, { contractor_id }]) =>
-            this.partyService.getContractor(partyID, contractor_id).pipe(
-                catchError(() => {
-                    this.hasError$.next();
-                    return of('error');
-                }),
-                filter((result) => result !== 'error')
-            )
-        ),
-        pluck('contractor'),
+        map(([contractID, party]) => {
+            const contractorID = party.contracts.get(contractID).contractor_id;
+            return party.contractors.get(contractorID).contractor;
+        }),
         shareReplay(1)
     );
 
