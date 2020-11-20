@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import { getUnionKey } from '@cc/utils/get-union-key';
+
 import { Shop } from '../../../thrift-services/damsel/gen-model/domain';
 import {
+    InvoicePaymentStatus,
     Payer,
     PaymentTool,
     StatPayment,
@@ -10,7 +13,6 @@ import {
 @Component({
     selector: 'cc-payment-main-info',
     templateUrl: 'payment-main-info.component.html',
-    styleUrls: ['payment-main-info.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentMainInfoComponent {
@@ -36,5 +38,9 @@ export class PaymentMainInfoComponent {
             payer?.payment_resource?.payment_tool ||
             payer?.recurrent?.payment_tool
         );
+    }
+
+    hasError(status: InvoicePaymentStatus): boolean {
+        return getUnionKey(status) === 'failed';
     }
 }

@@ -1,0 +1,13 @@
+<div *ngIf="contractor$ | async as contractor; else empty" fxLayout fxLayoutGap="16px">
+    <cc-details-item fxFlex title="INN">{{ getINN(contractor) }}</cc-details-item>
+    <cc-details-item fxFlex title="Registered Name">{{ getRegName(contractor) }}</cc-details-item>
+    <div fxFlex></div>
+</div>
+<ng-template #empty>
+    <div *ngIf="inProgress$ | async; else emptyResult" fxLayout fxLayoutAlign="center center">
+        <mat-spinner diameter="64"></mat-spinner>
+    </div>
+    <ng-template #emptyResult>
+        <div>Error contractor loading.</div>
+    </ng-template>
+</ng-template>

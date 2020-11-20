@@ -8,11 +8,11 @@ import {
 import { FetchContractorService } from './fetch-contractor.service';
 
 @Component({
-    selector: 'cc-contractor-details',
-    templateUrl: 'contractor-details.component.html',
+    selector: 'cc-payment-contractor',
+    templateUrl: 'payment-contractor.component.html',
     providers: [FetchContractorService],
 })
-export class ContractorDetailsComponent implements OnInit {
+export class PaymentContractorComponent implements OnInit {
     @Input()
     contractID: ContractID;
 
@@ -20,6 +20,7 @@ export class ContractorDetailsComponent implements OnInit {
     partyID: PartyID;
 
     contractor$ = this.fetchContractorService.contractor$;
+    inProgress$ = this.fetchContractorService.inProgress$;
 
     constructor(private fetchContractorService: FetchContractorService) {}
 

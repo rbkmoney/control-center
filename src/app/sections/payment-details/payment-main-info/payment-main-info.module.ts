@@ -8,11 +8,12 @@ import { StatusModule } from '@cc/app/shared/components';
 import { CommonPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
 import { DetailsItemModule } from '@cc/components/details-item';
 
-import { ContractorDetailsModule } from './contractor-details';
+import { PaymentContractorModule } from './payment-contractor';
+import { PaymentErrorModule } from './payment-error';
 import { PaymentMainInfoComponent } from './payment-main-info.component';
+import { PaymentProviderModule } from './payment-provider';
+import { PaymentTerminalModule } from './payment-terminal';
 import { PaymentToolModule } from './payment-tool';
-import { ProviderNamePipe } from './provider-name.pipe';
-import { TerminalNamePipe } from './terminal-name.pipe';
 
 @NgModule({
     imports: [
@@ -25,9 +26,12 @@ import { TerminalNamePipe } from './terminal-name.pipe';
         ThriftPipesModule,
         CommonPipesModule,
         MatDividerModule,
-        ContractorDetailsModule,
+        PaymentContractorModule,
+        PaymentTerminalModule,
+        PaymentProviderModule,
+        PaymentErrorModule,
     ],
-    declarations: [PaymentMainInfoComponent, TerminalNamePipe, ProviderNamePipe],
+    declarations: [PaymentMainInfoComponent],
     exports: [PaymentMainInfoComponent],
 })
 export class PaymentMainInfoModule {}
