@@ -27,14 +27,17 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
         switch (type.name) {
             case 'map':
                 return new Map(
-                    Array.from(value as any[]).map(([k, v]) => [
+                    Array.from(value as Map<any, any>).map(([k, v]) => [
                         internalCreateThriftInstance(type.keyType, k),
                         internalCreateThriftInstance(type.valueType, v),
                     ])
                 ) as V;
             case 'list':
-            case 'set':
                 return (value as any[]).map((v) =>
+                    internalCreateThriftInstance(type.valueType, v)
+                ) as V;
+            case 'set':
+                return Array.from(value as Set<any>).map((v) =>
                     internalCreateThriftInstance(type.valueType, v)
                 ) as V;
             default:
