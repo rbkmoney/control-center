@@ -5,10 +5,10 @@ import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { DomainCacheService } from './domain-cache.service';
 import {
-    PaymentRoutingCandidate,
-    PaymentRoutingDelegate,
-    PaymentRoutingRulesObject,
     Predicate,
+    RoutingCandidate,
+    RoutingDelegate,
+    RoutingRulesObject,
 } from './gen-model/domain';
 import { Version } from './gen-model/domain_config';
 import { generateID } from './operations/utils';
@@ -17,7 +17,7 @@ import { generateID } from './operations/utils';
 export class PaymentRoutingRulesService {
     constructor(private domainService: DomainCacheService) {}
 
-    rulesets$: Observable<PaymentRoutingRulesObject[]> = this.domainService
+    rulesets$: Observable<RoutingRulesObject[]> = this.domainService
         .getObjects('payment_routing_rules')
         .pipe(
             map((r) => r.sort((a, b) => a.ref.id - b.ref.id)),
@@ -26,7 +26,7 @@ export class PaymentRoutingRulesService {
 
     nextRefID$ = this.rulesets$.pipe(map((rulesets) => generateID(rulesets)));
 
-    getRuleset(refID: number): Observable<PaymentRoutingRulesObject> {
+    getRuleset(refID: number): Observable<RoutingRulesObject> {
         return this.rulesets$.pipe(map((rulesets) => rulesets.find((r) => r?.ref?.id === refID)));
     }
 
@@ -46,7 +46,7 @@ export class PaymentRoutingRulesService {
         return combineLatest([this.getRuleset(mainRulesetRefID), this.nextRefID$]).pipe(
             take(1),
             switchMap(([mainRuleset, id]) => {
-                const ruleset: PaymentRoutingRulesObject = {
+                const ruleset: RoutingRulesObject = {
                     ref: { id },
                     data: {
                         name,
@@ -102,7 +102,7 @@ export class PaymentRoutingRulesService {
         return combineLatest([this.getRuleset(partyRulesetRefID), this.nextRefID$]).pipe(
             take(1),
             switchMap(([partyRuleset, id]) => {
-                const shopRuleset: PaymentRoutingRulesObject = {
+                const shopRuleset: RoutingRulesObject = {
                     ref: { id },
                     data: {
                         name,
@@ -208,7 +208,7 @@ export class PaymentRoutingRulesService {
                     },
                     ruleset: { id },
                 });
-                const ruleset: PaymentRoutingRulesObject = {
+                const ruleset: RoutingRulesObject = {
                     ref: { id },
                     data: {
                         name,
@@ -346,16 +346,13 @@ export class PaymentRoutingRulesService {
         );
     }
 
-    private getDelegateIdx(ruleset: PaymentRoutingRulesObject, delegateRulesetRefId: number) {
+    private getDelegateIdx(ruleset: RoutingRulesObject, delegateRulesetRefId: number) {
         return ruleset.data.decisions.delegates.findIndex(
             (d) => d?.ruleset?.id === delegateRulesetRefId
         );
     }
 
-    private cloneRulesetAndPushDelegate(
-        ruleset: PaymentRoutingRulesObject,
-        delegate: PaymentRoutingDelegate
-    ) {
+    private cloneRulesetAndPushDelegate(ruleset: RoutingRulesObject, delegate: RoutingDelegate) {
         const newRuleset = cloneDeep(ruleset);
         if (!Array.isArray(newRuleset.data.decisions.delegates)) {
             newRuleset.data.decisions.delegates = [];
@@ -364,10 +361,7 @@ export class PaymentRoutingRulesService {
         return newRuleset;
     }
 
-    private cloneRulesetAndPushCandidate(
-        ruleset: PaymentRoutingRulesObject,
-        candidate: PaymentRoutingCandidate
-    ) {
+    private cloneRulesetAndPushCandidate(ruleset: RoutingRulesObject, candidate: RoutingCandidate) {
         const newRuleset = cloneDeep(ruleset);
         if (!Array.isArray(newRuleset.data.decisions.candidates)) {
             newRuleset.data.decisions.candidates = [];

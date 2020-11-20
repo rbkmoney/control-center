@@ -78,7 +78,7 @@ export class TargetRulesetFormComponent implements OnChanges {
                         mainRulesetRefID:
                             target === Target.paymentInstitution
                                 ? (paymentInstitution as PaymentInstitutionObject)?.data
-                                      ?.payment_routing?.policies?.id
+                                      ?.payment_routing_rules?.policies?.id
                                 : mainRulesetRefID,
                         paymentInstitutionRefID:
                             target === Target.paymentInstitution
