@@ -4,9 +4,7 @@ import { combineLatest } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 import {
-    PaymentInstitutionObject,
-    PaymentRoutingDelegate,
-    PaymentRoutingRulesObject,
+    PaymentInstitutionObject, RoutingDelegate, RoutingRulesObject,
 } from 'src/app/thrift-services/damsel/gen-model/domain';
 
 @Injectable()
@@ -24,7 +22,7 @@ export class PartyDelegateRulesetsService {
                     (i) =>
                         [
                             rules.find(
-                                (r) => r?.ref?.id === i?.data?.payment_routing?.policies?.id
+                                (r) => r?.ref?.id === i?.data?.payment_routing_rules?.policies?.id
                             ),
                             i,
                         ] as const
@@ -56,9 +54,9 @@ export class PartyDelegateRulesetsService {
                         return acc;
                     },
                     [] as {
-                        partyDelegate: PaymentRoutingDelegate;
+                        partyDelegate: RoutingDelegate;
                         paymentInstitution: PaymentInstitutionObject;
-                        mainRuleset: PaymentRoutingRulesObject;
+                        mainRuleset: RoutingRulesObject;
                     }[]
                 );
             return partyDelegateRulesets;
