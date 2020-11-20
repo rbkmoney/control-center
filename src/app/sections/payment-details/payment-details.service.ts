@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { combineLatest, of } from 'rxjs';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { PartyService } from '../../party/party.service';
 import { QueryDSL } from '../../query-dsl';
@@ -28,7 +29,14 @@ export class PaymentDetailsService {
                         },
                     } as QueryDSL),
                 })
-                .pipe(map(({ data }) => data.payments[0]));
+                .pipe(
+                    map(({ data }) => data.payments[0]),
+                    tap((payment) => {
+                        if (!payment) {
+                            this.snackBar.open('An error occurred when receiving payment', 'OK');
+                        }
+                    })
+                );
         }),
         shareReplay(1)
     );
@@ -44,6 +52,7 @@ export class PaymentDetailsService {
     constructor(
         private partyService: PartyService,
         private merchantStatisticsService: MerchantStatisticsService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private snackBar: MatSnackBar
     ) {}
 }

@@ -1,0 +1,13 @@
+<div fxLayout fxLayoutGap="16px" *ngIf="terminal$ | async as terminal; else empty">
+    <cc-details-item fxFlex title="ID">{{ terminal.ref.id }}</cc-details-item>
+    <cc-details-item fxFlex title="Name">{{ terminal.data.name }}</cc-details-item>
+    <div fxFlex></div>
+</div>
+<ng-template #empty>
+    <div *ngIf="inProgress$ | async; else emptyResult" fxLayout>
+        <cc-details-item fxFlex>Loading...</cc-details-item>
+    </div>
+    <ng-template #emptyResult>
+        <cc-details-item fxFlex>Error terminal loading.</cc-details-item>
+    </ng-template>
+</ng-template>

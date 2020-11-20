@@ -2,13 +2,16 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { PartyID, ShopID } from '../../../../thrift-services/damsel/gen-model/domain';
+import { TerminalID } from '../../../../thrift-services/fistful/gen-model/fistful';
+import { ProviderID } from '../../../../thrift-services/fistful/gen-model/provider';
 import { EditTerminalDecisionPriorityService } from './edit-terminal-decision-priority.service';
 
 export interface EditPriorityData {
-    partyID: string;
-    shopID: string;
-    terminalID: number;
-    providerID: number;
+    partyID: PartyID;
+    shopID: ShopID;
+    terminalID: TerminalID;
+    providerID: ProviderID;
 }
 
 @Component({

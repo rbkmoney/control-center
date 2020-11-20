@@ -12,6 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs/operators';
 
 import { DomainTypedManager } from '../../../thrift-services';
+import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
+import { TerminalID } from '../../../thrift-services/fistful/gen-model/fistful';
+import { ProviderID } from '../../../thrift-services/fistful/gen-model/provider';
 import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 import { EditTerminalDecisionPriorityService } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.service';
 import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
@@ -24,9 +27,9 @@ import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 })
 export class TerminalsComponent implements OnChanges, OnInit {
     @Input() terminalInfos: TerminalInfo[];
-    @Input() partyID: string;
-    @Input() shopID: string;
-    @Input() providerID: number;
+    @Input() partyID: PartyID;
+    @Input() shopID: ShopID;
+    @Input() providerID: ProviderID;
     @Output() terminalChanged: EventEmitter<void> = new EventEmitter();
 
     columns = ['name', 'description', 'type', 'priority', 'weight', 'status', 'actions'];
@@ -58,7 +61,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
         );
     }
 
-    removeTerminal(terminalID: number) {
+    removeTerminal(terminalID: TerminalID) {
         this.isLoading = true;
         const params = this.getModalData(terminalID);
         this.dtm.removeTerminalFromShop(params).subscribe(
@@ -80,7 +83,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
         );
     }
 
-    editPriority(terminalID: number) {
+    editPriority(terminalID: TerminalID) {
         const config = {
             data: this.getModalData(terminalID),
             width: '300px',
@@ -95,7 +98,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
             });
     }
 
-    editWeight(terminalID: number) {
+    editWeight(terminalID: TerminalID) {
         const config = {
             data: this.getModalData(terminalID),
             width: '300px',
@@ -136,7 +139,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
         return predicate === PredicateType.condition;
     }
 
-    private getModalData(terminalID: number) {
+    private getModalData(terminalID: TerminalID) {
         return {
             shopID: this.shopID,
             partyID: this.partyID,
