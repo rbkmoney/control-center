@@ -1,9 +1,7 @@
-<div *ngIf="provider$ | async as provider; else empty" fxLayout="column" fxLayoutGap="24px">
-    <div fxLayout fxLayoutGap="16px">
-        <cc-details-item fxFlex title="ID">{{ provider.ref.id }}</cc-details-item>
-        <cc-details-item fxFlex title="Name">{{ provider.data.name }}</cc-details-item>
-        <div fxFlex></div>
-    </div>
+<div fxLayout fxLayoutGap="16px" *ngIf="provider$ | async as provider; else empty">
+    <cc-details-item fxFlex title="ID">{{ provider.ref.id }}</cc-details-item>
+    <cc-details-item fxFlex title="Name">{{ provider.data.name }}</cc-details-item>
+    <div fxFlex></div>
 </div>
 <ng-template #empty>
     <div *ngIf="inProgress$ | async; else emptyResult" fxLayout fxLayoutAlign="center center">
