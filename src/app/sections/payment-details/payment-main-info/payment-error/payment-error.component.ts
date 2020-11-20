@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import { getUnionKey } from '@cc/utils/get-union-key';
+
 import {
     FailureCode,
     FailureReason,
@@ -9,8 +11,8 @@ import {
 
 export interface PaymentError {
     code: FailureCode;
-    reason: FailureReason;
-    path: string;
+    reason?: FailureReason;
+    path?: string;
 }
 
 @Component({
@@ -22,17 +24,24 @@ export class PaymentErrorComponent {
     @Input()
     set status(status: InvoicePaymentStatus) {
         const {
-            failed: {
-                failure: {
-                    failure: { code, reason, sub },
-                },
-            },
+            failed: { failure },
         } = status;
-        this.error = {
-            code,
-            reason,
-            path: this.makePath(sub),
-        };
+
+        switch (getUnionKey(failure)) {
+            case 'failure':
+                const { code, reason, sub } = failure.failure;
+                this.error = {
+                    code,
+                    reason,
+                    path: this.makePath(sub),
+                };
+                break;
+            case 'operation_timeout':
+                this.error = {
+                    code: 'operation_timeout',
+                };
+                break;
+        }
     }
 
     error: PaymentError;
