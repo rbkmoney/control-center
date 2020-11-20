@@ -4,8 +4,8 @@
     <div fxFlex></div>
 </div>
 <ng-template #empty>
-    <div *ngIf="inProgress$ | async; else emptyResult" fxLayout fxLayoutAlign="center center">
-        <mat-spinner diameter="64"></mat-spinner>
+    <div *ngIf="inProgress$ | async; else emptyResult" fxLayout>
+        <cc-details-item fxFlex>Loading...</cc-details-item>
     </div>
     <ng-template #emptyResult>
         <div>Error provider loading.</div>
