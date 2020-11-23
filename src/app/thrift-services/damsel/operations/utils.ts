@@ -13,7 +13,7 @@ export const toMap = (domainMap: { key: any; value: any }[]): Map<string, string
     return result;
 };
 
-export const findDomainObject = (domainObjects: any[], id: string) =>
+export const findDomainObject = (domainObjects: any[], id: number | string) =>
     domainObjects.find((object) => object.ref.id === id);
 
 const transformUnion = (union: any): any =>
