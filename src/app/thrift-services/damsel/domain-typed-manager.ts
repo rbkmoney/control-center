@@ -3,6 +3,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { toGenReference } from '../converters';
+import { ProviderID } from '../fistful/gen-model/provider';
 import { DomainCacheService } from './domain-cache.service';
 import { DomainService } from './domain.service';
 import {
@@ -61,7 +62,7 @@ export class DomainTypedManager {
         return this.dmtCacheService.domain.pipe(map((domain) => findProviderObjects(domain)));
     }
 
-    getProviderObject(id: number): Observable<ProviderObject> {
+    getProviderObject(id: ProviderID): Observable<ProviderObject> {
         return this.dmtCacheService.domain.pipe(
             map((domain) => findProviderObjects(domain)),
             map((objects) => findDomainObject(objects, id))

@@ -7,20 +7,55 @@
         <cc-details-item fxFlex title="Created At">{{
             payment.created_at | date: 'dd.MM.yyyy HH:mm:ss'
         }}</cc-details-item>
-        <cc-details-item fxFlex title="Status"
-            ><cc-status [color]="payment.status | toPaymentStatus | toPaymentColor">{{
+        <cc-details-item fxFlex title="Status">
+            <cc-status [color]="payment.status | toPaymentStatus | toPaymentColor">{{
                 payment.status | toPaymentStatus
-            }}</cc-status></cc-details-item
-        >
+            }}</cc-status>
+        </cc-details-item>
     </div>
     <div fxLayout fxLayoutGap="16px">
         <cc-details-item fxFlex title="Payer">{{ getPayerEmail(payment.payer) }}</cc-details-item>
-        <cc-details-item fxFlex title="Payment Tool"
-            ><cc-payment-tool [paymentTool]="getPaymentTool(payment.payer)"></cc-payment-tool
-        ></cc-details-item>
+        <cc-details-item fxFlex title="Payment Tool">
+            <cc-payment-tool [paymentTool]="getPaymentTool(payment.payer)"></cc-payment-tool>
+        </cc-details-item>
         <cc-details-item fxFlex title="Invoice">#{{ payment.invoice_id }}</cc-details-item>
     </div>
     <cc-details-item *ngIf="shop" fxFlex title="Shop"
-        >{{ shop.details.name }} ({{ shop.location.url }})</cc-details-item
-    >
+        >{{ shop.details.name }} ({{ shop.location.url }})
+    </cc-details-item>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <div fxLayout="column" fxLayoutGap="16px" *ngIf="hasError(payment.status)">
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+            <div class="cc-title">Failure</div>
+            <cc-payment-error [status]="payment.status"></cc-payment-error>
+        </div>
+        <div fxLayout="column" fxLayoutGap="16px">
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+            <div class="cc-title">Terminal</div>
+            <cc-payment-terminal [terminalID]="payment.terminal_id.id"></cc-payment-terminal>
+        </div>
+        <div fxLayout="column" fxLayoutGap="16px">
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+            <div class="cc-title">Provider</div>
+            <cc-payment-provider [providerID]="payment.provider_id.id"></cc-payment-provider>
+        </div>
+        <div fxLayout="column" fxLayoutGap="16px">
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+            <div class="cc-title">Contractor</div>
+            <cc-payment-contractor
+                *ngIf="payment && shop"
+                [partyID]="payment?.owner_id"
+                [contractID]="shop.contract_id"
+            >
+            </cc-payment-contractor>
+        </div>
+    </div>
 </div>

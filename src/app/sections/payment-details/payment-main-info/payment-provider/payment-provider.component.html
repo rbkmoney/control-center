@@ -1,0 +1,13 @@
+<div fxLayout fxLayoutGap="16px" *ngIf="provider$ | async as provider; else empty">
+    <cc-details-item fxFlex title="ID">{{ provider.ref.id }}</cc-details-item>
+    <cc-details-item fxFlex title="Name">{{ provider.data.name }}</cc-details-item>
+    <div fxFlex></div>
+</div>
+<ng-template #empty>
+    <div *ngIf="inProgress$ | async; else emptyResult" fxLayout>
+        <cc-details-item fxFlex>Loading...</cc-details-item>
+    </div>
+    <ng-template #emptyResult>
+        <div>Error provider loading.</div>
+    </ng-template>
+</ng-template>
