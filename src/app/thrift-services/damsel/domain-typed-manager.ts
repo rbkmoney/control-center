@@ -3,6 +3,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { toGenReference } from '../converters';
+import { TerminalID } from '../fistful/gen-model/fistful';
 import { ProviderID } from '../fistful/gen-model/provider';
 import { DomainCacheService } from './domain-cache.service';
 import { DomainService } from './domain.service';
@@ -51,12 +52,12 @@ export class DomainTypedManager {
         );
     }
 
-    getBusinessScheduleObject(id: string): Observable<BusinessScheduleObject> {
-        return this.dmtCacheService.domain$.pipe(
-            map((domain) => findBusinessScheduleObjects(domain)),
-            map((objects) => findDomainObject(objects, id))
-        );
-    }
+    // getBusinessScheduleObject(id: string): Observable<BusinessScheduleObject> {
+    //     return this.dmtCacheService.domain$.pipe(
+    //         map((domain) => findBusinessScheduleObjects(domain)),
+    //         map((objects) => findDomainObject(objects, id))
+    //     );
+    // }
 
     getProviderObjects(): Observable<ProviderObject[]> {
         return this.dmtCacheService.domain$.pipe(map((domain) => findProviderObjects(domain)));
@@ -73,7 +74,7 @@ export class DomainTypedManager {
         return this.dmtCacheService.domain$.pipe(map((domain) => findTerminalObjects(domain)));
     }
 
-    getTerminalObject(id: string): Observable<TerminalObject> {
+    getTerminalObject(id: TerminalID): Observable<TerminalObject> {
         return this.dmtCacheService.domain$.pipe(
             map((domain) => findTerminalObjects(domain)),
             map((objects) => findDomainObject(objects, id))
@@ -124,17 +125,17 @@ export class DomainTypedManager {
         );
     }
 
-    addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
-        return combineLatest([
-            this.getLastVersion(),
-            this.getProviderObject(params.providerID),
-        ]).pipe(
-            switchMap(([version, providerObject]) =>
-                this.dmtService.commit(version, addDecisionToProviderCommit(providerObject, params))
-            ),
-            tap(() => this.dmtCacheService.forceReload())
-        );
-    }
+    // addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
+    //     return combineLatest([
+    //         this.getLastVersion(),
+    //         this.getProviderObject(params.providerID),
+    //     ]).pipe(
+    //         switchMap(([version, providerObject]) =>
+    //             this.dmtService.commit(version, addDecisionToProviderCommit(providerObject, params))
+    //         ),
+    //         tap(() => this.dmtCacheService.forceReload())
+    //     );
+    // }
 
     getLastVersion(): Observable<any> {
         return this.dmtService.checkout(toGenReference()).pipe(map((snapshot) => snapshot.version));

@@ -3,10 +3,15 @@ import Int64 from 'thrift-ts/lib/int64';
 
 import {
     Condition,
+    PartyID,
     Predicate,
+    ShopID,
+    TerminalDecision,
     TerminalObject,
     TerminalRef,
+    TerminalSelector,
 } from '../../../thrift-services/damsel/gen-model/domain';
+import { TerminalID } from '../../../thrift-services/fistful/gen-model/fistful';
 
 interface PredicateInfo {
     shopPartyContain: boolean;
@@ -15,19 +20,19 @@ interface PredicateInfo {
 }
 
 interface TerminalInfoGroup {
-    terminalIds: number[];
-    weights: number[];
+    terminalIds: TerminalID[];
+    weights: Int64[];
     priorities: Int64[];
     disabled: boolean;
     predicateType: PredicateType;
 }
 
 interface FlattenTerminalInfoGroup {
-    terminalId: number;
+    terminalId: TerminalID;
     disabled: boolean;
     predicateType: PredicateType;
     priority: Int64;
-    weight: number;
+    weight: Int64;
 }
 
 export enum PredicateType {
@@ -41,11 +46,11 @@ export interface TerminalInfo {
     terminal: TerminalObject;
     disabled: boolean;
     predicateType: PredicateType;
-    weight: number;
+    weight: Int64;
     priority: Int64;
 }
 
-function inPredicates(predicates: Predicate[], shopID: string, partyID: string): boolean {
+function inPredicates(predicates: Set<Predicate>, shopID: ShopID, partyID: PartyID): boolean {
     for (const predicate of predicates) {
         if (extractPredicateInfo(predicate, shopID, partyID).shopPartyContain) {
             return true;
@@ -53,38 +58,38 @@ function inPredicates(predicates: Predicate[], shopID: string, partyID: string):
     }
 }
 
-function inPartyCondition({ party }: Condition, shopID: string, partyID: string): boolean {
+function inPartyCondition({ party }: Condition, shopID: ShopID, partyID: PartyID): boolean {
     const shopIs = get(party, 'definition.shop_is');
     return party.id === partyID && shopIs === shopID;
 }
 
-function isDisabled(all_of: any[]): boolean {
-    const constant = all_of.find((pre) => pre.constant !== null);
+function isDisabled(all_of: Set<Predicate>): boolean {
+    const constant = Array.from(all_of).find((pre) => pre.constant !== null);
     return !!constant ? constant.constant : false;
 }
 
 function extractPredicateInfo(
-    { all_of, any_of, condition, is_not }: any,
-    shopID: string,
-    partyID: string
+    { all_of, any_of, condition, is_not }: Predicate,
+    shopID: ShopID,
+    partyID: PartyID
 ): PredicateInfo {
-    if (all_of && all_of.length > 0) {
+    if (all_of && all_of.size > 0) {
         return {
             shopPartyContain: inPredicates(all_of, shopID, partyID),
             predicateType: PredicateType.all_of,
             disabled: isDisabled(all_of),
         };
     }
-    if (any_of && any_of.length > 0) {
+    if (any_of && any_of.size > 0) {
         return {
             shopPartyContain: inPredicates(any_of, shopID, partyID),
             predicateType: PredicateType.any_of,
             disabled: false,
         };
     }
-    if (is_not && is_not.length > 0) {
+    if (is_not) {
         return {
-            shopPartyContain: inPartyCondition(is_not, shopID, partyID),
+            shopPartyContain: inPartyCondition(is_not.condition, shopID, partyID),
             predicateType: PredicateType.is_not,
             disabled: true,
         };
@@ -104,20 +109,20 @@ function extractPredicateInfo(
 const extractIdsFromValue = (value: TerminalRef[]): number[] => value.map((v) => v.id);
 
 // Need TerminalDecision with if_ then_
-function extractIdsFromDecisions(decisions: any[]): number[] {
+function extractIdsFromDecisions(decisions: TerminalDecision[]): number[] {
     return decisions.reduce((r, { then_ }) => {
         if (then_.decisions) {
             r = r.concat(extractIdsFromDecisions(then_.decisions));
         }
         if (then_.value) {
-            r = r.concat(extractIdsFromValue(then_.value));
+            r = r.concat(extractIdsFromValue(Array.from(then_.value)));
         }
         return r;
     }, []);
 }
 
 // Need TerminalSelector with Array instead Set
-function extractIds({ decisions, value }: any): number[] {
+function extractIds({ decisions, value }: TerminalSelector): number[] {
     if (decisions) {
         return extractIdsFromDecisions(decisions);
     }
@@ -126,22 +131,22 @@ function extractIds({ decisions, value }: any): number[] {
     }
 }
 
-function extractWeights({ value }: any): number {
+function extractWeights({ value }: TerminalSelector): Int64[] {
     if (value) {
-        return Array.from(value).map((val) => val.weight);
+        return Array.from(value).map(({ weight }) => weight);
     }
 }
 
-function extractPriorities({ value }: any): Int64 {
+function extractPriorities({ value }: TerminalSelector): Int64[] {
     if (value) {
-        return Array.from(value).map((val) => val.priority);
+        return Array.from(value).map(({ priority }) => priority);
     }
 }
 
 const extractTerminalInfoGroup = (
-    decisions: any[],
-    shopID: string,
-    partyID: string
+    decisions: TerminalDecision[],
+    shopID: ShopID,
+    partyID: PartyID
 ): TerminalInfoGroup[] =>
     decisions.reduce((r, { if_, then_ }) => {
         const { shopPartyContain, disabled, predicateType } = extractPredicateInfo(
@@ -193,10 +198,10 @@ const enrichWithTerminal = (
 
 // Need TerminalDecision with if_ then_
 export function extractTerminalInfo(
-    decisions: any[],
+    decisions: TerminalDecision[],
     terminalObjects: TerminalObject[],
-    shopID: string,
-    partyID: string
+    shopID: ShopID,
+    partyID: PartyID
 ): TerminalInfo[] {
     const extractedGroup = extractTerminalInfoGroup(decisions, shopID, partyID);
     return enrichWithTerminal(flattenGroup(extractedGroup), terminalObjects);

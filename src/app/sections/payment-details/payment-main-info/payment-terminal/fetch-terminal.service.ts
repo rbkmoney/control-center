@@ -5,10 +5,11 @@ import { catchError, filter, shareReplay, startWith, switchMap } from 'rxjs/oper
 
 import { DomainTypedManager } from '../../../../thrift-services/damsel';
 import { TerminalObject } from '../../../../thrift-services/damsel/gen-model/domain';
+import { TerminalID } from '../../../../thrift-services/fistful/gen-model/fistful';
 
 @Injectable()
 export class FetchTerminalService {
-    private getTerminal$ = new Subject<number>();
+    private getTerminal$ = new Subject<TerminalID>();
     private hasError$ = new Subject();
 
     terminal$: Observable<string | TerminalObject> = this.getTerminal$.pipe(
