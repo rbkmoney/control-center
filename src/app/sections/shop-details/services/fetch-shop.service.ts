@@ -4,8 +4,8 @@ import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { merge, of, Subject } from 'rxjs';
 import { catchError, filter, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { PartyService } from '../../papi/party.service';
-import { PartyID, ShopID } from '../../thrift-services/damsel/gen-model/domain';
+import { PartyService } from '../../../papi/party.service';
+import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Injectable()
 export class FetchShopService {

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { FetchShopService } from './fetch-shop.service';
+import { FetchShopService } from './services/fetch-shop.service';
 
 @Component({
     templateUrl: 'shop-details.component.html',

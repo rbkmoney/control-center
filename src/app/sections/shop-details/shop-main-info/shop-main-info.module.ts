@@ -5,7 +5,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { StatusModule } from '@cc/app/shared/components';
 import { DetailsItemModule } from '@cc/components/details-item';
 
-import { CategoryComponent } from './category/category.component';
+import { CategoryComponent } from './components/category/category.component';
 import { ShopBlockingPipe } from './shop-blocking.pipe';
 import { ShopMainInfoComponent } from './shop-main-info.component';
 import { ShopSuspensionPipe } from './shop-suspension.pipe';
