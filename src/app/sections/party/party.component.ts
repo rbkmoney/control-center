@@ -48,7 +48,7 @@ export class PartyComponent {
     ) {
         this.partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
         this.merchantEmail$ = this.partyID$.pipe(
-            switchMap((partyID) => this.deanonimusService.searchParty({ text: partyID })),
+            switchMap((partyID) => this.deanonimusService.searchParty(partyID)),
             map(getMaxSearchHitParty),
             pluck('email'),
             catchError((err) => {

@@ -12,6 +12,6 @@ export class DeanonimusService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/deanonimus', Deanonimus);
     }
 
-    searchParty = (params: { text: string }): Observable<SearchHit[]> =>
-        this.toObservableAction('searchParty')(params.text);
+    searchParty = (text: string): Observable<SearchHit[]> =>
+        this.toObservableAction('searchParty')(text);
 }

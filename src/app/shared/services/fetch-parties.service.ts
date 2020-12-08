@@ -1,28 +1,27 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { merge, of, Subject } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { PartiesSearchFiltersParams } from '../../sections/search-parties/parties-search-filters';
 import { DeanonimusService } from '../../thrift-services/deanonimus';
-import { SearchHit } from '../../thrift-services/deanonimus/gen-model/deanonimus';
 
 @Injectable()
 export class FetchPartiesService {
-    private searchParties$: Subject<PartiesSearchFiltersParams> = new Subject();
+    private searchParties$: Subject<string> = new Subject();
     private hasError$: Subject<any> = new Subject();
 
     parties$ = this.searchParties$.pipe(
-        switchMap((params) =>
-            this.deanonimusService.searchParty(params).pipe(
-                catchError((_) => {
+        switchMap((text) =>
+            this.deanonimusService.searchParty(text).pipe(
+                map((hits) => hits.map((hit) => hit.party)),
+                catchError((err) => {
+                    console.error(err);
                     this.hasError$.next();
                     return of('error');
                 })
             )
         ),
         filter((r) => r !== 'error'),
-        map((hits: SearchHit[]) => hits.map((hit) => hit.party)),
         shareReplay(1)
     );
 
@@ -30,7 +29,7 @@ export class FetchPartiesService {
 
     constructor(private deanonimusService: DeanonimusService) {}
 
-    searchParties(params: PartiesSearchFiltersParams) {
-        this.searchParties$.next(params);
+    searchParties(text: string) {
+        this.searchParties$.next(text);
     }
 }
