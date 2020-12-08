@@ -3,9 +3,9 @@ import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { combineLatest, Subject } from 'rxjs';
 import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { DomainTypedManager } from '../../../../thrift-services/damsel';
-import { PartyID, ShopID } from '../../../../thrift-services/damsel/gen-model/domain';
-import { toProviderInfos } from '../to-provider-infos';
+import { DomainTypedManager } from '../../../../../thrift-services/damsel';
+import { PartyID, ShopID } from '../../../../../thrift-services/damsel/gen-model/domain';
+import { toProviderInfos } from './to-provider-infos';
 
 @Injectable()
 export class FetchShopProvidersService {

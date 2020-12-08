@@ -1,6 +1,9 @@
 import Int64 from 'thrift-ts/lib/int64';
 
-import { ProviderObject, TerminalObject } from '../../../thrift-services/damsel/gen-model/domain';
+import {
+    ProviderObject,
+    TerminalObject,
+} from '../../../../../thrift-services/damsel/gen-model/domain';
 import { PredicateType } from './extract-terminal-infos';
 
 export interface TerminalInfo {

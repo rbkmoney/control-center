@@ -10,8 +10,8 @@ import {
     TerminalObject,
     TerminalRef,
     TerminalSelector,
-} from '../../../thrift-services/damsel/gen-model/domain';
-import { TerminalID } from '../../../thrift-services/fistful/gen-model/fistful';
+} from '../../../../../thrift-services/damsel/gen-model/domain';
+import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
 
 interface PredicateInfo {
     shopPartyContain: boolean;

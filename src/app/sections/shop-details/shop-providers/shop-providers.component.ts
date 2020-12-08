@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
-import { FetchShopProvidersService } from './services/fetch-shop-providers.service';
+import { FetchShopProvidersService } from './services';
 
 @Component({
     selector: 'cc-shop-providers',

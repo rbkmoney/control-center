@@ -1,6 +1,9 @@
 import get from 'lodash-es/get';
 
-import { ProviderObject, TerminalObject } from '../../../thrift-services/damsel/gen-model/domain';
+import {
+    ProviderObject,
+    TerminalObject,
+} from '../../../../../thrift-services/damsel/gen-model/domain';
 import { extractTerminalInfos } from './extract-terminal-infos';
 import { ProviderInfo } from './provider-info';
 
