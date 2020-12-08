@@ -20,10 +20,14 @@
         </cc-details-item>
         <cc-details-item fxFlex title="Invoice">#{{ payment.invoice_id }}</cc-details-item>
     </div>
-    <cc-details-item *ngIf="shop" fxFlex title="Shop"
-        >{{ shop.details.name }} ({{ shop.location.url }})
-    </cc-details-item>
     <div fxLayout="column" fxLayoutGap="16px">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+            <div class="cc-title">Shop</div>
+            <cc-payment-shop [shop]="shop"></cc-payment-shop>
+        </div>
         <div fxLayout="column" fxLayoutGap="16px" *ngIf="hasError(payment.status)">
             <div>
                 <mat-divider></mat-divider>

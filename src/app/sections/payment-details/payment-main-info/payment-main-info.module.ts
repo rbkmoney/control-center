@@ -12,6 +12,7 @@ import { PaymentContractorModule } from './payment-contractor';
 import { PaymentErrorModule } from './payment-error';
 import { PaymentMainInfoComponent } from './payment-main-info.component';
 import { PaymentProviderModule } from './payment-provider';
+import { PaymentShopModule } from './payment-shop';
 import { PaymentTerminalModule } from './payment-terminal';
 import { PaymentToolModule } from './payment-tool';
 
@@ -30,6 +31,7 @@ import { PaymentToolModule } from './payment-tool';
         PaymentTerminalModule,
         PaymentProviderModule,
         PaymentErrorModule,
+        PaymentShopModule,
     ],
     declarations: [PaymentMainInfoComponent],
     exports: [PaymentMainInfoComponent],
