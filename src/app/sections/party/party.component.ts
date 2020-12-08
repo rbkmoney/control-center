@@ -1,17 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import maxBy from 'lodash-es/maxBy';
 import { Observable, of } from 'rxjs';
-import {
-    catchError,
-    filter,
-    map,
-    pluck,
-    shareReplay,
-    startWith,
-    switchMap,
-    tap,
-} from 'rxjs/operators';
+import { catchError, filter, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import {
     AppAuthGuardService,
