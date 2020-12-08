@@ -1,0 +1,17 @@
+<div *ngIf="(providerInfos$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="24px">
+    <cc-provider
+        *ngFor="let providerInfo of providerInfos$ | async"
+        [providerInfo]="providerInfo"
+        [partyID]="partyID"
+        [shopID]="shopID"
+        (terminalChanged)="terminalChanged()"
+    ></cc-provider>
+</div>
+<ng-template #empty>
+    <div *ngIf="inProgress$ | async; else emptyResult" fxLayout fxLayoutAlign="center center">
+        <mat-spinner diameter="64"></mat-spinner>
+    </div>
+    <ng-template #emptyResult>
+        <cc-empty-search-result unwrapped></cc-empty-search-result>
+    </ng-template>
+</ng-template>
