@@ -14,8 +14,8 @@ export class FetchShopProvidersService {
     providerInfos$ = this.getProviderInfos$.pipe(
         switchMap(({ partyID, shopID }) =>
             combineLatest([this.dtm.getProviderObjects(), this.dtm.getTerminalObjects()]).pipe(
-                map(([providers, terminalObjects]) =>
-                    toProviderInfos(providers, terminalObjects, partyID, shopID)
+                map(([providerObjects, terminalObjects]) =>
+                    toProviderInfos(providerObjects, terminalObjects, partyID, shopID)
                 )
             )
         ),

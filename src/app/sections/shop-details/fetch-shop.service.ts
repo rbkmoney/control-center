@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { merge, of, Subject } from 'rxjs';
-import { catchError, filter, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, filter, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../papi/party.service';
 import { PartyID, ShopID } from '../../thrift-services/damsel/gen-model/domain';
@@ -26,7 +26,7 @@ export class FetchShopService {
         shareReplay(1)
     );
 
-    inProgress$ = progress(this.getShop$, merge(this.shop$, this.hasError$));
+    inProgress$ = progress(this.getShop$, merge(this.shop$, this.hasError$)).pipe(startWith(true));
 
     constructor(private partyService: PartyService, private snackBar: MatSnackBar) {
         this.shop$.subscribe();
