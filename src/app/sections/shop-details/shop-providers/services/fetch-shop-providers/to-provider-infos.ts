@@ -4,8 +4,8 @@ import {
     ProviderObject,
     TerminalObject,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
+import { ProviderInfo } from '../../types';
 import { extractTerminalInfos } from './extract-terminal-infos';
-import { ProviderInfo } from './provider-info';
 
 export const toProviderInfos = (
     providers: ProviderObject[],

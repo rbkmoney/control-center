@@ -11,43 +11,18 @@ import {
     TerminalRef,
     TerminalSelector,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
-import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
+import {
+    FlattenTerminalInfoGroup,
+    PredicateInfo,
+    TerminalInfo,
+    TerminalInfoGroup,
+} from '../../types';
 
-interface PredicateInfo {
-    shopPartyContain: boolean;
-    predicateType?: PredicateType;
-    disabled?: boolean;
-}
-
-interface TerminalInfoGroup {
-    terminalIds: TerminalID[];
-    weights: Int64[];
-    priorities: Int64[];
-    disabled: boolean;
-    predicateType: PredicateType;
-}
-
-interface FlattenTerminalInfoGroup {
-    terminalId: TerminalID;
-    disabled: boolean;
-    predicateType: PredicateType;
-    priority: Int64;
-    weight: Int64;
-}
-
-export enum PredicateType {
+enum PredicateType {
     condition = 'condition',
     is_not = 'is_not',
     all_of = 'all_of',
     any_of = 'any_of',
-}
-
-export interface TerminalInfo {
-    terminal: TerminalObject;
-    disabled: boolean;
-    predicateType: PredicateType;
-    weight: Int64;
-    priority: Int64;
 }
 
 function inPredicates(predicates: Set<Predicate>, shopID: ShopID, partyID: PartyID): boolean {
