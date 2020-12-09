@@ -29,10 +29,13 @@ export class PaymentRoutingRulesComponent {
         map(([ruleset, shops]) =>
             ruleset.data.decisions.delegates
                 .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
-                .map((d) => ({
-                    id: d.ruleset.id,
-                    shop: shops.find((s) => s.id === d.allowed.condition.party.definition.shop_is),
-                }))
+                .map((d) => {
+                    const shopId = d.allowed.condition.party.definition.shop_is;
+                    return {
+                        id: d.ruleset.id,
+                        shop: shops.find((s) => s.id === shopId) || { id: shopId },
+                    };
+                })
         ),
         shareReplay(1)
     );
