@@ -1,6 +1,6 @@
-<div *ngIf="(providerInfo$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="24px">
+<div *ngIf="(providersInfo$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="24px">
     <cc-provider
-        *ngFor="let providerInfo of providerInfo$ | async"
+        *ngFor="let providerInfo of providersInfo$ | async"
         [providerInfo]="providerInfo"
         [partyID]="partyID"
         [shopID]="shopID"

@@ -3,11 +3,11 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
 
 import { IsActivePipe } from './is-active.pipe';
-import { TerminalInfoTableComponent } from './terminal-info-table.component';
+import { TerminalsInfoTableComponent } from './terminals-info-table.component';
 
 @NgModule({
-    declarations: [TerminalInfoTableComponent, IsActivePipe],
+    declarations: [TerminalsInfoTableComponent, IsActivePipe],
     imports: [MatTableModule, FlexModule],
-    exports: [TerminalInfoTableComponent],
+    exports: [TerminalsInfoTableComponent],
 })
-export class TerminalInfoTableModule {}
+export class TerminalsInfoTableModule {}

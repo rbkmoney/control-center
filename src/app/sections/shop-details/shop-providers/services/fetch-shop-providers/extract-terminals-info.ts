@@ -110,7 +110,7 @@ function extractPriorities({ value }: TerminalSelector): Int64[] {
     }
 }
 
-const extractTerminalInfoGroup = (
+const extractTerminalsInfoGroup = (
     decisions: TerminalDecision[],
     shopID: ShopID,
     partyID: PartyID
@@ -163,12 +163,12 @@ const enrichWithTerminal = (
     });
 };
 
-export function extractTerminalInfo(
+export function extractTerminalsInfo(
     decisions: TerminalDecision[],
     terminalObjects: TerminalObject[],
     shopID: ShopID,
     partyID: PartyID
 ): TerminalInfo[] {
-    const extractedGroup = extractTerminalInfoGroup(decisions, shopID, partyID);
+    const extractedGroup = extractTerminalsInfoGroup(decisions, shopID, partyID);
     return enrichWithTerminal(flattenGroup(extractedGroup), terminalObjects);
 }
