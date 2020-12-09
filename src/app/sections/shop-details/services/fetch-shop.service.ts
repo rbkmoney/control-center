@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { merge, of, Subject } from 'rxjs';
-import { catchError, filter, shareReplay, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, merge, of, Subject } from 'rxjs';
+import { catchError, filter, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { PartyService } from '../../papi/party.service';
-import { PartyID, ShopID } from '../../thrift-services/damsel/gen-model/domain';
+import { PartyService } from '../../../papi/party.service';
+import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
 
 @Injectable()
 export class FetchShopService {
-    private getShop$ = new Subject<{ partyID: PartyID; shopID: ShopID }>();
+    private getShop$ = new BehaviorSubject<{ partyID: PartyID; shopID: ShopID }>(null);
     private hasError$: Subject<any> = new Subject();
 
     shop$ = this.getShop$.pipe(
@@ -26,11 +26,9 @@ export class FetchShopService {
         shareReplay(1)
     );
 
-    inProgress$ = progress(this.getShop$, merge(this.shop$, this.hasError$));
+    inProgress$ = progress(this.getShop$, merge(this.shop$, this.hasError$)).pipe(startWith(true));
 
-    constructor(private partyService: PartyService, private snackBar: MatSnackBar) {
-        this.shop$.subscribe();
-    }
+    constructor(private partyService: PartyService, private snackBar: MatSnackBar) {}
 
     getShop(partyID: PartyID, shopID: ShopID) {
         this.getShop$.next({ shopID, partyID });
