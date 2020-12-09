@@ -47,7 +47,7 @@ export class TargetRulesetFormComponent implements OnChanges {
         .getObjects('payment_institution')
         .pipe(map((r) => sortBy(r, ['ref.id'])));
     rulesets$ = this.domainService
-        .getObjects('payment_routing_rules')
+        .getObjects('routing_rules')
         .pipe(map((r) => sortBy(r, ['ref.id'])));
 
     constructor(private fb: FormBuilder, private domainService: DomainCacheService) {
@@ -112,7 +112,7 @@ export class TargetRulesetFormComponent implements OnChanges {
 
     getRulesetById(id: number) {
         return this.domainService
-            .getObjects('payment_routing_rules')
+            .getObjects('routing_rules')
             .pipe(map((rulesets) => rulesets.find((r) => r?.ref?.id === id)));
     }
 }

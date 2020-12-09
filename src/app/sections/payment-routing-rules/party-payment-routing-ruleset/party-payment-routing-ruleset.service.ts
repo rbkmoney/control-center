@@ -26,7 +26,7 @@ export class PartyPaymentRoutingRulesetService {
     );
 
     partyRuleset$ = combineLatest([
-        this.domainService.getObjects('payment_routing_rules'),
+        this.domainService.getObjects('routing_rules'),
         this.refID$,
     ]).pipe(
         map(([rules, refID]) => rules.find((r) => r?.ref?.id === refID)),

@@ -30,7 +30,7 @@ export class ChangeTargetDialogComponent {
         public data: { mainRulesetRefID: number; rulesetID: number }
     ) {
         this.domainService
-            .getObjects('payment_routing_rules')
+            .getObjects('routing_rules')
             .pipe(map((rulesets) => rulesets?.find((r) => r?.ref?.id === data?.mainRulesetRefID)))
             .subscribe((ruleset) => {
                 this.initValue = {
