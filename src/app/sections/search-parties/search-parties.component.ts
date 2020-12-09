@@ -26,7 +26,7 @@ export class SearchPartiesComponent {
 
     searchParamsUpdated($event: PartiesSearchFiltersParams) {
         this.partiesService.preserve($event);
-        this.fetchPartiesService.searchParties($event);
+        this.fetchPartiesService.searchParties($event.text);
     }
 
     partyMenuItemSelected(event: PartyMenuItemEvent) {

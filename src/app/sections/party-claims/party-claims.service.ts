@@ -9,7 +9,7 @@ import { SearchFormValue } from '@cc/app/shared/components';
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 
-const SEARCH_LIMIT = 20;
+const SEARCH_LIMIT = 10;
 
 @Injectable()
 export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
