@@ -10,7 +10,7 @@ import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 
 @Injectable()
 export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> {
-    private readonly searchLimit = 20;
+    private readonly searchLimit = 10;
 
     claims$: Observable<Claim[]> = this.searchResult$;
 

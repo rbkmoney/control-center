@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map, pluck, shareReplay, startWith } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, filter, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import {
     AppAuthGuardService,
@@ -11,13 +12,14 @@ import {
     PartyRole,
 } from '@cc/app/shared/services';
 
+import { DeanonimusService, getMaxSearchHitParty } from '../../thrift-services/deanonimus';
+
 @Component({
     templateUrl: 'party.component.html',
     styleUrls: ['party.component.scss'],
 })
 export class PartyComponent {
     links = this.getLinks();
-    partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
     activeLinkByFragment$ = this.router.events.pipe(
         filter((e) => e instanceof NavigationEnd),
         startWith(undefined),
@@ -25,11 +27,27 @@ export class PartyComponent {
         shareReplay(1)
     );
 
+    partyID$: Observable<string>;
+    merchantEmail$: Observable<string>;
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private appAuthGuardService: AppAuthGuardService
-    ) {}
+        private appAuthGuardService: AppAuthGuardService,
+        private deanonimusService: DeanonimusService
+    ) {
+        this.partyID$ = this.route.params.pipe(pluck('partyID'), shareReplay(1));
+        this.merchantEmail$ = this.partyID$.pipe(
+            switchMap((partyID) => this.deanonimusService.searchParty(partyID)),
+            map(getMaxSearchHitParty),
+            pluck('email'),
+            catchError((err) => {
+                console.error(err);
+                return of('--/--');
+            }),
+            shareReplay(1)
+        );
+    }
 
     private getLinks() {
         const links = [
