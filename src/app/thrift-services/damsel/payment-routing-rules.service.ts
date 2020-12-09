@@ -18,7 +18,7 @@ export class PaymentRoutingRulesService {
     constructor(private domainService: DomainCacheService) {}
 
     rulesets$: Observable<RoutingRulesObject[]> = this.domainService
-        .getObjects('payment_routing_rules')
+        .getObjects('routing_rules')
         .pipe(
             map((r) => r.sort((a, b) => a.ref.id - b.ref.id)),
             shareReplay(1)
@@ -71,13 +71,13 @@ export class PaymentRoutingRulesService {
                     ops: [
                         {
                             insert: {
-                                object: { payment_routing_rules: ruleset },
+                                object: { routing_rules: ruleset },
                             },
                         },
                         {
                             update: {
-                                old_object: { payment_routing_rules: mainRuleset },
-                                new_object: { payment_routing_rules: newMainRuleset },
+                                old_object: { routing_rules: mainRuleset },
+                                new_object: { routing_rules: newMainRuleset },
                             },
                         },
                     ],
@@ -129,13 +129,13 @@ export class PaymentRoutingRulesService {
                     ops: [
                         {
                             insert: {
-                                object: { payment_routing_rules: shopRuleset },
+                                object: { routing_rules: shopRuleset },
                             },
                         },
                         {
                             update: {
-                                old_object: { payment_routing_rules: partyRuleset },
-                                new_object: { payment_routing_rules: newPartyRuleset },
+                                old_object: { routing_rules: partyRuleset },
+                                new_object: { routing_rules: newPartyRuleset },
                             },
                         },
                     ],
@@ -175,8 +175,8 @@ export class PaymentRoutingRulesService {
                     ops: [
                         {
                             update: {
-                                old_object: { payment_routing_rules: shopRuleset },
-                                new_object: { payment_routing_rules: newShopRule },
+                                old_object: { routing_rules: shopRuleset },
+                                new_object: { routing_rules: newShopRule },
                             },
                         },
                     ],
@@ -219,12 +219,12 @@ export class PaymentRoutingRulesService {
                 return this.domainService.commit({
                     ops: [
                         {
-                            insert: { object: { payment_routing_rules: ruleset } },
+                            insert: { object: { routing_rules: ruleset } },
                         },
                         {
                             update: {
-                                old_object: { payment_routing_rules: mainRuleset },
-                                new_object: { payment_routing_rules: newMainPaymentRoutingRuleset },
+                                old_object: { routing_rules: mainRuleset },
+                                new_object: { routing_rules: newMainPaymentRoutingRuleset },
                             },
                         },
                     ],
@@ -249,8 +249,8 @@ export class PaymentRoutingRulesService {
                     ops: [
                         {
                             update: {
-                                old_object: { payment_routing_rules: shopRuleset },
-                                new_object: { payment_routing_rules: newShopRule },
+                                old_object: { routing_rules: shopRuleset },
+                                new_object: { routing_rules: newShopRule },
                             },
                         },
                     ],
@@ -281,13 +281,13 @@ export class PaymentRoutingRulesService {
                     ops: [
                         {
                             update: {
-                                old_object: { payment_routing_rules: mainRuleset },
-                                new_object: { payment_routing_rules: newMainPaymentRoutingRuleset },
+                                old_object: { routing_rules: mainRuleset },
+                                new_object: { routing_rules: newMainPaymentRoutingRuleset },
                             },
                         },
                         {
                             remove: {
-                                object: { payment_routing_rules: ruleset },
+                                object: { routing_rules: ruleset },
                             },
                         },
                     ],
@@ -330,14 +330,14 @@ export class PaymentRoutingRulesService {
                     ops: [
                         {
                             update: {
-                                old_object: { payment_routing_rules: previousMainRuleset },
-                                new_object: { payment_routing_rules: newPreviousMainRuleset },
+                                old_object: { routing_rules: previousMainRuleset },
+                                new_object: { routing_rules: newPreviousMainRuleset },
                             },
                         },
                         {
                             update: {
-                                old_object: { payment_routing_rules: mainRuleset },
-                                new_object: { payment_routing_rules: newMainPaymentRoutingRuleset },
+                                old_object: { routing_rules: mainRuleset },
+                                new_object: { routing_rules: newMainPaymentRoutingRuleset },
                             },
                         },
                     ],
