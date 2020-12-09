@@ -25,17 +25,16 @@ export class RemoveTerminalDecisionService {
                 of(data),
                 this.dialog
                     .open(ConfirmActionDialogComponent, {
-                        data: { title: `Remove this terminal from shop?` }
+                        data: { title: `Remove this terminal from shop?` },
                     })
                     .afterClosed()
-                    .pipe(filter((r) => r === 'confirm'))
+                    .pipe(filter((r) => r === 'confirm')),
             ])
         ),
         tap((q) => console.log(q))
     );
 
-    constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
-    }
+    constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
     remove(action: { type: TerminalActionTypes; terminalID: TerminalID; providerID: ProviderID }) {
         this.remove$.next(action);

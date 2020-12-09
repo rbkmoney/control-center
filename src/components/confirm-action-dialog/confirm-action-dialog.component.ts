@@ -1,8 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TerminalActionTypes } from '../../app/sections/shop-details/shop-providers/types';
-import { TerminalID } from '../../app/thrift-services/fistful/gen-model/fistful';
-import { ProviderID } from '../../app/thrift-services/fistful/gen-model/provider';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'cc-confirm-action-dialog',

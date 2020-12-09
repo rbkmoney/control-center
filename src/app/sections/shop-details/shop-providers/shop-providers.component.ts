@@ -18,7 +18,8 @@ export class ShopProvidersComponent implements OnInit {
     providersInfo$ = this.fetchProvidersService.providersInfo$;
     inProgress$ = this.fetchProvidersService.inProgress$;
 
-    constructor(private fetchProvidersService: FetchShopProvidersService) {}
+    constructor(private fetchProvidersService: FetchShopProvidersService) {
+    }
 
     ngOnInit() {
         this.getProviders();
