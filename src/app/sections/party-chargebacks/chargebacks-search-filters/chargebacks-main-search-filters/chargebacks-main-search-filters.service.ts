@@ -12,7 +12,7 @@ export class ChargebacksMainSearchFiltersService {
     private getShops$ = new ReplaySubject<string>();
 
     form = this.fb.group({
-        from_time: [moment().subtract(1, 'month').startOf('d'), Validators.required],
+        from_time: [moment().subtract(1, 'y').startOf('d'), Validators.required],
         to_time: [moment().endOf('d'), Validators.required],
         invoice_id: '',
         shop_ids: '',

@@ -46,7 +46,7 @@ export class MerchantSearcherComponent extends CustomFormControl implements OnIn
             if (v === '') {
                 this.formControl.patchValue(v);
             } else {
-                this.fetchMarchantsService.searchParties({ text: v });
+                this.fetchMarchantsService.searchParties(v);
             }
         });
 
@@ -72,7 +72,7 @@ export class MerchantSearcherComponent extends CustomFormControl implements OnIn
         const { value } = this.formControl;
         if (value && value !== '') {
             this.searchControl.patchValue(value);
-            this.fetchMarchantsService.searchParties({ text: value });
+            this.fetchMarchantsService.searchParties(value);
         }
     }
 }

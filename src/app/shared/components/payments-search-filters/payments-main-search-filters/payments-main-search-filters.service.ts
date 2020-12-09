@@ -15,7 +15,7 @@ export class PaymentsMainSearchFiltersService {
     private getShops$ = new ReplaySubject<string>();
 
     form = this.fb.group({
-        fromTime: [moment().subtract(1, 'month').startOf('d'), Validators.required],
+        fromTime: [moment().subtract(1, 'year').startOf('d'), Validators.required],
         toTime: [moment().endOf('d'), Validators.required],
         invoiceID: '',
         partyID: '',

@@ -19,7 +19,7 @@ import { PartyPaymentsService } from './party-payments.service';
 })
 export class PartyPaymentsComponent {
     searchType: SearcherType;
-    initsearchParams$ = this.partyPaymentsService.data$;
+    initSearchParams$ = this.partyPaymentsService.data$;
 
     constructor(
         private route: ActivatedRoute,

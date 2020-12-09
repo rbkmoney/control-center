@@ -14,14 +14,7 @@ export class ClaimsTableComponent {
     @Input()
     claims: Claim[];
 
-    displayedColumns: string[] = [
-        'claimID',
-        'source',
-        'status',
-        'createdAt',
-        'updatedAt',
-        'actions',
-    ];
+    displayedColumns: string[] = ['claimID', 'status', 'createdAt', 'updatedAt', 'actions'];
 
     constructor(private router: Router) {}
 
