@@ -1,4 +1,4 @@
-import { PredicateType } from '../services/fetch-shop-providers/extract-terminal-infos';
+import { PredicateType } from './predicate-type';
 
 export interface PredicateInfo {
     shopPartyContain: boolean;

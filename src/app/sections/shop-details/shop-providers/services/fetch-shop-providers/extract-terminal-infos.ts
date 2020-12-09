@@ -17,13 +17,7 @@ import {
     TerminalInfo,
     TerminalInfoGroup,
 } from '../../types';
-
-enum PredicateType {
-    condition = 'condition',
-    is_not = 'is_not',
-    all_of = 'all_of',
-    any_of = 'any_of',
-}
+import { PredicateType } from '../../types/predicate-type';
 
 function inPredicates(predicates: Set<Predicate>, shopID: ShopID, partyID: PartyID): boolean {
     for (const predicate of predicates) {
