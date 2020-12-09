@@ -1,10 +1,10 @@
-<div *ngIf="(providerInfos$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="24px">
+<div *ngIf="(providerInfo$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="24px">
     <cc-provider
-        *ngFor="let providerInfo of providerInfos$ | async"
+        *ngFor="let providerInfo of providerInfo$ | async"
         [providerInfo]="providerInfo"
         [partyID]="partyID"
         [shopID]="shopID"
-        (terminalChanged)="terminalChanged()"
+        (terminalChanged)="getProviders()"
     ></cc-provider>
 </div>
 <ng-template #empty>

@@ -163,7 +163,7 @@ const enrichWithTerminal = (
     });
 };
 
-export function extractTerminalInfos(
+export function extractTerminalInfo(
     decisions: TerminalDecision[],
     terminalObjects: TerminalObject[],
     shopID: ShopID,

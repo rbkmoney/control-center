@@ -15,7 +15,7 @@ export class ShopProvidersComponent implements OnInit {
     @Input()
     shopID: ShopID;
 
-    providerInfos$ = this.fetchProvidersService.providerInfos$;
+    providerInfo$ = this.fetchProvidersService.providerInfo$;
     inProgress$ = this.fetchProvidersService.inProgress$;
 
     constructor(private fetchProvidersService: FetchShopProvidersService) {}
@@ -24,11 +24,7 @@ export class ShopProvidersComponent implements OnInit {
         this.getProviders();
     }
 
-    terminalChanged() {
-        this.getProviders();
-    }
-
     getProviders() {
-        this.fetchProvidersService.getProviderInfos(this.partyID, this.shopID);
+        this.fetchProvidersService.getProviderInfo(this.partyID, this.shopID);
     }
 }
