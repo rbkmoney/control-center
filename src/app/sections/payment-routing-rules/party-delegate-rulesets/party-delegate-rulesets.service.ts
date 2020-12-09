@@ -15,7 +15,7 @@ export class PartyDelegateRulesetsService {
 
     partyDelegateRulesets$ = combineLatest([
         this.domainService.getObjects('payment_institution'),
-        this.domainService.getObjects('payment_routing_rules'),
+        this.domainService.getObjects('routing_rules'),
         this.partyID$,
     ]).pipe(
         map(([institutions, rules, partyID]) => {
