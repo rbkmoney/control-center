@@ -7,6 +7,7 @@ import { filter, map, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
 import { PaymentRoutingRulesService } from '../../../thrift-services';
+import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
 import { PartyPaymentRoutingRulesetService } from './party-payment-routing-ruleset.service';
@@ -41,12 +42,14 @@ export class PaymentRoutingRulesComponent {
     );
     partyID$ = this.partyPaymentRoutingRulesetService.partyID$;
     displayedColumns = ['shop', 'id', 'actions'];
+    isLoading$ = this.domainService.isLoading$;
 
     constructor(
         private dialog: MatDialog,
         private partyPaymentRoutingRulesetService: PartyPaymentRoutingRulesetService,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
-        private router: Router
+        private router: Router,
+        private domainService: DomainCacheService
     ) {}
 
     initialize() {

@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
@@ -51,6 +52,7 @@ import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-rules
         MatAutocompleteModule,
         AddShopPaymentRoutingRuleDialogModule,
         PrettyJsonModule,
+        MatProgressBarModule,
     ],
     declarations: [ShopPaymentRoutingRulesetComponent],
 })

@@ -1,61 +1,72 @@
-<div fxLayout="column" fxLayoutGap="64px">
-    <cc-payment-routing-ruleset-header
-        [refID]="(shopRuleset$ | async)?.ref?.id"
-        [description]="(shop$ | async)?.details?.name"
-        [backTo]="
-            'party/' + (partyID$ | async) + '/payment-routing-rules/' + (partyRulesetRefID$ | async)
-        "
-        (add)="addShopRule()"
-    >
-        Shop payment routing rules
-    </cc-payment-routing-ruleset-header>
+<ng-container *ngIf="isLoading$ | async; else loaded">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+<ng-template #loaded>
+    <div fxLayout="column" fxLayoutGap="64px">
+        <cc-payment-routing-ruleset-header
+            [refID]="(shopRuleset$ | async)?.ref?.id"
+            [description]="(shop$ | async)?.details?.name"
+            [backTo]="
+                'party/' +
+                (partyID$ | async) +
+                '/payment-routing-rules/' +
+                (partyRulesetRefID$ | async)
+            "
+            (add)="addShopRule()"
+        >
+            Shop payment routing rules
+        </cc-payment-routing-ruleset-header>
 
-    <mat-accordion *ngIf="(candidates$ | async)?.length; else emptyShopRules">
-        <mat-expansion-panel *ngFor="let candidate of candidates$ | async; let idx = index">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{ (terminalsMapID$ | async)[candidate.terminal.id]?.data?.name }}
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div fxLayout="column" fxLayoutGap="24px">
-                <div fxLayout fxLayoutGap="8px">
-                    <div fxFlex fxLayout="column" fxLayoutGap="8px">
-                        <div class="cc-caption cc-payment-routing-rules-caption">Description</div>
-                        <div>{{ candidate.description }}</div>
+        <mat-accordion *ngIf="(candidates$ | async)?.length; else emptyShopRules">
+            <mat-expansion-panel *ngFor="let candidate of candidates$ | async; let idx = index">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ (terminalsMapID$ | async)[candidate.terminal.id]?.data?.name }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div fxLayout="column" fxLayoutGap="24px">
+                    <div fxLayout fxLayoutGap="8px">
+                        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                            <div class="cc-caption cc-payment-routing-rules-caption">
+                                Description
+                            </div>
+                            <div>{{ candidate.description }}</div>
+                        </div>
+                        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                            <div class="cc-caption cc-payment-routing-rules-caption">Weight</div>
+                            <div>{{ candidate.weight }}</div>
+                        </div>
+                        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                            <div class="cc-caption cc-payment-routing-rules-caption">Priority</div>
+                            <div>{{ candidate.priority }}</div>
+                        </div>
                     </div>
-                    <div fxFlex fxLayout="column" fxLayoutGap="8px">
-                        <div class="cc-caption cc-payment-routing-rules-caption">Weight</div>
-                        <div>{{ candidate.weight }}</div>
+                    <div fxLayout="column" fxLayoutGap="16px">
+                        <div class="cc-title">Predicate</div>
+                        <cc-pretty-json
+                            [object]="predicateToObject(candidate?.allowed)"
+                        ></cc-pretty-json>
                     </div>
-                    <div fxFlex fxLayout="column" fxLayoutGap="8px">
-                        <div class="cc-caption cc-payment-routing-rules-caption">Priority</div>
-                        <div>{{ candidate.priority }}</div>
+                    <div fxLayout="column" fxLayoutGap="16px">
+                        <div class="cc-title">Terminal</div>
+                        <cc-pretty-json
+                            [object]="
+                                terminalToObject((terminalsMapID$ | async)[candidate.terminal.id])
+                                    ?.data
+                            "
+                        ></cc-pretty-json>
                     </div>
                 </div>
-                <div fxLayout="column" fxLayoutGap="16px">
-                    <div class="cc-title">Predicate</div>
-                    <cc-pretty-json
-                        [object]="predicateToObject(candidate?.allowed)"
-                    ></cc-pretty-json>
-                </div>
-                <div fxLayout="column" fxLayoutGap="16px">
-                    <div class="cc-title">Terminal</div>
-                    <cc-pretty-json
-                        [object]="
-                            terminalToObject((terminalsMapID$ | async)[candidate.terminal.id])?.data
-                        "
-                    ></cc-pretty-json>
-                </div>
+                <mat-action-row flexLayout fxLayoutAlign="start">
+                    <button mat-button color="warn" (click)="removeShopRule(idx)">REMOVE</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <ng-template #emptyShopRules>
+            <div class="cc-display-1" fxFlexAlign="center">
+                Shop payment routing rules is empty
             </div>
-            <mat-action-row flexLayout fxLayoutAlign="start">
-                <button mat-button color="warn" (click)="removeShopRule(idx)">REMOVE</button>
-            </mat-action-row>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <ng-template #emptyShopRules>
-        <div class="cc-display-1" fxFlexAlign="center">
-            Shop payment routing rules is empty
-        </div>
-    </ng-template>
-</div>
+        </ng-template>
+    </div>
+</ng-template>
