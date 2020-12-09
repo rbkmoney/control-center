@@ -1,25 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { race } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
-import { ProviderID } from '../../../thrift-services/fistful/gen-model/provider';
-import {
-    EditTerminalDecisionService,
-    FetchShopProvidersService,
-    RemoveTerminalDecisionService,
-} from './services';
-import { TerminalActionTypes } from './types';
-import { TerminalAction } from './types/terminal-action';
+import { FetchShopProvidersService } from './services';
 
 @Component({
     selector: 'cc-shop-providers',
     templateUrl: 'shop-providers.component.html',
-    providers: [
-        FetchShopProvidersService,
-        EditTerminalDecisionService,
-        RemoveTerminalDecisionService,
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [FetchShopProvidersService],
 })
 export class ShopProvidersComponent implements OnInit {
     @Input()
@@ -28,36 +15,16 @@ export class ShopProvidersComponent implements OnInit {
     @Input()
     shopID: ShopID;
 
-    providerInfos$ = this.fetchProvidersService.providerInfos$;
+    providersInfo$ = this.fetchProvidersService.providersInfo$;
     inProgress$ = this.fetchProvidersService.inProgress$;
 
-    constructor(
-        private fetchProvidersService: FetchShopProvidersService,
-        private editTerminalDecisionService: EditTerminalDecisionService,
-        private removeTerminalDecisionService: RemoveTerminalDecisionService
-    ) {
-        race([
-            this.editTerminalDecisionService.terminalChanged$,
-            this.removeTerminalDecisionService.removed$,
-        ]).subscribe(() => this.getProviders());
-    }
+    constructor(private fetchProvidersService: FetchShopProvidersService) {}
 
     ngOnInit() {
         this.getProviders();
     }
 
     getProviders() {
-        this.fetchProvidersService.getProviderInfos(this.partyID, this.shopID);
-    }
-
-    action(action: TerminalAction, providerID: ProviderID) {
-        switch (action.type) {
-            case TerminalActionTypes.editPriority:
-            case TerminalActionTypes.editWeight:
-                this.editTerminalDecisionService.edit({ ...action, providerID });
-                break;
-            case TerminalActionTypes.removeTerminal:
-                this.removeTerminalDecisionService.remove({ ...action, providerID });
-        }
+        this.fetchProvidersService.getProvidersInfo(this.partyID, this.shopID);
     }
 }

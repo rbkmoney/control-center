@@ -5,9 +5,9 @@ import {
     TerminalObject,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { ProviderInfo } from '../../types';
-import { extractTerminalInfos } from './extract-terminal-infos';
+import { extractTerminalsInfo } from './extract-terminals-info';
 
-export const toProviderInfos = (
+export const toProvidersInfo = (
     providers: ProviderObject[],
     terminalObjects: TerminalObject[],
     partyID: string,
@@ -18,15 +18,15 @@ export const toProviderInfos = (
         if (!decisions) {
             return acc;
         }
-        const infos = extractTerminalInfos(decisions, terminalObjects, shopID, partyID);
-        if (infos.length === 0) {
+        const info = extractTerminalsInfo(decisions, terminalObjects, shopID, partyID);
+        if (info.length === 0) {
             return acc;
         }
         return [
             ...acc,
             {
                 provider,
-                terminalInfos: infos,
+                terminalInfo: info,
             },
         ];
     }, []);

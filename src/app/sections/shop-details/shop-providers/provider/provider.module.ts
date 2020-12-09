@@ -3,11 +3,11 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 
 import { ProviderComponent } from './provider.component';
-import { TerminalInfosTableModule } from './terminal-infos-table/terminal-infos-table.module';
+import { TerminalsInfoTableModule } from './terminals-info-table/terminals-info-table.module';
 
 @NgModule({
     declarations: [ProviderComponent],
     exports: [ProviderComponent],
-    imports: [MatCardModule, FlexModule, TerminalInfosTableModule],
+    imports: [MatCardModule, FlexModule, TerminalsInfoTableModule],
 })
 export class ProviderModule {}

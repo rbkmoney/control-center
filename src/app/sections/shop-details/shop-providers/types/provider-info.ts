@@ -3,5 +3,5 @@ import { TerminalInfo } from './terminal-info';
 
 export interface ProviderInfo {
     provider: ProviderObject;
-    terminalInfos: TerminalInfo[];
+    terminalsInfo: TerminalInfo[];
 }
