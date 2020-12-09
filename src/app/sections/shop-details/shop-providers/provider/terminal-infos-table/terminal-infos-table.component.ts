@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { TerminalInfo } from '../../services';
+import { TerminalInfo } from '../../types';
 
 @Component({
     selector: 'cc-terminal-infos-table',
