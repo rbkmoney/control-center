@@ -1,0 +1,18 @@
+<div class="mat-dialog-title">
+    {{ data.type === terminalActionTypes.editWeight ? 'Edit weight' : null }}
+    {{ data.type === terminalActionTypes.editPriority ? 'Edit priority' : null }}
+</div>
+<mat-dialog-content>
+    <mat-form-field fxFlex>
+        <input matInput type="number" [formControl]="editValueControl" />
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div>
+        <button mat-button>SAVE</button>
+        <button mat-button [mat-dialog-close]="false">
+            CANCEL
+        </button>
+    </div>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>

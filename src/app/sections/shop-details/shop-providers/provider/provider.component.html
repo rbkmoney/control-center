@@ -1,2 +1,5 @@
 <div class="mat-body-1">{{ providerInfo.provider.data.name }}</div>
-<cc-terminal-infos-table [terminalInfos]="providerInfo.terminalInfos"></cc-terminal-infos-table>
+<cc-terminal-infos-table
+    [terminalInfos]="providerInfo.terminalInfos"
+    (action)="action.emit($event)"
+></cc-terminal-infos-table>
