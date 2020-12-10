@@ -1,69 +1,81 @@
-<div
-    *ngIf="partyRuleset$ | async as partyRuleset; else emptyPartyDelegate"
-    fxLayout="column"
-    fxLayoutGap="64px"
->
-    <cc-payment-routing-ruleset-header
-        [refID]="partyRuleset.ref.id"
-        (add)="addPartyRule()"
-        [backTo]="'party/' + (partyID$ | async) + '/payment-routing-rules'"
+<ng-container *ngIf="isLoading$ | async; else loaded">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+<ng-template #loaded>
+    <div
+        *ngIf="partyRuleset$ | async as partyRuleset; else emptyPartyDelegate"
+        fxLayout="column"
+        fxLayoutGap="64px"
     >
-        Party payment routing rules
-    </cc-payment-routing-ruleset-header>
+        <cc-payment-routing-ruleset-header
+            [refID]="partyRuleset.ref.id"
+            (add)="addPartyRule()"
+            [backTo]="'party/' + (partyID$ | async) + '/payment-routing-rules'"
+        >
+            Party payment routing rules
+        </cc-payment-routing-ruleset-header>
 
-    <mat-card *ngIf="(dataSource$ | async)?.length; else emptyPartyRuleset">
-        <mat-card-content fxLayout="column">
-            <table mat-table [dataSource]="dataSource$ | async" fxFlex>
-                <ng-container matColumnDef="shop">
-                    <th mat-header-cell *matHeaderCellDef width="50%">Shop</th>
-                    <td mat-cell *matCellDef="let element">
-                        <div fxLayout="column">
-                            <div class="cc-body-1">{{ element.shop.details.name }}</div>
-                            <div class="cc-caption">{{ element.shop.id }}</div>
-                        </div>
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef width="50%">Ruleset Ref ID</th>
-                    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-                </ng-container>
-                <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="navigateToShopRuleset(element.id)">
-                                Details
+        <mat-card *ngIf="(dataSource$ | async)?.length; else emptyPartyRuleset">
+            <mat-card-content fxLayout="column">
+                <table mat-table [dataSource]="dataSource$ | async" fxFlex>
+                    <ng-container matColumnDef="shop">
+                        <th mat-header-cell *matHeaderCellDef width="50%">Shop</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div fxLayout="column">
+                                <div class="cc-body-1">{{ element.shop.details?.name }}</div>
+                                <div class="cc-caption">{{ element.shop.id }}</div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef width="50%">Ruleset Ref ID</th>
+                        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
                             </button>
-                            <button mat-menu-item (click)="deleteRuleset(element.id)">
-                                Delete
-                            </button>
-                        </mat-menu>
-                    </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-            </table>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="navigateToShopRuleset(element.id)">
+                                    Details
+                                </button>
+                                <button mat-menu-item (click)="deleteRuleset(element.id)">
+                                    Delete
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
 
-            <mat-paginator
-                [pageSizeOptions]="[10, 20, 50, 100, 250, 500]"
-                showFirstLastButtons
-            ></mat-paginator>
-        </mat-card-content>
-    </mat-card>
+                <mat-paginator
+                    [pageSizeOptions]="[10, 20, 50, 100, 250, 500]"
+                    showFirstLastButtons
+                ></mat-paginator>
+            </mat-card-content>
+        </mat-card>
 
-    <ng-template #emptyPartyRuleset>
-        <div class="cc-display-1" fxFlexAlign="center">Party payment routing rules is empty</div>
-    </ng-template>
-</div>
-
-<ng-template #emptyPartyDelegate>
-    <div class="empty-party-delegate" fxLayout="column" fxLayoutAlign=" center" fxLayoutGap="24px">
-        <div class="cc-display-1">Payment rules is not found</div>
-        <button mat-raised-button color="primary" (click)="initialize()" class="init">
-            INITIALIZE
-        </button>
+        <ng-template #emptyPartyRuleset>
+            <div class="cc-display-1" fxFlexAlign="center">
+                Party payment routing rules is empty
+            </div>
+        </ng-template>
     </div>
+
+    <ng-template #emptyPartyDelegate>
+        <div
+            class="empty-party-delegate"
+            fxLayout="column"
+            fxLayoutAlign=" center"
+            fxLayoutGap="24px"
+        >
+            <div class="cc-display-1">Payment rules is not found</div>
+            <button mat-raised-button color="primary" (click)="initialize()" class="init">
+                INITIALIZE
+            </button>
+        </div>
+    </ng-template>
 </ng-template>
