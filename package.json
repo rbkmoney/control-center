@@ -36,7 +36,7 @@
     "angular2-prettyjson": "3.0.1",
     "ank-proto": "git+ssh://git@github.com:rbkmoney/ank-proto.git#d638e44eb8632fd62f0d6730294e51637babcc78",
     "coerce-property": "^0.3.2",
-    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#62e3054cd0148e646c21444205d2df84866b9923",
+    "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#db2cf11be59b1a867b60b7684ad15692dab0a5ab",
     "deanonimus-proto": "github:rbkmoney/deanonimus-proto#b9fab4fd1c7690186efdc5974d113c82bd5765e9",
     "file-storage-proto": "git+ssh://git@github.com:rbkmoney/file-storage-proto.git#281e1ca4cea9bf32229a6c389f0dcf5d49c05a0b",
     "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#ebe76ef99e783b02f9357a529abb55977332e47d",
