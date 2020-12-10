@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { PartyID, ShopID } from '../../../../thrift-services/damsel/gen-model/domain';
-import { ProviderInfo } from '../types';
+import { ProviderInfo, TerminalAction } from '../types';
 
 @Component({
     selector: 'cc-provider',
@@ -19,5 +19,5 @@ export class ProviderComponent {
     shopID: ShopID;
 
     @Output()
-    terminalChanged: EventEmitter<void> = new EventEmitter();
+    action: EventEmitter<TerminalAction> = new EventEmitter();
 }

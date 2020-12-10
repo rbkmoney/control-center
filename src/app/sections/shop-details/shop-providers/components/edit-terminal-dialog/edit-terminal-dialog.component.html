@@ -7,12 +7,17 @@
         <input matInput type="number" [formControl]="editValueControl" />
     </mat-form-field>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <div>
-        <button mat-button>SAVE</button>
-        <button mat-button [mat-dialog-close]="false">
-            CANCEL
-        </button>
-    </div>
+
+<div
+    mat-dialog-actions
+    class="dialog-actions"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutAlign="space-between stretch"
+    fxLayoutGap="20px"
+    fxLayoutGap.xs="10px"
+>
+    <button mat-button fxFlex fxFlex.xs="none">SAVE</button>
+    <button mat-button fxFlex fxFlex.xs="none" [mat-dialog-close]="false">CANCEL</button>
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</mat-dialog-actions>
+</div>

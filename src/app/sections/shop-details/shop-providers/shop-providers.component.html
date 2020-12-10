@@ -4,7 +4,7 @@
         [providerInfo]="providerInfo"
         [partyID]="partyID"
         [shopID]="shopID"
-        (terminalChanged)="getProviders()"
+        (action)="action($event, providerInfo.provider.ref.id)"
     ></cc-provider>
 </div>
 <ng-template #empty>

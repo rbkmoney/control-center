@@ -8,6 +8,7 @@ export const createRemoveTerminalFromShopCommit = (
     providerObject: ProviderObject,
     params: RemoveTerminalFromShopParams
 ): Commit => {
+    console.log(providerObject)
     const updateProvider = {
         update: createRemoveTerminalFromProviderOperation(providerObject, params),
     };

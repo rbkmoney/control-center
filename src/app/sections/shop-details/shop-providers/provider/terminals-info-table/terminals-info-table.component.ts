@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { TerminalInfo } from '../../types';
+import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
+import { TerminalAction, TerminalActionTypes, TerminalInfo } from '../../types';
 
 @Component({
     selector: 'cc-terminals-info-table',
@@ -11,5 +12,12 @@ export class TerminalsInfoTableComponent {
     @Input()
     terminalsInfo: TerminalInfo[];
 
-    displayedColumns = ['name', 'description', 'type', 'priority', 'weight', 'status'];
+    @Output() action: EventEmitter<TerminalAction> = new EventEmitter();
+
+    displayedColumns = ['name', 'description', 'type', 'priority', 'weight', 'status', 'actions'];
+    terminalActionTypes = TerminalActionTypes;
+
+    actions(type: TerminalActionTypes, terminalID: TerminalID) {
+        this.action.emit({ type, terminalID });
+    }
 }

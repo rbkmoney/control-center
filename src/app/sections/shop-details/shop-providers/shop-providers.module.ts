@@ -10,8 +10,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
-import { EditTerminalDialogComponent } from './components/edit-terminal-dialog';
 
+import { EditTerminalDialogComponent } from './components/edit-terminal-dialog';
 import { ProviderModule } from './provider';
 import { ShopProvidersComponent } from './shop-providers.component';
 
@@ -27,7 +27,8 @@ import { ShopProvidersComponent } from './shop-providers.component';
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatProgressBarModule, ReactiveFormsModule
+        MatProgressBarModule,
+        ReactiveFormsModule,
     ],
     entryComponents: [EditTerminalDialogComponent],
     exports: [ShopProvidersComponent],
