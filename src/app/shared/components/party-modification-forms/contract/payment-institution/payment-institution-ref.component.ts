@@ -7,11 +7,12 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/internal/operators';
 import { map } from 'rxjs/operators';
 
-import { DomainTypedManager } from '../../../../../thrift-services';
+import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
 import {
     PaymentInstitutionObject,
     PaymentInstitutionRef,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
+import { findDomainObjects } from '../../../../../thrift-services/damsel/operations/utils';
 
 @Component({
     selector: 'cc-payment-institution-ref',
@@ -33,12 +34,13 @@ export class PaymentInstitutionRefComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private dtm: DomainTypedManager,
+        private dtm: DomainCacheService,
         private snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
-        this.paymentInstitutions$ = this.dtm.getPaymentInstitutions().pipe(
+        this.paymentInstitutions$ = this.dtm.domain$.pipe(
+            map((domain) => findDomainObjects(domain, 'payment_institution')),
             map((paymentInstitutions) =>
                 sortBy(paymentInstitutions, (paymentInstitution) => paymentInstitution.ref.id)
             ),
