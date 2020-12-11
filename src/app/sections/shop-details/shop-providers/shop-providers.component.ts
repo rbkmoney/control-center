@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { race } from 'rxjs';
 
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
-import { ProviderID } from '../../../thrift-services/fistful/gen-model/fistful';
+import { ProviderID } from '../../../thrift-services/fistful/gen-model/provider';
 import {
     EditTerminalDecisionService,
     FetchShopProvidersService,
@@ -55,7 +55,12 @@ export class ShopProvidersComponent implements OnInit {
                 this.editTerminalDecisionService.edit({ ...action, providerID });
                 break;
             case TerminalActionTypes.removeTerminal:
-                this.removeTerminalDecisionService.remove({ ...action, providerID });
+                this.removeTerminalDecisionService.remove({
+                    ...action,
+                    providerID,
+                    partyID: this.partyID,
+                    shopID: this.shopID,
+                });
                 break;
         }
     }

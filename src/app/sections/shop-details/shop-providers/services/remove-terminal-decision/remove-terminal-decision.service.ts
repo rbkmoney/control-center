@@ -5,12 +5,11 @@ import { combineLatest, of, Subject } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
-import { DomainTypedManager } from '../../../../../thrift-services/damsel';
+
 import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
 import { PartyID, ShopID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { createRemoveTerminalFromShopCommit } from '../../../../../thrift-services/damsel/operations/create-remove-terminal-from-shop-commit';
 import { findDomainObject } from '../../../../../thrift-services/damsel/operations/utils';
-
 import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
 import { ProviderID } from '../../../../../thrift-services/fistful/gen-model/provider';
 import { TerminalActionTypes } from '../../types';
@@ -22,7 +21,7 @@ export class RemoveTerminalDecisionService {
         terminalID: TerminalID;
         providerID: ProviderID;
         partyID: PartyID;
-        shopID: ShopID
+        shopID: ShopID;
     }>();
 
     removed$ = this.remove$.pipe(
@@ -32,23 +31,32 @@ export class RemoveTerminalDecisionService {
                 of(data),
                 this.dialog
                     .open(ConfirmActionDialogComponent, {
-                        data: { title: `Remove this terminal from shop?` }
+                        data: { title: `Remove this terminal from shop?` },
                     })
                     .afterClosed()
-                    .pipe(filter((r) => r === 'confirm'))
+                    .pipe(filter((r) => r === 'confirm')),
             ])
         ),
         switchMap(([data]) => combineLatest([of(data), this.dcs.getObjects('provider')])),
         map(([data, providerObject]) => [data, findDomainObject(providerObject, data.providerID)]),
         map(([data, providerObject]) => createRemoveTerminalFromShopCommit(providerObject, data)),
-        // switchMap(commit => this.dcs.commit(commit)),
+        switchMap(commit => this.dcs.commit(commit)),
         shareReplay(1)
     );
 
-    constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private dcs: DomainCacheService) {
-    }
+    constructor(
+        private dialog: MatDialog,
+        private snackBar: MatSnackBar,
+        private dcs: DomainCacheService
+    ) {}
 
-    remove(action: { type: TerminalActionTypes; terminalID: TerminalID; providerID: ProviderID, partyID: PartyID, shopID: ShopID }) {
+    remove(action: {
+        type: TerminalActionTypes;
+        terminalID: TerminalID;
+        providerID: ProviderID;
+        partyID: PartyID;
+        shopID: ShopID;
+    }) {
         this.remove$.next(action);
     }
 }

@@ -37,11 +37,12 @@ const removeDecision = (
     shopID: string,
     terminalID: number
 ): TerminalDecision[] =>
-    decisions.reduce((acc: TerminalDecision[], decision: any) => {
-        // console.log(decision)
+    decisions.reduce((acc: TerminalDecision[], decision: TerminalDecision) => {
         const isTerminalMatched =
             decision.then_.value &&
-            Array.from(decision.then_.value).map((item) => item.id).includes(terminalID);
+            Array.from(decision.then_.value)
+                .map((item) => item.id)
+                .includes(terminalID);
         if (isTerminalMatched) {
             const newDecision = filterDecision(decision, partyID, shopID);
             return newDecision ? acc.concat(newDecision) : acc;
@@ -54,16 +55,16 @@ export const removeTerminalDecision = (
     partyID: string,
     shopID: string,
     terminalID: number
-): any => {
+): ProviderObject => {
     checkSelector(providerObject.data.terminal);
     const result = cloneDeep(providerObject);
-    console.log(providerObject.data.terminal.decisions)
+    console.log(providerObject.data.terminal.decisions);
     result.data.terminal.decisions = removeDecision(
         result.data.terminal.decisions,
         partyID,
         shopID,
         terminalID
     );
-    console.log(result.data.terminal.decisions)
+    console.log(result.data.terminal.decisions);
     return result;
 };
