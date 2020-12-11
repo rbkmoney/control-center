@@ -39,18 +39,25 @@ const findPaymentInstitutions = (domain: Domain): PaymentInstitutionObject[] =>
     findDomainObjects(domain, 'payment_institution');
 
 /**
- * deprecated use DomainCacheService
+ * @deprecated should be removed, use DomainCacheService
+ * CREATE SEPARATE SERVICES FOR EACH DOMAIN OBJECT
  */
 @Injectable()
 export class DomainTypedManager {
     constructor(private dmtService: DomainService, private dmtCacheService: DomainCacheService) {}
 
+    /**
+     * @deprecated use domainCacheService.getObjects('business_schedule')
+     */
     getBusinessScheduleObjects(): Observable<BusinessScheduleObject[]> {
         return this.dmtCacheService.domain.pipe(
             map((domain) => findBusinessScheduleObjects(domain))
         );
     }
 
+    /**
+     * @deprecated select in separate service
+     */
     getBusinessScheduleObject(id: number): Observable<BusinessScheduleObject> {
         return this.dmtCacheService.domain.pipe(
             map((domain) => findBusinessScheduleObjects(domain)),
@@ -58,10 +65,16 @@ export class DomainTypedManager {
         );
     }
 
+    /**
+     * @deprecated use domainCacheService.getObjects('provider')
+     */
     getProviderObjects(): Observable<ProviderObject[]> {
         return this.dmtCacheService.domain.pipe(map((domain) => findProviderObjects(domain)));
     }
 
+    /**
+     * @deprecated select in separate service
+     */
     getProviderObject(id: ProviderID): Observable<ProviderObject> {
         return this.dmtCacheService.domain.pipe(
             map((domain) => findProviderObjects(domain)),
@@ -69,10 +82,16 @@ export class DomainTypedManager {
         );
     }
 
+    /**
+     * @deprecated use domainCacheService.getObjects('terminal')
+     */
     getTerminalObjects(): Observable<TerminalObject[]> {
         return this.dmtCacheService.domain.pipe(map((domain) => findTerminalObjects(domain)));
     }
 
+    /**
+     * @deprecated select in separate service
+     */
     getTerminalObject(id: number): Observable<TerminalObject> {
         return this.dmtCacheService.domain.pipe(
             map((domain) => findTerminalObjects(domain)),
@@ -80,6 +99,9 @@ export class DomainTypedManager {
         );
     }
 
+    /**
+     * @deprecated select in separate service
+     */
     editTerminalDecisionPropertyForShop(params: EditTerminalDecisionPropertyParams) {
         return combineLatest([
             this.getLastVersion(),
@@ -95,6 +117,9 @@ export class DomainTypedManager {
         );
     }
 
+    /**
+     * @deprecated select in separate service
+     */
     removeTerminalFromShop(params: RemoveTerminalFromShopParams) {
         return combineLatest([
             this.getLastVersion(),
@@ -110,6 +135,9 @@ export class DomainTypedManager {
         );
     }
 
+    /**
+     * @deprecated select in separate service
+     */
     createTerminal(params: CreateTerminalParams): Observable<number> {
         let newTerminalID = null;
         return combineLatest([this.getLastVersion(), this.getTerminalObjects()]).pipe(
@@ -124,6 +152,9 @@ export class DomainTypedManager {
         );
     }
 
+    /**
+     * @deprecated select in separate service
+     */
     addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
         return combineLatest([
             this.getLastVersion(),
@@ -136,10 +167,16 @@ export class DomainTypedManager {
         );
     }
 
+    /**
+     * @deprecated use domainCacheService.version$
+     */
     getLastVersion(): Observable<any> {
         return this.dmtService.checkout(toGenReference()).pipe(map((snapshot) => snapshot.version));
     }
 
+    /**
+     * @deprecated use domainCacheService.getObjects('payment_institution')
+     */
     getPaymentInstitutions(): Observable<PaymentInstitutionObject[]> {
         return this.dmtCacheService.domain.pipe(map((domain) => findPaymentInstitutions(domain)));
     }
