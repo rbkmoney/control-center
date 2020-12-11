@@ -1,37 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { map, pluck, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
+import type { Int64 } from 'thrift-ts';
 
 import { getUnionKey } from '@cc/utils/get-union-key';
 
 import { toGenReference } from '../converters';
 import { createDamselInstance, damselInstanceToObject } from './create-damsel-instance';
 import { DomainService } from './domain.service';
-import { DomainObject } from './gen-model/domain';
-import { Commit, Version } from './gen-model/domain_config';
+import { Domain, DomainObject } from './gen-model/domain';
+import { Commit, Snapshot, Version } from './gen-model/domain_config';
 
+@UntilDestroy()
 @Injectable()
 export class DomainCacheService {
-    private reload$ = new ReplaySubject(1);
-
-    constructor(private dmtService: DomainService) {}
-
-    private snapshot = this.reload$.pipe(
-        startWith(undefined),
-        switchMap(() => this.dmtService.checkout(toGenReference())),
-        shareReplay(1)
-    );
     /**
      * @deprecated use domain$
      */
-    domain = this.snapshot.pipe(pluck('domain'), shareReplay(1));
+    domain: Observable<Domain>;
+    snapshot$: Observable<Snapshot>;
+    domain$: Observable<Domain>;
+    version$: Observable<Int64>;
+    get isLoading$(): Observable<boolean> {
+        return this._isLoading$.asObservable();
+    }
 
-    snapshot$ = this.snapshot.pipe(
-        map((s) => damselInstanceToObject('domain_config', 'Snapshot', s)),
+    private reload$ = new ReplaySubject(1);
+    private snapshot = this.reload$.pipe(
+        startWith(undefined),
+        tap(() => this._isLoading$.next(true)),
+        switchMap(() => this.dmtService.checkout(toGenReference())),
+        tap(() => this._isLoading$.next(false)),
         shareReplay(1)
     );
-    domain$ = this.snapshot$.pipe(pluck('domain'));
-    version$ = this.snapshot$.pipe(pluck('version'));
+    private _isLoading$ = new BehaviorSubject(true);
+
+    constructor(private dmtService: DomainService) {
+        this.domain$ = this.snapshot.pipe(pluck('domain'), shareReplay(1));
+        this.snapshot$ = this.snapshot.pipe(
+            map((s) => damselInstanceToObject('domain_config', 'Snapshot', s)),
+            shareReplay(1)
+        );
+        this.domain$ = this.snapshot$.pipe(pluck('domain'));
+        this.version$ = this.snapshot$.pipe(pluck('version'));
+
+        this.snapshot.pipe(untilDestroyed(this)).subscribe();
+    }
 
     forceReload() {
         this.reload$.next();

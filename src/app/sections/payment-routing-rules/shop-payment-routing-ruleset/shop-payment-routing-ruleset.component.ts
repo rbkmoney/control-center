@@ -4,7 +4,8 @@ import { combineLatest } from 'rxjs';
 import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 import { Predicate, TerminalObject } from 'src/app/thrift-services/damsel/gen-model/domain';
 
-import { damselInstanceToObject, DomainTypedManager, objectToJSON } from '../../../thrift-services';
+import { damselInstanceToObject, objectToJSON } from '../../../thrift-services';
+import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
 import { AddShopPaymentRoutingRuleDialogComponent } from './add-shop-payment-routing-rule-dialog';
 import { ShopPaymentRoutingRulesetService } from './shop-payment-routing-ruleset.service';
 
@@ -24,8 +25,8 @@ export class ShopPaymentRoutingRulesetComponent {
         map((r) => r.data.decisions.candidates),
         shareReplay(1)
     );
-    terminalsMapID$ = this.domainTypedManager
-        .getTerminalObjects()
+    terminalsMapID$ = this.domainService
+        .getObjects('terminal')
         .pipe(
             map((terminals) =>
                 terminals.reduce(
@@ -34,11 +35,12 @@ export class ShopPaymentRoutingRulesetComponent {
                 )
             )
         );
+    isLoading$ = this.domainService.isLoading$;
 
     constructor(
         private dialog: MatDialog,
         private shopPaymentRoutingRulesetService: ShopPaymentRoutingRulesetService,
-        private domainTypedManager: DomainTypedManager
+        private domainService: DomainCacheService
     ) {}
 
     addShopRule() {
