@@ -26,8 +26,8 @@ export class FetchContractorService {
                 ])
         ),
         map(([contractID, party]) => {
-            const contractorID = party.contracts.get(contractID).contractor_id;
-            return party.contractors.get(contractorID).contractor;
+            const contractorID = party.contracts.get(contractID)?.contractor_id;
+            return party.contractors.get(contractorID)?.contractor;
         }),
         shareReplay(1)
     );
