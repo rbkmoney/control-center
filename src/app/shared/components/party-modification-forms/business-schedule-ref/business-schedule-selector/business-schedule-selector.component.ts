@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/internal/operators';
 
-import { DomainTypedManager } from '../../../../../thrift-services';
+import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
 import { BusinessScheduleObject } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
@@ -24,14 +24,14 @@ export class BusinessScheduleSelectorComponent implements OnInit {
 
     hasError = false;
 
-    constructor(private domainManager: DomainTypedManager, private snackBar: MatSnackBar) {}
+    constructor(private domainCacheService: DomainCacheService, private snackBar: MatSnackBar) {}
 
     selectionChange(change: MatSelectChange) {
         this.idChange.emit(change.value);
     }
 
     ngOnInit() {
-        this.schedules$ = this.domainManager.getBusinessScheduleObjects().pipe(
+        this.schedules$ = this.domainCacheService.getObjects('business_schedule').pipe(
             tap(
                 () => {
                     this.isLoading = false;
