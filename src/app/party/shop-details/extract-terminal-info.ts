@@ -3,9 +3,13 @@ import Int64 from 'thrift-ts/lib/int64';
 
 import {
     Condition,
+    PartyID,
     Predicate,
+    ProviderTerminalRef,
+    ShopID,
+    TerminalDecision,
     TerminalObject,
-    TerminalRef,
+    TerminalSelector,
 } from '../../thrift-services/damsel/gen-model/domain';
 
 interface PredicateInfo {
@@ -45,7 +49,7 @@ export interface TerminalInfo {
     priority: Int64;
 }
 
-function inPredicates(predicates: Predicate[], shopID: string, partyID: string): boolean {
+function inPredicates(predicates: Predicate[], shopID: ShopID, partyID: PartyID): boolean {
     for (const predicate of predicates) {
         if (extractPredicateInfo(predicate, shopID, partyID).shopPartyContain) {
             return true;
@@ -53,20 +57,20 @@ function inPredicates(predicates: Predicate[], shopID: string, partyID: string):
     }
 }
 
-function inPartyCondition({ party }: Condition, shopID: string, partyID: string): boolean {
+function inPartyCondition({ party }: Condition, shopID: ShopID, partyID: PartyID): boolean {
     const shopIs = get(party, 'definition.shop_is');
     return party.id === partyID && shopIs === shopID;
 }
 
-function isDisabled(all_of: any[]): boolean {
-    const constant = all_of.find((pre) => pre.constant !== null);
+function isDisabled(all_of: Set<Predicate>): boolean {
+    const constant = Array.from(all_of).find((pre) => pre.constant !== null);
     return !!constant ? constant.constant : false;
 }
 
 function extractPredicateInfo(
-    { all_of, any_of, condition, is_not }: any,
-    shopID: string,
-    partyID: string
+    { all_of, any_of, condition, is_not }: Predicate,
+    shopID: ShopID,
+    partyID: PartyID
 ): PredicateInfo {
     if (all_of && all_of.length > 0) {
         return {
@@ -101,10 +105,11 @@ function extractPredicateInfo(
     };
 }
 
-const extractIdsFromValue = (value: TerminalRef[]): number[] => value.map((v) => v.id);
+const extractIdsFromValue = (value: Set<ProviderTerminalRef>[]): number[] =>
+    Array.from(value).map((v) => v.id);
 
 // Need TerminalDecision with if_ then_
-function extractIdsFromDecisions(decisions: any[]): number[] {
+function extractIdsFromDecisions(decisions: TerminalDecision[]): number[] {
     return decisions.reduce((r, { then_ }) => {
         if (then_.decisions) {
             r = r.concat(extractIdsFromDecisions(then_.decisions));
@@ -117,7 +122,7 @@ function extractIdsFromDecisions(decisions: any[]): number[] {
 }
 
 // Need TerminalSelector with Array instead Set
-function extractIds({ decisions, value }: any): number[] {
+function extractIds({ decisions, value }: TerminalSelector): number[] {
     if (decisions) {
         return extractIdsFromDecisions(decisions);
     }
@@ -126,22 +131,22 @@ function extractIds({ decisions, value }: any): number[] {
     }
 }
 
-function extractWeights({ value }: any): number {
+function extractWeights({ value }: TerminalSelector): number {
     if (value) {
-        return value.map((val) => val.weight);
+        return Array.from(value).map((val) => val.weight);
     }
 }
 
-function extractPriorities({ value }: any): Int64 {
+function extractPriorities({ value }: TerminalSelector): Int64 {
     if (value) {
-        return value.map((val) => val.priority);
+        return Array.from(value).map((val) => val.priority);
     }
 }
 
 const extractTerminalInfoGroup = (
-    decisions: any[],
-    shopID: string,
-    partyID: string
+    decisions: TerminalDecision[],
+    shopID: ShopID,
+    partyID: PartyID
 ): TerminalInfoGroup[] =>
     decisions.reduce((r, { if_, then_ }) => {
         const { shopPartyContain, disabled, predicateType } = extractPredicateInfo(
@@ -193,10 +198,10 @@ const enrichWithTerminal = (
 
 // Need TerminalDecision with if_ then_
 export function extractTerminalInfo(
-    decisions: any[],
+    decisions: TerminalDecision[],
     terminalObjects: TerminalObject[],
-    shopID: string,
-    partyID: string
+    shopID: ShopID,
+    partyID: PartyID
 ): TerminalInfo[] {
     const extractedGroup = extractTerminalInfoGroup(decisions, shopID, partyID);
     return enrichWithTerminal(flattenGroup(extractedGroup), terminalObjects);

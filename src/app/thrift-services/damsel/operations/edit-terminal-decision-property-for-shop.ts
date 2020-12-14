@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 import get from 'lodash-es/get';
+import { Int64 } from 'thrift-ts';
 
 import { ProviderObject, TerminalDecision } from '../gen-model/domain';
 import { EditTerminalDecisionPropertyParams } from './edit-terminal-decision-property-params';
@@ -11,17 +12,17 @@ const editDecision = (
     shopID: string,
     terminalID: number,
     property: string,
-    value: any
+    value: number | Int64
 ): TerminalDecision[] =>
-    decisions.reduce((acc: TerminalDecision[], decision: any) => {
+    decisions.reduce((acc: TerminalDecision[], decision: TerminalDecision): TerminalDecision[] => {
         const decisionPredicatePartyID = get(decision, 'if_.condition.party.id');
         const decisionPredicateShopID = get(decision, 'if_.condition.party.definition.shop_is');
         if (decisionPredicatePartyID === partyID && decisionPredicateShopID === shopID) {
             const terminalIndex = decision.then_.value
-                ? decision.then_.value.findIndex((item) => item.id === terminalID)
+                ? Array.from(decision.then_.value).findIndex((item) => item.id === terminalID)
                 : -1;
             if (terminalIndex !== -1) {
-                decision.then_.value[terminalIndex][property] = value;
+                Array.from(decision.then_.value)[terminalIndex][property] = value;
             }
         }
         return acc.concat(decision);
@@ -30,7 +31,7 @@ const editDecision = (
 export const editTerminalDecisionPropertyForShop = (
     providerObject: ProviderObject,
     params: EditTerminalDecisionPropertyParams
-): any => {
+): ProviderObject => {
     checkSelector(providerObject.data.terminal);
     const result = cloneDeep(providerObject);
     result.data.terminal.decisions = editDecision(

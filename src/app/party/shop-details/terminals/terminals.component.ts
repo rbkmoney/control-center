@@ -115,19 +115,19 @@ export class TerminalsComponent implements OnChanges, OnInit {
 
     changePriority(op: string, i: number) {
         const terminalID = this.infos[i].terminal.ref.id;
-        const basePriority = this.infos[i].priority.toNumber();
+        const basePriority = this.infos[i].priority;
         const prevInfo = this.infos[i - 1];
         const nexInfo = this.infos[i + 1];
 
         let diffPlus50;
         if (op === 'plus') {
-            diffPlus50 = prevInfo ? prevInfo.priority.toNumber() + 50 : basePriority + 50;
+            diffPlus50 = prevInfo ? prevInfo.priority + 50 : basePriority + 50;
             this.editPriorityService.edit(this.getModalData(terminalID), {
                 property: 'priority',
                 value: diffPlus50,
             });
         } else if (op === 'minus') {
-            diffPlus50 = nexInfo ? nexInfo.priority.toNumber() - 50 : 0;
+            diffPlus50 = nexInfo ? nexInfo.priority - 50 : 0;
             this.editPriorityService.edit(this.getModalData(terminalID), {
                 property: 'priority',
                 value: diffPlus50,
@@ -150,8 +150,8 @@ export class TerminalsComponent implements OnChanges, OnInit {
 
     private sortInfos(infos: TerminalInfo[]): TerminalInfo[] {
         return infos.sort((a, b) => {
-            const aPriority = a.priority.toNumber();
-            const bPriority = b.priority.toNumber();
+            const aPriority = a.priority;
+            const bPriority = b.priority;
             if (aPriority !== bPriority) {
                 return bPriority - aPriority;
             } else {

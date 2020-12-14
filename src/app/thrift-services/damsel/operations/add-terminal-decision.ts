@@ -3,7 +3,13 @@ import dropRight from 'lodash-es/dropRight';
 import last from 'lodash-es/last';
 
 import { toGenTerminalDecision } from '../../converters';
-import { ProviderObject, TerminalDecision, TerminalRef } from '../gen-model/domain';
+import {
+    PartyID,
+    ProviderObject,
+    ShopID,
+    TerminalDecision,
+    TerminalRef,
+} from '../gen-model/domain';
 import { checkSelector } from './utils';
 
 const createDecision = (partyID: string, shopID: string, terminalID: number): TerminalDecision => ({
@@ -37,10 +43,10 @@ const addDecision = (
 
 export const addTerminalDecision = (
     providerObject: ProviderObject,
-    partyID: string,
-    shopID: string,
+    partyID: PartyID,
+    shopID: ShopID,
     terminalID: number
-): any => {
+): ProviderObject => {
     checkSelector(providerObject.data.terminal);
     const result = cloneDeep(providerObject);
     const decision = toGenTerminalDecision(createDecision(partyID, shopID, terminalID));

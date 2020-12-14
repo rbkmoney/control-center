@@ -3,7 +3,7 @@ import get from 'lodash-es/get';
 import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { DomainTypedManager } from '../../thrift-services';
+import { DomainCacheService } from '../../thrift-services/damsel/domain-cache.service';
 import {
     Contract,
     PayoutTool,
@@ -28,13 +28,16 @@ export interface Payload {
 
 @Injectable()
 export class ShopDetailsService {
-    constructor(private partyService: PartyService, private dtm: DomainTypedManager) {}
+    constructor(
+        private partyService: PartyService,
+        private domainCacheService: DomainCacheService
+    ) {}
 
     initialize(partyID: string, shopID: string): Observable<Payload> {
         return combineLatest([
             this.partyService.getShop(partyID, shopID),
-            this.dtm.getProviderObjects(),
-            this.dtm.getTerminalObjects(),
+            this.domainCacheService.getObjects('provider'),
+            this.domainCacheService.getObjects('terminal'),
         ]).pipe(
             switchMap(([shop, providers, terminalObjects]) =>
                 this.partyService.getContract(partyID, shop.contract_id).pipe(
