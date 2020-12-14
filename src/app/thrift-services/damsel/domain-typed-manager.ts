@@ -6,13 +6,7 @@ import { toGenReference } from '../converters';
 import { ProviderID } from '../fistful/gen-model/provider';
 import { DomainCacheService } from './domain-cache.service';
 import { DomainService } from './domain.service';
-import {
-    BusinessScheduleObject,
-    Domain,
-    PaymentInstitutionObject,
-    ProviderObject,
-    TerminalObject,
-} from './gen-model/domain';
+import { Domain, ProviderObject, TerminalObject } from './gen-model/domain';
 import { Version } from './gen-model/domain_config';
 import {
     AddDecisionToProvider,
@@ -26,17 +20,11 @@ import { EditTerminalDecisionPropertyParams } from './operations/edit-terminal-d
 import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
 import { findDomainObject, findDomainObjects } from './operations/utils';
 
-const findBusinessScheduleObjects = (domain: Domain): BusinessScheduleObject[] =>
-    findDomainObjects(domain, 'business_schedule');
-
 const findProviderObjects = (domain: Domain): ProviderObject[] =>
     findDomainObjects(domain, 'provider');
 
 const findTerminalObjects = (domain: Domain): TerminalObject[] =>
     findDomainObjects(domain, 'terminal');
-
-const findPaymentInstitutions = (domain: Domain): PaymentInstitutionObject[] =>
-    findDomainObjects(domain, 'payment_institution');
 
 /**
  * @deprecated should be removed, use DomainCacheService
@@ -45,32 +33,6 @@ const findPaymentInstitutions = (domain: Domain): PaymentInstitutionObject[] =>
 @Injectable()
 export class DomainTypedManager {
     constructor(private dmtService: DomainService, private dmtCacheService: DomainCacheService) {}
-
-    /**
-     * @deprecated use domainCacheService.getObjects('business_schedule')
-     */
-    getBusinessScheduleObjects(): Observable<BusinessScheduleObject[]> {
-        return this.dmtCacheService.domain.pipe(
-            map((domain) => findBusinessScheduleObjects(domain))
-        );
-    }
-
-    /**
-     * @deprecated select in separate service
-     */
-    getBusinessScheduleObject(id: number): Observable<BusinessScheduleObject> {
-        return this.dmtCacheService.domain.pipe(
-            map((domain) => findBusinessScheduleObjects(domain)),
-            map((objects) => findDomainObject(objects, id))
-        );
-    }
-
-    /**
-     * @deprecated use domainCacheService.getObjects('provider')
-     */
-    getProviderObjects(): Observable<ProviderObject[]> {
-        return this.dmtCacheService.domain.pipe(map((domain) => findProviderObjects(domain)));
-    }
 
     /**
      * @deprecated select in separate service
@@ -172,12 +134,5 @@ export class DomainTypedManager {
      */
     getLastVersion(): Observable<any> {
         return this.dmtService.checkout(toGenReference()).pipe(map((snapshot) => snapshot.version));
-    }
-
-    /**
-     * @deprecated use domainCacheService.getObjects('payment_institution')
-     */
-    getPaymentInstitutions(): Observable<PaymentInstitutionObject[]> {
-        return this.dmtCacheService.domain.pipe(map((domain) => findPaymentInstitutions(domain)));
     }
 }
