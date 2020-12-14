@@ -34,7 +34,7 @@ const filterDecision = (
             return true;
         });
         if (newPredicates.length > 0) {
-            decision.if_.any_of = newPredicates;
+            decision.if_.any_of = new Set(newPredicates);
         } else {
             return null;
         }
@@ -51,7 +51,9 @@ const removeDecision = (
     decisions.reduce((acc: TerminalDecision[], decision: TerminalDecision) => {
         const isTerminalMatched =
             decision.then_.value &&
-            decision.then_.value.map((item) => item.id).includes(terminalID);
+            Array.from(decision.then_.value)
+                .map((item) => item.id)
+                .includes(terminalID);
         if (isTerminalMatched) {
             const newDecision = filterDecision(decision, partyID, shopID);
             return newDecision ? acc.concat(newDecision) : acc;

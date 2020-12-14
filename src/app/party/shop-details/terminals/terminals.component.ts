@@ -14,7 +14,6 @@ import { filter } from 'rxjs/operators';
 import { DomainTypedManager } from '../../../thrift-services';
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
 import { TerminalID } from '../../../thrift-services/fistful/gen-model/fistful';
-import { ProviderID } from '../../../thrift-services/fistful/gen-model/provider';
 import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 import { EditTerminalDecisionPriorityService } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.service';
 import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
@@ -29,7 +28,7 @@ export class TerminalsComponent implements OnChanges, OnInit {
     @Input() terminalInfos: TerminalInfo[];
     @Input() partyID: PartyID;
     @Input() shopID: ShopID;
-    @Input() providerID: ProviderID;
+    @Input() providerID: number;
     @Output() terminalChanged: EventEmitter<void> = new EventEmitter();
 
     columns = ['name', 'description', 'type', 'priority', 'weight', 'status', 'actions'];

@@ -42,5 +42,6 @@ export const editTerminalDecisionPropertyForShop = (
         params.property,
         params.value
     );
+    console.log(result);
     return result;
 };

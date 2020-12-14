@@ -9,7 +9,7 @@ import {
     AddDecisionToProvider,
     addDecisionToProviderCommit,
     CreateTerminalParams,
-    getCreateTerminalCommit
+    getCreateTerminalCommit,
 } from './operations';
 import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
 import { editTerminalDecisionPropertyForShopCommit } from './operations/edit-terminal-decision-property-for-shop-commit';
@@ -25,26 +25,21 @@ export class DomainTypedManager {
     constructor(
         private dmtService: DomainService,
         private domainCacheService: DomainCacheService
-    ) {
-    }
+    ) {}
 
     /**
      * @deprecated select in separate service
      */
     editTerminalDecisionPropertyForShop(params: EditTerminalDecisionPropertyParams) {
-        return this.domainCacheService
-            .getObjects('provider')
-            .pipe(
-                map((providerObject) =>
-                    providerObject.find((obj) => obj.ref.id === params.providerID)
-                ),
-                switchMap((provider) =>
-                    this.domainCacheService.commit(
-                        editTerminalDecisionPropertyForShopCommit(provider, params)
-                    )
-                ),
-                tap(() => this.domainCacheService.forceReload())
-            );
+        return this.domainCacheService.getObjects('provider').pipe(
+            map((providerObject) => providerObject.find((obj) => obj.ref.id === params.providerID)),
+            switchMap((provider) =>
+                this.domainCacheService.commit(
+                    editTerminalDecisionPropertyForShopCommit(provider, params)
+                )
+            ),
+            tap(() => this.domainCacheService.forceReload())
+        );
     }
 
     /**
@@ -59,7 +54,7 @@ export class DomainTypedManager {
                     map((providerObject) =>
                         providerObject.find((obj) => obj.ref.id === params.providerID)
                     )
-                )
+                ),
         ]).pipe(
             switchMap(([version, provider]) => {
                 return this.dmtService.commit(
@@ -78,7 +73,7 @@ export class DomainTypedManager {
         let newTerminalID = null;
         return combineLatest([
             this.domainCacheService.version$,
-            this.domainCacheService.getObjects('terminal')
+            this.domainCacheService.getObjects('terminal'),
         ]).pipe(
             take(1),
             switchMap(([version, terminalObjects]) => {
@@ -103,7 +98,7 @@ export class DomainTypedManager {
                     map((providerObject) =>
                         providerObject.find((obj) => obj.ref.id === params.providerID)
                     )
-                )
+                ),
         ]).pipe(
             switchMap(([version, providerObject]) =>
                 this.dmtService.commit(version, addDecisionToProviderCommit(providerObject, params))

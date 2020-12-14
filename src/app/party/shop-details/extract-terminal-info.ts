@@ -1,6 +1,8 @@
 import get from 'lodash-es/get';
 import Int64 from 'thrift-ts/lib/int64';
 
+import { getUnionKey } from '@cc/utils/get-union-key';
+
 import {
     Condition,
     PartyID,
@@ -21,7 +23,7 @@ interface PredicateInfo {
 interface TerminalInfoGroup {
     terminalIds: number[];
     weights: number[];
-    priorities: Int64[];
+    priorities: number[];
     disabled: boolean;
     predicateType: PredicateType;
 }
@@ -30,7 +32,7 @@ interface FlattenTerminalInfoGroup {
     terminalId: number;
     disabled: boolean;
     predicateType: PredicateType;
-    priority: Int64;
+    priority: number;
     weight: number;
 }
 
@@ -46,11 +48,11 @@ export interface TerminalInfo {
     disabled: boolean;
     predicateType: PredicateType;
     weight: number;
-    priority: Int64;
+    priority: number;
 }
 
-function inPredicates(predicates: Predicate[], shopID: ShopID, partyID: PartyID): boolean {
-    for (const predicate of predicates) {
+function inPredicates(predicates: Set<Predicate>, shopID: ShopID, partyID: PartyID): boolean {
+    for (const predicate of Array.from(predicates)) {
         if (extractPredicateInfo(predicate, shopID, partyID).shopPartyContain) {
             return true;
         }
@@ -68,44 +70,48 @@ function isDisabled(all_of: Set<Predicate>): boolean {
 }
 
 function extractPredicateInfo(
-    { all_of, any_of, condition, is_not }: Predicate,
+    predicate: Predicate,
     shopID: ShopID,
     partyID: PartyID
 ): PredicateInfo {
-    if (all_of && all_of.length > 0) {
-        return {
-            shopPartyContain: inPredicates(all_of, shopID, partyID),
-            predicateType: PredicateType.all_of,
-            disabled: isDisabled(all_of),
-        };
-    }
-    if (any_of && any_of.length > 0) {
-        return {
-            shopPartyContain: inPredicates(any_of, shopID, partyID),
-            predicateType: PredicateType.any_of,
-            disabled: false,
-        };
-    }
-    if (is_not && is_not.length > 0) {
-        return {
-            shopPartyContain: inPartyCondition(is_not, shopID, partyID),
-            predicateType: PredicateType.is_not,
-            disabled: true,
-        };
-    }
-    if (condition && condition.party) {
-        return {
-            shopPartyContain: inPartyCondition(condition, shopID, partyID),
-            predicateType: PredicateType.condition,
-            disabled: false,
-        };
+    switch (getUnionKey(predicate)) {
+        case 'all_of':
+            return {
+                shopPartyContain: inPredicates(predicate.all_of, shopID, partyID),
+                predicateType: PredicateType.all_of,
+                disabled: isDisabled(predicate.all_of),
+            };
+        case 'any_of':
+            return {
+                shopPartyContain: inPredicates(predicate.any_of, shopID, partyID),
+                predicateType: PredicateType.any_of,
+                disabled: false,
+            };
+        case 'is_not':
+            if (predicate.condition?.party) {
+                return {
+                    shopPartyContain: inPartyCondition(predicate.is_not.condition, shopID, partyID),
+                    predicateType: PredicateType.is_not,
+                    disabled: true,
+                };
+            }
+            break;
+        case 'condition':
+            if (predicate.condition.party) {
+                return {
+                    shopPartyContain: inPartyCondition(predicate.condition, shopID, partyID),
+                    predicateType: PredicateType.condition,
+                    disabled: false,
+                };
+            }
+            break;
     }
     return {
         shopPartyContain: false,
     };
 }
 
-const extractIdsFromValue = (value: Set<ProviderTerminalRef>[]): number[] =>
+const extractIdsFromValue = (value: Set<ProviderTerminalRef>): number[] =>
     Array.from(value).map((v) => v.id);
 
 // Need TerminalDecision with if_ then_
@@ -131,13 +137,13 @@ function extractIds({ decisions, value }: TerminalSelector): number[] {
     }
 }
 
-function extractWeights({ value }: TerminalSelector): number {
+function extractWeights({ value }: TerminalSelector): Int64[] {
     if (value) {
         return Array.from(value).map((val) => val.weight);
     }
 }
 
-function extractPriorities({ value }: TerminalSelector): Int64 {
+function extractPriorities({ value }: TerminalSelector): Int64[] {
     if (value) {
         return Array.from(value).map((val) => val.priority);
     }
