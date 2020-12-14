@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { DomainTypedManager } from '../../../../thrift-services';
+import { DomainCacheService } from '../../../../thrift-services/damsel/domain-cache.service';
 import { Predicate, RiskScore } from '../../../../thrift-services/damsel/gen-model/domain';
 import {
     AddShopPaymentRoutingRuleDialogService,
@@ -20,7 +20,7 @@ export class AddShopPaymentRoutingRuleDialogComponent {
 
     terminalType = TerminalType;
     riskScore = RiskScore;
-    terminals$ = this.domainTypedManager.getTerminalObjects();
+    terminals$ = this.domainService.getObjects('terminal');
 
     predicate: Predicate;
     predicateValid: boolean;
@@ -28,7 +28,7 @@ export class AddShopPaymentRoutingRuleDialogComponent {
     constructor(
         private addShopPaymentRoutingRuleDialogService: AddShopPaymentRoutingRuleDialogService,
         private dialogRef: MatDialogRef<AddShopPaymentRoutingRuleDialogComponent>,
-        private domainTypedManager: DomainTypedManager,
+        private domainService: DomainCacheService,
         @Inject(MAT_DIALOG_DATA) public data: { partyID: string; refID: number }
     ) {}
 

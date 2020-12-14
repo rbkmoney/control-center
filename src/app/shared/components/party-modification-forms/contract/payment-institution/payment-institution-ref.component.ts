@@ -12,7 +12,6 @@ import {
     PaymentInstitutionObject,
     PaymentInstitutionRef,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
-import { findDomainObjects } from '../../../../../thrift-services/damsel/operations/utils';
 
 @Component({
     selector: 'cc-payment-institution-ref',
@@ -39,8 +38,7 @@ export class PaymentInstitutionRefComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.paymentInstitutions$ = this.dtm.domain$.pipe(
-            map((domain) => findDomainObjects(domain, 'payment_institution')),
+        this.paymentInstitutions$ = this.dtm.getObjects('payment_institution').pipe(
             map((paymentInstitutions) =>
                 sortBy(paymentInstitutions, (paymentInstitution) => paymentInstitution.ref.id)
             ),
