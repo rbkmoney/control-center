@@ -13,7 +13,10 @@ export class FetchShopProvidersService {
 
     providersInfo$ = this.getProvidersInfo$.pipe(
         switchMap(({ partyID, shopID }) =>
-            combineLatest([this.dcs.getObjects('provider'), this.dcs.getObjects('terminal')]).pipe(
+            combineLatest([
+                this.domainCacheService.getObjects('provider'),
+                this.domainCacheService.getObjects('terminal'),
+            ]).pipe(
                 map(([providerObjects, terminalObjects]) =>
                     toProvidersInfo(providerObjects, terminalObjects, partyID, shopID)
                 )
@@ -24,7 +27,7 @@ export class FetchShopProvidersService {
 
     inProgress$ = progress(this.getProvidersInfo$, this.providersInfo$).pipe(startWith(true));
 
-    constructor(private dcs: DomainCacheService) {}
+    constructor(private domainCacheService: DomainCacheService) {}
 
     getProvidersInfo(partyID: PartyID, shopID: ShopID) {
         this.getProvidersInfo$.next({ partyID, shopID });
