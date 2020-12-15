@@ -10,8 +10,6 @@ import {
     CreateTerminalParams,
     getCreateTerminalCommit,
 } from './operations';
-import { createRemoveTerminalFromShopCommit } from './operations/create-remove-terminal-from-shop-commit';
-import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-shop-params';
 
 /**
  * @deprecated should be removed, use DomainCacheService
@@ -20,21 +18,6 @@ import { RemoveTerminalFromShopParams } from './operations/remove-terminal-from-
 @Injectable()
 export class DomainTypedManager {
     constructor(private domainCacheService: DomainCacheService) {}
-
-    /**
-     * @deprecated select in separate service
-     */
-    removeTerminalFromShop(params: RemoveTerminalFromShopParams) {
-        return this.domainCacheService.getObjects('provider').pipe(
-            map((providerObject) => providerObject.find((obj) => obj.ref.id === params.providerID)),
-            switchMap((provider) => {
-                return this.domainCacheService.commit(
-                    createRemoveTerminalFromShopCommit(provider, params)
-                );
-            }),
-            tap(() => this.domainCacheService.forceReload())
-        );
-    }
 
     /**
      * @deprecated select in separate service
