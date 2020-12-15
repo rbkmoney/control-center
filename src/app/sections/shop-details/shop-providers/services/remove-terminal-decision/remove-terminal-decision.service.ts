@@ -8,7 +8,11 @@ import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators'
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
 import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
-import { PartyID, ShopID } from '../../../../../thrift-services/damsel/gen-model/domain';
+import {
+    PartyID,
+    ProviderObject,
+    ShopID,
+} from '../../../../../thrift-services/damsel/gen-model/domain';
 import { createRemoveTerminalFromShopCommit } from '../../../../../thrift-services/damsel/operations/create-remove-terminal-from-shop-commit';
 import { findDomainObject } from '../../../../../thrift-services/damsel/operations/utils';
 import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
@@ -45,13 +49,17 @@ export class RemoveTerminalDecisionService {
                     catchError((e) => {
                         this.error$.next();
                         return of('error');
-                    })
+                    }),
+                    filter((r) => r !== 'error')
                 ),
             ])
         ),
         map(
             ([data, providerObject]) =>
-                [data, findDomainObject(providerObject, data.providerID)] as const
+                [
+                    data,
+                    findDomainObject(providerObject as ProviderObject[], data.providerID),
+                ] as const
         ),
         map(([data, providerObject]) => createRemoveTerminalFromShopCommit(providerObject, data)),
         switchMap((commit) =>
@@ -65,7 +73,7 @@ export class RemoveTerminalDecisionService {
         shareReplay(1)
     );
 
-    inProgress$ = progress(this.remove$, merge(this.removed$));
+    inProgress$ = progress(this.remove$, merge(this.removed$, this.error$));
 
     constructor(
         private dialog: MatDialog,

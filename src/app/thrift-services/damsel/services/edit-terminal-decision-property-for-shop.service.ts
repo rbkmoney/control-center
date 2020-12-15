@@ -5,6 +5,7 @@ import { combineLatest, merge, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
 import { DomainCacheService } from '../domain-cache.service';
+import { ProviderObject } from '../gen-model/domain';
 import { editTerminalDecisionPropertyForShopCommit } from '../operations/edit-terminal-decision-property-for-shop-commit';
 import { EditTerminalDecisionPropertyParams } from '../operations/edit-terminal-decision-property-params';
 import { findDomainObject } from '../operations/utils';
@@ -23,13 +24,17 @@ export class EditTerminalDecisionPropertyForShopService {
                     catchError((e) => {
                         this.error$.next();
                         return of('error');
-                    })
+                    }),
+                    filter((r) => r !== 'error')
                 ),
             ])
         ),
         map(
             ([params, providerObject]) =>
-                [params, findDomainObject(providerObject, params.providerID)] as const
+                [
+                    params,
+                    findDomainObject(providerObject as ProviderObject[], params.providerID),
+                ] as const
         ),
         filter(([params, provider]) => {
             if (!provider) {

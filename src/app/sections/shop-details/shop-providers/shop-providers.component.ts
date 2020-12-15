@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { race } from 'rxjs';
+import { merge, race } from 'rxjs';
 
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
 import {
@@ -26,7 +26,10 @@ export class ShopProvidersComponent implements OnInit {
     shopID: ShopID;
 
     providersInfo$ = this.fetchProvidersService.providersInfo$;
-    inProgress$ = this.fetchProvidersService.inProgress$;
+    inProgress$ = merge(
+        this.fetchProvidersService.inProgress$,
+        this.removeTerminalDecisionService.inProgress$
+    );
 
     constructor(
         private fetchProvidersService: FetchShopProvidersService,
