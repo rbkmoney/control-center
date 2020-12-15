@@ -1,11 +1,15 @@
 import get from 'lodash-es/get';
-import Int64 from 'thrift-ts/lib/int64';
 
 import {
-    Condition,
+    PartyCondition,
+    PartyID,
     Predicate,
+    ProviderTerminalRef,
+    ShopID,
+    TerminalDecision,
     TerminalObject,
     TerminalRef,
+    TerminalSelector,
 } from '../../thrift-services/damsel/gen-model/domain';
 
 interface PredicateInfo {
@@ -17,7 +21,7 @@ interface PredicateInfo {
 interface TerminalInfoGroup {
     terminalIds: number[];
     weights: number[];
-    priorities: Int64[];
+    priorities: number[];
     disabled: boolean;
     predicateType: PredicateType;
 }
@@ -26,7 +30,7 @@ interface FlattenTerminalInfoGroup {
     terminalId: number;
     disabled: boolean;
     predicateType: PredicateType;
-    priority: Int64;
+    priority: number;
     weight: number;
 }
 
@@ -42,10 +46,10 @@ export interface TerminalInfo {
     disabled: boolean;
     predicateType: PredicateType;
     weight: number;
-    priority: Int64;
+    priority: number;
 }
 
-function inPredicates(predicates: Predicate[], shopID: string, partyID: string): boolean {
+function inPredicates(predicates: Set<Predicate>, shopID: ShopID, partyID: PartyID): boolean {
     for (const predicate of predicates) {
         if (extractPredicateInfo(predicate, shopID, partyID).shopPartyContain) {
             return true;
@@ -53,58 +57,63 @@ function inPredicates(predicates: Predicate[], shopID: string, partyID: string):
     }
 }
 
-function inPartyCondition({ party }: Condition, shopID: string, partyID: string): boolean {
+function inPartyCondition(party: PartyCondition, shopID: ShopID, partyID: PartyID): boolean {
     const shopIs = get(party, 'definition.shop_is');
     return party.id === partyID && shopIs === shopID;
 }
 
-function isDisabled(all_of: any[]): boolean {
-    const constant = all_of.find((pre) => pre.constant !== null);
+function isDisabled(all_of: Set<Predicate>): boolean {
+    const constant = Array.from(all_of).find((pre) => pre.constant !== null);
     return !!constant ? constant.constant : false;
 }
 
 function extractPredicateInfo(
-    { all_of, any_of, condition, is_not }: any,
-    shopID: string,
-    partyID: string
+    { all_of, any_of, condition, is_not }: Predicate,
+    shopID: ShopID,
+    partyID: PartyID
 ): PredicateInfo {
-    if (all_of && all_of.length > 0) {
+    if (all_of && all_of.size > 0) {
         return {
             shopPartyContain: inPredicates(all_of, shopID, partyID),
             predicateType: PredicateType.all_of,
             disabled: isDisabled(all_of),
         };
     }
-    if (any_of && any_of.length > 0) {
+    if (any_of && any_of.size > 0) {
         return {
             shopPartyContain: inPredicates(any_of, shopID, partyID),
             predicateType: PredicateType.any_of,
             disabled: false,
         };
     }
-    if (is_not && is_not.length > 0) {
-        return {
-            shopPartyContain: inPartyCondition(is_not, shopID, partyID),
-            predicateType: PredicateType.is_not,
-            disabled: true,
-        };
+    if (is_not) {
+        if (is_not.condition?.party) {
+            return {
+                shopPartyContain: inPartyCondition(is_not.condition.party, shopID, partyID),
+                predicateType: PredicateType.is_not,
+                disabled: true,
+            };
+        }
     }
     if (condition && condition.party) {
-        return {
-            shopPartyContain: inPartyCondition(condition, shopID, partyID),
-            predicateType: PredicateType.condition,
-            disabled: false,
-        };
+        if (condition.party) {
+            return {
+                shopPartyContain: inPartyCondition(condition.party, shopID, partyID),
+                predicateType: PredicateType.condition,
+                disabled: false,
+            };
+        }
     }
     return {
         shopPartyContain: false,
     };
 }
 
-const extractIdsFromValue = (value: TerminalRef[]): number[] => value.map((v) => v.id);
+const extractIdsFromValue = (value: Set<TerminalRef>): number[] =>
+    Array.from(value).map((v) => v.id);
 
 // Need TerminalDecision with if_ then_
-function extractIdsFromDecisions(decisions: any[]): number[] {
+function extractIdsFromDecisions(decisions: TerminalDecision[]): number[] {
     return decisions.reduce((r, { then_ }) => {
         if (then_.decisions) {
             r = r.concat(extractIdsFromDecisions(then_.decisions));
@@ -117,7 +126,7 @@ function extractIdsFromDecisions(decisions: any[]): number[] {
 }
 
 // Need TerminalSelector with Array instead Set
-function extractIds({ decisions, value }: any): number[] {
+function extractIds({ decisions, value }: TerminalSelector): number[] {
     if (decisions) {
         return extractIdsFromDecisions(decisions);
     }
@@ -126,22 +135,22 @@ function extractIds({ decisions, value }: any): number[] {
     }
 }
 
-function extractWeights({ value }: any): number {
+function extractWeights(value: Set<ProviderTerminalRef>): number[] {
     if (value) {
-        return value.map((val) => val.weight);
+        return Array.from(value).map((val: any) => val.weight);
     }
 }
 
-function extractPriorities({ value }: any): Int64 {
+function extractPriorities(value: Set<ProviderTerminalRef>): number[] {
     if (value) {
-        return value.map((val) => val.priority);
+        return Array.from(value).map((val: any) => val.priority);
     }
 }
 
 const extractTerminalInfoGroup = (
-    decisions: any[],
-    shopID: string,
-    partyID: string
+    decisions: TerminalDecision[],
+    shopID: ShopID,
+    partyID: PartyID
 ): TerminalInfoGroup[] =>
     decisions.reduce((r, { if_, then_ }) => {
         const { shopPartyContain, disabled, predicateType } = extractPredicateInfo(
@@ -154,8 +163,8 @@ const extractTerminalInfoGroup = (
                 terminalIds: extractIds(then_),
                 disabled,
                 predicateType,
-                weights: extractWeights(then_),
-                priorities: extractPriorities(then_),
+                weights: extractWeights(then_.value),
+                priorities: extractPriorities(then_.value),
             });
         }
         return r;
@@ -193,10 +202,10 @@ const enrichWithTerminal = (
 
 // Need TerminalDecision with if_ then_
 export function extractTerminalInfo(
-    decisions: any[],
+    decisions: TerminalDecision[],
     terminalObjects: TerminalObject[],
-    shopID: string,
-    partyID: string
+    shopID: ShopID,
+    partyID: PartyID
 ): TerminalInfo[] {
     const extractedGroup = extractTerminalInfoGroup(decisions, shopID, partyID);
     return enrichWithTerminal(flattenGroup(extractedGroup), terminalObjects);

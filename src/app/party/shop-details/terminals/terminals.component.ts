@@ -14,7 +14,6 @@ import { filter } from 'rxjs/operators';
 import { DomainTypedManager } from '../../../thrift-services';
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
 import { TerminalID } from '../../../thrift-services/fistful/gen-model/fistful';
-import { ProviderID } from '../../../thrift-services/fistful/gen-model/provider';
 import { EditTerminalDecisionPriorityComponent } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.component';
 import { EditTerminalDecisionPriorityService } from '../edit-terminal-decision/edit-terminal-decision-priority/edit-terminal-decision-priority.service';
 import { EditTerminalDecisionWeightComponent } from '../edit-terminal-decision/edit-terminal-decision-weight/edit-terminal-decision-weight.component';
@@ -23,13 +22,14 @@ import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 @Component({
     selector: 'cc-terminals',
     templateUrl: 'terminals.component.html',
+    styleUrls: ['terminals.component.scss'],
     providers: [EditTerminalDecisionPriorityService],
 })
 export class TerminalsComponent implements OnChanges, OnInit {
     @Input() terminalInfos: TerminalInfo[];
     @Input() partyID: PartyID;
     @Input() shopID: ShopID;
-    @Input() providerID: ProviderID;
+    @Input() providerID: number;
     @Output() terminalChanged: EventEmitter<void> = new EventEmitter();
 
     columns = ['name', 'description', 'type', 'priority', 'weight', 'status', 'actions'];
@@ -115,19 +115,19 @@ export class TerminalsComponent implements OnChanges, OnInit {
 
     changePriority(op: string, i: number) {
         const terminalID = this.infos[i].terminal.ref.id;
-        const basePriority = this.infos[i].priority.toNumber();
+        const basePriority = this.infos[i].priority;
         const prevInfo = this.infos[i - 1];
         const nexInfo = this.infos[i + 1];
 
         let diffPlus50;
         if (op === 'plus') {
-            diffPlus50 = prevInfo ? prevInfo.priority.toNumber() + 50 : basePriority + 50;
+            diffPlus50 = prevInfo ? prevInfo.priority + 50 : basePriority + 50;
             this.editPriorityService.edit(this.getModalData(terminalID), {
                 property: 'priority',
                 value: diffPlus50,
             });
         } else if (op === 'minus') {
-            diffPlus50 = nexInfo ? nexInfo.priority.toNumber() - 50 : 0;
+            diffPlus50 = nexInfo ? nexInfo.priority - 50 : 0;
             this.editPriorityService.edit(this.getModalData(terminalID), {
                 property: 'priority',
                 value: diffPlus50,
@@ -150,8 +150,8 @@ export class TerminalsComponent implements OnChanges, OnInit {
 
     private sortInfos(infos: TerminalInfo[]): TerminalInfo[] {
         return infos.sort((a, b) => {
-            const aPriority = a.priority.toNumber();
-            const bPriority = b.priority.toNumber();
+            const aPriority = a.priority;
+            const bPriority = b.priority;
             if (aPriority !== bPriority) {
                 return bPriority - aPriority;
             } else {

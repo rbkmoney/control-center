@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DomainTypedManager } from '../../../thrift-services';
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
-import { ProviderID } from '../../../thrift-services/fistful/gen-model/provider';
 import { PredicateType, TerminalInfo } from '../extract-terminal-info';
 
 @Component({
@@ -15,7 +14,7 @@ export class TerminalComponent {
     @Input() terminalInfo: TerminalInfo;
     @Input() partyID: PartyID;
     @Input() shopID: ShopID;
-    @Input() providerID: ProviderID;
+    @Input() providerID: number;
     @Output() terminalRemovedEvent: EventEmitter<void> = new EventEmitter();
 
     isLoading = false;

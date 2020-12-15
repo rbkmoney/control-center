@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { merge, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { merge, of, Subject } from 'rxjs';
+import { catchError, filter, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { DomainTypedManager } from '../../../../thrift-services/damsel';
-import { TerminalObject } from '../../../../thrift-services/damsel/gen-model/domain';
+import { DomainCacheService } from '../../../../thrift-services/damsel/domain-cache.service';
 
 @Injectable()
 export class FetchTerminalService {
     private getTerminal$ = new Subject<number>();
     private hasError$ = new Subject();
 
-    terminal$: Observable<string | TerminalObject> = this.getTerminal$.pipe(
+    terminal$ = this.getTerminal$.pipe(
         switchMap((terminalID) =>
-            this.dtm.getTerminalObject(terminalID).pipe(
+            this.domainCacheService.getObjects('terminal').pipe(
+                map((terminalObject) => terminalObject.find((obj) => obj.ref.id === terminalID)),
                 catchError(() => {
                     this.hasError$.next();
                     return of('error');
@@ -28,7 +28,7 @@ export class FetchTerminalService {
         startWith(true)
     );
 
-    constructor(private dtm: DomainTypedManager) {
+    constructor(private domainCacheService: DomainCacheService) {
         this.terminal$.subscribe();
     }
 
