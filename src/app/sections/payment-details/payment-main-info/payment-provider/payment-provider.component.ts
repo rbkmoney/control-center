@@ -10,7 +10,7 @@ import { FetchProviderService } from './fetch-provider.service';
 })
 export class PaymentProviderComponent implements OnInit {
     @Input()
-    providerID: string;
+    providerID: number;
 
     provider$ = this.fetchProviderService.provider$;
     inProgress$ = this.fetchProviderService.inProgress$;

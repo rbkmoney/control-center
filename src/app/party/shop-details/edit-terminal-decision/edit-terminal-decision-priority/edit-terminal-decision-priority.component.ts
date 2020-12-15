@@ -4,14 +4,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { PartyID, ShopID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { TerminalID } from '../../../../thrift-services/fistful/gen-model/fistful';
-import { ProviderID } from '../../../../thrift-services/fistful/gen-model/provider';
 import { EditTerminalDecisionPriorityService } from './edit-terminal-decision-priority.service';
 
 export interface EditPriorityData {
     partyID: PartyID;
     shopID: ShopID;
     terminalID: TerminalID;
-    providerID: ProviderID;
+    providerID: number;
 }
 
 @Component({

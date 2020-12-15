@@ -8,7 +8,13 @@ import {
     DomainTypedManager,
     filterProvidersByTerminalSelector,
 } from '../../../thrift-services';
-import { ProviderObject, TerminalObject } from '../../../thrift-services/damsel/gen-model/domain';
+import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
+import {
+    PartyID,
+    ProviderObject,
+    ShopID,
+    TerminalObject,
+} from '../../../thrift-services/damsel/gen-model/domain';
 import { filterProvidersByCategoryId } from '../../../thrift-services/filters';
 
 @Injectable()
@@ -16,20 +22,24 @@ export class AddProviderService {
     providerForm = this.prepareForm();
     terminalForm = this.prepareForm();
 
-    constructor(private fb: FormBuilder, private dtm: DomainTypedManager) {}
+    constructor(
+        private fb: FormBuilder,
+        private domainCacheService: DomainCacheService,
+        private dtm: DomainTypedManager
+    ) {}
 
     getTerminals(): Observable<TerminalObject[]> {
-        return this.dtm.getTerminalObjects();
+        return this.domainCacheService.getObjects('terminal');
     }
 
     getProviders(categoryId: number): Observable<ProviderObject[]> {
-        return this.dtm.getProviderObjects().pipe(
+        return this.domainCacheService.getObjects('provider').pipe(
             map((objects) => filterProvidersByTerminalSelector(objects, 'decisions')),
             map((objects) => filterProvidersByCategoryId(objects, categoryId))
         );
     }
 
-    addProvider(partyID: string, shopID: string) {
+    addProvider(partyID: PartyID, shopID: ShopID) {
         const params = {
             partyID,
             shopID,
