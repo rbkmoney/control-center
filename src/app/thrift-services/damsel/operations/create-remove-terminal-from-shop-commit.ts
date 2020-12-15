@@ -6,13 +6,10 @@ import { RemoveTerminalFromShopParams } from './remove-terminal-from-shop-params
 export const createRemoveTerminalFromShopCommit = (
     providerObject: ProviderObject,
     params: RemoveTerminalFromShopParams
-): Commit => {
-    console.log(providerObject);
-    return {
-        ops: [
-            {
-                update: createRemoveTerminalFromProviderOperation(providerObject, params),
-            },
-        ],
-    };
-};
+): Commit => ({
+    ops: [
+        {
+            update: createRemoveTerminalFromProviderOperation(providerObject, params),
+        },
+    ],
+});

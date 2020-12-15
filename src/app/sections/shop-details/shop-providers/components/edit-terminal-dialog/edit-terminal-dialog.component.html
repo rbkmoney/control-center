@@ -17,7 +17,23 @@
     fxLayoutGap="20px"
     fxLayoutGap.xs="10px"
 >
-    <button mat-button fxFlex fxFlex.xs="none">SAVE</button>
-    <button mat-button fxFlex fxFlex.xs="none" [mat-dialog-close]="false">CANCEL</button>
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <button
+        mat-button
+        fxFlex
+        fxFlex.xs="none"
+        (click)="save()"
+        [disabled]="!editValueControl.valid || (inProgress$ | async)"
+    >
+        SAVE
+    </button>
+    <button
+        mat-button
+        fxFlex
+        fxFlex.xs="none"
+        [mat-dialog-close]="false"
+        [disabled]="inProgress$ | async"
+    >
+        CANCEL
+    </button>
+    <mat-progress-bar mode="indeterminate" *ngIf="inProgress$ | async"></mat-progress-bar>
 </div>

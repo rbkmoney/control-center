@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
+import { PartyID, ShopID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
-import { ProviderID } from '../../../../../thrift-services/fistful/gen-model/provider';
 import { EditTerminalDialogComponent } from '../../components/edit-terminal-dialog';
 import { EditTerminalDialogResponse, TerminalActionTypes } from '../../types';
 
@@ -14,7 +13,9 @@ export class EditTerminalDecisionService {
     private edit$ = new Subject<{
         type: TerminalActionTypes;
         terminalID: TerminalID;
-        providerID: ProviderID;
+        providerID: number;
+        partyID: PartyID;
+        shopID: ShopID;
     }>();
 
     terminalChanged$ = this.edit$.pipe(
@@ -30,9 +31,15 @@ export class EditTerminalDecisionService {
         )
     );
 
-    constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {}
+    constructor(private dialog: MatDialog) {}
 
-    edit(action: { type: TerminalActionTypes; terminalID: TerminalID; providerID: ProviderID }) {
+    edit(action: {
+        type: TerminalActionTypes;
+        terminalID: TerminalID;
+        providerID: number;
+        partyID: PartyID;
+        shopID: ShopID;
+    }) {
         this.edit$.next(action);
     }
 }

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { race } from 'rxjs';
 
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
-import { ProviderID } from '../../../thrift-services/fistful/gen-model/provider';
 import {
     EditTerminalDecisionService,
     FetchShopProvidersService,
@@ -48,11 +47,16 @@ export class ShopProvidersComponent implements OnInit {
         this.fetchProvidersService.getProvidersInfo(this.partyID, this.shopID);
     }
 
-    action(action: TerminalAction, providerID: ProviderID) {
+    action(action: TerminalAction, providerID: number) {
         switch (action.type) {
             case TerminalActionTypes.editPriority:
             case TerminalActionTypes.editWeight:
-                this.editTerminalDecisionService.edit({ ...action, providerID });
+                this.editTerminalDecisionService.edit({
+                    ...action,
+                    providerID,
+                    partyID: this.partyID,
+                    shopID: this.shopID,
+                });
                 break;
             case TerminalActionTypes.removeTerminal:
                 this.removeTerminalDecisionService.remove({

@@ -1,15 +1,19 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 
-import { ProviderObject, TerminalDecision } from '../gen-model/domain';
+import { PartyID, ProviderObject, ShopID, TerminalDecision } from '../gen-model/domain';
 import { checkSelector } from './utils';
 
-const checkCondition = (condition: any, partyID: string, shopID: string): boolean => {
+const checkCondition = (condition: any, partyID: PartyID, shopID: ShopID): boolean => {
     const isPartyEquals = condition.party.id === partyID;
     const isShopEquals = condition.party.definition.shop_is === shopID;
     return isPartyEquals && isShopEquals;
 };
 
-const filterDecision = (decision: any, partyID: string, shopID: string): TerminalDecision => {
+const filterDecision = (
+    decision: TerminalDecision,
+    partyID: PartyID,
+    shopID: ShopID
+): TerminalDecision => {
     const { condition, any_of } = decision.if_;
     if (condition && condition.party) {
         const matched = checkCondition(condition, partyID, shopID);
@@ -23,7 +27,7 @@ const filterDecision = (decision: any, partyID: string, shopID: string): Termina
             return true;
         });
         if (newPredicates.length > 0) {
-            decision.if_.any_of = newPredicates;
+            decision.if_.any_of = new Set(newPredicates);
         } else {
             return null;
         }
@@ -33,8 +37,8 @@ const filterDecision = (decision: any, partyID: string, shopID: string): Termina
 
 const removeDecision = (
     decisions: TerminalDecision[],
-    partyID: string,
-    shopID: string,
+    partyID: PartyID,
+    shopID: ShopID,
     terminalID: number
 ): TerminalDecision[] =>
     decisions.reduce((acc: TerminalDecision[], decision: TerminalDecision) => {
@@ -52,19 +56,17 @@ const removeDecision = (
 
 export const removeTerminalDecision = (
     providerObject: ProviderObject,
-    partyID: string,
-    shopID: string,
+    partyID: PartyID,
+    shopID: ShopID,
     terminalID: number
 ): ProviderObject => {
     checkSelector(providerObject.data.terminal);
     const result = cloneDeep(providerObject);
-    console.log(providerObject.data.terminal.decisions);
     result.data.terminal.decisions = removeDecision(
         result.data.terminal.decisions,
         partyID,
         shopID,
         terminalID
     );
-    console.log(result.data.terminal.decisions);
     return result;
 };
