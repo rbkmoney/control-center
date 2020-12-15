@@ -38,7 +38,10 @@ export class RemoveTerminalDecisionService {
             ])
         ),
         switchMap(([data]) => combineLatest([of(data), this.dcs.getObjects('provider')])),
-        map(([data, providerObject]) => [data, findDomainObject(providerObject, data.providerID)]),
+        map(
+            ([data, providerObject]) =>
+                [data, findDomainObject(providerObject, data.providerID)] as const
+        ),
         map(([data, providerObject]) => createRemoveTerminalFromShopCommit(providerObject, data)),
         switchMap((commit) => this.dcs.commit(commit)),
         shareReplay(1)

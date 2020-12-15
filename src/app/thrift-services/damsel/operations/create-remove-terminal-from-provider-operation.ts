@@ -1,4 +1,3 @@
-import { toGenDomainObject } from '../../converters';
 import { ProviderObject } from '../gen-model/domain';
 import { UpdateOp } from '../gen-model/domain_config';
 import { removeTerminalDecision } from './remove-terminal-decision';
@@ -8,9 +7,13 @@ export const createRemoveTerminalFromProviderOperation = (
     providerObject: ProviderObject,
     params: RemoveTerminalFromShopParams
 ): UpdateOp => ({
-    old_object: toGenDomainObject(providerObject, 'provider'),
-    new_object: toGenDomainObject(
-        removeTerminalDecision(providerObject, params.partyID, params.shopID, params.terminalID),
-        'provider'
-    ),
+    old_object: { provider: providerObject },
+    new_object: {
+        provider: removeTerminalDecision(
+            providerObject,
+            params.partyID,
+            params.shopID,
+            params.terminalID
+        ),
+    },
 });
