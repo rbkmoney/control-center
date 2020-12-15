@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { merge, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { merge, of, Subject } from 'rxjs';
+import { catchError, filter, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { DomainTypedManager } from '../../../../thrift-services/damsel';
-import { ProviderObject } from '../../../../thrift-services/damsel/gen-model/domain';
+import { DomainCacheService } from '../../../../thrift-services/damsel/domain-cache.service';
 
 @Injectable()
 export class FetchProviderService {
-    private getProvider$ = new Subject<string>();
+    private getProvider$ = new Subject<number>();
     private hasError$ = new Subject();
 
-    provider$: Observable<string | ProviderObject> = this.getProvider$.pipe(
+    provider$ = this.getProvider$.pipe(
         switchMap((providerID) =>
-            this.dtm.getProviderObject(providerID).pipe(
+            this.domainCacheService.getObjects('provider').pipe(
+                map((providerObject) => providerObject.find((obj) => obj.ref.id === providerID)),
                 catchError(() => {
                     this.hasError$.next();
                     return of('error');
@@ -28,11 +28,11 @@ export class FetchProviderService {
         startWith(true)
     );
 
-    constructor(private dtm: DomainTypedManager) {
+    constructor(private domainCacheService: DomainCacheService) {
         this.provider$.subscribe();
     }
 
-    getProvider(providerID: string) {
+    getProvider(providerID: number) {
         this.getProvider$.next(providerID);
     }
 }
