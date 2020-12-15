@@ -1,4 +1,8 @@
-<div *ngIf="(providersInfo$ | async)?.length && !(inProgress$ | async); else empty" fxLayout="column" fxLayoutGap="24px">
+<div
+    *ngIf="(providersInfo$ | async)?.length && !(inProgress$ | async); else empty"
+    fxLayout="column"
+    fxLayoutGap="24px"
+>
     <cc-provider
         *ngFor="let providerInfo of providersInfo$ | async"
         [providerInfo]="providerInfo"
