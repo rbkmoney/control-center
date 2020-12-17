@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { combineLatest, merge, of, Subject } from 'rxjs';
+import { combineLatest, EMPTY, merge, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
 import { DomainCacheService } from '../domain-cache.service';
@@ -23,9 +23,8 @@ export class EditTerminalDecisionPropertyForShopService {
                 this.domainCacheService.getObjects('provider').pipe(
                     catchError((e) => {
                         this.error$.next();
-                        return of('error');
+                        return EMPTY;
                     }),
-                    filter((r) => r !== 'error')
                 ),
             ])
         ),
@@ -48,11 +47,10 @@ export class EditTerminalDecisionPropertyForShopService {
                 .pipe(
                     catchError((e) => {
                         this.error$.next();
-                        return of('error');
+                        return EMPTY;
                     })
                 );
         }),
-        filter((r) => r !== 'error')
     );
 
     inProgress$ = progress(this.editProperty$, merge(this.edited$, this.error$));

@@ -7,3 +7,4 @@ export * from './terminal-action-types';
 export * from './terminal-action';
 export * from './edit-terminal-dialog-response';
 export * from './predicate-type';
+export * from './change-provider-params'

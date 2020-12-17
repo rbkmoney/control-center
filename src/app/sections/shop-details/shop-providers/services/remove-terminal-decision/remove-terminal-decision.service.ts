@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { combineLatest, merge, of, Subject } from 'rxjs';
+import { combineLatest, EMPTY, merge, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
@@ -16,7 +16,7 @@ import {
 import { createRemoveTerminalFromShopCommit } from '../../../../../thrift-services/damsel/operations/create-remove-terminal-from-shop-commit';
 import { findDomainObject } from '../../../../../thrift-services/damsel/operations/utils';
 import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
-import { TerminalActionTypes } from '../../types';
+import { ChangeProviderParams, TerminalActionTypes } from '../../types';
 
 @Injectable()
 export class RemoveTerminalDecisionService {
@@ -48,9 +48,8 @@ export class RemoveTerminalDecisionService {
                 this.domainCacheService.getObjects('provider').pipe(
                     catchError((e) => {
                         this.error$.next();
-                        return of('error');
+                        return EMPTY;
                     }),
-                    filter((r) => r !== 'error')
                 ),
             ])
         ),
@@ -66,7 +65,7 @@ export class RemoveTerminalDecisionService {
             this.domainCacheService.commit(commit).pipe(
                 catchError((e) => {
                     this.error$.next();
-                    return of('error');
+                    return EMPTY;
                 })
             )
         ),
@@ -85,13 +84,7 @@ export class RemoveTerminalDecisionService {
         });
     }
 
-    remove(action: {
-        type: TerminalActionTypes;
-        terminalID: TerminalID;
-        providerID: number;
-        partyID: PartyID;
-        shopID: ShopID;
-    }) {
-        this.remove$.next(action);
+    remove(params: ChangeProviderParams) {
+        this.remove$.next(params);
     }
 }

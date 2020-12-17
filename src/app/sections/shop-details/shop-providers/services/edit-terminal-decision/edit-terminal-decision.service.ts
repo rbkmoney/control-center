@@ -6,7 +6,7 @@ import { filter, switchMap } from 'rxjs/operators';
 import { PartyID, ShopID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
 import { EditTerminalDialogComponent } from '../../components/edit-terminal-dialog';
-import { EditTerminalDialogResponse, TerminalActionTypes } from '../../types';
+import { EditTerminalDialogResponse, ChangeProviderParams, TerminalActionTypes } from '../../types';
 
 @Injectable()
 export class EditTerminalDecisionService {
@@ -33,13 +33,7 @@ export class EditTerminalDecisionService {
 
     constructor(private dialog: MatDialog) {}
 
-    edit(action: {
-        type: TerminalActionTypes;
-        terminalID: TerminalID;
-        providerID: number;
-        partyID: PartyID;
-        shopID: ShopID;
-    }) {
-        this.edit$.next(action);
+    edit(params: ChangeProviderParams) {
+        this.edit$.next(params);
     }
 }
