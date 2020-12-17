@@ -24,7 +24,7 @@ export class EditTerminalDecisionPropertyForShopService {
                     catchError((e) => {
                         this.error$.next();
                         return EMPTY;
-                    }),
+                    })
                 ),
             ])
         ),
@@ -50,7 +50,7 @@ export class EditTerminalDecisionPropertyForShopService {
                         return EMPTY;
                     })
                 );
-        }),
+        })
     );
 
     inProgress$ = progress(this.editProperty$, merge(this.edited$, this.error$));

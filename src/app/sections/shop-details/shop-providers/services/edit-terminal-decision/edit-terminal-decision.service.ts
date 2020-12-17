@@ -3,20 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-import { PartyID, ShopID } from '../../../../../thrift-services/damsel/gen-model/domain';
-import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
 import { EditTerminalDialogComponent } from '../../components/edit-terminal-dialog';
-import { EditTerminalDialogResponse, ChangeProviderParams, TerminalActionTypes } from '../../types';
+import { ChangeProviderParams, EditTerminalDialogResponse } from '../../types';
 
 @Injectable()
 export class EditTerminalDecisionService {
-    private edit$ = new Subject<{
-        type: TerminalActionTypes;
-        terminalID: TerminalID;
-        providerID: number;
-        partyID: PartyID;
-        shopID: ShopID;
-    }>();
+    private edit$ = new Subject<ChangeProviderParams>();
 
     terminalChanged$ = this.edit$.pipe(
         switchMap((data) =>
@@ -31,7 +23,9 @@ export class EditTerminalDecisionService {
         )
     );
 
-    constructor(private dialog: MatDialog) {}
+    constructor(private dialog: MatDialog) {
+        this.terminalChanged$.subscribe();
+    }
 
     edit(params: ChangeProviderParams) {
         this.edit$.next(params);

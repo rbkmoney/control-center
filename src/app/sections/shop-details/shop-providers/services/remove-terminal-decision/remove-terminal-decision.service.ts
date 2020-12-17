@@ -8,25 +8,14 @@ import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators'
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
 import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
-import {
-    PartyID,
-    ProviderObject,
-    ShopID,
-} from '../../../../../thrift-services/damsel/gen-model/domain';
+import { ProviderObject } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { createRemoveTerminalFromShopCommit } from '../../../../../thrift-services/damsel/operations/create-remove-terminal-from-shop-commit';
 import { findDomainObject } from '../../../../../thrift-services/damsel/operations/utils';
-import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
-import { ChangeProviderParams, TerminalActionTypes } from '../../types';
+import { ChangeProviderParams } from '../../types';
 
 @Injectable()
 export class RemoveTerminalDecisionService {
-    private remove$ = new Subject<{
-        type: TerminalActionTypes;
-        terminalID: TerminalID;
-        providerID: number;
-        partyID: PartyID;
-        shopID: ShopID;
-    }>();
+    private remove$ = new Subject<ChangeProviderParams>();
 
     error$ = new Subject();
 
@@ -49,7 +38,7 @@ export class RemoveTerminalDecisionService {
                     catchError((e) => {
                         this.error$.next();
                         return EMPTY;
-                    }),
+                    })
                 ),
             ])
         ),
@@ -79,6 +68,7 @@ export class RemoveTerminalDecisionService {
         private snackBar: MatSnackBar,
         private domainCacheService: DomainCacheService
     ) {
+        this.removed$.subscribe();
         this.error$.subscribe(() => {
             this.snackBar.open('An error occurred while editing providerObject');
         });
