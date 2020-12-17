@@ -12,17 +12,17 @@ export const getCreateTerminalCommit = (
     terminalObjects: TerminalObject[],
     params: CreateTerminalParams
 ): GetCreateTerminalCommit => {
-    const createdTerminalObject = createTerminalObject(terminalObjects, params);
+    const { terminal, id } = createTerminalObject(terminalObjects, params);
     return {
         commit: {
             ops: [
                 {
                     insert: {
-                        object: { terminal: createdTerminalObject.terminalObject },
-                    },
-                },
-            ],
+                        object: { terminal }
+                    }
+                }
+            ]
         },
-        id: createdTerminalObject.id,
+        id
     };
 };

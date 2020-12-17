@@ -16,7 +16,7 @@ const convert = (id: number, params: CreateTerminalParams): TerminalObject => ({
 
 export interface CreateTerminalObject {
     id: number;
-    terminalObject: TerminalObject;
+    terminal: TerminalObject;
 }
 
 export const createTerminalObject = (
@@ -24,5 +24,5 @@ export const createTerminalObject = (
     params: CreateTerminalParams
 ): CreateTerminalObject => {
     const id = generateID(terminalObjects);
-    return { terminalObject: convert(id, params), id };
+    return { terminal: convert(id, params), id };
 };
