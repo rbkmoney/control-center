@@ -1,0 +1,60 @@
+<form [formGroup]="form" class="terminal-form" fxLayout="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+        <mat-form-field fxFlex>
+            <input matInput placeholder="Terminal name" required formControlName="terminalName" />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <input
+                matInput
+                placeholder="Terminal description"
+                required
+                formControlName="terminalDescription"
+            />
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+        <label fxFlex="25">Risk coverage:</label>
+        <mat-radio-group
+            fxFlex="50"
+            fxLayout
+            fxLayoutAlign="space-between center"
+            formControlName="riskCoverage"
+        >
+            <mat-radio-button *ngFor="let coverage of riskCoverages" fxFlex [value]="coverage.value"
+                >{{ coverage.name }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div fxLayout="column" fxLayoutGap="10px" *ngIf="options">
+        <div>Options:</div>
+        <div formArrayName="options">
+            <div
+                fxLayout="row"
+                fxLayout.sm="column"
+                fxLayout.xs="column"
+                *ngFor="let option of options.controls; let i = index"
+                [formGroupName]="i"
+            >
+                <mat-form-field fxFlex="30">
+                    <input matInput placeholder="Key" formControlName="key" required />
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Value" formControlName="value" required />
+                </mat-form-field>
+                <button mat-icon-button color="basic" fxFlex="40px" (click)="removeOption(i)">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div fxLayout fxLayoutAlign="end center">
+            <button mat-icon-button color="basic" fxFlex="40px" (click)="addOption()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div>
+        <button mat-button (click)="save()" [disabled]="!form.valid || (inProgress$ | async)">
+            {{ (inProgress$ | async) ? 'SAVING...' : 'SAVE' }}
+        </button>
+    </div>
+</form>

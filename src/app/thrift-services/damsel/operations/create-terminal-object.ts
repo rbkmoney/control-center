@@ -1,4 +1,3 @@
-import { toGenTerminalObject } from '../../converters';
 import { TerminalObject } from '../gen-model/domain';
 import { CreateTerminalParams } from './create-terminal-params';
 import { generateID, toMap } from './utils';
@@ -25,5 +24,5 @@ export const createTerminalObject = (
     params: CreateTerminalParams
 ): CreateTerminalObject => {
     const id = generateID(terminalObjects);
-    return { terminalObject: toGenTerminalObject(convert(id, params)), id };
+    return { terminalObject: convert(id, params), id };
 };

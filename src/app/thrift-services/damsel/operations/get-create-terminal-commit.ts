@@ -1,4 +1,3 @@
-import { toGenCommit, toGenDomainObject } from '../../converters';
 import { TerminalObject } from '../gen-model/domain';
 import { Commit } from '../gen-model/domain_config';
 import { createTerminalObject } from './create-terminal-object';
@@ -14,13 +13,16 @@ export const getCreateTerminalCommit = (
     params: CreateTerminalParams
 ): GetCreateTerminalCommit => {
     const createdTerminalObject = createTerminalObject(terminalObjects, params);
-    const insertTerminal = {
-        insert: {
-            object: toGenDomainObject(createdTerminalObject.terminalObject, 'terminal'),
+    return {
+        commit: {
+            ops: [
+                {
+                    insert: {
+                        object: { terminal: createdTerminalObject.terminalObject },
+                    },
+                },
+            ],
         },
+        id: createdTerminalObject.id,
     };
-    const commit = {
-        ops: [insertTerminal],
-    };
-    return { commit: toGenCommit(commit), id: createdTerminalObject.id };
 };

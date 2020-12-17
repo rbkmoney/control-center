@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { DomainCacheService } from './domain-cache.service';
-import { Version } from './gen-model/domain_config';
-import {
-    AddDecisionToProvider,
-    addDecisionToProviderCommit,
-    CreateTerminalParams,
-    getCreateTerminalCommit,
-} from './operations';
+import { CreateTerminalParams, getCreateTerminalCommit } from './operations';
 
 /**
  * @deprecated should be removed, use DomainCacheService
@@ -31,21 +25,7 @@ export class DomainTypedManager {
                 newTerminalID = id;
                 return this.domainCacheService.commit(commit);
             }),
-            tap(() => this.domainCacheService.forceReload()),
             map(() => newTerminalID)
-        );
-    }
-
-    /**
-     * @deprecated select in separate service
-     */
-    addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
-        return this.domainCacheService.getObjects('provider').pipe(
-            map((providerObject) => providerObject.find((obj) => obj.ref.id === params.providerID)),
-            switchMap((providerObject) =>
-                this.domainCacheService.commit(addDecisionToProviderCommit(providerObject, params))
-            ),
-            tap(() => this.domainCacheService.forceReload())
         );
     }
 }

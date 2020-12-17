@@ -13,6 +13,7 @@ import {
     TerminalRef,
     TerminalSelector,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
+import { findDomainObject } from '../../../../../thrift-services/damsel/operations/utils';
 import {
     FlattenTerminalInfoGroup,
     PredicateInfo,
@@ -151,17 +152,14 @@ const flattenGroup = (group: TerminalInfoGroup[]): FlattenTerminalInfoGroup[] =>
 const enrichWithTerminal = (
     groups: FlattenTerminalInfoGroup[],
     terminalObjects: TerminalObject[]
-): TerminalInfo[] => {
-    return groups.map((group) => {
-        return {
-            terminal: terminalObjects.find(({ ref: { id } }) => group.terminalId === id),
-            disabled: group.disabled,
-            predicateType: group.predicateType,
-            weight: group.weight,
-            priority: group.priority,
-        };
-    });
-};
+): TerminalInfo[] =>
+    groups.map((group) => ({
+        terminal: findDomainObject(terminalObjects, group.terminalId),
+        disabled: group.disabled,
+        predicateType: group.predicateType,
+        weight: group.weight,
+        priority: group.priority,
+    }));
 
 export function extractTerminalsInfo(
     decisions: TerminalDecision[],

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { TerminalID } from '../../../../../thrift-services/fistful/gen-model/fistful';
 import { TerminalAction, TerminalActionTypes, TerminalInfo } from '../../types';
@@ -7,6 +7,7 @@ import { TerminalAction, TerminalActionTypes, TerminalInfo } from '../../types';
     selector: 'cc-terminals-info-table',
     styleUrls: ['terminals-info-table.component.scss'],
     templateUrl: 'terminals-info-table.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TerminalsInfoTableComponent {
     @Input()

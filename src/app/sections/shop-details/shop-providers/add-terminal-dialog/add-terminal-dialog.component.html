@@ -1,0 +1,49 @@
+<div class="mat-dialog-title">Add terminal</div>
+<mat-dialog-content>
+    <mat-horizontal-stepper [linear]="true">
+        <mat-step [stepControl]="providerForm">
+            <ng-template matStepLabel>Select provider:</ng-template>
+            <div fxLayout="column" fxLayoutGap="20px">
+                <cc-select-provider
+                    [providers]="providers$ | async"
+                    (providerIDSelected)="providerIDSelected($event)"
+                ></cc-select-provider>
+                <div>
+                    <button
+                        matStepperNext
+                        mat-button
+                        [disabled]="!providerForm.valid"
+                        color="primary"
+                    >
+                        NEXT
+                    </button>
+                </div>
+            </div>
+        </mat-step>
+        <mat-step [stepControl]="terminalForm">
+            <ng-template matStepLabel>Select or create terminal:</ng-template>
+            <div fxLayout="column" fxLayoutGap="20px">
+                <cc-select-terminal
+                    [terminals]="terminals$ | async"
+                    (terminalIDSelected)="terminalIDSelected($event)"
+                ></cc-select-terminal>
+                <div><button matStepperPrevious mat-button color="primary">BACK</button></div>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div>
+        <button
+            mat-button
+            (click)="add()"
+            [disabled]="!(providerForm.valid && terminalForm.valid) || (inProgress$ | async)"
+        >
+            ADD
+        </button>
+        <button mat-button [mat-dialog-close]="false" [disabled]="inProgress$ | async">
+            CANCEL
+        </button>
+    </div>
+    <mat-progress-bar *ngIf="inProgress$ | async" mode="indeterminate"></mat-progress-bar>
+</mat-dialog-actions>
