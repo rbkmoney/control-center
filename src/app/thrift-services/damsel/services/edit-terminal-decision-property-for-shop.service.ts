@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { combineLatest, EMPTY, merge, of, Subject } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
+import { EMPTY, merge, Subject } from 'rxjs';
+import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 
 import { DomainCacheService } from '../domain-cache.service';
-import { ProviderObject } from '../gen-model/domain';
+import { DomainTypedManager } from '../domain-typed-manager';
 import { editTerminalDecisionPropertyForShopCommit } from '../operations/edit-terminal-decision-property-for-shop-commit';
 import { EditTerminalDecisionPropertyParams } from '../operations/edit-terminal-decision-property-params';
-import { findDomainObject } from '../operations/utils';
 
 @Injectable()
 export class EditTerminalDecisionPropertyForShopService {
@@ -18,29 +17,10 @@ export class EditTerminalDecisionPropertyForShopService {
 
     edited$ = this.editProperty$.pipe(
         switchMap((params) =>
-            combineLatest([
-                of(params),
-                this.domainCacheService.getObjects('provider').pipe(
-                    catchError((e) => {
-                        this.error$.next();
-                        return EMPTY;
-                    })
-                ),
-            ])
+            this.domainTypedManager.getProviderFromParams<EditTerminalDecisionPropertyParams>(
+                params
+            )
         ),
-        map(
-            ([params, providerObject]) =>
-                [
-                    params,
-                    findDomainObject(providerObject as ProviderObject[], params.providerID),
-                ] as const
-        ),
-        filter(([params, provider]) => {
-            if (!provider) {
-                this.error$.next();
-            }
-            return !!provider;
-        }),
         switchMap(([params, provider]) => {
             return this.domainCacheService
                 .commit(editTerminalDecisionPropertyForShopCommit(provider, params))
@@ -50,12 +30,17 @@ export class EditTerminalDecisionPropertyForShopService {
                         return EMPTY;
                     })
                 );
-        })
+        }),
+        shareReplay(1)
     );
 
     inProgress$ = progress(this.editProperty$, merge(this.edited$, this.error$));
 
-    constructor(private domainCacheService: DomainCacheService, private snackBar: MatSnackBar) {
+    constructor(
+        private domainCacheService: DomainCacheService,
+        private snackBar: MatSnackBar,
+        private domainTypedManager: DomainTypedManager
+    ) {
         this.error$.subscribe(() => {
             this.snackBar.open('An error occurred while editing providerObject');
         });

@@ -7,10 +7,10 @@ import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators'
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
+import { DomainTypedManager } from '../../../../../thrift-services/damsel';
 import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
-import { ProviderObject } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { createRemoveTerminalFromShopCommit } from '../../../../../thrift-services/damsel/operations/create-remove-terminal-from-shop-commit';
-import { findDomainObject } from '../../../../../thrift-services/damsel/operations/utils';
+import { RemoveTerminalFromShopParams } from '../../../../../thrift-services/damsel/operations/remove-terminal-from-shop-params';
 import { ChangeProviderParams } from '../../types';
 
 @Injectable()
@@ -20,9 +20,9 @@ export class RemoveTerminalDecisionService {
     error$ = new Subject();
 
     removed$ = this.remove$.pipe(
-        switchMap((data) =>
+        switchMap((params) =>
             combineLatest([
-                of(data),
+                of(params),
                 this.dialog
                     .open(ConfirmActionDialogComponent, {
                         data: { title: `Remove this terminal from shop?` },
@@ -31,25 +31,12 @@ export class RemoveTerminalDecisionService {
                     .pipe(filter((r) => r === 'confirm')),
             ])
         ),
-        switchMap(([data]) =>
-            combineLatest([
-                of(data),
-                this.domainCacheService.getObjects('provider').pipe(
-                    catchError((e) => {
-                        this.error$.next();
-                        return EMPTY;
-                    })
-                ),
-            ])
+        switchMap(([params]) =>
+            this.domainTypedManager.getProviderFromParams<RemoveTerminalFromShopParams>(params)
         ),
-        map(
-            ([data, providerObject]) =>
-                [
-                    data,
-                    findDomainObject(providerObject as ProviderObject[], data.providerID),
-                ] as const
+        map(([params, providerObject]) =>
+            createRemoveTerminalFromShopCommit(providerObject, params)
         ),
-        map(([data, providerObject]) => createRemoveTerminalFromShopCommit(providerObject, data)),
         switchMap((commit) =>
             this.domainCacheService.commit(commit).pipe(
                 catchError((e) => {
@@ -66,7 +53,8 @@ export class RemoveTerminalDecisionService {
     constructor(
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
-        private domainCacheService: DomainCacheService
+        private domainCacheService: DomainCacheService,
+        private domainTypedManager: DomainTypedManager
     ) {
         this.removed$.subscribe();
         this.error$.subscribe(() => {

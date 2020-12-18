@@ -1,17 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { DomainCacheService } from './domain-cache.service';
-import { CreateTerminalParams, getCreateTerminalCommit } from './operations';
+import { Version } from './gen-model/domain_config';
+import {
+    AddDecisionToProvider,
+    addDecisionToProviderCommit,
+    CreateTerminalParams,
+    getCreateTerminalCommit,
+} from './operations';
 
-/**
- * @deprecated should be removed, use DomainCacheService
- * CREATE SEPARATE SERVICES FOR EACH DOMAIN OBJECT
- */
 @Injectable()
 export class DomainTypedManager {
     constructor(private domainCacheService: DomainCacheService) {}
+
+    getProviderFromParams<T extends { providerID: number }>(
+        p: T
+    ): Observable<readonly [T, ProviderObject]> {
+        return combineLatest([of(p), this.domainCacheService.getObjects('provider')]).pipe(
+            map(
+                ([params, providerObject]) =>
+                    [
+                        params,
+                        findDomainObject(providerObject as ProviderObject[], params.providerID),
+                    ] as const
+            )
+        );
+    }
 
     /**
      * @deprecated select in separate service
