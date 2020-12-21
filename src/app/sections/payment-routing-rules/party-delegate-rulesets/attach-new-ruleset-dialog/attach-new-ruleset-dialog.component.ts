@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 import { PaymentRoutingRulesService } from 'src/app/thrift-services';
 
+import { ErrorService } from '../../../../shared/services/error';
 import { TargetRuleset } from '../target-ruleset-form';
 
+@UntilDestroy()
 @Component({
     templateUrl: 'attach-new-ruleset-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,7 +34,8 @@ export class AttachNewRulesetDialogComponent {
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<AttachNewRulesetDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
-        @Inject(MAT_DIALOG_DATA) public data: { partyID: string }
+        @Inject(MAT_DIALOG_DATA) public data: { partyID: string },
+        private errorService: ErrorService
     ) {}
 
     attach() {
@@ -43,7 +47,8 @@ export class AttachNewRulesetDialogComponent {
                 mainDelegateDescription,
                 ruleset: this.form.value.ruleset,
             })
-            .subscribe(() => this.dialogRef.close());
+            .pipe(untilDestroyed(this))
+            .subscribe(() => this.dialogRef.close(), this.errorService.error);
     }
 
     cancel() {

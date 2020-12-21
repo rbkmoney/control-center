@@ -7,12 +7,15 @@ import {
     Output,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import sortBy from 'lodash-es/sortBy';
 import { map, startWith } from 'rxjs/operators';
 import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 import { PaymentInstitutionObject } from 'src/app/thrift-services/damsel/gen-model/domain';
 
 import { ComponentChanges } from '@cc/app/shared/utils';
+
+import { PaymentRoutingRulesService } from '../../../../thrift-services';
 
 enum Target {
     manual = 'manual',
@@ -24,6 +27,7 @@ export interface TargetRuleset {
     mainDelegateDescription?: string;
 }
 
+@UntilDestroy()
 @Component({
     selector: 'cc-target-ruleset-form',
     templateUrl: 'target-ruleset-form.component.html',
@@ -46,13 +50,15 @@ export class TargetRulesetFormComponent implements OnChanges {
     paymentInstitutions$ = this.domainService
         .getObjects('payment_institution')
         .pipe(map((r) => sortBy(r, ['ref.id'])));
-    rulesets$ = this.domainService
-        .getObjects('routing_rules')
-        .pipe(map((r) => sortBy(r, ['ref.id'])));
+    rulesets$ = this.paymentRoutingRulesService.rulesets$;
 
-    constructor(private fb: FormBuilder, private domainService: DomainCacheService) {
+    constructor(
+        private fb: FormBuilder,
+        private domainService: DomainCacheService,
+        private paymentRoutingRulesService: PaymentRoutingRulesService
+    ) {
         this.form.controls.target.valueChanges
-            .pipe(startWith(this.form.value.target))
+            .pipe(startWith(this.form.value.target), untilDestroyed(this))
             .subscribe((target) => {
                 switch (target) {
                     case Target.manual:
@@ -86,13 +92,15 @@ export class TargetRulesetFormComponent implements OnChanges {
                                 : undefined,
                         mainDelegateDescription,
                     })
-                )
+                ),
+                untilDestroyed(this)
             )
             .subscribe((value) => this.valueChanges.emit(value));
         this.form.statusChanges
             .pipe(
                 startWith(this.form.valid),
-                map(() => this.form.valid)
+                map(() => this.form.valid),
+                untilDestroyed(this)
             )
             .subscribe((valid) => this.valid.emit(valid));
     }
@@ -111,8 +119,6 @@ export class TargetRulesetFormComponent implements OnChanges {
     }
 
     getRulesetById(id: number) {
-        return this.domainService
-            .getObjects('routing_rules')
-            .pipe(map((rulesets) => rulesets.find((r) => r?.ref?.id === id)));
+        return this.paymentRoutingRulesService.getRuleset(id);
     }
 }

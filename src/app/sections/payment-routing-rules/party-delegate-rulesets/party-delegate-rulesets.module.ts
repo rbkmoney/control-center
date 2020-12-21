@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 
 import { DetailsItemModule } from '@cc/components/details-item';
 
+import { ErrorModule } from '../../../shared/services/error';
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
 import { ChangeTargetDialogComponent } from './change-target-dialog';
@@ -53,6 +54,7 @@ const EXPORTED_DECLARATIONS = [
         DetailsItemModule,
         MatInputModule,
         MatProgressBarModule,
+        ErrorModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

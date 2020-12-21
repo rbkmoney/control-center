@@ -6,6 +6,8 @@ import { filter, first, switchMap, take } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
+import { handleError } from '../../../../utils/operators/handle-error';
+import { ErrorService } from '../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
@@ -29,7 +31,8 @@ export class PartyDelegateRulesetsComponent {
         private paymentRoutingRulesService: PaymentRoutingRulesService,
         private router: Router,
         private dialog: MatDialog,
-        private domainService: DomainCacheService
+        private domainService: DomainCacheService,
+        private errorService: ErrorService
     ) {}
 
     attachNewRuleset() {
@@ -44,6 +47,7 @@ export class PartyDelegateRulesetsComponent {
                         })
                         .afterClosed()
                 ),
+                handleError(this.errorService.error),
                 untilDestroyed(this)
             )
             .subscribe();
@@ -64,7 +68,7 @@ export class PartyDelegateRulesetsComponent {
                 data: { mainRulesetRefID, rulesetID },
             })
             .afterClosed()
-            .pipe(untilDestroyed(this))
+            .pipe(handleError(this.errorService.error), untilDestroyed(this))
             .subscribe();
     }
 
@@ -75,11 +79,12 @@ export class PartyDelegateRulesetsComponent {
             .pipe(
                 filter((r) => r === 'confirm'),
                 switchMap(() =>
-                    this.paymentRoutingRulesService.deleteRulesetAndDelegate({
+                    this.paymentRoutingRulesService.deleteDelegate({
                         mainRulesetRefID,
                         rulesetRefID,
                     })
                 ),
+                handleError(this.errorService.error),
                 untilDestroyed(this)
             )
             .subscribe();

@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { ErrorService } from '../../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../../thrift-services';
 
 @Component({
@@ -19,7 +20,8 @@ export class InitializePaymentRoutingRulesDialogComponent {
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<InitializePaymentRoutingRulesDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
-        @Inject(MAT_DIALOG_DATA) public data: { partyID: string; refID: number }
+        @Inject(MAT_DIALOG_DATA) public data: { partyID: string; refID: number },
+        private errorService: ErrorService
     ) {}
 
     init() {
@@ -32,7 +34,7 @@ export class InitializePaymentRoutingRulesDialogComponent {
                 description,
                 delegateDescription,
             })
-            .subscribe(() => this.dialogRef.close());
+            .subscribe(() => this.dialogRef.close(), this.errorService.error);
     }
 
     cancel() {

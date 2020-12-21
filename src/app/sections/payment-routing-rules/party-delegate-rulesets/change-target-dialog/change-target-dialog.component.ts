@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { PaymentRoutingRulesService } from 'src/app/thrift-services';
-import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 
+import { ErrorService } from '../../../../shared/services/error';
 import { TargetRuleset } from '../target-ruleset-form/target-ruleset-form.component';
 
+@UntilDestroy()
 @Component({
     templateUrl: 'change-target-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,13 +26,13 @@ export class ChangeTargetDialogComponent {
     constructor(
         private dialogRef: MatDialogRef<ChangeTargetDialogComponent>,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
-        private domainService: DomainCacheService,
         @Inject(MAT_DIALOG_DATA)
-        public data: { mainRulesetRefID: number; rulesetID: number }
+        public data: { mainRulesetRefID: number; rulesetID: number },
+        private errorService: ErrorService
     ) {
-        this.domainService
-            .getObjects('routing_rules')
-            .pipe(map((rulesets) => rulesets?.find((r) => r?.ref?.id === data?.mainRulesetRefID)))
+        this.paymentRoutingRulesService
+            .getRuleset(data?.mainRulesetRefID)
+            .pipe(untilDestroyed(this))
             .subscribe((ruleset) => {
                 this.initValue = {
                     mainRulesetRefID: ruleset.ref.id,
@@ -52,7 +53,8 @@ export class ChangeTargetDialogComponent {
                 mainDelegateDescription,
                 rulesetID,
             })
-            .subscribe(() => this.dialogRef.close());
+            .pipe(untilDestroyed(this))
+            .subscribe(() => this.dialogRef.close(), this.errorService.error);
     }
 
     cancel() {

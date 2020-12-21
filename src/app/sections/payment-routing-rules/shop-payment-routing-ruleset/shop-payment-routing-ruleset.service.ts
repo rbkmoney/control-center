@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { handleError } from '../../../../utils/operators/handle-error';
 import { PartyService } from '../../../papi/party.service';
+import { ErrorService } from '../../../shared/services/error';
 import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../../thrift-services';
 
 @Injectable()
@@ -41,7 +43,8 @@ export class ShopPaymentRoutingRulesetService {
     constructor(
         private paymentRoutingRulesService: PaymentRoutingRulesDamselService,
         private route: ActivatedRoute,
-        private partyService: PartyService
+        private partyService: PartyService,
+        private errorService: ErrorService
     ) {}
 
     removeShopRule(candidateIdx: number) {
@@ -53,7 +56,8 @@ export class ShopPaymentRoutingRulesetService {
                         refID,
                         candidateIdx,
                     })
-                )
+                ),
+                handleError(this.errorService.error)
             )
             .subscribe();
     }

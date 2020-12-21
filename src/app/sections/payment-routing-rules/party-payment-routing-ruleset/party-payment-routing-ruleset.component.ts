@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { combineLatest } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
+import { handleError } from '../../../../utils/operators/handle-error';
+import { ErrorService } from '../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
@@ -14,6 +17,7 @@ import { PartyPaymentRoutingRulesetService } from './party-payment-routing-rules
 
 const DIALOG_WIDTH = '548px';
 
+@UntilDestroy()
 @Component({
     selector: 'cc-party-payment-routing-ruleset',
     templateUrl: 'party-payment-routing-ruleset.component.html',
@@ -49,7 +53,8 @@ export class PaymentRoutingRulesComponent {
         private partyPaymentRoutingRulesetService: PartyPaymentRoutingRulesetService,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
         private router: Router,
-        private domainService: DomainCacheService
+        private domainService: DomainCacheService,
+        private errorService: ErrorService
     ) {}
 
     initialize() {
@@ -68,7 +73,8 @@ export class PaymentRoutingRulesComponent {
                             data: { partyID, refID },
                         })
                         .afterClosed()
-                )
+                ),
+                untilDestroyed(this)
             )
             .subscribe();
     }
@@ -90,7 +96,8 @@ export class PaymentRoutingRulesComponent {
                             data: { refID, shops, partyID },
                         })
                         .afterClosed()
-                )
+                ),
+                untilDestroyed(this)
             )
             .subscribe();
     }
@@ -103,11 +110,13 @@ export class PaymentRoutingRulesComponent {
                 filter((r) => r === 'confirm'),
                 withLatestFrom(this.partyRuleset$),
                 switchMap(([, mainRuleset]) =>
-                    this.paymentRoutingRulesService.deleteRulesetAndDelegate({
+                    this.paymentRoutingRulesService.deleteDelegate({
                         mainRulesetRefID: mainRuleset.ref.id,
                         rulesetRefID,
                     })
-                )
+                ),
+                handleError(this.errorService.error),
+                untilDestroyed(this)
             )
             .subscribe();
     }
@@ -117,7 +126,7 @@ export class PaymentRoutingRulesComponent {
             this.partyPaymentRoutingRulesetService.partyID$,
             this.partyPaymentRoutingRulesetService.refID$,
         ])
-            .pipe(take(1))
+            .pipe(take(1), untilDestroyed(this))
             .subscribe(([partyID, partyRefID]) =>
                 this.router.navigate([
                     'party',
