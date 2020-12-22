@@ -45,7 +45,7 @@ export class ShopProvidersComponent implements OnInit {
     ) {
         race([
             this.editTerminalDecisionService.terminalChanged$,
-            this.removeTerminalDecisionService.removed$,
+            this.removeTerminalDecisionService.terminalRemoved$,
             this.addProviderService.terminalAdded$,
         ]).subscribe(() => this.getProviders());
     }

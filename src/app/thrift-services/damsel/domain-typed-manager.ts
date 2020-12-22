@@ -21,6 +21,7 @@ export class DomainTypedManager {
         p: T
     ): Observable<readonly [T, ProviderObject]> {
         return combineLatest([of(p), this.domainCacheService.getObjects('provider')]).pipe(
+            take(1),
             map(
                 ([params, providerObject]) =>
                     [

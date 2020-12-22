@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
 import { EditTerminalDialogComponent } from '../../components/edit-terminal-dialog';
 import { ChangeProviderParams, EditTerminalDialogResponse } from '../../types';
@@ -19,8 +19,9 @@ export class EditTerminalDecisionService {
                     data,
                 })
                 .afterClosed()
-                .pipe(filter((response: EditTerminalDialogResponse) => response === 'edited'))
-        )
+                .pipe(filter((r: EditTerminalDialogResponse) => r === 'edited'))
+        ),
+        shareReplay(1)
     );
 
     constructor(private dialog: MatDialog) {

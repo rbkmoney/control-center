@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
 import { PartyID, ShopID } from '../../../../../thrift-services/damsel/gen-model/domain';
 import { AddTerminalDialogComponent } from '../../add-terminal-dialog/add-terminal-dialog.component';
@@ -21,10 +22,11 @@ export class AddProviderService {
                 })
                 .afterClosed()
                 .pipe(filter((response: AddTerminalDialogResponse) => response === 'added'))
-        )
+        ),
+        shareReplay(1)
     );
 
-    constructor(private dialog: MatDialog) {
+    constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
         this.terminalAdded$.subscribe();
     }
 

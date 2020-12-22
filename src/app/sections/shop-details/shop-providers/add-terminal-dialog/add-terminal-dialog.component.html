@@ -23,10 +23,10 @@
         <mat-step [stepControl]="terminalForm">
             <ng-template matStepLabel>Select or create terminal:</ng-template>
             <div fxLayout="column" fxLayoutGap="20px">
-                <cc-select-terminal
+                <cc-terminals-table
                     [terminals]="terminals$ | async"
                     (terminalIDSelected)="terminalIDSelected($event)"
-                ></cc-select-terminal>
+                ></cc-terminals-table>
                 <div><button matStepperPrevious mat-button color="primary">BACK</button></div>
             </div>
         </mat-step>

@@ -18,11 +18,11 @@ export const getCreateTerminalCommit = (
             ops: [
                 {
                     insert: {
-                        object: { terminal }
-                    }
-                }
-            ]
+                        object: { terminal },
+                    },
+                },
+            ],
         },
-        id
+        id,
     };
 };

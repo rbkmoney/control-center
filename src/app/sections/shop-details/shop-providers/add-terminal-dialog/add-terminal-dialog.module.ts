@@ -12,11 +12,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 
 import { AddTerminalDialogComponent } from './add-terminal-dialog.component';
-import { SelectProviderComponent } from './components';
-import { SelectTerminalModule } from './select-terminal/select-terminal.module';
+import { SelectProviderComponent, TerminalsTableComponent } from './components';
 
 @NgModule({
-    declarations: [AddTerminalDialogComponent, SelectProviderComponent],
+    declarations: [AddTerminalDialogComponent, SelectProviderComponent, TerminalsTableComponent],
     entryComponents: [AddTerminalDialogComponent],
     imports: [
         MatDialogModule,
@@ -30,7 +29,6 @@ import { SelectTerminalModule } from './select-terminal/select-terminal.module';
         MatTableModule,
         MatCheckboxModule,
         MatPaginatorModule,
-        SelectTerminalModule,
     ],
 })
 export class AddTerminalDialogModule {}

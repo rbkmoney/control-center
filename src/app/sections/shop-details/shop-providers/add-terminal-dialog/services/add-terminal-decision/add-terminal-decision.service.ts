@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
-import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { merge, Observable, Subject } from 'rxjs';
+import { map, shareReplay, switchMap } from 'rxjs/operators';
 
+import {
+    AddDecisionToProvider,
+    DomainTypedManager,
+} from '../../../../../../thrift-services/damsel';
 import { DomainCacheService } from '../../../../../../thrift-services/damsel/domain-cache.service';
 import {
     PartyID,
@@ -11,7 +15,6 @@ import {
     ShopID,
 } from '../../../../../../thrift-services/damsel/gen-model/domain';
 import { addDecisionToProviderCommit } from '../../../../../../thrift-services/damsel/operations';
-import { findDomainObject } from '../../../../../../thrift-services/damsel/operations/utils';
 import {
     filterProvidersByCategoryId,
     filterProvidersByTerminalSelector,
@@ -32,29 +35,26 @@ export class AddTerminalDecisionService {
             terminalID: this.terminalForm.value.id,
         })),
         switchMap((params) =>
-            combineLatest([
-                of(params),
-                this.domainCacheService
-                    .getObjects('provider')
-                    .pipe(
-                        map((providerObject) => findDomainObject(providerObject, params.providerID))
-                    ),
-            ])
+            this.domainTypedManager.getProviderFromParams<AddDecisionToProvider>(params)
         ),
-        switchMap(([params, providerObject]) => {
-            return this.domainCacheService.commit(
-                addDecisionToProviderCommit(providerObject, params)
-            );
-        })
+        switchMap(([params, providerObject]) =>
+            this.domainCacheService.commit(addDecisionToProviderCommit(providerObject, params))
+        ),
+        shareReplay(1)
     );
 
     inProgress$ = progress(this.add$, merge(this.terminalAdded$, this.error$));
 
-    constructor(private domainCacheService: DomainCacheService, private fb: FormBuilder) {
+    constructor(
+        private domainCacheService: DomainCacheService,
+        private domainTypedManager: DomainTypedManager,
+        private fb: FormBuilder
+    ) {
         this.terminalAdded$.subscribe();
     }
 
     add(params: { shopID: ShopID; partyID: PartyID }) {
+        console.log(params);
         this.add$.next(params);
     }
 
