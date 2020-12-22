@@ -1,15 +1,19 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 
-import { ProviderObject, TerminalDecision } from '../gen-model/domain';
+import { PartyID, ProviderObject, ShopID, TerminalDecision } from '../gen-model/domain';
 import { checkSelector } from './utils';
 
-const checkCondition = (condition: any, partyID: string, shopID: string): boolean => {
+const checkCondition = (condition: any, partyID: PartyID, shopID: ShopID): boolean => {
     const isPartyEquals = condition.party.id === partyID;
     const isShopEquals = condition.party.definition.shop_is === shopID;
     return isPartyEquals && isShopEquals;
 };
 
-const filterDecision = (decision: any, partyID: string, shopID: string): TerminalDecision => {
+const filterDecision = (
+    decision: TerminalDecision,
+    partyID: PartyID,
+    shopID: ShopID
+): TerminalDecision => {
     const { condition, any_of } = decision.if_;
     if (condition && condition.party) {
         const matched = checkCondition(condition, partyID, shopID);
@@ -23,7 +27,7 @@ const filterDecision = (decision: any, partyID: string, shopID: string): Termina
             return true;
         });
         if (newPredicates.length > 0) {
-            decision.if_.any_of = newPredicates;
+            decision.if_.any_of = new Set(newPredicates);
         } else {
             return null;
         }
@@ -33,14 +37,16 @@ const filterDecision = (decision: any, partyID: string, shopID: string): Termina
 
 const removeDecision = (
     decisions: TerminalDecision[],
-    partyID: string,
-    shopID: string,
+    partyID: PartyID,
+    shopID: ShopID,
     terminalID: number
 ): TerminalDecision[] =>
-    decisions.reduce((acc: TerminalDecision[], decision: any) => {
+    decisions.reduce((acc: TerminalDecision[], decision: TerminalDecision) => {
         const isTerminalMatched =
             decision.then_.value &&
-            decision.then_.value.map((item) => item.id).includes(terminalID);
+            Array.from(decision.then_.value)
+                .map((item) => item.id)
+                .includes(terminalID);
         if (isTerminalMatched) {
             const newDecision = filterDecision(decision, partyID, shopID);
             return newDecision ? acc.concat(newDecision) : acc;
@@ -50,10 +56,10 @@ const removeDecision = (
 
 export const removeTerminalDecision = (
     providerObject: ProviderObject,
-    partyID: string,
-    shopID: string,
+    partyID: PartyID,
+    shopID: ShopID,
     terminalID: number
-): any => {
+): ProviderObject => {
     checkSelector(providerObject.data.terminal);
     const result = cloneDeep(providerObject);
     result.data.terminal.decisions = removeDecision(

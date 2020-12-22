@@ -1,6 +1,8 @@
 import get from 'lodash-es/get';
 import Int64 from 'thrift-ts/lib/int64';
 
+import { getUnionKey, getUnionValue } from '@cc/utils/get-union-key';
+
 import {
     Condition,
     PartyID,
@@ -14,10 +16,10 @@ import {
 import {
     FlattenTerminalInfoGroup,
     PredicateInfo,
+    PredicateType,
     TerminalInfo,
     TerminalInfoGroup,
 } from '../../types';
-import { PredicateType } from '../../types/predicate-type';
 
 function inPredicates(predicates: Set<Predicate>, shopID: ShopID, partyID: PartyID): boolean {
     for (const predicate of predicates) {
@@ -27,9 +29,9 @@ function inPredicates(predicates: Set<Predicate>, shopID: ShopID, partyID: Party
     }
 }
 
-function inPartyCondition({ party }: Condition, shopID: ShopID, partyID: PartyID): boolean {
-    const shopIs = get(party, 'definition.shop_is');
-    return party.id === partyID && shopIs === shopID;
+function inPartyCondition(condition: Condition, shopID: ShopID, partyID: PartyID): boolean {
+    const shopIs = get(condition.party, 'definition.shop_is');
+    return condition.party?.id === partyID && shopIs === shopID;
 }
 
 function isDisabled(all_of: Set<Predicate>): boolean {
@@ -38,37 +40,35 @@ function isDisabled(all_of: Set<Predicate>): boolean {
 }
 
 function extractPredicateInfo(
-    { all_of, any_of, condition, is_not }: Predicate,
+    predicate: Predicate,
     shopID: ShopID,
     partyID: PartyID
 ): PredicateInfo {
-    if (all_of && all_of.size > 0) {
-        return {
-            shopPartyContain: inPredicates(all_of, shopID, partyID),
-            predicateType: PredicateType.all_of,
-            disabled: isDisabled(all_of),
-        };
-    }
-    if (any_of && any_of.size > 0) {
-        return {
-            shopPartyContain: inPredicates(any_of, shopID, partyID),
-            predicateType: PredicateType.any_of,
-            disabled: false,
-        };
-    }
-    if (is_not) {
-        return {
-            shopPartyContain: inPartyCondition(is_not.condition, shopID, partyID),
-            predicateType: PredicateType.is_not,
-            disabled: true,
-        };
-    }
-    if (condition && condition.party) {
-        return {
-            shopPartyContain: inPartyCondition(condition, shopID, partyID),
-            predicateType: PredicateType.condition,
-            disabled: false,
-        };
+    const v = getUnionValue(predicate);
+    switch (getUnionKey(predicate)) {
+        case 'all_of':
+            return {
+                shopPartyContain: inPredicates(v as Set<Predicate>, shopID, partyID),
+                predicateType: PredicateType.all_of,
+                disabled: isDisabled(v as Set<Predicate>),
+            };
+        case 'any_of':
+            return {
+                shopPartyContain: inPredicates(v as Set<Predicate>, shopID, partyID),
+                predicateType: PredicateType.any_of,
+                disabled: false,
+            };
+        case 'is_not':
+            return extractPredicateInfo(v as Predicate, shopID, partyID);
+        case 'condition':
+            if (getUnionKey(v as Condition) === 'payment_tool') {
+                break;
+            }
+            return {
+                shopPartyContain: inPartyCondition(v as Condition, shopID, partyID),
+                predicateType: PredicateType.condition,
+                disabled: false,
+            };
     }
     return {
         shopPartyContain: false,

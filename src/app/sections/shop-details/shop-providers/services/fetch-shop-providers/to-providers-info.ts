@@ -26,7 +26,7 @@ export const toProvidersInfo = (
             ...acc,
             {
                 provider,
-                terminalInfo: info,
+                terminalsInfo: info,
             },
         ];
     }, []);

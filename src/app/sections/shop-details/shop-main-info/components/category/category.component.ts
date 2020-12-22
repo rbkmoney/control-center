@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { Category } from '../../../../../thrift-services/damsel/gen-model/domain
     templateUrl: 'category.component.html',
     selector: 'cc-category',
     providers: [CategoryService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryComponent {
     @Input() set category(categoryID: number) {

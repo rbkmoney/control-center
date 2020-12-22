@@ -13,8 +13,10 @@ export const toMap = (domainMap: { key: any; value: any }[]): Map<string, string
     return result;
 };
 
-export const findDomainObject = (domainObjects: any[], id: number | string) =>
-    domainObjects.find((object) => object.ref.id === id);
+export const findDomainObject = <T extends { ref: { id: any } }>(
+    domainObjects: T[],
+    id: number | string
+): T => domainObjects.find((object) => object.ref.id === id);
 
 const transformUnion = (union: any): any =>
     transform(union, (result, value, key) => (value ? (result[key] = value) : undefined), {});
