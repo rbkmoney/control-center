@@ -1,10 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { ErrorService } from '../../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../../thrift-services';
 
+@UntilDestroy()
 @Component({
     selector: 'cc-initialize-payment-routing-rules-dialog',
     templateUrl: 'initialize-payment-routing-rules-dialog.component.html',
@@ -34,6 +36,7 @@ export class InitializePaymentRoutingRulesDialogComponent {
                 description,
                 delegateDescription,
             })
+            .pipe(untilDestroyed(this))
             .subscribe(() => this.dialogRef.close(), this.errorService.error);
     }
 

@@ -1,11 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { ErrorService } from '../../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../../thrift-services';
 import { Shop } from '../../../../thrift-services/damsel/gen-model/domain';
 
+@UntilDestroy()
 @Component({
     templateUrl: 'add-party-payment-routing-rule-dialog.component.html',
 })
@@ -35,6 +37,7 @@ export class AddPartyPaymentRoutingRuleDialogComponent {
                 partyID: this.data.partyID,
                 shopID,
             })
+            .pipe(untilDestroyed(this))
             .subscribe(() => this.dialogRef.close(), this.errorService.error);
     }
 
