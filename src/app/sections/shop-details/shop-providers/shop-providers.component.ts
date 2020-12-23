@@ -32,10 +32,8 @@ export class ShopProvidersComponent implements OnInit {
     categoryID: number;
 
     providersInfo$ = this.fetchProvidersService.providersInfo$;
-    inProgress$ = merge(
-        this.fetchProvidersService.inProgress$,
-        this.removeTerminalDecisionService.inProgress$
-    );
+    fetchProgress$ = this.fetchProvidersService.inProgress$;
+    removeProgress$ = this.removeTerminalDecisionService.inProgress$;
 
     constructor(
         private fetchProvidersService: FetchShopProvidersService,

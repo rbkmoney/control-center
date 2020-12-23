@@ -54,7 +54,6 @@ export class AddTerminalDecisionService {
     }
 
     add(params: { shopID: ShopID; partyID: PartyID }) {
-        console.log(params);
         this.add$.next(params);
     }
 

@@ -27,7 +27,9 @@ export class FetchShopProvidersService {
 
     inProgress$ = progress(this.getProvidersInfo$, this.providersInfo$).pipe(startWith(true));
 
-    constructor(private domainCacheService: DomainCacheService) {}
+    constructor(private domainCacheService: DomainCacheService) {
+        this.providersInfo$.subscribe();
+    }
 
     getProvidersInfo(partyID: PartyID, shopID: ShopID) {
         this.getProvidersInfo$.next({ partyID, shopID });
