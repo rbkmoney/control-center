@@ -18,8 +18,9 @@ export class RemoveTerminalDecisionService {
     private remove$ = new Subject<ChangeProviderParams>();
 
     error$ = new Subject();
+    cancelled$ = new Subject();
 
-    removed$ = this.remove$.pipe(
+    terminalRemoved$ = this.remove$.pipe(
         switchMap((params) =>
             combineLatest([
                 of(params),
@@ -28,7 +29,14 @@ export class RemoveTerminalDecisionService {
                         data: { title: `Remove this terminal from shop?` },
                     })
                     .afterClosed()
-                    .pipe(filter((r) => r === 'confirm')),
+                    .pipe(
+                        filter((r) => {
+                            if (r === 'cancel') {
+                                this.cancelled$.next();
+                            }
+                            return r === 'confirm';
+                        })
+                    ),
             ])
         ),
         switchMap(([params]) =>
@@ -48,7 +56,10 @@ export class RemoveTerminalDecisionService {
         shareReplay(1)
     );
 
-    inProgress$ = progress(this.remove$, merge(this.removed$, this.error$));
+    inProgress$ = progress(
+        this.remove$,
+        merge(this.terminalRemoved$, this.error$, this.cancelled$)
+    );
 
     constructor(
         private dialog: MatDialog,
@@ -56,9 +67,9 @@ export class RemoveTerminalDecisionService {
         private domainCacheService: DomainCacheService,
         private domainTypedManager: DomainTypedManager
     ) {
-        this.removed$.subscribe();
+        this.terminalRemoved$.subscribe();
         this.error$.subscribe(() => {
-            this.snackBar.open('An error occurred while editing providerObject');
+            this.snackBar.open('An error occurred while editing providerObject', 'OK');
         });
     }
 

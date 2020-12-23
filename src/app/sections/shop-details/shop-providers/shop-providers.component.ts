@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { merge, race } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { merge } from 'rxjs';
 
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
 import {
+    AddProviderService,
     EditTerminalDecisionService,
     FetchShopProvidersService,
     RemoveTerminalDecisionService,
@@ -16,7 +17,9 @@ import { TerminalAction, TerminalActionTypes } from './types';
         FetchShopProvidersService,
         EditTerminalDecisionService,
         RemoveTerminalDecisionService,
+        AddProviderService,
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopProvidersComponent implements OnInit {
     @Input()
@@ -25,20 +28,23 @@ export class ShopProvidersComponent implements OnInit {
     @Input()
     shopID: ShopID;
 
+    @Input()
+    categoryID: number;
+
     providersInfo$ = this.fetchProvidersService.providersInfo$;
-    inProgress$ = merge(
-        this.fetchProvidersService.inProgress$,
-        this.removeTerminalDecisionService.inProgress$
-    );
+    fetchProgress$ = this.fetchProvidersService.inProgress$;
+    removeProgress$ = this.removeTerminalDecisionService.inProgress$;
 
     constructor(
         private fetchProvidersService: FetchShopProvidersService,
         private editTerminalDecisionService: EditTerminalDecisionService,
-        private removeTerminalDecisionService: RemoveTerminalDecisionService
+        private removeTerminalDecisionService: RemoveTerminalDecisionService,
+        private addProviderService: AddProviderService
     ) {
-        race([
+        merge([
             this.editTerminalDecisionService.terminalChanged$,
-            this.removeTerminalDecisionService.removed$,
+            this.removeTerminalDecisionService.terminalRemoved$,
+            this.addProviderService.terminalAdded$,
         ]).subscribe(() => this.getProviders());
     }
 
@@ -70,5 +76,13 @@ export class ShopProvidersComponent implements OnInit {
                 });
                 break;
         }
+    }
+
+    addTerminal() {
+        this.addProviderService.add({
+            partyID: this.partyID,
+            shopID: this.shopID,
+            categoryID: this.categoryID,
+        });
     }
 }

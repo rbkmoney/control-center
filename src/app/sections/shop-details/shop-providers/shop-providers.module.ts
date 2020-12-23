@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 
+import { AddTerminalDialogModule } from './add-terminal-dialog';
 import { EditTerminalDialogComponent } from './components/edit-terminal-dialog';
 import { ProviderModule } from './provider';
 import { ShopProvidersComponent } from './shop-providers.component';
@@ -29,6 +30,7 @@ import { ShopProvidersComponent } from './shop-providers.component';
         MatButtonModule,
         MatProgressBarModule,
         ReactiveFormsModule,
+        AddTerminalDialogModule,
     ],
     entryComponents: [EditTerminalDialogComponent],
     exports: [ShopProvidersComponent],

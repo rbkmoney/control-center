@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { DomainCacheService } from './domain-cache.service';
 import { ProviderObject } from './gen-model/domain';
@@ -21,12 +21,22 @@ export class DomainTypedManager {
         p: T
     ): Observable<readonly [T, ProviderObject]> {
         return combineLatest([of(p), this.domainCacheService.getObjects('provider')]).pipe(
+            take(1),
             map(
                 ([params, providerObject]) =>
                     [
                         params,
                         findDomainObject(providerObject as ProviderObject[], params.providerID),
                     ] as const
+            )
+        );
+    }
+
+    addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
+        return this.domainCacheService.getObjects('provider').pipe(
+            map((providerObject) => findDomainObject(providerObject, params.providerID)),
+            switchMap((providerObject) =>
+                this.domainCacheService.commit(addDecisionToProviderCommit(providerObject, params))
             )
         );
     }
@@ -43,21 +53,7 @@ export class DomainTypedManager {
                 newTerminalID = id;
                 return this.domainCacheService.commit(commit);
             }),
-            tap(() => this.domainCacheService.forceReload()),
             map(() => newTerminalID)
-        );
-    }
-
-    /**
-     * @deprecated select in separate service
-     */
-    addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
-        return this.domainCacheService.getObjects('provider').pipe(
-            map((providerObject) => providerObject.find((obj) => obj.ref.id === params.providerID)),
-            switchMap((providerObject) =>
-                this.domainCacheService.commit(addDecisionToProviderCommit(providerObject, params))
-            ),
-            tap(() => this.domainCacheService.forceReload())
         );
     }
 }

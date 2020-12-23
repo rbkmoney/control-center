@@ -1,5 +1,10 @@
+<div fxLayout fxLayoutAlign="end">
+    <button mat-raised-button color="primary" (click)="addTerminal()">
+        ADD TERMINAL
+    </button>
+</div>
 <div
-    *ngIf="(providersInfo$ | async)?.length && !(inProgress$ | async); else empty"
+    *ngIf="(providersInfo$ | async)?.length && !(fetchProgress$ | async)"
     fxLayout="column"
     fxLayoutGap="24px"
 >
@@ -11,11 +16,11 @@
         (action)="action($event, providerInfo.provider.ref.id)"
     ></cc-provider>
 </div>
-<ng-template #empty>
-    <div *ngIf="inProgress$ | async; else emptyResult" fxLayout fxLayoutAlign="center center">
-        <mat-spinner diameter="64"></mat-spinner>
-    </div>
-    <ng-template #emptyResult>
-        <cc-empty-search-result unwrapped></cc-empty-search-result>
-    </ng-template>
-</ng-template>
+<div *ngIf="fetchProgress$ | async" fxLayout fxLayoutAlign="center center">
+    <mat-spinner diameter="64"></mat-spinner>
+</div>
+<cc-empty-search-result
+    unwrapped
+    *ngIf="!(providersInfo$ | async)?.length && !(fetchProgress$ | async)"
+></cc-empty-search-result>
+<mat-progress-bar mode="indeterminate" *ngIf="removeProgress$ | async"></mat-progress-bar>

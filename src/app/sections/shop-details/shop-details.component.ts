@@ -16,6 +16,7 @@ export class ShopDetailsComponent {
 
     shop$ = this.fetchShopService.shop$;
     inProgress$ = this.fetchShopService.inProgress$;
+    categoryID$ = this.fetchShopService.shop$.pipe(pluck('category', 'id'));
 
     constructor(private fetchShopService: FetchShopService, private route: ActivatedRoute) {
         combineLatest([this.partyID$, this.shopID$]).subscribe(([partyID, shopID]) => {
