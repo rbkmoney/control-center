@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
@@ -26,7 +25,7 @@ export class AddProviderService {
         shareReplay(1)
     );
 
-    constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
+    constructor(private dialog: MatDialog) {
         this.terminalAdded$.subscribe();
     }
 
