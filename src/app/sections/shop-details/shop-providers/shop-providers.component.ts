@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { merge, race } from 'rxjs';
+import { merge } from 'rxjs';
 
 import { PartyID, ShopID } from '../../../thrift-services/damsel/gen-model/domain';
 import {
@@ -43,7 +43,7 @@ export class ShopProvidersComponent implements OnInit {
         private removeTerminalDecisionService: RemoveTerminalDecisionService,
         private addProviderService: AddProviderService
     ) {
-        race([
+        merge([
             this.editTerminalDecisionService.terminalChanged$,
             this.removeTerminalDecisionService.terminalRemoved$,
             this.addProviderService.terminalAdded$,

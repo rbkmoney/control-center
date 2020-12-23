@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { DomainCacheService } from './domain-cache.service';
 import { ProviderObject } from './gen-model/domain';
@@ -32,6 +32,15 @@ export class DomainTypedManager {
         );
     }
 
+    addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
+        return this.domainCacheService.getObjects('provider').pipe(
+            map((providerObject) => findDomainObject(providerObject, params.providerID)),
+            switchMap((providerObject) =>
+                this.domainCacheService.commit(addDecisionToProviderCommit(providerObject, params))
+            )
+        );
+    }
+
     /**
      * @deprecated select in separate service
      */
@@ -45,19 +54,6 @@ export class DomainTypedManager {
                 return this.domainCacheService.commit(commit);
             }),
             map(() => newTerminalID)
-        );
-    }
-
-    /**
-     * @deprecated select in separate service
-     */
-    addProviderDecision(params: AddDecisionToProvider): Observable<Version> {
-        return this.domainCacheService.getObjects('provider').pipe(
-            map((providerObject) => providerObject.find((obj) => obj.ref.id === params.providerID)),
-            switchMap((providerObject) =>
-                this.domainCacheService.commit(addDecisionToProviderCommit(providerObject, params))
-            ),
-            tap(() => this.domainCacheService.forceReload())
         );
     }
 }
