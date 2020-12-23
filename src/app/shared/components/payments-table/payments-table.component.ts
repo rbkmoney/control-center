@@ -52,7 +52,7 @@ export class PaymentsTableComponent {
                 this.menuItemSelected$.emit({ action, paymentID, invoiceID, partyID });
                 break;
             default:
-                console.log('Wrong payment action type.');
+                console.error('Wrong payment action type.');
         }
     }
 }

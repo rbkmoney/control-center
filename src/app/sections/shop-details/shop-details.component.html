@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <cc-headline>Shop details</cc-headline>
+    <mat-card>
+        <mat-card-content>
+            <cc-shop-main-info *ngIf="shop$ | async as shop" [shop]="shop"></cc-shop-main-info>
+            <div *ngIf="inProgress$ | async" fxLayout fxLayoutAlign="center center">
+                <mat-spinner diameter="64"></mat-spinner>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <div class="cc-headline">Providers</div>
+    <mat-card>
+        <mat-card-content>
+            <cc-shop-providers
+                [shopID]="shopID$ | async"
+                [partyID]="partyID$ | async"
+                [categoryID]="categoryID$ | async"
+            ></cc-shop-providers>
+        </mat-card-content>
+    </mat-card>
+</div>

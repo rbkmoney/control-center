@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Subject } from 'rxjs';
 import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
-import { PartyService } from 'src/app/party/party.service';
 import { createDSL } from 'src/app/query-dsl';
 import { MerchantStatisticsService } from 'src/app/thrift-services/damsel/merchant-statistics.service';
 import { PaymentProcessingService } from 'src/app/thrift-services/damsel/payment-processing.service';
+
+import { PartyService } from '../../papi/party.service';
 
 @Injectable()
 export class ChargebackDetailsService {

@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { ReplaySubject } from 'rxjs';
 import { debounceTime, filter, shareReplay, switchMap } from 'rxjs/operators';
 
-import { PartyService } from '../../../../party/party.service';
+import { PartyService } from '../../../../papi/party.service';
 import { FormValue } from '../form-value';
 
 @Injectable()

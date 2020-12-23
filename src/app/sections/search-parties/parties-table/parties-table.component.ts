@@ -27,7 +27,7 @@ export class PartiesTableComponent {
                 this.menuItemSelected$.emit({ action, partyID });
                 break;
             default:
-                console.log('Wrong party action type.');
+                console.error('Wrong party action type.');
         }
     }
 }
