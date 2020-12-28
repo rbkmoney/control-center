@@ -1,8 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, first, switchMap, take } from 'rxjs/operators';
+import { combineLatest, ReplaySubject } from 'rxjs';
+import { filter, first, map, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
@@ -23,8 +26,23 @@ import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service'
 })
 export class PartyDelegateRulesetsComponent {
     displayedColumns = ['paymentInstitution', 'mainRuleset', 'partyDelegate', 'actions'];
-    dataSource$ = this.partyDelegateRulesetsService.partyDelegateRulesets$;
     isLoading$ = this.domainService.isLoading$;
+
+    @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
+        this.paginator$.next(paginator);
+    }
+    paginator$ = new ReplaySubject<MatPaginator>(1);
+    dataSource$ = combineLatest([
+        this.partyDelegateRulesetsService.partyDelegateRulesets$,
+        this.paginator$.pipe(startWith<any, null>(null)),
+    ]).pipe(
+        map(([v, paginator]) => {
+            const data = new MatTableDataSource(v);
+            data.paginator = paginator;
+            return data;
+        }),
+        shareReplay(1)
+    );
 
     constructor(
         private partyDelegateRulesetsService: PartyDelegateRulesetsService,

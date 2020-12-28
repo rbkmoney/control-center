@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest } from 'rxjs';
+import { combineLatest, ReplaySubject } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
@@ -26,27 +28,37 @@ const DIALOG_WIDTH = '548px';
 })
 export class PaymentRoutingRulesComponent {
     partyRuleset$ = this.partyPaymentRoutingRulesetService.partyRuleset$;
-    dataSource$ = combineLatest([
-        this.partyRuleset$,
-        this.partyPaymentRoutingRulesetService.shops$,
-    ]).pipe(
-        filter(([r]) => !!r),
-        map(([ruleset, shops]) =>
-            ruleset.data.decisions.delegates
-                .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
-                .map((d) => {
-                    const shopId = d.allowed.condition.party.definition.shop_is;
-                    return {
-                        id: d.ruleset.id,
-                        shop: shops.find((s) => s.id === shopId) || { id: shopId },
-                    };
-                })
-        ),
-        shareReplay(1)
-    );
     partyID$ = this.partyPaymentRoutingRulesetService.partyID$;
     displayedColumns = ['shop', 'id', 'actions'];
     isLoading$ = this.domainService.isLoading$;
+
+    @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
+        this.paginator$.next(paginator);
+    }
+    paginator$ = new ReplaySubject<MatPaginator>(1);
+    dataSource$ = combineLatest([
+        this.partyRuleset$,
+        this.partyPaymentRoutingRulesetService.shops$,
+        this.paginator$,
+    ]).pipe(
+        filter(([r]) => !!r),
+        map(([ruleset, shops, paginator]) => {
+            const data = new MatTableDataSource(
+                ruleset.data.decisions.delegates
+                    .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
+                    .map((d) => {
+                        const shopId = d.allowed.condition.party.definition.shop_is;
+                        return {
+                            id: d.ruleset.id,
+                            shop: shops.find((s) => s.id === shopId) || { id: shopId },
+                        };
+                    })
+            );
+            data.paginator = paginator;
+            return data;
+        }),
+        shareReplay(1)
+    );
 
     constructor(
         private dialog: MatDialog,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { map, pluck } from 'rxjs/operators';
+import { map, pluck, shareReplay, startWith } from 'rxjs/operators';
 import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 import {
     PaymentInstitutionObject,
@@ -9,13 +9,15 @@ import {
     RoutingRulesObject,
 } from 'src/app/thrift-services/damsel/gen-model/domain';
 
+import { PaymentRoutingRulesService } from '../../../thrift-services';
+
 @Injectable()
 export class PartyDelegateRulesetsService {
-    partyID$ = this.route.params.pipe(pluck('partyID'));
+    partyID$ = this.route.params.pipe(startWith(this.route.snapshot.params), pluck('partyID'));
 
     partyDelegateRulesets$ = combineLatest([
         this.domainService.getObjects('payment_institution'),
-        this.domainService.getObjects('routing_rules'),
+        this.paymentRoutingRulesService.rulesets$,
         this.partyID$,
     ]).pipe(
         map(([institutions, rules, partyID]) => {
@@ -62,8 +64,13 @@ export class PartyDelegateRulesetsService {
                     }[]
                 );
             return partyDelegateRulesets;
-        })
+        }),
+        shareReplay(1)
     );
 
-    constructor(private domainService: DomainCacheService, private route: ActivatedRoute) {}
+    constructor(
+        private domainService: DomainCacheService,
+        private route: ActivatedRoute,
+        private paymentRoutingRulesService: PaymentRoutingRulesService
+    ) {}
 }

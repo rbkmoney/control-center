@@ -15,7 +15,7 @@
             Party payment routing rules
         </cc-payment-routing-ruleset-header>
 
-        <mat-card *ngIf="(dataSource$ | async)?.length; else emptyPartyRuleset">
+        <mat-card *ngIf="(dataSource$ | async)?.data?.length; else emptyPartyRuleset">
             <mat-card-content fxLayout="column">
                 <table mat-table [dataSource]="dataSource$ | async" fxFlex>
                     <ng-container matColumnDef="shop">
