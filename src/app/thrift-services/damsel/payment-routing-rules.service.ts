@@ -290,7 +290,7 @@ export class PaymentRoutingRulesService {
         );
     }
 
-    changePartyDelegateRuleset({
+    changeDelegateRuleset({
         previousMainRulesetRefID,
         mainRulesetRefID,
         rulesetID,

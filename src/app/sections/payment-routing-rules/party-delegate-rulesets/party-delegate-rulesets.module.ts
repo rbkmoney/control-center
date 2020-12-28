@@ -19,19 +19,14 @@ import { RouterModule } from '@angular/router';
 import { DetailsItemModule } from '@cc/components/details-item';
 
 import { ErrorModule } from '../../../shared/services/error';
+import { ChangeTargetDialogModule } from '../change-target-dialog';
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
+import { TargetRulesetFormModule } from '../target-ruleset-form';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
-import { ChangeTargetDialogComponent } from './change-target-dialog';
 import { PartyDelegateRulesetsRoutingModule } from './party-delegate-rulesets-routing.module';
 import { PartyDelegateRulesetsComponent } from './party-delegate-rulesets.component';
-import { TargetRulesetFormComponent } from './target-ruleset-form';
 
-const EXPORTED_DECLARATIONS = [
-    PartyDelegateRulesetsComponent,
-    AttachNewRulesetDialogComponent,
-    ChangeTargetDialogComponent,
-    TargetRulesetFormComponent,
-];
+const EXPORTED_DECLARATIONS = [PartyDelegateRulesetsComponent, AttachNewRulesetDialogComponent];
 
 @NgModule({
     imports: [
@@ -55,6 +50,8 @@ const EXPORTED_DECLARATIONS = [
         MatInputModule,
         MatProgressBarModule,
         ErrorModule,
+        ChangeTargetDialogModule,
+        TargetRulesetFormModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

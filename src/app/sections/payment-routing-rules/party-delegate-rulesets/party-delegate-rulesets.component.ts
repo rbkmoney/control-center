@@ -13,8 +13,8 @@ import { handleError } from '../../../../utils/operators/handle-error';
 import { ErrorService } from '../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
+import { ChangeTargetDialogComponent } from '../change-target-dialog';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
-import { ChangeTargetDialogComponent } from './change-target-dialog';
 import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service';
 
 @UntilDestroy()

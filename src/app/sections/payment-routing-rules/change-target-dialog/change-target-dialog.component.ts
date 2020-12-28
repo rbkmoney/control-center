@@ -4,8 +4,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 import { PaymentRoutingRulesService } from 'src/app/thrift-services';
 
-import { ErrorService } from '../../../../shared/services/error';
-import { TargetRuleset } from '../target-ruleset-form/target-ruleset-form.component';
+import { ErrorService } from '../../../shared/services/error';
+import { TargetRuleset } from '../target-ruleset-form';
 
 @UntilDestroy()
 @Component({
@@ -47,7 +47,7 @@ export class ChangeTargetDialogComponent {
         const { mainRulesetRefID, mainDelegateDescription } = this.targetRuleset$.value;
         const { mainRulesetRefID: previousMainRulesetRefID, rulesetID } = this.data;
         this.paymentRoutingRulesService
-            .changePartyDelegateRuleset({
+            .changeDelegateRuleset({
                 previousMainRulesetRefID,
                 mainRulesetRefID,
                 mainDelegateDescription,

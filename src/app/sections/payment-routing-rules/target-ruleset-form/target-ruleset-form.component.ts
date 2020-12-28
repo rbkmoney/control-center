@@ -15,17 +15,9 @@ import { PaymentInstitutionObject } from 'src/app/thrift-services/damsel/gen-mod
 
 import { ComponentChanges } from '@cc/app/shared/utils';
 
-import { PaymentRoutingRulesService } from '../../../../thrift-services';
-
-enum Target {
-    manual = 'manual',
-    paymentInstitution = 'paymentInstitution',
-}
-
-export interface TargetRuleset {
-    mainRulesetRefID: number;
-    mainDelegateDescription?: string;
-}
+import { PaymentRoutingRulesService } from '../../../thrift-services';
+import { Target } from './types/target';
+import { TargetRuleset } from './types/target-ruleset';
 
 @UntilDestroy()
 @Component({

@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { PaymentRoutingRulesService } from 'src/app/thrift-services';
 
 import { ErrorService } from '../../../../shared/services/error';
-import { TargetRuleset } from '../target-ruleset-form';
+import { TargetRuleset } from '../../target-ruleset-form';
 
 @UntilDestroy()
 @Component({

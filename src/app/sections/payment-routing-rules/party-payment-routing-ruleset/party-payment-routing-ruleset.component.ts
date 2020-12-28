@@ -13,6 +13,7 @@ import { handleError } from '../../../../utils/operators/handle-error';
 import { ErrorService } from '../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
+import { ChangeTargetDialogComponent } from '../change-target-dialog';
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
 import { PartyPaymentRoutingRulesetService } from './party-payment-routing-ruleset.service';
@@ -149,5 +150,23 @@ export class PaymentRoutingRulesComponent {
                     refID,
                 ])
             );
+    }
+
+    changeTarget(rulesetID: string) {
+        this.partyRuleset$
+            .pipe(
+                take(1),
+                switchMap((mainRuleset) =>
+                    this.dialog
+                        .open(ChangeTargetDialogComponent, {
+                            ...ChangeTargetDialogComponent.defaultConfig,
+                            data: { mainRulesetRefID: mainRuleset.ref.id, rulesetID },
+                        })
+                        .afterClosed()
+                ),
+                handleError(this.errorService.error),
+                untilDestroyed(this)
+            )
+            .subscribe();
     }
 }
