@@ -5,16 +5,11 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { DomainCacheService } from './domain-cache.service';
 import { ProviderObject } from './gen-model/domain';
 import { Version } from './gen-model/domain_config';
-import {
-    AddDecisionToProvider,
-    addDecisionToProviderCommit,
-    CreateTerminalParams,
-    getCreateTerminalCommit,
-} from './operations';
+import { AddDecisionToProvider, addDecisionToProviderCommit } from './operations';
 import { findDomainObject } from './operations/utils';
 
 @Injectable()
-export class DomainTypedManager {
+export class ProviderService {
     constructor(private domainCacheService: DomainCacheService) {}
 
     getProviderFromParams<T extends { providerID: number }>(
@@ -38,22 +33,6 @@ export class DomainTypedManager {
             switchMap((providerObject) =>
                 this.domainCacheService.commit(addDecisionToProviderCommit(providerObject, params))
             )
-        );
-    }
-
-    /**
-     * @deprecated select in separate service
-     */
-    createTerminal(params: CreateTerminalParams): Observable<number> {
-        let newTerminalID = null;
-        return this.domainCacheService.getObjects('terminal').pipe(
-            take(1),
-            switchMap((terminalObjects) => {
-                const { commit, id } = getCreateTerminalCommit(terminalObjects, params);
-                newTerminalID = id;
-                return this.domainCacheService.commit(commit);
-            }),
-            map(() => newTerminalID)
         );
     }
 }
