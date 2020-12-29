@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { CategoryService } from '../../../../papi/category.service';
 import { Category } from '../../../../thrift-services/damsel/gen-model/domain';
@@ -8,15 +10,16 @@ import { Category } from '../../../../thrift-services/damsel/gen-model/domain';
     selector: 'cc-category',
     providers: [CategoryService],
 })
-export class CategoryComponent implements OnInit {
-    @Input() categoryID: number;
-    category: Category;
+export class CategoryComponent {
+    @Input() set category(categoryID: number) {
+        this.categoryID = categoryID;
+        this.category$ = this.categoryService.categories$.pipe(
+            map((categories) => categories.find((category) => category.id === categoryID))
+        );
+    }
+
+    category$: Observable<Category>;
+    categoryID: number;
 
     constructor(private categoryService: CategoryService) {}
-
-    ngOnInit(): void {
-        this.categoryService.getCategories().subscribe((categories) => {
-            this.category = categories.find((category) => category.id === this.categoryID);
-        });
-    }
 }

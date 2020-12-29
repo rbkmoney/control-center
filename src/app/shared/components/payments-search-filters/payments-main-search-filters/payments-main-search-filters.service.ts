@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { ReplaySubject } from 'rxjs';
 import { debounceTime, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { PartyService } from '../../../../party/party.service';
+import { PartyService } from '../../../../papi/party.service';
 import { PartyID } from '../../../../thrift-services/damsel/gen-model/domain';
 import { SearchFiltersParams } from '../search-filters-params';
 import { formValueToSearchParams } from './form-value-to-search-params';

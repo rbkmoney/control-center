@@ -26,7 +26,6 @@ import { DepositsModule } from './deposits/deposits.module';
 import { DomainModule } from './domain';
 import icons from './icons.json';
 import { NotFoundModule } from './not-found';
-import { PartyModule as OldPartyModule } from './party/party.module';
 import { PaymentAdjustmentModule } from './payment-adjustment/payment-adjustment.module';
 import { PayoutsModule } from './payouts/payouts.module';
 import { RepairingModule } from './repairing/repairing.module';
@@ -69,7 +68,6 @@ moment.locale('en');
         ClaimMgtModule,
         PartyModule,
         SearchPartiesModule,
-        OldPartyModule,
         SearchClaimsModule,
         OperationsModule,
         // It is important that NotFoundModule module should be last
