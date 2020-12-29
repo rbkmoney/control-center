@@ -9,7 +9,7 @@ import {
     RoutingRulesObject,
 } from 'src/app/thrift-services/damsel/gen-model/domain';
 
-import { PaymentRoutingRulesService } from '../../../thrift-services';
+import { RoutingRulesService } from '../../../thrift-services';
 
 @Injectable()
 export class PartyDelegateRulesetsService {
@@ -71,6 +71,6 @@ export class PartyDelegateRulesetsService {
     constructor(
         private domainService: DomainCacheService,
         private route: ActivatedRoute,
-        private paymentRoutingRulesService: PaymentRoutingRulesService
+        private paymentRoutingRulesService: RoutingRulesService
     ) {}
 }

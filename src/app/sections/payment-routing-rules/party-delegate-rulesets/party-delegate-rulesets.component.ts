@@ -11,7 +11,7 @@ import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dial
 
 import { handleError } from '../../../../utils/operators/handle-error';
 import { ErrorService } from '../../../shared/services/error';
-import { PaymentRoutingRulesService } from '../../../thrift-services';
+import { RoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
 import { ChangeTargetDialogComponent } from '../change-target-dialog';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
@@ -46,7 +46,7 @@ export class PartyDelegateRulesetsComponent {
 
     constructor(
         private partyDelegateRulesetsService: PartyDelegateRulesetsService,
-        private paymentRoutingRulesService: PaymentRoutingRulesService,
+        private paymentRoutingRulesService: RoutingRulesService,
         private router: Router,
         private dialog: MatDialog,
         private domainService: DomainCacheService,

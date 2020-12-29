@@ -11,7 +11,7 @@ import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dial
 
 import { handleError } from '../../../../utils/operators/handle-error';
 import { ErrorService } from '../../../shared/services/error';
-import { PaymentRoutingRulesService } from '../../../thrift-services';
+import { RoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
 import { ChangeTargetDialogComponent } from '../change-target-dialog';
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
@@ -64,7 +64,7 @@ export class PaymentRoutingRulesComponent {
     constructor(
         private dialog: MatDialog,
         private partyPaymentRoutingRulesetService: PartyPaymentRoutingRulesetService,
-        private paymentRoutingRulesService: PaymentRoutingRulesService,
+        private paymentRoutingRulesService: RoutingRulesService,
         private router: Router,
         private domainService: DomainCacheService,
         private errorService: ErrorService

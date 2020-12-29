@@ -6,7 +6,7 @@ import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 import { handleError } from '../../../../utils/operators/handle-error';
 import { PartyService } from '../../../papi/party.service';
 import { ErrorService } from '../../../shared/services/error';
-import { PaymentRoutingRulesService as PaymentRoutingRulesDamselService } from '../../../thrift-services';
+import { RoutingRulesService as PaymentRoutingRulesDamselService } from '../../../thrift-services';
 
 @Injectable()
 export class ShopPaymentRoutingRulesetService {

@@ -5,10 +5,11 @@ import { DomainCacheService } from './domain-cache.service';
 import { DomainService } from './domain.service';
 import { MerchantStatisticsService } from './merchant-statistics.service';
 import { PaymentProcessingService } from './payment-processing.service';
-import { PaymentRoutingRulesService } from './payment-routing-rules.service';
 import { ProviderService } from './provider.service';
+import { RoutingRulesModule } from './routing-rules';
 
 @NgModule({
+    imports: [RoutingRulesModule],
     providers: [
         DomainService,
         ProviderService,
@@ -16,7 +17,6 @@ import { ProviderService } from './provider.service';
         MerchantStatisticsService,
         DomainCacheService,
         ClaimManagementService,
-        PaymentRoutingRulesService,
     ],
 })
 export class DamselModule {}

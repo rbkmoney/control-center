@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
-import { map, pluck, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { map, pluck, share, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
 import type { Int64 } from 'thrift-ts';
 
 import { getUnionKey } from '@cc/utils/get-union-key';
@@ -71,7 +71,8 @@ export class DomainCacheService {
                 )
             ),
             map((v) => damselInstanceToObject('domain_config', 'Version', v)),
-            tap(() => this.forceReload())
+            tap(() => this.forceReload()),
+            share()
         );
     };
 }

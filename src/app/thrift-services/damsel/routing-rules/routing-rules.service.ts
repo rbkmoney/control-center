@@ -3,17 +3,17 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { DomainCacheService } from './domain-cache.service';
+import { DomainCacheService } from '../domain-cache.service';
 import {
     Predicate,
     RoutingCandidate,
     RoutingDelegate,
     RoutingRulesObject,
-} from './gen-model/domain';
-import { Version } from './gen-model/domain_config';
+} from '../gen-model/domain';
+import { Version } from '../gen-model/domain_config';
 
 @Injectable()
-export class PaymentRoutingRulesService {
+export class RoutingRulesService {
     constructor(private domainService: DomainCacheService) {}
 
     rulesets$: Observable<RoutingRulesObject[]> = this.domainService

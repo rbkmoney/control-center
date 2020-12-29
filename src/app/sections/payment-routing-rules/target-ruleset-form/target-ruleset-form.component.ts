@@ -15,7 +15,7 @@ import { PaymentInstitutionObject } from 'src/app/thrift-services/damsel/gen-mod
 
 import { ComponentChanges } from '@cc/app/shared/utils';
 
-import { PaymentRoutingRulesService } from '../../../thrift-services';
+import { RoutingRulesService } from '../../../thrift-services';
 import { Target } from './types/target';
 import { TargetRuleset } from './types/target-ruleset';
 
@@ -47,7 +47,7 @@ export class TargetRulesetFormComponent implements OnChanges {
     constructor(
         private fb: FormBuilder,
         private domainService: DomainCacheService,
-        private paymentRoutingRulesService: PaymentRoutingRulesService
+        private paymentRoutingRulesService: RoutingRulesService
     ) {
         this.form.controls.target.valueChanges
             .pipe(startWith(this.form.value.target), untilDestroyed(this))

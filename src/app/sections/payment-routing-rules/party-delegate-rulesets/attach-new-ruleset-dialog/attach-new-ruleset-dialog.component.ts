@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
-import { PaymentRoutingRulesService } from 'src/app/thrift-services';
+import { RoutingRulesService } from 'src/app/thrift-services';
 
 import { ErrorService } from '../../../../shared/services/error';
 import { TargetRuleset } from '../../target-ruleset-form';
@@ -33,7 +33,7 @@ export class AttachNewRulesetDialogComponent {
     constructor(
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<AttachNewRulesetDialogComponent>,
-        private paymentRoutingRulesService: PaymentRoutingRulesService,
+        private paymentRoutingRulesService: RoutingRulesService,
         @Inject(MAT_DIALOG_DATA) public data: { partyID: string },
         private errorService: ErrorService
     ) {}
