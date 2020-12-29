@@ -15,7 +15,7 @@
             Party payment routing rules
         </cc-payment-routing-ruleset-header>
 
-        <mat-card *ngIf="(dataSource$ | async)?.length; else emptyPartyRuleset">
+        <mat-card *ngIf="(dataSource$ | async)?.data?.length; else emptyPartyRuleset">
             <mat-card-content fxLayout="column">
                 <table mat-table [dataSource]="dataSource$ | async" fxFlex>
                     <ng-container matColumnDef="shop">
@@ -40,6 +40,9 @@
                             <mat-menu #menu="matMenu">
                                 <button mat-menu-item (click)="navigateToShopRuleset(element.id)">
                                     Details
+                                </button>
+                                <button mat-menu-item (click)="changeTarget(element.id)">
+                                    Change target
                                 </button>
                                 <button mat-menu-item (click)="deleteRuleset(element.id)">
                                     Delete

@@ -18,7 +18,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
+import { ErrorModule } from '../../../shared/services/error';
 import { DamselModule } from '../../../thrift-services';
+import { ChangeTargetDialogModule } from '../change-target-dialog';
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
 import { AddPartyPaymentRoutingRuleDialogModule } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogModule } from './initialize-payment-routing-rules-dialog';
@@ -50,6 +52,8 @@ import { PaymentRoutingRulesComponent } from './party-payment-routing-ruleset.co
         AddPartyPaymentRoutingRuleDialogModule,
         InitializePaymentRoutingRulesDialogModule,
         MatProgressBarModule,
+        ErrorModule,
+        ChangeTargetDialogModule,
     ],
     declarations: [PaymentRoutingRulesComponent],
 })

@@ -1,15 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, first, switchMap, take } from 'rxjs/operators';
+import { combineLatest, ReplaySubject } from 'rxjs';
+import { filter, first, map, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
+import { handleError } from '../../../../utils/operators/handle-error';
+import { ErrorService } from '../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
+import { ChangeTargetDialogComponent } from '../change-target-dialog';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
-import { ChangeTargetDialogComponent } from './change-target-dialog';
 import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service';
 
 @UntilDestroy()
@@ -21,15 +26,31 @@ import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service'
 })
 export class PartyDelegateRulesetsComponent {
     displayedColumns = ['paymentInstitution', 'mainRuleset', 'partyDelegate', 'actions'];
-    dataSource$ = this.partyDelegateRulesetsService.partyDelegateRulesets$;
     isLoading$ = this.domainService.isLoading$;
+
+    @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
+        this.paginator$.next(paginator);
+    }
+    paginator$ = new ReplaySubject<MatPaginator>(1);
+    dataSource$ = combineLatest([
+        this.partyDelegateRulesetsService.partyDelegateRulesets$,
+        this.paginator$.pipe(startWith<any, null>(null)),
+    ]).pipe(
+        map(([v, paginator]) => {
+            const data = new MatTableDataSource(v);
+            data.paginator = paginator;
+            return data;
+        }),
+        shareReplay(1)
+    );
 
     constructor(
         private partyDelegateRulesetsService: PartyDelegateRulesetsService,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
         private router: Router,
         private dialog: MatDialog,
-        private domainService: DomainCacheService
+        private domainService: DomainCacheService,
+        private errorService: ErrorService
     ) {}
 
     attachNewRuleset() {
@@ -44,6 +65,7 @@ export class PartyDelegateRulesetsComponent {
                         })
                         .afterClosed()
                 ),
+                handleError(this.errorService.error),
                 untilDestroyed(this)
             )
             .subscribe();
@@ -64,7 +86,7 @@ export class PartyDelegateRulesetsComponent {
                 data: { mainRulesetRefID, rulesetID },
             })
             .afterClosed()
-            .pipe(untilDestroyed(this))
+            .pipe(handleError(this.errorService.error), untilDestroyed(this))
             .subscribe();
     }
 
@@ -75,11 +97,12 @@ export class PartyDelegateRulesetsComponent {
             .pipe(
                 filter((r) => r === 'confirm'),
                 switchMap(() =>
-                    this.paymentRoutingRulesService.deleteRulesetAndDelegate({
+                    this.paymentRoutingRulesService.deleteDelegate({
                         mainRulesetRefID,
                         rulesetRefID,
                     })
                 ),
+                handleError(this.errorService.error),
                 untilDestroyed(this)
             )
             .subscribe();

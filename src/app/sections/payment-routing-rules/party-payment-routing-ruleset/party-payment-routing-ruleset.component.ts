@@ -1,19 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { combineLatest, ReplaySubject } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
+import { handleError } from '../../../../utils/operators/handle-error';
+import { ErrorService } from '../../../shared/services/error';
 import { PaymentRoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
+import { ChangeTargetDialogComponent } from '../change-target-dialog';
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
 import { PartyPaymentRoutingRulesetService } from './party-payment-routing-ruleset.service';
 
 const DIALOG_WIDTH = '548px';
 
+@UntilDestroy()
 @Component({
     selector: 'cc-party-payment-routing-ruleset',
     templateUrl: 'party-payment-routing-ruleset.component.html',
@@ -22,34 +29,45 @@ const DIALOG_WIDTH = '548px';
 })
 export class PaymentRoutingRulesComponent {
     partyRuleset$ = this.partyPaymentRoutingRulesetService.partyRuleset$;
-    dataSource$ = combineLatest([
-        this.partyRuleset$,
-        this.partyPaymentRoutingRulesetService.shops$,
-    ]).pipe(
-        filter(([r]) => !!r),
-        map(([ruleset, shops]) =>
-            ruleset.data.decisions.delegates
-                .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
-                .map((d) => {
-                    const shopId = d.allowed.condition.party.definition.shop_is;
-                    return {
-                        id: d.ruleset.id,
-                        shop: shops.find((s) => s.id === shopId) || { id: shopId },
-                    };
-                })
-        ),
-        shareReplay(1)
-    );
     partyID$ = this.partyPaymentRoutingRulesetService.partyID$;
     displayedColumns = ['shop', 'id', 'actions'];
     isLoading$ = this.domainService.isLoading$;
+
+    @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
+        this.paginator$.next(paginator);
+    }
+    paginator$ = new ReplaySubject<MatPaginator>(1);
+    dataSource$ = combineLatest([
+        this.partyRuleset$,
+        this.partyPaymentRoutingRulesetService.shops$,
+        this.paginator$,
+    ]).pipe(
+        filter(([r]) => !!r),
+        map(([ruleset, shops, paginator]) => {
+            const data = new MatTableDataSource(
+                ruleset.data.decisions.delegates
+                    .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
+                    .map((d) => {
+                        const shopId = d.allowed.condition.party.definition.shop_is;
+                        return {
+                            id: d.ruleset.id,
+                            shop: shops.find((s) => s.id === shopId) || { id: shopId },
+                        };
+                    })
+            );
+            data.paginator = paginator;
+            return data;
+        }),
+        shareReplay(1)
+    );
 
     constructor(
         private dialog: MatDialog,
         private partyPaymentRoutingRulesetService: PartyPaymentRoutingRulesetService,
         private paymentRoutingRulesService: PaymentRoutingRulesService,
         private router: Router,
-        private domainService: DomainCacheService
+        private domainService: DomainCacheService,
+        private errorService: ErrorService
     ) {}
 
     initialize() {
@@ -68,7 +86,8 @@ export class PaymentRoutingRulesComponent {
                             data: { partyID, refID },
                         })
                         .afterClosed()
-                )
+                ),
+                untilDestroyed(this)
             )
             .subscribe();
     }
@@ -90,7 +109,8 @@ export class PaymentRoutingRulesComponent {
                             data: { refID, shops, partyID },
                         })
                         .afterClosed()
-                )
+                ),
+                untilDestroyed(this)
             )
             .subscribe();
     }
@@ -103,11 +123,13 @@ export class PaymentRoutingRulesComponent {
                 filter((r) => r === 'confirm'),
                 withLatestFrom(this.partyRuleset$),
                 switchMap(([, mainRuleset]) =>
-                    this.paymentRoutingRulesService.deleteRulesetAndDelegate({
+                    this.paymentRoutingRulesService.deleteDelegate({
                         mainRulesetRefID: mainRuleset.ref.id,
                         rulesetRefID,
                     })
-                )
+                ),
+                handleError(this.errorService.error),
+                untilDestroyed(this)
             )
             .subscribe();
     }
@@ -117,7 +139,7 @@ export class PaymentRoutingRulesComponent {
             this.partyPaymentRoutingRulesetService.partyID$,
             this.partyPaymentRoutingRulesetService.refID$,
         ])
-            .pipe(take(1))
+            .pipe(take(1), untilDestroyed(this))
             .subscribe(([partyID, partyRefID]) =>
                 this.router.navigate([
                     'party',
@@ -128,5 +150,23 @@ export class PaymentRoutingRulesComponent {
                     refID,
                 ])
             );
+    }
+
+    changeTarget(rulesetID: string) {
+        this.partyRuleset$
+            .pipe(
+                take(1),
+                switchMap((mainRuleset) =>
+                    this.dialog
+                        .open(ChangeTargetDialogComponent, {
+                            ...ChangeTargetDialogComponent.defaultConfig,
+                            data: { mainRulesetRefID: mainRuleset.ref.id, rulesetID },
+                        })
+                        .afterClosed()
+                ),
+                handleError(this.errorService.error),
+                untilDestroyed(this)
+            )
+            .subscribe();
     }
 }

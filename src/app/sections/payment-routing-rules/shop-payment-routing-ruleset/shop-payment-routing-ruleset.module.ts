@@ -21,6 +21,7 @@ import { RouterModule } from '@angular/router';
 
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
+import { ErrorModule } from '../../../shared/services/error';
 import { DamselModule } from '../../../thrift-services';
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
 import { AddShopPaymentRoutingRuleDialogModule } from './add-shop-payment-routing-rule-dialog';
@@ -53,6 +54,7 @@ import { ShopPaymentRoutingRulesetComponent } from './shop-payment-routing-rules
         AddShopPaymentRoutingRuleDialogModule,
         PrettyJsonModule,
         MatProgressBarModule,
+        ErrorModule,
     ],
     declarations: [ShopPaymentRoutingRulesetComponent],
 })

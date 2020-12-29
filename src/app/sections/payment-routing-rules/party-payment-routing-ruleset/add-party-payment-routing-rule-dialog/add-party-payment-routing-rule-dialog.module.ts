@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
+import { ErrorModule } from '../../../../shared/services/error';
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog.component';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-r
         MatSelectModule,
         MatRadioModule,
         MatAutocompleteModule,
+        ErrorModule,
     ],
     declarations: [AddPartyPaymentRoutingRuleDialogComponent],
     exports: [AddPartyPaymentRoutingRuleDialogComponent],

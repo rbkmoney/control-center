@@ -2,7 +2,7 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-container>
 <ng-template #loaded>
-    <div fxLayout="column" [fxLayoutGap]="(dataSource$ | async)?.length ? '24px' : '64px'">
+    <div fxLayout="column" [fxLayoutGap]="(dataSource$ | async)?.data?.length ? '24px' : '64px'">
         <div fxLayout fxLayoutGap="8px" fxLayoutAlign="space-between center">
             <div class="cc-headline">Party delegate rulesets</div>
             <button mat-button color="primary" (click)="attachNewRuleset()">
@@ -10,7 +10,7 @@
             </button>
         </div>
 
-        <mat-card *ngIf="(dataSource$ | async)?.length; else emptyPartyDelegateRulesets">
+        <mat-card *ngIf="(dataSource$ | async)?.data?.length; else emptyPartyDelegateRulesets">
             <mat-card-content fxLayout="column">
                 <table mat-table [dataSource]="dataSource$ | async" fxFlex>
                     <ng-container matColumnDef="paymentInstitution">

@@ -11,7 +11,6 @@ import {
     RoutingRulesObject,
 } from './gen-model/domain';
 import { Version } from './gen-model/domain_config';
-import { generateID } from './operations/utils';
 
 @Injectable()
 export class PaymentRoutingRulesService {
@@ -24,7 +23,10 @@ export class PaymentRoutingRulesService {
             shareReplay(1)
         );
 
-    nextRefID$ = this.rulesets$.pipe(map((rulesets) => generateID(rulesets)));
+    nextRefID$ = this.rulesets$.pipe(
+        map((rulesets) => rulesets.map(({ ref }) => ref.id)),
+        map((ids) => Math.max(...ids) + 1)
+    );
 
     getRuleset(refID: number): Observable<RoutingRulesObject> {
         return this.rulesets$.pipe(map((rulesets) => rulesets.find((r) => r?.ref?.id === refID)));
@@ -259,19 +261,16 @@ export class PaymentRoutingRulesService {
         );
     }
 
-    deleteRulesetAndDelegate({
+    deleteDelegate({
         mainRulesetRefID,
         rulesetRefID,
     }: {
         mainRulesetRefID: number;
         rulesetRefID: number;
     }): Observable<Version> {
-        return combineLatest([
-            this.getRuleset(mainRulesetRefID),
-            this.getRuleset(rulesetRefID),
-        ]).pipe(
+        return this.getRuleset(mainRulesetRefID).pipe(
             take(1),
-            switchMap(([mainRuleset, ruleset]) => {
+            switchMap((mainRuleset) => {
                 const newMainPaymentRoutingRuleset = cloneDeep(mainRuleset);
                 newMainPaymentRoutingRuleset.data.decisions.delegates.splice(
                     this.getDelegateIdx(mainRuleset, rulesetRefID),
@@ -285,18 +284,13 @@ export class PaymentRoutingRulesService {
                                 new_object: { routing_rules: newMainPaymentRoutingRuleset },
                             },
                         },
-                        {
-                            remove: {
-                                object: { routing_rules: ruleset },
-                            },
-                        },
                     ],
                 });
             })
         );
     }
 
-    changePartyDelegateRuleset({
+    changeDelegateRuleset({
         previousMainRulesetRefID,
         mainRulesetRefID,
         rulesetID,
