@@ -16,9 +16,6 @@ export const findDomainObject = <T extends { ref: { id: any } }>(
     id: number | string
 ): T => domainObjects.find((object) => object.ref.id === id);
 
-const transformUnion = (union: any): any =>
-    transform(union, (result, value, key) => (value ? (result[key] = value) : undefined), {});
-
 export const checkSelector = (selector: TerminalSelector) => {
     if (selector.value) {
         throw new Error(
