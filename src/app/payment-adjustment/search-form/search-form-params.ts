@@ -8,5 +8,5 @@ export interface SearchFormParams {
     terminalID: string;
     status: string;
     shopId: string;
-    invoiceId: string;
+    invoiceIds: string[];
 }

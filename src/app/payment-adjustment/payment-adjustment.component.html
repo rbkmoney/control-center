@@ -1,6 +1,6 @@
-<cc-card-container>
+<div class="payment-adjustment-container" fxLayout="column" fxLayoutGap="24px">
+    <div class="cc-headline">Payment adjustments</div>
     <mat-card>
-        <mat-card-subtitle>Search payments params</mat-card-subtitle>
         <mat-card-content>
             <cc-payment-adjustment-search-form
                 (valueChanges)="formValueChanges($event)"
@@ -15,7 +15,7 @@
                 [disabled]="!formValid || isLoading"
                 (click)="search()"
             >
-                SEARCH
+                SEARCH PAYMENTS
             </button>
         </mat-card-actions>
         <mat-card-footer *ngIf="isLoading">
@@ -24,7 +24,7 @@
     </mat-card>
     <mat-card>
         <mat-card-content>
-            <div fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
+            <div fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
                 <div>Found: {{ payments.length }}</div>
                 <div>Selected: {{ selectedPayments.length }}</div>
                 <button
@@ -43,4 +43,4 @@
             </cc-payment-adjustment-table>
         </mat-card-content>
     </mat-card>
-</cc-card-container>
+</div>
