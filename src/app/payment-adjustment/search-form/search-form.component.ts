@@ -6,7 +6,9 @@ import * as moment from 'moment';
 import { PaymentAdjustmentService } from '../payment-adjustment.service';
 import { SearchFormParams } from './search-form-params';
 import { toSearchParams } from './to-search-params';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
     selector: 'cc-payment-adjustment-search-form',
     templateUrl: './search-form.component.html',
@@ -41,14 +43,17 @@ export class SearchFormComponent implements OnInit {
             status: 'captured',
         });
         this.form.valueChanges
-            .pipe(map(toSearchParams))
+            .pipe(map(toSearchParams), untilDestroyed(this))
             .subscribe((value) => this.valueChanges.emit(value));
-        this.form.statusChanges.subscribe((status) => this.statusChanges.emit(status));
-
-        this.paymentAdjustmentService.domainVersion$.subscribe((version) => {
-            this.form.patchValue({
-                toRevision: version,
+        this.form.statusChanges
+            .pipe(untilDestroyed(this))
+            .subscribe((status) => this.statusChanges.emit(status));
+        this.paymentAdjustmentService.domainVersion$
+            .pipe(untilDestroyed(this))
+            .subscribe((version) => {
+                this.form.patchValue({
+                    toRevision: version,
+                });
             });
-        });
     }
 }
