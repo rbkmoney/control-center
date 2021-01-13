@@ -25,9 +25,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThriftPipesModule } from '@cc/app/shared/pipes';
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 
-import { DomainModule } from '../domain';
-import { PapiModule } from '../papi/papi.module';
-import { DamselModule } from '../thrift-services/damsel';
+import { DomainModule } from '../../domain';
+import { PapiModule } from '../../papi/papi.module';
+import { DamselModule } from '../../thrift-services/damsel';
 import { ActionItemComponent } from './create-and-capture/action-item/action-item.component';
 import { CancelActionsComponent } from './create-and-capture/cancel-actions/cancel-actions.component';
 import { CaptureActionsComponent } from './create-and-capture/capture-actions/capture-actions.component';
@@ -81,6 +81,5 @@ import { TableComponent } from './table/table.component';
         CaptureActionsComponent,
     ],
     entryComponents: [CreateAndCaptureComponent],
-    providers: [PaymentAdjustmentService],
 })
 export class PaymentAdjustmentModule {}

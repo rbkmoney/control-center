@@ -5,12 +5,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
 
-import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
+import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
 import {
     InvoicePaymentAdjustmentParams,
     InvoicePaymentAdjustmentScenario,
     UserInfo,
-} from '../../thrift-services/damsel/gen-model/payment_processing';
+} from '../../../thrift-services/damsel/gen-model/payment_processing';
 import {
     BatchPaymentAdjustmentService,
     CancelAdjustmentService,
