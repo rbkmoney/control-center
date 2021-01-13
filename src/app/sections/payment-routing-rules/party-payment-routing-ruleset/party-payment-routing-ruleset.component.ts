@@ -1,11 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest, ReplaySubject } from 'rxjs';
-import { filter, map, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
@@ -30,34 +28,33 @@ const DIALOG_WIDTH = '548px';
 export class PaymentRoutingRulesComponent {
     partyRuleset$ = this.partyPaymentRoutingRulesetService.partyRuleset$;
     partyID$ = this.partyPaymentRoutingRulesetService.partyID$;
-    displayedColumns = ['shop', 'id', 'actions'];
     isLoading$ = this.domainService.isLoading$;
 
-    @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
-        this.paginator$.next(paginator);
-    }
-    paginator$ = new ReplaySubject<MatPaginator>(1);
-    dataSource$ = combineLatest([
-        this.partyRuleset$,
-        this.partyPaymentRoutingRulesetService.shops$,
-        this.paginator$,
-    ]).pipe(
+    displayedColumns = [
+        { key: 'shop', name: 'Shop' },
+        { key: 'id', name: 'Delegate (Ruleset Ref ID)' },
+    ];
+    data$ = combineLatest([this.partyRuleset$, this.partyPaymentRoutingRulesetService.shops$]).pipe(
         filter(([r]) => !!r),
-        map(([ruleset, shops, paginator]) => {
-            const data = new MatTableDataSource(
-                ruleset.data.decisions.delegates
-                    .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
-                    .map((d) => {
-                        const shopId = d.allowed.condition.party.definition.shop_is;
-                        return {
-                            id: d.ruleset.id,
-                            shop: shops.find((s) => s.id === shopId) || { id: shopId },
-                        };
-                    })
-            );
-            data.paginator = paginator;
-            return data;
-        }),
+        map(([ruleset, shops]) =>
+            ruleset.data.decisions.delegates
+                .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
+                .map((d) => {
+                    const shopId = d.allowed.condition.party.definition.shop_is;
+                    return {
+                        parentRefId: ruleset.ref.id,
+                        delegateIdx: ruleset.data.decisions.delegates.findIndex((dt) => dt === d),
+                        id: {
+                            text: d?.description,
+                            caption: d?.ruleset?.id,
+                        },
+                        shop: {
+                            text: shops?.find((s) => s?.id === shopId)?.details?.name,
+                            caption: shopId,
+                        },
+                    };
+                })
+        ),
         shareReplay(1)
     );
 
@@ -115,17 +112,16 @@ export class PaymentRoutingRulesComponent {
             .subscribe();
     }
 
-    deleteRuleset(rulesetRefID: number) {
+    deleteRuleset(parentRefId: number, delegateIdx: number) {
         this.dialog
             .open(ConfirmActionDialogComponent)
             .afterClosed()
             .pipe(
                 filter((r) => r === 'confirm'),
-                withLatestFrom(this.partyRuleset$),
-                switchMap(([, mainRuleset]) =>
+                switchMap(() =>
                     this.paymentRoutingRulesService.deleteDelegate({
-                        mainRulesetRefID: mainRuleset.ref.id,
-                        rulesetRefID,
+                        parentRefId,
+                        delegateIdx,
                     })
                 ),
                 handleError(this.errorService.error),
@@ -134,39 +130,32 @@ export class PaymentRoutingRulesComponent {
             .subscribe();
     }
 
-    navigateToShopRuleset(refID: string) {
+    navigateToShopRuleset(parentRefId: number, delegateIdx: number) {
         combineLatest([
             this.partyPaymentRoutingRulesetService.partyID$,
-            this.partyPaymentRoutingRulesetService.refID$,
+            this.partyPaymentRoutingRulesetService.partyRuleset$,
         ])
             .pipe(take(1), untilDestroyed(this))
-            .subscribe(([partyID, partyRefID]) =>
+            .subscribe(([partyID, ruleset]) =>
                 this.router.navigate([
                     'party',
                     partyID,
                     'payment-routing-rules',
-                    partyRefID,
+                    parentRefId,
                     'shop-ruleset',
-                    refID,
+                    ruleset?.data?.decisions?.delegates?.[delegateIdx]?.ruleset?.id,
                 ])
             );
     }
 
-    changeTarget(rulesetID: string) {
-        this.partyRuleset$
-            .pipe(
-                take(1),
-                switchMap((mainRuleset) =>
-                    this.dialog
-                        .open(ChangeTargetDialogComponent, {
-                            ...ChangeTargetDialogComponent.defaultConfig,
-                            data: { mainRulesetRefID: mainRuleset.ref.id, rulesetID },
-                        })
-                        .afterClosed()
-                ),
-                handleError(this.errorService.error),
-                untilDestroyed(this)
-            )
+    changeTarget(mainRulesetRefID: number, delegateIdx: number) {
+        this.dialog
+            .open(ChangeTargetDialogComponent, {
+                ...ChangeTargetDialogComponent.defaultConfig,
+                data: { mainRulesetRefID, delegateIdx },
+            })
+            .afterClosed()
+            .pipe(handleError(this.errorService.error), untilDestroyed(this))
             .subscribe();
     }
 }

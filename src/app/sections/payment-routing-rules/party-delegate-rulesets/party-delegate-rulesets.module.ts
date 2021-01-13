@@ -21,6 +21,7 @@ import { DetailsItemModule } from '@cc/components/details-item';
 import { ErrorModule } from '../../../shared/services/error';
 import { ChangeTargetDialogModule } from '../change-target-dialog';
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
+import { RoutingRulesListModule } from '../routing-rules-list';
 import { TargetRulesetFormModule } from '../target-ruleset-form';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
 import { PartyDelegateRulesetsRoutingModule } from './party-delegate-rulesets-routing.module';
@@ -37,7 +38,6 @@ const EXPORTED_DECLARATIONS = [PartyDelegateRulesetsComponent, AttachNewRulesetD
         CommonModule,
         RouterModule,
         MatCardModule,
-        MatTableModule,
         MatIconModule,
         MatPaginatorModule,
         MatMenuModule,
@@ -52,6 +52,7 @@ const EXPORTED_DECLARATIONS = [PartyDelegateRulesetsComponent, AttachNewRulesetD
         ErrorModule,
         ChangeTargetDialogModule,
         TargetRulesetFormModule,
+        RoutingRulesListModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

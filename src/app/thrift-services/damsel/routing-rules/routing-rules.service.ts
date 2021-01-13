@@ -262,20 +262,17 @@ export class RoutingRulesService {
     }
 
     deleteDelegate({
-        mainRulesetRefID,
-        rulesetRefID,
+        parentRefId,
+        delegateIdx,
     }: {
-        mainRulesetRefID: number;
-        rulesetRefID: number;
+        parentRefId: number;
+        delegateIdx: number;
     }): Observable<Version> {
-        return this.getRuleset(mainRulesetRefID).pipe(
+        return this.getRuleset(parentRefId).pipe(
             take(1),
             switchMap((mainRuleset) => {
                 const newMainPaymentRoutingRuleset = cloneDeep(mainRuleset);
-                newMainPaymentRoutingRuleset.data.decisions.delegates.splice(
-                    this.getDelegateIdx(mainRuleset, rulesetRefID),
-                    1
-                );
+                newMainPaymentRoutingRuleset.data.decisions.delegates.splice(delegateIdx, 1);
                 return this.domainService.commit({
                     ops: [
                         {
@@ -293,12 +290,12 @@ export class RoutingRulesService {
     changeDelegateRuleset({
         previousMainRulesetRefID,
         mainRulesetRefID,
-        rulesetID,
+        delegateIdx,
         mainDelegateDescription,
     }: {
         previousMainRulesetRefID: number;
         mainRulesetRefID: number;
-        rulesetID: number;
+        delegateIdx: number;
         mainDelegateDescription?: string;
     }): Observable<Version> {
         return combineLatest([
@@ -309,7 +306,7 @@ export class RoutingRulesService {
             switchMap(([mainRuleset, previousMainRuleset]) => {
                 const newPreviousMainRuleset = cloneDeep(previousMainRuleset);
                 const [delegate] = newPreviousMainRuleset.data.decisions.delegates.splice(
-                    this.getDelegateIdx(previousMainRuleset, rulesetID),
+                    delegateIdx,
                     1
                 );
                 const newMainPaymentRoutingRuleset = cloneDeep(mainRuleset);
@@ -337,12 +334,6 @@ export class RoutingRulesService {
                     ],
                 });
             })
-        );
-    }
-
-    private getDelegateIdx(ruleset: RoutingRulesObject, delegateRulesetRefId: number) {
-        return ruleset.data.decisions.delegates.findIndex(
-            (d) => d?.ruleset?.id === delegateRulesetRefId
         );
     }
 

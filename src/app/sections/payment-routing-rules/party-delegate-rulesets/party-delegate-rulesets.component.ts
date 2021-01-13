@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest, ReplaySubject } from 'rxjs';
-import { filter, first, map, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { filter, first, map, switchMap, take } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
@@ -25,23 +23,33 @@ import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service'
     providers: [PartyDelegateRulesetsService],
 })
 export class PartyDelegateRulesetsComponent {
-    displayedColumns = ['paymentInstitution', 'mainRuleset', 'partyDelegate', 'actions'];
+    displayedColumns = [
+        { key: 'paymentInstitution', name: 'Payment institution' },
+        { key: 'mainRuleset', name: 'Main ruleset' },
+        { key: 'partyDelegate', name: 'Party delegate' },
+    ];
     isLoading$ = this.domainService.isLoading$;
-
-    @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
-        this.paginator$.next(paginator);
-    }
-    paginator$ = new ReplaySubject<MatPaginator>(1);
-    dataSource$ = combineLatest([
-        this.partyDelegateRulesetsService.partyDelegateRulesets$,
-        this.paginator$.pipe(startWith<any, null>(null)),
-    ]).pipe(
-        map(([v, paginator]) => {
-            const data = new MatTableDataSource(v);
-            data.paginator = paginator;
-            return data;
-        }),
-        shareReplay(1)
+    data$ = this.partyDelegateRulesetsService.getDelegatesWithPaymentInstitution().pipe(
+        map((rules) =>
+            rules.map((r) => ({
+                parentRefId: r?.parentRoutingRule?.ref?.id,
+                delegateIdx: r?.parentRoutingRule?.data?.decisions?.delegates?.findIndex(
+                    (d) => d === r?.partyDelegate
+                ),
+                paymentInstitution: {
+                    text: r?.paymentInstitution?.data?.name,
+                    caption: r?.paymentInstitution?.ref?.id,
+                },
+                mainRuleset: {
+                    text: r?.parentRoutingRule?.data?.name,
+                    caption: r?.parentRoutingRule?.ref?.id,
+                },
+                partyDelegate: {
+                    text: r?.partyDelegate?.description,
+                    caption: r?.partyDelegate?.ruleset?.id,
+                },
+            }))
+        )
     );
 
     constructor(
@@ -71,26 +79,34 @@ export class PartyDelegateRulesetsComponent {
             .subscribe();
     }
 
-    navigateToPartyRuleset(id: string) {
-        this.partyDelegateRulesetsService.partyID$
+    navigateToPartyRuleset(parentRefId: number, delegateIdx: number) {
+        combineLatest([
+            this.partyDelegateRulesetsService.partyID$,
+            this.paymentRoutingRulesService.getRuleset(parentRefId),
+        ])
             .pipe(first(), untilDestroyed(this))
-            .subscribe((partyID) =>
-                this.router.navigate(['party', partyID, 'payment-routing-rules', id])
+            .subscribe(([partyID, parent]) =>
+                this.router.navigate([
+                    'party',
+                    partyID,
+                    'payment-routing-rules',
+                    parent.data.decisions.delegates[delegateIdx].ruleset.id,
+                ])
             );
     }
 
-    changeTarget(mainRulesetRefID: string, rulesetID: string) {
+    changeTarget(mainRulesetRefID: number, delegateIdx: number) {
         this.dialog
             .open(ChangeTargetDialogComponent, {
                 ...ChangeTargetDialogComponent.defaultConfig,
-                data: { mainRulesetRefID, rulesetID },
+                data: { mainRulesetRefID, delegateIdx },
             })
             .afterClosed()
             .pipe(handleError(this.errorService.error), untilDestroyed(this))
             .subscribe();
     }
 
-    deleteRuleset(mainRulesetRefID: number, rulesetRefID: number) {
+    deleteRuleset(parentRefId: number, delegateIdx: number) {
         this.dialog
             .open(ConfirmActionDialogComponent)
             .afterClosed()
@@ -98,8 +114,8 @@ export class PartyDelegateRulesetsComponent {
                 filter((r) => r === 'confirm'),
                 switchMap(() =>
                     this.paymentRoutingRulesService.deleteDelegate({
-                        mainRulesetRefID,
-                        rulesetRefID,
+                        delegateIdx,
+                        parentRefId,
                     })
                 ),
                 handleError(this.errorService.error),
