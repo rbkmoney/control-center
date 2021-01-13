@@ -35,7 +35,6 @@ import { CreateActionsComponent } from './create-and-capture/create-actions/crea
 import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
 import { PaymentAdjustmentRoutingModule } from './payment-adjustment-routing.module';
 import { PaymentAdjustmentComponent } from './payment-adjustment.component';
-import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { TableComponent } from './table/table.component';
 
