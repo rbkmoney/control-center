@@ -35,7 +35,7 @@ export class TableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator, { static: true })
     paginator: MatPaginator;
 
-    cols = ['select', 'revision', 'invoiceId', 'createdAt', 'ownerId', 'shopId'];
+    cols = ['select', 'revision', 'invoiceId', 'createdAt', 'ownerId'];
 
     ngOnChanges(changes: SimpleChanges) {
         const { payments } = changes;
