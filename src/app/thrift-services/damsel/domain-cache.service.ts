@@ -7,10 +7,10 @@ import type { Int64 } from 'thrift-ts';
 import { getUnionKey } from '@cc/utils/get-union-key';
 
 import { toGenReference } from '../converters';
-import { createDamselInstance, damselInstanceToObject } from './create-damsel-instance';
 import { DomainService } from './domain.service';
 import { Domain, DomainObject } from './gen-model/domain';
 import { Commit, Snapshot, Version } from './gen-model/domain_config';
+import { createDamselInstance, damselInstanceToObject } from './utils/create-damsel-instance';
 
 @UntilDestroy()
 @Injectable()
