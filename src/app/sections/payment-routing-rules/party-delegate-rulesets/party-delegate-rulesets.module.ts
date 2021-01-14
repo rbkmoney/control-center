@@ -13,7 +13,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
 import { DetailsItemModule } from '@cc/components/details-item';

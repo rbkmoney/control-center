@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { RoutingRulesSelectComponent } from './routing-rules-select.component';
 
 @Component({
-    selector: 'dsh-host',
+    selector: 'cc-host',
     template: `<dsh-routing-rules-select></dsh-routing-rules-select>`,
 })
 class HostComponent {}

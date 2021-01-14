@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ChangeDelegateRulesetDialogComponent } from './change-delegate-ruleset-dialog.component';
 
 @Component({
-    selector: 'dsh-host',
+    selector: 'cc-host',
     template: `<dsh-change-delegate-ruleset-dialog></dsh-change-delegate-ruleset-dialog>`,
 })
 class HostComponent {}
