@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
-import { combineLatest, concat, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { createNextId } from '../../utils/create-next-id';
