@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, shareReplay } from 'rxjs/operators';
 
-import { DomainService } from '../domain';
-import { QueryDSL } from '../query-dsl';
-import { StatPayment, StatResponse } from '../thrift-services/damsel/gen-model/merch_stat';
-import { MerchantStatisticsService } from '../thrift-services/damsel/merchant-statistics.service';
+import { DomainService } from '../../domain';
+import { QueryDSL } from '../../query-dsl';
+import { StatPayment, StatResponse } from '../../thrift-services/damsel/gen-model/merch_stat';
+import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
 import { SearchFormParams } from './search-form/search-form-params';
 
 @Injectable()
 export class PaymentAdjustmentService {
     searchPaymentChanges$: Subject<StatPayment[]> = new Subject<StatPayment[]>();
 
-    version: number;
+    domainVersion$: Observable<number> = this.domainService.version$.pipe(shareReplay(1));
 
     constructor(
         private merchantStatisticsService: MerchantStatisticsService,
         private domainService: DomainService
-    ) {
-        this.domainService.version$.subscribe((version) => (this.version = version));
-    }
+    ) {}
 
     fetchPayments(params: SearchFormParams): Observable<StatPayment[]> {
         return this.getAllPayments(params);
@@ -53,7 +51,7 @@ export class PaymentAdjustmentService {
             toTime,
             status,
             shopId,
-            invoiceId,
+            invoiceIds,
             providerID,
             terminalID,
         } = params;
@@ -70,7 +68,7 @@ export class PaymentAdjustmentService {
                         ...(providerID ? { payment_provider_id: providerID } : {}),
                         ...(terminalID ? { payment_terminal_id: terminalID } : {}),
                         ...(status ? { payment_status: status } : {}),
-                        ...(invoiceId ? { invoice_id: invoiceId } : {}),
+                        ...(invoiceIds ? { invoice_ids: invoiceIds } : {}),
                     },
                 },
             } as QueryDSL),

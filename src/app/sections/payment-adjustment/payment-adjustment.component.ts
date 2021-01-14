@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { StatPayment } from '../thrift-services/damsel/gen-model/merch_stat';
+import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
 import { CreateAndCaptureComponent } from './create-and-capture/create-and-capture.component';
 import { PaymentAdjustmentService } from './payment-adjustment.service';
 import { SearchFormParams } from './search-form/search-form-params';
 
+@UntilDestroy()
 @Component({
     selector: 'cc-payment-adjustment',
     templateUrl: './payment-adjustment.component.html',
-    styleUrls: [],
+    styleUrls: ['payment-adjustment.component.scss'],
+    providers: [PaymentAdjustmentService],
 })
 export class PaymentAdjustmentComponent implements OnInit {
     isLoading = false;
@@ -23,8 +26,6 @@ export class PaymentAdjustmentComponent implements OnInit {
 
     formValid: boolean;
 
-    version: number;
-
     constructor(
         private dialogRef: MatDialog,
         private paymentAdjustmentService: PaymentAdjustmentService,
@@ -32,9 +33,11 @@ export class PaymentAdjustmentComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.paymentAdjustmentService.searchPaymentChanges$.subscribe((payments) => {
-            this.payments = payments;
-        });
+        this.paymentAdjustmentService.searchPaymentChanges$
+            .pipe(untilDestroyed(this))
+            .subscribe((payments) => {
+                this.payments = payments;
+            });
     }
 
     formValueChanges(params: SearchFormParams) {
@@ -61,16 +64,19 @@ export class PaymentAdjustmentComponent implements OnInit {
         this.payments = [];
         this.selectedPayments = [];
         this.isLoading = true;
-        this.paymentAdjustmentService.fetchPayments(this.searchParams).subscribe(
-            () => {
-                this.selectedPayments = [];
-                this.isLoading = false;
-            },
-            (e) => {
-                this.snackBar.open(`${e.message || 'Error'}`, 'OK');
-                this.isLoading = false;
-                console.error(e);
-            }
-        );
+        this.paymentAdjustmentService
+            .fetchPayments(this.searchParams)
+            .pipe(untilDestroyed(this))
+            .subscribe(
+                () => {
+                    this.selectedPayments = [];
+                    this.isLoading = false;
+                },
+                (e) => {
+                    this.snackBar.open(`${e.message || 'Error'}`, 'OK');
+                    this.isLoading = false;
+                    console.error(e);
+                }
+            );
     }
 }

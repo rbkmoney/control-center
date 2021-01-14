@@ -14,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { i64ToNumber } from '@cc/utils/i64-to-number';
 
-import { StatPayment } from '../../thrift-services/damsel/gen-model/merch_stat';
+import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
 
 @Component({
     selector: 'cc-payment-adjustment-table',
@@ -35,7 +35,7 @@ export class TableComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator, { static: true })
     paginator: MatPaginator;
 
-    cols = ['select', 'revision', 'invoiceId', 'createdAt', 'ownerId', 'shopId'];
+    cols = ['select', 'revision', 'invoiceId', 'createdAt', 'ownerId'];
 
     ngOnChanges(changes: SimpleChanges) {
         const { payments } = changes;
