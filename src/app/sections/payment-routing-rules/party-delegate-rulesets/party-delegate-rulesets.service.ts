@@ -25,10 +25,10 @@ export class PartyDelegateRulesetsService {
         return combineLatest([this.getPaymentInstitutionsWithRoutingRule(), this.partyID$]).pipe(
             map(([paymentInstitutionsWithRoutingRule, partyID]) =>
                 paymentInstitutionsWithRoutingRule
-                    .map(({ routingRule: parentRoutingRule, paymentInstitution }) => ({
-                        parentRoutingRule,
+                    .map(({ routingRule: mainRoutingRule, paymentInstitution }) => ({
+                        mainRoutingRule,
                         paymentInstitution,
-                        delegates: parentRoutingRule?.data?.decisions?.delegates
+                        delegates: mainRoutingRule?.data?.decisions?.delegates
                             ?.map((d) =>
                                 d?.allowed?.condition?.party?.id === partyID ? d : undefined
                             )
@@ -39,7 +39,7 @@ export class PartyDelegateRulesetsService {
                         {
                             partyDelegate: RoutingDelegate;
                             paymentInstitution: PaymentInstitutionObject;
-                            parentRoutingRule: RoutingRulesObject;
+                            mainRoutingRule: RoutingRulesObject;
                         }[]
                     >(
                         (acc, { delegates, ...rest }) => [
