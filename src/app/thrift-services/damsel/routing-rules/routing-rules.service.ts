@@ -3,6 +3,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { createNextId } from '../../utils/create-next-id';
 import { DomainCacheService } from '../domain-cache.service';
 import {
     Predicate,
@@ -25,7 +26,7 @@ export class RoutingRulesService {
 
     nextRefID$ = this.rulesets$.pipe(
         map((rulesets) => rulesets.map(({ ref }) => ref.id)),
-        map((ids) => Math.max(...ids) + 1)
+        map(createNextId)
     );
 
     getRuleset(refID: number): Observable<RoutingRulesObject> {

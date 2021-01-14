@@ -1,4 +1,3 @@
-export * from './thrift-service';
 export * from './filters';
 export * from './utils/thrift-instance';
 export * from './utils/get-thrift-instance';

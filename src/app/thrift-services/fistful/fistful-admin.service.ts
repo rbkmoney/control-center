@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import { DepositParams } from './gen-model/fistful_admin';
 import * as FistfulAdmin from './gen-nodejs/FistfulAdmin';
 import { DepositParams as DepositParamsObject } from './gen-nodejs/fistful_admin_types';

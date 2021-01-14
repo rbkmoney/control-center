@@ -4,7 +4,7 @@ import { Observable, timer } from 'rxjs';
 import { first, map, share, switchMap } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import {
     InvoiceID,
     InvoicePaymentChargeback,

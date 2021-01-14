@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import { Namespace } from './gen-model/base';
 import { Machine, MachineDescriptor, Reference } from './gen-model/state_processing';
 import * as Automaton from './gen-nodejs/Automaton';
