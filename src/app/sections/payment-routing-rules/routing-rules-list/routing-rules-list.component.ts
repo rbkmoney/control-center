@@ -103,6 +103,23 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
             .subscribe({ error: this.errorService.error });
     }
 
+    cloneDelegateRuleset(delegateId: DelegateId) {
+        this.dialog
+            .open(ConfirmActionDialogComponent)
+            .afterClosed()
+            .pipe(
+                filter((r) => r === 'confirm'),
+                switchMap(() =>
+                    this.routingRulesService.cloneDelegateRuleset({
+                        mainRulesetRefID: delegateId.parentRefId,
+                        delegateIdx: delegateId.delegateIdx,
+                    })
+                ),
+                untilDestroyed(this)
+            )
+            .subscribe({ error: this.errorService.error });
+    }
+
     delete(delegateId: DelegateId) {
         this.dialog
             .open(ConfirmActionDialogComponent)
@@ -111,7 +128,7 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
                 filter((r) => r === 'confirm'),
                 switchMap(() =>
                     this.routingRulesService.deleteDelegate({
-                        parentRefId: delegateId.parentRefId,
+                        mainRulesetRefID: delegateId.parentRefId,
                         delegateIdx: delegateId.delegateIdx,
                     })
                 ),

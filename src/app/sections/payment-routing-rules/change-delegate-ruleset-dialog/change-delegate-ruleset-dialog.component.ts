@@ -58,6 +58,7 @@ export class ChangeDelegateRulesetDialogComponent implements OnInit {
                 mainRulesetRefID: this.data.mainRulesetRefID,
                 delegateIdx: this.data.delegateIdx,
                 newDelegateRulesetRefID: this.form.value.rulesetRefId,
+                description: this.form.value.description,
             })
             .pipe(untilDestroyed(this))
             .subscribe(() => this.dialogRef.close());

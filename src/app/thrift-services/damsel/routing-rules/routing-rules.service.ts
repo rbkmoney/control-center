@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
-import { combineLatest, Observable } from 'rxjs';
-import { map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { combineLatest, concat, Observable } from 'rxjs';
+import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { createNextId } from '../../utils/create-next-id';
 import { DomainCacheService } from '../domain-cache.service';
@@ -12,6 +12,7 @@ import {
     RoutingRulesObject,
 } from '../gen-model/domain';
 import { Version } from '../gen-model/domain_config';
+import { getDelegate } from './utils/get-delegate';
 
 @Injectable()
 export class RoutingRulesService {
@@ -263,13 +264,13 @@ export class RoutingRulesService {
     }
 
     deleteDelegate({
-        parentRefId,
+        mainRulesetRefID,
         delegateIdx,
     }: {
-        parentRefId: number;
+        mainRulesetRefID: number;
         delegateIdx: number;
     }): Observable<Version> {
-        return this.getRuleset(parentRefId).pipe(
+        return this.getRuleset(mainRulesetRefID).pipe(
             take(1),
             switchMap((mainRuleset) => {
                 const newMainPaymentRoutingRuleset = cloneDeep(mainRuleset);
@@ -342,10 +343,12 @@ export class RoutingRulesService {
         mainRulesetRefID,
         delegateIdx,
         newDelegateRulesetRefID,
+        description,
     }: {
         mainRulesetRefID: number;
         delegateIdx: number;
         newDelegateRulesetRefID: number;
+        description?: string;
     }): Observable<Version> {
         return this.getRuleset(mainRulesetRefID).pipe(
             take(1),
@@ -354,6 +357,9 @@ export class RoutingRulesService {
                 newMainRuleset.data.decisions.delegates[
                     delegateIdx
                 ].ruleset.id = newDelegateRulesetRefID;
+                if (description !== undefined) {
+                    newMainRuleset.data.decisions.delegates[delegateIdx].description = description;
+                }
                 return this.domainService.commit({
                     ops: [
                         {
@@ -365,6 +371,52 @@ export class RoutingRulesService {
                     ],
                 });
             })
+        );
+    }
+
+    cloneDelegateRuleset({
+        mainRulesetRefID,
+        delegateIdx,
+    }: {
+        mainRulesetRefID: number;
+        delegateIdx: number;
+    }): Observable<Version> {
+        return combineLatest([
+            this.getRuleset(mainRulesetRefID),
+            this.getRuleset(mainRulesetRefID).pipe(
+                switchMap((r) => this.getRuleset(getDelegate(r, delegateIdx).ruleset.id))
+            ),
+            this.nextRefID$,
+        ]).pipe(
+            take(1),
+            switchMap(([mainRuleset, delegateRuleset, nextRefID]) => {
+                const newMainRuleset = cloneDeep(mainRuleset);
+                getDelegate(newMainRuleset, delegateIdx).ruleset.id = nextRefID;
+                const newDelegateRuleset = cloneDeep(delegateRuleset);
+                newDelegateRuleset.ref.id = nextRefID;
+                return this.domainService.sequenseCommits([
+                    {
+                        ops: [
+                            {
+                                insert: {
+                                    object: { routing_rules: newDelegateRuleset },
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        ops: [
+                            {
+                                update: {
+                                    old_object: { routing_rules: mainRuleset },
+                                    new_object: { routing_rules: newMainRuleset },
+                                },
+                            },
+                        ],
+                    },
+                ]);
+            }),
+            pluck('1')
         );
     }
 

@@ -60,9 +60,9 @@ export class DomainCacheService {
             )
         );
 
-    commit = (commit: Commit, version?: Version | number) => {
-        return (version ? of(version) : this.version$).pipe(
-            take(1),
+    commit = (commit: Commit, version?: Version | number, reload = true) => {
+        const version$ = version ? of(version) : this.version$.pipe(take(1));
+        return version$.pipe(
             switchMap((v) =>
                 this.dmtService.commit(
                     createDamselInstance('domain_config', 'Version', v as Version),
@@ -70,8 +70,16 @@ export class DomainCacheService {
                 )
             ),
             map((v) => damselInstanceToObject('domain_config', 'Version', v)),
-            tap(() => this.forceReload()),
+            tap(() => reload && this.forceReload()),
             share()
         );
     };
+
+    sequenseCommits([commit, ...otherCommits]: Commit[], version?: Version | number) {
+        return otherCommits.length
+            ? this.commit(commit, version, false).pipe(
+                  switchMap((v) => this.sequenseCommits(otherCommits, v))
+              )
+            : this.commit(commit, version);
+    }
 }
