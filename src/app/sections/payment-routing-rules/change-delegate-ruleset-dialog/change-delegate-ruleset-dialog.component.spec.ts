@@ -33,8 +33,4 @@ describe('ChangeDelegateRulesetDialogComponent', () => {
     it('should be created', () => {
         expect(component).toBeTruthy();
     });
-
-    describe('methods', () => {});
-
-    describe('template', () => {});
 });
