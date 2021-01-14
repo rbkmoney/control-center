@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { map, pluck, share, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
-import type { Int64 } from 'thrift-ts';
 
 import { getUnionKey } from '@cc/utils/get-union-key';
 
@@ -21,7 +20,7 @@ export class DomainCacheService {
     domain: Observable<Domain>;
     snapshot$: Observable<Snapshot>;
     domain$: Observable<Domain>;
-    version$: Observable<Int64>;
+    version$: Observable<number>;
     get isLoading$(): Observable<boolean> {
         return this._isLoading$.asObservable();
     }
@@ -43,7 +42,7 @@ export class DomainCacheService {
             shareReplay(1)
         );
         this.domain$ = this.snapshot$.pipe(pluck('domain'));
-        this.version$ = this.snapshot$.pipe(pluck('version'));
+        this.version$ = this.snapshot$.pipe(pluck('version')) as Observable<any>;
 
         this.snapshot.pipe(untilDestroyed(this)).subscribe();
     }
@@ -61,12 +60,12 @@ export class DomainCacheService {
             )
         );
 
-    commit = (commit: Commit, version?: Version) => {
+    commit = (commit: Commit, version?: Version | number) => {
         return (version ? of(version) : this.version$).pipe(
             take(1),
             switchMap((v) =>
                 this.dmtService.commit(
-                    createDamselInstance('domain_config', 'Version', v),
+                    createDamselInstance('domain_config', 'Version', v as Version),
                     createDamselInstance('domain_config', 'Commit', commit)
                 )
             ),
