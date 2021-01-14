@@ -19,8 +19,6 @@
             [data]="data$ | async"
             [displayedColumns]="displayedColumns"
             (toDetails)="navigateToShopRuleset($event.parentRefId, $event.delegateIdx)"
-            (changeTarget)="changeTarget($event.parentRefId, $event.delegateIdx)"
-            (delete)="deleteRuleset($event.parentRefId, $event.delegateIdx)"
         ></cc-routing-rules-list>
     </div>
 

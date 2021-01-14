@@ -5,13 +5,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { combineLatest } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
-
-import { handleError } from '../../../../utils/operators/handle-error';
-import { ErrorService } from '../../../shared/services/error';
-import { RoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
-import { ChangeTargetDialogComponent } from '../change-target-dialog';
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
 import { PartyPaymentRoutingRulesetService } from './party-payment-routing-ruleset.service';
@@ -61,10 +55,8 @@ export class PaymentRoutingRulesComponent {
     constructor(
         private dialog: MatDialog,
         private partyPaymentRoutingRulesetService: PartyPaymentRoutingRulesetService,
-        private paymentRoutingRulesService: RoutingRulesService,
         private router: Router,
-        private domainService: DomainCacheService,
-        private errorService: ErrorService
+        private domainService: DomainCacheService
     ) {}
 
     initialize() {
@@ -112,24 +104,6 @@ export class PaymentRoutingRulesComponent {
             .subscribe();
     }
 
-    deleteRuleset(parentRefId: number, delegateIdx: number) {
-        this.dialog
-            .open(ConfirmActionDialogComponent)
-            .afterClosed()
-            .pipe(
-                filter((r) => r === 'confirm'),
-                switchMap(() =>
-                    this.paymentRoutingRulesService.deleteDelegate({
-                        parentRefId,
-                        delegateIdx,
-                    })
-                ),
-                handleError(this.errorService.error),
-                untilDestroyed(this)
-            )
-            .subscribe();
-    }
-
     navigateToShopRuleset(parentRefId: number, delegateIdx: number) {
         combineLatest([
             this.partyPaymentRoutingRulesetService.partyID$,
@@ -146,16 +120,5 @@ export class PaymentRoutingRulesComponent {
                     ruleset?.data?.decisions?.delegates?.[delegateIdx]?.ruleset?.id,
                 ])
             );
-    }
-
-    changeTarget(mainRulesetRefID: number, delegateIdx: number) {
-        this.dialog
-            .open(ChangeTargetDialogComponent, {
-                ...ChangeTargetDialogComponent.defaultConfig,
-                data: { mainRulesetRefID, delegateIdx },
-            })
-            .afterClosed()
-            .pipe(handleError(this.errorService.error), untilDestroyed(this))
-            .subscribe();
     }
 }

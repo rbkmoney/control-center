@@ -39,26 +39,13 @@
                         >
                             Details
                         </button>
-                        <button
-                            mat-menu-item
-                            (click)="
-                                changeTarget.emit({
-                                    parentRefId: element?.parentRefId,
-                                    delegateIdx: element?.delegateIdx
-                                })
-                            "
-                        >
-                            Change target
+                        <button mat-menu-item (click)="changeDelegateRuleset(element)">
+                            Change delegate ruleset
                         </button>
-                        <button
-                            mat-menu-item
-                            (click)="
-                                delete.emit({
-                                    parentRefId: element?.parentRefId,
-                                    delegateIdx: element?.delegateIdx
-                                })
-                            "
-                        >
+                        <button mat-menu-item (click)="changeTarget(element)">
+                            Change main ruleset
+                        </button>
+                        <button mat-menu-item (click)="delete(element)">
                             Delete
                         </button>
                     </mat-menu>

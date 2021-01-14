@@ -3,15 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { combineLatest } from 'rxjs';
-import { filter, first, map, switchMap, take } from 'rxjs/operators';
-
-import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
+import { first, map, switchMap, take } from 'rxjs/operators';
 
 import { handleError } from '../../../../utils/operators/handle-error';
 import { ErrorService } from '../../../shared/services/error';
 import { RoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
-import { ChangeTargetDialogComponent } from '../change-target-dialog';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
 import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service';
 
@@ -93,34 +90,5 @@ export class PartyDelegateRulesetsComponent {
                     parent.data.decisions.delegates[delegateIdx].ruleset.id,
                 ])
             );
-    }
-
-    changeTarget(mainRulesetRefID: number, delegateIdx: number) {
-        this.dialog
-            .open(ChangeTargetDialogComponent, {
-                ...ChangeTargetDialogComponent.defaultConfig,
-                data: { mainRulesetRefID, delegateIdx },
-            })
-            .afterClosed()
-            .pipe(handleError(this.errorService.error), untilDestroyed(this))
-            .subscribe();
-    }
-
-    deleteRuleset(parentRefId: number, delegateIdx: number) {
-        this.dialog
-            .open(ConfirmActionDialogComponent)
-            .afterClosed()
-            .pipe(
-                filter((r) => r === 'confirm'),
-                switchMap(() =>
-                    this.paymentRoutingRulesService.deleteDelegate({
-                        delegateIdx,
-                        parentRefId,
-                    })
-                ),
-                handleError(this.errorService.error),
-                untilDestroyed(this)
-            )
-            .subscribe();
     }
 }

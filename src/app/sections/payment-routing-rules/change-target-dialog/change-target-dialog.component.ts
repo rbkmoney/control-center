@@ -25,12 +25,11 @@ export class ChangeTargetDialogComponent {
 
     constructor(
         private dialogRef: MatDialogRef<ChangeTargetDialogComponent>,
-        private paymentRoutingRulesService: RoutingRulesService,
-        @Inject(MAT_DIALOG_DATA)
-        public data: { mainRulesetRefID: number; delegateIdx: number },
+        private routingRulesService: RoutingRulesService,
+        @Inject(MAT_DIALOG_DATA) public data: { mainRulesetRefID: number; delegateIdx: number },
         private errorService: ErrorService
     ) {
-        this.paymentRoutingRulesService
+        this.routingRulesService
             .getRuleset(data?.mainRulesetRefID)
             .pipe(untilDestroyed(this))
             .subscribe((ruleset) => {
@@ -45,8 +44,8 @@ export class ChangeTargetDialogComponent {
     changeTarget() {
         const { mainRulesetRefID, mainDelegateDescription } = this.targetRuleset$.value;
         const { mainRulesetRefID: previousMainRulesetRefID, delegateIdx } = this.data;
-        this.paymentRoutingRulesService
-            .changeDelegateRuleset({
+        this.routingRulesService
+            .changeMainRuleset({
                 previousMainRulesetRefID,
                 mainRulesetRefID,
                 mainDelegateDescription,

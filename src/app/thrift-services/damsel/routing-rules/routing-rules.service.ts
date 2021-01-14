@@ -288,7 +288,7 @@ export class RoutingRulesService {
         );
     }
 
-    changeDelegateRuleset({
+    changeMainRuleset({
         previousMainRulesetRefID,
         mainRulesetRefID,
         delegateIdx,
@@ -330,6 +330,36 @@ export class RoutingRulesService {
                             update: {
                                 old_object: { routing_rules: mainRuleset },
                                 new_object: { routing_rules: newMainPaymentRoutingRuleset },
+                            },
+                        },
+                    ],
+                });
+            })
+        );
+    }
+
+    changeDelegateRuleset({
+        mainRulesetRefID,
+        delegateIdx,
+        newDelegateRulesetRefID,
+    }: {
+        mainRulesetRefID: number;
+        delegateIdx: number;
+        newDelegateRulesetRefID: number;
+    }): Observable<Version> {
+        return this.getRuleset(mainRulesetRefID).pipe(
+            take(1),
+            switchMap((mainRuleset) => {
+                const newMainRuleset = cloneDeep(mainRuleset);
+                newMainRuleset.data.decisions.delegates[
+                    delegateIdx
+                ].ruleset.id = newDelegateRulesetRefID;
+                return this.domainService.commit({
+                    ops: [
+                        {
+                            update: {
+                                old_object: { routing_rules: mainRuleset },
+                                new_object: { routing_rules: newMainRuleset },
                             },
                         },
                     ],

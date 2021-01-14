@@ -39,7 +39,7 @@
             </ng-container>
         </div>
         <mat-form-field *ngIf="form.controls.target.value === target.manual">
-            <mat-label>Payment Routing Ruleset</mat-label>
+            <mat-label>Routing Rules</mat-label>
             <mat-select formControlName="mainRulesetRefID" required>
                 <mat-option *ngFor="let i of rulesets$ | async" [value]="i.ref.id">
                     #{{ i.ref.id }} {{ i.data.name }}
