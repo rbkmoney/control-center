@@ -43,15 +43,13 @@ export class PaymentsOtherSearchFiltersService {
         this.openFiltersDialog$
             .pipe(
                 switchMap(() => this.formParams.pipe(shareReplay(1), take(1))),
-                switchMap((formParams) => {
-                    return this.dialog
+                switchMap((formParams) => this.dialog
                         .open(OtherFiltersDialogComponent, {
                             disableClose: true,
                             width: '552px',
                             data: formParams,
                         })
-                        .afterClosed();
-                }),
+                        .afterClosed()),
                 filter((v) => !!v)
             )
             .subscribe((params) => this.formParams.next(params));

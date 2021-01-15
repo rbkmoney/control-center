@@ -61,8 +61,7 @@ export class DomainCacheService {
             )
         );
 
-    commit = (commit: Commit, version?: Version) => {
-        return (version ? of(version) : this.version$).pipe(
+    commit = (commit: Commit, version?: Version) => (version ? of(version) : this.version$).pipe(
             take(1),
             switchMap((v) =>
                 this.dmtService.commit(
@@ -73,5 +72,4 @@ export class DomainCacheService {
             map((v) => damselInstanceToObject('domain_config', 'Version', v)),
             tap(() => this.forceReload())
         );
-    };
 }

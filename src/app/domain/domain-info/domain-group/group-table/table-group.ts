@@ -8,8 +8,7 @@ function shorten(str: string, limit = 150): string {
 }
 
 export function toTableGroup(domainGroup: DomainGroup[]): TableGroup[] {
-    return domainGroup.map(({ name, pairs }) => {
-        return {
+    return domainGroup.map(({ name, pairs }) => ({
             name,
             tableItems: pairs.map((p) => {
                 const pair = toJson(p);
@@ -22,8 +21,7 @@ export function toTableGroup(domainGroup: DomainGroup[]): TableGroup[] {
                 };
                 return { stringified, pair, view };
             }),
-        };
-    });
+        }));
 }
 
 export function toDataSource(group: TableGroup[], selectedTypes: string[]): TableDataSource[] {

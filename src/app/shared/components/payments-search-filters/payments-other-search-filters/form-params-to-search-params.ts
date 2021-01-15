@@ -2,8 +2,7 @@ import { toMinor } from '@cc/utils/to-minor';
 
 import { SearchFiltersParams } from '../search-filters-params';
 
-export const formParamsToSearchParams = (params: SearchFiltersParams): SearchFiltersParams => {
-    return {
+export const formParamsToSearchParams = (params: SearchFiltersParams): SearchFiltersParams => ({
         ...params,
         ...(params.paymentAmountFrom
             ? { paymentAmountFrom: amountToMinor(params.paymentAmountFrom) }
@@ -11,7 +10,6 @@ export const formParamsToSearchParams = (params: SearchFiltersParams): SearchFil
         ...(params.paymentAmountTo
             ? { paymentAmountTo: amountToMinor(params.paymentAmountTo) }
             : {}),
-    };
-};
+    });
 
 const amountToMinor = (amount: string): string => toMinor(Number(amount)).toString();

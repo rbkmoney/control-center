@@ -11,6 +11,4 @@ export class ToCardNumberPipe implements PipeTransform {
     }
 }
 
-export const toCardNumber = (card: BankCard): string => {
-    return `${card.bin}******${card.masked_pan}`.replace(/(.{4})/g, '$& ');
-};
+export const toCardNumber = (card: BankCard): string => `${card.bin}******${card.masked_pan}`.replace(/(.{4})/g, '$& ');

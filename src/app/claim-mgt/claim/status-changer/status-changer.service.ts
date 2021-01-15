@@ -73,9 +73,7 @@ export class StatusChangerService {
         this.isLoading$.connect();
         this.form.valueChanges
             .pipe(
-                distinctUntilChanged((p, c) => {
-                    return p.type === c.type && p.reason === c.reason;
-                }),
+                distinctUntilChanged((p, c) => p.type === c.type && p.reason === c.reason),
                 pairwise(),
                 filter(([prev, curr]) => prev.reason === curr.reason),
                 pluck(1, 'type')

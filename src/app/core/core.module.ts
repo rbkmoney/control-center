@@ -23,12 +23,8 @@ const initializer = (
                 bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
                 bearerPrefix: 'Bearer',
             })
-            .then(() => {
-                return keycloak.getToken();
-            })
-            .then((token) => {
-                return keycloakTokenInfoService.init(token);
-            }),
+            .then(() => keycloak.getToken())
+            .then((token) => keycloakTokenInfoService.init(token)),
     ]);
 
 @NgModule({
