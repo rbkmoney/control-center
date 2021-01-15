@@ -48,7 +48,7 @@
     "machinegun_proto": "git+ssh://git@github.com/rbkmoney/machinegun_proto.git#d814d6948d4ff13f6f41d12c6613f59c805750b2",
     "messages-proto": "git+ssh://git@github.com:rbkmoney/messages-proto.git#a177efb574136961bcd0a8236b4bfc425264de29",
     "moment": "~2.22.2",
-    "monaco-editor": "~0.15.6",
+    "monaco-editor": "^0.21.2",
     "pdfmake": "^0.1.64",
     "rxjs": "^6.5.5",
     "short-uuid": "^4.1.0",
