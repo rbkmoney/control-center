@@ -52,9 +52,21 @@
                         }
                     }
                 ],
+                "@typescript-eslint/naming-convention": [
+                    "error",
+                    {
+                        "selector": "variableLike",
+                        "format": ["camelCase", "snake_case", "UPPER_CASE", "PascalCase"],
+                        "leadingUnderscore": "allow",
+                        "trailingUnderscore": "allow"
+                    }
+                ],
                 "@typescript-eslint/no-unused-vars": "error",
                 "@typescript-eslint/semi": ["off", null],
                 "@typescript-eslint/type-annotation-spacing": "off",
+                "@typescript-eslint/member-ordering": "off",
+                "@typescript-eslint/ban-types": "off",
+                "@typescript-eslint/no-unused-expressions": "off",
                 "arrow-parens": ["off", "always"],
                 "brace-style": ["off", "off"],
                 "eol-last": "off",
@@ -73,10 +85,10 @@
                 "react/jsx-wrap-multilines": "off",
                 "space-before-function-paren": "off",
                 "space-in-parens": ["off", "never"],
-                "@typescript-eslint/naming-convention": [
-                    "error",
-                    { "selector": "variableLike", "format": ["camelCase", "snake_case"] }
-                ]
+                "prefer-arrow/prefer-arrow-functions": "off",
+                "no-shadow": "off",
+                "id-blacklist": "off",
+                "no-underscore-dangle": "off"
             }
         },
         {

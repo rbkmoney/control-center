@@ -44,12 +44,12 @@ export class SendCommentService {
                 ),
             ]);
         }),
-        tap(([conversationID, _]) =>
+        tap(([conversationID]) =>
             this.unsavedClaimChangesetService.addModification(
                 this.createModification(conversationID)
             )
         ),
-        filter(([_, result]) => result !== 'error'),
+        filter(([, result]) => result !== 'error'),
         shareReplay(1)
     );
 

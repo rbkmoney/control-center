@@ -912,6 +912,7 @@ export class JSONDocument {
 
     private validationResult: ValidationResult;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     constructor(config: JSONDocumentConfig) {
         this.validationResult = new ValidationResult();
     }

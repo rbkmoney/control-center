@@ -33,6 +33,7 @@ import { getAuthorityConfirmingDocument } from './get-authority-confirming-docum
 
 const EMPTY = '';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export function getDocDef(questionary: Questionary): DocDef {
     const { data } = toOptional(questionary);
     const { contractor, shop_info, contact_info } = toOptional(data);
