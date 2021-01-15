@@ -13,12 +13,6 @@ import { TargetRuleset } from '../target-ruleset-form';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangeTargetDialogComponent {
-    static defaultConfig: MatDialogConfig = {
-        disableClose: true,
-        width: '548px',
-        maxHeight: '90vh',
-    };
-
     targetRuleset$ = new BehaviorSubject<TargetRuleset>(undefined);
     targetRulesetValid$ = new BehaviorSubject<boolean>(undefined);
     initValue: Partial<TargetRuleset> = {};

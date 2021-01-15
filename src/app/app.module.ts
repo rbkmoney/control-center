@@ -35,11 +35,11 @@ import { SearchClaimsModule } from './sections/search-claims/search-claims.modul
 import { SearchPartiesModule } from './sections/search-parties/search-parties.module';
 import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule, ThemeName } from './theme-manager';
+import { DEFAULT_DIALOG_CONFIG, DEFAULT_SEARCH_LIMIT, DIALOG_CONFIG, SEARCH_LIMIT } from './tokens';
 
 /**
  * For use in specific locations (for example, questionary PDF document)
  */
-
 moment.locale('en');
 
 @NgModule({
@@ -78,6 +78,8 @@ moment.locale('en');
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
         { provide: MAT_DATE_LOCALE, useValue: 'en' },
+        { provide: SEARCH_LIMIT, useValue: DEFAULT_SEARCH_LIMIT },
+        { provide: DIALOG_CONFIG, useValue: DEFAULT_DIALOG_CONFIG },
     ],
     bootstrap: [AppComponent],
 })

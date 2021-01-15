@@ -13,12 +13,6 @@ import { RoutingRulesService } from '../../../thrift-services';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangeDelegateRulesetDialogComponent implements OnInit {
-    static defaultConfig: MatDialogConfig = {
-        disableClose: true,
-        width: '548px',
-        maxHeight: '90vh',
-    };
-
     form = this.fb.group({
         rulesetRefId: [],
         description: '',

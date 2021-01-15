@@ -14,12 +14,6 @@ import { TargetRuleset } from '../../target-ruleset-form';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AttachNewRulesetDialogComponent {
-    static defaultConfig: MatDialogConfig = {
-        disableClose: true,
-        width: '548px',
-        maxHeight: '90vh',
-    };
-
     form = this.fb.group({
         ruleset: this.fb.group({
             name: 'submain ruleset[by shop id]',

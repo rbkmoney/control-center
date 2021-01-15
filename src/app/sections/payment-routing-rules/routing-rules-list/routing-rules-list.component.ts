@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
+    Inject,
     Input,
     Output,
     ViewChild,
@@ -17,6 +18,7 @@ import { ConfirmActionDialogComponent } from '../../../../components/confirm-act
 import { handleError } from '../../../../utils/operators/handle-error';
 import { ErrorService } from '../../../shared/services/error';
 import { RoutingRulesService } from '../../../thrift-services';
+import { DialogConfig, DIALOG_CONFIG } from '../../../tokens';
 import { ChangeDelegateRulesetDialogComponent } from '../change-delegate-ruleset-dialog';
 import { ChangeTargetDialogComponent } from '../change-target-dialog';
 
@@ -68,7 +70,8 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
     constructor(
         private dialog: MatDialog,
         private errorService: ErrorService,
-        private routingRulesService: RoutingRulesService
+        private routingRulesService: RoutingRulesService,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
     ) {}
 
     getColumnsKeys(col) {
@@ -78,7 +81,7 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
     changeDelegateRuleset(delegateId: DelegateId) {
         this.dialog
             .open(ChangeDelegateRulesetDialogComponent, {
-                ...ChangeDelegateRulesetDialogComponent.defaultConfig,
+                ...this.dialogConfig.medium,
                 data: {
                     mainRulesetRefID: delegateId.parentRefId,
                     delegateIdx: delegateId.delegateIdx,
@@ -92,7 +95,7 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
     changeTarget(delegateId: DelegateId) {
         this.dialog
             .open(ChangeTargetDialogComponent, {
-                ...ChangeTargetDialogComponent.defaultConfig,
+                ...this.dialogConfig.medium,
                 data: {
                     mainRulesetRefID: delegateId.parentRefId,
                     delegateIdx: delegateId.delegateIdx,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -9,6 +9,7 @@ import { handleError } from '../../../../utils/operators/handle-error';
 import { ErrorService } from '../../../shared/services/error';
 import { RoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
+import { DialogConfig, DIALOG_CONFIG } from '../../../tokens';
 import { AttachNewRulesetDialogComponent } from './attach-new-ruleset-dialog';
 import { PartyDelegateRulesetsService } from './party-delegate-rulesets.service';
 
@@ -55,7 +56,8 @@ export class PartyDelegateRulesetsComponent {
         private router: Router,
         private dialog: MatDialog,
         private domainService: DomainCacheService,
-        private errorService: ErrorService
+        private errorService: ErrorService,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
     ) {}
 
     attachNewRuleset() {
@@ -65,7 +67,7 @@ export class PartyDelegateRulesetsComponent {
                 switchMap((partyID) =>
                     this.dialog
                         .open(AttachNewRulesetDialogComponent, {
-                            ...AttachNewRulesetDialogComponent.defaultConfig,
+                            ...this.dialogConfig.medium,
                             data: { partyID },
                         })
                         .afterClosed()
