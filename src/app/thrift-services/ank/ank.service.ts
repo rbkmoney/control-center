@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { toGenReference } from '../converters';
 import { PartyID } from '../damsel/gen-model/domain';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import {
     QuestionaryID,
     QuestionaryParams,

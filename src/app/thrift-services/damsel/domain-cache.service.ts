@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
-import { map, pluck, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
-import type { Int64 } from 'thrift-ts';
+import { map, pluck, share, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
 
 import { getUnionKey } from '@cc/utils/get-union-key';
 
 import { toGenReference } from '../converters';
-import { createDamselInstance, damselInstanceToObject } from './create-damsel-instance';
 import { DomainService } from './domain.service';
 import { Domain, DomainObject } from './gen-model/domain';
 import { Commit, Snapshot, Version } from './gen-model/domain_config';
+import { createDamselInstance, damselInstanceToObject } from './utils/create-damsel-instance';
 
 @UntilDestroy()
 @Injectable()
@@ -21,7 +20,7 @@ export class DomainCacheService {
     domain: Observable<Domain>;
     snapshot$: Observable<Snapshot>;
     domain$: Observable<Domain>;
-    version$: Observable<Int64>;
+    version$: Observable<number>;
     get isLoading$(): Observable<boolean> {
         return this._isLoading$.asObservable();
     }
@@ -43,7 +42,7 @@ export class DomainCacheService {
             shareReplay(1)
         );
         this.domain$ = this.snapshot$.pipe(pluck('domain'));
-        this.version$ = this.snapshot$.pipe(pluck('version'));
+        this.version$ = this.snapshot$.pipe(pluck('version')) as Observable<any>;
 
         this.snapshot.pipe(untilDestroyed(this)).subscribe();
     }
@@ -61,16 +60,26 @@ export class DomainCacheService {
             )
         );
 
-    commit = (commit: Commit, version?: Version) =>
-        (version ? of(version) : this.version$).pipe(
-            take(1),
+    commit = (commit: Commit, version?: Version | number, reload = true) => {
+        const version$ = version ? of(version) : this.version$.pipe(take(1));
+        return version$.pipe(
             switchMap((v) =>
                 this.dmtService.commit(
-                    createDamselInstance('domain_config', 'Version', v),
+                    createDamselInstance('domain_config', 'Version', v as Version),
                     createDamselInstance('domain_config', 'Commit', commit)
                 )
             ),
             map((v) => damselInstanceToObject('domain_config', 'Version', v)),
-            tap(() => this.forceReload())
+            tap(() => reload && this.forceReload()),
+            share()
         );
+    };
+
+    sequenseCommits([commit, ...otherCommits]: Commit[], version?: Version | number) {
+        return otherCommits.length
+            ? this.commit(commit, version, false).pipe(
+                  switchMap((v) => this.sequenseCommits(otherCommits, v))
+              )
+            : this.commit(commit, version);
+    }
 }

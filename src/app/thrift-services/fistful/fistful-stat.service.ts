@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { SearchFormParams } from '../../deposits/search-form/search-form-params';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { QueryDSL } from '../../query-dsl';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';

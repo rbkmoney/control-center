@@ -9,6 +9,9 @@ import { DomainService as ThriftDomainService } from '../thrift-services/damsel/
 import { DomainObject, Reference } from '../thrift-services/damsel/gen-model/domain';
 import { Commit, Snapshot } from '../thrift-services/damsel/gen-model/domain_config';
 
+/**
+ * @deprecated duplicates thrift-services/damsel/domain-cache.service
+ */
 @Injectable()
 export class DomainService {
     private shapshot$: Observable<Snapshot>;
@@ -17,16 +20,25 @@ export class DomainService {
         this.updateSnapshot();
     }
 
+    /**
+     * @deprecated use DomainCacheService -> snapshot$
+     */
     get shapshot() {
         return this.shapshot$;
     }
 
+    /**
+     * @deprecated use DomainCacheService -> version$
+     */
     get version$(): Observable<number> {
         return this.shapshot$.pipe(
             map(({ version }) => (version ? version.toNumber() : undefined))
         );
     }
 
+    /**
+     * @deprecated use DomainCacheService -> getObjects or specific service from thrift-services/damsel
+     */
     getDomainObject(ref: Reference): Observable<DomainObject | null> {
         return this.shapshot$.pipe(
             map(({ domain }) => {
@@ -42,10 +54,16 @@ export class DomainService {
         );
     }
 
+    /**
+     * @deprecated use DomainCacheService -> forceReload()
+     */
     updateSnapshot() {
         return (this.shapshot$ = this.thriftDomainService.checkout(toGenReference()));
     }
 
+    /**
+     * @deprecated use DomainCacheService -> commit()
+     */
     commit(commit: Commit) {
         return this.shapshot$.pipe(
             switchMap(({ version }) =>

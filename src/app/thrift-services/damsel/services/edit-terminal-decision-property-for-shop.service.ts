@@ -5,9 +5,9 @@ import { EMPTY, merge, Subject } from 'rxjs';
 import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 
 import { DomainCacheService } from '../domain-cache.service';
-import { DomainTypedManager } from '../domain-typed-manager';
 import { editTerminalDecisionPropertyForShopCommit } from '../operations/edit-terminal-decision-property-for-shop-commit';
 import { EditTerminalDecisionPropertyParams } from '../operations/edit-terminal-decision-property-params';
+import { ProviderService } from '../provider.service';
 
 @Injectable()
 export class EditTerminalDecisionPropertyForShopService {
@@ -17,9 +17,7 @@ export class EditTerminalDecisionPropertyForShopService {
 
     edited$ = this.editProperty$.pipe(
         switchMap((params) =>
-            this.domainTypedManager.getProviderFromParams<EditTerminalDecisionPropertyParams>(
-                params
-            )
+            this.providerService.getProviderFromParams<EditTerminalDecisionPropertyParams>(params)
         ),
         switchMap(([params, provider]) =>
             this.domainCacheService
@@ -39,7 +37,7 @@ export class EditTerminalDecisionPropertyForShopService {
     constructor(
         private domainCacheService: DomainCacheService,
         private snackBar: MatSnackBar,
-        private domainTypedManager: DomainTypedManager
+        private providerService: ProviderService
     ) {
         this.error$.subscribe(() => {
             this.snackBar.open('An error occurred while editing providerObject');

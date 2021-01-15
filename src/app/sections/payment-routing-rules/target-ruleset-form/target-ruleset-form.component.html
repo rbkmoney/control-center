@@ -1,5 +1,5 @@
 <div [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
-    <div class="cc-title">Target Ruleset</div>
+    <div class="cc-title">Change Main Ruleset</div>
 
     <div fxLayout="column" fxLayoutGap="39px">
         <mat-radio-group fxLayout formControlName="target">
@@ -39,7 +39,7 @@
             </ng-container>
         </div>
         <mat-form-field *ngIf="form.controls.target.value === target.manual">
-            <mat-label>Payment Routing Ruleset</mat-label>
+            <mat-label>Main Ruleset</mat-label>
             <mat-select formControlName="mainRulesetRefID" required>
                 <mat-option *ngFor="let i of rulesets$ | async" [value]="i.ref.id">
                     #{{ i.ref.id }} {{ i.data.name }}

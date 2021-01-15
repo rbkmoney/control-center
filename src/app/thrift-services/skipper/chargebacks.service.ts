@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import { ID } from './gen-model/base';
 import { ChargebackData, ChargebackEvent, ChargebackFilter } from './gen-model/skipper';
 import * as Skipper from './gen-nodejs/Skipper';
