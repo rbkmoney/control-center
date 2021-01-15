@@ -31,7 +31,7 @@ export class ChangeDelegateRulesetDialogComponent implements OnInit {
         this.routingRulesService
             .getRuleset(this.data.mainRulesetRefID)
             .pipe(
-                map((r) => r?.data?.decisions?.delegates?.[this?.data?.delegateIdx]),
+                map((r) => r?.data?.decisions?.delegates?.[this.data?.delegateIdx]),
                 untilDestroyed(this)
             )
             .subscribe((delegate) => {
