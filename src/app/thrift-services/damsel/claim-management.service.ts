@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import {
     Claim,
     ClaimID,

@@ -9,9 +9,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ConfirmActionDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<ConfirmActionDialogComponent, 'cancel' | 'confirm'>,
-        @Inject(MAT_DIALOG_DATA)
-        public data: { title?: string }
+        @Inject(MAT_DIALOG_DATA) public data: { title?: string }
     ) {}
+
+    get title() {
+        return this.data?.title ?? 'Confirm this action';
+    }
 
     cancel() {
         this.dialogRef.close('cancel');

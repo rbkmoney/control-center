@@ -4,8 +4,7 @@ import { Observable, timer } from 'rxjs';
 import { first, map, share, switchMap } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { ThriftService } from '../thrift-service';
-import { createDamselInstance, damselInstanceToObject } from './create-damsel-instance';
+import { ThriftService } from '../services/thrift/thrift-service';
 import {
     InvoiceID,
     InvoicePaymentChargeback,
@@ -29,6 +28,7 @@ import {
     InvoiceRepairScenario as InvoiceRepairScenarioObject,
     UserInfo as UserInfoObject,
 } from './gen-nodejs/payment_processing_types';
+import { createDamselInstance, damselInstanceToObject } from './utils/create-damsel-instance';
 
 @Injectable()
 export class PaymentProcessingService extends ThriftService {

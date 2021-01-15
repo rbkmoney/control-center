@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import { Commit, Limit, Reference, Snapshot, Version } from './gen-model/domain_config';
 import * as Repository from './gen-nodejs/Repository';
 

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { ErrorService } from '../../../../shared/services/error';
-import { PaymentRoutingRulesService } from '../../../../thrift-services';
+import { RoutingRulesService } from '../../../../thrift-services';
 import { Shop } from '../../../../thrift-services/damsel/gen-model/domain';
 
 @UntilDestroy()
@@ -21,7 +21,7 @@ export class AddPartyPaymentRoutingRuleDialogComponent {
     constructor(
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<AddPartyPaymentRoutingRuleDialogComponent>,
-        private paymentRoutingRulesService: PaymentRoutingRulesService,
+        private paymentRoutingRulesService: RoutingRulesService,
         @Inject(MAT_DIALOG_DATA)
         public data: { refID: number; partyID: string; shops: Shop[] },
         private errorService: ErrorService

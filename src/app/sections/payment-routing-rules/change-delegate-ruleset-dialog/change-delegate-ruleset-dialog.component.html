@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutGap="32px">
+    <div class="cc-headline">Change Delegate Ruleset</div>
+
+    <div [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
+        <mat-form-field>
+            <mat-label>Delegate Ruleset</mat-label>
+            <mat-select formControlName="rulesetRefId" required>
+                <mat-option *ngFor="let i of rulesets$ | async" [value]="i.ref.id">
+                    #{{ i.ref.id }} {{ i.data.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Deligate description" formControlName="description" />
+        </mat-form-field>
+    </div>
+
+    <div fxLayout fxLayoutAlign="space-between">
+        <button mat-button (click)="cancel()">CANCEL</button>
+        <button mat-button color="primary" (click)="changeRuleset()" [disabled]="form.invalid">
+            CHANGE RULESET
+        </button>
+    </div>
+</div>

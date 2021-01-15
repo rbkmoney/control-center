@@ -4,10 +4,7 @@ import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { merge, Observable, Subject } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
 
-import {
-    AddDecisionToProvider,
-    DomainTypedManager,
-} from '../../../../../../thrift-services/damsel';
+import { AddDecisionToProvider, ProviderService } from '../../../../../../thrift-services/damsel';
 import { DomainCacheService } from '../../../../../../thrift-services/damsel/domain-cache.service';
 import {
     PartyID,
@@ -35,7 +32,7 @@ export class AddTerminalDecisionService {
             terminalID: this.terminalForm.value.id,
         })),
         switchMap((params) =>
-            this.domainTypedManager.getProviderFromParams<AddDecisionToProvider>(params)
+            this.providerService.getProviderFromParams<AddDecisionToProvider>(params)
         ),
         switchMap(([params, providerObject]) =>
             this.domainCacheService.commit(addDecisionToProviderCommit(providerObject, params))
@@ -47,7 +44,7 @@ export class AddTerminalDecisionService {
 
     constructor(
         private domainCacheService: DomainCacheService,
-        private domainTypedManager: DomainTypedManager,
+        private providerService: ProviderService,
         private fb: FormBuilder
     ) {
         this.terminalAdded$.subscribe();

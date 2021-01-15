@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { ThriftService } from '../thrift-service';
+import { ThriftService } from '../services/thrift/thrift-service';
 import { RepairScenario, SessionID } from './gen-model/withdrawal_session';
 import * as Repairer from './gen-nodejs/Repairer';
 import { RepairScenario as RepairScenarioObject } from './gen-nodejs/withdrawal_session_types';

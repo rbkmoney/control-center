@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { startWith, switchMap, take } from 'rxjs/operators';
 
-import { DomainTypedManager, PaymentRoutingRulesService } from '../../../../thrift-services';
+import { RoutingRulesService, TerminalService } from '../../../../thrift-services';
 import { Predicate } from '../../../../thrift-services/damsel/gen-model/domain';
 import { AddShopPaymentRoutingRuleDialogComponent } from './add-shop-payment-routing-rule-dialog.component';
 
@@ -36,8 +36,8 @@ export class AddShopPaymentRoutingRuleDialogService {
     constructor(
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<AddShopPaymentRoutingRuleDialogComponent>,
-        private paymentRoutingRulesService: PaymentRoutingRulesService,
-        private domainTypedManager: DomainTypedManager,
+        private paymentRoutingRulesService: RoutingRulesService,
+        private terminalService: TerminalService,
         @Inject(MAT_DIALOG_DATA) public data: { partyID: string; refID: number }
     ) {
         this.form
@@ -72,7 +72,7 @@ export class AddShopPaymentRoutingRuleDialogService {
             newTerminal,
         } = this.form.value;
         (terminalType === TerminalType.new
-            ? this.domainTypedManager.createTerminal({
+            ? this.terminalService.createTerminal({
                   terminalName: newTerminal.name,
                   terminalDescription: newTerminal.description,
                   riskCoverage: newTerminal.riskCoverage,

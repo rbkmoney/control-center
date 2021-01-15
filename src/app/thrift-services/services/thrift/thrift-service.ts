@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 import connectClient from 'woody_js';
 
-import { KeycloakTokenInfoService } from '../keycloak-token-info.service';
+import { KeycloakTokenInfoService } from '../../../keycloak-token-info.service';
 
 type Exception<N = string, T = {}> = {
     name: N;

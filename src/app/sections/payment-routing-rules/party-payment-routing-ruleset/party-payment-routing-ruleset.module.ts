@@ -22,6 +22,7 @@ import { ErrorModule } from '../../../shared/services/error';
 import { DamselModule } from '../../../thrift-services';
 import { ChangeTargetDialogModule } from '../change-target-dialog';
 import { PaymentRoutingRulesetHeaderModule } from '../payment-routing-ruleset-header';
+import { RoutingRulesListModule } from '../routing-rules-list';
 import { AddPartyPaymentRoutingRuleDialogModule } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogModule } from './initialize-payment-routing-rules-dialog';
 import { PartyPaymentRoutingRulesetRoutingModule } from './party-payment-routing-ruleset-routing.module';
@@ -54,6 +55,7 @@ import { PaymentRoutingRulesComponent } from './party-payment-routing-ruleset.co
         MatProgressBarModule,
         ErrorModule,
         ChangeTargetDialogModule,
+        RoutingRulesListModule,
     ],
     declarations: [PaymentRoutingRulesComponent],
 })

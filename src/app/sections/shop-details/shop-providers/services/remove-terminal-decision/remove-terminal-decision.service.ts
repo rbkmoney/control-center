@@ -7,7 +7,7 @@ import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators'
 
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
-import { DomainTypedManager } from '../../../../../thrift-services/damsel';
+import { ProviderService } from '../../../../../thrift-services/damsel';
 import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
 import { createRemoveTerminalFromShopCommit } from '../../../../../thrift-services/damsel/operations/create-remove-terminal-from-shop-commit';
 import { RemoveTerminalFromShopParams } from '../../../../../thrift-services/damsel/operations/remove-terminal-from-shop-params';
@@ -40,7 +40,7 @@ export class RemoveTerminalDecisionService {
             ])
         ),
         switchMap(([params]) =>
-            this.domainTypedManager.getProviderFromParams<RemoveTerminalFromShopParams>(params)
+            this.providerService.getProviderFromParams<RemoveTerminalFromShopParams>(params)
         ),
         map(([params, providerObject]) =>
             createRemoveTerminalFromShopCommit(providerObject, params)
@@ -65,7 +65,7 @@ export class RemoveTerminalDecisionService {
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
         private domainCacheService: DomainCacheService,
-        private domainTypedManager: DomainTypedManager
+        private providerService: ProviderService
     ) {
         this.terminalRemoved$.subscribe();
         this.error$.subscribe(() => {
