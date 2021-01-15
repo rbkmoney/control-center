@@ -13,7 +13,7 @@ import { AppAuthGuardService } from '@cc/app/shared/services';
                     pathMatch: 'full',
                 },
             ],
-            { paramsInheritanceStrategy: 'always' }
+            { paramsInheritanceStrategy: 'always', relativeLinkResolution: 'legacy' }
         ),
     ],
     providers: [AppAuthGuardService],

@@ -49,10 +49,12 @@
                             {
                                 "input": "src/app/styles/themes/light.scss",
                                 "bundleName": "themes/light",
-                                "lazy": true
+                                "inject": false
                             }
                         ],
-                        "scripts": ["./node_modules/keycloak-js/dist/keycloak.js"]
+                        "scripts": [
+                            "./node_modules/keycloak-js/dist/keycloak.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -65,7 +67,6 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "extractLicenses": true,
                             "vendorChunk": false,
