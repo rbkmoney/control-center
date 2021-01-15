@@ -29,22 +29,22 @@ export class PartyDelegateRulesetsComponent {
     isLoading$ = this.domainService.isLoading$;
     data$ = this.partyDelegateRulesetsService.getDelegatesWithPaymentInstitution().pipe(
         map((rules) =>
-            rules.map((r) => ({
-                parentRefId: r?.mainRoutingRule?.ref?.id,
-                delegateIdx: r?.mainRoutingRule?.data?.decisions?.delegates?.findIndex(
-                    (d) => d === r?.partyDelegate
+            rules.map(({ mainRoutingRule, partyDelegate, paymentInstitution }) => ({
+                parentRefId: mainRoutingRule?.ref?.id,
+                delegateIdx: mainRoutingRule?.data?.decisions?.delegates?.findIndex(
+                    (d) => d === partyDelegate
                 ),
                 paymentInstitution: {
-                    text: r?.paymentInstitution?.data?.name,
-                    caption: r?.paymentInstitution?.ref?.id,
+                    text: paymentInstitution?.data?.name,
+                    caption: paymentInstitution?.ref?.id,
                 },
                 mainRuleset: {
-                    text: r?.mainRoutingRule?.data?.name,
-                    caption: r?.mainRoutingRule?.ref?.id,
+                    text: mainRoutingRule?.data?.name,
+                    caption: mainRoutingRule?.ref?.id,
                 },
                 partyDelegate: {
-                    text: r?.partyDelegate?.description,
-                    caption: r?.partyDelegate?.ruleset?.id,
+                    text: partyDelegate?.description,
+                    caption: partyDelegate?.ruleset?.id,
                 },
             }))
         )
