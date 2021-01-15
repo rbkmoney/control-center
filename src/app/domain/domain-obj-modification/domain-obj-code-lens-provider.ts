@@ -1,10 +1,10 @@
 import {
     CancellationToken,
-    CodeLensProvider,
+    CodeLens,
     CodeLensList,
+    CodeLensProvider,
     ITextModel,
     ProviderResult,
-    CodeLens,
 } from '../../monaco-editor';
 
 export class DomainObjCodeLensProvider implements CodeLensProvider {
