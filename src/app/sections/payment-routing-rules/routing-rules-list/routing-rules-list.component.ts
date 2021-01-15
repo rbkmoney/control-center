@@ -115,7 +115,7 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
 
     cloneDelegateRuleset(delegateId: DelegateId) {
         this.dialog
-            .open(ConfirmActionDialogComponent)
+            .open(ConfirmActionDialogComponent, { data: { title: 'Clone delegate ruleset' } })
             .afterClosed()
             .pipe(
                 filter((r) => r === 'confirm'),
@@ -132,7 +132,7 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
 
     delete(delegateId: DelegateId) {
         this.dialog
-            .open(ConfirmActionDialogComponent)
+            .open(ConfirmActionDialogComponent, { data: { title: 'Delete delegate' } })
             .afterClosed()
             .pipe(
                 filter((r) => r === 'confirm'),
