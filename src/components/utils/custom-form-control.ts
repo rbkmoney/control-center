@@ -32,8 +32,8 @@ import * as uuid from 'uuid';
 import { InputMixinBase } from './input-base';
 
 @Directive({ selector: 'cc-custom-form-control' })
-// tslint:disable-next-line: no-conflicting-lifecycle
-// tslint:disable-next-line: directive-class-suffix
+// eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
     implements
         AfterViewInit,

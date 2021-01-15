@@ -20,7 +20,7 @@ function format(
 ) {
     const exp =
         '\\d(?=(\\d{' + (wholeLength || 3) + '})+' + (decimalLength > 0 ? '\\D' : '$') + ')';
-    // tslint:disable-next-line:no-bitwise
+    // eslint-disable-next-line no-bitwise
     const num = value.toFixed(Math.max(0, ~~decimalLength));
     return (decimalDelimiter ? num.replace('.', decimalDelimiter) : num).replace(
         new RegExp(exp, 'g'),
