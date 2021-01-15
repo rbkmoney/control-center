@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -6,11 +6,10 @@ import { combineLatest } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
+import { DialogConfig, DIALOG_CONFIG } from '../../../tokens';
 import { AddPartyPaymentRoutingRuleDialogComponent } from './add-party-payment-routing-rule-dialog';
 import { InitializePaymentRoutingRulesDialogComponent } from './initialize-payment-routing-rules-dialog';
 import { PartyPaymentRoutingRulesetService } from './party-payment-routing-ruleset.service';
-
-const DIALOG_WIDTH = '548px';
 
 @UntilDestroy()
 @Component({
@@ -33,14 +32,16 @@ export class PaymentRoutingRulesComponent {
         map(([ruleset, shops]) =>
             ruleset.data.decisions.delegates
                 .filter((d) => d?.allowed?.condition?.party?.definition?.shop_is)
-                .map((d) => {
-                    const shopId = d.allowed.condition.party.definition.shop_is;
+                .map((delegate) => {
+                    const shopId = delegate.allowed.condition.party.definition.shop_is;
                     return {
                         parentRefId: ruleset.ref.id,
-                        delegateIdx: ruleset.data.decisions.delegates.findIndex((dt) => dt === d),
+                        delegateIdx: ruleset.data.decisions.delegates.findIndex(
+                            (d) => d === delegate
+                        ),
                         id: {
-                            text: d?.description,
-                            caption: d?.ruleset?.id,
+                            text: delegate?.description,
+                            caption: delegate?.ruleset?.id,
                         },
                         shop: {
                             text: shops?.find((s) => s?.id === shopId)?.details?.name,
@@ -56,7 +57,8 @@ export class PaymentRoutingRulesComponent {
         private dialog: MatDialog,
         private partyPaymentRoutingRulesetService: PartyPaymentRoutingRulesetService,
         private router: Router,
-        private domainService: DomainCacheService
+        private domainService: DomainCacheService,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
     ) {}
 
     initialize() {
@@ -69,9 +71,7 @@ export class PaymentRoutingRulesComponent {
                 switchMap(([partyID, refID]) =>
                     this.dialog
                         .open(InitializePaymentRoutingRulesDialogComponent, {
-                            disableClose: true,
-                            width: DIALOG_WIDTH,
-                            maxHeight: '90vh',
+                            ...this.dialogConfig.medium,
                             data: { partyID, refID },
                         })
                         .afterClosed()
@@ -92,9 +92,7 @@ export class PaymentRoutingRulesComponent {
                 switchMap(([refID, shops, partyID]) =>
                     this.dialog
                         .open(AddPartyPaymentRoutingRuleDialogComponent, {
-                            disableClose: true,
-                            width: DIALOG_WIDTH,
-                            maxHeight: '90vh',
+                            ...this.dialogConfig.medium,
                             data: { refID, shops, partyID },
                         })
                         .afterClosed()
