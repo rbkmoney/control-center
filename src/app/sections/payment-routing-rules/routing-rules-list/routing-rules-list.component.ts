@@ -41,13 +41,6 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
     }
     private data$ = new ReplaySubject<T[]>(1);
 
-    endColumns = [
-        {
-            key: 'actions',
-            name: 'Actions',
-        },
-    ];
-
     @Output() toDetails = new EventEmitter<DelegateId>();
 
     @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
@@ -66,6 +59,20 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
         }),
         shareReplay(1)
     );
+
+    get allDisplayedColumns() {
+        if (!this.displayedColumns) {
+            return [];
+        }
+        return this.displayedColumns
+            .concat([
+                {
+                    key: 'actions',
+                    name: 'Actions',
+                },
+            ])
+            .map(({ key }) => key);
+    }
 
     constructor(
         private dialog: MatDialog,
