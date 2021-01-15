@@ -249,7 +249,8 @@ export class PredicateComponent implements OnChanges {
     }
 
     private enumValidator(enumObj: any): ValidatorFn {
-        return (control: AbstractControl): { [key: string]: any } | null => !control.value || Object.keys(enumObj).includes(control.value)
+        return (control: AbstractControl): { [key: string]: any } | null =>
+            !control.value || Object.keys(enumObj).includes(control.value)
                 ? null
                 : { enumNotIncludeKey: { value: control.value } };
     }

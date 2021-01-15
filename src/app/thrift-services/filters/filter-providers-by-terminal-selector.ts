@@ -3,7 +3,8 @@ import { ProviderObject } from '../damsel/gen-model/domain';
 export const filterProvidersByTerminalSelector = (
     objects: ProviderObject[],
     filterValue: 'decisions' | 'value'
-): ProviderObject[] => objects.filter((object) => {
+): ProviderObject[] =>
+    objects.filter((object) => {
         const selector = object.data.terminal;
         switch (filterValue) {
             case 'decisions':

@@ -25,4 +25,4 @@ export interface OperationFailedPayload<C = {}, S = {}> {
     operationScope: S;
 }
 
-export type OperationError<C, S> = AdjustmentOperationEvent<OperationFailedPayload<C, S>>
+export type OperationError<C, S> = AdjustmentOperationEvent<OperationFailedPayload<C, S>>;

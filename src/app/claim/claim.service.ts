@@ -229,13 +229,15 @@ export class ClaimService {
             this.papiClaimService
                 .getClaim(partyId, claimId)
                 .pipe(
-                    repeatWhen((notifications) => notifications.pipe(
+                    repeatWhen((notifications) =>
+                        notifications.pipe(
                             delay(delayMs),
                             takeWhile(
                                 (_, retries) =>
                                     isEqual(newPair, currentPair) && retries <= retryCount
                             )
-                        ))
+                        )
+                    )
                 )
                 .subscribe((claimInfo) => {
                     newPair = {

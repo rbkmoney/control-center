@@ -30,7 +30,9 @@ export class AddTerminalDialogComponent {
             categoryID: number;
         }
     ) {
-        this.addTerminalDecisionService.terminalAdded$.subscribe(() => this.dialogRef.close('added'));
+        this.addTerminalDecisionService.terminalAdded$.subscribe(() =>
+            this.dialogRef.close('added')
+        );
     }
 
     providerIDSelected(id: number) {
