@@ -12,7 +12,7 @@ export class DomainObjCodeLensProvider implements CodeLensProvider {
         return 'json';
     }
 
-    provideCodeLenses(model: ITextModel, token: CancellationToken): ProviderResult<CodeLensList> {
+    provideCodeLenses(model: ITextModel): ProviderResult<CodeLensList> {
         const range = monaco.Range.fromPositions(model.getPositionAt(5), model.getPositionAt(8));
         return {
             lenses: [

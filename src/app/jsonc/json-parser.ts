@@ -445,12 +445,8 @@ export class ArrayASTNode extends ASTNode {
         }
 
         if (schema.uniqueItems === true) {
-            const values = this.items.map((node) => {
-                return node.getValue();
-            });
-            const duplicates = values.some((value, index) => {
-                return index !== values.lastIndexOf(value);
-            });
+            const values = this.items.map((node) => node.getValue());
+            const duplicates = values.some((value, index) => index !== values.lastIndexOf(value));
             if (duplicates) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
@@ -916,6 +912,7 @@ export class JSONDocument {
 
     private validationResult: ValidationResult;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     constructor(config: JSONDocumentConfig) {
         this.validationResult = new ValidationResult();
     }

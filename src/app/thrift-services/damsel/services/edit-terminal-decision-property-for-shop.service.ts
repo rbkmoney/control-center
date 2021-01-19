@@ -19,16 +19,16 @@ export class EditTerminalDecisionPropertyForShopService {
         switchMap((params) =>
             this.providerService.getProviderFromParams<EditTerminalDecisionPropertyParams>(params)
         ),
-        switchMap(([params, provider]) => {
-            return this.domainCacheService
+        switchMap(([params, provider]) =>
+            this.domainCacheService
                 .commit(editTerminalDecisionPropertyForShopCommit(provider, params))
                 .pipe(
-                    catchError((e) => {
+                    catchError(() => {
                         this.error$.next();
                         return EMPTY;
                     })
-                );
-        }),
+                )
+        ),
         shareReplay(1)
     );
 

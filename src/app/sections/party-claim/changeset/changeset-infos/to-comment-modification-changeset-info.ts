@@ -7,9 +7,8 @@ import {
 import { ChangesetInfo, ChangesetInfoModificationType, ChangesetInfoType } from './changeset-info';
 import { markRemoved } from './mark-removed';
 
-const getCommentChangesetInfoHash = (unit: ModificationUnit): string => {
-    return `${ChangesetInfoType.commentModification}.${unit.modification.claim_modification.comment_modification.id}`;
-};
+const getCommentChangesetInfoHash = (unit: ModificationUnit): string =>
+    `${ChangesetInfoType.commentModification}.${unit.modification.claim_modification.comment_modification.id}`;
 
 const commentModificationType = (mod: CommentModification): ChangesetInfoModificationType => {
     switch (getUnionKey(mod)) {

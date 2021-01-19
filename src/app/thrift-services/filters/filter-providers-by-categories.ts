@@ -4,8 +4,8 @@ import { CategoryRef, ProviderObject } from '../damsel/gen-model/domain';
 export const filterProvidersByCategories = (
     objects: ProviderObject[],
     shopCategories: number[]
-): ProviderObject[] => {
-    return objects.filter((obj) => {
+): ProviderObject[] =>
+    objects.filter((obj) => {
         const predicate = (category: CategoryRef) =>
             !!shopCategories.find((shopCategory) => shopCategory === category.id);
         const paymentCats = get(obj, 'data.payment_terms.categories.value');
@@ -18,4 +18,3 @@ export const filterProvidersByCategories = (
         }
         return null;
     });
-};

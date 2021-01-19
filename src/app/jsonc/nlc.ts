@@ -19,7 +19,7 @@ export interface LocalizeInfo {
     comment: string[];
 }
 
-// tslint:disable-next-line: no-namespace
+// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace LocalizeInfo {
     export function is(value: any): value is LocalizeInfo {
         const candidate = value as LocalizeInfo;

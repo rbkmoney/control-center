@@ -16,8 +16,8 @@ export class PaymentDetailsService {
     private routeParams$ = this.route.params.pipe(shareReplay(1));
 
     payment$ = this.routeParams$.pipe(
-        switchMap(({ partyID, invoiceID, paymentID }) => {
-            return this.merchantStatisticsService
+        switchMap(({ partyID, invoiceID, paymentID }) =>
+            this.merchantStatisticsService
                 .getPayments({
                     dsl: JSON.stringify({
                         query: {
@@ -36,8 +36,8 @@ export class PaymentDetailsService {
                             this.snackBar.open('An error occurred when receiving payment', 'OK');
                         }
                     })
-                );
-        }),
+                )
+        ),
         shareReplay(1)
     );
 

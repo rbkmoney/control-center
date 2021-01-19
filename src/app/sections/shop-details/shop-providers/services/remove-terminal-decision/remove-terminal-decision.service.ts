@@ -47,7 +47,7 @@ export class RemoveTerminalDecisionService {
         ),
         switchMap((commit) =>
             this.domainCacheService.commit(commit).pipe(
-                catchError((e) => {
+                catchError(() => {
                     this.error$.next();
                     return EMPTY;
                 })

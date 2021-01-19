@@ -2,9 +2,7 @@ import { ModificationUnit } from '../../../../thrift-services/damsel/gen-model/c
 import { ChangesetInfo, ChangesetInfoType } from './changeset-info';
 import { markOutdated } from './mark-outdated';
 
-const getDocumentChangesetInfoHash = (): string => {
-    return `${ChangesetInfoType.documentModification}`;
-};
+const getDocumentChangesetInfoHash = (): string => `${ChangesetInfoType.documentModification}`;
 
 const makeDocumentChangesetInfo = (unit: ModificationUnit): ChangesetInfo =>
     ({

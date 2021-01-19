@@ -13,8 +13,8 @@ export class ChargebackDetailsService {
     private loadChargeback$ = new Subject<void>();
 
     payment$ = this.route.params.pipe(
-        switchMap(({ partyID, invoiceID, paymentID }) => {
-            return this.merchantStatisticsService
+        switchMap(({ partyID, invoiceID, paymentID }) =>
+            this.merchantStatisticsService
                 .getPayments({
                     dsl: createDSL({
                         payments: {
@@ -24,8 +24,8 @@ export class ChargebackDetailsService {
                         },
                     }),
                 })
-                .pipe(map(({ data }) => data.payments[0]));
-        }),
+                .pipe(map(({ data }) => data.payments[0]))
+        ),
         shareReplay(1)
     );
 

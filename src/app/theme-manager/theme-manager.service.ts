@@ -1,14 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-
-import { environment } from '../../environments/environment';
 import { SettingsService } from '../settings';
 import { ThemeName } from './theme-name';
-
-enum Type {
-    JS = 'js',
-    CSS = 'css',
-}
 
 @Injectable()
 export class ThemeManager {
@@ -52,9 +45,7 @@ export class ThemeManager {
     }
 
     private createElement(name: ThemeName): HTMLLinkElement | HTMLScriptElement {
-        const fileType: Type = environment.production ? Type.CSS : Type.JS;
-        const url = `themes/${name}.${fileType}`;
-        return fileType === Type.JS ? this.createScriptElement(url) : this.createStyleElement(url);
+        return this.createStyleElement(`themes/${name}.css`);
     }
 
     private createStyleElement(url: string): HTMLLinkElement {
@@ -62,11 +53,5 @@ export class ThemeManager {
         styleElement.href = url;
         styleElement.rel = 'stylesheet';
         return styleElement;
-    }
-
-    private createScriptElement(url: string): HTMLScriptElement {
-        const scriptElement = document.createElement('script');
-        scriptElement.src = url;
-        return scriptElement;
     }
 }

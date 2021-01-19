@@ -8,7 +8,7 @@ export function getUnionKeys<T extends object>(obj: T): (keyof T)[] {
 export function getUnionKeyValue<T extends object>(
     obj: T
 ): { [K in keyof T]: [K, T[K]] }[keyof T] | null {
-    return obj ? (Object.entries(obj).find(([_, v]) => v) as any) : null;
+    return obj ? (Object.entries(obj).find(([, v]) => v) as any) : null;
 }
 
 export function getUnionKey<T extends object>(obj: T): keyof T | null {

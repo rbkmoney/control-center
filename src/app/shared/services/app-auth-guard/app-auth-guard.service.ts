@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
 import { isRolesAllowed } from './is-roles-allowed';
@@ -18,10 +18,7 @@ export class AppAuthGuardService extends KeycloakAuthGuard {
         return isRolesAllowed(this.keycloakAngular.getUserRoles(), roles);
     }
 
-    canActivate(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ): Promise<boolean | UrlTree> {
+    canActivate(route: ActivatedRouteSnapshot): Promise<boolean | UrlTree> {
         return new Promise(async (resolve, reject) => {
             try {
                 this.authenticated = await this.keycloakAngular.isLoggedIn();

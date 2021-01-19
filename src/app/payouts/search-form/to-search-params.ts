@@ -6,8 +6,8 @@ import * as moment from 'moment';
 
 import { PayoutSearchParams } from '../../papi/params';
 
-export const formValueToSearchParams = (formValues: any): PayoutSearchParams => {
-    return reduce(
+export const formValueToSearchParams = (formValues: any): PayoutSearchParams =>
+    reduce(
         formValues,
         (acc, value, key) => {
             if (key === 'fromTime') {
@@ -54,4 +54,3 @@ export const formValueToSearchParams = (formValues: any): PayoutSearchParams => 
         },
         {}
     );
-};

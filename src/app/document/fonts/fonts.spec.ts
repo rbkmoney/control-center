@@ -16,9 +16,9 @@ describe('FontsService', () => {
             providers: [FontsService],
         });
         const injector = getTestBed();
-        // tslint:disable-next-line: deprecation
+        // eslint-disable-next-line import/no-deprecated
         const service: FontsService = injector.get(FontsService);
-        // tslint:disable-next-line: deprecation
+        // eslint-disable-next-line import/no-deprecated
         const httpMock: HttpTestingController = injector.get(HttpTestingController);
         return { injector, service, httpMock };
     }
