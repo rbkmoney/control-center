@@ -135,11 +135,21 @@ export class CreateAndCaptureComponent implements OnInit {
                 break;
             case 'status_change':
                 const { status_change } = this.form.value;
+                let targetStatus = { [status_change]: {} };
+                if (status_change === 'failed') {
+                    targetStatus = {
+                        [status_change]: {
+                            failure: {
+                                failure: {
+                                    code: 'PAYMENT_ADJUSTMENT',
+                                },
+                            },
+                        },
+                    };
+                }
                 scenario = {
                     status_change: {
-                        target_status: {
-                            [status_change]: {},
-                        },
+                        target_status: targetStatus,
                     },
                 };
                 break;
