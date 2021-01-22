@@ -7,6 +7,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
 import isEqual from 'lodash-es/isEqual';
 
+import { distinctUntilChanged } from 'rxjs/operators';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
 import {
     InvoicePaymentAdjustmentParams,
@@ -22,7 +23,6 @@ import {
     EventType,
 } from './adjustment-operations';
 import { ExecutorService } from './executor.service';
-import { distinctUntilChanged } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
