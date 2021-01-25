@@ -57,6 +57,27 @@
                         <input matInput placeholder="Reason" formControlName="reason" required />
                     </mat-form-field>
                 </div>
+                <div
+                    fxLayout="row"
+                    *ngIf="
+                        activeScenario === 'status_change' && form.value?.status_change === 'failed'
+                    "
+                >
+                    <mat-form-field fxFlex="100">
+                        <mat-select
+                            placeholder="Failure code"
+                            formControlName="failure_code"
+                            type="string"
+                            required
+                        >
+                            <mat-option
+                                *ngFor="let failureCode of failureCodes"
+                                [value]="failureCode"
+                                >{{ failureCode }}</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </form>
             <div>
                 <button

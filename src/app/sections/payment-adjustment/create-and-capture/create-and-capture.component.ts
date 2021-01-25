@@ -2,8 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
+import isEqual from 'lodash-es/isEqual';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
 import {
@@ -11,6 +14,7 @@ import {
     InvoicePaymentAdjustmentScenario,
     UserInfo,
 } from '../../../thrift-services/damsel/gen-model/payment_processing';
+import { InvoicePaymentStatus } from '../../../thrift-services/damsel/gen-model/domain';
 import {
     BatchPaymentAdjustmentService,
     CancelAdjustmentService,
@@ -20,6 +24,7 @@ import {
 } from './adjustment-operations';
 import { ExecutorService } from './executor.service';
 
+@UntilDestroy()
 @Component({
     selector: 'cc-create-and-capture-payment-adjustment',
     templateUrl: './create-and-capture.component.html',
@@ -58,6 +63,24 @@ export class CreateAndCaptureComponent implements OnInit {
         'charged_back',
     ];
 
+    failureCodes = [
+        'authorization_failed:unknown',
+        'authorization_failed:insufficient_funds',
+        'authorization_failed:payment_tool_rejected:bank_card_rejected:card_expired',
+        'authorization_failed:rejected_by_issuer',
+        'authorization_failed:operation_blocked',
+        'authorization_failed:account_stolen',
+        'authorization_failed:temporarily_unavailable',
+        'authorization_failed:account_limit_exceeded:number',
+        'authorization_failed:account_limit_exceeded:amount',
+        'authorization_failed:security_policy_violated',
+        'preauthorization_failed',
+        'authorization_failed:payment_tool_rejected:bank_card_rejected:cvv_invalid',
+        'authorization_failed:account_not_found',
+        'authorization_failed:payment_tool_rejected:bank_card_rejected:card_number_invalid',
+        'authorization_failed:rejected_by_issuer',
+    ];
+
     constructor(
         private batchAdjustmentService: BatchPaymentAdjustmentService,
         @Inject(MAT_DIALOG_DATA) data: StatPayment[],
@@ -74,7 +97,7 @@ export class CreateAndCaptureComponent implements OnInit {
             reason: ['', Validators.required],
         });
         this.progress$ = this.batchAdjustmentService.progress$;
-        this.batchAdjustmentService.events$.subscribe((event) => {
+        this.batchAdjustmentService.events$.pipe(untilDestroyed(this)).subscribe((event) => {
             switch (event.type) {
                 case EventType.BatchOperationStarted:
                     this.isLoading = true;
@@ -85,6 +108,13 @@ export class CreateAndCaptureComponent implements OnInit {
                     break;
             }
         });
+        this.form.valueChanges
+            .pipe(distinctUntilChanged(isEqual), untilDestroyed(this))
+            .subscribe((formValue) => {
+                formValue?.status_change === 'failed'
+                    ? this.form.addControl('failure_code', new FormControl(''))
+                    : this.form.removeControl('failure_code');
+            });
     }
 
     onScenarioChange({ value }) {
@@ -112,13 +142,16 @@ export class CreateAndCaptureComponent implements OnInit {
             payment_id: id,
             params: this.adjustmentParams,
         }));
-        this.batchAdjustmentService.create(createParams).subscribe({
-            error: () => {
-                this.form.enable();
-                this.createStarted = false;
-                this.snackBar.open('An error occurred while adjustments creating');
-            },
-        });
+        this.batchAdjustmentService
+            .create(createParams)
+            .pipe(untilDestroyed(this))
+            .subscribe({
+                error: () => {
+                    this.form.enable();
+                    this.createStarted = false;
+                    this.snackBar.open('An error occurred while adjustments creating');
+                },
+            });
     }
 
     private getAdjustmentParams(): InvoicePaymentAdjustmentParams {
@@ -134,12 +167,20 @@ export class CreateAndCaptureComponent implements OnInit {
                 };
                 break;
             case 'status_change':
-                const { status_change } = this.form.value;
+                const { status_change, failure_code } = this.form.value;
+                const targetStatus: InvoicePaymentStatus = { [status_change]: {} };
+                if (status_change === 'failed') {
+                    targetStatus.failed = {
+                        failure: {
+                            failure: {
+                                code: failure_code,
+                            },
+                        },
+                    };
+                }
                 scenario = {
                     status_change: {
-                        target_status: {
-                            [status_change]: {},
-                        },
+                        target_status: targetStatus,
                     },
                 };
                 break;
