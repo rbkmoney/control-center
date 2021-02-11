@@ -1,8 +1,6 @@
 import { ElementRef, NgZone } from '@angular/core';
-import flatten from 'lodash-es/flatten';
 import { Observable, Subject } from 'rxjs';
 import {
-    buffer,
     debounceTime,
     distinctUntilChanged,
     map,
