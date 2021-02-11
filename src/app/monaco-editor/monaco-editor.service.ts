@@ -32,13 +32,16 @@ export class MonacoEditorService extends AbstractMonacoService {
 
     open(file: MonacoFile) {
         this.file = file;
-        if (!this.editor || !this.file) {
+        if (!this._editor || !this.file) {
             return;
         }
-        this.editor.setModel(this.prepareModel(file));
+        this._editor.setModel(this.prepareModel(file));
     }
 
-    protected createEditor(el: HTMLElement, options: IEditorOptions): monaco.editor.IEditor {
+    protected createEditor(
+        el: HTMLElement,
+        options: IEditorOptions
+    ): monaco.editor.IStandaloneCodeEditor {
         return monaco.editor.create(el, {
             ...options,
         });

@@ -9,6 +9,9 @@ export type CompletionList = monaco.languages.CompletionList;
 export type CompletionContext = monaco.languages.CompletionContext;
 export type CodeLensList = monaco.languages.CodeLensList;
 export type CodeLens = monaco.languages.CodeLens;
+export type IEditor = monaco.editor.IEditor;
+export type IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
+export type IStandaloneDiffEditor = monaco.editor.IStandaloneDiffEditor;
 
 export interface MonacoFile {
     uri: string;
