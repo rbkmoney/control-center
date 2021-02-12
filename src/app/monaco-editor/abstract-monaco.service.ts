@@ -1,8 +1,6 @@
 import { ElementRef, NgZone } from '@angular/core';
-import flatten from 'lodash-es/flatten';
 import { Observable, Subject } from 'rxjs';
 import {
-    buffer,
     debounceTime,
     distinctUntilChanged,
     map,
@@ -26,7 +24,7 @@ import { CodeLensService } from './providers/code-lens.service';
 import { CompletionService } from './providers/completion.service';
 
 export abstract class AbstractMonacoService {
-    protected editor: monaco.editor.IEditor;
+    protected _editor: monaco.editor.IEditor;
     private editorInitialized$ = new Subject();
     private fileChange$ = new Subject<MonacoFile>();
     private resize$ = new Subject();
@@ -35,6 +33,10 @@ export abstract class AbstractMonacoService {
 
     get fileChange(): Observable<MonacoFile> {
         return this.fileChange$.pipe(takeUntil(this.destroy$));
+    }
+
+    get editor(): monaco.editor.IEditor {
+        return this._editor;
     }
 
     constructor(
@@ -54,7 +56,7 @@ export abstract class AbstractMonacoService {
         return bootstrap$.pipe(
             tap(() => {
                 this.disposeModels();
-                this.editor = this.createEditor(nativeElement, options);
+                this._editor = this.createEditor(nativeElement, options);
                 this.codeLensService.add(this.tokenCodeLensProviders);
                 this.completionService.add(this.tokenCompletionProviders);
                 this.openFile();
@@ -72,8 +74,8 @@ export abstract class AbstractMonacoService {
     }
 
     updateOptions(options: IEditorOptions) {
-        if (this.editor) {
-            this.editor.updateOptions(options);
+        if (this._editor) {
+            this._editor.updateOptions(options);
         }
     }
 
@@ -126,21 +128,14 @@ export abstract class AbstractMonacoService {
     }
 
     private registerCompletionListener() {
-        this.bufferEditorInitialized(this.completionService.providers).subscribe((providers) =>
+        this.completionService.providers.subscribe((providers) =>
             this.completionService.register(providers)
         );
     }
 
     private registerCodeLensListener() {
-        this.bufferEditorInitialized(this.codeLensService.providers).subscribe((providers) =>
+        this.codeLensService.providers.subscribe((providers) =>
             this.codeLensService.register(providers)
-        );
-    }
-
-    private bufferEditorInitialized<T>(o: Observable<T[]>): Observable<T[]> {
-        return o.pipe(
-            buffer(this.editorInitialized$),
-            map((buffered) => flatten(buffered).filter((i) => i !== null))
         );
     }
 
@@ -173,6 +168,6 @@ export abstract class AbstractMonacoService {
                 debounceTime(50),
                 takeUntil(this.destroy$)
             )
-            .subscribe((dimension) => this.editor.layout(dimension));
+            .subscribe((dimension) => this._editor.layout(dimension));
     }
 }

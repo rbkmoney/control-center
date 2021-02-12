@@ -34,16 +34,19 @@ export class MonacoDiffEditorService extends AbstractMonacoService {
     open(original: MonacoFile, modified: MonacoFile) {
         this.original = original;
         this.modified = modified;
-        if (!this.editor || !this.original || !this.modified) {
+        if (!this._editor || !this.original || !this.modified) {
             return;
         }
-        this.editor.setModel({
+        this._editor.setModel({
             original: this.prepareModel(original),
             modified: this.prepareModel(modified),
         });
     }
 
-    protected createEditor(el: HTMLElement, options: IEditorOptions): monaco.editor.IEditor {
+    protected createEditor(
+        el: HTMLElement,
+        options: IEditorOptions
+    ): monaco.editor.IStandaloneDiffEditor {
         return monaco.editor.createDiffEditor(el, {
             ...options,
         });
