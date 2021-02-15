@@ -9,7 +9,13 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field [ngClass]="{ hidden: !isReasonVisible() }">
-            <textarea matInput formControlName="reason" placeholder="Reason"></textarea>
+            <textarea
+                aria-label="reason"
+                matInput
+                [required]="isReasonVisible()"
+                formControlName="reason"
+                placeholder="Reason"
+            ></textarea>
         </mat-form-field>
     </form>
 </mat-dialog-content>

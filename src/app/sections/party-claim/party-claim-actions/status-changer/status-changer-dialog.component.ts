@@ -20,7 +20,7 @@ interface ActionsInterface {
     styleUrls: ['status-changer-dialog.component.scss'],
 })
 export class StatusChangerDialogComponent implements OnInit {
-    statuses = getAvailableClaimStatuses(this.data.claimStatus).filter((status) =>
+    statuses = getAvailableClaimStatuses(this.data.claimStatus).filter((status: ClaimStatus) =>
         this.statusFilter(status)
     );
     form = this.statusChangerDialogService.form;
@@ -33,17 +33,17 @@ export class StatusChangerDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) private data: ActionsInterface
     ) {}
 
-    confirm() {
+    ngOnInit(): void {
+        this.statusChangerDialogService.statusChanged$.subscribe(() => this.dialogRef.close(true));
+    }
+
+    confirm(): void {
         this.statusChangerDialogService.updateClaim(this.data.partyID, this.data.claimID);
     }
 
     isReasonVisible(): boolean {
         const { type } = this.form.getRawValue();
         return type === ClaimStatus.denied || type === ClaimStatus.revoked;
-    }
-
-    ngOnInit(): void {
-        this.statusChangerDialogService.statusChanged$.subscribe(() => this.dialogRef.close(true));
     }
 
     private statusFilter(status: ClaimStatus): boolean {
