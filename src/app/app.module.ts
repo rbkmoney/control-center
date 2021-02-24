@@ -28,6 +28,7 @@ import icons from './icons.json';
 import { NotFoundModule } from './not-found';
 import { PayoutsModule } from './payouts/payouts.module';
 import { RepairingModule } from './repairing/repairing.module';
+import { DomainConfigModule } from './sections/domain-config/domain-config.module';
 import { OperationsModule } from './sections/operations/operations.module';
 import { PartyModule } from './sections/party/party.module';
 import { PaymentAdjustmentModule } from './sections/payment-adjustment/payment-adjustment.module';
@@ -59,7 +60,6 @@ moment.locale('en');
         ClaimModule,
         PayoutsModule,
         PaymentAdjustmentModule,
-        PartyModule,
         DomainModule,
         RepairingModule,
         ThemeManagerModule,
@@ -70,6 +70,7 @@ moment.locale('en');
         SearchPartiesModule,
         SearchClaimsModule,
         OperationsModule,
+        DomainConfigModule,
         // It is important that NotFoundModule module should be last
         NotFoundModule,
     ],
