@@ -1,0 +1,14 @@
+$cc-header-height: 32px;
+$cc-body-padding: 16px 0 0;
+
+.cc-collapse {
+    display: inline-block;
+    &-header {
+        cursor: pointer;
+        height: $cc-header-height;
+    }
+    &-body {
+        overflow: hidden;
+        padding: $cc-body-padding;
+    }
+}
