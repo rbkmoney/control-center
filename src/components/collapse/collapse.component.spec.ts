@@ -12,9 +12,9 @@ import { CollapseModule } from './collapse.module';
 class MockCollapseComponent {}
 
 @Component({
-    template: '<dsh-collapse title="Title Up" expandDirection="up">Test Up</dsh-collapse>',
+    template: '<dsh-collapse title="Title Up" expanded="true">Test Expanded</dsh-collapse>',
 })
-class MockCollapseUpComponent {}
+class MockCollapseExpandedComponent {}
 
 describe('CollapseComponent', () => {
     class Selector {
@@ -30,14 +30,13 @@ describe('CollapseComponent', () => {
             Array.from((this.selectWrapper().nativeElement as HTMLElement).children);
     }
 
-    let component: MockCollapseComponent;
     let fixture: ComponentFixture<MockCollapseComponent>;
     let selector: Selector;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CollapseModule, NoopAnimationsModule, HttpClientTestingModule],
-            declarations: [MockCollapseComponent, MockCollapseUpComponent],
+            declarations: [MockCollapseComponent, MockCollapseExpandedComponent],
         }).compileComponents();
     });
 
@@ -58,7 +57,6 @@ describe('CollapseComponent', () => {
     describe('collapse down', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(MockCollapseComponent);
-            component = fixture.componentInstance;
             selector = new Selector(fixture);
             fixture.detectChanges();
         });
@@ -104,15 +102,15 @@ describe('CollapseComponent', () => {
             });
         });
     });
+
     describe('collapse up', () => {
         beforeEach(() => {
-            fixture = TestBed.createComponent(MockCollapseUpComponent);
-            component = fixture.componentInstance;
+            fixture = TestBed.createComponent(MockCollapseExpandedComponent);
             selector = new Selector(fixture);
             fixture.detectChanges();
         });
         describe('template', () => {
-            it('should expand on click upward', () => {
+            it('should expanded', () => {
                 selector.selectHeader().nativeElement.click();
                 fixture.detectChanges();
                 const body = selector.selectBody();
