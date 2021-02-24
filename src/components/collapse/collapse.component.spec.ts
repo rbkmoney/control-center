@@ -11,7 +11,9 @@ import { CollapseModule } from './collapse.module';
 @Component({ template: '<dsh-collapse title="Title">Test</dsh-collapse>' })
 class MockCollapseComponent {}
 
-@Component({ template: '<dsh-collapse title="Title Up" expandDirection="up">Test Up</dsh-collapse>' })
+@Component({
+    template: '<dsh-collapse title="Title Up" expandDirection="up">Test Up</dsh-collapse>',
+})
 class MockCollapseUpComponent {}
 
 describe('CollapseComponent', () => {
@@ -24,7 +26,8 @@ describe('CollapseComponent', () => {
         selectIndicator = () => this.selectCollapse().query(By.directive(MatIcon));
         selectBody = () => this.selectCollapse().query(By.css('.dsh-collapse-body'));
         selectWrapper = () => this.selectCollapse().query(By.css('.dsh-collapse'));
-        selectChildren = () => Array.from((this.selectWrapper().nativeElement as HTMLElement).children);
+        selectChildren = () =>
+            Array.from((this.selectWrapper().nativeElement as HTMLElement).children);
     }
 
     let component: MockCollapseComponent;
@@ -38,10 +41,13 @@ describe('CollapseComponent', () => {
         }).compileComponents();
     });
 
-    beforeEach(inject([MatIconRegistry, DomSanitizer], (mir: MatIconRegistry, sanitizer: DomSanitizer) => {
-        const sanitizedUrl = sanitizer.bypassSecurityTrustResourceUrl('./test.svg');
-        mir.addSvgIcon('keyboard_arrow_up', sanitizedUrl);
-    }));
+    beforeEach(inject(
+        [MatIconRegistry, DomSanitizer],
+        (mir: MatIconRegistry, sanitizer: DomSanitizer) => {
+            const sanitizedUrl = sanitizer.bypassSecurityTrustResourceUrl('./test.svg');
+            mir.addSvgIcon('keyboard_arrow_up', sanitizedUrl);
+        }
+    ));
 
     it('should create', () => {
         fixture = TestBed.createComponent(CollapseComponent);
