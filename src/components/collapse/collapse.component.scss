@@ -1,0 +1,11 @@
+$cc-header-height: 48px;
+
+.cc-collapse {
+    &-header {
+        cursor: pointer;
+        height: $cc-header-height;
+    }
+    &-body {
+        overflow: hidden;
+    }
+}

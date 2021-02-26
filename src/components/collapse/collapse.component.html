@@ -1,0 +1,15 @@
+<div class="cc-collapse">
+    <div
+        class="cc-collapse-header"
+        fxLayout
+        fxLayoutAlign="start center"
+        fxLayoutGap="4px"
+        (click)="toggle()"
+    >
+        <div class="cc-subheading-2">{{ title }}</div>
+        <mat-icon [@indicatorRotate]="animationState">expand_less</mat-icon>
+    </div>
+    <div class="cc-collapse-body" *ngIf="expanded" @bodyExpansion>
+        <ng-content></ng-content>
+    </div>
+</div>
