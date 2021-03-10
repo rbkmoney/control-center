@@ -3,6 +3,7 @@
 ## Компиляция thrift:
 
 ```sh
+make wc_shell
 make compile
 ```
 
