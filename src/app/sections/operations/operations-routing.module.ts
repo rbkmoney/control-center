@@ -21,6 +21,10 @@ import { OperationsComponent } from './operations.component';
                         loadChildren: () =>
                             import('../search-payments').then((m) => m.SearchPaymentsModule),
                     },
+                    {
+                        path: 'deposits',
+                        loadChildren: () => import('../deposits').then((m) => m.DepositsModule),
+                    },
                     { path: '', redirectTo: 'payments', pathMatch: 'full' },
                 ],
             },
