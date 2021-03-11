@@ -20,11 +20,22 @@ interface ActionsInterface {
     styleUrls: ['status-changer-dialog.component.scss'],
 })
 export class StatusChangerDialogComponent implements OnInit {
-    statuses = getAvailableClaimStatuses(this.data.claimStatus).filter((status: ClaimStatus) =>
+    statuses = getAvailableClaimStatuses(this.data.claimStatus).filter((status) =>
         this.statusFilter(status)
     );
     form = this.statusChangerDialogService.form;
     inProgress$ = this.statusChangerDialogService.inProgress$;
+
+    // It's necessary to hardcode reasons (backend issue)
+    revokeReasons = [
+        'Длительное ожидание подключения',
+        'Не устраивает комиссия',
+        'Большой пакет документов',
+        'Не подходит продукт',
+        'Нет сплитов',
+    ];
+
+    ClaimStatus = ClaimStatus;
 
     constructor(
         private dialogRef: MatDialogRef<StatusChangerDialogComponent>,
@@ -41,9 +52,9 @@ export class StatusChangerDialogComponent implements OnInit {
         this.statusChangerDialogService.updateClaim(this.data.partyID, this.data.claimID);
     }
 
-    isReasonVisible(): boolean {
+    isStatus(status: ClaimStatus): boolean {
         const { type } = this.form.getRawValue();
-        return type === ClaimStatus.denied || type === ClaimStatus.revoked;
+        return status === type;
     }
 
     private statusFilter(status: ClaimStatus): boolean {
