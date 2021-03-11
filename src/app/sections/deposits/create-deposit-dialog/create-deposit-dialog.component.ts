@@ -3,7 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { CreateDepositService, currencies } from './services/create-deposit/create-deposit.service';
+import { currencies } from '../constants/currencies';
+import { CreateDepositService } from './services/create-deposit/create-deposit.service';
 
 @Component({
     templateUrl: 'create-deposit-dialog.component.html',

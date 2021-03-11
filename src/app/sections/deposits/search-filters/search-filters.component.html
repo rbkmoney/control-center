@@ -1,0 +1,94 @@
+<mat-card>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutGap="16px" [formGroup]="form">
+            <div fxLayout fxLayoutGap="16px" fxFlexFill>
+                <mat-form-field fxFlex>
+                    <mat-label>Date Range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input
+                            matStartDate
+                            matInput
+                            formControlName="fromTime"
+                            placeholder="Start Date"
+                        />
+                        <input
+                            matEndDate
+                            matInput
+                            formControlName="toTime"
+                            placeholder="End Date"
+                        />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <input
+                        matInput
+                        placeholder="Amount To"
+                        formControlName="amountTo"
+                        type="string"
+                        autocomplete="false"
+                    />
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <mat-label>Currency Code</mat-label>
+                    <mat-select formControlName="currencyCode">
+                        <mat-option [value]="null">any</mat-option>
+                        <mat-option *ngFor="let currency of currencies" [value]="currency.currency">
+                            {{ currency.currency }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option [value]="null">any</mat-option>
+                        <mat-option *ngFor="let status of depositStatuses" [value]="status">
+                            {{ status }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout fxLayoutGap="16px" fxFlexFill>
+                <mat-form-field fxFlex>
+                    <input
+                        matInput
+                        placeholder="Deposit ID"
+                        formControlName="depositId"
+                        type="string"
+                        autocomplete="false"
+                    />
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <input
+                        matInput
+                        placeholder="Identity Id"
+                        formControlName="identityId"
+                        type="string"
+                        autocomplete="false"
+                    />
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <input
+                        matInput
+                        placeholder="Wallet ID"
+                        formControlName="walletId"
+                        type="string"
+                        autocomplete="false"
+                    />
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <input
+                        matInput
+                        placeholder="Merchant ????"
+                        formControlName="sourceId"
+                        type="string"
+                        autocomplete="false"
+                    />
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

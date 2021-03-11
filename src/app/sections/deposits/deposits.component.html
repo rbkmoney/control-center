@@ -2,4 +2,8 @@
     <div fxLayout fxFlexFill fxLayoutAlign="end">
         <button color="primary" mat-raised-button (click)="createDeposit()">CREATE DEPOSIT</button>
     </div>
+    <cc-search-filters
+        [initParams]="initParams$ | async"
+        (valueChanges)="searchParamsUpdated($event)"
+    ></cc-search-filters>
 </div>
