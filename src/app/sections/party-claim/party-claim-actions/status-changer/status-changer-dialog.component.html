@@ -1,6 +1,6 @@
 <div class="mat-dialog-title">Change claim status</div>
 <mat-dialog-content>
-    <form fxLayout="column" fxLayoutAlign="stretch" [formGroup]="form">
+    <form fxLayout="column" fxLayoutGap="16px" fxLayoutAlign="stretch" [formGroup]="form">
         <mat-form-field>
             <mat-select placeholder="Status" formControlName="type">
                 <mat-option *ngFor="let status of statuses" [value]="status">{{
@@ -8,18 +8,26 @@
                 }}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field [ngClass]="{ hidden: !isReasonVisible() }">
-            <textarea
+        <mat-form-field *ngIf="isStatus(ClaimStatus.denied)">
+            <input
                 aria-label="reason"
                 matInput
-                [required]="isReasonVisible()"
+                required="true"
                 formControlName="reason"
                 placeholder="Reason"
-            ></textarea>
+            />
+        </mat-form-field>
+        <mat-form-field *ngIf="isStatus(ClaimStatus.revoked)">
+            <mat-label>Reason</mat-label>
+            <mat-select formControlName="reason">
+                <mat-option *ngFor="let reason of revokeReasons" [value]="reason">
+                    {{ reason }}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions fxLayout fxLayoutAlign="end center">
+<mat-dialog-actions fxLayout fxLayoutAlign="space-between">
     <button [disabled]="inProgress$ | async" mat-button [mat-dialog-close]="false">CANCEL</button>
     <button
         mat-button
