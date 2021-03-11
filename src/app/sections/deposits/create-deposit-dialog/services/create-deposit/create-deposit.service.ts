@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
-
-import { KeycloakService } from 'keycloak-angular';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { poll } from '@cc/utils/poll';
-import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
+import * as moment from 'moment';
+import { KeycloakService } from 'keycloak-angular';
 import * as uuid from 'uuid/v4';
 import Int64 from 'thrift-ts/lib/int64';
-import { toMinor } from '@cc/utils/to-minor';
-import * as moment from 'moment';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { catchError } from 'rxjs/internal/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FetchResult } from '@rbkmoney/partial-fetcher';
-import { SearchParams } from '../../types/search-params';
-import { DepositParams } from '../../../../thrift-services/fistful/gen-model/fistful_admin';
-import { StatDeposit } from '../../../../thrift-services/fistful/gen-model/fistful_stat';
-import { FistfulStatisticsService } from '../../../../thrift-services/fistful/fistful-stat.service';
-import { FistfulAdminService } from '../../../../thrift-services/fistful/fistful-admin.service';
+
+import { poll } from '@cc/utils/poll';
+import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
+import { toMinor } from '@cc/utils/to-minor';
+
+import { SearchParams } from '../../../types/search-params';
+import { DepositParams } from '../../../../../thrift-services/fistful/gen-model/fistful_admin';
+import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
+import { FistfulStatisticsService } from '../../../../../thrift-services/fistful/fistful-stat.service';
+import { FistfulAdminService } from '../../../../../thrift-services/fistful/fistful-admin.service';
 
 export interface CurrencySource {
     source: string;

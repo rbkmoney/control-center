@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
-import { filter } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
+import { filter } from 'rxjs/operators';
+
 import { CreateDepositDialogComponent } from './create-deposit-dialog/create-deposit-dialog.component';
 
 @Component({
@@ -13,7 +13,7 @@ export class DepositsComponent {
 
     createDeposit() {
         this.dialog
-            .open(CreateDepositDialogComponent, { disableClose: true })
+            .open(CreateDepositDialogComponent, { width: '552px', disableClose: true })
             .afterClosed()
             .pipe(filter((deposit) => !!deposit))
             .subscribe(() => {});

@@ -2,10 +2,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreateDepositService, currencies } from './create-deposit/create-deposit.service';
+
+import { CreateDepositService, currencies } from './services/create-deposit/create-deposit.service';
 
 @Component({
     templateUrl: 'create-deposit-dialog.component.html',
+    styleUrls: ['create-deposit-dialog.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CreateDepositService],
 })
@@ -37,13 +39,13 @@ export class CreateDepositDialogComponent implements OnInit {
         });
         this.error$.subscribe((e) => {
             console.error(e);
-            this.snackBar.open('Polling timeout error', 'OK');
+            this.snackBar.open('An error occurred while deposit create', 'OK');
             this.dialogRef.close();
             this.form.enable();
         });
         this.pollingError$.subscribe((e) => {
             console.error(e);
-            this.snackBar.open('An error occurred while deposit create', 'OK');
+            this.snackBar.open('Polling timeout error', 'OK');
             this.dialogRef.close();
             this.form.enable();
         });
