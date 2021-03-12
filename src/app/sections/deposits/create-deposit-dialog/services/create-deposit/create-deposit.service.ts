@@ -19,21 +19,7 @@ import { DepositParams } from '../../../../../thrift-services/fistful/gen-model/
 import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
 import { FistfulStatisticsService } from '../../../../../thrift-services/fistful/fistful-stat.service';
 import { FistfulAdminService } from '../../../../../thrift-services/fistful/fistful-admin.service';
-
-export interface CurrencySource {
-    source: string;
-    currency: string;
-}
-
-export const currencies: CurrencySource[] = [
-    { source: '3', currency: 'RUB' },
-    { source: '5', currency: 'UAH' },
-    { source: 'eskin1', currency: 'USD' },
-    { source: 'eskin2', currency: 'EUR' },
-    { source: 'eskin3', currency: 'KZT' },
-    { source: 'eskin5', currency: 'BYN' },
-    { source: '667c1494-a334-4cd4-b350-712917fc6f8e', currency: 'UZS' },
-];
+import { currencies } from '../../../constants/currencies';
 
 @Injectable()
 export class CreateDepositService {

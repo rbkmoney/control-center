@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { DepositsRoutingModule } from './deposits-routing.module';
 import { DepositsComponent } from './deposits.component';
 import { CreateDepositDialogModule } from './create-deposit-dialog/create-deposit-dialog.module';
+import { SearchFiltersModule } from './search-filters/search-filters.module';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { CreateDepositDialogModule } from './create-deposit-dialog/create-deposi
         CommonModule,
         MatButtonModule,
         CreateDepositDialogModule,
+        SearchFiltersModule,
     ],
     declarations: [DepositsComponent],
 })
