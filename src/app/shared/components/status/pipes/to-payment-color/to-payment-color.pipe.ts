@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StatusColor } from './status-color';
+import { StatusColor } from '../../types/status-color';
 
 @Pipe({
     name: 'toPaymentColor',

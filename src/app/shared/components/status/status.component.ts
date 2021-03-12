@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
-import { StatusColor } from './status-color';
+import { StatusColor } from './types/status-color';
 
 @Component({
     selector: 'cc-status',

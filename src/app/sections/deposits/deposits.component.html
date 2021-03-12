@@ -6,4 +6,29 @@
         [initParams]="initParams$ | async"
         (valueChanges)="searchParamsUpdated($event)"
     ></cc-search-filters>
+    <ng-container *ngIf="deposits$ | async as deposits; else noDeposits">
+        <cc-empty-search-result
+            *ngIf="!(doAction$ | async) && deposits.length === 0"
+        ></cc-empty-search-result>
+        <mat-card *ngIf="deposits.length > 0" fxLayout="column" fxLayoutGap="16px">
+            <cc-deposits-table
+                [deposits]="deposits"
+                (menuItemSelected$)="depositMenuItemSelected($event)"
+            ></cc-deposits-table>
+            <button
+                fxFlex="100"
+                mat-button
+                *ngIf="hasMore$ | async"
+                (click)="fetchMore()"
+                [disabled]="doAction$ | async"
+            >
+                {{ (doAction$ | async) ? 'LOADING...' : 'SHOW MORE' }}
+            </button>
+        </mat-card>
+    </ng-container>
+    <ng-template #noDeposits>
+        <div *ngIf="doAction$ | async" fxFlexFill fxLayoutAlign="center">
+            <mat-spinner diameter="64"></mat-spinner>
+        </div>
+    </ng-template>
 </div>
