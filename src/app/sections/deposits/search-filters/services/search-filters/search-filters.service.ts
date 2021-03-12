@@ -12,13 +12,13 @@ export class SearchFiltersService {
     form = this.fb.group({
         fromTime: [moment().subtract(1, 'year').startOf('d'), Validators.required],
         toTime: [moment().endOf('d'), Validators.required],
-        amountTo: '',
+        amountTo: null,
         currencyCode: null,
         status: null,
         depositId: '',
         identityId: '',
         walletId: '',
-        sourceId: '',
+        partyId: '',
     });
 
     searchParamsChanges$ = this.form.valueChanges.pipe(

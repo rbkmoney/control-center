@@ -28,7 +28,7 @@
                         matInput
                         placeholder="Amount To"
                         formControlName="amountTo"
-                        type="string"
+                        type="number"
                         autocomplete="false"
                     />
                 </mat-form-field>
@@ -57,7 +57,7 @@
                         matInput
                         placeholder="Deposit ID"
                         formControlName="depositId"
-                        type="string"
+                        type="text"
                         autocomplete="false"
                     />
                 </mat-form-field>
@@ -66,7 +66,7 @@
                         matInput
                         placeholder="Identity Id"
                         formControlName="identityId"
-                        type="string"
+                        type="text"
                         autocomplete="false"
                     />
                 </mat-form-field>
@@ -75,19 +75,11 @@
                         matInput
                         placeholder="Wallet ID"
                         formControlName="walletId"
-                        type="string"
+                        type="text"
                         autocomplete="false"
                     />
                 </mat-form-field>
-                <mat-form-field fxFlex>
-                    <input
-                        matInput
-                        placeholder="Merchant ????"
-                        formControlName="sourceId"
-                        type="string"
-                        autocomplete="false"
-                    />
-                </mat-form-field>
+                <cc-merchant-searcher formControlName="partyId" fxFlex></cc-merchant-searcher>
             </div>
         </form>
     </mat-card-content>

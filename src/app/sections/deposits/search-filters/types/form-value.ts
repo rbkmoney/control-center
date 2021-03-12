@@ -3,9 +3,11 @@ import { Moment } from 'moment';
 export interface FormValue {
     fromTime: Moment;
     toTime: Moment;
-    invoiceID?: string;
-    shopIDs?: string[];
-    bin?: string;
-    pan?: string;
-    rrn?: string;
+    amountTo?: number;
+    currencyCode?: string;
+    status?: string;
+    depositId?: string;
+    identityId?: string;
+    walletId?: string;
+    partyId?: string;
 }

@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 
+import { MerchantSearcherModule } from '@cc/app/shared/components/merchant-searcher';
+
 import { SearchFiltersComponent } from './search-filters.component';
 
 @NgModule({
@@ -30,6 +32,7 @@ import { SearchFiltersComponent } from './search-filters.component';
         FlexLayoutModule,
         MatSelectModule,
         MatCardModule,
+        MerchantSearcherModule,
     ],
     declarations: [SearchFiltersComponent],
     exports: [SearchFiltersComponent],
