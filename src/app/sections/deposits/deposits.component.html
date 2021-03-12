@@ -6,7 +6,6 @@
         [initParams]="initParams$ | async"
         (valueChanges)="searchParamsUpdated($event)"
     ></cc-search-filters>
-
     <ng-container *ngIf="deposits$ | async as deposits; else noDeposits">
         <cc-empty-search-result
             *ngIf="!(doAction$ | async) && deposits.length === 0"
