@@ -1,0 +1,32 @@
+<mat-card>
+    <mat-card-content fxLayout="column" fxLayoutGap="16px">
+        <div fxLayout fxLayoutGap="16px" fxFlexFill>
+            <cc-details-item title="ID" fxFlex="66">{{ deposit.id }}</cc-details-item>
+            <cc-details-item title="Status" fxFlex="33">
+                <cc-status [color]="deposit.status | toStatus | toDepositColor">{{
+                    deposit.status | toStatus
+                }}</cc-status>
+            </cc-details-item>
+        </div>
+        <div fxLayout fxLayoutGap="16px" fxFlexFill>
+            <cc-details-item title="Amount" fxFlex
+                >{{ deposit.amount | ccThriftInt64 | ccFormatAmount }}
+                {{ deposit.currency_symbolic_code | ccCurrency }}</cc-details-item
+            >
+            <cc-details-item title="Fee" fxFlex
+                >{{ deposit.fee | ccThriftInt64 | ccFormatAmount }}
+                {{ deposit.currency_symbolic_code | ccCurrency }}</cc-details-item
+            >
+            <cc-details-item title="Created At" fxFlex>{{
+                deposit.created_at | date: 'dd.MM.yyyy HH:mm:ss'
+            }}</cc-details-item>
+        </div>
+        <div fxLayout fxLayoutGap="16px" fxFlexFill>
+            <cc-details-item title="Source ID" fxFlex>{{ deposit.source_id }}</cc-details-item>
+            <cc-details-item title="Identity ID" fxFlex>{{ deposit.identity_id }}</cc-details-item>
+            <cc-details-item title="Destination" fxFlex>{{
+                deposit.destination_id
+            }}</cc-details-item>
+        </div>
+    </mat-card-content>
+</mat-card>

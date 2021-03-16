@@ -3,6 +3,7 @@ import { FetchResult } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { tap } from 'rxjs/internal/operators';
 import { SearchFormParams } from '../../deposits/search-form/search-form-params';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { QueryDSL } from '../../query-dsl';
@@ -17,6 +18,18 @@ export class FistfulStatisticsService extends ThriftService {
 
     constructor(keycloakTokenInfoService: KeycloakTokenInfoService, zone: NgZone) {
         super(zone, keycloakTokenInfoService, '/fistful/stat', FistfulStatistics);
+    }
+
+    getDestination(id: string): Observable<FetchResult<StatDeposit>> {
+        return this.toObservableAction('GetDestinations')(
+            new ThriftStatRequest({ dsl: JSON.stringify({ query: { destinations: { id } } }) })
+        ).pipe(
+            tap((d) => console.log('ddddd', d)),
+            map((res) => ({
+                result: res.data.destinations,
+                continuationToken: res.continuation_token,
+            }))
+        );
     }
 
     getDeposits(

@@ -57,7 +57,7 @@ export class DepositsComponent implements OnInit {
     depositMenuItemSelected(depositMenuItemEvent: DepositMenuItemEvent) {
         switch (depositMenuItemEvent.action) {
             case DepositActions.navigateToDeposit:
-                this.router.navigate([`/deposit/${depositMenuItemEvent.depositID}`]);
+                this.router.navigate([`operations/deposit/${depositMenuItemEvent.depositID}`]);
                 break;
         }
     }

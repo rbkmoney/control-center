@@ -1,0 +1,44 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <cc-headline>Deposit details</cc-headline>
+    <cc-details *ngIf="deposit$ | async as deposit" [deposit]="deposit"></cc-details>
+    <!--    <ng-container *ngIf="payment$ | async as payment">-->
+    <!--        <mat-card>-->
+    <!--            <mat-card-content>-->
+    <!--                <cc-payment-main-info-->
+    <!--                    [payment]="payment"-->
+    <!--                    [shop]="shop$ | async"-->
+    <!--                ></cc-payment-main-info>-->
+    <!--            </mat-card-content>-->
+    <!--        </mat-card>-->
+    <!--        <mat-card>-->
+    <!--            <mat-card-content>-->
+    <!--                <h2 class="cc-headline">Refunds</h2>-->
+    <!--                <cc-payment-refunds-->
+    <!--                    [paymentID]="payment.id"-->
+    <!--                    [invoiceID]="payment.invoice_id"-->
+    <!--                ></cc-payment-refunds>-->
+    <!--            </mat-card-content>-->
+    <!--        </mat-card>-->
+    <!--        <mat-card *ngIf="userHasRole(ChargebackRole.View)" fxLayout="column" fxLayoutGap="32px">-->
+    <!--            <div fxLayout fxLayoutAlign="space-between">-->
+    <!--                <h2 class="cc-headline">Chargebacks</h2>-->
+    <!--                <button-->
+    <!--                    *ngIf="userHasRole(ChargebackRole.Manage)"-->
+    <!--                    mat-raised-button-->
+    <!--                    color="primary"-->
+    <!--                    (click)="createChargeback()"-->
+    <!--                >-->
+    <!--                    CREATE CHARGEBACK-->
+    <!--                </button>-->
+    <!--            </div>-->
+    <!--            <cc-chargebacks-table-->
+    <!--                [partyID]="partyID$ | async"-->
+    <!--                [searchParams]="chargebackSearchParams$ | async"-->
+    <!--                [displayedColumns]="["createdAt", "status", "stage", "levyAmount", "actions"]"-->
+    <!--            ></cc-chargebacks-table>-->
+    <!--        </mat-card>-->
+    <!--    </ng-container>-->
+    <!--    <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">-->
+    <!--        <mat-spinner diameter="64"></mat-spinner>-->
+    <!--    </div>-->
+</div>
