@@ -1,14 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import { FetchResult } from '@rbkmoney/partial-fetcher';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { tap } from 'rxjs/internal/operators';
 import { SearchFormParams } from '../../deposits/search-form/search-form-params';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { QueryDSL } from '../../query-dsl';
 import { ThriftService } from '../services/thrift/thrift-service';
-import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
+import { WalletParams } from '../../query-dsl/wallet';
+import { StatDeposit, StatRequest, StatWallet } from './gen-model/fistful_stat';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
 
@@ -20,13 +20,14 @@ export class FistfulStatisticsService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/fistful/stat', FistfulStatistics);
     }
 
-    getDestination(id: string): Observable<FetchResult<StatDeposit>> {
-        return this.toObservableAction('GetDestinations')(
-            new ThriftStatRequest({ dsl: JSON.stringify({ query: { destinations: { id } } }) })
-        ).pipe(
-            tap((d) => console.log('ddddd', d)),
+    getWallets(
+        params: WalletParams,
+        continuationToken?: string
+    ): Observable<FetchResult<StatWallet>> {
+        const request: StatRequest = this.walletsSearchParamsToRequest(params, continuationToken);
+        return this.toObservableAction('GetWallets')(new ThriftStatRequest(request)).pipe(
             map((res) => ({
-                result: res.data.destinations,
+                result: res.data.wallets,
                 continuationToken: res.continuation_token,
             }))
         );
@@ -36,7 +37,7 @@ export class FistfulStatisticsService extends ThriftService {
         params: SearchFormParams,
         continuationToken?: string
     ): Observable<FetchResult<StatDeposit>> {
-        const request: StatRequest = this.searchParamsToRequest(params, continuationToken);
+        const request: StatRequest = this.depositsSearchParamsToRequest(params, continuationToken);
         return this.toObservableAction('GetDeposits')(new ThriftStatRequest(request)).pipe(
             map((res) => ({
                 result: res.data.deposits,
@@ -45,7 +46,7 @@ export class FistfulStatisticsService extends ThriftService {
         );
     }
 
-    private searchParamsToRequest(
+    private depositsSearchParamsToRequest(
         params: SearchFormParams,
         continuationToken?: string
     ): StatRequest {
@@ -75,6 +76,26 @@ export class FistfulStatisticsService extends ThriftService {
                         ...(sourceId ? { source_id: sourceId } : {}),
                         ...(status ? { status } : {}),
                         ...(walletId ? { wallet_id: walletId } : {}),
+                        size: this.searchLimit.toString(),
+                    },
+                },
+            } as QueryDSL),
+            ...(continuationToken ? { continuation_token: continuationToken } : {}),
+        };
+    }
+
+    private walletsSearchParamsToRequest(
+        params: WalletParams,
+        continuationToken?: string
+    ): StatRequest {
+        const { party_id, identity_id, currency_code } = params;
+        return {
+            dsl: JSON.stringify({
+                query: {
+                    wallets: {
+                        ...(party_id ? { party_id } : {}),
+                        ...(identity_id ? { identity_id } : {}),
+                        ...(currency_code ? { currency_code } : {}),
                         size: this.searchLimit.toString(),
                     },
                 },

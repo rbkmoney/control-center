@@ -6,6 +6,7 @@ import { DetailsItemModule } from '@cc/components/details-item';
 import { FlexModule } from '@angular/flex-layout';
 import { StatusModule } from '@cc/app/shared/components';
 import { CommonPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
+import { DestinationInfoModule } from '@cc/app/shared/components/destination-info';
 import { DetailsComponent } from './details.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { DetailsComponent } from './details.component';
         StatusModule,
         ThriftPipesModule,
         CommonPipesModule,
+        DestinationInfoModule,
     ],
     declarations: [DetailsComponent],
     exports: [DetailsComponent],

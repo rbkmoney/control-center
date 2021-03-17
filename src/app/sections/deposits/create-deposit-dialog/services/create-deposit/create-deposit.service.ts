@@ -24,8 +24,8 @@ import { currencies } from '../../../constants/currencies';
 @Injectable()
 export class CreateDepositService {
     private create$ = new Subject<void>();
-    private errorSubject$ = new Subject<void>();
-    private pollingErrorSubject$ = new Subject<void>();
+    private errorSubject$ = new Subject<boolean>();
+    private pollingErrorSubject$ = new Subject<boolean>();
 
     depositCreated$: Observable<StatDeposit> = this.create$.pipe(
         map(() => this.getParams()),
@@ -34,7 +34,7 @@ export class CreateDepositService {
                 of(this.getPollingParams(params)),
                 this.fistfulAdminService.createDeposit(params).pipe(
                     catchError(() => {
-                        this.errorSubject$.next();
+                        this.errorSubject$.next(true);
                         return of('error');
                     })
                 ),
@@ -45,7 +45,7 @@ export class CreateDepositService {
         switchMap(([pollingParams]) =>
             this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
                 catchError(() => {
-                    this.pollingErrorSubject$.next();
+                    this.pollingErrorSubject$.next(true);
                     return of('error');
                 }),
                 filter((res) => res !== 'error'),

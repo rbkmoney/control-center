@@ -9,13 +9,13 @@ import { FistfulStatisticsService } from '../../../../thrift-services/fistful/fi
 @Injectable()
 export class ReceiveDepositService {
     private receiveDeposit$ = new ReplaySubject<string>();
-    private error$ = new Subject<void>();
+    private error$ = new Subject<boolean>();
 
     deposit$ = this.receiveDeposit$.pipe(
         switchMap((depositId) =>
             this.fistfulStatisticsService.getDeposits({ depositId } as any, null).pipe(
                 catchError(() => {
-                    this.error$.next();
+                    this.error$.next(true);
                     return NEVER;
                 })
             )

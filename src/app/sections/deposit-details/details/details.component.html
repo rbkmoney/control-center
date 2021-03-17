@@ -24,9 +24,12 @@
         <div fxLayout fxLayoutGap="16px" fxFlexFill>
             <cc-details-item title="Source ID" fxFlex>{{ deposit.source_id }}</cc-details-item>
             <cc-details-item title="Identity ID" fxFlex>{{ deposit.identity_id }}</cc-details-item>
-            <cc-details-item title="Destination" fxFlex>{{
-                deposit.destination_id
-            }}</cc-details-item>
+            <cc-details-item title="Destination" fxFlex>
+                <cc-destination-info
+                    [destinationID]="deposit.destination_id"
+                    [identityID]="deposit.identity_id"
+                ></cc-destination-info>
+            </cc-details-item>
         </div>
     </mat-card-content>
 </mat-card>
