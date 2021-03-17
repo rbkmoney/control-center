@@ -5,6 +5,7 @@ import { StatDeposit } from '../../../thrift-services/fistful/gen-model/fistful_
 @Component({
     selector: 'cc-details',
     templateUrl: 'details.component.html',
+    styleUrls: ['details.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsComponent {
