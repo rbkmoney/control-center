@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DestinationInfoComponent } from './destination-info.component';
+import { WalletInfoComponent } from './wallet-info.component';
 
-const DECLARATIONS = [DestinationInfoComponent];
+const DECLARATIONS = [WalletInfoComponent];
 
 @NgModule({
     declarations: DECLARATIONS,
     exports: DECLARATIONS,
     imports: [CommonModule],
 })
-export class DestinationInfoModule {}
+export class WalletInfoModule {}

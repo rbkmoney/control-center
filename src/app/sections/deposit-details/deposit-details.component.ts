@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { pluck } from 'rxjs/operators';
+import { pluck, take } from 'rxjs/operators';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { ReceiveDepositService } from './services/receive-deposit/receive-deposit.service';
 
+@UntilDestroy()
 @Component({
     templateUrl: 'deposit-details.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,10 +23,10 @@ export class DepositDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .pipe(pluck('depositID'))
+            .pipe(take(1), pluck('depositID'))
             .subscribe((depositID) => this.fetchDepositService.receiveDeposit(depositID));
-        this.fetchDepositService.hasError$.subscribe(() =>
-            this.snackBar.open('An error occurred while deposit receiving')
-        );
+        this.fetchDepositService.hasError$
+            .pipe(untilDestroyed(this))
+            .subscribe(() => this.snackBar.open('An error occurred while deposit receiving'));
     }
 }

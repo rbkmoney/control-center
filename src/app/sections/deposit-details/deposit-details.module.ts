@@ -14,7 +14,7 @@ import { HeadlineModule } from '@cc/components/headline';
 
 import { DepositDetailsRoutingModule } from './deposit-details-routing.module';
 import { DepositDetailsComponent } from './deposit-details.component';
-import { DetailsModule } from './details/details.module';
+import { DepositMainInfoModule } from './deposit-main-info/deposit-main-info.module';
 
 @NgModule({
     imports: [
@@ -30,7 +30,7 @@ import { DetailsModule } from './details/details.module';
         MatButtonModule,
         MatDialogModule,
         CreateChargebackDialogModule,
-        DetailsModule,
+        DepositMainInfoModule,
     ],
     declarations: [DepositDetailsComponent],
 })

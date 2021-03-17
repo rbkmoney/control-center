@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, merge, NEVER, of, ReplaySubject } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { pluck, shareReplay } from 'rxjs/operators';
 import { catchError, map, switchMap } from 'rxjs/internal/operators';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
@@ -20,11 +20,12 @@ export class ReceiveWalletService {
                     catchError(() => {
                         this.error$.next(true);
                         return NEVER;
-                    })
+                    }),
+                    pluck('data', 'wallets')
                 ),
             ])
         ),
-        map(([id, wallets]) => wallets.result.filter((wallet) => wallet.id === id)[0]),
+        map(([id, wallets]) => wallets.filter((wallet) => wallet.id === id)[0]),
         shareReplay(1)
     );
 

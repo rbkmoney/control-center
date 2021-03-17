@@ -6,8 +6,8 @@ import { DetailsItemModule } from '@cc/components/details-item';
 import { FlexModule } from '@angular/flex-layout';
 import { StatusModule } from '@cc/app/shared/components';
 import { CommonPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
-import { DestinationInfoModule } from '@cc/app/shared/components/destination-info';
-import { DetailsComponent } from './details.component';
+import { WalletInfoModule } from '@cc/app/shared/components/wallet-info';
+import { DepositMainInfoComponent } from './deposit-main-info.component';
 
 @NgModule({
     imports: [
@@ -18,9 +18,9 @@ import { DetailsComponent } from './details.component';
         StatusModule,
         ThriftPipesModule,
         CommonPipesModule,
-        DestinationInfoModule,
+        WalletInfoModule,
     ],
-    declarations: [DetailsComponent],
-    exports: [DetailsComponent],
+    declarations: [DepositMainInfoComponent],
+    exports: [DepositMainInfoComponent],
 })
-export class DetailsModule {}
+export class DepositMainInfoModule {}

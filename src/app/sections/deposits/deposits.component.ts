@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 
 import { DepositActions, DepositMenuItemEvent } from '@cc/app/shared/components/deposits-table';
 
+import { untilDestroyed } from '@ngneat/until-destroy';
 import { CreateDepositDialogComponent } from './create-deposit-dialog/create-deposit-dialog.component';
 import { ParamsStoreService } from './services/params-store/params-store.service';
 import { SearchParams } from './types/search-params';
@@ -41,13 +42,22 @@ export class DepositsComponent implements OnInit {
         this.dialog
             .open(CreateDepositDialogComponent, { width: '552px', disableClose: true })
             .afterClosed()
-            .pipe(filter((deposit) => !!deposit))
-            .subscribe(() => {});
+            .pipe(
+                filter((deposit) => !!deposit),
+                untilDestroyed(this)
+            )
+            .subscribe(() => {
+                this.refresh();
+            });
     }
 
     searchParamsUpdated(params: SearchParams) {
         this.paramsStoreService.preserve(params);
         this.fetchDepositsService.search(params);
+    }
+
+    refresh() {
+        this.fetchDepositsService.refresh();
     }
 
     fetchMore() {

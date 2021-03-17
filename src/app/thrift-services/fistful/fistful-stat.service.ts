@@ -8,9 +8,10 @@ import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { QueryDSL } from '../../query-dsl';
 import { ThriftService } from '../services/thrift/thrift-service';
 import { WalletParams } from '../../query-dsl/wallet';
-import { StatDeposit, StatRequest, StatWallet } from './gen-model/fistful_stat';
+import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
+import { FistfulResult } from './types/fistful-result';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
@@ -20,17 +21,9 @@ export class FistfulStatisticsService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/fistful/stat', FistfulStatistics);
     }
 
-    getWallets(
-        params: WalletParams,
-        continuationToken?: string
-    ): Observable<FetchResult<StatWallet>> {
+    getWallets(params: WalletParams, continuationToken?: string): Observable<FistfulResult> {
         const request: StatRequest = this.walletsSearchParamsToRequest(params, continuationToken);
-        return this.toObservableAction('GetWallets')(new ThriftStatRequest(request)).pipe(
-            map((res) => ({
-                result: res.data.wallets,
-                continuationToken: res.continuation_token,
-            }))
-        );
+        return this.toObservableAction('GetWallets')(new ThriftStatRequest(request));
     }
 
     getDeposits(

@@ -27,10 +27,10 @@
             <cc-details-item title="Source ID" fxFlex>{{ deposit.source_id }}</cc-details-item>
             <cc-details-item title="Identity ID" fxFlex>{{ deposit.identity_id }}</cc-details-item>
             <cc-details-item title="Destination" fxFlex>
-                <cc-destination-info
-                    [destinationID]="deposit.destination_id"
+                <cc-wallet-info
+                    [walletID]="deposit.destination_id"
                     [identityID]="deposit.identity_id"
-                ></cc-destination-info>
+                ></cc-wallet-info>
             </cc-details-item>
         </div>
     </mat-card-content>

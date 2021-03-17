@@ -3,13 +3,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ReceiveWalletService } from './receive-wallet/receive-wallet.service';
 
 @Component({
-    selector: 'cc-destination-info',
-    templateUrl: 'destination-info.component.html',
+    selector: 'cc-wallet-info',
+    templateUrl: 'wallet-info.component.html',
     providers: [ReceiveWalletService],
 })
-export class DestinationInfoComponent implements OnInit {
+export class WalletInfoComponent implements OnInit {
     @Input()
-    destinationID: string;
+    walletID: string;
 
     @Input()
     identityID: string;
@@ -22,7 +22,7 @@ export class DestinationInfoComponent implements OnInit {
 
     ngOnInit() {
         this.receiveWalletService.receiveWallet({
-            destinationID: this.destinationID,
+            destinationID: this.walletID,
             identityID: this.identityID,
         });
     }
