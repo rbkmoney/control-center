@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { FetchResult } from '@rbkmoney/partial-fetcher';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SearchFormParams } from '../../deposits/search-form/search-form-params';
