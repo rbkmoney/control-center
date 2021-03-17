@@ -20,7 +20,6 @@ export class DepositDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.deposit$.subscribe((d) => console.log('deposit is', d));
         this.route.params
             .pipe(pluck('depositID'))
             .subscribe((depositID) => this.fetchDepositService.receiveDeposit(depositID));

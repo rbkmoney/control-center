@@ -21,7 +21,6 @@ export class DestinationInfoComponent implements OnInit {
     constructor(private receiveWalletService: ReceiveWalletService) {}
 
     ngOnInit() {
-        this.hasError$.subscribe((d) => console.log('error?', d));
         this.receiveWalletService.receiveWallet({
             destinationID: this.destinationID,
             identityID: this.identityID,
