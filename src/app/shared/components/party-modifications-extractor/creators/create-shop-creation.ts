@@ -17,7 +17,7 @@ export const createShopCreation = (
         name: '',
         description: '',
     };
-    const details = getOr(d, 'shop_info.deposit-main-info', defaultDetails);
+    const details = getOr(d, 'shop_info.details', defaultDetails);
 
     return {
         shop_modification: {

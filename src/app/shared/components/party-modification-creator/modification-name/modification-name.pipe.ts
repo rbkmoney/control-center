@@ -40,7 +40,7 @@ export class ModificationNamePipe implements PipeTransform {
             case ShopModificationName.categoryModification:
                 return 'Shop category modification';
             case ShopModificationName.detailsModification:
-                return 'Shop deposit-main-info modification';
+                return 'Shop details modification';
             case ShopModificationName.contractModification:
                 return 'Shop contract modification';
             case ShopModificationName.payoutToolModification:

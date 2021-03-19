@@ -27,7 +27,7 @@ function getShopModificationName(mod: ShopModificationUnit): string {
         case 'contract_modification':
             return 'Shop contract modification';
         case 'details_modification':
-            return 'Shop deposit-main-info modification';
+            return 'Shop details modification';
         case 'location_modification':
             return 'Shop location modification';
         case 'payout_schedule_modification':
