@@ -7,11 +7,9 @@ import { SearchFormParams } from '../../deposits/search-form/search-form-params'
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { QueryDSL } from '../../query-dsl';
 import { ThriftService } from '../services/thrift/thrift-service';
-import { WalletParams } from '../../query-dsl/wallet';
 import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
-import { FistfulResult } from './types/fistful-result';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
@@ -21,16 +19,11 @@ export class FistfulStatisticsService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/fistful/stat', FistfulStatistics);
     }
 
-    getWallets(params: WalletParams, continuationToken?: string): Observable<FistfulResult> {
-        const request: StatRequest = this.walletsSearchParamsToRequest(params, continuationToken);
-        return this.toObservableAction('GetWallets')(new ThriftStatRequest(request));
-    }
-
     getDeposits(
         params: SearchFormParams,
         continuationToken?: string
     ): Observable<FetchResult<StatDeposit>> {
-        const request: StatRequest = this.depositsSearchParamsToRequest(params, continuationToken);
+        const request: StatRequest = this.searchParamsToRequest(params, continuationToken);
         return this.toObservableAction('GetDeposits')(new ThriftStatRequest(request)).pipe(
             map((res) => ({
                 result: res.data.deposits,
@@ -39,7 +32,7 @@ export class FistfulStatisticsService extends ThriftService {
         );
     }
 
-    private depositsSearchParamsToRequest(
+    private searchParamsToRequest(
         params: SearchFormParams,
         continuationToken?: string
     ): StatRequest {
@@ -69,26 +62,6 @@ export class FistfulStatisticsService extends ThriftService {
                         ...(sourceId ? { source_id: sourceId } : {}),
                         ...(status ? { status } : {}),
                         ...(walletId ? { wallet_id: walletId } : {}),
-                        size: this.searchLimit.toString(),
-                    },
-                },
-            } as QueryDSL),
-            ...(continuationToken ? { continuation_token: continuationToken } : {}),
-        };
-    }
-
-    private walletsSearchParamsToRequest(
-        params: WalletParams,
-        continuationToken?: string
-    ): StatRequest {
-        const { party_id, identity_id, currency_code } = params;
-        return {
-            dsl: JSON.stringify({
-                query: {
-                    wallets: {
-                        ...(party_id ? { party_id } : {}),
-                        ...(identity_id ? { identity_id } : {}),
-                        ...(currency_code ? { currency_code } : {}),
                         size: this.searchLimit.toString(),
                     },
                 },
