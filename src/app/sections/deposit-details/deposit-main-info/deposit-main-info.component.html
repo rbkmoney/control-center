@@ -1,7 +1,7 @@
 <mat-card>
     <mat-card-content fxLayout="column" fxLayoutGap="16px">
         <div fxLayout fxLayoutGap="16px" fxFlexFill>
-            <cc-details-item class="two-column-width-fix" title="ID" fxFlex fxGrow="2">{{
+            <cc-details-item class="two-column-width-fix" title="ID" fxFlex="66">{{
                 deposit.id
             }}</cc-details-item>
             <cc-details-item title="Status" fxFlex>
@@ -27,10 +27,7 @@
             <cc-details-item title="Source ID" fxFlex>{{ deposit.source_id }}</cc-details-item>
             <cc-details-item title="Identity ID" fxFlex>{{ deposit.identity_id }}</cc-details-item>
             <cc-details-item title="Destination" fxFlex>
-                <cc-wallet-info
-                    [walletID]="deposit.destination_id"
-                    [identityID]="deposit.identity_id"
-                ></cc-wallet-info>
+                <cc-wallet-info [walletID]="deposit.destination_id"></cc-wallet-info>
             </cc-details-item>
         </div>
     </mat-card-content>

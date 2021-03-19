@@ -11,9 +11,6 @@ export class WalletInfoComponent implements OnInit {
     @Input()
     walletID: string;
 
-    @Input()
-    identityID: string;
-
     wallet$ = this.receiveWalletService.wallet$;
     isLoading$ = this.receiveWalletService.isLoading$;
     hasError$ = this.receiveWalletService.hasError$;
@@ -21,9 +18,6 @@ export class WalletInfoComponent implements OnInit {
     constructor(private receiveWalletService: ReceiveWalletService) {}
 
     ngOnInit() {
-        this.receiveWalletService.receiveWallet({
-            destinationID: this.walletID,
-            identityID: this.identityID,
-        });
+        this.receiveWalletService.receiveWallet(this.walletID);
     }
 }
