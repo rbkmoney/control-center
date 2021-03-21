@@ -18,7 +18,7 @@ export class RevertManagementService extends ThriftService {
         return this.toObservableAction('CreateRevert')(params.id, requestParams);
     }
 
-    revertParamsToRequestParams(params: RevertParams) {
+    private revertParamsToRequestParams(params: RevertParams) {
         return new DepositRevertTypes.RevertParams(params);
     }
 }
