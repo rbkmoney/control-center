@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { merge, of, Subject } from 'rxjs';
 import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
-import { catchError, tap } from 'rxjs/internal/operators';
+import { catchError } from 'rxjs/internal/operators';
 import { KeycloakService } from 'keycloak-angular';
 import * as uuid from 'uuid/v4';
 import Int64 from 'thrift-ts/lib/int64';
