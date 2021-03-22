@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ReceiveWalletService } from './receive-wallet/receive-wallet.service';
+import { ReceiveWalletService } from './services/receive-wallet/receive-wallet.service';
 
 @Component({
     selector: 'cc-wallet-info',

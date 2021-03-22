@@ -4,7 +4,7 @@ import { shareReplay } from 'rxjs/operators';
 import { catchError, switchMap } from 'rxjs/internal/operators';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
-import { WalletManagementService } from '../../../../thrift-services/fistful/wallet-management.service';
+import { WalletManagementService } from '../../../../../thrift-services/fistful/wallet-management.service';
 
 @Injectable()
 export class ReceiveWalletService {
