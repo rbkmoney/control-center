@@ -6,9 +6,17 @@ import { FlexModule } from '@angular/flex-layout';
 
 import { RevertsComponent } from './reverts.component';
 import { CreateRevertDialogModule } from './create-revert-dialog/create-revert-dialog.module';
+import { RevertsTableModule } from './reverts-table';
 
 @NgModule({
-    imports: [CommonModule, FlexModule, MatCardModule, MatButtonModule, CreateRevertDialogModule],
+    imports: [
+        CommonModule,
+        FlexModule,
+        MatCardModule,
+        MatButtonModule,
+        CreateRevertDialogModule,
+        RevertsTableModule,
+    ],
     declarations: [RevertsComponent],
     exports: [RevertsComponent],
 })

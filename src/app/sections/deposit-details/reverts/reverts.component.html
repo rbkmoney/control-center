@@ -3,4 +3,10 @@
         <h1 class="mat-headline">Reverts</h1>
         <button mat-raised-button color="primary" (click)="createRevert()">CREATE REVERT</button>
     </mat-card-title>
+    <!--    <div *ngIf='deposit.reverts; else noReverts'>-->
+    <cc-reverts-table [reverts]="deposit.reverts"></cc-reverts-table>
+    <!--    </div>-->
+    <!--    <ng-template>-->
+    <!--        <div>No reverts</div>-->
+    <!--    </ng-template>-->
 </mat-card>

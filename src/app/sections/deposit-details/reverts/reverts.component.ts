@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
-import { StatDeposit } from '../../../thrift-services/fistful/gen-model/fistful_stat';
+import { DepositState } from '../../../thrift-services/fistful/gen-model/deposit';
 import { CreateRevertDialogComponent } from './create-revert-dialog/create-revert-dialog.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { CreateRevertDialogComponent } from './create-revert-dialog/create-rever
 })
 export class RevertsComponent implements OnInit {
     @Input()
-    deposit: StatDeposit;
+    deposit: DepositState;
 
     constructor(
         private route: ActivatedRoute,
@@ -30,7 +30,7 @@ export class RevertsComponent implements OnInit {
             .open(CreateRevertDialogComponent, {
                 width: '552px',
                 disableClose: true,
-                data: this.deposit.currency_symbolic_code,
+                data: this.deposit.body.currency.symbolic_code,
             })
             .afterClosed()
             .pipe(filter((revert) => !!revert))
