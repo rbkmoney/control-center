@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { CreateRevertService } from './services/create-revert/create-revert.service';
+import { CreateRevertDialogConfig } from './types/create-revert-dialog-config';
 
 @Component({
     templateUrl: 'create-revert-dialog.component.html',
@@ -14,19 +15,19 @@ import { CreateRevertService } from './services/create-revert/create-revert.serv
 export class CreateRevertDialogComponent implements OnInit {
     form: FormGroup;
 
-    depositCreated$ = this.createDepositService.depositCreated$;
+    depositCreated$ = this.createDepositService.revertCreated$;
     isLoading$ = this.createDepositService.isLoading$;
     error$ = this.createDepositService.error$;
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) private currency: string,
+        @Inject(MAT_DIALOG_DATA) private data: CreateRevertDialogConfig,
         private createDepositService: CreateRevertService,
         private snackBar: MatSnackBar,
         private dialogRef: MatDialogRef<CreateRevertDialogComponent>
     ) {}
 
     ngOnInit() {
-        this.createDepositService.initForm(this.currency);
+        this.createDepositService.init(this.data);
         this.form = this.createDepositService.form;
         this.dialogRef.afterClosed().subscribe(() => this.form.reset());
         this.depositCreated$.subscribe((deposit) => {

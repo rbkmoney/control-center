@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 
 import { StatDeposit } from '../../../thrift-services/fistful/gen-model/fistful_stat';
 import { CreateRevertDialogComponent } from './create-revert-dialog/create-revert-dialog.component';
+import { CreateRevertDialogConfig } from './create-revert-dialog/types/create-revert-dialog-config';
 
 @Component({
     selector: 'cc-reverts',
@@ -27,11 +28,17 @@ export class RevertsComponent implements OnInit {
 
     createRevert() {
         this.dialog
-            .open(CreateRevertDialogComponent, {
-                width: '552px',
-                disableClose: true,
-                data: this.deposit.currency_symbolic_code,
-            })
+            .open<CreateRevertDialogComponent, CreateRevertDialogConfig>(
+                CreateRevertDialogComponent,
+                {
+                    width: '552px',
+                    disableClose: true,
+                    data: {
+                        depositID: this.deposit.id,
+                        currency: this.deposit.currency_symbolic_code,
+                    },
+                }
+            )
             .afterClosed()
             .pipe(filter((revert) => !!revert))
             .subscribe(() => {});

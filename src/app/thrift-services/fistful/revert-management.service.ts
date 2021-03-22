@@ -13,8 +13,8 @@ export class RevertManagementService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/v1/deposit', Management);
     }
 
-    createRevert(params: RevertParams): Observable<void> {
+    createRevert(depositID: string, params: RevertParams): Observable<void> {
         const requestParams = new ApiRevertParams(params);
-        return this.toObservableAction('CreateRevert')(params.id, requestParams);
+        return this.toObservableAction('CreateRevert')(depositID, requestParams);
     }
 }
