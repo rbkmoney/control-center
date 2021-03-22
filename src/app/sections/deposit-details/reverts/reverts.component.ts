@@ -1,10 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
-import { StatDeposit } from '../../../thrift-services/fistful/gen-model/fistful_stat';
+import { getDepositStatus } from '@cc/app/shared/utils';
+
+import {
+    DepositStatus,
+    StatDeposit,
+} from '../../../thrift-services/fistful/gen-model/fistful_stat';
 import { CreateRevertDialogComponent } from './create-revert-dialog/create-revert-dialog.component';
 import { CreateRevertDialogConfig } from './create-revert-dialog/types/create-revert-dialog-config';
 
@@ -14,7 +19,7 @@ import { CreateRevertDialogConfig } from './create-revert-dialog/types/create-re
     styleUrls: ['reverts.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RevertsComponent implements OnInit {
+export class RevertsComponent {
     @Input()
     deposit: StatDeposit;
 
@@ -23,8 +28,6 @@ export class RevertsComponent implements OnInit {
         private snackBar: MatSnackBar,
         private dialog: MatDialog
     ) {}
-
-    ngOnInit() {}
 
     createRevert() {
         this.dialog
@@ -42,5 +45,9 @@ export class RevertsComponent implements OnInit {
             .afterClosed()
             .pipe(filter((revert) => !!revert))
             .subscribe(() => {});
+    }
+
+    isCreateRevertAvailable(status: DepositStatus): boolean {
+        return getDepositStatus(status) !== 'succeeded';
     }
 }
