@@ -5,20 +5,16 @@ import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../services/thrift/thrift-service';
 import { RevertParams } from './gen-model/deposit_revert';
 import * as Management from './gen-nodejs/Management';
-import * as DepositRevertTypes from './gen-nodejs/deposit_revert_types';
+import { RevertParams as ApiRevertParams } from './gen-nodejs/deposit_revert_types';
 
 @Injectable()
 export class RevertManagementService extends ThriftService {
     constructor(zone: NgZone, keycloakTokenInfoService: KeycloakTokenInfoService) {
-        super(zone, keycloakTokenInfoService, '/v1/management', Management);
+        super(zone, keycloakTokenInfoService, '/v1/deposit', Management);
     }
 
-    createRevert(params: RevertParams): Observable<void> {
-        const requestParams = this.revertParamsToRequestParams(params);
-        return this.toObservableAction('CreateRevert')(params.id, requestParams);
-    }
-
-    revertParamsToRequestParams(params: RevertParams) {
-        return new DepositRevertTypes.RevertParams(params);
+    createRevert(depositID: string, params: RevertParams): Observable<void> {
+        const requestParams = new ApiRevertParams(params);
+        return this.toObservableAction('CreateRevert')(depositID, requestParams);
     }
 }

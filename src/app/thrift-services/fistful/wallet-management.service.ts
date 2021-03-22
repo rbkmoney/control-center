@@ -6,7 +6,7 @@ import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../services/thrift/thrift-service';
 import * as WalletManagement from './gen-nodejs/Management';
 import { EventRange, WalletState } from './gen-model/wallet';
-import * as BaseTypes from './gen-nodejs/base_types';
+import { EventRange as ApiEventRange } from './gen-nodejs/base_types';
 
 @Injectable()
 export class WalletManagementService extends ThriftService {
@@ -15,7 +15,7 @@ export class WalletManagementService extends ThriftService {
     }
 
     // @TODO thrift have many Get methods inside different Management services, that's why method returns DepositState with WalletState values
-    getWallet(id: string, range: EventRange = new BaseTypes.EventRange()): Observable<WalletState> {
+    getWallet(id: string, range: EventRange = new ApiEventRange()): Observable<WalletState> {
         return this.toObservableAction('Get')(id, range).pipe(
             map(
                 (depositState) =>

@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
-import { DepositState } from '../../../thrift-services/fistful/gen-model/deposit';
+import { getDepositStatus } from '@cc/app/shared/utils';
+
+import {
+    DepositStatus,
+    StatDeposit,
+} from '../../../thrift-services/fistful/gen-model/fistful_stat';
 import { CreateRevertDialogComponent } from './create-revert-dialog/create-revert-dialog.component';
+import { CreateRevertDialogConfig } from './create-revert-dialog/types/create-revert-dialog-config';
 
 @Component({
     selector: 'cc-reverts',
@@ -13,9 +19,9 @@ import { CreateRevertDialogComponent } from './create-revert-dialog/create-rever
     styleUrls: ['reverts.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RevertsComponent implements OnInit {
+export class RevertsComponent {
     @Input()
-    deposit: DepositState;
+    deposit: StatDeposit;
 
     constructor(
         private route: ActivatedRoute,
@@ -23,17 +29,25 @@ export class RevertsComponent implements OnInit {
         private dialog: MatDialog
     ) {}
 
-    ngOnInit() {}
-
     createRevert() {
         this.dialog
-            .open(CreateRevertDialogComponent, {
-                width: '552px',
-                disableClose: true,
-                data: this.deposit.body.currency.symbolic_code,
-            })
+            .open<CreateRevertDialogComponent, CreateRevertDialogConfig>(
+                CreateRevertDialogComponent,
+                {
+                    width: '552px',
+                    disableClose: true,
+                    data: {
+                        depositID: this.deposit.id,
+                        currency: this.deposit.currency_symbolic_code,
+                    },
+                }
+            )
             .afterClosed()
             .pipe(filter((revert) => !!revert))
             .subscribe(() => {});
+    }
+
+    isCreateRevertAvailable(status: DepositStatus): boolean {
+        return getDepositStatus(status) !== 'succeeded';
     }
 }
