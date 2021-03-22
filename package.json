@@ -39,7 +39,7 @@
     "damsel": "git+ssh://git@github.com/rbkmoney/damsel.git#2c99b42a3e8ac3ef7c8eb188b49d445f50596298",
     "deanonimus-proto": "github:rbkmoney/deanonimus-proto#b9fab4fd1c7690186efdc5974d113c82bd5765e9",
     "file-storage-proto": "git+ssh://git@github.com:rbkmoney/file-storage-proto.git#281e1ca4cea9bf32229a6c389f0dcf5d49c05a0b",
-    "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#ebe76ef99e783b02f9357a529abb55977332e47d",
+    "fistful-proto": "git+ssh://git@github.com/rbkmoney/fistful-proto.git#7b3f125aa7cbc069f740f598295bb56de713c39f",
     "humanize-duration": "~3.21.0",
     "jsonc-parser": "~2.0.2",
     "keycloak-angular": "^8.0.1",

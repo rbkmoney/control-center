@@ -10,10 +10,26 @@
             CREATE REVERT
         </button>
     </mat-card-title>
-    <!--    <div *ngIf='deposit.reverts; else noReverts'>-->
-    <cc-reverts-table [reverts]="deposit.reverts"></cc-reverts-table>
-    <!--    </div>-->
-    <!--    <ng-template>-->
-    <!--        <div>No reverts</div>-->
-    <!--    </ng-template>-->
+    <ng-container *ngIf="reverts$ | async as reverts; else noReverts">
+        <cc-empty-search-result
+            *ngIf="!(doAction$ | async) && reverts.length === 0"
+        ></cc-empty-search-result>
+        <mat-card *ngIf="reverts.length > 0" fxLayout="column" fxLayoutGap="16px">
+            <cc-reverts-table [reverts]="reverts"></cc-reverts-table>
+            <button
+                fxFlex="100"
+                mat-button
+                *ngIf="hasMore$ | async"
+                (click)="fetchMore()"
+                [disabled]="doAction$ | async"
+            >
+                {{ (doAction$ | async) ? 'LOADING...' : 'SHOW MORE' }}
+            </button>
+        </mat-card>
+    </ng-container>
+    <ng-template #noReverts>
+        <div *ngIf="doAction$ | async" fxFlexFill fxLayoutAlign="center">
+            <mat-spinner diameter="64"></mat-spinner>
+        </div>
+    </ng-template>
 </mat-card>
