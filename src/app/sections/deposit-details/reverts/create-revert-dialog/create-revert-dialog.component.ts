@@ -17,7 +17,6 @@ export class CreateRevertDialogComponent implements OnInit {
     depositCreated$ = this.createDepositService.depositCreated$;
     isLoading$ = this.createDepositService.isLoading$;
     error$ = this.createDepositService.error$;
-    pollingError$ = this.createDepositService.pollingError$;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) private currency: string,
@@ -38,12 +37,6 @@ export class CreateRevertDialogComponent implements OnInit {
         this.error$.subscribe((e) => {
             console.error(e);
             this.snackBar.open('An error occurred while deposit create', 'OK');
-            this.dialogRef.close();
-            this.form.enable();
-        });
-        this.pollingError$.subscribe((e) => {
-            console.error(e);
-            this.snackBar.open('Polling timeout error', 'OK');
             this.dialogRef.close();
             this.form.enable();
         });

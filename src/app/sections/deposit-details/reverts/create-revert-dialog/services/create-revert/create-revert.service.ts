@@ -18,7 +18,6 @@ import { RevertParams } from '../../../../../../thrift-services/fistful/gen-mode
 export class CreateRevertService {
     private create$ = new Subject<void>();
     private errorSubject$ = new Subject<void>();
-    private pollingErrorSubject$ = new Subject<void>();
 
     depositCreated$ = this.create$.pipe(
         map(() => this.getParams()),
@@ -34,13 +33,9 @@ export class CreateRevertService {
         shareReplay(1)
     );
 
-    isLoading$ = progress(
-        this.create$,
-        merge([this.depositCreated$, this.errorSubject$, this.pollingErrorSubject$])
-    );
+    isLoading$ = progress(this.create$, merge([this.depositCreated$, this.errorSubject$]));
 
     error$ = this.errorSubject$.asObservable();
-    pollingError$ = this.pollingErrorSubject$.asObservable();
 
     form: FormGroup;
 
