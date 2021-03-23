@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { merge, NEVER, ReplaySubject } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
-import { catchError, switchMap } from 'rxjs/internal/operators';
+import { catchError, switchMap, shareReplay } from 'rxjs/operators';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 
 import { WalletManagementService } from '../../../../../thrift-services/fistful/wallet-management.service';

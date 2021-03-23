@@ -1,11 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { map } from 'rxjs/internal/operators';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../services/thrift/thrift-service';
-import * as WalletManagement from './gen-nodejs/Management';
 import { EventRange, WalletState } from './gen-model/wallet';
+import * as WalletManagement from './gen-nodejs/Management';
 import * as BaseTypes from './gen-nodejs/base_types';
 
 @Injectable()
