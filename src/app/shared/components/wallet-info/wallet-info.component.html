@@ -1,0 +1,7 @@
+<span *ngIf="wallet$ | async as wallet"> {{ walletID }} - {{ wallet.name }} </span>
+<span *ngIf="isLoading$ | async">
+    Loading...
+</span>
+<span *ngIf="hasError$ | async">
+    An error occurred while destination receiving
+</span>
