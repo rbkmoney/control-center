@@ -4,4 +4,5 @@
         *ngIf="deposit$ | async as deposit"
         [deposit]="deposit"
     ></cc-deposit-main-info>
+    <cc-reverts *ngIf="deposit$ | async as deposit" [deposit]="deposit"></cc-reverts>
 </div>
