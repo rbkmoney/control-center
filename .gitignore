@@ -40,6 +40,7 @@ Thumbs.db
 
 /src/assets/meta-*.json
 /src/app/thrift-services/**/gen-*/
+/src/app/api/**/gen-*/
 
 # Sonar
 .scannerwork

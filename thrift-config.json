@@ -8,5 +8,21 @@
         "ank": "./node_modules/ank-proto/proto",
         "skipper": { "path": "./node_modules/skipper-proto/proto", "meta": true },
         "deanonimus": { "path": "./node_modules/deanonimus-proto/proto", "meta": true }
-    }
+    },
+    "config": [
+        {
+            "namespace": "fistful",
+            "baseUrl": "./node_modules/fistful-proto/proto",
+            "services": [
+                {
+                    "name": "wallet",
+                    "file": "wallet.thrift"
+                },
+                {
+                    "name": "deposit",
+                    "file": "deposit.thrift"
+                }
+            ]
+        }
+    ]
 }
