@@ -1,25 +1,32 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Inject, Injectable, NgZone } from '@angular/core';
 import { FetchResult } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
+import pickBy from 'lodash-es/pickBy';
+import moment from 'moment';
 import { SearchFormParams } from '../../deposits/search-form/search-form-params';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { QueryDSL } from '../../query-dsl';
+import { createDSL, QueryDSL } from '../../query-dsl';
 import { ThriftService } from '../services/thrift/thrift-service';
 import { DepositRevertParams } from '../../query-dsl/deposit-revert';
-import { StatDeposit, StatRequest } from './gen-model/fistful_stat';
+import { SEARCH_LIMIT, SMALL_SEARCH_LIMIT } from '../../tokens';
+import { StatDeposit, StatRequest, StatResponse } from './gen-model/fistful_stat';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
-import { RevertState } from './gen-model/deposit_revert';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
     private readonly DEPOSITS_SEARCH_LIMIT = 20;
     private readonly REVERTS_SEARCH_LIMIT = 5;
 
-    constructor(keycloakTokenInfoService: KeycloakTokenInfoService, zone: NgZone) {
+    constructor(
+        keycloakTokenInfoService: KeycloakTokenInfoService,
+        zone: NgZone,
+        @Inject(SEARCH_LIMIT) private searchLimit: number,
+        @Inject(SMALL_SEARCH_LIMIT) private smallSearchLimit: number
+    ) {
         super(zone, keycloakTokenInfoService, '/fistful/stat', FistfulStatistics);
     }
 
@@ -39,14 +46,9 @@ export class FistfulStatisticsService extends ThriftService {
     getDepositReverts(
         params: DepositRevertParams,
         continuationToken?: string
-    ): Observable<FetchResult<RevertState>> {
+    ): Observable<StatResponse> {
         const request: StatRequest = this.depositRevertsParamsToRequest(params, continuationToken);
-        return this.toObservableAction('GetDepositReverts')(new ThriftStatRequest(request)).pipe(
-            map((res) => ({
-                result: res.data.deposits,
-                continuationToken: res.continuation_token,
-            }))
-        );
+        return this.toObservableAction('GetDepositReverts')(new ThriftStatRequest(request));
     }
 
     private depositParamsToRequest(
@@ -79,7 +81,7 @@ export class FistfulStatisticsService extends ThriftService {
                         ...(sourceId ? { source_id: sourceId } : {}),
                         ...(status ? { status } : {}),
                         ...(walletId ? { wallet_id: walletId } : {}),
-                        size: this.DEPOSITS_SEARCH_LIMIT.toString(),
+                        size: this.searchLimit.toString(),
                     },
                 },
             } as QueryDSL),
@@ -92,15 +94,13 @@ export class FistfulStatisticsService extends ThriftService {
         continuationToken?: string
     ): StatRequest {
         return {
-            dsl: JSON.stringify({
-                query: {
-                    deposit_reverts: {
-                        ...removeEmptyProperties(params),
-                        size: this.REVERTS_SEARCH_LIMIT.toString(),
-                    },
+            dsl: createDSL({
+                deposit_reverts: {
+                    ...removeEmptyProperties(params),
+                    size: this.smallSearchLimit.toString(),
                 },
-            } as QueryDSL),
-            ...(continuationToken ? { continuation_token: continuationToken } : {}),
+            }),
+            ...(!!continuationToken && { continuation_token: continuationToken }),
         };
     }
 }

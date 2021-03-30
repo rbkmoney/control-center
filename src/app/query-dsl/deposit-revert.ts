@@ -15,4 +15,5 @@ export interface DepositRevertParams {
     deposit_status?: DepositStatus;
     from_time?: string;
     to_time?: string;
+    size?: string;
 }
