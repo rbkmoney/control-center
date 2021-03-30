@@ -43,6 +43,7 @@ init:
 	npm ci
 
 compile:
+	npm run compile-thrift
 	npm run compile-thrift-depricated
 
 build: check lint compile
