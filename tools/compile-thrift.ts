@@ -123,7 +123,7 @@ async function clear({ model, meta, services }: PathsConfig) {
     await del([model.outputFolder, ...services.map((s) => s.outputFolder), meta.outputFile]);
 }
 
-function prepareOutputDirs({ model, services, outputNamespacePath }: PathsConfig) {
+function prepareOutputDirs({ services, outputNamespacePath }: PathsConfig) {
     mkdirIfNotExist(outputNamespacePath);
     for (const service of services) {
         mkdirIfNotExist(service.outputFolder);
@@ -153,7 +153,8 @@ async function compile(definitions: NamespaceDefinition[]) {
     } catch (e) {
         console.error(e);
         error(chalk.bold.bgRed('Thrift services compilation failed'));
+        process.exit(1);
     }
 }
 
-compile(configDefinition.config as any);
+compile(configDefinition.config);
