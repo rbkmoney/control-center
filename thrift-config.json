@@ -15,12 +15,22 @@
             "baseUrl": "./node_modules/fistful-proto/proto",
             "services": [
                 {
-                    "name": "wallet",
-                    "file": "wallet.thrift"
+                    "outputFolder": "wallet",
+                    "definitionFile": "wallet.thrift"
                 },
                 {
-                    "name": "deposit",
-                    "file": "deposit.thrift"
+                    "outputFolder": "deposit",
+                    "definitionFile": "deposit.thrift"
+                }
+            ]
+        },
+        {
+            "namespace": "damsel",
+            "baseUrl": "./node_modules/damsel/proto",
+            "services": [
+                {
+                    "outputFolder": "domain-config",
+                    "definitionFile": "domain_config.thrift"
                 }
             ]
         }

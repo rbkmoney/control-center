@@ -10,8 +10,8 @@ const log = console.log;
 const error = console.error;
 
 interface ServiceDefinition {
-    name: string;
-    file: string;
+    definitionFile: string;
+    outputFolder: string;
 }
 
 interface NamespaceDefinition {
@@ -20,11 +20,20 @@ interface NamespaceDefinition {
     services: ServiceDefinition[];
 }
 
-interface OutputPathsConfig {
-    namespaceOutputPath: string;
-    tsDefinitionsDir: string;
-    jsonMetadataDir: string;
-    servicesDirs: string[];
+interface PathsConfig {
+    outputNamespacePath: string;
+    model: {
+        definitionsFolder: string;
+        outputFolder: string;
+    };
+    services: {
+        definitionFile: string;
+        outputFolder: string;
+    }[];
+    meta: {
+        definitionsFolder: string;
+        outputFile: string;
+    };
 }
 
 async function execute(cmd: string, cwd = path.join(__dirname, '..')) {
@@ -86,64 +95,52 @@ async function compileService(definitionFilePath: string, outputPath: string) {
     }
 }
 
-async function compileServices(
-    definitionsPath: string,
-    namespaceOutputPath: string,
-    services: ServiceDefinition[]
-) {
-    for (const serviceDef of services) {
-        await compileService(
-            path.join(definitionsPath, serviceDef.file),
-            path.join(namespaceOutputPath, serviceDef.name)
-        );
-    }
-}
-
-function toOutputPaths(
-    namespaceName: string,
-    services: ServiceDefinition[],
-    baseOutputPath = './src/app/api',
-    outputTsDirName = 'gen-model',
-    outputJsonMetaDirName = 'gen-metadata'
-): OutputPathsConfig {
-    const namespaceOutputPath = path.join(baseOutputPath, namespaceName);
-    const tsDefinitionsDir = path.join(namespaceOutputPath, outputTsDirName);
-    const jsonMetadataDir = path.join(namespaceOutputPath, outputJsonMetaDirName);
-    const servicesDirs = services.reduce(
-        (acc, { name }) => [...acc, path.join(namespaceOutputPath, name)],
-        []
-    );
+function toPathConfig(
+    { baseUrl, namespace, services }: NamespaceDefinition,
+    baseOutputPath = 'src/app/api',
+    outputModelDirName = 'gen-model',
+    baseOutputMetaPath = 'src/assets/api-meta'
+): PathsConfig {
+    const outputNamespacePath = path.join(baseOutputPath, namespace);
     return {
-        namespaceOutputPath,
-        tsDefinitionsDir,
-        jsonMetadataDir,
-        servicesDirs,
+        outputNamespacePath,
+        model: {
+            definitionsFolder: baseUrl,
+            outputFolder: path.join(outputNamespacePath, outputModelDirName),
+        },
+        services: services.map(({ definitionFile, outputFolder }) => ({
+            definitionFile: path.join(baseUrl, definitionFile),
+            outputFolder: path.join(outputNamespacePath, outputFolder),
+        })),
+        meta: {
+            definitionsFolder: baseUrl,
+            outputFile: path.join(baseOutputMetaPath, `${namespace}.json`),
+        },
     };
 }
 
-async function clear({ tsDefinitionsDir, jsonMetadataDir, servicesDirs }: OutputPathsConfig) {
-    await del([tsDefinitionsDir, jsonMetadataDir, ...servicesDirs]);
+async function clear({ model, meta, services }: PathsConfig) {
+    await del([model.outputFolder, ...services.map((s) => s.outputFolder), meta.outputFile]);
 }
 
-function prepareOutputDirs({ namespaceOutputPath, servicesDirs }: OutputPathsConfig) {
-    mkdirIfNotExist(namespaceOutputPath);
-    for (const dir of servicesDirs) {
-        mkdirIfNotExist(dir);
+function prepareOutputDirs({ model, services, outputNamespacePath }: PathsConfig) {
+    mkdirIfNotExist(outputNamespacePath);
+    for (const service of services) {
+        mkdirIfNotExist(service.outputFolder);
     }
 }
 
-async function compileNamespace({ namespace, baseUrl, services }: NamespaceDefinition) {
-    log(chalk.bold(`Namespace ${namespace} compilation started`));
-    const pathsConfig = toOutputPaths(namespace, services);
+async function compileNamespace(namespaceDefinition: NamespaceDefinition) {
+    log(chalk.bold(`Namespace ${namespaceDefinition.namespace} compilation started`));
+    const pathsConfig = toPathConfig(namespaceDefinition);
     await clear(pathsConfig);
     prepareOutputDirs(pathsConfig);
-    await compileTsDefinitions(baseUrl, pathsConfig.tsDefinitionsDir);
-    await compileJsonMetadata(
-        baseUrl,
-        path.join(pathsConfig.jsonMetadataDir, `${namespace}-meta.json`)
-    );
-    await compileServices(baseUrl, pathsConfig.namespaceOutputPath, services);
-    log(chalk.bold(`Namespace ${namespace} compilation finished`));
+    await compileTsDefinitions(pathsConfig.model.definitionsFolder, pathsConfig.model.outputFolder);
+    for (const config of pathsConfig.services) {
+        await compileService(config.definitionFile, config.outputFolder);
+    }
+    await compileJsonMetadata(pathsConfig.meta.definitionsFolder, pathsConfig.meta.outputFile);
+    log(chalk.bold(`Namespace ${namespaceDefinition.namespace} compilation finished`));
 }
 
 async function compile(definitions: NamespaceDefinition[]) {
@@ -159,4 +156,4 @@ async function compile(definitions: NamespaceDefinition[]) {
     }
 }
 
-compile(configDefinition.config);
+compile(configDefinition.config as any);
