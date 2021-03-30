@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
-import pickBy from 'lodash-es/pickBy';
-import moment from 'moment';
 import { SearchFormParams } from '../../deposits/search-form/search-form-params';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { createDSL, QueryDSL } from '../../query-dsl';
@@ -18,9 +16,6 @@ import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_type
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
-    private readonly DEPOSITS_SEARCH_LIMIT = 20;
-    private readonly REVERTS_SEARCH_LIMIT = 5;
-
     constructor(
         keycloakTokenInfoService: KeycloakTokenInfoService,
         zone: NgZone,
