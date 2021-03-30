@@ -6,11 +6,6 @@ import * as del from 'del';
 
 import * as configDefinition from '../thrift-config.json';
 
-const ROOT_DIR = path.join(__dirname, '..');
-const BASE_OUTPUT_PATH = './src/app/api';
-const OUTPUT_TS_DIR_NAME = 'gen-model';
-const OUTPUT_JSON_META_DIR_NAME = 'gen-metadata';
-
 const log = console.log;
 const error = console.error;
 
@@ -25,7 +20,14 @@ interface NamespaceDefinition {
     services: ServiceDefinition[];
 }
 
-async function execute(cmd: string, cwd = ROOT_DIR) {
+interface OutputPathsConfig {
+    namespaceOutputPath: string;
+    tsDefinitionsDir: string;
+    jsonMetadataDir: string;
+    servicesDirs: string[];
+}
+
+async function execute(cmd: string, cwd = path.join(__dirname, '..')) {
     return await new Promise<string>((res, rej) =>
         exec(
             cmd,
@@ -97,47 +99,59 @@ async function compileServices(
     }
 }
 
-async function compileNamespace(
-    { namespace, baseUrl, services }: NamespaceDefinition,
-    baseOutputPath = BASE_OUTPUT_PATH,
-    outputTsDirName = OUTPUT_TS_DIR_NAME,
-    outputJsonMetaDirName = OUTPUT_JSON_META_DIR_NAME
-) {
-    log(chalk.bold(`Namespace ${namespace} compilation started`));
+function toOutputPaths(
+    namespaceName: string,
+    services: ServiceDefinition[],
+    baseOutputPath = './src/app/api',
+    outputTsDirName = 'gen-model',
+    outputJsonMetaDirName = 'gen-metadata'
+): OutputPathsConfig {
+    const namespaceOutputPath = path.join(baseOutputPath, namespaceName);
+    const tsDefinitionsDir = path.join(namespaceOutputPath, outputTsDirName);
+    const jsonMetadataDir = path.join(namespaceOutputPath, outputJsonMetaDirName);
+    const servicesDirs = services.reduce(
+        (acc, { name }) => [...acc, path.join(namespaceOutputPath, name)],
+        []
+    );
+    return {
+        namespaceOutputPath,
+        tsDefinitionsDir,
+        jsonMetadataDir,
+        servicesDirs,
+    };
+}
 
-    const namespaceOutputPath = path.join(baseOutputPath, namespace);
-    const outputTsDefinitionsDir = path.join(namespaceOutputPath, outputTsDirName);
-    const outputJsonMetadataDir = path.join(namespaceOutputPath, outputJsonMetaDirName);
-    const outputServicesDirs = [];
-    for (const serviceDef of services) {
-        outputServicesDirs.push(path.join(namespaceOutputPath, serviceDef.name));
-    }
+async function clear({ tsDefinitionsDir, jsonMetadataDir, servicesDirs }: OutputPathsConfig) {
+    await del([tsDefinitionsDir, jsonMetadataDir, ...servicesDirs]);
+}
 
-    await del([outputTsDefinitionsDir, outputJsonMetadataDir, ...outputServicesDirs]);
-
+function prepareOutputDirs({ namespaceOutputPath, servicesDirs }: OutputPathsConfig) {
     mkdirIfNotExist(namespaceOutputPath);
-    for (const outputServicesDir of outputServicesDirs) {
-        mkdirIfNotExist(outputServicesDir);
+    for (const dir of servicesDirs) {
+        mkdirIfNotExist(dir);
     }
+}
 
-    await compileTsDefinitions(baseUrl, outputTsDefinitionsDir);
-    await compileJsonMetadata(baseUrl, path.join(outputJsonMetadataDir, `${namespace}-meta.json`));
-    await compileServices(baseUrl, namespaceOutputPath, services);
-
+async function compileNamespace({ namespace, baseUrl, services }: NamespaceDefinition) {
+    log(chalk.bold(`Namespace ${namespace} compilation started`));
+    const pathsConfig = toOutputPaths(namespace, services);
+    await clear(pathsConfig);
+    prepareOutputDirs(pathsConfig);
+    await compileTsDefinitions(baseUrl, pathsConfig.tsDefinitionsDir);
+    await compileJsonMetadata(
+        baseUrl,
+        path.join(pathsConfig.jsonMetadataDir, `${namespace}-meta.json`)
+    );
+    await compileServices(baseUrl, pathsConfig.namespaceOutputPath, services);
     log(chalk.bold(`Namespace ${namespace} compilation finished`));
 }
 
 async function compile(definitions: NamespaceDefinition[]) {
-    for (const def of definitions) {
-        await compileNamespace(def);
-    }
-}
-
-async function run() {
-    log(chalk.bold.bgMagenta('Thrift services compilation started'));
     try {
-        const config = configDefinition.config as any;
-        await compile(config);
+        log(chalk.bold.bgMagenta('Thrift services compilation started'));
+        for (const def of definitions) {
+            await compileNamespace(def);
+        }
         log(chalk.bold.bgGreen('Thrift services compilation finished'));
     } catch (e) {
         console.error(e);
@@ -145,4 +159,4 @@ async function run() {
     }
 }
 
-run();
+compile(configDefinition.config);
