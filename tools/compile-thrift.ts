@@ -61,36 +61,33 @@ function mkdirIfNotExist(path: string) {
 }
 
 async function compileTsDefinitions(definitionsPath: string, outputPath: string) {
-    const logMessage = `Typescript definition for: ${definitionsPath}`;
     try {
+        log('Compiling typescript definition');
         await execute(`thrift-ts ${definitionsPath} -o ${outputPath} -d false`);
-        console.log(`${logMessage} ${chalk.green('compiled')}`);
     } catch (err) {
-        console.log(`${logMessage} ${chalk.red('compilation failed')}`);
+        log(`Typescript definition ${chalk.red('compilation failed')}`);
         throw err;
     }
 }
 
 async function compileJsonMetadata(definitionsPath: string, outputFilePath: string) {
-    const logMessage = `JSON metadata for: ${definitionsPath}`;
     try {
+        log('Compiling JSON metadata');
         await execute(`thrift-ts ${definitionsPath} -o ${outputFilePath} --json --pack --prettify`);
-        console.log(`${logMessage} ${chalk.green('compiled')}`);
     } catch (err) {
-        console.log(`${logMessage} ${chalk.red('compilation failed')}`);
+        log(`JSON metadata ${chalk.red('compilation failed')}`);
         throw err;
     }
 }
 
 async function compileService(definitionFilePath: string, outputPath: string) {
-    const logMessage = `Service for: ${definitionFilePath}`;
     try {
+        log(`Compiling service: ${definitionFilePath}`);
         await execute(
             `thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ${outputPath} ${definitionFilePath};`
         );
-        console.log(`${logMessage} ${chalk.green('compiled')}`);
     } catch (err) {
-        console.log(`${logMessage} ${chalk.red('compilation failed')}`);
+        log(`Service: ${definitionFilePath} ${chalk.red('compilation failed')}`);
         throw err;
     }
 }
@@ -131,7 +128,11 @@ function prepareOutputDirs({ services, outputNamespacePath }: PathsConfig) {
 }
 
 async function compileNamespace(namespaceDefinition: NamespaceDefinition) {
-    log(chalk.bold(`Namespace ${namespaceDefinition.namespace} compilation started`));
+    log(
+        chalk.cyan(
+            `Namespace ${chalk.bold.cyan(namespaceDefinition.namespace)} compilation started`
+        )
+    );
     const pathsConfig = toPathConfig(namespaceDefinition);
     await clear(pathsConfig);
     prepareOutputDirs(pathsConfig);
@@ -140,19 +141,18 @@ async function compileNamespace(namespaceDefinition: NamespaceDefinition) {
         await compileService(config.definitionFile, config.outputFolder);
     }
     await compileJsonMetadata(pathsConfig.meta.definitionsFolder, pathsConfig.meta.outputFile);
-    log(chalk.bold(`Namespace ${namespaceDefinition.namespace} compilation finished`));
 }
 
 async function compile(definitions: NamespaceDefinition[]) {
     try {
-        log(chalk.bold.bgMagenta('Thrift services compilation started'));
+        log(chalk.bold.magenta('Thrift services compilation started'));
         for (const def of definitions) {
             await compileNamespace(def);
         }
-        log(chalk.bold.bgGreen('Thrift services compilation finished'));
+        log(chalk.bold.green('Thrift services compilation finished'));
     } catch (e) {
-        console.error(e);
-        error(chalk.bold.bgRed('Thrift services compilation failed'));
+        error(e);
+        error(chalk.bold.red('Thrift services compilation failed'));
         process.exit(1);
     }
 }
