@@ -1,103 +1,160 @@
 import { exec } from 'child_process';
-import * as del from 'del';
-import { glob } from 'glob';
 import * as path from 'path';
+import * as fs from 'fs';
+import * as chalk from 'chalk';
+import * as del from 'del';
 
-import * as config from '../thrift-config.json';
+import * as configDefinition from '../thrift-config.json';
 
-const ROOT_DIR = path.join(__dirname, '..');
-const THRIFT_PATH = 'woody_js/dist/thrift';
+const log = console.log;
+const error = console.error;
 
-const OUTPUT_PATH = './src/app/thrift-services';
-const GEN_MODEL_DIR = 'gen-model';
-const GEN_CLIENT_DIR = 'gen-nodejs';
-const META_PATH = 'src/assets';
+interface ServiceDefinition {
+    definitionFile: string;
+    outputFolder: string;
+}
 
-async function execWithLog(cmd: string) {
-    console.log(`> ${cmd}`);
+interface NamespaceDefinition {
+    namespace: string;
+    baseUrl: string;
+    services: ServiceDefinition[];
+}
+
+interface PathsConfig {
+    outputNamespacePath: string;
+    model: {
+        definitionsFolder: string;
+        outputFolder: string;
+    };
+    services: {
+        definitionFile: string;
+        outputFolder: string;
+    }[];
+    meta: {
+        definitionsFolder: string;
+        outputFile: string;
+    };
+}
+
+async function execute(cmd: string, cwd = path.join(__dirname, '..')) {
     return await new Promise<string>((res, rej) =>
         exec(
             cmd,
             {
-                cwd: ROOT_DIR,
+                cwd,
             },
             (error, stdout, stderr) => {
                 if (error === null) {
-                    console.log(stderr);
                     res(stdout);
                 } else {
-                    console.error(error);
-                    console.error(stderr);
-                    rej(error);
+                    rej(stderr);
                 }
             }
         )
     );
 }
 
-async function genClient(name: string, thriftPath: string) {
-    const out = path.join(OUTPUT_PATH, name);
-    await del([path.join(OUTPUT_PATH, GEN_CLIENT_DIR)]);
-    return await execWithLog(
-        `thrift -r -gen js:node,runtime_package=${THRIFT_PATH} -o ${out} ${thriftPath};`
-    );
-}
-
-async function genModel(name: string, protoPath: string) {
-    const out = path.join(OUTPUT_PATH, name, GEN_MODEL_DIR);
-    await del([path.join(OUTPUT_PATH, GEN_MODEL_DIR)]);
-    return await execWithLog(`thrift-ts ${protoPath} -o ${out} -d false`);
-}
-
-async function genMeta(name: string, protoPath: string) {
-    const out = path.join(META_PATH, `meta-${name}.json`);
-    await del([out]);
-    return await execWithLog(`thrift-ts ${protoPath} -o ${out} --json --pack --prettify`);
-}
-
-async function compileProto(protoName: string, proto: string | { path: string; meta: boolean }) {
-    let protoPath: string;
-    let withMeta = false;
-    if (typeof proto === 'object') {
-        protoPath = proto.path;
-        withMeta = proto.meta;
-    } else {
-        protoPath = proto;
+function mkdirIfNotExist(path: string) {
+    if (!fs.existsSync(path)) {
+        fs.mkdirSync(path);
     }
-
-    const globPattern = path.join(`${protoPath}/**/*.thrift`);
-    const thriftFiles = await new Promise<string[]>((res, rej) =>
-        glob(globPattern, {}, (err, files) => {
-            if (err) {
-                rej(err);
-            }
-            res(files);
-        })
-    );
-
-    console.log(`Compile ${protoName}: ${protoPath}`);
-    const genList: Promise<any>[] = [];
-    genList.push(genModel(protoName, protoPath));
-    if (withMeta) {
-        genList.push(genMeta(protoName, protoPath));
-    }
-    for (const f of thriftFiles) {
-        genList.push(genClient(protoName, f));
-    }
-    await Promise.all(genList);
 }
 
-async function compileProtos() {
+async function compileTsDefinitions(definitionsPath: string, outputPath: string) {
     try {
-        await Promise.all(
-            Object.entries(config.proto).map(([protoName, proto]) => compileProto(protoName, proto))
-        );
-        console.log('Generated');
-    } catch (e) {
-        console.error(e);
-        console.error('Not generated');
-        throw e;
+        log('Compiling typescript definition');
+        await execute(`thrift-ts ${definitionsPath} -o ${outputPath} -d false`);
+    } catch (err) {
+        log(`Typescript definition ${chalk.red('compilation failed')}`);
+        throw err;
     }
 }
 
-compileProtos();
+async function compileJsonMetadata(definitionsPath: string, outputFilePath: string) {
+    try {
+        log('Compiling JSON metadata');
+        await execute(`thrift-ts ${definitionsPath} -o ${outputFilePath} --json --pack --prettify`);
+    } catch (err) {
+        log(`JSON metadata ${chalk.red('compilation failed')}`);
+        throw err;
+    }
+}
+
+async function compileService(definitionFilePath: string, outputPath: string) {
+    try {
+        log(`Compiling service: ${definitionFilePath}`);
+        await execute(
+            `thrift -r -gen js:node,runtime_package=woody_js/dist/thrift -o ${outputPath} ${definitionFilePath};`
+        );
+    } catch (err) {
+        log(`Service: ${definitionFilePath} ${chalk.red('compilation failed')}`);
+        throw err;
+    }
+}
+
+function toPathConfig(
+    { baseUrl, namespace, services }: NamespaceDefinition,
+    baseOutputPath = 'src/app/api',
+    outputModelDirName = 'gen-model',
+    baseOutputMetaPath = 'src/assets/api-meta'
+): PathsConfig {
+    const outputNamespacePath = path.join(baseOutputPath, namespace);
+    return {
+        outputNamespacePath,
+        model: {
+            definitionsFolder: baseUrl,
+            outputFolder: path.join(outputNamespacePath, outputModelDirName),
+        },
+        services: services.map(({ definitionFile, outputFolder }) => ({
+            definitionFile: path.join(baseUrl, definitionFile),
+            outputFolder: path.join(outputNamespacePath, outputFolder),
+        })),
+        meta: {
+            definitionsFolder: baseUrl,
+            outputFile: path.join(baseOutputMetaPath, `${namespace}.json`),
+        },
+    };
+}
+
+async function clear({ model, meta, services }: PathsConfig) {
+    await del([model.outputFolder, ...services.map((s) => s.outputFolder), meta.outputFile]);
+}
+
+function prepareOutputDirs({ services, outputNamespacePath }: PathsConfig) {
+    mkdirIfNotExist(outputNamespacePath);
+    for (const service of services) {
+        mkdirIfNotExist(service.outputFolder);
+    }
+}
+
+async function compileNamespace(namespaceDefinition: NamespaceDefinition) {
+    log(
+        chalk.cyan(
+            `Namespace ${chalk.bold.cyan(namespaceDefinition.namespace)} compilation started`
+        )
+    );
+    const pathsConfig = toPathConfig(namespaceDefinition);
+    await clear(pathsConfig);
+    prepareOutputDirs(pathsConfig);
+    await compileTsDefinitions(pathsConfig.model.definitionsFolder, pathsConfig.model.outputFolder);
+    for (const config of pathsConfig.services) {
+        await compileService(config.definitionFile, config.outputFolder);
+    }
+    await compileJsonMetadata(pathsConfig.meta.definitionsFolder, pathsConfig.meta.outputFile);
+}
+
+async function compile(definitions: NamespaceDefinition[]) {
+    try {
+        log(chalk.bold.magenta('Thrift services compilation started'));
+        for (const def of definitions) {
+            await compileNamespace(def);
+        }
+        log(chalk.bold.green('Thrift services compilation finished'));
+    } catch (e) {
+        error(e);
+        error(chalk.bold.red('Thrift services compilation failed'));
+        process.exit(1);
+    }
+}
+
+compile(configDefinition.config);

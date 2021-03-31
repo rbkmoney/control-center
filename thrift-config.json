@@ -8,5 +8,31 @@
         "ank": "./node_modules/ank-proto/proto",
         "skipper": { "path": "./node_modules/skipper-proto/proto", "meta": true },
         "deanonimus": { "path": "./node_modules/deanonimus-proto/proto", "meta": true }
-    }
+    },
+    "config": [
+        {
+            "namespace": "fistful",
+            "baseUrl": "./node_modules/fistful-proto/proto",
+            "services": [
+                {
+                    "outputFolder": "wallet",
+                    "definitionFile": "wallet.thrift"
+                },
+                {
+                    "outputFolder": "deposit",
+                    "definitionFile": "deposit.thrift"
+                }
+            ]
+        },
+        {
+            "namespace": "damsel",
+            "baseUrl": "./node_modules/damsel/proto",
+            "services": [
+                {
+                    "outputFolder": "domain-config",
+                    "definitionFile": "domain_config.thrift"
+                }
+            ]
+        }
+    ]
 }

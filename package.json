@@ -12,6 +12,7 @@
     "prettier:fix": "npm run prettier-preset -- --write",
     "fix": "npm run lint:fix; npm run prettier:fix",
     "e2e": "ng e2e",
+    "compile-thrift-depricated": "ts-node --project tools/tsconfig.json tools/compile-thrift-depricated",
     "compile-thrift": "ts-node --project tools/tsconfig.json tools/compile-thrift",
     "postinstall": "ngcc"
   },
@@ -83,6 +84,7 @@
     "@types/uuid": "~3.4.3",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
+    "chalk": "^4.1.0",
     "codelyzer": "^6.0.0",
     "del": "^5.1.0",
     "eslint": "^7.6.0",
