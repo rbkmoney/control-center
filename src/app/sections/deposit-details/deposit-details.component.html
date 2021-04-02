@@ -1,0 +1,8 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <cc-headline>Deposit details</cc-headline>
+    <cc-deposit-main-info
+        *ngIf="deposit$ | async as deposit"
+        [deposit]="deposit"
+    ></cc-deposit-main-info>
+    <cc-reverts *ngIf="deposit$ | async as deposit" [deposit]="deposit"></cc-reverts>
+</div>

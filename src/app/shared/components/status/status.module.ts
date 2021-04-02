@@ -1,11 +1,21 @@
 import { NgModule } from '@angular/core';
 
 import { StatusComponent } from './status.component';
-import { ToPaymentColorPipe } from './to-payment-color.pipe';
-import { ToPaymentStatusPipe } from './to-payment-status.pipe';
+import { ToPaymentColorPipe } from './pipes/to-payment-color/to-payment-color.pipe';
+import { ToStatusPipe } from './pipes/to-status/to-status.pipe';
+import { ToDepositColorPipe } from './pipes/to-deposit-color/to-deposit-color.pipe';
+import { ToRevertColorPipe } from './pipes/to-revert-color/to-revert-color.pipe';
+
+const DECLARATIONS = [
+    StatusComponent,
+    ToPaymentColorPipe,
+    ToStatusPipe,
+    ToDepositColorPipe,
+    ToRevertColorPipe,
+];
 
 @NgModule({
-    declarations: [StatusComponent, ToPaymentColorPipe, ToPaymentStatusPipe],
-    exports: [StatusComponent, ToPaymentColorPipe, ToPaymentStatusPipe],
+    declarations: DECLARATIONS,
+    exports: DECLARATIONS,
 })
 export class StatusModule {}

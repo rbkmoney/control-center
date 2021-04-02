@@ -1,0 +1,36 @@
+<mat-card>
+    <mat-card-title fxLayout fxLayoutAlign="space-between center">
+        <h1 class="mat-headline">Reverts</h1>
+        <button
+            mat-raised-button
+            color="primary"
+            [disabled]="isCreateRevertAvailable(deposit?.status)"
+            (click)="createRevert()"
+        >
+            CREATE REVERT
+        </button>
+    </mat-card-title>
+    <ng-container *ngIf="reverts$ | async as reverts; else noReverts">
+        <cc-empty-search-result
+            *ngIf="!(doAction$ | async) && reverts.length === 0"
+            unwrapped
+        ></cc-empty-search-result>
+        <mat-card-content *ngIf="reverts.length > 0" fxLayout="column" fxLayoutGap="16px">
+            <cc-reverts-table [reverts]="reverts"></cc-reverts-table>
+            <button
+                fxFlex="100"
+                mat-button
+                *ngIf="hasMore$ | async"
+                (click)="fetchMore()"
+                [disabled]="doAction$ | async"
+            >
+                {{ (doAction$ | async) ? 'LOADING...' : 'SHOW MORE' }}
+            </button>
+        </mat-card-content>
+    </ng-container>
+    <ng-template #noReverts>
+        <div *ngIf="doAction$ | async" fxFlexFill fxLayoutAlign="center">
+            <mat-spinner diameter="64"></mat-spinner>
+        </div>
+    </ng-template>
+</mat-card>
