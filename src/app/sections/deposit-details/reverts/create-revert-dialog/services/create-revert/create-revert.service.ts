@@ -49,7 +49,7 @@ export class CreateRevertService {
         private fb: FormBuilder
     ) {}
 
-    createDeposit() {
+    createRevert() {
         this.create$.next();
     }
 

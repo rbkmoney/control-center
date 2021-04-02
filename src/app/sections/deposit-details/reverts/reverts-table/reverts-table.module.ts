@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
 
-import { CommonPipesModule } from '@cc/app/shared/pipes';
+import { CommonPipesModule, ThriftPipesModule } from '@cc/app/shared/pipes';
 import { StatusModule } from '@cc/app/shared/components';
 
 import { RevertsTableComponent } from './reverts-table.component';
@@ -16,6 +16,7 @@ import { RevertsTableComponent } from './reverts-table.component';
         StatusModule,
         CommonPipesModule,
         StatusModule,
+        ThriftPipesModule,
     ],
     declarations: [RevertsTableComponent],
     exports: [RevertsTableComponent],

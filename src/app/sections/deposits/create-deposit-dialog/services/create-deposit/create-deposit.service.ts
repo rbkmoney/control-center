@@ -26,6 +26,7 @@ export class CreateDepositService {
     private create$ = new Subject<void>();
     private errorSubject$ = new Subject<boolean>();
     private pollingErrorSubject$ = new Subject<boolean>();
+    private pollingTimeoutSubject$ = new Subject<boolean>();
 
     depositCreated$: Observable<StatDeposit> = this.create$.pipe(
         map(() => this.getParams()),
@@ -51,7 +52,13 @@ export class CreateDepositService {
                 filter((res) => res !== 'error'),
                 map((res) => res as FetchResult<StatDeposit>),
                 map((res) => res.result[0]),
-                poll(createDepositStopPollingCondition)
+                poll(createDepositStopPollingCondition),
+                catchError(() => {
+                    this.pollingTimeoutSubject$.next(true);
+                    return of('error');
+                }),
+                filter((res) => res !== 'error'),
+                map((res) => res as StatDeposit)
             )
         )
     );
@@ -63,6 +70,7 @@ export class CreateDepositService {
 
     error$ = this.errorSubject$.asObservable();
     pollingError$ = this.pollingErrorSubject$.asObservable();
+    pollingTimeout$ = this.pollingTimeoutSubject$.asObservable();
 
     form = this.initForm();
 

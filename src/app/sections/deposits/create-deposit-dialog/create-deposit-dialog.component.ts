@@ -23,6 +23,7 @@ export class CreateDepositDialogComponent implements OnInit {
     isLoading$ = this.createDepositService.isLoading$;
     error$ = this.createDepositService.error$;
     pollingError$ = this.createDepositService.pollingError$;
+    pollingTimeout$ = this.createDepositService.pollingTimeout$;
 
     constructor(
         private createDepositService: CreateDepositService,
@@ -48,6 +49,12 @@ export class CreateDepositDialogComponent implements OnInit {
             this.form.enable();
         });
         this.pollingError$.pipe(untilDestroyed(this)).subscribe((e) => {
+            console.error(e);
+            this.snackBar.open('An error occurred while deposit polling', 'OK');
+            this.dialogRef.close();
+            this.form.enable();
+        });
+        this.pollingTimeout$.pipe(untilDestroyed(this)).subscribe((e) => {
             console.error(e);
             this.snackBar.open('Polling timeout error', 'OK');
             this.dialogRef.close();
