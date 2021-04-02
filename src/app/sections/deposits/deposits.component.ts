@@ -34,7 +34,7 @@ export class DepositsComponent implements OnInit {
 
     ngOnInit() {
         this.fetchDepositsService.errors$.subscribe((e) =>
-            this.snackBar.open(`An error occurred while search payments (${e})`, 'OK')
+            this.snackBar.open(`An error occurred while search deposits (${e})`, 'OK')
         );
     }
 
