@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { KeycloakService } from 'keycloak-angular';
 import * as uuid from 'uuid/v4';
@@ -8,7 +8,6 @@ import Int64 from 'thrift-ts/lib/int64';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { catchError } from 'rxjs/internal/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FetchResult } from '@rbkmoney/partial-fetcher';
 
 import { poll } from '@cc/utils/poll';
 import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
