@@ -12,7 +12,7 @@
     "prettier:fix": "npm run prettier-preset -- --write",
     "fix": "npm run lint:fix; npm run prettier:fix",
     "e2e": "ng e2e",
-    "compile-thrift-depricated": "ts-node --project tools/tsconfig.json tools/compile-thrift-depricated",
+    "compile-thrift-deprecated": "ts-node --project tools/tsconfig.json tools/compile-thrift-deprecated",
     "compile-thrift": "ts-node --project tools/tsconfig.json tools/compile-thrift",
     "postinstall": "ngcc"
   },

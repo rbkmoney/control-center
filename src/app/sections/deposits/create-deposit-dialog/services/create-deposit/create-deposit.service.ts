@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { KeycloakService } from 'keycloak-angular';
@@ -36,29 +36,26 @@ export class CreateDepositService {
                 this.fistfulAdminService.createDeposit(params).pipe(
                     catchError(() => {
                         this.errorSubject$.next(true);
-                        return of('error');
+                        return EMPTY;
                     })
                 ),
             ])
         ),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        filter(([_, res]) => res !== 'error'),
         switchMap(([pollingParams]) =>
             this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
                 catchError(() => {
                     this.pollingErrorSubject$.next(true);
-                    return of('error');
+                    return EMPTY;
                 }),
-                filter((res) => res !== 'error'),
+                filter((res) => !!res),
                 map((res) => res as FetchResult<StatDeposit>),
                 map((res) => res.result[0]),
                 poll(createDepositStopPollingCondition),
                 catchError(() => {
                     this.pollingTimeoutSubject$.next(true);
-                    return of('error');
+                    return EMPTY;
                 }),
-                filter((res) => res !== 'error'),
-                map((res) => res as StatDeposit)
+                filter((res) => !!res)
             )
         )
     );
