@@ -47,14 +47,12 @@ export class CreateDepositService {
                     this.pollingErrorSubject$.next(true);
                     return EMPTY;
                 }),
-                filter((res) => !!res),
-                map((res) => res as FetchResult<StatDeposit>),
                 map((res) => res.result[0]),
                 poll(createDepositStopPollingCondition),
                 catchError(() => {
                     this.pollingTimeoutSubject$.next(true);
                     return EMPTY;
-                }),
+                })
             )
         )
     );
