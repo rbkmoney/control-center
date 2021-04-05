@@ -36,6 +36,8 @@ function getShopModificationName(mod: ShopModificationUnit): string {
             return 'Shop payout tool modification';
         case 'shop_account_creation':
             return 'Shop account modification';
+        case 'cash_register_modification_unit':
+            return 'Cash register modification';
         default:
             return getUnionKey(mod.modification);
     }
