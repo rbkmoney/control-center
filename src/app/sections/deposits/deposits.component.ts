@@ -6,12 +6,13 @@ import { filter } from 'rxjs/operators';
 
 import { DepositActions, DepositMenuItemEvent } from '@cc/app/shared/components/deposits-table';
 
-import { untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CreateDepositDialogComponent } from './create-deposit-dialog/create-deposit-dialog.component';
 import { ParamsStoreService } from './services/params-store/params-store.service';
 import { SearchParams } from './types/search-params';
 import { FetchDepositsService } from './services/fetch-deposits/fetch-deposits.service';
 
+@UntilDestroy()
 @Component({
     templateUrl: 'deposits.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,

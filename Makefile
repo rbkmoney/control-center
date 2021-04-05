@@ -44,7 +44,7 @@ init:
 
 compile:
 	npm run compile-thrift
-	npm run compile-thrift-depricated
+	npm run compile-thrift-deprecated
 
 build: check lint compile
 	npm run build

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { KeycloakService } from 'keycloak-angular';
 import * as uuid from 'uuid/v4';
@@ -8,7 +8,6 @@ import Int64 from 'thrift-ts/lib/int64';
 import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
 import { catchError } from 'rxjs/internal/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FetchResult } from '@rbkmoney/partial-fetcher';
 
 import { poll } from '@cc/utils/poll';
 import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
@@ -26,6 +25,7 @@ export class CreateDepositService {
     private create$ = new Subject<void>();
     private errorSubject$ = new Subject<boolean>();
     private pollingErrorSubject$ = new Subject<boolean>();
+    private pollingTimeoutSubject$ = new Subject<boolean>();
 
     depositCreated$: Observable<StatDeposit> = this.create$.pipe(
         map(() => this.getParams()),
@@ -35,23 +35,23 @@ export class CreateDepositService {
                 this.fistfulAdminService.createDeposit(params).pipe(
                     catchError(() => {
                         this.errorSubject$.next(true);
-                        return of('error');
+                        return EMPTY;
                     })
                 ),
             ])
         ),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        filter(([_, res]) => res !== 'error'),
         switchMap(([pollingParams]) =>
             this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
                 catchError(() => {
                     this.pollingErrorSubject$.next(true);
-                    return of('error');
+                    return EMPTY;
                 }),
-                filter((res) => res !== 'error'),
-                map((res) => res as FetchResult<StatDeposit>),
                 map((res) => res.result[0]),
-                poll(createDepositStopPollingCondition)
+                poll(createDepositStopPollingCondition),
+                catchError(() => {
+                    this.pollingTimeoutSubject$.next(true);
+                    return EMPTY;
+                })
             )
         )
     );
@@ -63,6 +63,7 @@ export class CreateDepositService {
 
     error$ = this.errorSubject$.asObservable();
     pollingError$ = this.pollingErrorSubject$.asObservable();
+    pollingTimeout$ = this.pollingTimeoutSubject$.asObservable();
 
     form = this.initForm();
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { merge, of, ReplaySubject, Subject } from 'rxjs';
-import { filter, map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY, merge, ReplaySubject, Subject } from 'rxjs';
+import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators';
 import { KeycloakService } from 'keycloak-angular';
 import * as uuid from 'uuid/v4';
@@ -18,7 +18,7 @@ import { CreateRevertDialogConfig } from '../../types/create-revert-dialog-confi
 @Injectable()
 export class CreateRevertService {
     private create$ = new Subject<void>();
-    private errorSubject$ = new Subject<void>();
+    private errorSubject$ = new Subject<boolean>();
     private depositID$ = new ReplaySubject<string>();
 
     revertCreated$ = this.create$.pipe(
@@ -27,12 +27,11 @@ export class CreateRevertService {
         switchMap(([params, depositID]) =>
             this.managementService.createRevert(depositID, params).pipe(
                 catchError(() => {
-                    this.errorSubject$.next();
-                    return of('error');
+                    this.errorSubject$.next(true);
+                    return EMPTY;
                 })
             )
         ),
-        filter((res) => res !== 'error'),
         shareReplay(1)
     );
 
@@ -49,7 +48,7 @@ export class CreateRevertService {
         private fb: FormBuilder
     ) {}
 
-    createDeposit() {
+    createRevert() {
         this.create$.next();
     }
 

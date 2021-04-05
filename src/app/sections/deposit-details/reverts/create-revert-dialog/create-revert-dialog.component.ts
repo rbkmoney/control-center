@@ -15,37 +15,37 @@ import { CreateRevertDialogConfig } from './types/create-revert-dialog-config';
 export class CreateRevertDialogComponent implements OnInit {
     form: FormGroup;
 
-    depositCreated$ = this.createDepositService.revertCreated$;
-    isLoading$ = this.createDepositService.isLoading$;
-    error$ = this.createDepositService.error$;
+    revertCreated$ = this.createRevertService.revertCreated$;
+    isLoading$ = this.createRevertService.isLoading$;
+    error$ = this.createRevertService.error$;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) private data: CreateRevertDialogConfig,
-        private createDepositService: CreateRevertService,
+        private createRevertService: CreateRevertService,
         private snackBar: MatSnackBar,
         private dialogRef: MatDialogRef<CreateRevertDialogComponent>
     ) {}
 
     ngOnInit() {
-        this.createDepositService.init(this.data);
-        this.form = this.createDepositService.form;
+        this.createRevertService.init(this.data);
+        this.form = this.createRevertService.form;
         this.dialogRef.afterClosed().subscribe(() => this.form.reset());
-        this.depositCreated$.subscribe((deposit) => {
-            this.snackBar.open(`Deposit status successfully created`, 'OK', { duration: 3000 });
-            this.dialogRef.close(deposit);
+        this.revertCreated$.subscribe((revert) => {
+            this.snackBar.open(`Revert successfully created`, 'OK', { duration: 3000 });
+            this.dialogRef.close(revert);
             this.form.enable();
         });
         this.error$.subscribe((e) => {
             console.error(e);
-            this.snackBar.open('An error occurred while deposit create', 'OK');
+            this.snackBar.open('An error occurred while revert create', 'OK');
             this.dialogRef.close();
             this.form.enable();
         });
     }
 
-    createDeposit() {
+    createRevert() {
         this.form.disable();
-        this.createDepositService.createDeposit();
+        this.createRevertService.createRevert();
     }
 
     closeDialog() {

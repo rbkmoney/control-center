@@ -55,7 +55,9 @@ export class RevertsComponent implements OnInit {
             )
             .afterClosed()
             .pipe(filter((revert) => !!revert))
-            .subscribe(() => {});
+            .subscribe(() => {
+                this.fetchRevertsService.refresh();
+            });
     }
 
     isCreateRevertAvailable(status: DepositStatus): boolean {
