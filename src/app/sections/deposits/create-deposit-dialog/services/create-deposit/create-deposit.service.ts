@@ -55,7 +55,6 @@ export class CreateDepositService {
                     this.pollingTimeoutSubject$.next(true);
                     return EMPTY;
                 }),
-                filter((res) => !!res)
             )
         )
     );
