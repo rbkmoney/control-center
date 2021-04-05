@@ -19,7 +19,8 @@
         "paths": {
             "@cc/components/*": ["src/components/*"],
             "@cc/utils/*": ["src/utils/*"],
-            "@cc/app/shared/*": ["src/app/shared/*"]
+            "@cc/app/shared/*": ["src/app/shared/*"],
+            "@cc/app/api/*": ["src/app/api/*"]
         }
     },
     "angularCompilerOptions": {
