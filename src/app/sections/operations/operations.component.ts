@@ -21,6 +21,12 @@ export class OperationsComponent {
                 otherActiveUrlFragments: ['payment'],
                 activateRoles: [OperationRole.SearchPayments],
             },
+            {
+                name: 'Deposits',
+                url: 'deposits',
+                otherActiveUrlFragments: ['deposit'],
+                activateRoles: [OperationRole.SearchOperations],
+            },
         ];
         return links.filter((item) => this.appAuthGuardService.userHasRoles(item.activateRoles));
     }

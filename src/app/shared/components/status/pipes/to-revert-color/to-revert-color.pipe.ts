@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StatusColor } from './status-color';
+import { StatusColor } from '../../types/status-color';
 
 @Pipe({
-    name: 'toPaymentColor',
+    name: 'toRevertColor',
 })
-export class ToPaymentColorPipe implements PipeTransform {
+export class ToRevertColorPipe implements PipeTransform {
     transform(status: string): StatusColor {
         return getStatusColor(status);
     }
@@ -14,16 +14,13 @@ export class ToPaymentColorPipe implements PipeTransform {
 const getStatusColor = (status: string): StatusColor => {
     const s = status.toLowerCase();
     switch (s) {
-        case 'processed':
-        case 'captured':
+        case 'succeeded':
             return StatusColor.success;
         case 'pending':
-        case 'charged_back':
             return StatusColor.pending;
         case 'failed':
-        case 'cancelled':
             return StatusColor.warn;
-        case 'refunded':
+        default:
             return StatusColor.neutral;
     }
 };

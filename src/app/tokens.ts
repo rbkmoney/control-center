@@ -1,10 +1,11 @@
 import { InjectionToken } from '@angular/core';
 import { MatDialogConfig } from '@angular/material/dialog';
 
-export const LAYOUT_GAP = new InjectionToken<string>('layoutGap');
-
 export const SEARCH_LIMIT = new InjectionToken<number>('searchLimit');
 export const DEFAULT_SEARCH_LIMIT = 10;
+
+export const SMALL_SEARCH_LIMIT = new InjectionToken<number>('smallSearchLimit');
+export const DEFAULT_SMALL_SEARCH_LIMIT = 5;
 
 export type DialogConfig = {
     small: MatDialogConfig;
