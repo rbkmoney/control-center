@@ -26,7 +26,8 @@ export class CreateRevertService {
         withLatestFrom(this.depositID$),
         switchMap(([params, depositID]) =>
             this.managementService.createRevert(depositID, params).pipe(
-                catchError(() => {
+                catchError((e) => {
+                    console.log(e);
                     this.errorSubject$.next(true);
                     return EMPTY;
                 })
