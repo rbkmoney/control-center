@@ -33,7 +33,8 @@ export class CreateDepositService {
             forkJoin([
                 of(this.getPollingParams(params)),
                 this.fistfulAdminService.createDeposit(params).pipe(
-                    catchError(() => {
+                    catchError((e) => {
+                        console.error(e);
                         this.errorSubject$.next(true);
                         return EMPTY;
                     })
@@ -42,13 +43,15 @@ export class CreateDepositService {
         ),
         switchMap(([pollingParams]) =>
             this.fistfulStatisticsService.getDeposits(pollingParams).pipe(
-                catchError(() => {
+                catchError((e) => {
+                    console.error(e);
                     this.pollingErrorSubject$.next(true);
                     return EMPTY;
                 }),
                 map((res) => res.result[0]),
                 poll(createDepositStopPollingCondition),
-                catchError(() => {
+                catchError((e) => {
+                    console.error(e);
                     this.pollingTimeoutSubject$.next(true);
                     return EMPTY;
                 })
