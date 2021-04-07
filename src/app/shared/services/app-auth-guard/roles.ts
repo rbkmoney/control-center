@@ -15,6 +15,7 @@ export enum ChargebackRole {
 export enum OperationRole {
     SearchOperations = 'search_ops',
     SearchPayments = 'search_payments',
+    SearchDeposits = 'search_deposits',
     SearchInvoices = 'search_invoices',
 }
 

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
 import { getDepositStatus } from '@cc/app/shared/utils';
+import { AppAuthGuardService, DepositRole } from '@cc/app/shared/services';
 
 import {
     DepositStatus,
@@ -33,7 +34,8 @@ export class RevertsComponent implements OnInit {
         private fetchRevertsService: FetchRevertsService,
         private route: ActivatedRoute,
         private snackBar: MatSnackBar,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private authGuardService: AppAuthGuardService
     ) {}
 
     ngOnInit() {
@@ -66,5 +68,9 @@ export class RevertsComponent implements OnInit {
 
     fetchMore() {
         this.fetchRevertsService.fetchMore();
+    }
+
+    hasNecessaryRole(): boolean {
+        return this.authGuardService.userHasRoles([DepositRole.Write]);
     }
 }

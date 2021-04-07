@@ -9,5 +9,6 @@ export class KeycloakTokenInfoService {
     init(token: string) {
         this.userToken = token;
         this.decodedUserToken = jwtDecode(token);
+        console.log(this.decodedUserToken);
     }
 }
