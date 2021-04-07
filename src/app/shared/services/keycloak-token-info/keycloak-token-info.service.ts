@@ -5,11 +5,13 @@ import { KeycloakService } from 'keycloak-angular';
 import { from, Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
+import { KeycloakToken } from './types/keycloak-token';
+
 @UntilDestroy()
 @Injectable()
 export class KeycloakTokenInfoService {
-    decoded$: Observable<any> = from(this.keycloakService.getToken()).pipe(
-        map((token) => jwt_decode(token)),
+    decoded$: Observable<KeycloakToken> = from(this.keycloakService.getToken()).pipe(
+        map((token) => jwt_decode<KeycloakToken>(token)),
         untilDestroyed(this),
         shareReplay(1)
     );

@@ -1,51 +1,38 @@
 import { Injectable } from '@angular/core';
-import { merge, NEVER, ReplaySubject } from 'rxjs';
-import { catchError, switchMap, shareReplay } from 'rxjs/operators';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { BehaviorSubject, NEVER, ReplaySubject, Subject } from 'rxjs';
+import { catchError, switchMap, shareReplay, tap } from 'rxjs/operators';
 
-import { ManagementService } from '@cc/app/api/fistful';
+import { ManagementService as WalletManagementService } from '@cc/app/api/fistful';
 
-import { WalletManagementService } from '../../../../../thrift-services/fistful/wallet-management.service';
-
+@UntilDestroy()
 @Injectable()
 export class ReceiveWalletService {
     private receiveWallet$ = new ReplaySubject<string>();
-    private error$ = new ReplaySubject<boolean>();
-
-    // wallet$ = this.receiveWallet$.pipe(
-    //     switchMap((id) =>
-    //         this.walletManagementService.getWallet(id).pipe(
-    //             catchError((e) => {
-    //                 console.log(e);
-    //                 this.error$.next(true);
-    //                 return NEVER;
-    //             })
-    //         )
-    //     ),
-    //     shareReplay(1)
-    // );
+    private error$ = new Subject<boolean>();
+    private loading$ = new BehaviorSubject(false);
 
     wallet$ = this.receiveWallet$.pipe(
+        tap(() => this.loading$.next(true)),
         switchMap((id) =>
-            this.managementService.get(id).pipe(
+            this.walletManagementService.get(id).pipe(
                 catchError((e) => {
                     console.error(e);
+                    this.loading$.next(false);
                     this.error$.next(true);
                     return NEVER;
                 })
             )
         ),
+        tap(() => this.loading$.next(false)),
+        untilDestroyed(this),
         shareReplay(1)
     );
 
-    isLoading$ = progress(this.receiveWallet$, merge(this.wallet$, this.error$));
-
+    isLoading$ = this.loading$.asObservable();
     hasError$ = this.error$.asObservable();
 
-    constructor(
-        private walletManagementService: WalletManagementService,
-        private managementService: ManagementService
-    ) {}
+    constructor(private walletManagementService: WalletManagementService) {}
 
     receiveWallet(id: string) {
         this.receiveWallet$.next(id);
