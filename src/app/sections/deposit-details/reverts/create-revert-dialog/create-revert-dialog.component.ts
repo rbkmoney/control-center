@@ -35,8 +35,7 @@ export class CreateRevertDialogComponent implements OnInit {
             this.dialogRef.close(revert);
             this.form.enable();
         });
-        this.error$.subscribe((e) => {
-            console.error(e);
+        this.error$.subscribe(() => {
             this.snackBar.open('An error occurred while revert create', 'OK');
             this.dialogRef.close();
             this.form.enable();

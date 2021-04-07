@@ -42,20 +42,17 @@ export class CreateDepositDialogComponent implements OnInit {
             this.dialogRef.close(deposit);
             this.form.enable();
         });
-        this.error$.pipe(untilDestroyed(this)).subscribe((e) => {
-            console.error(e);
+        this.error$.pipe(untilDestroyed(this)).subscribe(() => {
             this.snackBar.open('An error occurred while deposit create', 'OK');
             this.dialogRef.close();
             this.form.enable();
         });
-        this.pollingError$.pipe(untilDestroyed(this)).subscribe((e) => {
-            console.error(e);
+        this.pollingError$.pipe(untilDestroyed(this)).subscribe(() => {
             this.snackBar.open('An error occurred while deposit polling', 'OK');
             this.dialogRef.close();
             this.form.enable();
         });
-        this.pollingTimeout$.pipe(untilDestroyed(this)).subscribe((e) => {
-            console.error(e);
+        this.pollingTimeout$.pipe(untilDestroyed(this)).subscribe(() => {
             this.snackBar.open('Polling timeout error', 'OK');
             this.dialogRef.close();
             this.form.enable();
