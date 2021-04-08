@@ -32,7 +32,7 @@
             CANCEL
         </button>
         <button
-            *ngIf='hasNecessaryRole()'
+            *ngIf="hasNecessaryRole()"
             [disabled]="(isLoading$ | async) || form.invalid"
             mat-button
             color="primary"
