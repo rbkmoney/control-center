@@ -1,21 +1,27 @@
 <div fxLayout fxLayoutGap="8px" fxLayoutAlign="start center">
     <div>{{ bankCard | toCardNumber }}</div>
-    <mat-icon *ngIf="bankCard.payment_system === paymentSystems?.visa" svgIcon="visa"></mat-icon>
     <mat-icon
-        *ngIf="bankCard.payment_system === paymentSystems?.mastercard"
+        *ngIf="bankCard.payment_system_deprecated === legacyPaymentSystems?.visa"
+        svgIcon="visa"
+    ></mat-icon>
+    <mat-icon
+        *ngIf="bankCard.payment_system_deprecated === legacyPaymentSystems?.mastercard"
         svgIcon="mastercard"
     ></mat-icon>
-    <mat-icon *ngIf="bankCard.payment_system === paymentSystems?.nspkmir" svgIcon="mir"></mat-icon>
     <mat-icon
-        *ngIf="bankCard.token_provider === tokenProviders?.applepay"
+        *ngIf="bankCard.payment_system_deprecated === legacyPaymentSystems?.nspkmir"
+        svgIcon="mir"
+    ></mat-icon>
+    <mat-icon
+        *ngIf="bankCard.token_provider_deprecated === legacyTokenProviders?.applepay"
         svgIcon="apple_pay"
     ></mat-icon>
     <mat-icon
-        *ngIf="bankCard.token_provider === tokenProviders?.samsungpay"
+        *ngIf="bankCard.token_provider_deprecated === legacyTokenProviders?.samsungpay"
         svgIcon="samsung_pay"
     ></mat-icon>
     <mat-icon
-        *ngIf="bankCard.token_provider === tokenProviders?.googlepay"
+        *ngIf="bankCard.token_provider_deprecated === legacyTokenProviders?.googlepay"
         svgIcon="google_pay"
     ></mat-icon>
 </div>
