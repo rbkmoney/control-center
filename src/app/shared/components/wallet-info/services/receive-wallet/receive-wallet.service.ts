@@ -1,30 +1,35 @@
 import { Injectable } from '@angular/core';
-import { merge, NEVER, ReplaySubject } from 'rxjs';
-import { catchError, switchMap, shareReplay } from 'rxjs/operators';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { BehaviorSubject, NEVER, ReplaySubject, Subject } from 'rxjs';
+import { catchError, switchMap, shareReplay, tap } from 'rxjs/operators';
 
-import { WalletManagementService } from '../../../../../thrift-services/fistful/wallet-management.service';
+import { ManagementService as WalletManagementService } from '@cc/app/api/fistful';
 
+@UntilDestroy()
 @Injectable()
 export class ReceiveWalletService {
     private receiveWallet$ = new ReplaySubject<string>();
-    private error$ = new ReplaySubject<boolean>();
+    private error$ = new Subject<boolean>();
+    private loading$ = new BehaviorSubject(false);
 
     wallet$ = this.receiveWallet$.pipe(
+        tap(() => this.loading$.next(true)),
         switchMap((id) =>
-            this.walletManagementService.getWallet(id).pipe(
+            this.walletManagementService.get(id).pipe(
                 catchError((e) => {
-                    console.log(e);
+                    console.error(e);
+                    this.loading$.next(false);
                     this.error$.next(true);
                     return NEVER;
                 })
             )
         ),
+        tap(() => this.loading$.next(false)),
+        untilDestroyed(this),
         shareReplay(1)
     );
 
-    isLoading$ = progress(this.receiveWallet$, merge(this.wallet$, this.error$));
-
+    isLoading$ = this.loading$.asObservable();
     hasError$ = this.error$.asObservable();
 
     constructor(private walletManagementService: WalletManagementService) {}

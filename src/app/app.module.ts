@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as moment from 'moment';
 import 'moment/locale/ru';
 
+import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
@@ -78,6 +80,7 @@ moment.locale('en');
         SearchClaimsModule,
         OperationsModule,
         DomainConfigModule,
+        KeycloakTokenInfoModule,
         // It is important that NotFoundModule module should be last
         NotFoundModule,
     ],

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FistfulModule } from '../../../thrift-services/fistful/fistful.module';
+import { WalletModule } from '@cc/app/api/fistful/wallet';
+
 import { WalletInfoComponent } from './wallet-info.component';
 
 const DECLARATIONS = [WalletInfoComponent];
@@ -9,6 +10,6 @@ const DECLARATIONS = [WalletInfoComponent];
 @NgModule({
     declarations: DECLARATIONS,
     exports: DECLARATIONS,
-    imports: [CommonModule, FistfulModule],
+    imports: [CommonModule, WalletModule],
 })
 export class WalletInfoModule {}

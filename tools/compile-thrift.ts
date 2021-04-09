@@ -116,8 +116,12 @@ function toPathConfig(
     };
 }
 
-async function clear({ model, meta, services }: PathsConfig) {
-    await del([model.outputFolder, ...services.map((s) => s.outputFolder), meta.outputFile]);
+async function clear({ model, meta, services }: PathsConfig, outputServiceDirName = 'gen-nodejs') {
+    await del([
+        model.outputFolder,
+        ...services.map((s) => path.join(s.outputFolder, outputServiceDirName)),
+        meta.outputFile,
+    ]);
 }
 
 function prepareOutputDirs({ services, outputNamespacePath }: PathsConfig) {
