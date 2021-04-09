@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { switchMap, shareReplay, map } from 'rxjs/operators';
+import { switchMap, shareReplay, map, first } from 'rxjs/operators';
 
 import { KeycloakTokenInfoService } from '@cc/app/shared/services';
 
@@ -9,7 +9,6 @@ import {
     toConnectOptions,
     ThriftService,
     ThriftServiceConnection,
-    ThriftServiceMethod,
 } from './utils';
 
 export class ThriftConnector {
@@ -32,11 +31,14 @@ export class ThriftConnector {
         );
     }
 
-    protected prepareThriftServiceMethod<T>(
-        serviceMethodName: string
-    ): Observable<ThriftServiceMethod<T>> {
+    protected callThriftServiceMethod<T, P extends any[]>(
+        serviceMethodName: string,
+        ...args: P
+    ): Observable<T> {
         return this.connection$.pipe(
-            map((connection) => prepareThriftServiceMethod<T>(connection, serviceMethodName))
+            first(),
+            map((connection) => prepareThriftServiceMethod<T>(connection, serviceMethodName)),
+            switchMap((fn) => fn(...args))
         );
     }
 }
