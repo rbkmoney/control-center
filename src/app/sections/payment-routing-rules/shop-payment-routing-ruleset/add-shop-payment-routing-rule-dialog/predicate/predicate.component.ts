@@ -12,8 +12,8 @@ import { distinctUntilChanged, map, shareReplay, startWith, tap } from 'rxjs/ope
 
 import {
     BankCardConditionDefinition,
-    BankCardPaymentSystem,
-    BankCardTokenProvider,
+    LegacyBankCardPaymentSystem,
+    LegacyBankCardTokenProvider,
     Predicate,
     Residence,
     TokenizationMethod,
@@ -154,8 +154,8 @@ export class PredicateComponent implements OnChanges {
                 )
             ).subscribe();
         }
-        this.paymentSystems$ = this.getFilteredKeys(paymentSystem, BankCardPaymentSystem);
-        this.tokenProviders$ = this.getFilteredKeys(tokenProvider, BankCardTokenProvider);
+        this.paymentSystems$ = this.getFilteredKeys(paymentSystem, LegacyBankCardPaymentSystem);
+        this.tokenProviders$ = this.getFilteredKeys(tokenProvider, LegacyBankCardTokenProvider);
         this.tokenizationMethods$ = this.getFilteredKeys(tokenizationMethod, TokenizationMethod);
         this.residences$ = this.getFilteredKeys(residence, Residence);
     }
@@ -172,9 +172,9 @@ export class PredicateComponent implements OnChanges {
                         residence: ['', [Validators.required, this.enumValidator(Residence)]],
                         paymentSystem: [
                             '',
-                            [Validators.required, this.enumValidator(BankCardPaymentSystem)],
+                            [Validators.required, this.enumValidator(LegacyBankCardPaymentSystem)],
                         ],
-                        tokenProvider: ['', this.enumValidator(BankCardTokenProvider)],
+                        tokenProvider: ['', this.enumValidator(LegacyBankCardTokenProvider)],
                         tokenizationMethod: ['', this.enumValidator(TokenizationMethod)],
                     }),
                 }),
@@ -222,10 +222,14 @@ export class PredicateComponent implements OnChanges {
             case BankCardType.paymentSystem:
                 return {
                     payment_system: {
-                        payment_system_is: BankCardPaymentSystem[value.paymentSystem as string],
-                        token_provider_is: BankCardTokenProvider[value.tokenProvider as string],
                         tokenization_method_is:
                             TokenizationMethod[value.tokenizationMethod as string],
+
+                        // TODO Need migration according to: https://github.com/rbkmoney/damsel/commit/61677b86006d405619bdc5f23d6416a929688180
+                        payment_system_is_deprecated:
+                            LegacyBankCardPaymentSystem[value.paymentSystem as string],
+                        token_provider_is_deprecated:
+                            LegacyBankCardTokenProvider[value.tokenProvider as string],
                     },
                 };
             case BankCardType.paymentSystemIs:
