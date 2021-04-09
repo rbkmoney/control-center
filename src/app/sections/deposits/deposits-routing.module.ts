@@ -13,7 +13,7 @@ import { DepositsComponent } from './deposits.component';
                 component: DepositsComponent,
                 canActivate: [AppAuthGuardService],
                 data: {
-                    roles: [OperationRole.SearchOperations],
+                    roles: [OperationRole.SearchDeposits],
                 },
             },
         ]),
