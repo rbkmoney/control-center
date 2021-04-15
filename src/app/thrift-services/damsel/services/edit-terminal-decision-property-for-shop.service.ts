@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import { progress } from '@rbkmoney/utils';
 import { EMPTY, merge, Subject } from 'rxjs';
 import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 

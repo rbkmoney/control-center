@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { merge, NEVER, ReplaySubject, Subject } from 'rxjs';
 import { catchError, switchMap, pluck, shareReplay } from 'rxjs/operators';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import { progress } from '@rbkmoney/utils';
 
 import { FistfulStatisticsService } from '../../../../thrift-services/fistful/fistful-stat.service';
 
