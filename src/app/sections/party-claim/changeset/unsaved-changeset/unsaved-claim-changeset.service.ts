@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import { progress } from '@rbkmoney/utils';
 import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 

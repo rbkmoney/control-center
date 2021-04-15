@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { progress } from '@rbkmoney/partial-fetcher/dist/progress';
+import { progress } from '@rbkmoney/utils';
 import { of, ReplaySubject } from 'rxjs';
 import { catchError, filter, shareReplay, switchMap } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
