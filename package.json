@@ -5,7 +5,7 @@
     "start": "ng serve --proxy-config proxy.conf.json --port 7000",
     "build": "ng build --prod",
     "test": "ng test",
-    "test-ci": "ng run dashboard:test-ci",
+    "test-ci": "ng run control-center:test-ci",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "prettier-preset": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg,huskyrc}\"",
