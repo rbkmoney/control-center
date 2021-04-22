@@ -31,7 +31,7 @@ describe('MetaLoopResolver', () => {
         expect(result.resolved).toEqual(expected);
     });
 
-    fit('should resolve multi level loops', () => {
+    it('should resolve multi level loops', () => {
         const resolveContainer = [
             {
                 name: 'PaymentsProvisionTerms',
