@@ -10,6 +10,7 @@ import { RepairingStatusType } from '../repairing-status/repairing-status.compon
 import { RepairingService } from '../repairing.service';
 
 enum Status {
+    /* eslint-disable @typescript-eslint/naming-convention */
     found = 'machine found',
     repaired = 'machine repaired',
     update = 'status updated',
@@ -19,6 +20,7 @@ enum Status {
     machineFailed = 'machine failed',
     eventNotFound = 'event not found',
     machineAlreadyWorking = 'machine already working',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 interface Element {
