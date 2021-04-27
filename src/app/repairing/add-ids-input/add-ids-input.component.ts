@@ -13,8 +13,6 @@ export class AddIdsInputComponent {
 
     idsControl = new FormControl('');
 
-    constructor() {}
-
     emitAdd() {
         this.add.emit(this.execIdsFromStr(this.idsControl.value));
         this.idsControl.setValue('');

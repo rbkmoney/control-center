@@ -51,7 +51,8 @@ export class RepairWithScenarioComponent {
     }
 
     masterToggle() {
-        this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
+        if (this.isAllSelected()) this.selection.clear();
+        else this.selection.select(...this.dataSource);
     }
 
     add(addedIds: string[]) {
