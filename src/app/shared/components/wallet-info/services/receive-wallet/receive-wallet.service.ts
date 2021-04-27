@@ -11,6 +11,7 @@ export class ReceiveWalletService {
     private error$ = new Subject<boolean>();
     private loading$ = new BehaviorSubject(false);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     wallet$ = this.receiveWallet$.pipe(
         tap(() => this.loading$.next(true)),
         switchMap((id) =>
@@ -28,7 +29,9 @@ export class ReceiveWalletService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.loading$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     hasError$ = this.error$.asObservable();
 
     constructor(private walletManagementService: WalletManagementService) {}
