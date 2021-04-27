@@ -80,9 +80,9 @@ export const convert = (containers: PersistentContainer[]): ModificationGroup[] 
     return map(grouped, (persistentContainer, type) => {
         switch (type) {
             case ModificationGroupType.ShopUnitContainer:
-                return toGroup(UnitName.shopModification, type, persistentContainer);
+                return toGroup(UnitName.ShopModification, type, persistentContainer);
             case ModificationGroupType.ContractUnitContainer:
-                return toGroup(UnitName.contractModification, type, persistentContainer);
+                return toGroup(UnitName.ContractModification, type, persistentContainer);
             case ModificationGroupType.unknown:
                 return { type: ModificationGroupType.unknown };
         }
