@@ -27,14 +27,14 @@ export class CaptureAdjustmentService extends AdjustmentOperationService {
         if (success) {
             this.events$.next({
                 type: EventType.PaymentAdjustmentsCaptured,
-                operationType: ExecResultType.success,
+                operationType: ExecResultType.Success,
                 payload: success.map(({ container: { params } }) => params),
             } as AdjustmentOperationEvent<PaymentAdjustmentCaptureParams>);
         }
         if (error) {
             this.events$.next({
                 type: EventType.CapturePaymentAdjustmentFailed,
-                operationType: ExecResultType.error,
+                operationType: ExecResultType.Error,
                 payload: this.toErrorPayload(error),
             } as OperationError<CapturePaymentAdjustmentErrorCodes | 'InternalServer', PaymentAdjustmentCaptureParams>);
         }

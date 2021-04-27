@@ -27,14 +27,14 @@ export class CancelAdjustmentService extends AdjustmentOperationService {
         if (success) {
             this.events$.next({
                 type: EventType.PaymentAdjustmentsCancelled,
-                operationType: ExecResultType.success,
+                operationType: ExecResultType.Success,
                 payload: success.map(({ container: { params } }) => params),
             } as AdjustmentOperationEvent<PaymentAdjustmentCancelParams>);
         }
         if (error) {
             this.events$.next({
                 type: EventType.CancelPaymentAdjustmentFailed,
-                operationType: ExecResultType.error,
+                operationType: ExecResultType.Error,
                 payload: this.toErrorPayload(error),
             } as OperationError<CancelPaymentAdjustmentErrorCodes | 'InternalServer', PaymentAdjustmentCancelParams>);
         }

@@ -28,14 +28,14 @@ export class CreateAdjustmentService extends AdjustmentOperationService {
         if (success) {
             this.events$.next({
                 type: EventType.PaymentAdjustmentsCreated,
-                operationType: ExecResultType.success,
+                operationType: ExecResultType.Success,
                 payload: this.toSuccessPayload(success),
             } as AdjustmentOperationEvent<PaymentAdjustmentCreationScope>);
         }
         if (error) {
             this.events$.next({
                 type: EventType.CreatePaymentAdjustmentFailed,
-                operationType: ExecResultType.error,
+                operationType: ExecResultType.Error,
                 payload: this.toErrorPayload(error),
             } as OperationError<CreatePaymentAdjustmentErrorCodes | 'InternalServer', PaymentAdjustmentCreationScope>);
         }
