@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { PartyActions } from './party-actions';
 
-const partyActionNames: { [N in PartyActions]: string } = {
+const PARTY_ACTION_NAMES: { [N in PartyActions]: string } = {
     [PartyActions.navigateToParty]: 'Merchant Details',
 };
 
@@ -11,6 +11,6 @@ const partyActionNames: { [N in PartyActions]: string } = {
 })
 export class PartyActionsPipe implements PipeTransform {
     transform(action: string): string {
-        return partyActionNames[action] || action;
+        return PARTY_ACTION_NAMES[action] || action;
     }
 }
