@@ -5,8 +5,8 @@ import get from 'lodash-es/get';
 import { LegalEntity } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 enum Type {
-    russianLegalEntity = 'russian_legal_entity',
-    internationalLegalEntity = 'international_legal_entity',
+    RussianLegalEntity = 'russian_legal_entity',
+    InternationalLegalEntity = 'international_legal_entity',
 }
 
 @Component({
@@ -20,7 +20,7 @@ export class LegalEntityComponent implements OnInit {
     @Input()
     initialValue: LegalEntity;
 
-    types = [Type.russianLegalEntity, Type.internationalLegalEntity];
+    types = [Type.RussianLegalEntity, Type.InternationalLegalEntity];
 
     selected: Type;
 
@@ -32,24 +32,24 @@ export class LegalEntityComponent implements OnInit {
         const russianLegalEntity = get(this, 'initialValue.russian_legal_entity', null);
         const internationalLegalEntity = get(this, 'initialValue.international_legal_entity', null);
         if (russianLegalEntity) {
-            this.selected = Type.russianLegalEntity;
+            this.selected = Type.RussianLegalEntity;
             this.select();
         }
         if (internationalLegalEntity) {
-            this.selected = Type.internationalLegalEntity;
+            this.selected = Type.InternationalLegalEntity;
             this.select();
         }
     }
 
     select() {
         switch (this.selected) {
-            case Type.russianLegalEntity:
-                this.form.removeControl(Type.internationalLegalEntity);
-                this.form.registerControl(Type.russianLegalEntity, this.fb.group({}));
+            case Type.RussianLegalEntity:
+                this.form.removeControl(Type.InternationalLegalEntity);
+                this.form.registerControl(Type.RussianLegalEntity, this.fb.group({}));
                 break;
-            case Type.internationalLegalEntity:
-                this.form.removeControl(Type.russianLegalEntity);
-                this.form.registerControl(Type.internationalLegalEntity, this.fb.group({}));
+            case Type.InternationalLegalEntity:
+                this.form.removeControl(Type.RussianLegalEntity);
+                this.form.registerControl(Type.InternationalLegalEntity, this.fb.group({}));
                 break;
         }
         this.form.updateValueAndValidity();
