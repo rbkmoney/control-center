@@ -47,30 +47,29 @@ export class CancelActionsComponent implements OnInit {
                         (event as AdjustmentOperationEvent<PaymentAdjustmentCancelParams>).payload
                     );
                     break;
-                case EventType.CancelPaymentAdjustmentFailed:
+                case EventType.CancelPaymentAdjustmentFailed: {
                     const infoGroup = groupBy<any>(event.payload, 'code');
-                    const Codes = CancelPaymentAdjustmentErrorCodes;
                     forEach(infoGroup, (payloads, code) => {
                         switch (code) {
-                            case Codes.InvalidPaymentAdjustmentStatus:
+                            case CancelPaymentAdjustmentErrorCodes.InvalidPaymentAdjustmentStatus:
                                 this.failedInvalidStatus = this.failedInvalidStatus.concat(
                                     payloads
                                 );
                                 break;
-                            case Codes.InvoicePaymentAdjustmentNotFound:
+                            case CancelPaymentAdjustmentErrorCodes.InvoicePaymentAdjustmentNotFound:
                                 this.failedAdjustmentNotFound = this.failedAdjustmentNotFound.concat(
                                     payloads
                                 );
                                 break;
-                            case Codes.InvoiceNotFound:
+                            case CancelPaymentAdjustmentErrorCodes.InvoiceNotFound:
                                 this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(
                                     payloads
                                 );
                                 break;
-                            case Codes.InvalidUser:
+                            case CancelPaymentAdjustmentErrorCodes.InvalidUser:
                                 this.failedInvalidUser = this.failedInvalidUser.concat(payloads);
                                 break;
-                            case Codes.InvoicePaymentNotFound:
+                            case CancelPaymentAdjustmentErrorCodes.InvoicePaymentNotFound:
                                 this.failedInvoicePaymentNotFound = this.failedInvoicePaymentNotFound.concat(
                                     payloads
                                 );
@@ -81,6 +80,7 @@ export class CancelActionsComponent implements OnInit {
                         }
                     });
                     break;
+                }
             }
         });
     }
