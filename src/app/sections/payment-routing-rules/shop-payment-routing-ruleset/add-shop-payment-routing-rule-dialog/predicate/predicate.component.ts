@@ -19,6 +19,7 @@ import {
     TokenizationMethod,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 enum PredicateType {
     constant = 'constant',
     condition = 'condition',
@@ -40,6 +41,7 @@ enum BankCardType {
     paymentSystem = 'paymentSystem',
     paymentSystemIs = 'paymentSystemIs',
 }
+/* eslint-enable @typescript-eslint/naming-convention */
 
 @Component({
     selector: 'cc-predicate',
