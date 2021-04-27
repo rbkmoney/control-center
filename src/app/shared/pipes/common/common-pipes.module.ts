@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { CurrencyPipe } from './currency.pipe';
 import { FormatAmountPipe } from './format-amount.pipe';
 
-const pipes = [CurrencyPipe, FormatAmountPipe];
+const PIPES = [CurrencyPipe, FormatAmountPipe];
 
 @NgModule({
-    declarations: pipes,
-    exports: pipes,
+    declarations: PIPES,
+    exports: PIPES,
 })
 export class CommonPipesModule {}
