@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
 
+import { ClaimStatus } from '../../../../papi/model';
 import { ClaimStatus as CMClaimStatus } from '../../../../thrift-services/damsel/gen-model/claim_management';
-import { ClaimStatus } from './claim-status';
 import { getAvailableClaimStatuses } from './get-available-claim-statuses';
 import { StatusChangerDialogService } from './status-changer-dialog.service';
 
@@ -34,6 +34,7 @@ export class StatusChangerDialogComponent implements OnInit {
         'Нет сплитов',
     ];
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     ClaimStatus = ClaimStatus;
 
     constructor(
@@ -58,17 +59,17 @@ export class StatusChangerDialogComponent implements OnInit {
 
     private statusFilter(status: ClaimStatus): boolean {
         switch (status) {
-            case ClaimStatus.accepted:
+            case ClaimStatus.Accepted:
                 return this.appAuthGuardService.userHasRoles([ClaimManagementRole.AcceptClaim]);
-            case ClaimStatus.denied:
+            case ClaimStatus.Denied:
                 return this.appAuthGuardService.userHasRoles([ClaimManagementRole.DenyClaim]);
-            case ClaimStatus.review:
+            case ClaimStatus.Review:
                 return this.appAuthGuardService.userHasRoles([
                     ClaimManagementRole.RequestClaimReview,
                 ]);
-            case ClaimStatus.revoked:
+            case ClaimStatus.Revoked:
                 return this.appAuthGuardService.userHasRoles([ClaimManagementRole.RevokeClaim]);
-            case ClaimStatus.pending:
+            case ClaimStatus.Pending:
                 return this.appAuthGuardService.userHasRoles([
                     ClaimManagementRole.RequestClaimChanges,
                 ]);

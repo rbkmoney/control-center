@@ -166,7 +166,7 @@ export class ClaimService {
     private getAvailability(): boolean {
         switch (this.claimInfoContainer.type) {
             case ClaimActionType.edit:
-                return this.claimInfoContainer.status === ClaimStatus.pending;
+                return this.claimInfoContainer.status === ClaimStatus.Pending;
             case ClaimActionType.create:
                 return true;
         }
@@ -185,7 +185,7 @@ export class ClaimService {
     private toClaimInfoContainer(claimInfo: ClaimInfo): ClaimInfoContainer {
         const modifications = claimInfo.modifications.modifications;
         const { claim_id, party_id, revision, status, reason, created_at, updated_at } = claimInfo;
-        const extracted_ids = this.extractIds(modifications);
+        const extractedIds = this.extractIds(modifications);
         return {
             type: ClaimActionType.edit,
             claimId: claim_id,
@@ -195,7 +195,7 @@ export class ClaimService {
             reason,
             createdAt: created_at,
             updatedAt: updated_at,
-            extractedIds: extracted_ids,
+            extractedIds,
         };
     }
 

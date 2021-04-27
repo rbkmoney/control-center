@@ -99,8 +99,8 @@
             <cc-send-comment
                 fxFlex="100"
                 *ngIf="
-                    claimStatus !== claimStatuses.denied &&
-                    claimStatus !== claimStatuses.revoked &&
+                    claimStatus !== claimStatuses.Denied &&
+                    claimStatus !== claimStatuses.Revoked &&
                     canAddClaimMod
                 "
                 (conversationSaved)="updateConversation($event)"

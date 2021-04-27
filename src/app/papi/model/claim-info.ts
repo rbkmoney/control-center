@@ -1,4 +1,4 @@
-import { ClaimStatus } from './claim-statuses';
+import { ClaimStatus } from './claim-status';
 import { PartyModificationUnit } from './party-modification-unit';
 
 export class ClaimInfo {

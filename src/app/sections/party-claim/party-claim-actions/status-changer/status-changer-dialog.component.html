@@ -8,7 +8,7 @@
                 }}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field *ngIf="isStatus(ClaimStatus.denied)">
+        <mat-form-field *ngIf="isStatus(ClaimStatus.Denied)">
             <input
                 aria-label="reason"
                 matInput
@@ -17,7 +17,7 @@
                 placeholder="Reason"
             />
         </mat-form-field>
-        <mat-form-field *ngIf="isStatus(ClaimStatus.revoked)">
+        <mat-form-field *ngIf="isStatus(ClaimStatus.Revoked)">
             <mat-label>Reason</mat-label>
             <mat-select formControlName="reason">
                 <mat-option *ngFor="let reason of revokeReasons" [value]="reason">

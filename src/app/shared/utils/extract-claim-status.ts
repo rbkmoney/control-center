@@ -4,12 +4,12 @@ import { ClaimStatus } from '../../papi/model';
 import { ClaimStatus as UnionClaimStatus } from '../../thrift-services/damsel/gen-model/claim_management';
 
 export const claimStatusByUnionClaimStatus: { [name in keyof UnionClaimStatus]-?: ClaimStatus } = {
-    accepted: ClaimStatus.accepted,
-    denied: ClaimStatus.denied,
-    revoked: ClaimStatus.revoked,
-    pending: ClaimStatus.pending,
-    review: ClaimStatus.review,
-    pending_acceptance: ClaimStatus.pending_acceptance,
+    accepted: ClaimStatus.Accepted,
+    denied: ClaimStatus.Denied,
+    revoked: ClaimStatus.Revoked,
+    pending: ClaimStatus.Pending,
+    review: ClaimStatus.Review,
+    pending_acceptance: ClaimStatus.PendingAcceptance,
 };
 
 export const extractClaimStatus = (status: UnionClaimStatus): ClaimStatus =>

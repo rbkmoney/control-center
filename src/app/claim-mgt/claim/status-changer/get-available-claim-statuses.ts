@@ -5,14 +5,14 @@ import { ClaimStatuses } from '../claim-statuses';
 
 export const getAvailableClaimStatuses = (status: ClaimStatus): ClaimStatuses[] => {
     switch (extractClaimStatus(status)) {
-        case ClaimStatusEnum.pending:
+        case ClaimStatusEnum.Pending:
             return [
                 ClaimStatuses.accepted,
                 ClaimStatuses.review,
                 ClaimStatuses.denied,
                 ClaimStatuses.revoked,
             ];
-        case ClaimStatusEnum.review:
+        case ClaimStatusEnum.Review:
             return [
                 ClaimStatuses.accepted,
                 ClaimStatuses.pending,

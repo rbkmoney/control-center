@@ -15,8 +15,8 @@ import {
 } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 
+import { ClaimStatus } from '../../../../papi/model';
 import { ClaimManagementService } from '../../../../thrift-services/damsel/claim-management.service';
-import { ClaimStatus } from './claim-status';
 
 class UpdateClaim {
     partyID: string;
@@ -29,30 +29,32 @@ export class StatusChangerDialogService {
     private updateClaim$ = new Subject<UpdateClaim>();
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.initForm();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     statusChanged$ = this.updateClaim$.pipe(
         tap(() => this.hasError$.next()),
         switchMap(({ partyID, claimID, action }) => {
             const intClaimID = new Int64(parseInt(claimID, 10));
             switch (action) {
-                case ClaimStatus.denied:
+                case ClaimStatus.Denied:
                     return this.claimManagementService
                         .denyClaim(partyID, intClaimID, this.form.getRawValue().reason)
                         .pipe(catchError(() => this.handleError()));
-                case ClaimStatus.pending:
+                case ClaimStatus.Pending:
                     return this.claimManagementService
                         .requestClaimChanges(partyID, intClaimID)
                         .pipe(catchError(() => this.handleError()));
-                case ClaimStatus.review:
+                case ClaimStatus.Review:
                     return this.claimManagementService
                         .requestClaimReview(partyID, intClaimID)
                         .pipe(catchError(() => this.handleError()));
-                case ClaimStatus.accepted:
+                case ClaimStatus.Accepted:
                     return this.claimManagementService
                         .acceptClaim(partyID, intClaimID)
                         .pipe(catchError(() => this.handleError()));
-                case ClaimStatus.revoked:
+                case ClaimStatus.Revoked:
                     return this.claimManagementService
                         .revokeClaim(partyID, intClaimID, this.form.getRawValue().reason)
                         .pipe(catchError(() => this.handleError()));
@@ -64,6 +66,7 @@ export class StatusChangerDialogService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.updateClaim$, merge(this.statusChanged$, this.hasError$));
 
     constructor(
@@ -80,8 +83,8 @@ export class StatusChangerDialogService {
             )
             .subscribe((type) => {
                 switch (type) {
-                    case ClaimStatus.denied:
-                    case ClaimStatus.revoked:
+                    case ClaimStatus.Denied:
+                    case ClaimStatus.Revoked:
                         this.form.setControl('reason', this.fb.control(null, Validators.required));
                         break;
                     default:
