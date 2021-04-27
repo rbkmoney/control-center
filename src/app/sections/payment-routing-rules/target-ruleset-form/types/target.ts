@@ -1,4 +1,4 @@
 export enum Target {
-    manual = 'manual',
-    paymentInstitution = 'paymentInstitution',
+    Manual = 'manual',
+    PaymentInstitution = 'paymentInstitution',
 }

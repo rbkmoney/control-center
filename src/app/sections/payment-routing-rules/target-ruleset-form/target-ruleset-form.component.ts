@@ -30,7 +30,7 @@ export class TargetRulesetFormComponent implements OnChanges {
     @Input() value: TargetRuleset;
 
     form = this.fb.group({
-        target: Target.paymentInstitution,
+        target: Target.PaymentInstitution,
         paymentInstitution: '',
         mainRulesetRefID: '',
         mainDelegateDescription: 'Main delegate[party]',
@@ -52,11 +52,11 @@ export class TargetRulesetFormComponent implements OnChanges {
             .pipe(startWith(this.form.value.target), untilDestroyed(this))
             .subscribe((target) => {
                 switch (target) {
-                    case Target.manual:
+                    case Target.Manual:
                         this.form.controls.paymentInstitution.disable();
                         this.form.controls.mainRulesetRefID.enable();
                         break;
-                    case Target.paymentInstitution:
+                    case Target.PaymentInstitution:
                         this.form.controls.paymentInstitution.enable();
                         this.form.controls.mainRulesetRefID.disable();
                         break;
@@ -73,12 +73,12 @@ export class TargetRulesetFormComponent implements OnChanges {
                         mainDelegateDescription,
                     }) => ({
                         mainRulesetRefID:
-                            target === Target.paymentInstitution
+                            target === Target.PaymentInstitution
                                 ? (paymentInstitution as PaymentInstitutionObject)?.data
                                       ?.payment_routing_rules?.policies?.id
                                 : mainRulesetRefID,
                         paymentInstitutionRefID:
-                            target === Target.paymentInstitution
+                            target === Target.PaymentInstitution
                                 ? paymentInstitution?.ref?.id
                                 : undefined,
                         mainDelegateDescription,
@@ -102,7 +102,7 @@ export class TargetRulesetFormComponent implements OnChanges {
             this.form.patchValue(
                 Object.assign(
                     {},
-                    !!mainRulesetRefID && { mainRulesetRefID, target: Target.manual },
+                    !!mainRulesetRefID && { mainRulesetRefID, target: Target.Manual },
                     !!mainDelegateDescription && { mainDelegateDescription }
                 )
             );
