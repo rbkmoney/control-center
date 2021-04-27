@@ -1,4 +1,4 @@
 export enum ActionType {
-    attachNew = 'attachNew',
-    attach = 'attach',
+    AttachNew = 'attachNew',
+    Attach = 'attach',
 }

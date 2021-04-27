@@ -8,7 +8,7 @@ import * as geo_ip from '../gen-nodejs/geo_ip_types';
 import * as merch_stat from '../gen-nodejs/merch_stat_types';
 import * as payment_processing from '../gen-nodejs/payment_processing_types';
 
-const namespaces = {
+const NAMESPACES = {
     base,
     domain,
     domain_config,
@@ -21,4 +21,4 @@ const namespaces = {
 export const {
     createThriftInstance: createDamselInstance,
     thriftInstanceToObject: damselInstanceToObject,
-} = createThriftInstanceUtils(metadata, namespaces);
+} = createThriftInstanceUtils(metadata, NAMESPACES);

@@ -8,14 +8,14 @@
             >{{ item | ccSelectorType }}
         </mat-radio-button>
     </mat-radio-group>
-    <ng-container *ngIf="selectedTarget === actionType.attachNew">
+    <ng-container *ngIf="selectedTarget === actionType.AttachNew">
         <form [formGroup]="contractorForm">
             <mat-form-field fxFlex="">
                 <input type="text" matInput formControlName="id" placeholder="Contractor ID" />
             </mat-form-field>
         </form>
     </ng-container>
-    <ng-container *ngIf="selectedTarget === actionType.attach">
+    <ng-container *ngIf="selectedTarget === actionType.Attach">
         <cc-contractors-table
             [contractorForm]="contractorForm"
             [partyID]="partyID"

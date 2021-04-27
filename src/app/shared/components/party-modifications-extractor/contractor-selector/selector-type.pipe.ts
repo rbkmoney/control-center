@@ -8,9 +8,9 @@ import { ActionType } from './action-type';
 export class SelectorTypePipe implements PipeTransform {
     transform(value: string): any {
         switch (value) {
-            case ActionType.attachNew:
+            case ActionType.AttachNew:
                 return 'Attach new';
-            case ActionType.attach:
+            case ActionType.Attach:
                 return 'Select from party or from unsaved';
             default:
                 return value;
