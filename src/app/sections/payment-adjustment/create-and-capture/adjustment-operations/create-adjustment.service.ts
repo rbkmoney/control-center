@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { PaymentAdjustmentCreationParams } from '.';
 import { ExecErrorResult, ExecResultType, ExecSuccessResult } from '../executor.service';
 import {
     AdjustmentOperationEvent,
@@ -9,6 +8,7 @@ import {
     OperationFailedPayload,
 } from './adjustment-event';
 import { AdjustmentOperationService } from './adjustment-operation.service';
+import { PaymentAdjustmentCreationParams } from './adjustment-params';
 import { CreatePaymentAdjustmentErrorCodes } from './error-codes';
 import { ExecResultGroup } from './exec-result-group';
 import { PaymentAdjustmentCreationScope } from './payment-adjustment-creation-scope';
