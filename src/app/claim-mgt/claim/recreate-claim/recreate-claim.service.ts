@@ -9,7 +9,7 @@ import { catchError, filter, map, shareReplay, switchMap, switchMapTo, tap } fro
 
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { extractModificationsReducer, extractSeed } from './extract-modifications-reducer';
+import { extractModificationsReducer, EXTRACT_SEED } from './extract-modifications-reducer';
 
 @Injectable()
 export class RecreateClaimService {
@@ -42,7 +42,7 @@ export class RecreateClaimService {
                 of(
                     changeset
                         .map((unit) => unit.modification)
-                        .reduce(extractModificationsReducer, extractSeed)
+                        .reduce(extractModificationsReducer, EXTRACT_SEED)
                 ),
             ])
         ),

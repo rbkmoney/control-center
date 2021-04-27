@@ -18,7 +18,7 @@ export const extractModificationsReducer = (
     return acc;
 };
 
-export const extractSeed = {
+export const EXTRACT_SEED = {
     recreateModifications: [],
     extractedModifications: [],
 };
