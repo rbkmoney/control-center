@@ -67,11 +67,11 @@ export class TargetTableService {
         targetName: PartyTarget
     ): Map<string, Contract | Shop | PartyContractor> {
         switch (targetName) {
-            case PartyTarget.contract:
+            case PartyTarget.Contract:
                 return party.contracts;
-            case PartyTarget.shop:
+            case PartyTarget.Shop:
                 return party.shops;
-            case PartyTarget.contractor:
+            case PartyTarget.Contractor:
                 return party.contractors;
         }
     }

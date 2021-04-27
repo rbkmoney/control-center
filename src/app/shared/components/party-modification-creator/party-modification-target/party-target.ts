@@ -1,5 +1,5 @@
 export enum PartyTarget {
-    shop = 'shop',
-    contract = 'contract',
-    contractor = 'contractor',
+    Shop = 'shop',
+    Contract = 'contract',
+    Contractor = 'contractor',
 }

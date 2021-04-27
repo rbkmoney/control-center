@@ -98,11 +98,11 @@ export class CreateModificationDialogComponent implements OnInit {
     getPartyTarget(type: ActionType): PartyTarget {
         switch (type) {
             case ActionType.ShopAction:
-                return PartyTarget.shop;
+                return PartyTarget.Shop;
             case ActionType.ContractAction:
-                return PartyTarget.contract;
+                return PartyTarget.Contract;
             case ActionType.ContractorAction:
-                return PartyTarget.contractor;
+                return PartyTarget.Contractor;
         }
     }
 

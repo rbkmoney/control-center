@@ -12,19 +12,19 @@ export const modificationsToSelectableItems = (
     mods
         .filter((mod) => {
             switch (target) {
-                case PartyTarget.contract:
+                case PartyTarget.Contract:
                     return !!getOr(
                         mod,
                         'party_modification.contract_modification.modification.creation',
                         false
                     );
-                case PartyTarget.contractor:
+                case PartyTarget.Contractor:
                     return !!getOr(
                         mod,
                         'party_modification.contractor_modification.modification.creation',
                         false
                     );
-                case PartyTarget.shop:
+                case PartyTarget.Shop:
                     return !!getOr(
                         mod,
                         'party_modification.shop_modification.modification.creation',
