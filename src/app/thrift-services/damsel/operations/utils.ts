@@ -1,6 +1,6 @@
 import { TerminalSelector } from '../gen-model/domain';
 
-export const generateID = (objectsWithRefId: { ref: { id: number } }[]): number => {
+export const generateId = (objectsWithRefId: { ref: { id: number } }[]): number => {
     const ids = objectsWithRefId.map(({ ref }) => ref.id);
     return Math.max(...ids) + 1;
 };
