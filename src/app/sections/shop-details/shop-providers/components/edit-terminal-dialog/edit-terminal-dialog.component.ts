@@ -50,7 +50,7 @@ export class EditTerminalDialogComponent {
             value: this.editValueControl.value,
         };
         switch (this.data.type) {
-            case TerminalActionTypes.editWeight:
+            case TerminalActionTypes.EditWeight:
                 this.editTerminalDecisionPropertyForShopService.editTerminalDecisionPropertyForShop(
                     {
                         ...editParams,
@@ -58,7 +58,7 @@ export class EditTerminalDialogComponent {
                     }
                 );
                 break;
-            case TerminalActionTypes.editPriority:
+            case TerminalActionTypes.EditPriority:
                 this.editTerminalDecisionPropertyForShopService.editTerminalDecisionPropertyForShop(
                     {
                         ...editParams,

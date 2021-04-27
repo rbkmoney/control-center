@@ -58,8 +58,8 @@ export class ShopProvidersComponent implements OnInit {
 
     action(action: TerminalAction, providerID: number) {
         switch (action.type) {
-            case TerminalActionTypes.editPriority:
-            case TerminalActionTypes.editWeight:
+            case TerminalActionTypes.EditPriority:
+            case TerminalActionTypes.EditWeight:
                 this.editTerminalDecisionService.edit({
                     ...action,
                     providerID,
@@ -67,7 +67,7 @@ export class ShopProvidersComponent implements OnInit {
                     shopID: this.shopID,
                 });
                 break;
-            case TerminalActionTypes.removeTerminal:
+            case TerminalActionTypes.RemoveTerminal:
                 this.removeTerminalDecisionService.remove({
                     ...action,
                     providerID,
