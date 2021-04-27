@@ -30,10 +30,10 @@ export class SendCommentService {
             const text = this.form.value.comment;
             const { name, email, sub } = this.keycloakTokenInfoService.decodedUserToken;
             const user: User = { fullname: name, email, user_id: sub };
-            const conversation_id = uuid();
-            const conversation = createSingleMessageConversationParams(conversation_id, text, sub);
+            const conversationId = uuid();
+            const conversation = createSingleMessageConversationParams(conversationId, text, sub);
             return forkJoin([
-                of(conversation_id),
+                of(conversationId),
                 this.messagesService.saveConversations([conversation], user).pipe(
                     catchError((e) => {
                         console.error(e);

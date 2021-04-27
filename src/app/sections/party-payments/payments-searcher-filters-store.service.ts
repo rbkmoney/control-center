@@ -5,7 +5,7 @@ import { QueryParamsStore } from '@cc/app/shared/services';
 import { wrapValuesToArray } from '@cc/utils/wrap-values-to-array';
 import pickBy from 'lodash-es/pickBy';
 
-const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
+const shopIdsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
 
 @Injectable()
 export class PaymentsSearchFiltersStore extends QueryParamsStore<SearchFiltersParams> {
@@ -16,7 +16,7 @@ export class PaymentsSearchFiltersStore extends QueryParamsStore<SearchFiltersPa
     mapToData(queryParams: Params): SearchFiltersParams {
         return {
             ...queryParams,
-            ...wrapValuesToArray(pickBy(queryParams, shopIDsAndPrimitives)),
+            ...wrapValuesToArray(pickBy(queryParams, shopIdsAndPrimitives)),
         } as SearchFiltersParams;
     }
 
