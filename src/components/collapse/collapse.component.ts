@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { bodyExpansion, indicatorRotate } from './collapse-animation';
+import { BODY_EXPANSION, INDICATOR_ROTATE } from './collapse-animation';
 
 type CollapseAnimationState = 'collapsed' | 'expanded';
 type AnimationState = { value: CollapseAnimationState };
@@ -10,7 +10,7 @@ type AnimationState = { value: CollapseAnimationState };
     templateUrl: 'collapse.component.html',
     styleUrls: ['collapse.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [bodyExpansion, indicatorRotate],
+    animations: [BODY_EXPANSION, INDICATOR_ROTATE],
 })
 export class CollapseComponent {
     @Input() title: string;
