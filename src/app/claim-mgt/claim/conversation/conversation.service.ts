@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+// eslint-disable-next-line you-dont-need-lodash-underscore/flatten
 import flatten from 'lodash-es/flatten';
 import { from, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
