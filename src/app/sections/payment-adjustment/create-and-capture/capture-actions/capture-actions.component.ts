@@ -43,30 +43,29 @@ export class CaptureActionsComponent implements OnInit {
                         { duration: 3000 }
                     );
                     break;
-                case EventType.CapturePaymentAdjustmentFailed:
+                case EventType.CapturePaymentAdjustmentFailed: {
                     const infoGroup = groupBy<any>(event.payload, 'code');
-                    const Codes = CancelPaymentAdjustmentErrorCodes;
                     forEach(infoGroup, (payloads, code) => {
                         switch (code) {
-                            case Codes.InvalidUser:
+                            case CancelPaymentAdjustmentErrorCodes.InvalidUser:
                                 this.failedInvalidUser = this.failedInvalidUser.concat(payloads);
                                 break;
-                            case Codes.InvoiceNotFound:
+                            case CancelPaymentAdjustmentErrorCodes.InvoiceNotFound:
                                 this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(
                                     payloads
                                 );
                                 break;
-                            case Codes.InvoicePaymentNotFound:
+                            case CancelPaymentAdjustmentErrorCodes.InvoicePaymentNotFound:
                                 this.failedPaymentNotFound = this.failedPaymentNotFound.concat(
                                     payloads
                                 );
                                 break;
-                            case Codes.InvoicePaymentAdjustmentNotFound:
+                            case CancelPaymentAdjustmentErrorCodes.InvoicePaymentAdjustmentNotFound:
                                 this.failedAdjustmentNotFound = this.failedAdjustmentNotFound.concat(
                                     payloads
                                 );
                                 break;
-                            case Codes.InvalidPaymentAdjustmentStatus:
+                            case CancelPaymentAdjustmentErrorCodes.InvalidPaymentAdjustmentStatus:
                                 this.failedAdjustmentStatus = this.failedAdjustmentStatus.concat(
                                     payloads
                                 );
@@ -77,6 +76,7 @@ export class CaptureActionsComponent implements OnInit {
                         }
                     });
                     break;
+                }
             }
         });
     }
