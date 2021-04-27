@@ -39,15 +39,14 @@ export class InternationalBankAccountComponent implements OnInit {
 
     detailsChange(showDetails: boolean) {
         this.isBankDetails = showDetails;
-        this.isBankDetails
-            ? this.form.registerControl('bank', this.fb.group({}))
-            : this.form.removeControl('bank');
+        if (this.isBankDetails) this.form.registerControl('bank', this.fb.group({}));
+        else this.form.removeControl('bank');
     }
 
     accountChange(showCorrespondentAccount: boolean) {
         this.isCorrespondentAccount = showCorrespondentAccount;
-        this.isCorrespondentAccount
-            ? this.form.registerControl('correspondent_account', this.fb.group({}))
-            : this.form.removeControl('correspondent_account');
+        if (this.isCorrespondentAccount)
+            this.form.registerControl('correspondent_account', this.fb.group({}));
+        else this.form.removeControl('correspondent_account');
     }
 }
