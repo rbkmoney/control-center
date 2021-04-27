@@ -1,4 +1,3 @@
-import isString from 'lodash-es/isString';
 import reduce from 'lodash-es/reduce';
 import toNumber from 'lodash-es/toNumber';
 import toString from 'lodash-es/toString';
@@ -41,7 +40,7 @@ export const formValueToSearchParams = (formValues: any): PayoutSearchParams =>
             if (value === '') {
                 return acc;
             }
-            if (isString(value)) {
+            if (typeof value === 'string') {
                 value = value.trim();
                 if (/,/g.test(value)) {
                     value = value.replace(/\s/g, '').split(',');

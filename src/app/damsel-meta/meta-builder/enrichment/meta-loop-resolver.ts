@@ -1,5 +1,3 @@
-import isString from 'lodash-es/isString';
-
 import {
     MetaCollection,
     MetaField,
@@ -81,7 +79,7 @@ export class MetaLoopResolver {
     }
 
     private isLoop(meta: MetaTyped | string): boolean {
-        return isString(meta) && meta.startsWith(this.loopSign);
+        return typeof meta === 'string' && meta.startsWith(this.loopSign);
     }
 
     private isResolved(meta: MetaUnion | MetaStruct): boolean {
