@@ -8,10 +8,6 @@ import * as Repository from './gen-nodejs/Repository';
 
 @Injectable()
 export class DomainService extends ThriftService {
-    constructor(zone: NgZone, keycloakTokenInfoService: KeycloakTokenInfoService) {
-        super(zone, keycloakTokenInfoService, '/v1/domain/repository', Repository);
-    }
-
     checkout: (reference: Reference) => Observable<Snapshot> = this.toObservableAction(
         'Checkout',
         false
@@ -26,4 +22,8 @@ export class DomainService extends ThriftService {
         'PullRange',
         false
     );
+
+    constructor(zone: NgZone, keycloakTokenInfoService: KeycloakTokenInfoService) {
+        super(zone, keycloakTokenInfoService, '/v1/domain/repository', Repository);
+    }
 }
