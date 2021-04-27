@@ -1,8 +1,8 @@
 export enum Namespace {
-    invoice = 'invoice',
-    party = 'party',
-    ffWithdrawalSessionV2 = 'ff/withdrawal/session_v2',
-    ffWithdrawalV2 = 'ff/withdrawal_v2',
-    customer = 'customer',
-    ffDepositV1 = 'ff/deposit_v1',
+    Invoice = 'invoice',
+    Party = 'party',
+    FfWithdrawalSessionV2 = 'ff/withdrawal/session_v2',
+    FfWithdrawalV2 = 'ff/withdrawal_v2',
+    Customer = 'customer',
+    FfDepositV1 = 'ff/deposit_v1',
 }

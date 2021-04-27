@@ -44,7 +44,7 @@ export class SimpleRepairComponent {
 
     constructor(fb: FormBuilder, private repairingService: RepairingService) {
         this.isLoading$ = repairingService.isLoading$;
-        this.nsControl = fb.control(Namespace.invoice);
+        this.nsControl = fb.control(Namespace.Invoice);
     }
 
     isAllSelected() {
