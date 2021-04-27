@@ -27,6 +27,7 @@ export class CreateRevertService {
         switchMap(([params, depositID]) =>
             this.managementService.createRevert(depositID, params).pipe(
                 catchError((e) => {
+                    // eslint-disable-next-line no-console
                     console.log(e);
                     this.errorSubject$.next(true);
                     return EMPTY;
@@ -60,7 +61,7 @@ export class CreateRevertService {
         const { depositID, currency } = params;
         this.depositID$.next(depositID);
         this.form = this.fb.group({
-            amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
+            amount: ['', [Validators.required, Validators.pattern(/^\d+([,.]\d{1,2})?$/)]],
             currency: [currency, Validators.required],
             reason: '',
             externalID: '',
