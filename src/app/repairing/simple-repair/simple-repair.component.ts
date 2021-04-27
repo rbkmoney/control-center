@@ -83,7 +83,7 @@ export class SimpleRepairComponent {
         this.setStatus(elements);
         this.repairingService.executeGetMachine(elements).subscribe((result) => {
             const element = elements[result.idx];
-            if (result.type === ExecStateType.error) {
+            if (result.type === ExecStateType.Error) {
                 element.status = this.statusByError(result.error);
             } else {
                 element.status = Status.found;
@@ -114,7 +114,7 @@ export class SimpleRepairComponent {
         this.setStatus(elements, Status.update);
         this.repairingService.executeSimpleRepair(elements).subscribe((result) => {
             const element = elements[result.idx];
-            if (result.type === ExecStateType.error) {
+            if (result.type === ExecStateType.Error) {
                 element.status = this.statusByError(result.error);
             } else {
                 element.status = Status.repaired;

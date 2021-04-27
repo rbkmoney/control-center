@@ -99,7 +99,7 @@ export class RepairComponent {
         this.setStatus(elements, Status.update);
         this.repairingService.executeRepair(elements, scenario).subscribe((result) => {
             const element = elements[result.idx];
-            if (result.type === ExecStateType.error) {
+            if (result.type === ExecStateType.Error) {
                 element.status = this.getStatusByError(result.error);
             } else {
                 element.status = Status.repaired;

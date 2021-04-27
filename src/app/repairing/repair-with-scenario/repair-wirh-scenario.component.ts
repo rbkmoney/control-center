@@ -102,7 +102,7 @@ export class RepairWithScenarioComponent {
         this.setStatus(elements, Status.update);
         this.repairingService.executeRepairWithScenario(elements, scenario).subscribe((result) => {
             const element = elements[result.idx];
-            if (result.type === ExecStateType.error) {
+            if (result.type === ExecStateType.Error) {
                 element.status = this.getStatusByError(result.error);
                 element.error = Array.isArray(result.error.errors)
                     ? result.error.errors.join('. ')

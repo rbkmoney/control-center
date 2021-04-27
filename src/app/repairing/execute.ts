@@ -3,8 +3,8 @@ import { Observable, Subject } from 'rxjs';
 type Fn = () => Observable<any>;
 
 export enum ExecStateType {
-    success = 'success',
-    error = 'error',
+    Success = 'success',
+    Error = 'error',
 }
 
 interface BaseExecState {
@@ -17,12 +17,12 @@ interface BaseExecState {
 
 export interface SuccessExecState extends BaseExecState {
     data: any;
-    type: ExecStateType.success;
+    type: ExecStateType.Success;
 }
 
 export interface ErrorExecState extends BaseExecState {
     error: any;
-    type: ExecStateType.error;
+    type: ExecStateType.Error;
 }
 
 type ExecState = ErrorExecState | SuccessExecState;
@@ -53,10 +53,10 @@ async function exec(
         };
         try {
             (result as SuccessExecState).data = await func[1]().toPromise();
-            result.type = ExecStateType.success;
+            result.type = ExecStateType.Success;
         } catch (error) {
             (result as ErrorExecState).error = error;
-            result.type = ExecStateType.error;
+            result.type = ExecStateType.Error;
         } finally {
             result.progress = progress.decrease();
             result$.next(result as SuccessExecState | ErrorExecState);
