@@ -13,10 +13,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
 import * as moment from 'moment';
 import 'moment/locale/ru';
-
-import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +29,7 @@ import icons from './icons.json';
 import { NotFoundModule } from './not-found';
 import { PayoutsModule } from './payouts/payouts.module';
 import { RepairingModule } from './repairing/repairing.module';
-import { DomainConfigModule } from './sections/domain-config/domain-config.module';
+import { DomainConfigModule } from './sections/domain-config';
 import { OperationsModule } from './sections/operations/operations.module';
 import { PartyModule } from './sections/party/party.module';
 import { PaymentAdjustmentModule } from './sections/payment-adjustment/payment-adjustment.module';
