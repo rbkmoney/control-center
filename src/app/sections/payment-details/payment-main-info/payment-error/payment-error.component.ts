@@ -27,7 +27,7 @@ export class PaymentErrorComponent {
         } = status;
 
         switch (getUnionKey(failure)) {
-            case 'failure':
+            case 'failure': {
                 const { code, reason, sub } = failure.failure;
                 this.error = {
                     code,
@@ -35,6 +35,7 @@ export class PaymentErrorComponent {
                     path: this.makePath(sub),
                 };
                 break;
+            }
             case 'operation_timeout':
                 this.error = {
                     code: 'operation_timeout',
