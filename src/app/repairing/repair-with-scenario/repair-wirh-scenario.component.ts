@@ -13,6 +13,7 @@ import {
 } from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 
 enum Status {
+    /* eslint-disable @typescript-eslint/naming-convention */
     repaired = 'machine repaired',
     update = 'status updated',
     unknown = 'unknown',
@@ -20,6 +21,7 @@ enum Status {
     invalidUser = 'invalid user',
     invoiceNotFound = 'invoice not found',
     invalidRequest = 'invalid request',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 interface Element {
