@@ -4,7 +4,7 @@ import * as base from './gen-nodejs/base_types';
 import * as chargeback from './gen-nodejs/chargeback_types';
 import * as skipper from './gen-nodejs/skipper_types';
 
-const namespaces = {
+const NAMESPACES = {
     base,
     chargeback,
     skipper,
@@ -13,4 +13,4 @@ const namespaces = {
 export const {
     createThriftInstance: createSkipperInstance,
     thriftInstanceToObject: skipperInstanceToObject,
-} = createThriftInstanceUtils(metadata, namespaces);
+} = createThriftInstanceUtils(metadata, NAMESPACES);
