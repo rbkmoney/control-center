@@ -52,6 +52,7 @@ export interface MetaTypedef extends MetaTyped {
     meta: MetaTyped | string;
 }
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export enum MetaType {
     struct = 'struct',
     union = 'union',
@@ -78,5 +79,6 @@ export enum CollectionType {
     set = 'set',
     list = 'list',
 }
+/* eslint-enable @typescript-eslint/naming-convention */
 
 export * from './ast-definition';
