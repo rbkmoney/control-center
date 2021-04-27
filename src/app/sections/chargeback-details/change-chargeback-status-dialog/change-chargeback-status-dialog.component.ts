@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import {
     ChangeChargebackStatusDialogService,
-    Statuses,
+    STATUSES,
 } from './change-chargeback-status-dialog.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class ChangeChargebackStatusDialogComponent {
         status: '',
         date: '',
     });
-    statuses = Statuses;
+    statuses = STATUSES;
 
     constructor(
         private fb: FormBuilder,
