@@ -1,7 +1,6 @@
+import { getUnionKey, getUnionValue } from '@cc/utils/get-union-key';
 import get from 'lodash-es/get';
 import Int64 from 'thrift-ts/lib/int64';
-
-import { getUnionKey, getUnionValue } from '@cc/utils/get-union-key';
 
 import {
     Condition,
@@ -37,7 +36,7 @@ function inPartyCondition(condition: Condition, shopID: ShopID, partyID: PartyID
 
 function isDisabled(all_of: Set<Predicate>): boolean {
     const constant = Array.from(all_of).find((pre) => pre.constant !== null);
-    return !!constant ? constant.constant : false;
+    return constant ? constant.constant : false;
 }
 
 function extractPredicateInfo(

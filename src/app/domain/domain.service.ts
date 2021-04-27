@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
+import { toJson } from '@cc/utils/thrift-json-converter';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-
-import { toJson } from '@cc/utils/thrift-json-converter';
 
 import { toGenCommit, toGenReference } from '../thrift-services/converters';
 import { DomainService as ThriftDomainService } from '../thrift-services/damsel/domain.service';

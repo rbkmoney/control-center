@@ -25,7 +25,7 @@ describe('MetaLoopResolver', () => {
         const result = resolver.resolve(predicate);
 
         const expected = cloneDeep(predicate);
-        (expected.fields[0].meta.itemMeta as any) = expected;
+        expected.fields[0].meta.itemMeta = expected;
 
         expect(result.errors.length).toEqual(0);
         expect(result.resolved).toEqual(expected);

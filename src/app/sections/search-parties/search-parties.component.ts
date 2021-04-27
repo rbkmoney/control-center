@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { FetchPartiesService } from '@cc/app/shared/services/fetch-parties.service';
 
 import { PartiesSearchFiltersParams } from './parties-search-filters';

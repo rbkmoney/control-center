@@ -13,4 +13,4 @@ export const claimStatusByUnionClaimStatus: { [name in keyof UnionClaimStatus]-?
 };
 
 export const extractClaimStatus = (status: UnionClaimStatus): ClaimStatus =>
-    claimStatusByUnionClaimStatus[getUnionKey(status) as keyof UnionClaimStatus];
+    claimStatusByUnionClaimStatus[getUnionKey(status)];

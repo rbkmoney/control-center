@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-
 import {
     AppAuthGuardService,
     ClaimManagementRole,
@@ -11,6 +9,7 @@ import {
     PaymentAdjustmentRole,
     PayoutRole,
 } from '@cc/app/shared/services';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
     selector: 'cc-root',

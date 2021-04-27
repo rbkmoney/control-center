@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AppAuthGuardService, DomainConfigRole } from '@cc/app/shared/services';
 
 import { PartyDelegateRulesetsComponent } from './party-delegate-rulesets.component';

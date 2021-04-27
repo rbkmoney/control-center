@@ -12,6 +12,7 @@ describe('ClaimInfoDetailsComponent', () => {
                 .then();
         })
     );
+
     it(
         'should create component',
         waitForAsync(() => {
@@ -20,6 +21,7 @@ describe('ClaimInfoDetailsComponent', () => {
             expect(component).toBeTruthy();
         })
     );
+
     it(
         'should render reason',
         waitForAsync(() => {

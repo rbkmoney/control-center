@@ -30,9 +30,7 @@ export function getClaimModificationTimelineAction(m: ClaimModification): Timeli
         case 'document_modification':
             return TimelineAction.changesAdded;
         case 'status_modification':
-            return getStatusModificationTimelineAction(
-                m.status_modification as StatusModificationUnit
-            );
+            return getStatusModificationTimelineAction(m.status_modification);
         case 'file_modification':
             return TimelineAction.filesAdded;
         case 'comment_modification':

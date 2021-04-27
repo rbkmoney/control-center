@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AppAuthGuardService, DomainConfigRole } from '@cc/app/shared/services';
 
 import { DomainConfigComponent } from './domain-config.component';

@@ -1,7 +1,6 @@
+import { KeycloakTokenInfoService } from '@cc/app/shared/services';
 import { Observable } from 'rxjs';
 import { switchMap, shareReplay, map, first } from 'rxjs/operators';
-
-import { KeycloakTokenInfoService } from '@cc/app/shared/services';
 
 import {
     connectToThriftService,

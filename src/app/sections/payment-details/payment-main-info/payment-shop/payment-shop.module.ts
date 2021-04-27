@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
-
 import { DetailsItemModule } from '@cc/components/details-item';
 
 import { PaymentShopComponent } from './payment-shop.component';

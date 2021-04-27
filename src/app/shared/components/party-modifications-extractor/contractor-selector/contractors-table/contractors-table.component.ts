@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { getUnionValue } from '@cc/utils/get-union-key';
 
 import { ChangesetInfo } from '../../../../../sections/party-claim/changeset/changeset-infos';

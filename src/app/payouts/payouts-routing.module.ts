@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AppAuthGuardService } from '@cc/app/shared/services';
 
 import { PayoutsComponent } from './payouts.component';

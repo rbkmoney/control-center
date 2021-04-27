@@ -11,12 +11,11 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { combineLatest, from, of } from 'rxjs';
-import { filter, first, map, switchMap } from 'rxjs/operators';
-
 import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/services';
 import { extractClaimStatus } from '@cc/app/shared/utils';
 import { getUnionKey } from '@cc/utils/get-union-key';
+import { combineLatest, from, of } from 'rxjs';
+import { filter, first, map, switchMap } from 'rxjs/operators';
 
 import { ClaimStatus } from '../../../papi/model';
 import {

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { booleanDelay } from '@cc/utils/boolean-delay';
 import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
-
-import { booleanDelay } from '@cc/utils/boolean-delay';
 
 import { FileStorageService } from '../../../../thrift-services/file-storage/file-storage.service';
 import { FileData } from '../../../../thrift-services/file-storage/gen-model/file_storage';

@@ -19,7 +19,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
-
 import { CardContainerModule } from '@cc/components/card-container/card-container.module';
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 

@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
 import isNil from 'lodash-es/isNil';
+import { Observable } from 'rxjs';
 
 import { ThriftServiceConnection, ThriftServiceMethod } from './types';
 

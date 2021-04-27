@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { decode } from '@cc/utils/java-thrift-formatter';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { decode } from '@cc/utils/java-thrift-formatter';
 
 import { ConfigService } from '../core/config.service';
 import { Party, Shop } from '../thrift-services/damsel/gen-model/domain';

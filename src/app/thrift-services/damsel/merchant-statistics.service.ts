@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../services/thrift/thrift-service';
 import { StatRequest, StatResponse } from './gen-model/merch_stat';
-import * as MerchantStatistics from './gen-nodejs/MerchantStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/merch_stat_types';
+import * as MerchantStatistics from './gen-nodejs/MerchantStatistics';
 import { createDamselInstance, damselInstanceToObject } from './utils/create-damsel-instance';
 
 @Injectable()

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import {
     PaymentActions,
     PaymentMenuItemEvent,

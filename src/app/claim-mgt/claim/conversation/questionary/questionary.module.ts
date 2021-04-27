@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
-
 import { DetailsItemModule } from '@cc/components/details-item';
 
 import { AuthorityConfirmingDocumentTitlePipe } from './authority-confirming-document-title.pipe';

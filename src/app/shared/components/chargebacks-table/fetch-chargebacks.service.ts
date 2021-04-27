@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
+import { booleanDelay } from '@cc/utils/boolean-delay';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import pickBy from 'lodash-es/pickBy';
 import moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-
-import { booleanDelay } from '@cc/utils/boolean-delay';
 
 import { ChargebacksParams, createDSL } from '../../../query-dsl';
 import { StatChargeback } from '../../../thrift-services/damsel/gen-model/merch_stat';

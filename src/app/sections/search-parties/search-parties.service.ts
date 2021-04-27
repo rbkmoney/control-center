@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
 import { QueryParamsStore } from '@cc/app/shared/services';
 
 import { PartiesSearchFiltersParams } from './parties-search-filters';

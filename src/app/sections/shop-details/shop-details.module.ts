@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
 import { HeadlineModule } from '@cc/components/headline';
 
 import { ShopDetailsRoutingModule } from './shop-details-routing.module';

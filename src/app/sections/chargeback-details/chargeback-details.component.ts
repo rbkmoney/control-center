@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { getUnionKey } from '@cc/utils/index';
 import { combineLatest } from 'rxjs';
 import { delay, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+
 import {
     InvoicePaymentChargebackStage,
     InvoicePaymentChargebackStatus,
-} from 'src/app/thrift-services/damsel/gen-model/domain';
-
-import { getUnionKey } from '@cc/utils/index';
-
+} from '../../thrift-services/damsel/gen-model/domain';
 import { ChangeChargebackStatusDialogComponent } from './change-chargeback-status-dialog';
 import { ChargebackDetailsService } from './chargeback-details.service';
 import { ReopenChargebackDialogComponent } from './reopen-chargeback-dialog';

@@ -67,7 +67,7 @@ async function exec(
 
 export function execute(funcs: Fn[], execCount = 4): Observable<ExecState> {
     const result$: Subject<ExecState> = new Subject();
-    const tmpFuncs = funcs.map((f, idx) => [idx, f]) as Array<[number, Fn]>;
+    const tmpFuncs = funcs.map((f, idx) => [idx, f]);
     const execs: Promise<void>[] = [];
     const progress = new Progress(funcs.length);
     for (let i = 0; i < execCount; ++i) {

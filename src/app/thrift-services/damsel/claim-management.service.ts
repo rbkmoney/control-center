@@ -11,11 +11,11 @@ import {
     ClaimSearchResponse,
     Modification,
 } from './gen-model/claim_management';
-import * as ClaimManagement from './gen-nodejs/ClaimManagement';
 import {
     ClaimSearchQuery as ClaimSearchQueryType,
     Modification as ModificationType,
 } from './gen-nodejs/claim_management_types';
+import * as ClaimManagement from './gen-nodejs/ClaimManagement';
 
 @Injectable()
 export class ClaimManagementService extends ThriftService {

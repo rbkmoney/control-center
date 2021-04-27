@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs/operators';
-
-import { getDepositStatus } from '@cc/app/shared/utils';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { AppAuthGuardService, DepositRole } from '@cc/app/shared/services';
+import { getDepositStatus } from '@cc/app/shared/utils';
+import { filter } from 'rxjs/operators';
 
 import {
     DepositStatus,

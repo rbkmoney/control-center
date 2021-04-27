@@ -1,6 +1,5 @@
-import { Field } from 'thrift-ts';
-
 import { clearNullFields } from '@cc/utils/thrift-utils';
+import { Field } from 'thrift-ts';
 
 import { Domain } from '../../../thrift-services/damsel/gen-model/domain';
 import { DomainGroup } from './domain-group';

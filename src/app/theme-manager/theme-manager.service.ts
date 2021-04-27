@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+
 import { SettingsService } from '../settings';
 import { ThemeName } from './theme-name';
 

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-
 import { PartyModificationFormsModule } from '@cc/app/shared/components';
 
 import { EditUnsavedModificationComponent } from './edit-unsaved-modification.component';

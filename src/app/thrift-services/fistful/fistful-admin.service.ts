@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../services/thrift/thrift-service';
 import { DepositParams } from './gen-model/fistful_admin';
-import * as FistfulAdmin from './gen-nodejs/FistfulAdmin';
 import { DepositParams as DepositParamsObject } from './gen-nodejs/fistful_admin_types';
+import * as FistfulAdmin from './gen-nodejs/FistfulAdmin';
 
 @Injectable()
 export class FistfulAdminService extends ThriftService {

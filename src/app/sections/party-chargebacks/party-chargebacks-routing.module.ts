@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AppAuthGuardService, ChargebackRole } from '@cc/app/shared/services';
 
 import { PartyChargebacksComponent } from './party-chargebacks.component';

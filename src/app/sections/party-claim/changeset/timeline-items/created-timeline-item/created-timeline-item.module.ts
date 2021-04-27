@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-
 import { TimelineModule } from '@cc/components/timeline';
 
 import { TimelineComponentsModule } from '../../timeline-components';

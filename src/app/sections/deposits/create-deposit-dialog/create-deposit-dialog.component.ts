@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppAuthGuardService, DepositRole } from '@cc/app/shared/services';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { currencies } from '../constants/currencies';
 import { CreateDepositService } from './services/create-deposit/create-deposit.service';

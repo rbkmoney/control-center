@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AppAuthGuardService, OperationRole } from '@cc/app/shared/services';
 
 import { PaymentDetailsComponent } from './payment-details.component';

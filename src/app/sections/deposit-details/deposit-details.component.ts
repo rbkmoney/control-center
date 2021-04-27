@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { pluck, take } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { pluck, take } from 'rxjs/operators';
 
 import { ReceiveDepositService } from './services/receive-deposit/receive-deposit.service';
 

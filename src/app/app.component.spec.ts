@@ -13,6 +13,7 @@ xdescribe('AppComponent', () => {
             }).compileComponents();
         })
     );
+
     it(
         'should create the app',
         waitForAsync(() => {
@@ -21,6 +22,7 @@ xdescribe('AppComponent', () => {
             expect(app).toBeTruthy();
         })
     );
+
     it(
         `should have as title 'control-center'`,
         waitForAsync(() => {
@@ -29,6 +31,7 @@ xdescribe('AppComponent', () => {
             expect(app.title).toEqual('control-center');
         })
     );
+
     it(
         'should render title in a h1 tag',
         waitForAsync(() => {

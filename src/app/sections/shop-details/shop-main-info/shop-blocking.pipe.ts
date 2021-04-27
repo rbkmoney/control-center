@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
 import { getUnionKey } from '@cc/utils/get-union-key';
 
 import { Blocking } from '../../../thrift-services/damsel/gen-model/domain';

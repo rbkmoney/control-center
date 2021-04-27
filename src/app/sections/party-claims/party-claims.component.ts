@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { filter } from 'rxjs/operators';
-
 import { SearchFormValue } from '@cc/app/shared/components';
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
+import { filter } from 'rxjs/operators';
 
 import { CreateClaimService } from './create-claim.service';
 import { PartyClaimsService } from './party-claims.service';

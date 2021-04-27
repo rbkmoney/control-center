@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AppAuthGuardService, DomainConfigRole } from '@cc/app/shared/services';
 
 import { PaymentRoutingRulesComponent } from './party-payment-routing-ruleset.component';

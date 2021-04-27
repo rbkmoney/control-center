@@ -8,7 +8,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-
 import { PartyModificationFormsModule } from '@cc/app/shared/components';
 
 import { ContractorSelectorModule } from './contractor-selector/contractor-selector.module';

@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { i64ToNumber } from '@cc/utils/i64-to-number';
 
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
+import { getUnionKey } from '@cc/utils/get-union-key';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { map, pluck, share, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
-
-import { getUnionKey } from '@cc/utils/get-union-key';
 
 import { toGenReference } from '../converters';
 import { DomainService } from './domain.service';

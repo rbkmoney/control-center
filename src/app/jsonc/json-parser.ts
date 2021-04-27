@@ -167,7 +167,7 @@ export class ASTNode {
         }
 
         if (Array.isArray(schema.type)) {
-            if ((schema.type as string[]).indexOf(this.type) === -1) {
+            if (schema.type.indexOf(this.type) === -1) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
                     message:
@@ -175,7 +175,7 @@ export class ASTNode {
                         localize(
                             'typeArrayMismatchWarning',
                             'Incorrect type. Expected one of {0}',
-                            (schema.type as string[]).join(', ')
+                            schema.type.join(', ')
                         ),
                 });
             }
@@ -390,7 +390,7 @@ export class ArrayASTNode extends ASTNode {
         super.validate(schema, validationResult, matchingSchemas, offset);
 
         if (Array.isArray(schema.items)) {
-            const subSchemas = schema.items as JSONSchema[];
+            const subSchemas = schema.items;
             subSchemas.forEach((subSchema, index) => {
                 const itemValidationResult = new ValidationResult();
                 const item = this.items[index];
@@ -485,7 +485,7 @@ export class NumberASTNode extends ASTNode {
         let typeIsInteger = false;
         if (
             schema.type === 'integer' ||
-            (Array.isArray(schema.type) && (schema.type as string[]).indexOf('integer') !== -1)
+            (Array.isArray(schema.type) && schema.type.indexOf('integer') !== -1)
         ) {
             typeIsInteger = true;
         }
@@ -1086,6 +1086,7 @@ export function parse(text: string, config?: JSONDocumentConfig): JSONDocument {
             if (_scanner.getToken() === Json.SyntaxKind.Unknown) {
                 // give a more helpful error message
                 const value = _scanner.getTokenValue();
+                // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
                 if (value.match(/^['\w]/)) {
                     _error(localize('DoubleQuotesExpected', 'Property keys must be doublequoted'));
                 }

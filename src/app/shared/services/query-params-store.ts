@@ -1,9 +1,8 @@
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
 import isEqual from 'lodash-es/isEqual';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
-
-import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
 
 export abstract class QueryParamsStore<D> {
     data$: Observable<Partial<D>> = this.route.queryParams.pipe(

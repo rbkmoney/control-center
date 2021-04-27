@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-
 import { CollapseModule } from '@cc/components/collapse';
 
 import { DomainConfigRoutingModule } from './domain-config-objects-routing.module';

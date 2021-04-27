@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { AppAuthGuardService, OperationRole } from '@cc/app/shared/services';
 import { hasActiveFragments } from '@cc/utils/has-active-fragments';
 

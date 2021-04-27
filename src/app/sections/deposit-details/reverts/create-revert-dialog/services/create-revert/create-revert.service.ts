@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EMPTY, merge, ReplaySubject, Subject } from 'rxjs';
-import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
-import { catchError } from 'rxjs/internal/operators';
-import { KeycloakService } from 'keycloak-angular';
-import * as uuid from 'uuid/v4';
-import Int64 from 'thrift-ts/lib/int64';
-import { progress } from '@rbkmoney/utils';
-
 import { toMinor } from '@cc/utils/to-minor';
+import { progress } from '@rbkmoney/utils';
+import { KeycloakService } from 'keycloak-angular';
+import { EMPTY, merge, ReplaySubject, Subject } from 'rxjs';
+import { catchError } from 'rxjs/internal/operators';
+import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import Int64 from 'thrift-ts/lib/int64';
+import * as uuid from 'uuid/v4';
 
 import { FistfulStatisticsService } from '../../../../../../thrift-services/fistful/fistful-stat.service';
-import { RevertManagementService } from '../../../../../../thrift-services/fistful/revert-management.service';
 import { RevertParams } from '../../../../../../thrift-services/fistful/gen-model/deposit_revert';
+import { RevertManagementService } from '../../../../../../thrift-services/fistful/revert-management.service';
 import { CreateRevertDialogConfig } from '../../types/create-revert-dialog-config';
 
 @Injectable()
