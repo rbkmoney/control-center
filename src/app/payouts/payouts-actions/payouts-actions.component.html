@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutGap="10px">
     <button
-        *ngIf="hasRole(PayoutRole.Generate)"
+        *ngIf="hasRole(payoutRole.Generate)"
         mat-raised-button
         color="primary"
         (click)="createPayout()"
@@ -13,7 +13,7 @@
         [matTooltipDisabled]="isCanPay()"
     >
         <button
-            *ngIf="hasRole(PayoutRole.Pay)"
+            *ngIf="hasRole(payoutRole.Pay)"
             [matBadgeHidden]="!isCanPay()"
             matBadge="{{ selectedPayouts.length }}"
             matBadgePosition="after"
@@ -32,7 +32,7 @@
         [matTooltipDisabled]="isCanConfirm()"
     >
         <button
-            *ngIf="hasRole(PayoutRole.Confirm)"
+            *ngIf="hasRole(payoutRole.Confirm)"
             [matBadgeHidden]="!isCanConfirm()"
             matBadge="{{ selectedPayouts.length }}"
             matBadgePosition="after"

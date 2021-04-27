@@ -19,7 +19,7 @@ export class PayoutsActionsComponent {
     @Output()
     doAction: EventEmitter<void> = new EventEmitter();
 
-    PayoutRole = PayoutRole;
+    payoutRole = PayoutRole;
 
     constructor(private dialogRef: MatDialog, private appAuthGuardService: AppAuthGuardService) {}
 
