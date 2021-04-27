@@ -30,8 +30,10 @@ export class PaymentsOtherSearchFiltersService {
         'paymentSystem',
     ];
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     searchParamsChanges$ = this.formParams.pipe(map(formParamsToSearchParams), shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     filtersCount$ = this.searchParamsChanges$.pipe(
         map(removeEmptyProperties),
         map(toFiltersCount(this.countableKeys)),

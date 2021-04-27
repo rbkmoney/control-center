@@ -12,6 +12,7 @@ import { PartyService } from '../../papi/party.service';
 export class ChargebackDetailsService {
     private loadChargeback$ = new Subject<void>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payment$ = this.route.params.pipe(
         switchMap(({ partyID, invoiceID, paymentID }) =>
             this.merchantStatisticsService
@@ -29,6 +30,7 @@ export class ChargebackDetailsService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shop$ = combineLatest([
         this.route.params.pipe(pluck('partyID')),
         this.payment$.pipe(pluck('shop_id')),
@@ -37,6 +39,7 @@ export class ChargebackDetailsService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     chargeback$ = this.loadChargeback$.pipe(
         startWith(null),
         switchMap(() => this.route.params),

@@ -15,6 +15,7 @@ export class PaymentDetailsService {
 
     private routeParams$ = this.route.params.pipe(shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payment$ = this.routeParams$.pipe(
         switchMap(({ partyID, invoiceID, paymentID }) =>
             this.merchantStatisticsService
@@ -41,8 +42,10 @@ export class PaymentDetailsService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.routeParams$, this.payment$).pipe(shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shop$ = this.payment$.pipe(
         switchMap((payment) => combineLatest([this.partyID$, of(payment.shop_id)])),
         switchMap(([partyID, shopID]) => this.partyService.getShop(partyID, shopID)),

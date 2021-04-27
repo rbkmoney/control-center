@@ -14,6 +14,7 @@ export class UnsavedPartyModificationService {
     private remove$: Subject<PartyModificationPosition> = new Subject();
     private edit$: Subject<PartyModificationPosition> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     unsavedPartyModifications$: Observable<PartyModification[]> = this.unsaved$.asObservable();
 
     constructor(private dialog: MatDialog) {

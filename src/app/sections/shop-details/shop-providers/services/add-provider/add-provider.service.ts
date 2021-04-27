@@ -11,6 +11,7 @@ import { AddTerminalDialogResponse } from '../../types/add-terminal-dialog-respo
 export class AddProviderService {
     private add$ = new Subject<{ partyID: PartyID; shopID: ShopID; categoryID: number }>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     terminalAdded$ = this.add$.pipe(
         switchMap((data) =>
             this.dialog

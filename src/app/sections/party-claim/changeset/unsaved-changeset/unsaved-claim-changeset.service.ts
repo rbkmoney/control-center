@@ -25,8 +25,10 @@ export class UnsavedClaimChangesetService {
     private unsaved$ = new BehaviorSubject<Modification[]>([]);
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     changesetUpdated$ = new Subject<void>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     unsavedChangesetInfos$: Observable<ChangesetInfo[]> = this.unsaved$.pipe(
         map((mods) => {
             const { name } = this.keycloakTokenInfoService.decodedUserToken;
@@ -43,6 +45,7 @@ export class UnsavedClaimChangesetService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.save$, merge(this.changesetUpdated$, this.hasError$));
 
     constructor(

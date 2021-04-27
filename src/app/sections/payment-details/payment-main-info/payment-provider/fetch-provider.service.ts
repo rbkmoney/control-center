@@ -10,6 +10,7 @@ export class FetchProviderService {
     private getProvider$ = new Subject<number>();
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     provider$ = this.getProvider$.pipe(
         switchMap((providerID) =>
             this.domainCacheService.getObjects('provider').pipe(
@@ -24,6 +25,7 @@ export class FetchProviderService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.getProvider$, merge(this.provider$, this.hasError$)).pipe(
         startWith(true)
     );

@@ -26,6 +26,7 @@ export class CreateDepositService {
     private pollingErrorSubject$ = new Subject<boolean>();
     private pollingTimeoutSubject$ = new Subject<boolean>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     depositCreated$: Observable<StatDeposit> = this.create$.pipe(
         map(() => this.getParams()),
         switchMap((params) =>
@@ -58,15 +59,20 @@ export class CreateDepositService {
         )
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(
         this.create$,
         merge([this.depositCreated$, this.errorSubject$, this.pollingErrorSubject$])
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.errorSubject$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     pollingError$ = this.pollingErrorSubject$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     pollingTimeout$ = this.pollingTimeoutSubject$.asObservable();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.initForm();
 
     constructor(

@@ -20,11 +20,13 @@ export class PartyPaymentRoutingRulesetService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shops$ = this.party$.pipe(
         pluck('shops'),
         map((shops) => Array.from(shops.values()))
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     partyRuleset$ = combineLatest([
         this.domainService.getObjects('routing_rules'),
         this.refID$,

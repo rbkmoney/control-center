@@ -15,6 +15,7 @@ export class QuestionaryTimelineItemService {
     private getQuestionaryData$ = new Subject<{ questionaryID: QuestionaryID; partyID: PartyID }>();
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     questionaryData$: Observable<Questionary> = this.getQuestionaryData$.pipe(
         switchMap(({ questionaryID, partyID }) =>
             this.ankService.get(questionaryID, partyID).pipe(
@@ -28,8 +29,10 @@ export class QuestionaryTimelineItemService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.hasError$.asObservable();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.getQuestionaryData$, merge(this.questionaryData$, this.hasError$));
 
     constructor(private ankService: AnkService) {

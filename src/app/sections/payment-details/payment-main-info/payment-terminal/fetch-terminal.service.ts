@@ -10,6 +10,7 @@ export class FetchTerminalService {
     private getTerminal$ = new Subject<number>();
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     terminal$ = this.getTerminal$.pipe(
         switchMap((terminalID) =>
             this.domainCacheService.getObjects('terminal').pipe(
@@ -24,6 +25,7 @@ export class FetchTerminalService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.getTerminal$, merge(this.terminal$, this.hasError$)).pipe(
         startWith(true)
     );

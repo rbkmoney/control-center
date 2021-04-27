@@ -22,12 +22,14 @@ export class UnitActionsNavListComponent implements OnInit {
         @Inject(MAT_BOTTOM_SHEET_DATA) public data: UnitActionData
     ) {}
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     contractorActions = {
         type: ActionType.contractorAction,
         visible: false,
         names: [],
     };
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     contractActions = {
         type: ActionType.contractAction,
         visible: false,
@@ -40,6 +42,7 @@ export class UnitActionsNavListComponent implements OnInit {
         ],
     };
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shopActions = {
         type: ActionType.shopAction,
         visible: false,

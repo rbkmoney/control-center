@@ -96,15 +96,15 @@ export class AddShopPaymentRoutingRuleDialogService {
             .subscribe(() => this.dialogRef.close());
     }
 
-    private createOption() {
-        return this.fb.group({ key: ['', Validators.required], value: ['', Validators.required] });
-    }
-
     addOption() {
         this.newTerminalOptionsForm.push(this.createOption());
     }
 
     removeOption(idx: number) {
         this.newTerminalOptionsForm.removeAt(idx);
+    }
+
+    private createOption() {
+        return this.fb.group({ key: ['', Validators.required], value: ['', Validators.required] });
     }
 }

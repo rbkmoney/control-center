@@ -12,6 +12,11 @@ export class OperationsComponent {
 
     constructor(private router: Router, private appAuthGuardService: AppAuthGuardService) {}
 
+    hasActiveFragments(fragments: string[]): boolean {
+        const ulrFragments = this.router.url.split('/');
+        return hasActiveFragments(fragments, ulrFragments);
+    }
+
     private getLinks() {
         const links = [
             {
@@ -28,10 +33,5 @@ export class OperationsComponent {
             },
         ];
         return links.filter((item) => this.appAuthGuardService.userHasRoles(item.activateRoles));
-    }
-
-    hasActiveFragments(fragments: string[]): boolean {
-        const ulrFragments = this.router.url.split('/');
-        return hasActiveFragments(fragments, ulrFragments);
     }
 }

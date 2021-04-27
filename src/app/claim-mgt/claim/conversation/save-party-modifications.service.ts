@@ -26,12 +26,15 @@ export class SavePartyModificationsService {
     private save$ = new Subject();
     private saving$: Subject<boolean> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     unsavedModifications$: Observable<PartyModification[]> = this.unsaved$.pipe(
         startWith([]),
         distinctUntilChanged(isEqual),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     hasUnsavedModifications$ = this.unsaved$.pipe(map((m) => m.length > 0));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isSaving$ = this.saving$.asObservable();
 
     constructor(

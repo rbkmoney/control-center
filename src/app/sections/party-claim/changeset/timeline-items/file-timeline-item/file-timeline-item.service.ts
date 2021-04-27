@@ -13,6 +13,7 @@ export class FileTimelineItemService {
     private getFileInfo$ = new Subject<string>();
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     fileData$: Observable<FileData> = this.getFileInfo$.pipe(
         switchMap((fileID) =>
             this.fileStorageService.getFileData(fileID).pipe(
@@ -27,8 +28,10 @@ export class FileTimelineItemService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.hasError$.asObservable();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.getFileInfo$, merge(this.fileData$, this.hasError$));
 
     constructor(private fileStorageService: FileStorageService) {

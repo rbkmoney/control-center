@@ -19,6 +19,7 @@ export class PartyModificationsExtractorService {
     }> = new Subject();
     private extracted$: Subject<PartyModification[]> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     modsExtracted$: Observable<PartyModification[]> = this.extracted$.asObservable();
 
     constructor(private dialog: MatDialog) {}

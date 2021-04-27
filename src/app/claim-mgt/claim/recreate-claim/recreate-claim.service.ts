@@ -18,9 +18,13 @@ export class RecreateClaimService {
     private error$: Subject<any> = new Subject();
     private inProcess$: Subject<boolean> = new BehaviorSubject(false);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     extractError$ = this.error$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isInProcess$ = this.inProcess$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     extractedModifications$: Observable<Modification[]> = this.extracted$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     recreated$: Observable<Claim> = this.recreate$.pipe(
         switchMap((targetClaim) =>
             forkJoin([

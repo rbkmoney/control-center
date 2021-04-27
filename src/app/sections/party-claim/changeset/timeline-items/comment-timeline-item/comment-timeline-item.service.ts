@@ -11,6 +11,7 @@ export class CommentTimelineItemService {
     private getConversations$ = new Subject<ConversationId[]>();
     private hasError$ = new Subject<string>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     message$ = this.getConversations$.pipe(
         switchMap((conversationIDs) =>
             this.messagesService.getConversations(conversationIDs, {}).pipe(
@@ -23,8 +24,10 @@ export class CommentTimelineItemService {
         ),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.hasError$.asObservable();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.getConversations$, merge(this.message$, this.hasError$));
 
     constructor(private messagesService: MessagesService) {

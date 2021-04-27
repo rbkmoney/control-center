@@ -11,6 +11,7 @@ import { FormValue } from '../form-value';
 export class ChargebacksMainSearchFiltersService {
     private getShops$ = new ReplaySubject<string>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.fb.group({
         from_time: [moment().subtract(1, 'y').startOf('d'), Validators.required],
         to_time: [moment().endOf('d'), Validators.required],
@@ -18,12 +19,14 @@ export class ChargebacksMainSearchFiltersService {
         shop_ids: '',
     });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     searchParamsChanges$ = this.form.valueChanges.pipe(
         debounceTime(600),
         filter(() => this.form.valid),
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shops$ = this.getShops$.pipe(
         switchMap((partyID) => this.partyService.getShops(partyID)),
         shareReplay(1)

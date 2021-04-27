@@ -18,10 +18,12 @@ export class SendCommentService {
     private hasError$: Subject<any> = new Subject();
     private sendComment$: Subject<null> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.fb.group({
         comment: ['', [Validators.maxLength(1000), Validators.required]],
     });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     comment$ = this.sendComment$.pipe(
         tap(() => this.hasError$.next()),
         switchMap(() => {
@@ -53,6 +55,7 @@ export class SendCommentService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.sendComment$, merge(this.comment$, this.hasError$));
 
     constructor(

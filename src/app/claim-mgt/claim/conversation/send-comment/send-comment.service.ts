@@ -19,11 +19,15 @@ export class SendCommentService {
     private error$: BehaviorSubject<any> = new BehaviorSubject({ hasError: false });
     private sendComment$: Subject<string> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form: FormGroup;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     conversationSaved$: Observable<ConversationId> = this.conversationId$.pipe(
         filter((id) => !!id)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$: Observable<boolean> = progress(
         this.sendComment$,
         merge(this.conversationId$, this.error$)

@@ -20,6 +20,7 @@ export class CreateRevertService {
     private errorSubject$ = new Subject<boolean>();
     private depositID$ = new ReplaySubject<string>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     revertCreated$ = this.create$.pipe(
         map(() => this.getParams()),
         withLatestFrom(this.depositID$),
@@ -35,10 +36,13 @@ export class CreateRevertService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.create$, merge([this.revertCreated$, this.errorSubject$]));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.errorSubject$.asObservable();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form: FormGroup;
 
     constructor(

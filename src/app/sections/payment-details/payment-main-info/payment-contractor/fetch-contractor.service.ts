@@ -11,6 +11,7 @@ export class FetchContractorService {
     private getContractor$ = new Subject<{ partyID: PartyID; contractID: ContractID }>();
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     contractor$ = this.getContractor$.pipe(
         switchMap(
             ({ partyID, contractID }): Observable<[ContractID, any]> =>
@@ -32,6 +33,7 @@ export class FetchContractorService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.getContractor$, merge(this.contractor$, this.hasError$)).pipe(
         startWith(true)
     );

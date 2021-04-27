@@ -28,8 +28,10 @@ class UpdateClaim {
 export class StatusChangerService {
     private updateClaim$ = new Subject<UpdateClaim>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.initForm();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     claim$: Observable<void> = this.updateClaim$.pipe(
         switchMap(({ partyID, claimID, action }) => {
             switch (action) {
@@ -60,6 +62,7 @@ export class StatusChangerService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.updateClaim$, this.claim$).pipe(
         shareReplay(1),
         publish()

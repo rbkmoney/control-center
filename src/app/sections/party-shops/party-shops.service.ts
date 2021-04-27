@@ -14,6 +14,7 @@ export class PartyShopsService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shops$ = this.party$.pipe(
         pluck('shops'),
         map((shops) => Array.from(shops.values()))

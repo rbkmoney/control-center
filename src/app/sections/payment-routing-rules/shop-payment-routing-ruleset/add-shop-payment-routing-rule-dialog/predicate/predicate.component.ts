@@ -77,6 +77,22 @@ export class PredicateComponent implements OnChanges {
         }
     }
 
+    addChild() {
+        this.childrenForm.push(this.createForm());
+    }
+
+    removeChild(idx: number) {
+        this.childrenForm.removeAt(idx);
+        if (!this.childrenForm.controls.length) {
+            this.addChild();
+        }
+    }
+
+    removeAll() {
+        this.childrenForm.clear();
+        this.addChild();
+    }
+
     private init(isInternal = false) {
         if (this.childrenForm && !this.childrenForm.controls.length) {
             this.addChild();
@@ -257,21 +273,5 @@ export class PredicateComponent implements OnChanges {
             !control.value || Object.keys(enumObj).includes(control.value)
                 ? null
                 : { enumNotIncludeKey: { value: control.value } };
-    }
-
-    addChild() {
-        this.childrenForm.push(this.createForm());
-    }
-
-    removeChild(idx: number) {
-        this.childrenForm.removeAt(idx);
-        if (!this.childrenForm.controls.length) {
-            this.addChild();
-        }
-    }
-
-    removeAll() {
-        this.childrenForm.clear();
-        this.addChild();
     }
 }

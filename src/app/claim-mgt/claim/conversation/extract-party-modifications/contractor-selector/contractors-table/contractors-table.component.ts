@@ -69,11 +69,11 @@ export class ContractorsTableComponent implements OnInit {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    private itemsFilter(item: SelectableItem, filter: string): boolean {
-        return JSON.stringify(item).includes(filter);
-    }
-
     expandData(item: any) {
         return getUnionValue(getUnionValue(item.data.contractor));
+    }
+
+    private itemsFilter(item: SelectableItem, filter: string): boolean {
+        return JSON.stringify(item).includes(filter);
     }
 }

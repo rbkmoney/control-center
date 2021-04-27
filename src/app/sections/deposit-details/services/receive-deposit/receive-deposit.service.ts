@@ -10,6 +10,7 @@ export class ReceiveDepositService {
     private receiveDeposit$ = new ReplaySubject<string>();
     private error$ = new Subject<boolean>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     deposit$ = this.receiveDeposit$.pipe(
         switchMap((depositId) =>
             this.fistfulStatisticsService.getDeposits({ depositId } as any, null).pipe(
@@ -23,8 +24,10 @@ export class ReceiveDepositService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.receiveDeposit$, merge(this.deposit$, this.error$));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     hasError$ = this.error$.asObservable();
 
     constructor(private fistfulStatisticsService: FistfulStatisticsService) {}

@@ -20,6 +20,7 @@ export class StatusChangerService {
     }> = new Subject();
     private changed$: Subject<PartyModification[]> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     statusChanged$: Observable<PartyModification[]> = this.changed$.asObservable();
 
     constructor(private dialog: MatDialog) {}

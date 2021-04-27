@@ -7,6 +7,7 @@ import { PartyModification } from '../../../thrift-services/damsel/gen-model/cla
 export class PartyModificationEmitter {
     private modificationCreated$: Subject<PartyModification> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     modification$: Observable<PartyModification> = this.modificationCreated$.asObservable();
 
     modificationCreated(modification: PartyModification) {

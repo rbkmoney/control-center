@@ -12,6 +12,7 @@ import { PartyID } from '../../thrift-services/damsel/gen-model/domain';
 export class FetchClaimService {
     private getClaim$: ReplaySubject<{ partyID: PartyID; claimID: string }> = new ReplaySubject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     claim$ = this.getClaim$.pipe(
         switchMap(({ partyID, claimID }) =>
             this.claimManagementService.getClaim(partyID, new Int64(parseInt(claimID, 10))).pipe(
@@ -25,6 +26,7 @@ export class FetchClaimService {
         filter((result) => result !== 'error'),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.getClaim$, this.claim$);
 
     constructor(
