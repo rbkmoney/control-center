@@ -12,6 +12,7 @@ export class FetchShopService {
     private getShop$ = new BehaviorSubject<{ partyID: PartyID; shopID: ShopID }>(null);
     private hasError$: Subject<any> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shop$ = this.getShop$.pipe(
         switchMap(({ partyID, shopID }) =>
             this.partyService.getShop(partyID, shopID).pipe(
@@ -26,6 +27,7 @@ export class FetchShopService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.getShop$, merge(this.shop$, this.hasError$)).pipe(startWith(true));
 
     constructor(private partyService: PartyService, private snackBar: MatSnackBar) {}
