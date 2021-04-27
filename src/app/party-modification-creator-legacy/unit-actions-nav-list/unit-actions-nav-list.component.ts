@@ -24,14 +24,14 @@ export class UnitActionsNavListComponent implements OnInit {
 
     // eslint-disable-next-line @typescript-eslint/member-ordering
     contractorActions = {
-        type: ActionType.contractorAction,
+        type: ActionType.ContractorAction,
         visible: false,
         names: [],
     };
 
     // eslint-disable-next-line @typescript-eslint/member-ordering
     contractActions = {
-        type: ActionType.contractAction,
+        type: ActionType.ContractAction,
         visible: false,
         names: [
             ContractModificationName.legalAgreementBinding,
@@ -44,7 +44,7 @@ export class UnitActionsNavListComponent implements OnInit {
 
     // eslint-disable-next-line @typescript-eslint/member-ordering
     shopActions = {
-        type: ActionType.shopAction,
+        type: ActionType.ShopAction,
         visible: false,
         names: [
             ShopModificationName.detailsModification,

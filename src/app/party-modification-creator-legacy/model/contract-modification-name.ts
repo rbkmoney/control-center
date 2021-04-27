@@ -1,4 +1,5 @@
 export enum ContractModificationName {
+    /* eslint-disable @typescript-eslint/naming-convention */
     creation = 'creation',
     legacyCreation = 'legacyCreation',
     termination = 'termination',
@@ -8,4 +9,5 @@ export enum ContractModificationName {
     reportPreferencesModification = 'report_preferences_modification',
     contractorModification = 'contractor_modification',
     unknown = 'unknown',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
