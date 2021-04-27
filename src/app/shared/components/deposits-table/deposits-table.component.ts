@@ -24,7 +24,7 @@ export class DepositsTableComponent {
 
     menuItemSelected(action: string, depositID: DepositID) {
         switch (action) {
-            case DepositActions.navigateToDeposit:
+            case DepositActions.NavigateToDeposit:
                 this.menuItemSelected$.emit({ action, depositID });
                 break;
             default:
