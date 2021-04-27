@@ -1,5 +1,7 @@
 import cloneDeep from 'lodash-es/cloneDeep';
+// eslint-disable-next-line you-dont-need-lodash-underscore/drop-right
 import dropRight from 'lodash-es/dropRight';
+// eslint-disable-next-line you-dont-need-lodash-underscore/last
 import last from 'lodash-es/last';
 
 import { toGenTerminalDecision } from '../../converters';
