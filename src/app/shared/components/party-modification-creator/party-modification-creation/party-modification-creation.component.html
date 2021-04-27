@@ -11,49 +11,49 @@
     </div>
     <div *ngIf="action.type === actionTypes.contractAction">
         <cc-contract-params
-            *ngIf="action.name === contractModificationNames.Creation"
+            *ngIf="action.name === contractModificationNames.creation"
             [form]="form.get('modification')"
             [initialValue]="modification?.creation"
         >
         </cc-contract-params>
         <cc-contract-params-legacy
-            *ngIf="action.name === contractModificationNames.LegacyCreation"
+            *ngIf="action.name === contractModificationNames.legacyCreation"
             [form]="form.get('modification')"
             [initialValue]="modification?.creation"
         >
         </cc-contract-params-legacy>
         <cc-contract-payout-tool-modification-unit
-            *ngIf="action.name === contractModificationNames.PayoutToolModification"
+            *ngIf="action.name === contractModificationNames.payoutToolModification"
             [form]="form.get('modification')"
             [initialValue]="modification?.payout_tool_modification"
         >
         </cc-contract-payout-tool-modification-unit>
         <cc-legal-agreement-binding
-            *ngIf="action.name === contractModificationNames.LegalAgreementBinding"
+            *ngIf="action.name === contractModificationNames.legalAgreementBinding"
             [form]="form.get('modification')"
             [initialValue]="modification?.legal_agreement_binding"
         >
         </cc-legal-agreement-binding>
         <cc-adjustment-modification-unit
-            *ngIf="action.name === contractModificationNames.AdjustmentModification"
+            *ngIf="action.name === contractModificationNames.adjustmentModification"
             [form]="form.get('modification')"
             [initialValue]="modification?.adjustment_modification"
         >
         </cc-adjustment-modification-unit>
         <cc-report-preferences
-            *ngIf="action.name === contractModificationNames.ReportPreferencesModification"
+            *ngIf="action.name === contractModificationNames.reportPreferencesModification"
             [form]="form.get('modification')"
             [initialValue]="modification?.report_preferences_modification"
         >
         </cc-report-preferences>
         <cc-termination
-            *ngIf="action.name === contractModificationNames.Termination"
+            *ngIf="action.name === contractModificationNames.termination"
             [form]="form.get('modification')"
             [initialValue]="modification?.termination"
         >
         </cc-termination>
         <cc-contractor-id
-            *ngIf="action.name === contractModificationNames.ContractorModification"
+            *ngIf="action.name === contractModificationNames.contractorModification"
             [form]="form"
         >
         </cc-contractor-id>

@@ -29,11 +29,11 @@ export class UnitActionsNavListComponent implements OnInit {
         type: ActionType.contractAction,
         visible: false,
         names: [
-            ContractModificationName.LegalAgreementBinding,
-            ContractModificationName.ReportPreferencesModification,
-            ContractModificationName.AdjustmentModification,
-            ContractModificationName.PayoutToolModification,
-            ContractModificationName.Termination,
+            ContractModificationName.legalAgreementBinding,
+            ContractModificationName.reportPreferencesModification,
+            ContractModificationName.adjustmentModification,
+            ContractModificationName.payoutToolModification,
+            ContractModificationName.termination,
         ],
     };
 
@@ -64,8 +64,8 @@ export class UnitActionsNavListComponent implements OnInit {
                 this.shopActions.visible = true;
                 this.contractorActions.visible = true;
                 this.contractActions.names = [
-                    ContractModificationName.Creation,
-                    ContractModificationName.LegacyCreation,
+                    ContractModificationName.creation,
+                    ContractModificationName.legacyCreation,
                     ...this.contractActions.names,
                 ];
                 this.shopActions.names = [ShopModificationName.creation, ...this.shopActions.names];
