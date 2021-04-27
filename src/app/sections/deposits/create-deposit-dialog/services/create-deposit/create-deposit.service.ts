@@ -89,7 +89,7 @@ export class CreateDepositService {
     private initForm(): FormGroup {
         return this.fb.group({
             destination: ['', Validators.required],
-            amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
+            amount: ['', [Validators.required, Validators.pattern(/^\d+([,.]\d{1,2})?$/)]],
             currency: [currencies[0], Validators.required],
         });
     }
