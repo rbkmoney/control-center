@@ -24,11 +24,11 @@ export class PaymentDetailsComponent {
         this.payment$,
         this.updateSearchParams$.pipe(withLatestFrom(this.payment$, (_, p) => p))
     ).pipe(
-        map(({ id: payment_id, invoice_id }) => ({ invoice_id, payment_id } as ChargebacksParams)),
+        map(({ id, invoice_id }) => ({ invoice_id, payment_id: id } as ChargebacksParams)),
         shareReplay(1)
     );
 
-    ChargebackRole = ChargebackRole;
+    chargebackRole = ChargebackRole;
 
     constructor(
         private paymentDetailsService: PaymentDetailsService,

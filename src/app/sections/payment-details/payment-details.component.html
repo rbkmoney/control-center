@@ -18,11 +18,11 @@
                 ></cc-payment-refunds>
             </mat-card-content>
         </mat-card>
-        <mat-card *ngIf="userHasRole(ChargebackRole.View)" fxLayout="column" fxLayoutGap="32px">
+        <mat-card *ngIf="userHasRole(chargebackRole.View)" fxLayout="column" fxLayoutGap="32px">
             <div fxLayout fxLayoutAlign="space-between">
                 <h2 class="cc-headline">Chargebacks</h2>
                 <button
-                    *ngIf="userHasRole(ChargebackRole.Manage)"
+                    *ngIf="userHasRole(chargebackRole.Manage)"
                     mat-raised-button
                     color="primary"
                     (click)="createChargeback()"

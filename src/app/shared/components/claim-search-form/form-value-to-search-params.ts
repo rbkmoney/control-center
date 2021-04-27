@@ -6,7 +6,7 @@ import pickBy from 'lodash-es/pickBy';
 
 import { SearchFormValue } from './search-form-value';
 
-export const formValueToSearchParams = (params: {}): SearchFormValue => ({
+export const formValueToSearchParams = (params: any): SearchFormValue => ({
     ...params,
     ...mapValuesToThriftEnum(pick(params, 'statuses')),
     ...mapValuesToNumber(pickBy(params, isNumeric)),
