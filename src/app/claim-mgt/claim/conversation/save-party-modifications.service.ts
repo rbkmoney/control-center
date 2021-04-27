@@ -59,7 +59,9 @@ export class SavePartyModificationsService {
                 debounceTime(300),
                 switchMap(() => this.unsavedModifications$.pipe(first())),
                 map((modifications) =>
-                    modifications.map((partyModification) => ({ party_modification: partyModification }))
+                    modifications.map((partyModification) => ({
+                        party_modification: partyModification,
+                    }))
                 ),
                 switchMap((changeset) => forkJoin([partyId$, claimId$, of(changeset)])),
                 switchMap(([partyId, claimId, changeset]) =>
