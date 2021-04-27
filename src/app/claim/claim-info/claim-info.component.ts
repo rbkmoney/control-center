@@ -46,16 +46,16 @@ export class ClaimInfoComponent implements OnInit {
 
     save() {
         switch (this.claimInfoContainer.type) {
-            case ClaimActionType.edit:
+            case ClaimActionType.Edit:
                 this.claimService.saveChanges().subscribe(
                     () => this.success(),
                     (e) => this.failed(e)
                 );
                 break;
-            case ClaimActionType.create:
+            case ClaimActionType.Create:
                 this.claimService.createClaim().subscribe(
                     (claimInfo) => {
-                        const editEndpoint = `/claims/${claimInfo.party_id}/${ClaimActionType.edit}/${claimInfo.claim_id}`;
+                        const editEndpoint = `/claims/${claimInfo.party_id}/${ClaimActionType.Edit}/${claimInfo.claim_id}`;
                         this.router.navigate([editEndpoint]).then(() => this.success());
                     },
                     (e) => this.failed(e)

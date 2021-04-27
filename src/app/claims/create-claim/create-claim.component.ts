@@ -26,6 +26,6 @@ export class CreateClaimComponent implements OnInit {
     submit() {
         const partyId = this.form.value.partyId.trim();
         this.dialogRef.close();
-        this.router.navigate([`/claims/${partyId}/${ClaimActionType.create}`]);
+        this.router.navigate([`/claims/${partyId}/${ClaimActionType.Create}`]);
     }
 }

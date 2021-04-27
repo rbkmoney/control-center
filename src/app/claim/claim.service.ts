@@ -59,7 +59,7 @@ export class ClaimService {
 
     resolveClaimInfo(type: ClaimActionType, partyId: string, claimId?: string): Observable<void> {
         switch (type) {
-            case ClaimActionType.create:
+            case ClaimActionType.Create:
                 if (claimId) {
                     return this.getClaimInfo(partyId, claimId).pipe(
                         tap((claimInfo) => {
@@ -80,7 +80,7 @@ export class ClaimService {
                     this.isAddModificationAvailable$.next(this.getAvailability());
                     return of();
                 }
-            case ClaimActionType.edit:
+            case ClaimActionType.Edit:
                 return this.getClaimInfo(partyId, claimId).pipe(
                     tap((claimInfo) => {
                         this.persistentContainerService.init(claimInfo.modifications.modifications);
@@ -165,9 +165,9 @@ export class ClaimService {
 
     private getAvailability(): boolean {
         switch (this.claimInfoContainer.type) {
-            case ClaimActionType.edit:
+            case ClaimActionType.Edit:
                 return this.claimInfoContainer.status === ClaimStatus.Pending;
-            case ClaimActionType.create:
+            case ClaimActionType.Create:
                 return true;
         }
         return false;
@@ -187,7 +187,7 @@ export class ClaimService {
         const { claim_id, party_id, revision, status, reason, created_at, updated_at } = claimInfo;
         const extractedIds = this.extractIds(modifications);
         return {
-            type: ClaimActionType.edit,
+            type: ClaimActionType.Edit,
             claimId: claim_id,
             partyId: party_id,
             revision,
