@@ -5,7 +5,7 @@ import connectClient from 'woody_js';
 
 import { KeycloakTokenInfoService } from '../../../keycloak-token-info.service';
 
-type Exception<N = string, T = {}> = {
+type Exception<N = string, T = any> = {
     name: N;
     message: string;
 } & T;
@@ -39,7 +39,8 @@ export class ThriftService {
                     try {
                         const client = this.createClient(cb, deprecatedHeaders);
                         client[name](...args, (ex: Exception, result) => {
-                            ex ? observer.error(ex) : observer.next(result);
+                            if (ex) observer.error(ex);
+                            else observer.next(result);
                             observer.complete();
                         });
                     } catch (e) {
