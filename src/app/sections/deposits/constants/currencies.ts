@@ -3,7 +3,7 @@ export interface CurrencySource {
     currency: string;
 }
 
-export const currencies: CurrencySource[] = [
+export const CURRENCIES: CurrencySource[] = [
     { source: '3', currency: 'RUB' },
     { source: '5', currency: 'UAH' },
     { source: 'eskin1', currency: 'USD' },

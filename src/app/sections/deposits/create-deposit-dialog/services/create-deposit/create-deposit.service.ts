@@ -16,7 +16,7 @@ import { FistfulAdminService } from '../../../../../thrift-services/fistful/fist
 import { FistfulStatisticsService } from '../../../../../thrift-services/fistful/fistful-stat.service';
 import { DepositParams } from '../../../../../thrift-services/fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
-import { currencies } from '../../../constants/currencies';
+import { CURRENCIES } from '../../../constants/currencies';
 import { SearchParams } from '../../../types/search-params';
 
 @Injectable()
@@ -90,7 +90,7 @@ export class CreateDepositService {
         return this.fb.group({
             destination: ['', Validators.required],
             amount: ['', [Validators.required, Validators.pattern(/^\d+([,.]\d{1,2})?$/)]],
-            currency: [currencies[0], Validators.required],
+            currency: [CURRENCIES[0], Validators.required],
         });
     }
 
