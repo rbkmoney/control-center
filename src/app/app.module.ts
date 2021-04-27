@@ -101,7 +101,7 @@ export class AppModule {
         private matIconRegistry: MatIconRegistry,
         private domSanitizer: DomSanitizer
     ) {
-        this.themeManager.change(ThemeName.light);
+        this.themeManager.change(ThemeName.Light);
         this.registerIcons();
     }
 

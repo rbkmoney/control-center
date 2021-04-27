@@ -24,7 +24,7 @@ export class ThemeManager {
 
     private getCorrectName(theme: ThemeName | string): ThemeName {
         if (!Object.values<string>(ThemeName).includes(theme)) {
-            return this.current || ThemeName.light;
+            return this.current || ThemeName.Light;
         }
         return theme as ThemeName;
     }
