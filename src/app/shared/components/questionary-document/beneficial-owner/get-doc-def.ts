@@ -17,7 +17,7 @@ import {
     getDate,
     getIdentityDocument,
     getPercent,
-    simpleYesNo,
+    SIMPLE_YES_NO,
     toYesNo,
 } from '../select-data';
 import { createCompanyHeader } from './create-company-header';
@@ -134,14 +134,14 @@ export function getDocDef(
                     [
                         createInlineCheckboxWithTitle(
                             '14.1. Принадлежность к категории ПДЛ²',
-                            simpleYesNo,
+                            SIMPLE_YES_NO,
                             toYesNo(pdl_category)
                         ),
                     ],
                     [
                         createInlineCheckboxWithTitle(
                             '14.2. Является родственником ПДЛ',
-                            simpleYesNo,
+                            SIMPLE_YES_NO,
                             toYesNo(!!pdl_relation_degree)
                         ),
                         `14.3. Степень родства: ${pdl_relation_degree || EMPTY}`,
@@ -149,14 +149,14 @@ export function getDocDef(
                     [
                         createInlineCheckboxWithTitle(
                             '14.4. Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом США?',
-                            simpleYesNo,
+                            SIMPLE_YES_NO,
                             toYesNo(usaTaxResident)
                         ),
                     ],
                     [
                         createInlineCheckboxWithTitle(
                             '14.5. Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом иного иностранного государства (кроме США)?',
-                            simpleYesNo,
+                            SIMPLE_YES_NO,
                             toYesNo(exceptUsaTaxResident)
                         ),
                     ],

@@ -20,7 +20,7 @@ import {
     createVerticalParagraph,
 } from '../create-content';
 import { DocDef } from '../create-questionary';
-import { getBusinessInfo, getShopLocationURL, simpleYesNo, toYesNo, YesNo } from '../select-data';
+import { getBusinessInfo, getShopLocationURL, SIMPLE_YES_NO, toYesNo, YesNo } from '../select-data';
 import { getIndividualEntityName } from './get-individual-entity-name';
 
 const EMPTY = '';
@@ -149,7 +149,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                 [
                     createInlineCheckboxWithTitle(
                         '7.1. Наличие в штате главного бухгалтера',
-                        simpleYesNo,
+                        SIMPLE_YES_NO,
                         hasChiefAccountant
                     ),
                     `7.2. Штатная численность в организации: ${staffCount || EMPTY}`,
@@ -181,7 +181,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                         {
                             ...createInlineCheckboxWithTitle(
                                 '8.1. Принадлежность к категории ПДЛ¹',
-                                simpleYesNo,
+                                SIMPLE_YES_NO,
                                 toYesNo(foreign_public_person)
                             ),
                             colSpan: 2,
@@ -190,7 +190,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                     [
                         createInlineCheckboxWithTitle(
                             '8.2. Является родственником ПДЛ',
-                            simpleYesNo,
+                            SIMPLE_YES_NO,
                             toYesNo(foreign_relative_person)
                         ),
                         `8.3. Степень родства: ${pdlRelationDegree || EMPTY}`,
@@ -201,9 +201,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                 [
                     createInlineCheckbox(
                         [
-                            [YesNo.no, 'Нет'],
+                            [YesNo.No, 'Нет'],
                             [
-                                YesNo.yes,
+                                YesNo.Yes,
                                 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)',
                             ],
                         ],
@@ -215,9 +215,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                 [
                     createInlineCheckbox(
                         [
-                            [YesNo.no, 'Нет'],
+                            [YesNo.No, 'Нет'],
                             [
-                                YesNo.yes,
+                                YesNo.Yes,
                                 'Да (обязательное заполнение приложение для Бенефициарного владельца по форме НКО)',
                             ],
                         ],
@@ -227,11 +227,11 @@ export function getDocDef(questionary: Questionary): DocDef {
             ]),
             createVerticalParagraph(
                 '11. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве',
-                [[createInlineCheckbox(simpleYesNo, toYesNo(!!relation_individual_entity))]]
+                [[createInlineCheckbox(SIMPLE_YES_NO, toYesNo(!!relation_individual_entity))]]
             ),
             createVerticalParagraph(
                 '12. Являетесь ли Вы налоговым резидентом США или иного иностранного государства',
-                [[createInlineCheckbox(simpleYesNo, toYesNo(usa_tax_resident))]]
+                [[createInlineCheckbox(SIMPLE_YES_NO, toYesNo(usa_tax_resident))]]
             ),
         ],
         prefooter: createEnding(),

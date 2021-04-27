@@ -10,10 +10,10 @@ describe('toYesNo', () => {
     });
 
     it('true should return yes', () => {
-        expect(toYesNo(true)).toBe(YesNo.yes);
+        expect(toYesNo(true)).toBe(YesNo.Yes);
     });
 
     it('false should return no', () => {
-        expect(toYesNo(false)).toBe(YesNo.no);
+        expect(toYesNo(false)).toBe(YesNo.No);
     });
 });
