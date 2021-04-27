@@ -14,7 +14,8 @@ export const prepareThriftServiceMethod = <T>(
             observer.complete();
         }
         serviceMethod.bind(connection)(...args, (err, result) => {
-            err ? observer.error(err) : observer.next(result);
+            if (err) observer.error(err);
+            else observer.next(result);
             observer.complete();
         });
     });
