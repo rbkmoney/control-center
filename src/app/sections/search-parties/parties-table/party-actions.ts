@@ -1,3 +1,3 @@
 export enum PartyActions {
-    navigateToParty = 'navigateToParty',
+    NavigateToParty = 'navigateToParty',
 }
