@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { SearchFormParams } from '../../deposits/search-form/search-form-params';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { createDSL, QueryDSL } from '../../query-dsl';
+import { createDsl, QueryDSL } from '../../query-dsl';
 import { DepositRevertParams } from '../../query-dsl/deposit-revert';
 import { SEARCH_LIMIT, SMALL_SEARCH_LIMIT } from '../../tokens';
 import { ThriftService } from '../services/thrift/thrift-service';
@@ -89,7 +89,7 @@ export class FistfulStatisticsService extends ThriftService {
         continuationToken?: string
     ): StatRequest {
         return {
-            dsl: createDSL({
+            dsl: createDsl({
                 deposit_reverts: {
                     ...removeEmptyProperties(params),
                     size: this.smallSearchLimit.toString(),

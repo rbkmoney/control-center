@@ -4,7 +4,7 @@ import { combineLatest, Subject } from 'rxjs';
 import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { PartyService } from '../../papi/party.service';
-import { createDSL } from '../../query-dsl';
+import { createDsl } from '../../query-dsl';
 import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
 import { PaymentProcessingService } from '../../thrift-services/damsel/payment-processing.service';
 
@@ -17,7 +17,7 @@ export class ChargebackDetailsService {
         switchMap(({ partyID, invoiceID, paymentID }) =>
             this.merchantStatisticsService
                 .getPayments({
-                    dsl: createDSL({
+                    dsl: createDsl({
                         payments: {
                             ...(paymentID ? { payment_id: paymentID } : {}),
                             ...(partyID ? { merchant_id: partyID } : {}),
