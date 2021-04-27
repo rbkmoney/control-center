@@ -1,5 +1,5 @@
-import { QueryDSL } from './query-dsl';
+import { QueryDsl } from './query-dsl';
 
-export function createDsl(query: QueryDSL['query']): string {
+export function createDsl(query: QueryDsl['query']): string {
     return JSON.stringify({ query });
 }

@@ -10,7 +10,7 @@ import { WalletParams } from './wallet';
 export type ChargebacksParams = Params & ModelParams & Chargebacks;
 export type RefundsParams = Refund & ModelParams;
 
-export interface QueryDSL {
+export interface QueryDsl {
     query: {
         payments?: Payment & Params & ModelParams;
         deposits?: Deposit & Params & ModelParams;

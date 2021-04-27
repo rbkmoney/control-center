@@ -6,7 +6,7 @@ import { combineLatest, of } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { PartyService } from '../../papi/party.service';
-import { QueryDSL } from '../../query-dsl';
+import { QueryDsl } from '../../query-dsl';
 import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class PaymentDetailsService {
                                 ...(invoiceID ? { invoice_id: invoiceID } : {}),
                             },
                         },
-                    } as QueryDSL),
+                    } as QueryDsl),
                 })
                 .pipe(
                     map(({ data }) => data.payments[0]),
