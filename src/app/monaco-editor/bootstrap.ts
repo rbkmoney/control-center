@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 declare const window: any;
 
-export const bootstrap$ = new Observable<void>((observer) => {
+export const BOOTSTRAP$ = new Observable<void>((observer) => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'libs/vs/loader.js';
