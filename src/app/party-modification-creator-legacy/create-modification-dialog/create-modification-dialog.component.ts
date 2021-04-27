@@ -19,8 +19,8 @@ export interface CreateModificationData {
 }
 
 enum Step {
-    prepareTarget = '0',
-    fillInModification = '1',
+    PrepareTarget = '0',
+    FillInModification = '1',
 }
 
 @Component({
@@ -39,7 +39,7 @@ export class CreateModificationDialogComponent implements OnInit {
 
     action: ModificationAction;
 
-    currentStep = Step.prepareTarget;
+    currentStep = Step.PrepareTarget;
 
     constructor(
         private dialogRef: MatDialogRef<CreateModificationDialogComponent>,
@@ -50,7 +50,7 @@ export class CreateModificationDialogComponent implements OnInit {
     ngOnInit() {
         if (this.data.unitID) {
             this.unitID = this.data.unitID;
-            this.currentStep = Step.fillInModification;
+            this.currentStep = Step.FillInModification;
         }
         this.partyID = this.data.partyID;
         this.action = this.data.action;
