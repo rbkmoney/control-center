@@ -22,9 +22,9 @@ export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
     protected fetch(params: any, continuationToken: string): Observable<FetchResult<Claim>> {
         return this.route.params.pipe(
             pluck('partyID'),
-            switchMap((party_id) =>
+            switchMap((partyId) =>
                 this.claimManagementService.searchClaims({
-                    party_id,
+                    party_id: partyId,
                     ...params,
                     continuation_token: continuationToken,
                     limit: SEARCH_LIMIT,
