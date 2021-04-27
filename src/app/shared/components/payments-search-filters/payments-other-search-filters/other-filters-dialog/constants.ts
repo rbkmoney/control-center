@@ -1,6 +1,6 @@
 import { RadioButtonObject } from '@cc/components/utils';
 
-export const paymentStatuses: RadioButtonObject[] = [
+export const PAYMENT_STATUSES: RadioButtonObject[] = [
     {
         value: 'captured',
         title: 'Captured',
@@ -27,7 +27,7 @@ export const paymentStatuses: RadioButtonObject[] = [
     },
 ];
 
-export const paymentMethods: RadioButtonObject[] = [
+export const PAYMENT_METHODS: RadioButtonObject[] = [
     {
         value: 'bank_card',
         title: 'Bank Card',
@@ -42,7 +42,7 @@ export const paymentMethods: RadioButtonObject[] = [
     },
 ];
 
-export const tokenProviders: RadioButtonObject[] = [
+export const TOKEN_PROVIDERS: RadioButtonObject[] = [
     {
         value: 'applepay',
         title: 'Apple Pay',
@@ -57,7 +57,7 @@ export const tokenProviders: RadioButtonObject[] = [
     },
 ];
 
-export const paymentSystems: RadioButtonObject[] = [
+export const PAYMENT_SYSTEMS: RadioButtonObject[] = [
     {
         value: 'visa',
         title: 'Visa',
