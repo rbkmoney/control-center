@@ -10,12 +10,14 @@ import { RepairingService } from '../repairing.service';
 import { DialogData, RepairSettingsComponent } from './repair-settings/repair-settings.component';
 
 enum Status {
+    /* eslint-disable @typescript-eslint/naming-convention */
     repaired = 'machine repaired',
     update = 'status updated',
     unknown = 'unknown',
     unknownError = 'unknown error',
     withdrawalSessionNotFound = 'withdrawal session not found',
     machineAlreadyWorking = 'machine already working',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 interface Element {

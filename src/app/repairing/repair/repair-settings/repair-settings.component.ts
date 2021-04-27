@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 enum Scenario {
     // add_events = 'add_events',
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     set_session_result = 'set_session_result',
 }
 
