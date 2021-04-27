@@ -6,14 +6,13 @@ import { ThemeName } from './theme-name';
 
 @Injectable()
 export class ThemeManager {
-    private static readonly KEY = 'theme';
-
     current: ThemeName;
 
+    private static readonly key = 'theme';
     private element: HTMLScriptElement | HTMLLinkElement;
 
     constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {
-        const name = this.settingsService.get(ThemeManager.KEY);
+        const name = this.settingsService.get(ThemeManager.key);
         const correctedName = this.getCorrectName(name);
         this.change(correctedName);
     }
@@ -34,7 +33,7 @@ export class ThemeManager {
         this.element = this.createElement(name);
         this.doc.head.appendChild(this.element);
         this.doc.body.classList.add(name);
-        this.settingsService.set(ThemeManager.KEY, name);
+        this.settingsService.set(ThemeManager.key, name);
         this.current = name;
     }
 
