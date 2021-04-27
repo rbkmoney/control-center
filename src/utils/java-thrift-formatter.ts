@@ -1,7 +1,5 @@
 import forIn from 'lodash-es/forIn';
-import isArray from 'lodash-es/isArray';
 import isObject from 'lodash-es/isObject';
-import isString from 'lodash-es/isString';
 
 function toMap(collection: any[]): Map<any, any> {
     const result = new Map();
@@ -29,7 +27,7 @@ function toSet(collection: any[]): Set<any> {
 
 function decodeArray(arr: any[]): any[] | Map<any, any> | Set<any> {
     const type = arr[0];
-    if (isString(type)) {
+    if (typeof type === 'string') {
         const collection = arr.slice(1);
         switch (type) {
             case 'map':
@@ -43,14 +41,14 @@ function decodeArray(arr: any[]): any[] | Map<any, any> | Set<any> {
     return [];
 }
 
-function decodeObject(obj: object): object {
+function decodeObject(obj: any): any {
     const result = {};
     forIn(obj, (value, key) => (result[key] = isObject(value) ? decode(value) : value));
     return result;
 }
 
 export function decode(thrift: any): any {
-    if (isArray(thrift)) {
+    if (Array.isArray(thrift)) {
         return decodeArray(thrift);
     } else if (isObject(thrift)) {
         return decodeObject(thrift);
@@ -61,7 +59,7 @@ export function decode(thrift: any): any {
 
 export function encode(model: any): any | any[] {
     let result;
-    if (isArray(model)) {
+    if (Array.isArray(model)) {
         result = ['list'];
         for (const item of model) {
             if (typeof item === 'object') {

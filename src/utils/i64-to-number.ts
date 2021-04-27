@@ -1,4 +1,4 @@
-export const i64ToNumber = (buffer: object, offset: number, allowImprecise = false) => {
+export const i64ToNumber = (buffer: any, offset: number, allowImprecise = false) => {
     const b = buffer;
     const o = offset;
     // Running sum of octets, doing a 2's complement
@@ -20,8 +20,8 @@ export const i64ToNumber = (buffer: object, offset: number, allowImprecise = fal
         x += v * m;
     }
     // Return Infinity if we've lost integer precision
-    const MAX_INT = Math.pow(2, 53);
-    if (!allowImprecise && x >= MAX_INT) {
+    const maxInt = Math.pow(2, 53);
+    if (!allowImprecise && x >= maxInt) {
         return negate ? -Infinity : Infinity;
     }
     return negate ? -x : x;

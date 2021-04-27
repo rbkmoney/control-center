@@ -1,5 +1,4 @@
 import has from 'lodash-es/has';
-import isArray from 'lodash-es/isArray';
 import isObject from 'lodash-es/isObject';
 
 import { clearNullFields } from './thrift-utils';
@@ -44,7 +43,7 @@ export function toJson(thrift: any): any {
     if (!thrift) {
         return;
     }
-    if (isArray(thrift)) {
+    if (Array.isArray(thrift)) {
         return resolveArray(thrift);
     }
     if (thrift instanceof Map) {
