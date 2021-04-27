@@ -22,9 +22,11 @@ export class ChangeChargebackStatusDialogService {
         chargebackID: string;
     }) {
         const fnByStatus = {
+            /* eslint-disable @typescript-eslint/naming-convention */
             Accept: this.paymentProcessingService.acceptChargeback,
             Cancell: this.paymentProcessingService.cancelChargeback,
             Reject: this.paymentProcessingService.rejectChargeback,
+            /* eslint-enable @typescript-eslint/naming-convention */
         };
         return fnByStatus[status as typeof STATUSES[number]].bind(this.paymentProcessingService)(
             invoiceID,
