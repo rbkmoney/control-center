@@ -24,11 +24,11 @@ export class ConversationService {
     ) {}
 
     updateConversation(
-        party_id: string,
-        claim_id: ClaimID,
+        partyId: string,
+        claimId: ClaimID,
         modifications: Modification[]
     ): Observable<void> {
-        return this.claimManagementService.updateClaim(party_id, claim_id, modifications);
+        return this.claimManagementService.updateClaim(partyId, claimId, modifications);
     }
 
     enrichWithData(changeset: ClaimChangeset) {
