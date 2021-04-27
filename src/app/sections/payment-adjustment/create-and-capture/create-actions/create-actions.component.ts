@@ -84,6 +84,7 @@ export class CreateActionsComponent implements OnInit {
         );
         this.createResult = [];
         this.batchAdjustmentService.capture(captureParams).subscribe(
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             () => {},
             () => {
                 this.snackBar.open('An error occurred while adjustments capture');
