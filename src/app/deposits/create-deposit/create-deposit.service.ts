@@ -21,7 +21,7 @@ export interface CurrencySource {
     currency: string;
 }
 
-export const currencies: CurrencySource[] = [
+export const CURRENCIES: CurrencySource[] = [
     { source: '3', currency: 'RUB' },
     { source: '5', currency: 'UAH' },
     { source: 'eskin1', currency: 'USD' },
@@ -57,8 +57,8 @@ export class CreateDepositService {
     private initForm(): FormGroup {
         return this.fb.group({
             destination: ['', Validators.required],
-            amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
-            currency: [currencies[0], Validators.required],
+            amount: ['', [Validators.required, Validators.pattern(/^\d+([,.]\d{1,2})?$/)]],
+            currency: [CURRENCIES[0], Validators.required],
         });
     }
 
