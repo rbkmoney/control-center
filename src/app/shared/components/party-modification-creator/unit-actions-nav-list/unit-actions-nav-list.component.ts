@@ -20,13 +20,13 @@ export class UnitActionsNavListComponent implements OnInit {
     unitActionType = UnitActionType;
 
     contractorActions = {
-        type: ActionType.contractorAction,
+        type: ActionType.ContractorAction,
         visible: false,
         names: [],
     };
 
     contractActions = {
-        type: ActionType.contractAction,
+        type: ActionType.ContractAction,
         visible: false,
         names: [
             ContractModificationName.legalAgreementBinding,
@@ -38,7 +38,7 @@ export class UnitActionsNavListComponent implements OnInit {
     };
 
     shopActions = {
-        type: ActionType.shopAction,
+        type: ActionType.ShopAction,
         visible: false,
         names: [
             ShopModificationName.detailsModification,
@@ -59,7 +59,7 @@ export class UnitActionsNavListComponent implements OnInit {
 
     ngOnInit() {
         switch (this.data.type) {
-            case UnitActionType.allActions:
+            case UnitActionType.AllActions:
                 this.contractActions.visible = true;
                 this.shopActions.visible = true;
                 this.contractorActions.visible = true;
@@ -74,13 +74,13 @@ export class UnitActionsNavListComponent implements OnInit {
                     ...this.contractorActions.names,
                 ];
                 break;
-            case UnitActionType.contractActions:
+            case UnitActionType.ContractActions:
                 this.contractActions.visible = true;
                 break;
-            case UnitActionType.shopActions:
+            case UnitActionType.ShopActions:
                 this.shopActions.visible = true;
                 break;
-            case UnitActionType.contractorActions:
+            case UnitActionType.ContractorActions:
                 this.contractorActions.visible = true;
         }
     }

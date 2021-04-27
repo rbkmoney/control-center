@@ -1,10 +1,10 @@
 import { Modification } from '../../../../thrift-services/damsel/gen-model/claim_management';
 
 export enum UnitActionType {
-    allActions = 'allActions',
-    contractActions = 'contractActions',
-    shopActions = 'shopActions',
-    contractorActions = 'contractorActions',
+    AllActions = 'allActions',
+    ContractActions = 'contractActions',
+    ShopActions = 'shopActions',
+    ContractorActions = 'contractorActions',
 }
 
 export interface UnitActionData {

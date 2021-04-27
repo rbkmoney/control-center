@@ -76,9 +76,9 @@ export class CreateModificationDialogComponent implements OnInit {
 
     apply() {
         switch (this.data.action.type) {
-            case ActionType.shopAction:
-            case ActionType.contractAction:
-            case ActionType.contractorAction:
+            case ActionType.ShopAction:
+            case ActionType.ContractAction:
+            case ActionType.ContractorAction:
                 this.addChange();
                 break;
         }
@@ -86,22 +86,22 @@ export class CreateModificationDialogComponent implements OnInit {
 
     getContainerType(type: ActionType): string {
         switch (type) {
-            case ActionType.shopAction:
+            case ActionType.ShopAction:
                 return ModificationGroupType.ShopUnitContainer;
-            case ActionType.contractAction:
+            case ActionType.ContractAction:
                 return ModificationGroupType.ContractUnitContainer;
-            case ActionType.contractorAction:
+            case ActionType.ContractorAction:
                 return ModificationGroupType.ContractorUnitContainer;
         }
     }
 
     getPartyTarget(type: ActionType): PartyTarget {
         switch (type) {
-            case ActionType.shopAction:
+            case ActionType.ShopAction:
                 return PartyTarget.shop;
-            case ActionType.contractAction:
+            case ActionType.ContractAction:
                 return PartyTarget.contract;
-            case ActionType.contractorAction:
+            case ActionType.ContractorAction:
                 return PartyTarget.contractor;
         }
     }

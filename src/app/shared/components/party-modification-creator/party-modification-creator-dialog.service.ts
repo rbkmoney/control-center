@@ -22,7 +22,7 @@ export class PartyModificationCreatorDialogService {
                 new Observable((observer) => {
                     this.bottomSheet.open(UnitActionsNavListComponent, {
                         data: {
-                            type: UnitActionType.allActions,
+                            type: UnitActionType.AllActions,
                             partyID,
                             fromClaim,
                         },
