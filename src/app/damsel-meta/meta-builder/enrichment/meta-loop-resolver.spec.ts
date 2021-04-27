@@ -31,7 +31,7 @@ describe('MetaLoopResolver', () => {
         expect(result.resolved).toEqual(expected);
     });
 
-    fit('should resolve multi level loops', () => {
+    it('should resolve multi level loops', () => {
         const resolveContainer = [
             {
                 name: 'PaymentsProvisionTerms',
@@ -98,6 +98,7 @@ describe('MetaLoopResolver', () => {
 
         const resolver = new MetaLoopResolver(resolveContainer, '$loop_');
         const result = resolver.resolve(resolveContainer[0]);
+        // eslint-disable-next-line no-console
         console.log('result', result.resolved);
     });
 });
