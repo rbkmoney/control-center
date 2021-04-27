@@ -9,8 +9,8 @@ import { Predicate } from '../../../../thrift-services/damsel/gen-model/domain';
 import { AddShopPaymentRoutingRuleDialogComponent } from './add-shop-payment-routing-rule-dialog.component';
 
 export enum TerminalType {
-    new = 'new',
-    existent = 'existent',
+    New = 'new',
+    Existent = 'existent',
 }
 
 @Injectable()
@@ -46,11 +46,11 @@ export class AddShopPaymentRoutingRuleDialogService {
             .subscribe((type) => {
                 const { newTerminal, existentTerminalID } = this.form.controls;
                 switch (type) {
-                    case TerminalType.new:
+                    case TerminalType.New:
                         newTerminal.enable();
                         existentTerminalID.disable();
                         return;
-                    case TerminalType.existent:
+                    case TerminalType.Existent:
                         newTerminal.disable();
                         existentTerminalID.enable();
                         return;
@@ -71,7 +71,7 @@ export class AddShopPaymentRoutingRuleDialogService {
             existentTerminalID,
             newTerminal,
         } = this.form.value;
-        (terminalType === TerminalType.new
+        (terminalType === TerminalType.New
             ? this.terminalService.createTerminal({
                   terminalName: newTerminal.name,
                   terminalDescription: newTerminal.description,
