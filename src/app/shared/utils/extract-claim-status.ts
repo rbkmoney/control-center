@@ -3,7 +3,9 @@ import { getUnionKey } from '@cc/utils/get-union-key';
 import { ClaimStatus } from '../../papi/model';
 import { ClaimStatus as UnionClaimStatus } from '../../thrift-services/damsel/gen-model/claim_management';
 
-export const claimStatusByUnionClaimStatus: { [name in keyof UnionClaimStatus]-?: ClaimStatus } = {
+export const CLAIM_STATUS_BY_UNION_CLAIM_STATUS: {
+    [name in keyof UnionClaimStatus]-?: ClaimStatus;
+} = {
     accepted: ClaimStatus.Accepted,
     denied: ClaimStatus.Denied,
     revoked: ClaimStatus.Revoked,
@@ -13,4 +15,4 @@ export const claimStatusByUnionClaimStatus: { [name in keyof UnionClaimStatus]-?
 };
 
 export const extractClaimStatus = (status: UnionClaimStatus): ClaimStatus =>
-    claimStatusByUnionClaimStatus[getUnionKey(status)];
+    CLAIM_STATUS_BY_UNION_CLAIM_STATUS[getUnionKey(status)];
