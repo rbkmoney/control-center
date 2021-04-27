@@ -2,8 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { PaymentActions } from './payment-actions';
 
-const paymentActionNames: { [N in PaymentActions]: string } = {
-    [PaymentActions.navigateToPayment]: 'Details',
+const PAYMENT_ACTION_NAMES: { [N in PaymentActions]: string } = {
+    [PaymentActions.NavigateToPayment]: 'Details',
 };
 
 @Pipe({
@@ -11,6 +11,6 @@ const paymentActionNames: { [N in PaymentActions]: string } = {
 })
 export class PaymentActionsPipe implements PipeTransform {
     transform(action: string): string {
-        return paymentActionNames[action] || action;
+        return PAYMENT_ACTION_NAMES[action] || action;
     }
 }

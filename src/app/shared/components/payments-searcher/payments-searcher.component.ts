@@ -113,7 +113,7 @@ export class PaymentsSearcherComponent implements OnInit {
 
     paymentMenuItemSelected(paymentMenuItemEvent: PaymentMenuItemEvent) {
         switch (paymentMenuItemEvent.action) {
-            case PaymentActions.navigateToPayment:
+            case PaymentActions.NavigateToPayment:
                 this.paymentEventFired$.emit(paymentMenuItemEvent);
                 break;
         }

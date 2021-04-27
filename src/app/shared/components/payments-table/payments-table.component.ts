@@ -48,7 +48,7 @@ export class PaymentsTableComponent {
         partyID: PartyID
     ) {
         switch (action) {
-            case PaymentActions.navigateToPayment:
+            case PaymentActions.NavigateToPayment:
                 this.menuItemSelected$.emit({ action, paymentID, invoiceID, partyID });
                 break;
             default:
