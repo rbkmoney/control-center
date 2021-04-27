@@ -5,9 +5,9 @@ import {
 } from '../party-modification-creator-legacy';
 
 export enum ActionType {
-    contractAction = 'contractAction',
-    shopAction = 'shopAction',
-    contractorAction = 'contractorAction',
+    ContractAction = 'contractAction',
+    ShopAction = 'shopAction',
+    ContractorAction = 'contractorAction',
 }
 
 export interface ModificationAction {
