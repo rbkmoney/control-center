@@ -45,12 +45,12 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
 
+    @Input()
+    placeholder: string;
+
     readonly stateChanges: Subject<void> = new Subject<void>();
-
     controlType = 'text';
-
     autofilled = false;
-
     formControl = new FormControl();
     autocompleteOrigin: MatAutocompleteOrigin;
     monitorsRegistered = false;
@@ -83,9 +83,6 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
     set id(value: string) {
         this._id = value || `custom-input-${uuid()}`;
     }
-
-    @Input()
-    placeholder: string;
 
     protected _required = false;
     @Input()
