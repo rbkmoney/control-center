@@ -75,7 +75,7 @@ export const convert = (containers: PersistentContainer[]): ModificationGroup[] 
         if (contract_modification) {
             return ModificationGroupType.ContractUnitContainer;
         }
-        return ModificationGroupType.unknown;
+        return ModificationGroupType.Unknown;
     });
     return map(grouped, (persistentContainer, type) => {
         switch (type) {
@@ -83,8 +83,8 @@ export const convert = (containers: PersistentContainer[]): ModificationGroup[] 
                 return toGroup(UnitName.ShopModification, type, persistentContainer);
             case ModificationGroupType.ContractUnitContainer:
                 return toGroup(UnitName.ContractModification, type, persistentContainer);
-            case ModificationGroupType.unknown:
-                return { type: ModificationGroupType.unknown };
+            case ModificationGroupType.Unknown:
+                return { type: ModificationGroupType.Unknown };
         }
     });
 };
