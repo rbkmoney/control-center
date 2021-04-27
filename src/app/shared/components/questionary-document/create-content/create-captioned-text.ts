@@ -3,7 +3,7 @@ import { Layout } from '../create-questionary';
 
 export function createCaptionedText(text: string, caption: string): Content {
     return {
-        layout: Layout.underline,
+        layout: Layout.Underline,
         table: {
             body: [
                 [

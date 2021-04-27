@@ -49,7 +49,7 @@ export function createInlineCheckboxWithTitle<T extends any>(
 
 export function createVerticalCheckbox<T extends any>(itemsSrc: Items<T>, activeKey?: T): Content {
     return {
-        layout: Layout.noBorders,
+        layout: Layout.NoBorders,
         table: {
             widths: ['*'],
             body: itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) => [

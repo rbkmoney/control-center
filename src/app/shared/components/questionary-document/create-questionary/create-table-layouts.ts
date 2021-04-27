@@ -3,11 +3,11 @@ import { TableLayoutFunctions } from 'pdfmake/build/pdfmake';
 import { PRIMARY_COLOR } from './colors';
 
 export enum Layout {
-    noBorders = 'noBorders',
-    noPaddings = 'noPaddings',
-    header = 'header',
-    wrapper = 'wrapper',
-    underline = 'underline',
+    NoBorders = 'noBorders',
+    NoPaddings = 'noPaddings',
+    Header = 'header',
+    Wrapper = 'wrapper',
+    Underline = 'underline',
 }
 
 const NO_PADDINGS: TableLayoutFunctions = {
@@ -24,19 +24,19 @@ const NO_BORDERS: TableLayoutFunctions = {
 
 export function createTableLayouts(): { [name in Layout]: TableLayoutFunctions } {
     return {
-        [Layout.noBorders]: NO_BORDERS,
-        [Layout.noPaddings]: NO_PADDINGS,
-        [Layout.wrapper]: {
+        [Layout.NoBorders]: NO_BORDERS,
+        [Layout.NoPaddings]: NO_PADDINGS,
+        [Layout.Wrapper]: {
             ...NO_BORDERS,
             ...NO_PADDINGS,
         },
-        [Layout.header]: {
+        [Layout.Header]: {
             fillColor(rowIdx) {
                 return rowIdx === 0 ? PRIMARY_COLOR : null;
             },
             ...NO_BORDERS,
         },
-        [Layout.underline]: {
+        [Layout.Underline]: {
             hLineWidth: (idx) => (idx === 1 ? 0.5 : 0),
             vLineWidth: () => 0,
             paddingLeft: () => 0,
