@@ -14,16 +14,16 @@ export class StatusComponent {
 
     @HostBinding('class.cc-status-success')
     get success() {
-        return this.color === StatusColor.success;
+        return this.color === StatusColor.Success;
     }
 
     @HostBinding('class.cc-status-pending')
     get pending() {
-        return this.color === StatusColor.pending;
+        return this.color === StatusColor.Pending;
     }
 
     @HostBinding('class.cc-status-warn')
     get warn() {
-        return this.color === StatusColor.warn;
+        return this.color === StatusColor.Warn;
     }
 }

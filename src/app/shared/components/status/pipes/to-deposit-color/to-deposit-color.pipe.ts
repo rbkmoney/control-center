@@ -15,12 +15,12 @@ const getStatusColor = (status: string): StatusColor => {
     const s = status.toLowerCase();
     switch (s) {
         case 'succeeded':
-            return StatusColor.success;
+            return StatusColor.Success;
         case 'pending':
-            return StatusColor.pending;
+            return StatusColor.Pending;
         case 'failed':
-            return StatusColor.warn;
+            return StatusColor.Warn;
         default:
-            return StatusColor.neutral;
+            return StatusColor.Neutral;
     }
 };
