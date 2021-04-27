@@ -93,7 +93,8 @@ export class UnsavedClaimChangesetService {
             });
 
         this.partyModificationEmitter.modification$.subscribe(
-            (party_modification: PartyModification) => this.addModification({ party_modification })
+            (partyModification: PartyModification) =>
+                this.addModification({ party_modification: partyModification })
         );
     }
 
