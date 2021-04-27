@@ -20,15 +20,15 @@ export class FileStorageService extends ThriftService {
         super(zone, keycloakTokenInfoService, '/file_storage', FileStorage);
     }
 
-    createNewFile = (metadata: Metadata, expires_at: Timestamp): Observable<NewFileResult> =>
-        this.toObservableAction('CreateNewFile')(metadata, expires_at);
+    createNewFile = (metadata: Metadata, expiresAt: Timestamp): Observable<NewFileResult> =>
+        this.toObservableAction('CreateNewFile')(metadata, expiresAt);
 
     generateDownloadUrl = (
-        file_data_id: FileDataID,
-        expires_at: Timestamp
+        fileDataId: FileDataID,
+        expiresAt: Timestamp
     ): Observable<URL | FileNotFound> =>
-        this.toObservableAction('GenerateDownloadUrl')(file_data_id, expires_at);
+        this.toObservableAction('GenerateDownloadUrl')(fileDataId, expiresAt);
 
-    getFileData = (file_data_id: FileDataID): Observable<FileData | FileNotFound> =>
-        this.toObservableAction('GetFileData')(file_data_id);
+    getFileData = (fileDataId: FileDataID): Observable<FileData | FileNotFound> =>
+        this.toObservableAction('GetFileData')(fileDataId);
 }
