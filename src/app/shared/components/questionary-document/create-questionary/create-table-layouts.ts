@@ -10,31 +10,31 @@ export enum Layout {
     underline = 'underline',
 }
 
-const noPaddings: TableLayoutFunctions = {
+const NO_PADDINGS: TableLayoutFunctions = {
     paddingLeft: () => 0,
     paddingRight: () => 0,
     paddingTop: () => 0,
     paddingBottom: () => 0,
 };
 
-const noBorders: TableLayoutFunctions = {
+const NO_BORDERS: TableLayoutFunctions = {
     hLineWidth: () => 0,
     vLineWidth: () => 0,
 };
 
 export function createTableLayouts(): { [name in Layout]: TableLayoutFunctions } {
     return {
-        [Layout.noBorders]: noBorders,
-        [Layout.noPaddings]: noPaddings,
+        [Layout.noBorders]: NO_BORDERS,
+        [Layout.noPaddings]: NO_PADDINGS,
         [Layout.wrapper]: {
-            ...noBorders,
-            ...noPaddings,
+            ...NO_BORDERS,
+            ...NO_PADDINGS,
         },
         [Layout.header]: {
             fillColor(rowIdx) {
                 return rowIdx === 0 ? PRIMARY_COLOR : null;
             },
-            ...noBorders,
+            ...NO_BORDERS,
         },
         [Layout.underline]: {
             hLineWidth: (idx) => (idx === 1 ? 0.5 : 0),
