@@ -1,5 +1,5 @@
 export enum UnitName {
-    shopModification = 'shop_modification',
-    contractModification = 'contract_modification',
-    contractorModification = 'contractor_modification',
+    ShopModification = 'shop_modification',
+    ContractModification = 'contract_modification',
+    ContractorModification = 'contractor_modification',
 }
