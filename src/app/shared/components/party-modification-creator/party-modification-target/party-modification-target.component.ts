@@ -25,9 +25,9 @@ export class PartyModificationTargetComponent {
     @Output()
     valueChanges: EventEmitter<string> = new EventEmitter();
 
-    radioItems = [TargetType.fillIn, TargetType.partyItem];
+    radioItems = [TargetType.FillIn, TargetType.PartyItem];
 
-    selectedTarget: TargetType = TargetType.fillIn;
+    selectedTarget: TargetType = TargetType.FillIn;
 
     t = TargetType;
 
