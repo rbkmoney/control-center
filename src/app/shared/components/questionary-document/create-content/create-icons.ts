@@ -11,7 +11,7 @@ export function createIcons<T extends SourceIcons, R = Icons<T>>(iconsObj: T): R
         acc[name] = {
             text,
             style: {
-                font: FontFamily.fa,
+                font: FontFamily.Fa,
             },
         };
         return acc;
