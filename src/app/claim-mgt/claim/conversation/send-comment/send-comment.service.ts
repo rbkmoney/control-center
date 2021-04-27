@@ -49,14 +49,14 @@ export class SendCommentService {
                 switchMap((text) => {
                     const { name, email, sub } = this.keycloakTokenInfoService.decodedUserToken;
                     const user: User = { fullname: name, email, user_id: sub };
-                    const conversation_id = uuid();
+                    const conversationId = uuid();
                     const conversation = createSingleMessageConversationParams(
-                        conversation_id,
+                        conversationId,
                         text,
                         sub
                     );
                     return forkJoin([
-                        of(conversation_id),
+                        of(conversationId),
                         this.messagesService.saveConversations([conversation], user).pipe(
                             catchError((ex) => {
                                 console.error(ex);
@@ -74,8 +74,8 @@ export class SendCommentService {
                 }),
                 filter(([, res]) => get(res, ['hasError']) !== true)
             )
-            .subscribe(([conversation_id]) => {
-                this.conversationId$.next(conversation_id);
+            .subscribe(([conversationId]) => {
+                this.conversationId$.next(conversationId);
                 this.form.reset();
             });
     }
