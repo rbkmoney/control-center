@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { map, pluck, startWith, switchMap } from 'rxjs/operators';
-import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
+
+import { RoutingRulesService } from '../../../thrift-services';
+import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
 import {
     PaymentInstitutionObject,
     RoutingDelegate,
     RoutingRulesObject,
-} from 'src/app/thrift-services/damsel/gen-model/domain';
-
-import { RoutingRulesService } from '../../../thrift-services';
+} from '../../../thrift-services/damsel/gen-model/domain';
 
 @Injectable()
 export class PartyDelegateRulesetsService {

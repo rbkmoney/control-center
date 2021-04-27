@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { PaymentProcessingService } from 'src/app/thrift-services/damsel/payment-processing.service';
+
+import { PaymentProcessingService } from '../../../thrift-services/damsel/payment-processing.service';
 
 export const Statuses = ['Accept', 'Cancell', 'Reject'] as const;
 

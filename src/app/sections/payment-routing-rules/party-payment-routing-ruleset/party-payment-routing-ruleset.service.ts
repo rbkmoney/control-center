@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
-import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
 
 import { PartyService } from '../../../papi/party.service';
+import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
 
 @Injectable()
 export class PartyPaymentRoutingRulesetService {

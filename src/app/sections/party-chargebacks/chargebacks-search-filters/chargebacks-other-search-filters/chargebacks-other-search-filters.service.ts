@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import pick from 'lodash-es/pick';
 import { ReplaySubject } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
-import { ChargebacksParams } from 'src/app/query-dsl';
 
+import { ChargebacksParams } from '../../../../query-dsl';
 import { OtherFiltersDialogComponent } from './other-filters-dialog';
 
 @Injectable()

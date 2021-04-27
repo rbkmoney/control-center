@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { StatChargeback } from 'src/app/thrift-services/damsel/gen-model/merch_stat';
 
 import { ChargebacksParams } from '../../../query-dsl';
 import {
     InvoicePaymentChargebackStage,
     InvoicePaymentChargebackStatus,
 } from '../../../thrift-services/damsel/gen-model/domain';
+import { StatChargeback } from '../../../thrift-services/damsel/gen-model/merch_stat';
 import { ComponentChanges } from '../../utils/component-changes';
 import { FetchChargebacksService } from './fetch-chargebacks.service';
 
