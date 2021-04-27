@@ -4,21 +4,21 @@ import {
     InvoicePaymentChargebackStatus,
 } from '../thrift-services/damsel/gen-model/domain';
 
-export const chargebackStatuses: (keyof InvoicePaymentChargebackStatus)[] = [
+export const CHARGEBACK_STATUSES: (keyof InvoicePaymentChargebackStatus)[] = [
     'accepted',
     'cancelled',
     'pending',
     'rejected',
 ];
 
-export const chargebackCategories: (keyof InvoicePaymentChargebackCategory)[] = [
+export const CHARGEBACK_CATEGORIES: (keyof InvoicePaymentChargebackCategory)[] = [
     'authorisation',
     'dispute',
     'fraud',
     'processing_error',
 ];
 
-export const chargebackStages: (keyof InvoicePaymentChargebackStage)[] = [
+export const CHARGEBACK_STAGES: (keyof InvoicePaymentChargebackStage)[] = [
     'arbitration',
     'chargeback',
     'pre_arbitration',
