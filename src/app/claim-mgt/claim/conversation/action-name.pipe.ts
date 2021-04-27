@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { TimelineAction } from './to-timeline-info/model';
 
-const timelineActionNameToTitle: { [N in TimelineAction]: string } = {
+const TIMELINE_ACTION_NAME_TO_TITLE: { [N in TimelineAction]: string } = {
     [TimelineAction.statusPending]: 'Changed status to Pending',
     [TimelineAction.statusReview]: 'Changed status to Review',
     [TimelineAction.statusRevoked]: 'Changed status to Revoked',
@@ -19,6 +19,6 @@ const timelineActionNameToTitle: { [N in TimelineAction]: string } = {
 })
 export class ActionNamePipe implements PipeTransform {
     transform(action: TimelineAction): string {
-        return timelineActionNameToTitle[action] || action;
+        return TIMELINE_ACTION_NAME_TO_TITLE[action] || action;
     }
 }
