@@ -61,7 +61,7 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
     switch (structureType) {
         case 'enum':
             return value;
-        default:
+        default: {
             const typeMeta = namespaceMeta.ast[structureType][type];
             try {
                 if (structureType === 'typedef') {
@@ -87,5 +87,6 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
                 );
                 throw error;
             }
+        }
     }
 }
