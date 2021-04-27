@@ -1,4 +1,5 @@
 export enum TimelineAction {
+    /* eslint-disable @typescript-eslint/naming-convention */
     partyModification = 'partyModification',
     changesAdded = 'changesAdded',
     filesAdded = 'filesAdded',
@@ -8,4 +9,5 @@ export enum TimelineAction {
     statusDenied = 'statusDenied',
     statusRevoked = 'statusRevoked',
     statusAccepted = 'statusAccepted',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
