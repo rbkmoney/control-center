@@ -34,8 +34,8 @@ function inPartyCondition(condition: Condition, shopID: ShopID, partyID: PartyID
     return condition.party?.id === partyID && shopIs === shopID;
 }
 
-function isDisabled(all_of: Set<Predicate>): boolean {
-    const constant = Array.from(all_of).find((pre) => pre.constant !== null);
+function isDisabled(allOf: Set<Predicate>): boolean {
+    const constant = Array.from(allOf).find((pre) => pre.constant !== null);
     return constant ? constant.constant : false;
 }
 
