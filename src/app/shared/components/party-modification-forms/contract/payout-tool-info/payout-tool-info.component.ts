@@ -5,9 +5,9 @@ import get from 'lodash-es/get';
 import { PayoutToolInfo } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 enum Type {
-    russianBankAccount = 'russian_bank_account',
-    internationalBankAccount = 'international_bank_account',
-    walletInfo = 'wallet_info',
+    RussianBankAccount = 'russian_bank_account',
+    InternationalBankAccount = 'international_bank_account',
+    WalletInfo = 'wallet_info',
 }
 
 @Component({
@@ -23,7 +23,7 @@ export class PayoutToolInfoComponent implements OnInit {
 
     selected: Type;
 
-    types = [Type.russianBankAccount, Type.internationalBankAccount, Type.walletInfo];
+    types = [Type.RussianBankAccount, Type.InternationalBankAccount, Type.WalletInfo];
 
     t = Type;
 
@@ -34,13 +34,13 @@ export class PayoutToolInfoComponent implements OnInit {
         const internationalBankAccount = get(this, 'initialValue.international_bank_account', null);
         const walletInfo = get(this, 'initialValue.wallet_info', null);
         if (russianBankAccount) {
-            this.selected = Type.russianBankAccount;
+            this.selected = Type.RussianBankAccount;
         }
         if (internationalBankAccount) {
-            this.selected = Type.internationalBankAccount;
+            this.selected = Type.InternationalBankAccount;
         }
         if (walletInfo) {
-            this.selected = Type.walletInfo;
+            this.selected = Type.WalletInfo;
         }
         this.select();
         this.form.updateValueAndValidity();
@@ -48,19 +48,20 @@ export class PayoutToolInfoComponent implements OnInit {
 
     select() {
         switch (this.selected) {
-            case Type.russianBankAccount:
+            case Type.RussianBankAccount:
                 this.clearControl();
-                this.form.registerControl(Type.russianBankAccount, this.fb.group({}));
+                this.form.registerControl(Type.RussianBankAccount, this.fb.group({}));
                 break;
-            case Type.internationalBankAccount:
+            case Type.InternationalBankAccount:
                 this.clearControl();
-                this.form.registerControl(Type.internationalBankAccount, this.fb.group({}));
+                this.form.registerControl(Type.InternationalBankAccount, this.fb.group({}));
                 break;
-            case Type.walletInfo:
+            case Type.WalletInfo: {
                 this.clearControl();
                 const walletInfo = get(this, 'initialValue.wallet_info', {});
-                this.form.registerControl(Type.walletInfo, this.fb.group(walletInfo));
+                this.form.registerControl(Type.WalletInfo, this.fb.group(walletInfo));
                 break;
+            }
         }
     }
 
