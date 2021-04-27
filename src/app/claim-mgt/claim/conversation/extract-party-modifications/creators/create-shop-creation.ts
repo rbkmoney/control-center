@@ -5,8 +5,8 @@ import { PartyModification } from '../../../../../thrift-services/damsel/gen-mod
 
 export const createShopCreation = (
     d: QuestionaryData,
-    contract_id: string,
-    payout_tool_id: string,
+    contractId: string,
+    payoutToolId: string,
     categoryID: number,
     shopID: string
 ): PartyModification => {
@@ -24,8 +24,8 @@ export const createShopCreation = (
             id: shopID,
             modification: {
                 creation: {
-                    contract_id,
-                    payout_tool_id,
+                    contract_id: contractId,
+                    payout_tool_id: payoutToolId,
                     location,
                     details,
                     category: { id: categoryID },
