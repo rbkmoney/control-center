@@ -49,13 +49,13 @@ function extractPredicateInfo(
         case 'all_of':
             return {
                 shopPartyContain: inPredicates(v as Set<Predicate>, shopID, partyID),
-                predicateType: PredicateType.all_of,
+                predicateType: PredicateType.AllOf,
                 disabled: isDisabled(v as Set<Predicate>),
             };
         case 'any_of':
             return {
                 shopPartyContain: inPredicates(v as Set<Predicate>, shopID, partyID),
-                predicateType: PredicateType.any_of,
+                predicateType: PredicateType.AnyOf,
                 disabled: false,
             };
         case 'is_not':
@@ -66,7 +66,7 @@ function extractPredicateInfo(
             }
             return {
                 shopPartyContain: inPartyCondition(v as Condition, shopID, partyID),
-                predicateType: PredicateType.condition,
+                predicateType: PredicateType.Condition,
                 disabled: false,
             };
     }
