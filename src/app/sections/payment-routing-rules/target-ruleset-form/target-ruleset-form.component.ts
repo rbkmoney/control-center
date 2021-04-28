@@ -7,10 +7,11 @@ import {
     Output,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ComponentChanges } from '@cc/app/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import sortBy from 'lodash-es/sortBy';
 import { map, startWith } from 'rxjs/operators';
+
+import { ComponentChanges } from '@cc/app/shared/utils';
 
 import { RoutingRulesService } from '../../../thrift-services';
 import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';

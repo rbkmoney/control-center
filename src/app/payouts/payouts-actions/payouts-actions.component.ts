@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AppAuthGuardService, PayoutRole } from '@cc/app/shared/services';
 import { filter } from 'rxjs/operators';
+
+import { AppAuthGuardService, PayoutRole } from '@cc/app/shared/services';
 
 import { Payout, PayoutStatus } from '../../papi/model';
 import { ConfirmPayoutsComponent } from '../confirm-payouts/confirm-payouts.component';

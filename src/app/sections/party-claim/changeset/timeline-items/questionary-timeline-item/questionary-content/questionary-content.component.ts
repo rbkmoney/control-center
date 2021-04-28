@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { getUnionValue } from '@cc/utils/get-union-key';
 import get from 'lodash-es/get';
+
+import { getUnionValue } from '@cc/utils/get-union-key';
 
 import { Questionary } from '../../../../../../thrift-services/ank/gen-model/questionary_manager';
 

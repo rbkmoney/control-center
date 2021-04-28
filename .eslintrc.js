@@ -1,3 +1,20 @@
+const rules = require('@rbkmoney/eslint-plugin/lib/rules');
+
+const baseTsRules = {
+    ...rules.createImportOrderRule({
+        internalPathsPattern: '@cc/**',
+    }),
+    // TODO: pretenders for error
+    '@typescript-eslint/no-unsafe-call': 'warn',
+    '@typescript-eslint/no-unsafe-member-access': 'warn',
+    '@typescript-eslint/no-unsafe-assignment': 'warn',
+    '@typescript-eslint/no-unsafe-return': 'warn',
+    '@typescript-eslint/no-misused-promises': 'warn',
+    '@typescript-eslint/unbound-method': 'warn',
+    '@typescript-eslint/restrict-plus-operands': 'warn',
+    '@typescript-eslint/restrict-template-expressions': 'warn',
+};
+
 module.exports = {
     root: true,
     parser: '@typescript-eslint/parser',
@@ -16,33 +33,10 @@ module.exports = {
                 'plugin:@rbkmoney/prettier',
             ],
             rules: {
-                '@angular-eslint/directive-selector': [
-                    'error',
-                    {
-                        type: 'attribute',
-                        prefix: 'cc',
-                        style: 'camelCase',
-                    },
-                ],
-                '@angular-eslint/component-selector': [
-                    'error',
-                    {
-                        type: 'element',
-                        prefix: 'cc',
-                        style: 'kebab-case',
-                    },
-                ],
-
+                ...baseTsRules,
+                ...rules.createAngularSelectorRules({ prefix: 'cc' }),
                 // TODO: pretenders for error
                 '@typescript-eslint/no-floating-promises': 'warn',
-                '@typescript-eslint/no-unsafe-call': 'warn',
-                '@typescript-eslint/no-unsafe-member-access': 'warn',
-                '@typescript-eslint/no-unsafe-assignment': 'warn',
-                '@typescript-eslint/no-unsafe-return': 'warn',
-                '@typescript-eslint/no-misused-promises': 'warn',
-                '@typescript-eslint/unbound-method': 'warn',
-                '@typescript-eslint/restrict-plus-operands': 'warn',
-                '@typescript-eslint/restrict-template-expressions': 'warn',
             },
         },
         {
@@ -58,17 +52,7 @@ module.exports = {
                 'plugin:@rbkmoney/lodash',
                 'plugin:@rbkmoney/prettier',
             ],
-            rules: {
-                // TODO: pretenders for error
-                '@typescript-eslint/no-unsafe-call': 'warn',
-                '@typescript-eslint/no-unsafe-member-access': 'warn',
-                '@typescript-eslint/no-unsafe-assignment': 'warn',
-                '@typescript-eslint/no-unsafe-return': 'warn',
-                '@typescript-eslint/no-misused-promises': 'warn',
-                '@typescript-eslint/unbound-method': 'warn',
-                '@typescript-eslint/restrict-plus-operands': 'warn',
-                '@typescript-eslint/restrict-template-expressions': 'warn',
-            },
+            rules: baseTsRules,
         },
         {
             files: ['*.html'],

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { toMinor } from '@cc/utils/to-minor';
 import { progress } from '@rbkmoney/utils';
 import { KeycloakService } from 'keycloak-angular';
 import { EMPTY, merge, ReplaySubject, Subject } from 'rxjs';
@@ -8,6 +7,8 @@ import { catchError } from 'rxjs/internal/operators';
 import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 import * as uuid from 'uuid/v4';
+
+import { toMinor } from '@cc/utils/to-minor';
 
 import { FistfulStatisticsService } from '../../../../../../thrift-services/fistful/fistful-stat.service';
 import { RevertParams } from '../../../../../../thrift-services/fistful/gen-model/deposit_revert';

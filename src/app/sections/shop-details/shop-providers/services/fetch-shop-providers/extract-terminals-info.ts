@@ -1,6 +1,7 @@
-import { getUnionKey, getUnionValue } from '@cc/utils/get-union-key';
 import get from 'lodash-es/get';
 import Int64 from 'thrift-ts/lib/int64';
+
+import { getUnionKey, getUnionValue } from '@cc/utils/get-union-key';
 
 import {
     Condition,

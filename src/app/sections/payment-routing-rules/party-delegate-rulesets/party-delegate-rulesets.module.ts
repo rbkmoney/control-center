@@ -14,6 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
+
 import { DetailsItemModule } from '@cc/components/details-item';
 
 import { ErrorModule } from '../../../shared/services/error';

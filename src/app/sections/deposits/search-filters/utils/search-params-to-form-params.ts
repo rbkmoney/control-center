@@ -1,5 +1,6 @@
-import { toMajor } from '@cc/utils/to-major';
 import moment from 'moment';
+
+import { toMajor } from '@cc/utils/to-major';
 
 import { SearchParams } from '../../types/search-params';
 import { FormValue } from '../types/form-value';

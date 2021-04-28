@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { toJson } from '@cc/utils/thrift-json-converter';
 
 @Pipe({ name: 'ccThriftView' })

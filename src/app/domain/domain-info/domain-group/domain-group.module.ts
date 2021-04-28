@@ -13,6 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
 import { DomainGroupComponent } from './domain-group.component';

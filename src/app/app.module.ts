@@ -13,8 +13,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
 import * as moment from 'moment';
+
+import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
 import 'moment/locale/ru';
 
 import { AppRoutingModule } from './app-routing.module';

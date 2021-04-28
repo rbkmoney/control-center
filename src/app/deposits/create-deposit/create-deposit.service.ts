@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
-import { poll } from '@cc/utils/poll';
-import { toMinor } from '@cc/utils/to-minor';
 import { KeycloakService } from 'keycloak-angular';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 import * as uuid from 'uuid/v4';
+
+import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
+import { poll } from '@cc/utils/poll';
+import { toMinor } from '@cc/utils/to-minor';
 
 import { FistfulAdminService } from '../../thrift-services/fistful/fistful-admin.service';
 import { FistfulStatisticsService } from '../../thrift-services/fistful/fistful-stat.service';

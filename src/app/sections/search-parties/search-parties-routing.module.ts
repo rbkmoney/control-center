@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { AppAuthGuardService, PartyRole } from '@cc/app/shared/services';
 
 import { SearchPartiesComponent } from './search-parties.component';

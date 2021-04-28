@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import pickBy from 'lodash-es/pickBy';
+
 import { QueryParamsStore } from '@cc/app/shared/services';
 import { wrapValuesToArray } from '@cc/utils/wrap-values-to-array';
-import pickBy from 'lodash-es/pickBy';
 
 import { FormValue } from './chargebacks-search-filters';
 

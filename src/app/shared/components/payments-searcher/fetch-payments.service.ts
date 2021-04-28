@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { booleanDelay } from '@cc/utils/boolean-delay';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+
+import { booleanDelay } from '@cc/utils/boolean-delay';
 
 import { QueryDsl } from '../../../query-dsl';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';

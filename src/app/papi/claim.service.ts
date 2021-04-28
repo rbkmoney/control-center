@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { decode, encode } from '@cc/utils/java-thrift-formatter';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { decode, encode } from '@cc/utils/java-thrift-formatter';
 
 import { ConfigService } from '../core/config.service';
 import { ClaimCreated, ClaimInfo, PartyModificationUnit } from './model';

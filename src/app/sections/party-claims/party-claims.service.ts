@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SearchFormValue } from '@cc/app/shared/components';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map, pluck, switchMap } from 'rxjs/operators';
+
+import { SearchFormValue } from '@cc/app/shared/components';
 
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';

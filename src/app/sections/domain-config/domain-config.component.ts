@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { DomainConfigRole } from '@cc/app/shared/services';
 
 @Component({

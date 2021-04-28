@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
+
+import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
 
 import { SearchFiltersParams } from '../search-filters-params';
 import { formParamsToSearchParams } from './form-params-to-search-params';

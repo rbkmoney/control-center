@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { SearchFormValue } from '@cc/app/shared/components';
 
 import { SearchClaimsService } from './search-claims.service';

@@ -4,8 +4,9 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { getUnionValue } from '@cc/utils/get-union-key';
 import { map } from 'rxjs/operators';
+
+import { getUnionValue } from '@cc/utils/get-union-key';
 
 import { PartyService } from '../../../../../../papi/party.service';
 import { PartyID } from '../../../../../../thrift-services/damsel/gen-model/domain';

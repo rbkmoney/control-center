@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { PartyModificationEmitter } from '@cc/app/shared/components';
 import { progress } from '@rbkmoney/utils';
 import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+
+import { PartyModificationEmitter } from '@cc/app/shared/components';
 
 import { KeycloakTokenInfoService } from '../../../../keycloak-token-info.service';
 import {

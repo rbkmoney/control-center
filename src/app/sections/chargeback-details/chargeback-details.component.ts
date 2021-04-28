@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { getUnionKey } from '@cc/utils/index';
 import { combineLatest } from 'rxjs';
 import { delay, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+
+import { getUnionKey } from '@cc/utils/index';
 
 import {
     InvoicePaymentChargebackStage,

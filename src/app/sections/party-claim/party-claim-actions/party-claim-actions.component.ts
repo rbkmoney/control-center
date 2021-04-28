@@ -7,8 +7,9 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
-import { PartyModificationCreatorDialogService } from '@cc/app/shared/components';
 import { map, take } from 'rxjs/operators';
+
+import { PartyModificationCreatorDialogService } from '@cc/app/shared/components';
 
 import {
     ClaimChangeset,

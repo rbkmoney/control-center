@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { DepositActions, DepositMenuItemEvent } from '@cc/app/shared/components/deposits-table';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter } from 'rxjs/operators';
+
+import { DepositActions, DepositMenuItemEvent } from '@cc/app/shared/components/deposits-table';
 
 import { CreateDepositDialogComponent } from './create-deposit-dialog/create-deposit-dialog.component';
 import { FetchDepositsService } from './services/fetch-deposits/fetch-deposits.service';

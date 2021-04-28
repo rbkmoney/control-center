@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 import { EmptySearchResultModule } from '@cc/components/empty-search-result';
 
 import { DeanonimusModule } from '../../thrift-services/deanonimus';

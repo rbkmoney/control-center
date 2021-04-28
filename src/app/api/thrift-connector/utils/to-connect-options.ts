@@ -1,5 +1,6 @@
-import { KeycloakToken } from '@cc/app/shared/services';
 import { ConnectOptions } from 'woody_js/src/connect-options';
+
+import { KeycloakToken } from '@cc/app/shared/services';
 
 const toDepricatedHeaders = (email: string, username: string, partyID: string, realm: string) => ({
     'x-rbk-meta-user-identity.email': email,

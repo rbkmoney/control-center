@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { catchError, filter, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
+
 import {
     AppAuthGuardService,
     ChargebackRole,
@@ -8,8 +11,6 @@ import {
     OperationRole,
     PartyRole,
 } from '@cc/app/shared/services';
-import { Observable, of } from 'rxjs';
-import { catchError, filter, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { DeanonimusService, getMaxSearchHitParty } from '../../thrift-services/deanonimus';
 

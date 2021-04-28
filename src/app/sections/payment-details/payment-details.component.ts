@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { CreateChargebackDialogComponent } from '@cc/app/shared/components/create-chargeback-dialog';
-import { AppAuthGuardService, ChargebackRole } from '@cc/app/shared/services';
 import { merge, Subject } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/operators';
+
+import { CreateChargebackDialogComponent } from '@cc/app/shared/components/create-chargeback-dialog';
+import { AppAuthGuardService, ChargebackRole } from '@cc/app/shared/services';
 
 import { ChargebacksParams } from '../../query-dsl';
 import { PaymentDetailsService } from './payment-details.service';

@@ -9,6 +9,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
+
 import { PrettyJsonModule } from '@cc/components/pretty-json';
 
 import { ContractorSelectorComponent } from './contractor-selector.component';

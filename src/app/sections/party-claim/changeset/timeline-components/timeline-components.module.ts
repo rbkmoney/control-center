@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { HumanizeDurationModule } from '@cc/app/shared/pipes/humanize-duration';
 
 import { TimelineItemErrorComponent } from './timeline-item-error/timeline-item-error.component';

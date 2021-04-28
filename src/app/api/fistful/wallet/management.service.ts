@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { KeycloakTokenInfoService } from '@cc/app/shared/services';
 import { Observable } from 'rxjs';
+
+import { KeycloakTokenInfoService } from '@cc/app/shared/services';
 
 import { ThriftConnector } from '../../thrift-connector';
 import { WalletState, EventRange as EventRangeModel } from '../gen-model/wallet';
