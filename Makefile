@@ -50,7 +50,7 @@ build: check lint compile
 	npm run build
 
 lint:
-	npm run lint
+	npm run lint-errors
 
 check:
 	npm run prettier	
