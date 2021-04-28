@@ -3,7 +3,6 @@ import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { KeycloakService } from 'keycloak-angular';
-import * as uuid from 'uuid/v4';
 import Int64 from 'thrift-ts/lib/int64';
 import { progress } from '@rbkmoney/utils';
 import { catchError } from 'rxjs/internal/operators';
@@ -19,6 +18,7 @@ import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fi
 import { FistfulStatisticsService } from '../../../../../thrift-services/fistful/fistful-stat.service';
 import { FistfulAdminService } from '../../../../../thrift-services/fistful/fistful-admin.service';
 import { currencies } from '../../../constants/currencies';
+import { PrefixedIdGeneratorService } from '@cc/app/shared/services/prefixed-id-generator';
 
 @Injectable()
 export class CreateDepositService {
@@ -74,7 +74,8 @@ export class CreateDepositService {
         private fistfulAdminService: FistfulAdminService,
         private fistfulStatisticsService: FistfulStatisticsService,
         private keycloakService: KeycloakService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private idGenerator: PrefixedIdGeneratorService
     ) {}
 
     createDeposit() {
@@ -92,7 +93,7 @@ export class CreateDepositService {
     private getParams(): DepositParams {
         const { destination, amount, currency } = this.form.value;
         return {
-            id: `${this.keycloakService.getUsername()}-${uuid()}`,
+            id: this.idGenerator.usernamePrefixedUuid(),
             source: currency.source,
             destination,
             body: {
