@@ -6,7 +6,7 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2147",
-    "lint-errors": "npm run lint -- --quiet",
+    "lint-errors": "npm run lint -- --quiet --format codeframe",
     "lint-fix": "npm run lint -- --fix",
     "prettier-preset": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg,huskyrc}\"",
     "prettier": "npm run prettier-preset -- --list-different",
