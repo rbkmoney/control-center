@@ -12,7 +12,7 @@ import { poll } from '@cc/utils/poll';
 import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
 import { toMinor } from '@cc/utils/to-minor';
 
-import { PrefixedIdGeneratorService } from '@cc/app/shared/services/prefixed-id-generator';
+import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services/user-info-based-id-generator';
 import { SearchParams } from '../../../types/search-params';
 import { DepositParams } from '../../../../../thrift-services/fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
@@ -75,7 +75,7 @@ export class CreateDepositService {
         private fistfulStatisticsService: FistfulStatisticsService,
         private keycloakService: KeycloakService,
         private fb: FormBuilder,
-        private idGenerator: PrefixedIdGeneratorService
+        private idGenerator: UserInfoBasedIdGeneratorService
     ) {}
 
     createDeposit() {
@@ -93,7 +93,7 @@ export class CreateDepositService {
     private getParams(): DepositParams {
         const { destination, amount, currency } = this.form.value;
         return {
-            id: this.idGenerator.usernamePrefixedUuid(),
+            id: this.idGenerator.getUsernameBasedId(),
             source: currency.source,
             destination,
             body: {

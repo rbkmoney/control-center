@@ -9,7 +9,7 @@ import { progress } from '@rbkmoney/utils';
 
 import { toMinor } from '@cc/utils/to-minor';
 
-import { PrefixedIdGeneratorService } from '@cc/app/shared/services';
+import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services';
 import { FistfulStatisticsService } from '../../../../../../thrift-services/fistful/fistful-stat.service';
 import { RevertManagementService } from '../../../../../../thrift-services/fistful/revert-management.service';
 import { RevertParams } from '../../../../../../thrift-services/fistful/gen-model/deposit_revert';
@@ -47,7 +47,7 @@ export class CreateRevertService {
         private fistfulStatisticsService: FistfulStatisticsService,
         private keycloakService: KeycloakService,
         private fb: FormBuilder,
-        private idGenerator: PrefixedIdGeneratorService
+        private idGenerator: UserInfoBasedIdGeneratorService
     ) {}
 
     createRevert() {
@@ -68,7 +68,7 @@ export class CreateRevertService {
     private getParams(): RevertParams {
         const { reason, amount, currency, externalID } = this.form.value;
         return {
-            id: this.idGenerator.usernamePrefixedUuid(),
+            id: this.idGenerator.getUsernameBasedId(),
             body: {
                 amount: new Int64(toMinor(amount)),
                 currency: {
