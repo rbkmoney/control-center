@@ -12,13 +12,13 @@ import { poll } from '@cc/utils/poll';
 import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
 import { toMinor } from '@cc/utils/to-minor';
 
+import { PrefixedIdGeneratorService } from '@cc/app/shared/services/prefixed-id-generator';
 import { SearchParams } from '../../../types/search-params';
 import { DepositParams } from '../../../../../thrift-services/fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
 import { FistfulStatisticsService } from '../../../../../thrift-services/fistful/fistful-stat.service';
 import { FistfulAdminService } from '../../../../../thrift-services/fistful/fistful-admin.service';
 import { currencies } from '../../../constants/currencies';
-import { PrefixedIdGeneratorService } from '@cc/app/shared/services/prefixed-id-generator';
 
 @Injectable()
 export class CreateDepositService {

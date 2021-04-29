@@ -9,8 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { CreateDepositDialogComponent } from './create-deposit-dialog.component';
 import { PrefixedIdGeneratorModule } from '@cc/app/shared/services/prefixed-id-generator/prefixed-id-generator.module';
+import { CreateDepositDialogComponent } from './create-deposit-dialog.component';
 
 @NgModule({
     imports: [
@@ -23,7 +23,7 @@ import { PrefixedIdGeneratorModule } from '@cc/app/shared/services/prefixed-id-g
         MatSelectModule,
         MatButtonModule,
         MatProgressBarModule,
-        PrefixedIdGeneratorModule
+        PrefixedIdGeneratorModule,
     ],
     declarations: [CreateDepositDialogComponent],
 })

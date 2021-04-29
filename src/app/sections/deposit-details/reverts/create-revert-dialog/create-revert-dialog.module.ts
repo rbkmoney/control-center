@@ -8,6 +8,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 
+import { PrefixedIdGeneratorModule } from '@cc/app/shared/services/prefixed-id-generator/prefixed-id-generator.module';
 import { CreateRevertDialogComponent } from './create-revert-dialog.component';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CreateRevertDialogComponent } from './create-revert-dialog.component';
         MatProgressBarModule,
         MatButtonModule,
         MatInputModule,
+        PrefixedIdGeneratorModule,
     ],
     declarations: [CreateRevertDialogComponent],
 })
