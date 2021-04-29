@@ -3,7 +3,6 @@ import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { KeycloakService } from 'keycloak-angular';
-import * as uuid from 'uuid/v4';
 import Int64 from 'thrift-ts/lib/int64';
 import { progress } from '@rbkmoney/utils';
 import { catchError } from 'rxjs/internal/operators';
@@ -13,6 +12,7 @@ import { poll } from '@cc/utils/poll';
 import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
 import { toMinor } from '@cc/utils/to-minor';
 
+import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services/user-info-based-id-generator';
 import { SearchParams } from '../../../types/search-params';
 import { DepositParams } from '../../../../../thrift-services/fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
@@ -74,7 +74,8 @@ export class CreateDepositService {
         private fistfulAdminService: FistfulAdminService,
         private fistfulStatisticsService: FistfulStatisticsService,
         private keycloakService: KeycloakService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private idGenerator: UserInfoBasedIdGeneratorService
     ) {}
 
     createDeposit() {
@@ -92,7 +93,7 @@ export class CreateDepositService {
     private getParams(): DepositParams {
         const { destination, amount, currency } = this.form.value;
         return {
-            id: `${this.keycloakService.getUsername()}-${uuid()}`,
+            id: this.idGenerator.getUsernameBasedId(),
             source: currency.source,
             destination,
             body: {

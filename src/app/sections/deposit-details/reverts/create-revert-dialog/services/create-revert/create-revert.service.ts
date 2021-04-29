@@ -4,12 +4,12 @@ import { EMPTY, merge, ReplaySubject, Subject } from 'rxjs';
 import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators';
 import { KeycloakService } from 'keycloak-angular';
-import * as uuid from 'uuid/v4';
 import Int64 from 'thrift-ts/lib/int64';
 import { progress } from '@rbkmoney/utils';
 
 import { toMinor } from '@cc/utils/to-minor';
 
+import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services';
 import { FistfulStatisticsService } from '../../../../../../thrift-services/fistful/fistful-stat.service';
 import { RevertManagementService } from '../../../../../../thrift-services/fistful/revert-management.service';
 import { RevertParams } from '../../../../../../thrift-services/fistful/gen-model/deposit_revert';
@@ -46,7 +46,8 @@ export class CreateRevertService {
         private managementService: RevertManagementService,
         private fistfulStatisticsService: FistfulStatisticsService,
         private keycloakService: KeycloakService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private idGenerator: UserInfoBasedIdGeneratorService
     ) {}
 
     createRevert() {
@@ -67,7 +68,7 @@ export class CreateRevertService {
     private getParams(): RevertParams {
         const { reason, amount, currency, externalID } = this.form.value;
         return {
-            id: `${this.keycloakService.getUsername()}-${uuid()}`,
+            id: this.idGenerator.getUsernameBasedId(),
             body: {
                 amount: new Int64(toMinor(amount)),
                 currency: {
