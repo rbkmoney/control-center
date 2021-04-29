@@ -5,7 +5,7 @@
     "start": "ng serve --proxy-config proxy.conf.json --port 7000",
     "build": "ng build --prod",
     "test": "ng test",
-    "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2147 --config .eslintrc.js",
+    "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2147",
     "lint-errors": "npm run lint -- --quiet --format codeframe",
     "lint-fix": "npm run lint -- --fix",
     "prettier-preset": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg,huskyrc}\"",
