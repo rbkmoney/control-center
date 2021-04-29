@@ -4,7 +4,6 @@ import { EMPTY, merge, ReplaySubject, Subject } from 'rxjs';
 import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators';
 import { KeycloakService } from 'keycloak-angular';
-import * as uuid from 'uuid/v4';
 import Int64 from 'thrift-ts/lib/int64';
 import { progress } from '@rbkmoney/utils';
 
