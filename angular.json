@@ -102,14 +102,38 @@
                     }
                 },
                 "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
+                    "builder": "ngx-build-plus:karma",
                     "options": {
                         "main": "src/test.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/styles.scss"],
+                        "styles": [
+                            "src/app/styles/core.scss",
+                            {
+                                "input": "src/app/styles/themes/light.scss",
+                                "bundleName": "themes/light"
+                            }
+                        ],
+                        "scripts": []
+                    }
+                },
+                "test-ci": {
+                    "builder": "ngx-build-plus:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma-ci.conf.js",
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": [
+                            "src/app/styles/core.scss",
+                            {
+                                "input": "src/app/styles/themes/light.scss",
+                                "bundleName": "themes/light"
+                            }
+                        ],
                         "scripts": []
                     }
                 },

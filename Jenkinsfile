@@ -23,6 +23,9 @@ build('control-center', 'docker-host') {
     runStage('build') {
       sh 'make wc_build'
     }
+    runStage('test fe (karma.js)') {
+      sh 'make test'
+    }
     runStage('build image') {
       sh 'make build_image'
     }
