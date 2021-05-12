@@ -5,4 +5,5 @@ dist
 build_utils
 .scannerwork
 src/app/thrift-services/**/gen-*/
+src/assets/meta-*.json
 src/assets/icons
