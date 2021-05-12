@@ -23,7 +23,7 @@ GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'
 
 
-CALL_W_CONTAINER := init lint build clean submodules
+CALL_W_CONTAINER := init test build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
 
@@ -47,7 +47,7 @@ install:
 compile:
 	npx run-p --aggregate-output --print-label compile-thrift compile-thrift-deprecated
 
-lint:
+test:
 	npx run-p --aggregate-output --print-label prettier lint-errors
 
 build:
