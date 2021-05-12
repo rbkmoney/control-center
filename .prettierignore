@@ -6,5 +6,6 @@ build_utils
 .scannerwork
 src/**/gen-model/
 src/**/gen-nodejs/
-src/assets/meta-*.json
-src/assets/icons
+src/**/meta-*.json
+src/assets/api-meta/
+src/assets/icons/
