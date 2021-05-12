@@ -56,7 +56,7 @@
     "rxjs": "^6.6.3",
     "short-uuid": "^4.1.0",
     "skipper-proto": "github:rbkmoney/skipper-proto#d33d87cd9080925861f755b11ee1f16378076f74",
-    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#a5e3830ad30d5717e5e627ddcefa8f4d8918b174",
+    "thrift-ts": "git+ssh://git@github.com/rbkmoney/thrift-ts.git#b0624317043bbeb3c4882d2102e631b3b75a5abb",
     "transliteration": "^2.1.8",
     "tslib": "^2.0.0",
     "utility-types": "^3.10.0",
