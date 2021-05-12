@@ -23,7 +23,7 @@ GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'
 
 
-CALL_W_CONTAINER := init build clean submodules
+CALL_W_CONTAINER := init lint build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
 
@@ -38,19 +38,17 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-init:
+init: install compile
+
+install:
 	echo -e "//npm.pkg.github.com/:_authToken=$(NPM_TOKEN)" >> .npmrc
 	npm ci
 
 compile:
-	npm run compile-thrift
-	npm run compile-thrift-deprecated
-
-build: check lint compile
-	npm run build
+	npx run-p --aggregate-output --print-label compile-thrift compile-thrift-deprecated
 
 lint:
-	npm run lint-errors
+	npx run-p --aggregate-output --print-label prettier lint-errors
 
-check:
-	npm run prettier	
+build:
+	npm run build
