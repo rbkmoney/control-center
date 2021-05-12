@@ -7,13 +7,13 @@ import { catchError } from 'rxjs/internal/operators';
 import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 
+import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services';
 import { toMinor } from '@cc/utils/to-minor';
 
 import { FistfulStatisticsService } from '../../../../../../thrift-services/fistful/fistful-stat.service';
 import { RevertParams } from '../../../../../../thrift-services/fistful/gen-model/deposit_revert';
 import { RevertManagementService } from '../../../../../../thrift-services/fistful/revert-management.service';
 import { CreateRevertDialogConfig } from '../../types/create-revert-dialog-config';
-import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services';
 
 @Injectable()
 export class CreateRevertService {

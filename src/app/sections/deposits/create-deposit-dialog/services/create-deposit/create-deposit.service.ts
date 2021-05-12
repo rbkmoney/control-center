@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/internal/operators';
 import { map, switchMap } from 'rxjs/operators';
 import Int64 from 'thrift-ts/lib/int64';
 
+import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services';
 import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
 import { poll } from '@cc/utils/poll';
 import { toMinor } from '@cc/utils/to-minor';
@@ -18,7 +19,6 @@ import { DepositParams } from '../../../../../thrift-services/fistful/gen-model/
 import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
 import { CURRENCIES } from '../../../constants/currencies';
 import { SearchParams } from '../../../types/search-params';
-import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services';
 
 @Injectable()
 export class CreateDepositService {
