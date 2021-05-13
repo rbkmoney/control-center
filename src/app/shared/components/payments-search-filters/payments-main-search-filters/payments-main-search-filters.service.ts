@@ -14,6 +14,7 @@ import { searchParamsToFormParams } from './search-params-to-form-params';
 export class PaymentsMainSearchFiltersService {
     private getShops$ = new ReplaySubject<string>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.fb.group({
         fromTime: [moment().subtract(1, 'year').startOf('d'), Validators.required],
         toTime: [moment().endOf('d'), Validators.required],
@@ -25,6 +26,7 @@ export class PaymentsMainSearchFiltersService {
         rrn: '',
     });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     searchParamsChanges$ = this.form.valueChanges.pipe(
         debounceTime(600),
         filter(() => this.form.valid),
@@ -32,6 +34,7 @@ export class PaymentsMainSearchFiltersService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shops$ = this.getShops$.pipe(
         switchMap((partyID) => this.partyService.getShops(partyID)),
         shareReplay(1)

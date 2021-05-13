@@ -10,12 +10,12 @@ import {
     GetConversationResponse,
     User,
 } from './gen-model/messages';
-import * as MessageServiceClient from './gen-nodejs/MessageService';
 import {
     Conversation as ConversationType,
     ConversationFilter as ConversationFilterType,
     User as UserType,
 } from './gen-nodejs/messages_types';
+import * as MessageServiceClient from './gen-nodejs/MessageService';
 
 @Injectable()
 export class MessagesService extends ThriftService {

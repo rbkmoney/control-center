@@ -19,6 +19,7 @@ import {
     TokenizationMethod,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 enum PredicateType {
     constant = 'constant',
     condition = 'condition',
@@ -40,6 +41,7 @@ enum BankCardType {
     paymentSystem = 'paymentSystem',
     paymentSystemIs = 'paymentSystemIs',
 }
+/* eslint-enable @typescript-eslint/naming-convention */
 
 @Component({
     selector: 'cc-predicate',
@@ -75,6 +77,22 @@ export class PredicateComponent implements OnChanges {
         if (form) {
             this.init(true);
         }
+    }
+
+    addChild() {
+        this.childrenForm.push(this.createForm());
+    }
+
+    removeChild(idx: number) {
+        this.childrenForm.removeAt(idx);
+        if (!this.childrenForm.controls.length) {
+            this.addChild();
+        }
+    }
+
+    removeAll() {
+        this.childrenForm.clear();
+        this.addChild();
     }
 
     private init(isInternal = false) {
@@ -257,21 +275,5 @@ export class PredicateComponent implements OnChanges {
             !control.value || Object.keys(enumObj).includes(control.value)
                 ? null
                 : { enumNotIncludeKey: { value: control.value } };
-    }
-
-    addChild() {
-        this.childrenForm.push(this.createForm());
-    }
-
-    removeChild(idx: number) {
-        this.childrenForm.removeAt(idx);
-        if (!this.childrenForm.controls.length) {
-            this.addChild();
-        }
-    }
-
-    removeAll() {
-        this.childrenForm.clear();
-        this.addChild();
     }
 }

@@ -10,6 +10,7 @@ import { ChangeProviderParams, EditTerminalDialogResponse } from '../../types';
 export class EditTerminalDecisionService {
     private edit$ = new Subject<ChangeProviderParams>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     terminalChanged$ = this.edit$.pipe(
         switchMap((data) =>
             this.dialog

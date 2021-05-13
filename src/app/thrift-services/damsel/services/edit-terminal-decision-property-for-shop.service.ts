@@ -13,8 +13,10 @@ import { ProviderService } from '../provider.service';
 export class EditTerminalDecisionPropertyForShopService {
     private editProperty$ = new Subject<EditTerminalDecisionPropertyParams>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     edited$ = this.editProperty$.pipe(
         switchMap((params) =>
             this.providerService.getProviderFromParams<EditTerminalDecisionPropertyParams>(params)
@@ -32,6 +34,7 @@ export class EditTerminalDecisionPropertyForShopService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.editProperty$, merge(this.edited$, this.error$));
 
     constructor(

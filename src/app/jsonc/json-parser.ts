@@ -5,11 +5,13 @@ import * as nls from './nlc';
 
 const localize = nls.loadMessageBundle();
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IRange {
     start: number;
     end: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IError {
     location: IRange;
     message: string;
@@ -72,6 +74,7 @@ export class ValidationResult {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class ASTNode {
     public start: number;
     public end: number;
@@ -167,7 +170,7 @@ export class ASTNode {
         }
 
         if (Array.isArray(schema.type)) {
-            if ((schema.type as string[]).indexOf(this.type) === -1) {
+            if (schema.type.indexOf(this.type) === -1) {
                 validationResult.warnings.push({
                     location: { start: this.start, end: this.end },
                     message:
@@ -175,7 +178,7 @@ export class ASTNode {
                         localize(
                             'typeArrayMismatchWarning',
                             'Incorrect type. Expected one of {0}',
-                            (schema.type as string[]).join(', ')
+                            schema.type.join(', ')
                         ),
                 });
             }
@@ -245,6 +248,7 @@ export class ASTNode {
                         !bestMatch.validationResult.hasErrors()
                     ) {
                         // no errors, both are equally good matches
+                        // eslint-disable-next-line prefer-spread
                         bestMatch.matchingSchemas.push.apply(
                             bestMatch.matchingSchemas,
                             subMatchingSchemas
@@ -266,6 +270,7 @@ export class ASTNode {
                             };
                         } else if (compareResult === 0) {
                             // there's already a best matching but we are as good
+                            // eslint-disable-next-line prefer-spread
                             bestMatch.matchingSchemas.push.apply(
                                 bestMatch.matchingSchemas,
                                 subMatchingSchemas
@@ -290,6 +295,7 @@ export class ASTNode {
                 validationResult.propertiesValueMatches +=
                     bestMatch.validationResult.propertiesValueMatches;
                 if (matchingSchemas) {
+                    // eslint-disable-next-line prefer-spread
                     matchingSchemas.push.apply(matchingSchemas, bestMatch.matchingSchemas);
                 }
             }
@@ -323,6 +329,7 @@ export class ASTNode {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class NullASTNode extends ASTNode {
     constructor(parent: ASTNode, name: Json.Segment, start: number, end?: number) {
         super(parent, 'null', name, start, end);
@@ -333,6 +340,7 @@ export class NullASTNode extends ASTNode {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class BooleanASTNode extends ASTNode {
     private value: boolean;
 
@@ -346,6 +354,7 @@ export class BooleanASTNode extends ASTNode {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class ArrayASTNode extends ASTNode {
     public items: ASTNode[];
 
@@ -390,7 +399,7 @@ export class ArrayASTNode extends ASTNode {
         super.validate(schema, validationResult, matchingSchemas, offset);
 
         if (Array.isArray(schema.items)) {
-            const subSchemas = schema.items as JSONSchema[];
+            const subSchemas = schema.items;
             subSchemas.forEach((subSchema, index) => {
                 const itemValidationResult = new ValidationResult();
                 const item = this.items[index];
@@ -457,6 +466,7 @@ export class ArrayASTNode extends ASTNode {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class NumberASTNode extends ASTNode {
     public isInteger: boolean;
     public value: number;
@@ -485,7 +495,7 @@ export class NumberASTNode extends ASTNode {
         let typeIsInteger = false;
         if (
             schema.type === 'integer' ||
-            (Array.isArray(schema.type) && (schema.type as string[]).indexOf('integer') !== -1)
+            (Array.isArray(schema.type) && schema.type.indexOf('integer') !== -1)
         ) {
             typeIsInteger = true;
         }
@@ -558,6 +568,7 @@ export class NumberASTNode extends ASTNode {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class StringASTNode extends ASTNode {
     public isKey: boolean;
     public value: string;
@@ -623,6 +634,7 @@ export class StringASTNode extends ASTNode {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class PropertyASTNode extends ASTNode {
     public key: StringASTNode;
     public value: ASTNode;
@@ -664,6 +676,7 @@ export class PropertyASTNode extends ASTNode {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class ObjectASTNode extends ASTNode {
     public properties: PropertyASTNode[];
 
@@ -896,23 +909,26 @@ export class ObjectASTNode extends ASTNode {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface JSONDocumentConfig {
     ignoreDanglingComma?: boolean;
     disallowComments?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IApplicableSchema {
     node: ASTNode;
     inverted?: boolean;
     schema: JSONSchema;
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class JSONDocument {
     public root: ASTNode;
 
     private validationResult: ValidationResult;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line unused-imports/no-unused-vars
     constructor(config: JSONDocumentConfig) {
         this.validationResult = new ValidationResult();
     }
@@ -958,6 +974,7 @@ export function parse(text: string, config?: JSONDocumentConfig): JSONDocument {
     const ignoreDanglingComma = config && config.ignoreDanglingComma;
 
     function _scanNext(): Json.SyntaxKind {
+        // eslint-disable-next-line no-constant-condition
         while (true) {
             const token = _scanner.scan();
             switch (token) {
@@ -1086,6 +1103,7 @@ export function parse(text: string, config?: JSONDocumentConfig): JSONDocument {
             if (_scanner.getToken() === Json.SyntaxKind.Unknown) {
                 // give a more helpful error message
                 const value = _scanner.getTokenValue();
+                // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
                 if (value.match(/^['\w]/)) {
                     _error(localize('DoubleQuotesExpected', 'Property keys must be doublequoted'));
                 }

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { AppAuthGuardService, DepositRole } from '@cc/app/shared/services';
 
-import { currencies } from '../constants/currencies';
+import { CURRENCIES } from '../constants/currencies';
 import { CreateDepositService } from './services/create-deposit/create-deposit.service';
 
 @UntilDestroy()
@@ -19,7 +19,7 @@ import { CreateDepositService } from './services/create-deposit/create-deposit.s
 export class CreateDepositDialogComponent implements OnInit {
     form: FormGroup;
 
-    currencies = currencies;
+    currencies = CURRENCIES;
 
     depositCreated$ = this.createDepositService.depositCreated$;
     isLoading$ = this.createDepositService.isLoading$;

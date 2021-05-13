@@ -41,7 +41,7 @@ export class PartyPaymentsComponent {
     paymentEventFired($event: PaymentMenuItemEvent) {
         const { partyID, invoiceID, paymentID } = $event;
         switch ($event.action) {
-            case PaymentActions.navigateToPayment:
+            case PaymentActions.NavigateToPayment:
                 this.router.navigate([
                     `/party/${partyID}/invoice/${invoiceID}/payment/${paymentID}`,
                 ]);

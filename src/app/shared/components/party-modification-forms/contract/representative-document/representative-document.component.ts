@@ -5,8 +5,8 @@ import get from 'lodash-es/get';
 import { RepresentativeDocument } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 enum Type {
-    articlesOfAssociation = 'articles_of_association',
-    powerOfAttorney = 'power_of_attorney',
+    ArticlesOfAssociation = 'articles_of_association',
+    PowerOfAttorney = 'power_of_attorney',
 }
 
 @Component({
@@ -22,7 +22,7 @@ export class RepresentativeDocumentComponent implements OnInit {
 
     selected: Type;
 
-    types = [Type.articlesOfAssociation, Type.powerOfAttorney];
+    types = [Type.ArticlesOfAssociation, Type.PowerOfAttorney];
 
     t = Type;
 
@@ -32,11 +32,11 @@ export class RepresentativeDocumentComponent implements OnInit {
         const articlesOfAssociation = get(this, 'initialValue.articles_of_association', null);
         const powerOfAttorney = get(this, 'initialValue.power_of_attorney', null);
         if (articlesOfAssociation) {
-            this.selected = Type.articlesOfAssociation;
+            this.selected = Type.ArticlesOfAssociation;
             this.select(articlesOfAssociation);
         }
         if (powerOfAttorney) {
-            this.selected = Type.powerOfAttorney;
+            this.selected = Type.PowerOfAttorney;
             this.select(powerOfAttorney);
         }
         this.form.updateValueAndValidity();
@@ -44,13 +44,13 @@ export class RepresentativeDocumentComponent implements OnInit {
 
     select(data = {}) {
         switch (this.selected) {
-            case Type.articlesOfAssociation:
-                this.form.registerControl(Type.articlesOfAssociation, this.fb.group(data));
-                this.form.removeControl(Type.powerOfAttorney);
+            case Type.ArticlesOfAssociation:
+                this.form.registerControl(Type.ArticlesOfAssociation, this.fb.group(data));
+                this.form.removeControl(Type.PowerOfAttorney);
                 break;
-            case Type.powerOfAttorney:
-                this.form.registerControl(Type.powerOfAttorney, this.fb.group(data));
-                this.form.removeControl(Type.articlesOfAssociation);
+            case Type.PowerOfAttorney:
+                this.form.registerControl(Type.PowerOfAttorney, this.fb.group(data));
+                this.form.removeControl(Type.ArticlesOfAssociation);
                 break;
         }
     }

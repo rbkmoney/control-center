@@ -9,4 +9,4 @@ export * from './payment';
 export * from './invoice';
 export * from './claim-created';
 export * from './payout-types';
-export * from './claim-statuses';
+export * from './claim-status';

@@ -29,6 +29,7 @@ export class ShopPaymentRoutingRulesetService {
         switchMap((partyID) => this.partyService.getParty(partyID)),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shop$ = combineLatest([this.party$, this.shopRuleset$]).pipe(
         map(([{ shops }, ruleset]) =>
             shops.get(

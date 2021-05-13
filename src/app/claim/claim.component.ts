@@ -21,12 +21,11 @@ export class ClaimComponent {
                     this.claimService.resolveClaimInfo(action, party_id, claim_id)
                 )
             )
-            .subscribe(
-                () => {},
-                (error) => {
+            .subscribe({
+                error: (error) => {
                     console.error(error);
                     this.snackBar.open('An error occurred while claim resolving', 'OK');
-                }
-            );
+                },
+            });
     }
 }

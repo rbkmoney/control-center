@@ -5,14 +5,14 @@ import { createRussianBankAccount } from './create-russian-bank-account';
 
 export const createPayoutToolCreation = (
     d: QuestionaryData,
-    contractID: string,
-    payoutToolID: string
+    contractId: string,
+    payoutToolId: string
 ): PartyModification => ({
     contract_modification: {
-        id: contractID,
+        id: contractId,
         modification: {
             payout_tool_modification: {
-                payout_tool_id: payoutToolID,
+                payout_tool_id: payoutToolId,
                 modification: {
                     creation: {
                         currency: {

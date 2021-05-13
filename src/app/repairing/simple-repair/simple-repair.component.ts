@@ -10,6 +10,7 @@ import { RepairingStatusType } from '../repairing-status/repairing-status.compon
 import { RepairingService } from '../repairing.service';
 
 enum Status {
+    /* eslint-disable @typescript-eslint/naming-convention */
     found = 'machine found',
     repaired = 'machine repaired',
     update = 'status updated',
@@ -19,6 +20,7 @@ enum Status {
     machineFailed = 'machine failed',
     eventNotFound = 'event not found',
     machineAlreadyWorking = 'machine already working',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 interface Element {
@@ -44,7 +46,7 @@ export class SimpleRepairComponent {
 
     constructor(fb: FormBuilder, private repairingService: RepairingService) {
         this.isLoading$ = repairingService.isLoading$;
-        this.nsControl = fb.control(Namespace.invoice);
+        this.nsControl = fb.control(Namespace.Invoice);
     }
 
     isAllSelected() {
@@ -52,7 +54,8 @@ export class SimpleRepairComponent {
     }
 
     masterToggle() {
-        this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
+        if (this.isAllSelected()) this.selection.clear();
+        else this.selection.select(...this.dataSource);
     }
 
     add(addedIds: string[]) {
@@ -83,7 +86,7 @@ export class SimpleRepairComponent {
         this.setStatus(elements);
         this.repairingService.executeGetMachine(elements).subscribe((result) => {
             const element = elements[result.idx];
-            if (result.type === ExecStateType.error) {
+            if (result.type === ExecStateType.Error) {
                 element.status = this.statusByError(result.error);
             } else {
                 element.status = Status.found;
@@ -114,7 +117,7 @@ export class SimpleRepairComponent {
         this.setStatus(elements, Status.update);
         this.repairingService.executeSimpleRepair(elements).subscribe((result) => {
             const element = elements[result.idx];
-            if (result.type === ExecStateType.error) {
+            if (result.type === ExecStateType.Error) {
                 element.status = this.statusByError(result.error);
             } else {
                 element.status = Status.repaired;

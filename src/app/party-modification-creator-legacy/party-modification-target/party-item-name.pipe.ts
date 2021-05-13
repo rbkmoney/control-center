@@ -8,9 +8,10 @@ import { TargetType } from './targe-type';
 export class PartyItemNamePipe implements PipeTransform {
     transform(value: TargetType, ...args: any[]): any {
         switch (value) {
-            case TargetType.partyItem:
+            case TargetType.partyItem: {
                 const name = args.length > 0 ? args[0] : 'item';
                 return `Select party ${name}`;
+            }
             case TargetType.fillIn:
                 return 'Fill in party modification unit ID';
             default:

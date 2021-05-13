@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { ThriftService } from '../services/thrift/thrift-service';
 import { RevertParams } from './gen-model/deposit_revert';
-import * as Management from './gen-nodejs/Management';
 import { RevertParams as ApiRevertParams } from './gen-nodejs/deposit_revert_types';
+import * as Management from './gen-nodejs/Management';
 
 @Injectable()
 export class RevertManagementService extends ThriftService {

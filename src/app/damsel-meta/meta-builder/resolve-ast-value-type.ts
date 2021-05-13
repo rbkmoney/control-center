@@ -1,4 +1,3 @@
-import isString from 'lodash-es/isString';
 import { ListType, MapType, SetType, ValueType } from 'thrift-ts';
 
 import {
@@ -46,7 +45,7 @@ export function resolveAstValueType(
     if (isComplexType(type, 'map')) {
         return resolveMap((type as MapType).keyType, (type as MapType).valueType);
     }
-    if (isString(type)) {
+    if (typeof type === 'string') {
         return type;
     }
     throw Error('Unknown ast value type');

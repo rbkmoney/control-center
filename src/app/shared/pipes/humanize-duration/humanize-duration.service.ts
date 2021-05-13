@@ -11,11 +11,11 @@ export interface HumanizeConfig extends humanizeDuration.HumanizerOptions {
 
 @Injectable()
 export class HumanizeDurationService {
-    static HOUR_MS = 3600000;
-    static MIN_HUMANIZE_DURATION_UPDATE_MS = 1000;
-    static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS = 20000;
-    static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS = 600000;
-    static LESS_THAN_FEW_SECONDS = 3000;
+    static hourMs = 3600000;
+    static minHumanizeDurationUpdateMs = 1000;
+    static momentHumanizeAllowedDelayBetweenUpdatesForMinuteUpdatesMs = 20000;
+    static momentHumanizeAllowedDelayBetweenUpdatesForHourlyAndLongerUpdatesMs = 600000;
+    static lessThanFewSeconds = 3000;
 
     private get duration() {
         return humanizeDuration.humanizer({
@@ -40,7 +40,7 @@ export class HumanizeDurationService {
         let duration = this.duration(diffMs, config);
         if (isNaN(diffMs)) {
             return null;
-        } else if (diffMs < HumanizeDurationService.LESS_THAN_FEW_SECONDS) {
+        } else if (diffMs < HumanizeDurationService.lessThanFewSeconds) {
             return 'just now';
         } else if (config.isShort) {
             duration = this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer });
@@ -52,16 +52,16 @@ export class HumanizeDurationService {
 
     getOptimalUpdateInterval(value: Value, { largest }: HumanizeConfig): number {
         const diffMs = this.getDiffMs(value);
-        if (diffMs < HumanizeDurationService.LESS_THAN_FEW_SECONDS) {
-            return HumanizeDurationService.MIN_HUMANIZE_DURATION_UPDATE_MS;
+        if (diffMs < HumanizeDurationService.lessThanFewSeconds) {
+            return HumanizeDurationService.minHumanizeDurationUpdateMs;
         }
         if (largest === 1) {
-            if (diffMs < HumanizeDurationService.HOUR_MS) {
-                return HumanizeDurationService.MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS;
+            if (diffMs < HumanizeDurationService.hourMs) {
+                return HumanizeDurationService.momentHumanizeAllowedDelayBetweenUpdatesForMinuteUpdatesMs;
             }
-            return HumanizeDurationService.MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS;
+            return HumanizeDurationService.momentHumanizeAllowedDelayBetweenUpdatesForHourlyAndLongerUpdatesMs;
         }
-        return HumanizeDurationService.MIN_HUMANIZE_DURATION_UPDATE_MS;
+        return HumanizeDurationService.minHumanizeDurationUpdateMs;
     }
 
     isDiff(value: Value): value is number {

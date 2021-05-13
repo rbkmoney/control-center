@@ -10,7 +10,7 @@ import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dial
 
 import { ClaimManagementService } from '../../../thrift-services/damsel/claim-management.service';
 import { Claim, Modification } from '../../../thrift-services/damsel/gen-model/claim_management';
-import { extractModificationsReducer, extractSeed } from './extract-modifications-reducer';
+import { extractModificationsReducer, EXTRACT_SEED } from './extract-modifications-reducer';
 
 @Injectable()
 export class RecreateClaimService {
@@ -19,9 +19,13 @@ export class RecreateClaimService {
     private error$: Subject<any> = new Subject();
     private inProcess$: Subject<boolean> = new BehaviorSubject(false);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     extractError$ = this.error$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isInProcess$ = this.inProcess$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     extractedModifications$: Observable<Modification[]> = this.extracted$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     recreated$: Observable<Claim> = this.recreate$.pipe(
         switchMap((targetClaim) =>
             forkJoin([
@@ -39,7 +43,7 @@ export class RecreateClaimService {
                 of(
                     changeset
                         .map((unit) => unit.modification)
-                        .reduce(extractModificationsReducer, extractSeed)
+                        .reduce(extractModificationsReducer, EXTRACT_SEED)
                 ),
             ])
         ),

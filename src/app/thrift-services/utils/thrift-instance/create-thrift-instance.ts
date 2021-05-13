@@ -7,7 +7,7 @@ import {
     isThriftObject,
     parseNamespaceType,
     StructureType,
-    structureTypes,
+    STRUCTURE_TYPES,
 } from './namespace-type';
 
 export function createThriftInstance<T extends { [N in string]: any }, V extends any>(
@@ -55,13 +55,13 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
     const structureType = (Object.keys(namespaceMeta.ast) as StructureType[]).find(
         (t) => namespaceMeta.ast[t][type]
     );
-    if (!structureType || !structureTypes.includes(structureType)) {
+    if (!structureType || !STRUCTURE_TYPES.includes(structureType)) {
         throw new Error('Unknown thrift structure type');
     }
     switch (structureType) {
         case 'enum':
             return value;
-        default:
+        default: {
             const typeMeta = namespaceMeta.ast[structureType][type];
             try {
                 if (structureType === 'typedef') {
@@ -87,5 +87,6 @@ export function createThriftInstance<T extends { [N in string]: any }, V extends
                 );
                 throw error;
             }
+        }
     }
 }

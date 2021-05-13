@@ -21,8 +21,8 @@ export interface CreateModificationData {
 }
 
 enum Step {
-    prepareTarget = '0',
-    fillInModification = '1',
+    PrepareTarget = '0',
+    FillInModification = '1',
 }
 
 @Component({
@@ -41,7 +41,7 @@ export class CreateModificationDialogComponent implements OnInit {
 
     action: ModificationAction;
 
-    currentStep = Step.prepareTarget;
+    currentStep = Step.PrepareTarget;
 
     fromClaim: Modification[];
 
@@ -54,7 +54,7 @@ export class CreateModificationDialogComponent implements OnInit {
     ngOnInit() {
         if (this.data.unitID) {
             this.unitID = this.data.unitID;
-            this.currentStep = Step.fillInModification;
+            this.currentStep = Step.FillInModification;
         }
         this.partyID = this.data.partyID;
         this.action = this.data.action;
@@ -76,9 +76,9 @@ export class CreateModificationDialogComponent implements OnInit {
 
     apply() {
         switch (this.data.action.type) {
-            case ActionType.shopAction:
-            case ActionType.contractAction:
-            case ActionType.contractorAction:
+            case ActionType.ShopAction:
+            case ActionType.ContractAction:
+            case ActionType.ContractorAction:
                 this.addChange();
                 break;
         }
@@ -86,23 +86,23 @@ export class CreateModificationDialogComponent implements OnInit {
 
     getContainerType(type: ActionType): string {
         switch (type) {
-            case ActionType.shopAction:
+            case ActionType.ShopAction:
                 return ModificationGroupType.ShopUnitContainer;
-            case ActionType.contractAction:
+            case ActionType.ContractAction:
                 return ModificationGroupType.ContractUnitContainer;
-            case ActionType.contractorAction:
+            case ActionType.ContractorAction:
                 return ModificationGroupType.ContractorUnitContainer;
         }
     }
 
     getPartyTarget(type: ActionType): PartyTarget {
         switch (type) {
-            case ActionType.shopAction:
-                return PartyTarget.shop;
-            case ActionType.contractAction:
-                return PartyTarget.contract;
-            case ActionType.contractorAction:
-                return PartyTarget.contractor;
+            case ActionType.ShopAction:
+                return PartyTarget.Shop;
+            case ActionType.ContractAction:
+                return PartyTarget.Contract;
+            case ActionType.ContractorAction:
+                return PartyTarget.Contractor;
         }
     }
 

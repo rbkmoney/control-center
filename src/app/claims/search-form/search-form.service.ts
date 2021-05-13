@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import isString from 'lodash-es/isString';
 import mapValues from 'lodash-es/mapValues';
+// eslint-disable-next-line you-dont-need-lodash-underscore/values
 import values from 'lodash-es/values';
 
 import { ClaimStatus } from '../../papi/model';
@@ -23,7 +23,7 @@ export class SearchFormService {
             let result = value;
             if (value === '') {
                 result = null;
-            } else if (isString(value)) {
+            } else if (typeof value === 'string') {
                 result = value.trim();
             }
             return result;

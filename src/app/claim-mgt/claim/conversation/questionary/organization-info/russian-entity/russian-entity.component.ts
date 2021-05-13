@@ -9,7 +9,7 @@ import {
     WithoutChiefAccountant,
 } from '../../../../../../thrift-services/ank/gen-model/questionary';
 
-const WithoutChiefAccountantTitles: { [name in keyof WithoutChiefAccountant]: string } = {
+const WITHOUT_CHIEF_ACCOUNTANT_TITLES: { [name in keyof WithoutChiefAccountant]: string } = {
     accounting_organization: 'Организация ведущая бухгалтерский учет',
     head_accounting: 'Руководитель организации',
     individual_accountant: 'Бухгалтер - индивидуальный специалист',
@@ -33,7 +33,7 @@ export class RussianEntityComponent {
     }
 
     get accountantType() {
-        return WithoutChiefAccountantTitles[
+        return WITHOUT_CHIEF_ACCOUNTANT_TITLES[
             getUnionKey(
                 get(this.entity, ['additional_info', 'accountant_info', 'without_chief_accountant'])
             )

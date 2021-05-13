@@ -14,6 +14,7 @@ import { download } from './download';
 export class FileContainerService {
     private getFileInfo$ = new Subject<string>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     fileData$: Observable<FileData> = this.getFileInfo$.pipe(
         switchMap((fileID) => this.fileStorageService.getFileData(fileID)),
         filter((file) => Object.keys(file).length > 0),
@@ -21,6 +22,7 @@ export class FileContainerService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.fileData$.pipe(booleanDelay(), shareReplay(1));
 
     constructor(private fileStorageService: FileStorageService, private snackBar: MatSnackBar) {

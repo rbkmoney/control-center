@@ -40,7 +40,7 @@ export class PartyModificationsComponent implements OnInit {
                     case ModificationGroupType.ContractUnitContainer:
                         this.contractUnits = this.contractUnits.concat(group.units);
                         break;
-                    case ModificationGroupType.unknown:
+                    case ModificationGroupType.Unknown:
                         this.snackBar.open('Detected unknown party modification unit', 'OK');
                         break;
                 }

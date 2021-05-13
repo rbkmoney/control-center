@@ -26,12 +26,15 @@ export class SavePartyModificationsService {
     private save$ = new Subject();
     private saving$: Subject<boolean> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     unsavedModifications$: Observable<PartyModification[]> = this.unsaved$.pipe(
         startWith([]),
         distinctUntilChanged(isEqual),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     hasUnsavedModifications$ = this.unsaved$.pipe(map((m) => m.length > 0));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isSaving$ = this.saving$.asObservable();
 
     constructor(
@@ -56,7 +59,9 @@ export class SavePartyModificationsService {
                 debounceTime(300),
                 switchMap(() => this.unsavedModifications$.pipe(first())),
                 map((modifications) =>
-                    modifications.map((party_modification) => ({ party_modification }))
+                    modifications.map((partyModification) => ({
+                        party_modification: partyModification,
+                    }))
                 ),
                 switchMap((changeset) => forkJoin([partyId$, claimId$, of(changeset)])),
                 switchMap(([partyId, claimId, changeset]) =>

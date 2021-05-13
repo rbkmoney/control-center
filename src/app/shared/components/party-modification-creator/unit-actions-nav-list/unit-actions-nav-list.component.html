@@ -8,7 +8,7 @@
             {{ contractorAction | ccModificationName: 'ContractorUnitContainer' }}
         </a>
     </div>
-    <div *ngIf="data.type === unitActionType.allActions"><mat-divider></mat-divider></div>
+    <div *ngIf="data.type === unitActionType.AllActions"><mat-divider></mat-divider></div>
     <div *ngIf="contractActions.visible">
         <a
             mat-list-item
@@ -18,7 +18,7 @@
             {{ contractAction | ccModificationName: 'ContractUnitContainer' }}
         </a>
     </div>
-    <div *ngIf="data.type === unitActionType.allActions"><mat-divider></mat-divider></div>
+    <div *ngIf="data.type === unitActionType.AllActions"><mat-divider></mat-divider></div>
     <div *ngIf="shopActions.visible">
         <a
             mat-list-item
@@ -28,5 +28,5 @@
             {{ shopAction | ccModificationName: 'ShopUnitContainer' }}
         </a>
     </div>
-    <div *ngIf="data.type === unitActionType.allActions"><mat-divider></mat-divider></div>
+    <div *ngIf="data.type === unitActionType.AllActions"><mat-divider></mat-divider></div>
 </mat-nav-list>

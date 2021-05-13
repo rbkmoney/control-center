@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { StatDeposit } from '../../../thrift-services/fistful/gen-model/fistful_stat';
 import { DepositID } from '../../../thrift-services/fistful/gen-model/deposit';
+import { StatDeposit } from '../../../thrift-services/fistful/gen-model/fistful_stat';
 import { DepositActions } from './deposit-actions';
 import { DepositMenuItemEvent } from './deposit-menu-item-event';
 
@@ -24,7 +24,7 @@ export class DepositsTableComponent {
 
     menuItemSelected(action: string, depositID: DepositID) {
         switch (action) {
-            case DepositActions.navigateToDeposit:
+            case DepositActions.NavigateToDeposit:
                 this.menuItemSelected$.emit({ action, depositID });
                 break;
             default:

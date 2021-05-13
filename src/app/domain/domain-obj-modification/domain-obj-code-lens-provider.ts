@@ -25,6 +25,7 @@ export class DomainObjCodeLensProvider implements CodeLensProvider {
                     },
                 },
             ],
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             dispose: () => {},
         };
     }

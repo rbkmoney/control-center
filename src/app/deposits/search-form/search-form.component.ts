@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { currencies } from '../deposits-table/deposits-table.service';
+import { CURRENCIES } from '../deposits-table/deposits-table.service';
 import { SearchFormParams } from './search-form-params';
 import { SearchFormService } from './search-form.service';
 
@@ -21,7 +21,7 @@ export class SearchFormComponent implements OnInit {
 
     depositStatuses = ['Pending', 'Succeeded', 'Failed'];
 
-    currencies = currencies;
+    currencies = CURRENCIES;
 
     constructor(private searchFormService: SearchFormService) {}
 

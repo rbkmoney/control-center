@@ -3,14 +3,14 @@
 
     <div fxLayout="column" fxLayoutGap="39px">
         <mat-radio-group fxLayout formControlName="target">
-            <mat-radio-button [value]="target.paymentInstitution" fxFlex
+            <mat-radio-button [value]="target.PaymentInstitution" fxFlex
                 >Payment Institution</mat-radio-button
             >
-            <mat-radio-button [value]="target.manual" fxFlex>Manual Target</mat-radio-button>
+            <mat-radio-button [value]="target.Manual" fxFlex>Manual Target</mat-radio-button>
         </mat-radio-group>
 
         <div
-            *ngIf="form.controls.target.value === target.paymentInstitution"
+            *ngIf="form.controls.target.value === target.PaymentInstitution"
             fxLayout="column"
             fxLayoutGap="16px"
         >
@@ -38,7 +38,7 @@
                 <mat-divider></mat-divider>
             </ng-container>
         </div>
-        <mat-form-field *ngIf="form.controls.target.value === target.manual">
+        <mat-form-field *ngIf="form.controls.target.value === target.Manual">
             <mat-label>Main Ruleset</mat-label>
             <mat-select formControlName="mainRulesetRefID" required>
                 <mat-option *ngFor="let i of rulesets$ | async" [value]="i.ref.id">

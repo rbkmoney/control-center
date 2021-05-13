@@ -54,20 +54,29 @@ export class PaymentsSearcherComponent implements OnInit {
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @Input()
     initSearchParams: SearchFiltersParams;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @Output()
     searchParamsChanged$: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @Output()
     paymentEventFired$: EventEmitter<PaymentMenuItemEvent> = new EventEmitter();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.fetchPaymentsService.isLoading$;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     doAction$ = this.fetchPaymentsService.doAction$;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payments$ = this.fetchPaymentsService.searchResult$;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     hasMore$ = this.fetchPaymentsService.hasMore$;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     tableType: PaymentsTableType;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     mainFilterSearchType: MainFilterSearchType;
 
     constructor(
@@ -104,7 +113,7 @@ export class PaymentsSearcherComponent implements OnInit {
 
     paymentMenuItemSelected(paymentMenuItemEvent: PaymentMenuItemEvent) {
         switch (paymentMenuItemEvent.action) {
-            case PaymentActions.navigateToPayment:
+            case PaymentActions.NavigateToPayment:
                 this.paymentEventFired$.emit(paymentMenuItemEvent);
                 break;
         }

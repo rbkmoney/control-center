@@ -38,14 +38,14 @@
             <mat-menu #menu="matMenu">
                 <button
                     mat-menu-item
-                    (click)="actions(terminalActionTypes.editWeight, terminalInfo.terminal.ref.id)"
+                    (click)="actions(terminalActionTypes.EditWeight, terminalInfo.terminal.ref.id)"
                 >
                     Edit weight
                 </button>
                 <button
                     mat-menu-item
                     (click)="
-                        actions(terminalActionTypes.editPriority, terminalInfo.terminal.ref.id)
+                        actions(terminalActionTypes.EditPriority, terminalInfo.terminal.ref.id)
                     "
                 >
                     Edit priority
@@ -53,7 +53,7 @@
                 <button
                     mat-menu-item
                     (click)="
-                        actions(terminalActionTypes.removeTerminal, terminalInfo.terminal.ref.id)
+                        actions(terminalActionTypes.RemoveTerminal, terminalInfo.terminal.ref.id)
                     "
                 >
                     Remove terminal

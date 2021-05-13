@@ -16,8 +16,6 @@ import { getDelegate } from './utils/get-delegate';
 
 @Injectable()
 export class RoutingRulesService {
-    constructor(private domainService: DomainCacheService) {}
-
     rulesets$: Observable<RoutingRulesObject[]> = this.domainService
         .getObjects('routing_rules')
         .pipe(
@@ -29,6 +27,8 @@ export class RoutingRulesService {
         map((rulesets) => rulesets.map(({ ref }) => ref.id)),
         map(createNextId)
     );
+
+    constructor(private domainService: DomainCacheService) {}
 
     getRuleset(refID: number): Observable<RoutingRulesObject> {
         return this.rulesets$.pipe(map((rulesets) => rulesets.find((r) => r?.ref?.id === refID)));

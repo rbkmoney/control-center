@@ -8,19 +8,18 @@ import {
 import { TimelineAction } from './model';
 
 function getStatusModificationTimelineAction(unit: StatusModificationUnit): TimelineAction | null {
-    const Status = ClaimStatus;
     switch (getUnionKey(unit.status)) {
-        case Status.accepted:
+        case ClaimStatus.Accepted:
             return TimelineAction.statusAccepted;
-        case Status.denied:
+        case ClaimStatus.Denied:
             return TimelineAction.statusDenied;
-        case Status.pending:
+        case ClaimStatus.Pending:
             return TimelineAction.statusPending;
-        case Status.review:
+        case ClaimStatus.Review:
             return TimelineAction.statusReview;
-        case Status.revoked:
+        case ClaimStatus.Revoked:
             return TimelineAction.statusRevoked;
-        case Status.pending_acceptance:
+        case ClaimStatus.PendingAcceptance:
             return null;
     }
 }
@@ -30,9 +29,7 @@ export function getClaimModificationTimelineAction(m: ClaimModification): Timeli
         case 'document_modification':
             return TimelineAction.changesAdded;
         case 'status_modification':
-            return getStatusModificationTimelineAction(
-                m.status_modification as StatusModificationUnit
-            );
+            return getStatusModificationTimelineAction(m.status_modification);
         case 'file_modification':
             return TimelineAction.filesAdded;
         case 'comment_modification':

@@ -1,19 +1,18 @@
 import isObject from 'lodash-es/isObject';
-import isString from 'lodash-es/isString';
-import { ListType, MapType, SetType, ValueType } from 'thrift-ts';
+import { ValueType } from 'thrift-ts';
 
 import { PrimitiveType } from '../model';
 
 export const isPrimitiveType = (type: any): boolean =>
-    isString(type) && Object.keys(PrimitiveType).includes(type);
+    typeof type === 'string' && Object.keys(PrimitiveType).includes(type);
 
-export const isObjectRefType = (meta: any) => isString(meta) && !isPrimitiveType(meta);
+export const isObjectRefType = (meta: any) => typeof meta === 'string' && !isPrimitiveType(meta);
 
 export const isComplexType = (type: ValueType, typeName: 'map' | 'list' | 'set'): boolean => {
     if (!isObject(type)) {
         return false;
     }
-    const { name } = type as SetType | ListType | MapType;
+    const { name } = type;
     return name === typeName;
 };
 

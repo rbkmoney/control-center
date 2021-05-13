@@ -15,18 +15,18 @@ function getTypeDef(domainObjDef: Field[]) {
     );
 }
 
-function getDomainObjType(obj: object, domainObjDef: Field[]): string | 'undef' {
+function getDomainObjType(obj: any, domainObjDef: Field[]): string | 'undef' {
     const typeDef = getTypeDef(domainObjDef);
     const fieldName = Object.keys(obj)[0];
     const type = typeDef[fieldName];
     return type ? type : 'undef';
 }
 
-function getDomainObjVal(obj: object): object {
+function getDomainObjVal(obj: any): any {
     return Object.values(obj)[0];
 }
 
-function groupResult(result: object, type: string | 'undef', val: object): object {
+function groupResult(result: any, type: string | 'undef', val: any): any {
     if (type === 'undef') {
         return { undef: null };
     }

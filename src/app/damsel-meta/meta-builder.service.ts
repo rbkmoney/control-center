@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DefinitionService } from './definition.service';
+import { buildInitialMeta, findMeta, MetaEnricher } from './meta-builder';
 import { ErrorObservable, MetaErrorEmitter } from './meta-error-emitter';
 import { MetaStruct, MetaUnion } from './model';
-import { buildInitialMeta, findMeta, MetaEnricher } from '.';
 
 @Injectable()
 export class MetaBuilder implements ErrorObservable {

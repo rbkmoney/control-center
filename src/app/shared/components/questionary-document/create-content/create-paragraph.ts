@@ -52,7 +52,7 @@ export function createVerticalParagraph(
         },
     ];
     return {
-        layout: Layout.header,
+        layout: Layout.Header,
         margin: MARGIN,
         table: {
             widths: new Array(columnsCount).fill('*'),
@@ -67,7 +67,7 @@ export function createInlineParagraph(
 ): Content {
     body = prepareBody(body);
     const headerTable: Content = {
-        layout: Layout.noBorders,
+        layout: Layout.NoBorders,
         table: {
             rowSpan: body.length,
             widths: ['*'],
@@ -83,7 +83,7 @@ export function createInlineParagraph(
         },
     };
     const bodyTable = {
-        layout: Layout.noBorders,
+        layout: Layout.NoBorders,
         table: {
             rowSpan: body.length,
             widths: ['*'],

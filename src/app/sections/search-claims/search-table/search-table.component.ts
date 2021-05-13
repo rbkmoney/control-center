@@ -20,11 +20,11 @@ export class SearchTableComponent {
         this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
     }
 
-    navigateToParty(party_id: string) {
-        this.router.navigate([`/party/${party_id}`]);
+    navigateToParty(partyId: string) {
+        this.router.navigate([`/party/${partyId}`]);
     }
 
-    navigateToClaim(partyID: string, claimID: number) {
-        this.router.navigate([`/party/${partyID}/claim/${claimID}`]);
+    navigateToClaim(partyId: string, claimID: number) {
+        this.router.navigate([`/party/${partyId}/claim/${claimID}`]);
     }
 }

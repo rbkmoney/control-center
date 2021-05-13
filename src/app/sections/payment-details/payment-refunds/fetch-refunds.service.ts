@@ -5,7 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { booleanDelay } from '@cc/utils/boolean-delay';
 
-import { QueryDSL } from '../../../query-dsl';
+import { QueryDsl } from '../../../query-dsl';
 import { StatRefund } from '../../../thrift-services/damsel/gen-model/merch_stat';
 import { MerchantStatisticsService } from '../../../thrift-services/damsel/merchant-statistics.service';
 import { RefundsSearchParams } from './refunds-search-params';
@@ -58,7 +58,7 @@ export class FetchRefundsService extends PartialFetcher<StatRefund, RefundsSearc
                                 : {}),
                         },
                     },
-                } as QueryDSL),
+                } as QueryDsl),
                 ...(continuationToken ? { continuation_token: continuationToken } : {}),
             })
             .pipe(

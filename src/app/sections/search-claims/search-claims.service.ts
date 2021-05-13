@@ -12,6 +12,7 @@ import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
 export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> {
     private readonly searchLimit = 10;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     claims$: Observable<Claim[]> = this.searchResult$;
 
     constructor(private claimManagementService: ClaimManagementService) {

@@ -11,6 +11,7 @@ import { toProvidersInfo } from './to-providers-info';
 export class FetchShopProvidersService {
     private getProvidersInfo$ = new BehaviorSubject<{ partyID: PartyID; shopID: ShopID }>(null);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     providersInfo$ = this.getProvidersInfo$.pipe(
         switchMap(({ partyID, shopID }) =>
             combineLatest([
@@ -25,6 +26,7 @@ export class FetchShopProvidersService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.getProvidersInfo$, this.providersInfo$).pipe(startWith(true));
 
     constructor(private domainCacheService: DomainCacheService) {

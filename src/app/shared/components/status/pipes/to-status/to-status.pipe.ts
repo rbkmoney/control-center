@@ -7,7 +7,7 @@ import { getUnionKey } from '@cc/utils/get-union-key';
     name: 'toStatus',
 })
 export class ToStatusPipe implements PipeTransform {
-    transform(status: object): string {
+    transform(status: { [N in string]: any }): string {
         return startCase(getUnionKey(status));
     }
 }

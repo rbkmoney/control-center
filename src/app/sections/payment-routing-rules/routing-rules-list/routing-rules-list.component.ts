@@ -41,13 +41,16 @@ export class RoutingRulesListComponent<T extends { [N in PropertyKey]: any } & D
     }
     private data$ = new ReplaySubject<T[]>(1);
 
-    @Output() toDetails = new EventEmitter<DelegateId>();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Output()
+    toDetails = new EventEmitter<DelegateId>();
 
     @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
         this.paginator$.next(paginator);
     }
     private paginator$ = new ReplaySubject<MatPaginator>(1);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     dataSource$ = combineLatest([
         this.data$,
         this.paginator$.pipe(startWith<any, null>(null)),

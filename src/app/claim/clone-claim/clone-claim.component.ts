@@ -22,7 +22,7 @@ export class CloneClaimComponent {
     cloneClaim() {
         this.dialogRef.close();
         this.router.navigate([
-            `/claims/${this.data.partyID}/${ClaimActionType.create}/${this.data.claimID}`,
+            `/claims/${this.data.partyID}/${ClaimActionType.Create}/${this.data.claimID}`,
         ]);
     }
 }

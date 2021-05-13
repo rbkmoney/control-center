@@ -41,7 +41,7 @@ import { Component, Input } from '@angular/core';
 })
 export class PrettyJsonComponent {
     @Input()
-    object: object;
+    object: any;
 
     @Input()
     inline = false;

@@ -14,6 +14,7 @@ export class InputBase {
     ) {}
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const InputMixinBase: CanUpdateErrorStateCtor & typeof InputBase = mixinErrorState(
     InputBase
 );

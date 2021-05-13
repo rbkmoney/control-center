@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Subject } from 'rxjs';
 import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
-import { createDSL } from 'src/app/query-dsl';
-import { MerchantStatisticsService } from 'src/app/thrift-services/damsel/merchant-statistics.service';
-import { PaymentProcessingService } from 'src/app/thrift-services/damsel/payment-processing.service';
 
 import { PartyService } from '../../papi/party.service';
+import { createDsl } from '../../query-dsl';
+import { MerchantStatisticsService } from '../../thrift-services/damsel/merchant-statistics.service';
+import { PaymentProcessingService } from '../../thrift-services/damsel/payment-processing.service';
 
 @Injectable()
 export class ChargebackDetailsService {
     private loadChargeback$ = new Subject<void>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payment$ = this.route.params.pipe(
         switchMap(({ partyID, invoiceID, paymentID }) =>
             this.merchantStatisticsService
                 .getPayments({
-                    dsl: createDSL({
+                    dsl: createDsl({
                         payments: {
                             ...(paymentID ? { payment_id: paymentID } : {}),
                             ...(partyID ? { merchant_id: partyID } : {}),
@@ -29,6 +30,7 @@ export class ChargebackDetailsService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shop$ = combineLatest([
         this.route.params.pipe(pluck('partyID')),
         this.payment$.pipe(pluck('shop_id')),
@@ -37,6 +39,7 @@ export class ChargebackDetailsService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     chargeback$ = this.loadChargeback$.pipe(
         startWith(null),
         switchMap(() => this.route.params),

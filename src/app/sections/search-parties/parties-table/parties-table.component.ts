@@ -23,7 +23,7 @@ export class PartiesTableComponent {
 
     menuItemSelected(action: string, partyID: PartyID) {
         switch (action) {
-            case PartyActions.navigateToParty:
+            case PartyActions.NavigateToParty:
                 this.menuItemSelected$.emit({ action, partyID });
                 break;
             default:

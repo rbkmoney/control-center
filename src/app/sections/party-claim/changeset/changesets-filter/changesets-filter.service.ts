@@ -10,6 +10,7 @@ import { infosFilter } from './infos-filter';
 export class ChangesetsFilterService {
     private changesetInfos$ = new Subject<ChangesetInfo[]>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     changesetsFilterForm = this.fb.group({
         filters: [
             [
@@ -22,6 +23,7 @@ export class ChangesetsFilterService {
         ],
     });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     filteredChangesetInfos$ = combineLatest([
         this.changesetInfos$,
         this.changesetsFilterForm.valueChanges.pipe(startWith(this.changesetsFilterForm.value)),

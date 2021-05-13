@@ -13,6 +13,7 @@ import {
 } from './repair-with-scenario-settings/repair-with-scenario-settings.component';
 
 enum Status {
+    /* eslint-disable @typescript-eslint/naming-convention */
     repaired = 'machine repaired',
     update = 'status updated',
     unknown = 'unknown',
@@ -20,6 +21,7 @@ enum Status {
     invalidUser = 'invalid user',
     invoiceNotFound = 'invoice not found',
     invalidRequest = 'invalid request',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 interface Element {
@@ -49,7 +51,8 @@ export class RepairWithScenarioComponent {
     }
 
     masterToggle() {
-        this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
+        if (this.isAllSelected()) this.selection.clear();
+        else this.selection.select(...this.dataSource);
     }
 
     add(addedIds: string[]) {
@@ -102,7 +105,7 @@ export class RepairWithScenarioComponent {
         this.setStatus(elements, Status.update);
         this.repairingService.executeRepairWithScenario(elements, scenario).subscribe((result) => {
             const element = elements[result.idx];
-            if (result.type === ExecStateType.error) {
+            if (result.type === ExecStateType.Error) {
                 element.status = this.getStatusByError(result.error);
                 element.error = Array.isArray(result.error.errors)
                     ? result.error.errors.join('. ')

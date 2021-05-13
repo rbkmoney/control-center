@@ -10,12 +10,14 @@ import { RepairingService } from '../repairing.service';
 import { DialogData, RepairSettingsComponent } from './repair-settings/repair-settings.component';
 
 enum Status {
+    /* eslint-disable @typescript-eslint/naming-convention */
     repaired = 'machine repaired',
     update = 'status updated',
     unknown = 'unknown',
     unknownError = 'unknown error',
     withdrawalSessionNotFound = 'withdrawal session not found',
     machineAlreadyWorking = 'machine already working',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 interface Element {
@@ -44,7 +46,8 @@ export class RepairComponent {
     }
 
     masterToggle() {
-        this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.dataSource);
+        if (this.isAllSelected()) this.selection.clear();
+        else this.selection.select(...this.dataSource);
     }
 
     add(addedIds: string[]) {
@@ -99,7 +102,7 @@ export class RepairComponent {
         this.setStatus(elements, Status.update);
         this.repairingService.executeRepair(elements, scenario).subscribe((result) => {
             const element = elements[result.idx];
-            if (result.type === ExecStateType.error) {
+            if (result.type === ExecStateType.Error) {
                 element.status = this.getStatusByError(result.error);
             } else {
                 element.status = Status.repaired;

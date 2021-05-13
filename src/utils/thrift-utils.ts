@@ -1,4 +1,4 @@
-export function clearNullFields(union: object): object {
+export function clearNullFields(union: any): any {
     if (!union) {
         return;
     }
@@ -13,7 +13,7 @@ export function clearNullFields(union: object): object {
     return result;
 }
 
-export function extract(domainObject: object): object {
+export function extract(domainObject: any): any {
     if (!domainObject) {
         return;
     }

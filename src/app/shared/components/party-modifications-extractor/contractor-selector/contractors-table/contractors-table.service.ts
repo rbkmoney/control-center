@@ -15,6 +15,7 @@ export class ContractorsTableService {
     private getContractors$ = new Subject<{ partyID: PartyID; unsaved?: ChangesetInfo[] }>();
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selectableItems$: Observable<SelectableItem[]> = this.getContractors$.pipe(
         switchMap(({ partyID, unsaved }) =>
             combineLatest([
@@ -42,6 +43,7 @@ export class ContractorsTableService {
             )
         )
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.getContractors$, merge(this.hasError$, this.selectableItems$));
 
     constructor(private partyService: PartyService, private snackBar: MatSnackBar) {}

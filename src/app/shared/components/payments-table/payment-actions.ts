@@ -1,3 +1,3 @@
 export enum PaymentActions {
-    navigateToPayment = 'navigateToPayment',
+    NavigateToPayment = 'navigateToPayment',
 }

@@ -69,7 +69,8 @@ export class PayoutsTableComponent implements OnInit, OnChanges {
     }
 
     masterToggle() {
-        this.isAllSelected() ? this.selection.clear() : this.selection.select(...this.payouts);
+        if (this.isAllSelected()) this.selection.clear();
+        else this.selection.select(...this.payouts);
     }
 
     cancelPayout(id: string) {

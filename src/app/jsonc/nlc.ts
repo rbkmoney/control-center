@@ -3,9 +3,11 @@ function isDefined(value: any): boolean {
 }
 
 export enum MessageFormat {
+    /* eslint-disable @typescript-eslint/naming-convention */
     file = 'file',
     bundle = 'bundle',
     both = 'both',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 export interface Options {

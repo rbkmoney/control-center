@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import * as moment from 'moment';
-import { KeycloakService } from 'keycloak-angular';
-import Int64 from 'thrift-ts/lib/int64';
-import { progress } from '@rbkmoney/utils';
-import { catchError } from 'rxjs/internal/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { progress } from '@rbkmoney/utils';
+import { KeycloakService } from 'keycloak-angular';
+import * as moment from 'moment';
+import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { catchError } from 'rxjs/internal/operators';
+import { map, switchMap } from 'rxjs/operators';
+import Int64 from 'thrift-ts/lib/int64';
 
-import { poll } from '@cc/utils/poll';
+import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services';
 import { createDepositStopPollingCondition } from '@cc/app/shared/utils';
+import { poll } from '@cc/utils/poll';
 import { toMinor } from '@cc/utils/to-minor';
 
-import { UserInfoBasedIdGeneratorService } from '@cc/app/shared/services/user-info-based-id-generator';
-import { SearchParams } from '../../../types/search-params';
+import { FistfulAdminService } from '../../../../../thrift-services/fistful/fistful-admin.service';
+import { FistfulStatisticsService } from '../../../../../thrift-services/fistful/fistful-stat.service';
 import { DepositParams } from '../../../../../thrift-services/fistful/gen-model/fistful_admin';
 import { StatDeposit } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
-import { FistfulStatisticsService } from '../../../../../thrift-services/fistful/fistful-stat.service';
-import { FistfulAdminService } from '../../../../../thrift-services/fistful/fistful-admin.service';
-import { currencies } from '../../../constants/currencies';
+import { CURRENCIES } from '../../../constants/currencies';
+import { SearchParams } from '../../../types/search-params';
 
 @Injectable()
 export class CreateDepositService {
@@ -27,6 +27,7 @@ export class CreateDepositService {
     private pollingErrorSubject$ = new Subject<boolean>();
     private pollingTimeoutSubject$ = new Subject<boolean>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     depositCreated$: Observable<StatDeposit> = this.create$.pipe(
         map(() => this.getParams()),
         switchMap((params) =>
@@ -59,15 +60,20 @@ export class CreateDepositService {
         )
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(
         this.create$,
         merge([this.depositCreated$, this.errorSubject$, this.pollingErrorSubject$])
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.errorSubject$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     pollingError$ = this.pollingErrorSubject$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     pollingTimeout$ = this.pollingTimeoutSubject$.asObservable();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.initForm();
 
     constructor(
@@ -85,8 +91,8 @@ export class CreateDepositService {
     private initForm(): FormGroup {
         return this.fb.group({
             destination: ['', Validators.required],
-            amount: ['', [Validators.required, Validators.pattern(/^\d+([\,\.]\d{1,2})?$/)]],
-            currency: [currencies[0], Validators.required],
+            amount: ['', [Validators.required, Validators.pattern(/^\d+([,.]\d{1,2})?$/)]],
+            currency: [CURRENCIES[0], Validators.required],
         });
     }
 

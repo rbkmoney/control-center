@@ -1,4 +1,3 @@
-import isArray from 'lodash-es/isArray';
 import isMap from 'lodash-es/isMap';
 import isSet from 'lodash-es/isSet';
 import transform from 'lodash-es/transform';
@@ -10,7 +9,7 @@ export const skipNullValues = (obj) =>
             if (v === null) {
                 return acc;
             }
-            if (isArray(v)) {
+            if (Array.isArray(v)) {
                 acc[k] = v.map(skipNullValues);
             } else if (isMap(v)) {
                 acc[k] = Object.fromEntries(v);

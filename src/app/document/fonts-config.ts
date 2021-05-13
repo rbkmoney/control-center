@@ -1,21 +1,21 @@
 import { TFontFamilyTypes } from 'pdfmake/build/pdfmake';
 
-const fontsDir = '/assets/fonts/';
-const robotoDir = `${fontsDir}Roboto/`;
+const FONTS_DIR = '/assets/fonts/';
+const ROBOTO_DIR = `${FONTS_DIR}Roboto/`;
 
 export enum FontFamily {
-    serif,
-    fa,
+    Serif,
+    Fa,
 }
 
-export const fontsConfig: { [name in FontFamily]: TFontFamilyTypes } = {
-    [FontFamily.serif]: {
-        normal: `${robotoDir}Roboto-Regular.ttf`,
-        bold: `${robotoDir}Roboto-Bold.ttf`,
-        italics: `${robotoDir}Roboto-RegularItalic.ttf`,
-        bolditalics: `${robotoDir}Roboto-BoldItalic.ttf`,
+export const FONTS_CONFIG: { [name in FontFamily]: TFontFamilyTypes } = {
+    [FontFamily.Serif]: {
+        normal: `${ROBOTO_DIR}Roboto-Regular.ttf`,
+        bold: `${ROBOTO_DIR}Roboto-Bold.ttf`,
+        italics: `${ROBOTO_DIR}Roboto-RegularItalic.ttf`,
+        bolditalics: `${ROBOTO_DIR}Roboto-BoldItalic.ttf`,
     },
-    [FontFamily.fa]: {
-        normal: `${fontsDir}font-awesome5/fa-regular-400.ttf`,
+    [FontFamily.Fa]: {
+        normal: `${FONTS_DIR}font-awesome5/fa-regular-400.ttf`,
     },
 };

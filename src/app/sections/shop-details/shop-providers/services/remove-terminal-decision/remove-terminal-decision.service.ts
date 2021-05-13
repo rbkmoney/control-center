@@ -17,9 +17,12 @@ import { ChangeProviderParams } from '../../types';
 export class RemoveTerminalDecisionService {
     private remove$ = new Subject<ChangeProviderParams>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = new Subject();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     cancelled$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     terminalRemoved$ = this.remove$.pipe(
         switchMap((params) =>
             combineLatest([
@@ -56,6 +59,7 @@ export class RemoveTerminalDecisionService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(
         this.remove$,
         merge(this.terminalRemoved$, this.error$, this.cancelled$)

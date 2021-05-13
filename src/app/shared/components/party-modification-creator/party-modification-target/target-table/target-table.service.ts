@@ -26,6 +26,7 @@ export class TargetTableService {
     }>();
     private hasError$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selectableItems$: Observable<SelectableItem[]> = this.getSelectableItems$.pipe(
         tap(() => this.hasError$.next()),
         switchMap(({ partyID, targetName, fromClaim }) =>
@@ -52,6 +53,7 @@ export class TargetTableService {
         map(([items, modsFromClaimItems]) => [...modsFromClaimItems, ...items])
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.getSelectableItems$, merge(this.selectableItems$, this.hasError$));
 
     constructor(private partyService: PartyService, private snackBar: MatSnackBar) {}
@@ -65,11 +67,11 @@ export class TargetTableService {
         targetName: PartyTarget
     ): Map<string, Contract | Shop | PartyContractor> {
         switch (targetName) {
-            case PartyTarget.contract:
+            case PartyTarget.Contract:
                 return party.contracts;
-            case PartyTarget.shop:
+            case PartyTarget.Shop:
                 return party.shops;
-            case PartyTarget.contractor:
+            case PartyTarget.Contractor:
                 return party.contractors;
         }
     }

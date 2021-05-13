@@ -42,13 +42,13 @@
         <div class="cc-title">Terminal</div>
         <div fxLayout="column" fxLayoutGap="16px">
             <mat-radio-group formControlName="terminalType" fxLayout fxLayoutGap="8px">
-                <mat-radio-button [value]="terminalType.new" fxFlex>Create new</mat-radio-button>
-                <mat-radio-button [value]="terminalType.existent" fxFlex>
+                <mat-radio-button [value]="terminalType.New" fxFlex>Create new</mat-radio-button>
+                <mat-radio-button [value]="terminalType.Existent" fxFlex>
                     Select existent
                 </mat-radio-button>
             </mat-radio-group>
             <div
-                *ngIf="form.value.terminalType === terminalType.new"
+                *ngIf="form.value.terminalType === terminalType.New"
                 formGroupName="newTerminal"
                 fxLayout="column"
                 fxLayoutGap="24px"
@@ -99,7 +99,7 @@
                     <mat-icon fxFlexAlign="end" (click)="addOption()" class="action">add</mat-icon>
                 </div>
             </div>
-            <div *ngIf="form.value.terminalType === terminalType.existent" fxLayout>
+            <div *ngIf="form.value.terminalType === terminalType.Existent" fxLayout>
                 <mat-form-field fxFlex>
                     <mat-label>Terminal</mat-label>
                     <mat-select formControlName="existentTerminalID" required>

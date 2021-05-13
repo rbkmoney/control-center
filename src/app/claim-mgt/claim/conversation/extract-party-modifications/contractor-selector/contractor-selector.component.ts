@@ -17,8 +17,8 @@ export class ContractorSelectorComponent implements OnInit {
     contractorForm: FormGroup;
 
     actionType = ActionType;
-    actionTypes = [ActionType.attachNew, ActionType.attach];
-    selectedTarget = ActionType.attachNew;
+    actionTypes = [ActionType.AttachNew, ActionType.Attach];
+    selectedTarget = ActionType.AttachNew;
 
     targetChanges($event: MatRadioChange) {
         this.selectedTarget = $event.value;

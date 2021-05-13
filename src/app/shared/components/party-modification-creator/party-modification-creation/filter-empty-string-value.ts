@@ -1,4 +1,3 @@
-import isArray from 'lodash-es/isArray';
 import isDate from 'lodash-es/isDate';
 import isObject from 'lodash-es/isObject';
 import reduce from 'lodash-es/reduce';
@@ -6,7 +5,7 @@ import * as moment from 'moment';
 
 type Filter = (value: any) => boolean;
 
-function filterObject(object: object, filter: Filter): object {
+function filterObject(object: any, filter: Filter): any {
     return reduce(
         object,
         (result, value, key) => {
@@ -29,7 +28,7 @@ export function filterValues(value: any, filter: Filter): any {
     if (moment.isMoment(value)) {
         return value.toISOString();
     }
-    if (isArray(value)) {
+    if (Array.isArray(value)) {
         console.error('Array is not supported', value);
         return value;
     }

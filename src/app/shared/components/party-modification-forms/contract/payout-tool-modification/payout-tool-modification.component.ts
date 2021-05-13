@@ -5,8 +5,8 @@ import get from 'lodash-es/get';
 import { PayoutToolModification } from '../../../../../thrift-services/damsel/gen-model/payment_processing';
 
 enum Type {
-    creation = 'creation',
-    infoModification = 'info_modification',
+    Creation = 'creation',
+    InfoModification = 'info_modification',
 }
 
 @Component({
@@ -20,7 +20,7 @@ export class PayoutToolModificationComponent implements OnInit {
     @Input()
     initialValue: PayoutToolModification;
 
-    types = [Type.creation, Type.infoModification];
+    types = [Type.Creation, Type.InfoModification];
 
     selected: Type;
 
@@ -32,10 +32,10 @@ export class PayoutToolModificationComponent implements OnInit {
         const creation = get(this, 'initialValue.creation', '');
         const infoModification = get(this, 'initialValue.info_modification', '');
         if (creation) {
-            this.selected = Type.creation;
+            this.selected = Type.Creation;
         }
         if (infoModification) {
-            this.selected = Type.infoModification;
+            this.selected = Type.InfoModification;
         }
         this.select();
         this.form.updateValueAndValidity();
@@ -43,13 +43,13 @@ export class PayoutToolModificationComponent implements OnInit {
 
     select() {
         switch (this.selected) {
-            case Type.creation:
-                this.form.registerControl(Type.creation, this.fb.group({}));
-                this.form.removeControl(Type.infoModification);
+            case Type.Creation:
+                this.form.registerControl(Type.Creation, this.fb.group({}));
+                this.form.removeControl(Type.InfoModification);
                 break;
-            case Type.infoModification:
-                this.form.registerControl(Type.infoModification, this.fb.group({}));
-                this.form.removeControl(Type.creation);
+            case Type.InfoModification:
+                this.form.registerControl(Type.InfoModification, this.fb.group({}));
+                this.form.removeControl(Type.Creation);
                 break;
         }
     }

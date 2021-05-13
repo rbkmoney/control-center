@@ -1,4 +1,4 @@
 export enum ClaimActionType {
-    create = 'create',
-    edit = 'edit',
+    Create = 'create',
+    Edit = 'edit',
 }

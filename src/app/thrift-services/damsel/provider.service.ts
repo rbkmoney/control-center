@@ -19,10 +19,7 @@ export class ProviderService {
             take(1),
             map(
                 ([params, providerObject]) =>
-                    [
-                        params,
-                        findDomainObject(providerObject as ProviderObject[], params.providerID),
-                    ] as const
+                    [params, findDomainObject(providerObject, params.providerID)] as const
             )
         );
     }

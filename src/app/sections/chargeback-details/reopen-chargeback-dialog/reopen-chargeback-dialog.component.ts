@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { InvoicePaymentChargebackStage } from 'src/app/thrift-services/damsel/gen-model/domain';
-import { PaymentProcessingService } from 'src/app/thrift-services/damsel/payment-processing.service';
 
 import { toMinor } from '@cc/utils/index';
+
+import { InvoicePaymentChargebackStage } from '../../../thrift-services/damsel/gen-model/domain';
+import { PaymentProcessingService } from '../../../thrift-services/damsel/payment-processing.service';
 
 @Component({
     selector: 'cc-reopen-chargeback-dialog',

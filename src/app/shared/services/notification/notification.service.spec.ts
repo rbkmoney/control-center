@@ -8,7 +8,7 @@ describe('NotificationService', () => {
     let mockMatSnackBar: MatSnackBar;
     let service: NotificationService;
 
-    beforeEach(async () => {
+    beforeEach(() => {
         mockMatSnackBar = mock(MatSnackBar);
 
         TestBed.configureTestingModule({

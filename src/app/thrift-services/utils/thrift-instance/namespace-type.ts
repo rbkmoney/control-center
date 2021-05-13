@@ -1,6 +1,6 @@
 import type { ListType, MapType, SetType, ThriftType, ValueType } from 'thrift-ts';
 
-export const primitiveTypes = [
+export const PRIMITIVE_TYPES = [
     'int',
     'bool',
     'i8',
@@ -21,11 +21,11 @@ export function isComplexType(type: ValueType): type is SetType | ListType | Map
 }
 
 export function isPrimitiveType(type: ValueType): type is ThriftType {
-    return primitiveTypes.includes(type as any);
+    return PRIMITIVE_TYPES.includes(type as any);
 }
 
-export const structureTypes = ['typedef', 'struct', 'union', 'exception', 'enum'] as const;
-export type StructureType = typeof structureTypes[number];
+export const STRUCTURE_TYPES = ['typedef', 'struct', 'union', 'exception', 'enum'] as const;
+export type StructureType = typeof STRUCTURE_TYPES[number];
 
 export function parseNamespaceType(type: ValueType, currentNamespace?: string) {
     if (!isComplexType(type) && !isPrimitiveType(type) && type.includes('.')) {

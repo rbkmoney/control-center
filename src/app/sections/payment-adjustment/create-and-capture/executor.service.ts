@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+// eslint-disable-next-line you-dont-need-lodash-underscore/flatten
 import flatten from 'lodash-es/flatten';
 import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 export enum ExecResultType {
-    success = 'success',
-    error = 'error',
+    Success = 'Success',
+    Error = 'Error',
 }
 
 export interface ExecResult {
@@ -16,7 +17,7 @@ export interface ExecResult {
 export interface ExecContainer {
     fn: (...args: any[]) => Observable<any>;
     context: any;
-    params: object;
+    params: any;
 }
 
 export interface ExecSuccessResult extends ExecResult {
@@ -46,19 +47,19 @@ export class ExecutorService {
                 return fn.apply(context, args).pipe(
                     catchError((exception) =>
                         of({
-                            type: ExecResultType.error,
+                            type: ExecResultType.Error,
                             container,
                             exception,
                         })
                     ),
                     switchMap((nextRes: any) => {
-                        if (nextRes && nextRes.type === ExecResultType.error) {
+                        if (nextRes && nextRes.type === ExecResultType.Error) {
                             return executor([...results, nextRes]);
                         }
                         return executor([
                             ...results,
                             {
-                                type: ExecResultType.success,
+                                type: ExecResultType.Success,
                                 container,
                                 data: nextRes,
                             } as ExecSuccessResult,

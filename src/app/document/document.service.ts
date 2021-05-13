@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 import { map, timeout } from 'rxjs/operators';
 
 import { FontsService } from './fonts';
-import { fontsConfig } from './fonts-config';
+import { FONTS_CONFIG } from './fonts-config';
 
 @Injectable()
 export class DocumentService {
     constructor(private fontsService: FontsService) {
-        this.fontsService.loadFonts(fontsConfig);
+        this.fontsService.loadFonts(FONTS_CONFIG);
     }
 
     createPdf(

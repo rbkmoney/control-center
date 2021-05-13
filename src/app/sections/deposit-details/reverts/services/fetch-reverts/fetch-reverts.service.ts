@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FistfulStatisticsService } from '../../../../../thrift-services/fistful/fistful-stat.service';
-import { FetchRevertsParams } from '../../types/fetch-reverts-params';
 import { StatDepositRevert } from '../../../../../thrift-services/fistful/gen-model/fistful_stat';
+import { FetchRevertsParams } from '../../types/fetch-reverts-params';
 
 @Injectable()
 export class FetchRevertsService extends PartialFetcher<StatDepositRevert, FetchRevertsParams> {

@@ -39,9 +39,9 @@ export class PartyModificationContainerService {
     private getActionType(type): ActionType {
         switch (type) {
             case ModificationGroupType.ContractUnitContainer:
-                return ActionType.contractAction;
+                return ActionType.ContractAction;
             case ModificationGroupType.ShopUnitContainer:
-                return ActionType.shopAction;
+                return ActionType.ShopAction;
         }
     }
 }

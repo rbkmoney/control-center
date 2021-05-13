@@ -16,14 +16,14 @@ const getStatusColor = (status: string): StatusColor => {
     switch (s) {
         case 'processed':
         case 'captured':
-            return StatusColor.success;
+            return StatusColor.Success;
         case 'pending':
         case 'charged_back':
-            return StatusColor.pending;
+            return StatusColor.Pending;
         case 'failed':
         case 'cancelled':
-            return StatusColor.warn;
+            return StatusColor.Warn;
         case 'refunded':
-            return StatusColor.neutral;
+            return StatusColor.Neutral;
     }
 };

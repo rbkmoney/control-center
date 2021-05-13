@@ -6,8 +6,10 @@ import { map } from 'rxjs/operators';
 
 enum Scenario {
     // complex = 'complex',
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     fail_pre_processing = 'fail_pre_processing',
     // skip_inspector = 'skip_inspector',
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     fail_session = 'fail_session',
 }
 

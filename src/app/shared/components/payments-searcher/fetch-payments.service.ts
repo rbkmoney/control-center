@@ -6,7 +6,7 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { booleanDelay } from '@cc/utils/boolean-delay';
 
-import { QueryDSL } from '../../../query-dsl';
+import { QueryDsl } from '../../../query-dsl';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
 import { MerchantStatisticsService } from '../../../thrift-services/damsel/merchant-statistics.service';
 import { SearchFiltersParams } from '../payments-search-filters/search-filters-params';
@@ -81,7 +81,7 @@ export class FetchPaymentsService extends PartialFetcher<StatPayment, SearchFilt
                             ...(pan ? { payment_last4: pan } : {}),
                         },
                     },
-                } as QueryDSL),
+                } as QueryDsl),
                 ...(continuationToken ? { continuation_token: continuationToken } : {}),
             })
             .pipe(

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { PaymentProcessingService } from 'src/app/thrift-services/damsel/payment-processing.service';
 
-export const Statuses = ['Accept', 'Cancell', 'Reject'] as const;
+import { PaymentProcessingService } from '../../../thrift-services/damsel/payment-processing.service';
+
+export const STATUSES = ['Accept', 'Cancell', 'Reject'] as const;
 
 @Injectable()
 export class ChangeChargebackStatusDialogService {
@@ -21,11 +22,13 @@ export class ChangeChargebackStatusDialogService {
         chargebackID: string;
     }) {
         const fnByStatus = {
+            /* eslint-disable @typescript-eslint/naming-convention */
             Accept: this.paymentProcessingService.acceptChargeback,
             Cancell: this.paymentProcessingService.cancelChargeback,
             Reject: this.paymentProcessingService.rejectChargeback,
+            /* eslint-enable @typescript-eslint/naming-convention */
         };
-        return fnByStatus[status as typeof Statuses[number]].bind(this.paymentProcessingService)(
+        return fnByStatus[status as typeof STATUSES[number]].bind(this.paymentProcessingService)(
             invoiceID,
             paymentID,
             chargebackID,

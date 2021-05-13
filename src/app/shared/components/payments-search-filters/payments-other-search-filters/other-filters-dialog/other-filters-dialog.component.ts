@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/cor
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SearchFiltersParams } from '../../search-filters-params';
-import { paymentMethods, paymentStatuses, paymentSystems, tokenProviders } from './constants';
+import { PAYMENT_METHODS, PAYMENT_STATUSES, PAYMENT_SYSTEMS, TOKEN_PROVIDERS } from './constants';
 import { OtherFiltersDialogService } from './other-filters-dialog.service';
 
 @Component({
@@ -10,10 +10,10 @@ import { OtherFiltersDialogService } from './other-filters-dialog.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OtherFiltersDialogComponent implements OnInit {
-    paymentStatuses = paymentStatuses;
-    paymentMethods = paymentMethods;
-    tokenProviders = tokenProviders;
-    paymentSystems = paymentSystems;
+    paymentStatuses = PAYMENT_STATUSES;
+    paymentMethods = PAYMENT_METHODS;
+    tokenProviders = TOKEN_PROVIDERS;
+    paymentSystems = PAYMENT_SYSTEMS;
 
     currentDomainVersion$ = this.paymentsOtherSearchFiltersService.currentDomainVersion$;
     form = this.paymentsOtherSearchFiltersService.form;

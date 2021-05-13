@@ -5,7 +5,7 @@ export class Invoice {
     ownerId: string;
     shopId: string;
     createdAt: string;
-    status: object;
+    status: any;
     product: string;
     description: string;
     due: string;

@@ -5,8 +5,8 @@ import { KeycloakTokenInfoService } from '@cc/app/shared/services';
 
 import { ThriftConnector } from '../../thrift-connector';
 import { WalletState, EventRange as EventRangeModel } from '../gen-model/wallet';
-import * as Management from './gen-nodejs/Management';
 import { EventRange } from './gen-nodejs/base_types';
+import * as Management from './gen-nodejs/Management';
 
 @Injectable()
 export class ManagementService extends ThriftConnector {

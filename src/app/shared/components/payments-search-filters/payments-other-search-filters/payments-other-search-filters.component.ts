@@ -20,6 +20,7 @@ export class PaymentsOtherSearchFiltersComponent {
 
     private searchParamsChanges$ = this.paymentsOtherSearchFiltersService.searchParamsChanges$;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     count$ = this.paymentsOtherSearchFiltersService.filtersCount$;
 
     constructor(private paymentsOtherSearchFiltersService: PaymentsOtherSearchFiltersService) {

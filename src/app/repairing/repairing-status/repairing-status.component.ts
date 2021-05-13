@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 export enum RepairingStatusType {
+    /* eslint-disable @typescript-eslint/naming-convention */
     error = 'error',
     warn = 'warn',
     info = 'info',
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 @Component({
@@ -21,8 +23,6 @@ export class RepairingStatusComponent {
     type: RepairingStatusType = RepairingStatusType.info;
     @Input()
     disabled?: boolean;
-
-    constructor() {}
 
     getColor() {
         switch (this.type) {

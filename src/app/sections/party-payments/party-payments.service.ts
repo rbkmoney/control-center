@@ -6,7 +6,7 @@ import { SearchFiltersParams } from '@cc/app/shared/components';
 import { QueryParamsStore } from '@cc/app/shared/services';
 import { wrapValuesToArray } from '@cc/utils/wrap-values-to-array';
 
-const shopIDsAndPrimitives = (v, k) => typeof v === 'string' && k === 'shopIDs';
+const SHOP_IDS_AND_PRIMITIVES = (v, k) => typeof v === 'string' && k === 'shopIDs';
 
 @Injectable()
 export class PartyPaymentsService extends QueryParamsStore<SearchFiltersParams> {
@@ -17,7 +17,7 @@ export class PartyPaymentsService extends QueryParamsStore<SearchFiltersParams> 
     mapToData(queryParams: Params): SearchFiltersParams {
         return {
             ...queryParams,
-            ...wrapValuesToArray(pickBy(queryParams, shopIDsAndPrimitives)),
+            ...wrapValuesToArray(pickBy(queryParams, SHOP_IDS_AND_PRIMITIVES)),
         } as SearchFiltersParams;
     }
 

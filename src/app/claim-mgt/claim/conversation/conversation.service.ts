@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+// eslint-disable-next-line you-dont-need-lodash-underscore/flatten
 import flatten from 'lodash-es/flatten';
 import { from, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -24,11 +25,11 @@ export class ConversationService {
     ) {}
 
     updateConversation(
-        party_id: string,
-        claim_id: ClaimID,
+        partyId: string,
+        claimId: ClaimID,
         modifications: Modification[]
     ): Observable<void> {
-        return this.claimManagementService.updateClaim(party_id, claim_id, modifications);
+        return this.claimManagementService.updateClaim(partyId, claimId, modifications);
     }
 
     enrichWithData(changeset: ClaimChangeset) {

@@ -24,7 +24,7 @@ export function createGrid(items: Item[], gapCm: number = 0): Content {
         margin: getMargin(idx, items.length, gapCm),
     }));
     return {
-        layout: Layout.wrapper,
+        layout: Layout.Wrapper,
         table: {
             widths: new Array(getColumnsCount(row)).fill('*'),
             body: createTableBody([row]),

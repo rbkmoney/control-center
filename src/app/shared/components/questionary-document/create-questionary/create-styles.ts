@@ -10,7 +10,7 @@ export function createStyles(): { [name in Style]: PDFMakeStyle } {
 
 export function createDefaultStyle(): PDFMakeStyle {
     return {
-        font: FontFamily.serif,
+        font: FontFamily.Serif,
         fontSize: 8,
         lineHeight: 1,
     };

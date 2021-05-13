@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
-import { RoutingRulesService } from 'src/app/thrift-services';
 
 import { ErrorService } from '../../../shared/services/error';
+import { RoutingRulesService } from '../../../thrift-services';
 import { TargetRuleset } from '../target-ruleset-form';
 
 @UntilDestroy()

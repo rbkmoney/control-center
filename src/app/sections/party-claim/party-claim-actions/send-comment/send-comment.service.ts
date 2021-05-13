@@ -18,20 +18,22 @@ export class SendCommentService {
     private hasError$: Subject<any> = new Subject();
     private sendComment$: Subject<null> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.fb.group({
         comment: ['', [Validators.maxLength(1000), Validators.required]],
     });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     comment$ = this.sendComment$.pipe(
         tap(() => this.hasError$.next()),
         switchMap(() => {
             const text = this.form.value.comment;
             const { name, email, sub } = this.keycloakTokenInfoService.decodedUserToken;
             const user: User = { fullname: name, email, user_id: sub };
-            const conversation_id = uuid();
-            const conversation = createSingleMessageConversationParams(conversation_id, text, sub);
+            const conversationId = uuid();
+            const conversation = createSingleMessageConversationParams(conversationId, text, sub);
             return forkJoin([
-                of(conversation_id),
+                of(conversationId),
                 this.messagesService.saveConversations([conversation], user).pipe(
                     catchError((e) => {
                         console.error(e);
@@ -53,6 +55,7 @@ export class SendCommentService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.sendComment$, merge(this.comment$, this.hasError$));
 
     constructor(

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface JSONSchema {
     id?: string;
     $schema?: string;
@@ -38,6 +39,7 @@ export interface JSONSchema {
     errorMessage?: string; // VSCode extension
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface JSONSchemaMap {
     [name: string]: JSONSchema;
 }

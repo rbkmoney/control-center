@@ -4,15 +4,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
+
 import { SearchFormParams } from '../../deposits/search-form/search-form-params';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
-import { createDSL, QueryDSL } from '../../query-dsl';
-import { ThriftService } from '../services/thrift/thrift-service';
+import { createDsl, QueryDsl } from '../../query-dsl';
 import { DepositRevertParams } from '../../query-dsl/deposit-revert';
 import { SEARCH_LIMIT, SMALL_SEARCH_LIMIT } from '../../tokens';
+import { ThriftService } from '../services/thrift/thrift-service';
 import { StatDeposit, StatRequest, StatResponse } from './gen-model/fistful_stat';
-import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
+import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
 
 @Injectable()
 export class FistfulStatisticsService extends ThriftService {
@@ -79,7 +80,7 @@ export class FistfulStatisticsService extends ThriftService {
                         size: this.searchLimit.toString(),
                     },
                 },
-            } as QueryDSL),
+            } as QueryDsl),
             ...(continuationToken ? { continuation_token: continuationToken } : {}),
         };
     }
@@ -89,7 +90,7 @@ export class FistfulStatisticsService extends ThriftService {
         continuationToken?: string
     ): StatRequest {
         return {
-            dsl: createDSL({
+            dsl: createDsl({
                 deposit_reverts: {
                     ...removeEmptyProperties(params),
                     size: this.smallSearchLimit.toString(),

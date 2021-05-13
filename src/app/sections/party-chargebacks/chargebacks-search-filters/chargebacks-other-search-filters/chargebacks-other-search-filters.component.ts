@@ -6,8 +6,8 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
-import { ChargebacksParams } from 'src/app/query-dsl';
 
+import { ChargebacksParams } from '../../../../query-dsl';
 import { ChargebacksOtherSearchFiltersService } from './chargebacks-other-search-filters.service';
 
 @Component({

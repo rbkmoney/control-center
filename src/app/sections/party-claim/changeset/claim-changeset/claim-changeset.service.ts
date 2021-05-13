@@ -18,7 +18,11 @@ export class ClaimChangesetService {
         private partyModificationsExtractorService: PartyModificationsExtractorService
     ) {
         this.partyModificationsExtractorService.modsExtracted$
-            .pipe(map((mods) => mods.map((party_modification) => ({ party_modification }))))
+            .pipe(
+                map((mods) =>
+                    mods.map((partyModification) => ({ party_modification: partyModification }))
+                )
+            )
             .subscribe((mods) => {
                 mods.forEach((mod) => this.unsavedClaimChangesetService.addModification(mod));
             });

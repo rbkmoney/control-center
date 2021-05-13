@@ -10,7 +10,7 @@ import {
     tap,
 } from 'rxjs/operators';
 
-import { bootstrap$ } from './bootstrap';
+import { BOOTSTRAP$ } from './bootstrap';
 import { fromDisposable } from './from-disposable';
 import {
     CodeLensProvider,
@@ -53,7 +53,7 @@ export abstract class AbstractMonacoService {
 
     init({ nativeElement }: ElementRef, options: IEditorOptions = {}): Observable<void> {
         this.nativeElement = nativeElement;
-        return bootstrap$.pipe(
+        return BOOTSTRAP$.pipe(
             tap(() => {
                 this.disposeModels();
                 this._editor = this.createEditor(nativeElement, options);

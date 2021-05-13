@@ -35,9 +35,9 @@ function inPartyCondition(condition: Condition, shopID: ShopID, partyID: PartyID
     return condition.party?.id === partyID && shopIs === shopID;
 }
 
-function isDisabled(all_of: Set<Predicate>): boolean {
-    const constant = Array.from(all_of).find((pre) => pre.constant !== null);
-    return !!constant ? constant.constant : false;
+function isDisabled(allOf: Set<Predicate>): boolean {
+    const constant = Array.from(allOf).find((pre) => pre.constant !== null);
+    return constant ? constant.constant : false;
 }
 
 function extractPredicateInfo(
@@ -50,13 +50,13 @@ function extractPredicateInfo(
         case 'all_of':
             return {
                 shopPartyContain: inPredicates(v as Set<Predicate>, shopID, partyID),
-                predicateType: PredicateType.all_of,
+                predicateType: PredicateType.AllOf,
                 disabled: isDisabled(v as Set<Predicate>),
             };
         case 'any_of':
             return {
                 shopPartyContain: inPredicates(v as Set<Predicate>, shopID, partyID),
-                predicateType: PredicateType.any_of,
+                predicateType: PredicateType.AnyOf,
                 disabled: false,
             };
         case 'is_not':
@@ -67,7 +67,7 @@ function extractPredicateInfo(
             }
             return {
                 shopPartyContain: inPartyCondition(v as Condition, shopID, partyID),
-                predicateType: PredicateType.condition,
+                predicateType: PredicateType.Condition,
                 disabled: false,
             };
     }

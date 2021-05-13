@@ -33,7 +33,7 @@ export class ShopParamsComponent implements OnInit {
         this.form.updateValueAndValidity();
     }
 
-    toggleCheckbox(show: boolean, controlName: string, data: object = {}) {
+    toggleCheckbox(show: boolean, controlName: string, data: any = {}) {
         if (show) {
             this.form.registerControl(controlName, this.fb.group(data));
         } else {

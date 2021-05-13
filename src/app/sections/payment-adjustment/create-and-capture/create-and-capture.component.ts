@@ -4,17 +4,17 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { KeycloakService } from 'keycloak-angular';
-import { Observable } from 'rxjs';
 import isEqual from 'lodash-es/isEqual';
+import { Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
+import { InvoicePaymentStatus } from '../../../thrift-services/damsel/gen-model/domain';
 import { StatPayment } from '../../../thrift-services/damsel/gen-model/merch_stat';
 import {
     InvoicePaymentAdjustmentParams,
     InvoicePaymentAdjustmentScenario,
     UserInfo,
 } from '../../../thrift-services/damsel/gen-model/payment_processing';
-import { InvoicePaymentStatus } from '../../../thrift-services/damsel/gen-model/domain';
 import {
     BatchPaymentAdjustmentService,
     CancelAdjustmentService,
@@ -111,9 +111,9 @@ export class CreateAndCaptureComponent implements OnInit {
         this.form.valueChanges
             .pipe(distinctUntilChanged(isEqual), untilDestroyed(this))
             .subscribe((formValue) => {
-                formValue?.status_change === 'failed'
-                    ? this.form.addControl('failure_code', new FormControl(''))
-                    : this.form.removeControl('failure_code');
+                if (formValue?.status_change === 'failed')
+                    this.form.addControl('failure_code', new FormControl(''));
+                else this.form.removeControl('failure_code');
             });
     }
 
@@ -158,7 +158,7 @@ export class CreateAndCaptureComponent implements OnInit {
         let scenario: InvoicePaymentAdjustmentScenario;
         const { reason } = this.form.value;
         switch (this.activeScenario) {
-            case 'cash_flow':
+            case 'cash_flow': {
                 const { cash_flow } = this.form.value;
                 scenario = {
                     cash_flow: {
@@ -166,7 +166,8 @@ export class CreateAndCaptureComponent implements OnInit {
                     },
                 };
                 break;
-            case 'status_change':
+            }
+            case 'status_change': {
                 const { status_change, failure_code } = this.form.value;
                 const targetStatus: InvoicePaymentStatus = { [status_change]: {} };
                 if (status_change === 'failed') {
@@ -184,6 +185,7 @@ export class CreateAndCaptureComponent implements OnInit {
                     },
                 };
                 break;
+            }
         }
         return {
             reason,

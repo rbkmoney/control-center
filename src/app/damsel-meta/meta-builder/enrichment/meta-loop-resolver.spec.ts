@@ -25,13 +25,13 @@ describe('MetaLoopResolver', () => {
         const result = resolver.resolve(predicate);
 
         const expected = cloneDeep(predicate);
-        (expected.fields[0].meta.itemMeta as any) = expected;
+        expected.fields[0].meta.itemMeta = expected;
 
         expect(result.errors.length).toEqual(0);
         expect(result.resolved).toEqual(expected);
     });
 
-    fit('should resolve multi level loops', () => {
+    it('should resolve multi level loops', () => {
         const resolveContainer = [
             {
                 name: 'PaymentsProvisionTerms',
@@ -98,6 +98,7 @@ describe('MetaLoopResolver', () => {
 
         const resolver = new MetaLoopResolver(resolveContainer, '$loop_');
         const result = resolver.resolve(resolveContainer[0]);
+        // eslint-disable-next-line no-console
         console.log('result', result.resolved);
     });
 });

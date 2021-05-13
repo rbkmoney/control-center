@@ -25,7 +25,7 @@ import {
     getBusinessInfo,
     getContactInfo,
     getShopLocationURL,
-    simpleYesNo,
+    SIMPLE_YES_NO,
     toYesNo,
     YesNo,
 } from '../select-data';
@@ -185,7 +185,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                 [
                     createInlineCheckboxWithTitle(
                         '8.1. Наличие в штате главного бухгалтера',
-                        simpleYesNo,
+                        SIMPLE_YES_NO,
                         hasChiefAccountant
                     ),
                     `8.2. Штатная численность в организации: ${staffCount || EMPTY}`,
@@ -211,14 +211,14 @@ export function getDocDef(questionary: Questionary): DocDef {
                     [
                         createInlineCheckboxWithTitle(
                             '9.1. Принадлежность к категории ПДЛ¹',
-                            simpleYesNo,
+                            SIMPLE_YES_NO,
                             toYesNo(pdl_category)
                         ),
                     ],
                     [
                         createInlineCheckboxWithTitle(
                             '9.2. Является родственником ПДЛ',
-                            simpleYesNo,
+                            SIMPLE_YES_NO,
                             toYesNo(!!pdl_relation_degree)
                         ),
                         `9.3. Степень родства: ${pdl_relation_degree || EMPTY}`,
@@ -230,9 +230,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                     [
                         createInlineCheckbox(
                             [
-                                [YesNo.no, 'Нет'],
+                                [YesNo.No, 'Нет'],
                                 [
-                                    YesNo.yes,
+                                    YesNo.Yes,
                                     'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)',
                                 ],
                             ],
@@ -245,9 +245,9 @@ export function getDocDef(questionary: Questionary): DocDef {
                 [
                     createInlineCheckbox(
                         [
-                            [YesNo.no, 'Нет'],
+                            [YesNo.No, 'Нет'],
                             [
-                                YesNo.yes,
+                                YesNo.Yes,
                                 'Да (обязательное заполнение приложение для Бенефициарного владельца)',
                             ],
                         ],
@@ -257,7 +257,7 @@ export function getDocDef(questionary: Questionary): DocDef {
             ]),
             createVerticalParagraph(
                 '12. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве, в отношении Вашей компании',
-                [[createInlineCheckbox(simpleYesNo, toYesNo(!!relation_individual_entity))]]
+                [[createInlineCheckbox(SIMPLE_YES_NO, toYesNo(!!relation_individual_entity))]]
             ),
             createVerticalParagraph('13. Информация об иностранном налоговом резидентстве', [
                 [
@@ -266,7 +266,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                             '13.1. Является ли Ваша организация налоговым резидентом США или иного иностранного государства?',
                         colSpan: 5,
                     },
-                    createInlineCheckbox(simpleYesNo, toYesNo(tax_resident)),
+                    createInlineCheckbox(SIMPLE_YES_NO, toYesNo(tax_resident)),
                 ],
                 [
                     {
@@ -274,7 +274,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                             '13.2. Является ли Бенефициарный владелец Вашей организации с долей владения 10% и более налоговым резидентом иностранного государства?',
                         colSpan: 5,
                     },
-                    createInlineCheckbox(simpleYesNo, toYesNo(owner_resident)),
+                    createInlineCheckbox(SIMPLE_YES_NO, toYesNo(owner_resident)),
                 ],
                 [
                     {
@@ -282,7 +282,7 @@ export function getDocDef(questionary: Questionary): DocDef {
                             '13.3. Является ли Ваша организация Финансовым Институтом в соответствии с FATCA и 173-ФЗ от 28.06.2014?',
                         colSpan: 5,
                     },
-                    createInlineCheckbox(simpleYesNo, toYesNo(fatca)),
+                    createInlineCheckbox(SIMPLE_YES_NO, toYesNo(fatca)),
                 ],
             ]),
         ],

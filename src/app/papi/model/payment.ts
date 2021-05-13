@@ -4,17 +4,17 @@ export class Payment {
     ownerId: string;
     shopId: string;
     createdAt: string;
-    status: object;
+    status: any;
     amount: number;
     fee: number;
     providerFee: number;
     externalFee: number;
     currencySymbolicCode: string;
-    payer: object;
+    payer: any;
     ipAddress: string;
     fingerprint: string;
     email: string;
     sessionId: string;
-    locationInfo: object;
-    flow: object;
+    locationInfo: any;
+    flow: any;
 }

@@ -1,3 +1,3 @@
-export function toOptional<T extends {}>(obj: T | undefined | null): Partial<T> {
+export function toOptional<T>(obj: T | undefined | null): Partial<T> {
     return obj || {};
 }

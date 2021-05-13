@@ -8,13 +8,13 @@
         </mat-radio-button>
     </mat-radio-group>
     <cc-fill-in-unit-id
-        *ngIf="selectedTarget === t.fillIn"
+        *ngIf="selectedTarget === t.FillIn"
         [unitID]="unitID"
         (valueChanges)="unitIDChanges($event)"
     >
     </cc-fill-in-unit-id>
     <cc-target-table
-        *ngIf="selectedTarget === t.partyItem"
+        *ngIf="selectedTarget === t.PartyItem"
         [partyID]="partyID"
         [partyTarget]="partyTarget"
         [fromClaim]="fromClaim"

@@ -5,9 +5,9 @@ import { shareReplay } from 'rxjs/operators';
 
 import { booleanDelay } from '@cc/utils/boolean-delay';
 
-import { SearchParams } from '../../types/search-params';
-import { StatDeposit } from '../../../../thrift-services/fistful/gen-model/fistful_stat';
 import { FistfulStatisticsService } from '../../../../thrift-services/fistful/fistful-stat.service';
+import { StatDeposit } from '../../../../thrift-services/fistful/gen-model/fistful_stat';
+import { SearchParams } from '../../types/search-params';
 
 @Injectable()
 export class FetchDepositsService extends PartialFetcher<StatDeposit, SearchParams> {

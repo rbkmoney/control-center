@@ -42,25 +42,24 @@ export class CreateActionsComponent implements OnInit {
                         (event as AdjustmentOperationEvent<PaymentAdjustmentCreationScope>).payload
                     );
                     break;
-                case EventType.CreatePaymentAdjustmentFailed:
+                case EventType.CreatePaymentAdjustmentFailed: {
                     const infoGroup = groupBy<any>(event.payload, 'code');
-                    const Codes = CreatePaymentAdjustmentErrorCodes;
                     forEach(infoGroup, (payloads, code) => {
                         switch (code) {
-                            case Codes.InvoicePaymentAdjustmentPending:
+                            case CreatePaymentAdjustmentErrorCodes.InvoicePaymentAdjustmentPending:
                                 this.failedPending = this.failedPending.concat(payloads);
                                 break;
-                            case Codes.InvalidPaymentStatus:
+                            case CreatePaymentAdjustmentErrorCodes.InvalidPaymentStatus:
                                 this.failedInvalidPaymentStatus = this.failedInvalidPaymentStatus.concat(
                                     payloads
                                 );
                                 break;
-                            case Codes.InvoiceNotFound:
+                            case CreatePaymentAdjustmentErrorCodes.InvoiceNotFound:
                                 this.failedInvoiceNotFound = this.failedInvoiceNotFound.concat(
                                     payloads
                                 );
                                 break;
-                            case Codes.InvalidUser:
+                            case CreatePaymentAdjustmentErrorCodes.InvalidUser:
                                 this.failedInvalidUser = this.failedInvalidUser.concat(payloads);
                                 break;
                             case 'InternalServer':
@@ -69,24 +68,23 @@ export class CreateActionsComponent implements OnInit {
                         }
                     });
                     break;
+                }
             }
         });
     }
 
     capture() {
         const captureParams = this.createResult.map(
-            ({
-                adjustmentId: adjustment_id,
-                creationParams: { user, invoice_id, payment_id },
-            }) => ({
+            ({ adjustmentId, creationParams: { user, invoice_id, payment_id } }) => ({
                 user,
                 invoice_id,
                 payment_id,
-                adjustment_id,
+                adjustment_id: adjustmentId,
             })
         );
         this.createResult = [];
         this.batchAdjustmentService.capture(captureParams).subscribe(
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             () => {},
             () => {
                 this.snackBar.open('An error occurred while adjustments capture');
@@ -98,14 +96,14 @@ export class CreateActionsComponent implements OnInit {
         const cancelParams = this.failedPending.map(
             ({
                 operationScope: {
-                    adjustmentId: adjustment_id,
+                    adjustmentId,
                     creationParams: { user, invoice_id, payment_id },
                 },
             }) => ({
                 user,
                 invoice_id,
                 payment_id,
-                adjustment_id,
+                adjustment_id: adjustmentId,
             })
         );
         this.failedPending = [];

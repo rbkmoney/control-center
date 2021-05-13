@@ -8,6 +8,7 @@ import { SearchFiltersParams } from '../payments-search-filters/search-filters-p
 export class PaymentsSearcherService {
     private searchParamsChange$ = new ReplaySubject<SearchFiltersParams>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     searchParamsChanges$ = this.searchParamsChange$.pipe(
         scan((acc, curr) => ({ ...acc, ...curr })),
         skip(1),

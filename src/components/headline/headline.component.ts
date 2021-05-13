@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
     styleUrls: ['headline.component.scss'],
 })
 export class HeadlineComponent {
-    constructor(private location: Location) {}
-
     // 1 and 2 is default history length
     isBackAvailable = window.history.length > 2;
+
+    constructor(private location: Location) {}
 
     back() {
         this.location.back();

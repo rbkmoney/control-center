@@ -15,13 +15,14 @@ export class PartyModificationCreatorDialogService {
         fromClaim: Modification[];
     }>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     opened$ = this.open$.pipe(
         switchMap(
             ({ partyID, fromClaim }) =>
                 new Observable((observer) => {
                     this.bottomSheet.open(UnitActionsNavListComponent, {
                         data: {
-                            type: UnitActionType.allActions,
+                            type: UnitActionType.AllActions,
                             partyID,
                             fromClaim,
                         },

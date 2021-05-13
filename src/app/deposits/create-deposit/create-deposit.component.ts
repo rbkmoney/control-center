@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PollingTimeoutError } from '@cc/utils/poll';
 
-import { CreateDepositService, currencies } from './create-deposit.service';
+import { CreateDepositService, CURRENCIES } from './create-deposit.service';
 
 @Component({
     selector: 'cc-create-deposit',
@@ -14,7 +14,7 @@ import { CreateDepositService, currencies } from './create-deposit.service';
 export class CreateDepositComponent implements OnInit {
     form: FormGroup;
 
-    currencies = currencies;
+    currencies = CURRENCIES;
 
     isLoading = false;
 

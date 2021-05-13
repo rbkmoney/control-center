@@ -2,15 +2,15 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter } from 'rxjs/operators';
 
 import { DepositActions, DepositMenuItemEvent } from '@cc/app/shared/components/deposits-table';
 
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CreateDepositDialogComponent } from './create-deposit-dialog/create-deposit-dialog.component';
+import { FetchDepositsService } from './services/fetch-deposits/fetch-deposits.service';
 import { ParamsStoreService } from './services/params-store/params-store.service';
 import { SearchParams } from './types/search-params';
-import { FetchDepositsService } from './services/fetch-deposits/fetch-deposits.service';
 
 @UntilDestroy()
 @Component({
@@ -67,7 +67,7 @@ export class DepositsComponent implements OnInit {
 
     depositMenuItemSelected(depositMenuItemEvent: DepositMenuItemEvent) {
         switch (depositMenuItemEvent.action) {
-            case DepositActions.navigateToDeposit:
+            case DepositActions.NavigateToDeposit:
                 this.router.navigate([`operations/deposit/${depositMenuItemEvent.depositID}`]);
                 break;
         }

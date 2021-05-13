@@ -43,14 +43,14 @@ export abstract class AbstractMonacoDirective implements OnInit, OnChanges, OnDe
     @Output() codeLensProviderRegistered = new EventEmitter<IDisposable[]>();
     @Output() completionProviderRegistered = new EventEmitter<IDisposable[]>();
 
-    @HostListener('window:resize') onResize() {
-        this.monacoEditorService.resize();
-    }
-
     constructor(
         protected monacoEditorService: AbstractMonacoService,
         protected editorRef: ElementRef
     ) {}
+
+    @HostListener('window:resize') onResize() {
+        this.monacoEditorService.resize();
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         this.childOnChanges(changes);

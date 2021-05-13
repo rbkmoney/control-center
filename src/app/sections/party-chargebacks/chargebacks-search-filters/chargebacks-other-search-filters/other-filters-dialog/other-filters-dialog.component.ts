@@ -3,10 +3,10 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import {
-    chargebackCategories,
+    CHARGEBACK_CATEGORIES,
     ChargebacksParams,
-    chargebackStages,
-    chargebackStatuses,
+    CHARGEBACK_STAGES,
+    CHARGEBACK_STATUSES,
 } from '../../../../../query-dsl';
 
 @Component({
@@ -14,9 +14,9 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OtherFiltersDialogComponent {
-    chargebackStatuses = chargebackStatuses;
-    chargebackCategories = chargebackCategories;
-    chargebackStages = chargebackStages;
+    chargebackStatuses = CHARGEBACK_STATUSES;
+    chargebackCategories = CHARGEBACK_CATEGORIES;
+    chargebackStages = CHARGEBACK_STAGES;
 
     form = this.fb.group({
         chargeback_statuses: '',

@@ -3,9 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { debounceTime, filter, map, shareReplay } from 'rxjs/operators';
 
+import { SearchParams } from '../../../types/search-params';
 import { formValueToSearchParams } from '../../utils/form-value-to-search-params';
 import { searchParamsToFormParams } from '../../utils/search-params-to-form-params';
-import { SearchParams } from '../../../types/search-params';
 
 @Injectable()
 export class SearchFiltersService {

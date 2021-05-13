@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
 import isNil from 'lodash-es/isNil';
+import { Observable } from 'rxjs';
 
 import { ThriftServiceConnection, ThriftServiceMethod } from './types';
 
@@ -14,7 +14,8 @@ export const prepareThriftServiceMethod = <T>(
             observer.complete();
         }
         serviceMethod.bind(connection)(...args, (err, result) => {
-            err ? observer.error(err) : observer.next(result);
+            if (err) observer.error(err);
+            else observer.next(result);
             observer.complete();
         });
     });

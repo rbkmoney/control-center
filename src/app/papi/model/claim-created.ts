@@ -1,4 +1,4 @@
-import { ClaimStatus } from './claim-statuses';
+import { ClaimStatus } from './claim-status';
 
 export class ClaimCreated {
     claimId: number;

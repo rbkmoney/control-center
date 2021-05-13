@@ -1,6 +1,6 @@
 export enum PredicateType {
-    condition = 'condition',
-    is_not = 'is_not',
-    all_of = 'all_of',
-    any_of = 'any_of',
+    Condition = 'condition',
+    IsNot = 'is_not',
+    AllOf = 'all_of',
+    AnyOf = 'any_of',
 }

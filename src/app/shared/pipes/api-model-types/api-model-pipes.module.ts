@@ -4,10 +4,10 @@ import { ClaimStatusPipe } from './claim-status.pipe';
 import { PartyModificationNamePipe } from './party-modification-name.pipe';
 import { ShopNamePipe } from './shop-name.pipe';
 
-const pipes = [ClaimStatusPipe, PartyModificationNamePipe, ShopNamePipe];
+const PIPES = [ClaimStatusPipe, PartyModificationNamePipe, ShopNamePipe];
 
 @NgModule({
-    declarations: pipes,
-    exports: pipes,
+    declarations: PIPES,
+    exports: PIPES,
 })
 export class ApiModelPipesModule {}

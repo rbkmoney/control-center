@@ -1,7 +1,7 @@
 import { Content } from '../../../../document';
 import { Layout } from '../create-questionary';
 import { createGrid } from './create-grid';
-import { icons } from './icons';
+import { ICONS } from './icons';
 
 type Items<T extends any> = string[] | [T, string][];
 
@@ -28,7 +28,7 @@ function itemsWithActive<T extends any>(
 }
 
 export function createCheckbox(text: string, active = false): Content {
-    return { text: [active ? icons.checkSquare : icons.square, ' ', text] };
+    return { text: [active ? ICONS.checkSquare : ICONS.square, ' ', text] };
 }
 
 export function createInlineCheckbox<T extends any>(itemsSrc: Items<T>, activeKey?: T): Content {
@@ -49,7 +49,7 @@ export function createInlineCheckboxWithTitle<T extends any>(
 
 export function createVerticalCheckbox<T extends any>(itemsSrc: Items<T>, activeKey?: T): Content {
     return {
-        layout: Layout.noBorders,
+        layout: Layout.NoBorders,
         table: {
             widths: ['*'],
             body: itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) => [

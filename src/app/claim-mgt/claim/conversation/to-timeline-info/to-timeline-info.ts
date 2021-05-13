@@ -2,7 +2,6 @@ import { sortUnitsByCreatedAtAsc } from '@cc/app/shared/utils';
 import { getUnionKey } from '@cc/utils/get-union-key';
 
 import {
-    ClaimModification,
     Modification,
     ModificationUnit,
 } from '../../../../thrift-services/damsel/gen-model/claim_management';
@@ -15,9 +14,7 @@ const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean =>
 const getUnitTimelineAction = (modification: Modification): TimelineAction | null => {
     switch (getUnionKey(modification)) {
         case 'claim_modification':
-            return getClaimModificationTimelineAction(
-                modification.claim_modification as ClaimModification
-            );
+            return getClaimModificationTimelineAction(modification.claim_modification);
         case 'party_modification':
             return TimelineAction.partyModification;
     }
@@ -48,7 +45,7 @@ const acceptTimelineItem = (
     const result = {
         action,
         user_info,
-        created_at: created_at as string,
+        created_at,
         modifications,
     };
     if (acc.length !== 0 && modifications.length !== 0) {

@@ -10,12 +10,12 @@ import { FormBuilder } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import sortBy from 'lodash-es/sortBy';
 import { map, startWith } from 'rxjs/operators';
-import { DomainCacheService } from 'src/app/thrift-services/damsel/domain-cache.service';
-import { PaymentInstitutionObject } from 'src/app/thrift-services/damsel/gen-model/domain';
 
 import { ComponentChanges } from '@cc/app/shared/utils';
 
 import { RoutingRulesService } from '../../../thrift-services';
+import { DomainCacheService } from '../../../thrift-services/damsel/domain-cache.service';
+import { PaymentInstitutionObject } from '../../../thrift-services/damsel/gen-model/domain';
 import { Target } from './types/target';
 import { TargetRuleset } from './types/target-ruleset';
 
@@ -31,7 +31,7 @@ export class TargetRulesetFormComponent implements OnChanges {
     @Input() value: TargetRuleset;
 
     form = this.fb.group({
-        target: Target.paymentInstitution,
+        target: Target.PaymentInstitution,
         paymentInstitution: '',
         mainRulesetRefID: '',
         mainDelegateDescription: 'Main delegate[party]',
@@ -53,11 +53,11 @@ export class TargetRulesetFormComponent implements OnChanges {
             .pipe(startWith(this.form.value.target), untilDestroyed(this))
             .subscribe((target) => {
                 switch (target) {
-                    case Target.manual:
+                    case Target.Manual:
                         this.form.controls.paymentInstitution.disable();
                         this.form.controls.mainRulesetRefID.enable();
                         break;
-                    case Target.paymentInstitution:
+                    case Target.PaymentInstitution:
                         this.form.controls.paymentInstitution.enable();
                         this.form.controls.mainRulesetRefID.disable();
                         break;
@@ -74,12 +74,12 @@ export class TargetRulesetFormComponent implements OnChanges {
                         mainDelegateDescription,
                     }) => ({
                         mainRulesetRefID:
-                            target === Target.paymentInstitution
+                            target === Target.PaymentInstitution
                                 ? (paymentInstitution as PaymentInstitutionObject)?.data
                                       ?.payment_routing_rules?.policies?.id
                                 : mainRulesetRefID,
                         paymentInstitutionRefID:
-                            target === Target.paymentInstitution
+                            target === Target.PaymentInstitution
                                 ? paymentInstitution?.ref?.id
                                 : undefined,
                         mainDelegateDescription,
@@ -103,7 +103,7 @@ export class TargetRulesetFormComponent implements OnChanges {
             this.form.patchValue(
                 Object.assign(
                     {},
-                    !!mainRulesetRefID && { mainRulesetRefID, target: Target.manual },
+                    !!mainRulesetRefID && { mainRulesetRefID, target: Target.Manual },
                     !!mainDelegateDescription && { mainDelegateDescription }
                 )
             );

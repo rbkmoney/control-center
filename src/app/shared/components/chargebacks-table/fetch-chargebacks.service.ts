@@ -7,7 +7,7 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { booleanDelay } from '@cc/utils/boolean-delay';
 
-import { ChargebacksParams, createDSL } from '../../../query-dsl';
+import { ChargebacksParams, createDsl } from '../../../query-dsl';
 import { StatChargeback } from '../../../thrift-services/damsel/gen-model/merch_stat';
 import { MerchantStatisticsService } from '../../../thrift-services/damsel/merchant-statistics.service';
 
@@ -27,7 +27,7 @@ export class FetchChargebacksService extends PartialFetcher<StatChargeback, Char
     ): Observable<FetchResult<StatChargeback>> {
         return this.merchantStatisticsService
             .getChargebacks({
-                dsl: createDSL({
+                dsl: createDsl({
                     chargebacks: Object.assign(
                         pickBy(params, (v) => (Array.isArray(v) ? v.length : v)),
                         !!from_time && { from_time: moment(from_time).utc().format() },

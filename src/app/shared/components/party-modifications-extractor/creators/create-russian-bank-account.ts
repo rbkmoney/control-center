@@ -3,13 +3,13 @@ import { getOr } from '@cc/utils/get-or';
 import { QuestionaryData } from '../../../../thrift-services/ank/gen-model/questionary_manager';
 import { RussianBankAccount } from '../../../../thrift-services/damsel/gen-model/domain';
 
-const path = 'bank_account.russian_bank_account';
+const PATH = 'bank_account.russian_bank_account';
 
 export const createRussianBankAccount = (d: QuestionaryData): RussianBankAccount => {
-    const russianBankAccount = getOr(d, path, null);
+    const russianBankAccount = getOr(d, PATH, null);
     const account = getOr(russianBankAccount, `account`, '');
-    const bank_name = getOr(russianBankAccount, `bank_name`, '');
-    const bank_bik = getOr(russianBankAccount, `bank_bik`, '');
-    const bank_post_account = getOr(russianBankAccount, `bank_post_account`, '');
-    return { account, bank_name, bank_bik, bank_post_account };
+    const bankName = getOr(russianBankAccount, `bank_name`, '');
+    const bankBik = getOr(russianBankAccount, `bank_bik`, '');
+    const bankPostAccount = getOr(russianBankAccount, `bank_post_account`, '');
+    return { account, bank_name: bankName, bank_bik: bankBik, bank_post_account: bankPostAccount };
 };

@@ -9,14 +9,14 @@
         </mat-select>
     </mat-form-field>
     <cc-payout-tool-params
-        *ngIf="selected === t.creation"
-        [form]="form.get(t.creation)"
+        *ngIf="selected === t.Creation"
+        [form]="form.get(t.Creation)"
         [initialValue]="initialValue?.creation?.tool_info"
     >
     </cc-payout-tool-params>
     <cc-payout-tool-info
-        *ngIf="selected === t.infoModification"
-        [form]="form.get(t.infoModification)"
+        *ngIf="selected === t.InfoModification"
+        [form]="form.get(t.InfoModification)"
         [initialValue]="initialValue?.info_modification"
     >
     </cc-payout-tool-info>

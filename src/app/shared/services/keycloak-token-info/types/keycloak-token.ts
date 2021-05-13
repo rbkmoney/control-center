@@ -15,8 +15,8 @@ export interface KeycloakToken {
     nbf: number;
     nonce: string;
     preferred_username: string;
-    realm_access: object;
-    resource_access: object;
+    realm_access: any;
+    resource_access: any;
     scope: string;
     session_state: string;
     sub: string;

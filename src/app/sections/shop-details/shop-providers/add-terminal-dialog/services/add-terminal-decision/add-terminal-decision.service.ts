@@ -21,10 +21,14 @@ import {
 export class AddTerminalDecisionService {
     private add$ = new Subject<{ shopID: ShopID; partyID: PartyID }>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     providerForm = this.prepareForm();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     terminalForm = this.prepareForm();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     terminalAdded$ = this.add$.pipe(
         map((params) => ({
             ...params,
@@ -40,6 +44,7 @@ export class AddTerminalDecisionService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$ = progress(this.add$, merge(this.terminalAdded$, this.error$));
 
     constructor(

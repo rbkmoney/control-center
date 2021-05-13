@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
-import { currencies } from '../constants/currencies';
+import { CURRENCIES } from '../constants/currencies';
 import { SearchParams } from '../types/search-params';
 import { SearchFiltersService } from './services/search-filters/search-filters.service';
 
@@ -39,7 +39,7 @@ export class SearchFiltersComponent implements OnInit {
 
     depositStatuses = ['Pending', 'Succeeded', 'Failed'];
 
-    currencies = currencies;
+    currencies = CURRENCIES;
 
     form = this.searchFiltersService.form;
 

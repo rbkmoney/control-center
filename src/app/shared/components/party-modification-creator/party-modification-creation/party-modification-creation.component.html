@@ -2,14 +2,14 @@
     <mat-form-field fxFlex>
         <input matInput placeholder="Unit ID" formControlName="unitID" required />
     </mat-form-field>
-    <div *ngIf="action.type === actionTypes.contractorAction">
+    <div *ngIf="action.type === actionTypes.ContractorAction">
         <cc-contractor
             *ngIf="action.name === contractorModificationNames.creation"
             [form]="form.get('modification')"
             [initialValue]="modification?.creation"
         ></cc-contractor>
     </div>
-    <div *ngIf="action.type === actionTypes.contractAction">
+    <div *ngIf="action.type === actionTypes.ContractAction">
         <cc-contract-params
             *ngIf="action.name === contractModificationNames.creation"
             [form]="form.get('modification')"
@@ -58,7 +58,7 @@
         >
         </cc-contractor-id>
     </div>
-    <div *ngIf="action.type === actionTypes.shopAction">
+    <div *ngIf="action.type === actionTypes.ShopAction">
         <cc-category-ref
             *ngIf="action.name === shopModificationNames.categoryModification"
             [form]="form.get('modification')"

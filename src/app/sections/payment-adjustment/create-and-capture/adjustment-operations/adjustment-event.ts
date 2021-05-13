@@ -14,13 +14,13 @@ export enum EventType {
 
 export type OperationType = ExecResultType;
 
-export interface AdjustmentOperationEvent<T = {}> {
+export interface AdjustmentOperationEvent<T = any> {
     type: EventType;
     operationType?: OperationType;
     payload?: T[];
 }
 
-export interface OperationFailedPayload<C = {}, S = {}> {
+export interface OperationFailedPayload<C = any, S = any> {
     code: C;
     operationScope: S;
 }

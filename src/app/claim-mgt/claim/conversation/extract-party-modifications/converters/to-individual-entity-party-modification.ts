@@ -5,7 +5,7 @@ import { PartyModification } from '../../../../../thrift-services/damsel/gen-mod
 import { createRussianBankAccount } from '../creators/create-russian-bank-account';
 import { toContractorModification } from './to-contractor-modification';
 
-const path = 'contractor.individual_entity.russian_individual_entity';
+const PATH = 'contractor.individual_entity.russian_individual_entity';
 
 export const toIndividualEntityPartyModification = (
     d: QuestionaryData,
@@ -16,32 +16,32 @@ export const toIndividualEntityPartyModification = (
             creation: {
                 legal_entity: {
                     russian_legal_entity: {
-                        registered_name: getOr(d, `${path}.name`, ''),
+                        registered_name: getOr(d, `${PATH}.name`, ''),
                         registered_number: getOr(
                             d,
-                            `${path}.registration_info.individual_registration_info.ogrnip`,
+                            `${PATH}.registration_info.individual_registration_info.ogrnip`,
                             ''
                         ),
-                        inn: getOr(d, `${path}.inn`, '') || '',
+                        inn: getOr(d, `${PATH}.inn`, '') || '',
                         actual_address: getOr(
                             d,
-                            `${path}.registration_info.individual_registration_info.registration_place`,
+                            `${PATH}.registration_info.individual_registration_info.registration_place`,
                             ''
                         ),
                         post_address: getOr(
                             d,
-                            `${path}.registration_info.individual_registration_info.registration_place`,
+                            `${PATH}.registration_info.individual_registration_info.registration_place`,
                             ''
                         ),
                         representative_position: '',
                         representative_full_name: getOr(
                             d,
-                            `${path}.russian_private_entity.fio`,
+                            `${PATH}.russian_private_entity.fio`,
                             ''
                         ),
                         representative_document: getOr(
                             d,
-                            `${path}.identity_document.russian_domestic_password.series_number`,
+                            `${PATH}.identity_document.russian_domestic_password.series_number`,
                             ''
                         ),
                         russian_bank_account: createRussianBankAccount(d),

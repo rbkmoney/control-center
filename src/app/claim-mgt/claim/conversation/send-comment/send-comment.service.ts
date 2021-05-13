@@ -19,11 +19,15 @@ export class SendCommentService {
     private error$: BehaviorSubject<any> = new BehaviorSubject({ hasError: false });
     private sendComment$: Subject<string> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form: FormGroup;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     conversationSaved$: Observable<ConversationId> = this.conversationId$.pipe(
         filter((id) => !!id)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$: Observable<boolean> = progress(
         this.sendComment$,
         merge(this.conversationId$, this.error$)
@@ -45,14 +49,14 @@ export class SendCommentService {
                 switchMap((text) => {
                     const { name, email, sub } = this.keycloakTokenInfoService.decodedUserToken;
                     const user: User = { fullname: name, email, user_id: sub };
-                    const conversation_id = uuid();
+                    const conversationId = uuid();
                     const conversation = createSingleMessageConversationParams(
-                        conversation_id,
+                        conversationId,
                         text,
                         sub
                     );
                     return forkJoin([
-                        of(conversation_id),
+                        of(conversationId),
                         this.messagesService.saveConversations([conversation], user).pipe(
                             catchError((ex) => {
                                 console.error(ex);
@@ -70,8 +74,8 @@ export class SendCommentService {
                 }),
                 filter(([, res]) => get(res, ['hasError']) !== true)
             )
-            .subscribe(([conversation_id]) => {
-                this.conversationId$.next(conversation_id);
+            .subscribe(([conversationId]) => {
+                this.conversationId$.next(conversationId);
                 this.form.reset();
             });
     }

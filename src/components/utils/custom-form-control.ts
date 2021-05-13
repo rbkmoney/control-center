@@ -33,7 +33,6 @@ import { InputMixinBase } from './input-base';
 // eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({ selector: 'cc-custom-form-control' })
 /* eslint-disable @angular-eslint/no-conflicting-lifecycle */
-// eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
     implements
@@ -46,11 +45,15 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
 
+    @Input()
+    placeholder: string;
+
     readonly stateChanges: Subject<void> = new Subject<void>();
-
     controlType = 'text';
-
     autofilled = false;
+    formControl = new FormControl();
+    autocompleteOrigin: MatAutocompleteOrigin;
+    monitorsRegistered = false;
 
     protected _disabled = false;
     @Input()
@@ -80,9 +83,6 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
     set id(value: string) {
         this._id = value || `custom-input-${uuid()}`;
     }
-
-    @Input()
-    placeholder: string;
 
     protected _required = false;
     @Input()
@@ -120,6 +120,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         return this.focused || !this.empty;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inputRef = new ElementRef<HTMLInputElement>(null);
 
     get empty(): boolean {
@@ -134,12 +135,6 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         this._focused = value;
         this.stateChanges.next();
     }
-
-    formControl = new FormControl();
-    autocompleteOrigin: MatAutocompleteOrigin;
-    monitorsRegistered = false;
-
-    private _onTouched = () => null;
 
     constructor(
         private focusMonitor: FocusMonitor,
@@ -210,23 +205,6 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         this._onTouched();
     }
 
-    private registerMonitors() {
-        if (!this.monitorsRegistered && this.inputRef.nativeElement) {
-            this.monitorsRegistered = true;
-            if (this.platform.isBrowser) {
-                this.autofillMonitor.monitor(this.inputRef).subscribe((event) => {
-                    this.autofilled = event.isAutofilled;
-                    this.stateChanges.next();
-                });
-            }
-            this.focusMonitor
-                .monitor(this.elementRef.nativeElement, true)
-                .subscribe((focusOrigin) => {
-                    this.focused = !!focusOrigin;
-                });
-        }
-    }
-
     setDescribedByIds(ids: string[]): void {
         this._ariaDescribedby = ids.join(' ');
     }
@@ -262,5 +240,24 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
 
     protected toPublicValue(value: I): P {
         return value as any;
+    }
+
+    private _onTouched = () => null;
+
+    private registerMonitors() {
+        if (!this.monitorsRegistered && this.inputRef.nativeElement) {
+            this.monitorsRegistered = true;
+            if (this.platform.isBrowser) {
+                this.autofillMonitor.monitor(this.inputRef).subscribe((event) => {
+                    this.autofilled = event.isAutofilled;
+                    this.stateChanges.next();
+                });
+            }
+            this.focusMonitor
+                .monitor(this.elementRef.nativeElement, true)
+                .subscribe((focusOrigin) => {
+                    this.focused = !!focusOrigin;
+                });
+        }
     }
 }

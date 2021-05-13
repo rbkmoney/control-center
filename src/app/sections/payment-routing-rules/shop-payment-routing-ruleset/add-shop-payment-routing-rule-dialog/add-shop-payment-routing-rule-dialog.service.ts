@@ -9,8 +9,8 @@ import { Predicate } from '../../../../thrift-services/damsel/gen-model/domain';
 import { AddShopPaymentRoutingRuleDialogComponent } from './add-shop-payment-routing-rule-dialog.component';
 
 export enum TerminalType {
-    new = 'new',
-    existent = 'existent',
+    New = 'new',
+    Existent = 'existent',
 }
 
 @Injectable()
@@ -46,11 +46,11 @@ export class AddShopPaymentRoutingRuleDialogService {
             .subscribe((type) => {
                 const { newTerminal, existentTerminalID } = this.form.controls;
                 switch (type) {
-                    case TerminalType.new:
+                    case TerminalType.New:
                         newTerminal.enable();
                         existentTerminalID.disable();
                         return;
-                    case TerminalType.existent:
+                    case TerminalType.Existent:
                         newTerminal.disable();
                         existentTerminalID.enable();
                         return;
@@ -71,7 +71,7 @@ export class AddShopPaymentRoutingRuleDialogService {
             existentTerminalID,
             newTerminal,
         } = this.form.value;
-        (terminalType === TerminalType.new
+        (terminalType === TerminalType.New
             ? this.terminalService.createTerminal({
                   terminalName: newTerminal.name,
                   terminalDescription: newTerminal.description,
@@ -96,15 +96,15 @@ export class AddShopPaymentRoutingRuleDialogService {
             .subscribe(() => this.dialogRef.close());
     }
 
-    private createOption() {
-        return this.fb.group({ key: ['', Validators.required], value: ['', Validators.required] });
-    }
-
     addOption() {
         this.newTerminalOptionsForm.push(this.createOption());
     }
 
     removeOption(idx: number) {
         this.newTerminalOptionsForm.removeAt(idx);
+    }
+
+    private createOption() {
+        return this.fb.group({ key: ['', Validators.required], value: ['', Validators.required] });
     }
 }

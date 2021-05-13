@@ -5,7 +5,7 @@ import { getUnionKey } from '@cc/utils/get-union-key';
 @Pipe({
     name: 'ccUnionKey',
 })
-export class UnionKeyPipe<T extends object> implements PipeTransform {
+export class UnionKeyPipe<T> implements PipeTransform {
     public transform(union: T) {
         return getUnionKey(union);
     }

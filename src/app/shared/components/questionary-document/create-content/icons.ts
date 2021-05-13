@@ -1,6 +1,6 @@
 import { createIcons } from './create-icons';
 
-export const icons = createIcons({
+export const ICONS = createIcons({
     checkSquare: '',
     square: '',
 });
