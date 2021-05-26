@@ -16,7 +16,7 @@ export class PaymentInstitutionIdComponent implements OnInit {
 
     constructor(private fb: FormBuilder) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.form.registerControl('payment_institution', this.fb.group({}));
         this.form.updateValueAndValidity();
     }
