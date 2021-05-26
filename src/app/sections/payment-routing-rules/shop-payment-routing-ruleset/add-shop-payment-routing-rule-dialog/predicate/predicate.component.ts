@@ -15,7 +15,7 @@ import {
     LegacyBankCardPaymentSystem,
     LegacyBankCardTokenProvider,
     Predicate,
-    Residence,
+    CountryCode,
     TokenizationMethod,
 } from '../../../../../thrift-services/damsel/gen-model/domain';
 
@@ -175,7 +175,7 @@ export class PredicateComponent implements OnChanges {
         this.paymentSystems$ = this.getFilteredKeys(paymentSystem, LegacyBankCardPaymentSystem);
         this.tokenProviders$ = this.getFilteredKeys(tokenProvider, LegacyBankCardTokenProvider);
         this.tokenizationMethods$ = this.getFilteredKeys(tokenizationMethod, TokenizationMethod);
-        this.residences$ = this.getFilteredKeys(residence, Residence);
+        this.residences$ = this.getFilteredKeys(residence, CountryCode);
     }
 
     private createForm() {
@@ -187,7 +187,7 @@ export class PredicateComponent implements OnChanges {
                     type: [PaymentToolType.bankCard, Validators.required],
                     bankCard: this.fb.group({
                         type: ['', Validators.required],
-                        residence: ['', [Validators.required, this.enumValidator(Residence)]],
+                        residence: ['', [Validators.required, this.enumValidator(CountryCode)]],
                         paymentSystem: [
                             '',
                             [Validators.required, this.enumValidator(LegacyBankCardPaymentSystem)],
@@ -236,7 +236,7 @@ export class PredicateComponent implements OnChanges {
     private bankCardValueToBankCardConditionDefinition(value: any): BankCardConditionDefinition {
         switch (value.type) {
             case BankCardType.issuerCountryIs:
-                return { issuer_country_is: Residence[value.residence as string] };
+                return { issuer_country_is: CountryCode[value.residence as string] };
             case BankCardType.paymentSystem:
                 return {
                     payment_system: {
