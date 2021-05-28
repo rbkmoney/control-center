@@ -21,7 +21,7 @@ export class PartiesTableComponent {
     partyActions = Object.keys(PartyActions);
     displayedColumns = ['email', 'id', 'actions'];
 
-    menuItemSelected(action: string, partyID: PartyID) {
+    menuItemSelected(action: string, partyID: PartyID): void {
         switch (action) {
             case PartyActions.NavigateToParty:
                 this.menuItemSelected$.emit({ action, partyID });
