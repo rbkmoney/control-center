@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { DominantCacheService } from '@cc/app/api/dominant-cache';
+
 import { InternationalLegalEntity } from '../../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
@@ -14,7 +16,7 @@ export class InternationalLegalEntityComponent implements OnInit {
     @Input()
     initialValue: InternationalLegalEntity;
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private dominantCacheService: DominantCacheService) {}
 
     ngOnInit() {
         this.form.registerControl('legal_name', this.fb.control('', Validators.required));
@@ -24,5 +26,7 @@ export class InternationalLegalEntityComponent implements OnInit {
         this.form.registerControl('actual_address', this.fb.control(''));
         this.form.registerControl('registered_number', this.fb.control(''));
         this.form.updateValueAndValidity();
+
+        this.dominantCacheService.getCountries().subscribe((x) => console.log('Domain cache', x));
     }
 }

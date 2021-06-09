@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 
+import { DominantCacheModule } from '@cc/app/api/dominant-cache';
+
 import {
     BusinessScheduleRefComponent,
     BusinessScheduleSelectorComponent,
@@ -117,6 +119,7 @@ const DECLARED_COMPONENTS_TO_WITH_EXPORT = [
         MatDatepickerModule,
         MatProgressBarModule,
         MatDividerModule,
+        DominantCacheModule,
     ],
     exports: [DECLARED_COMPONENTS_TO_WITH_EXPORT],
 })
