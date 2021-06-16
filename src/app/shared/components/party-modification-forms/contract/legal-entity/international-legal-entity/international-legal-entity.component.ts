@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import isNil from 'lodash-es/isNil';
 import { map } from 'rxjs/operators';
 
-import * as domain_types from '@cc/app/api/damsel/domain-config/gen-nodejs/domain_types';
+import { CountryRef } from '@cc/app/api/damsel/domain-config/gen-nodejs/domain_types';
 import { CountryCode } from '@cc/app/api/damsel/gen-model/domain';
 
 import { InternationalLegalEntity } from '../../../../../../thrift-services/damsel/gen-model/domain';
@@ -32,7 +32,7 @@ export class InternationalLegalEntityComponent implements OnInit {
             .pipe(
                 map((value: string) => {
                     const id: number = CountryCode[value] as number;
-                    return isNil(id) ? null : new domain_types.CountryRef({ id });
+                    return isNil(id) ? null : new CountryRef({ id });
                 })
             )
             .subscribe((country) => {
