@@ -31,7 +31,7 @@ export class InternationalLegalEntityComponent implements OnInit {
             .pipe(
                 map((value: string) => {
                     const id: number = CountryCode[value] as number;
-                    return (id !== null && id !== undefined) ? null : new CountryRef({ id });
+                    return id !== null && id !== undefined ? null : new CountryRef({ id });
                 })
             )
             .subscribe((country) => {
