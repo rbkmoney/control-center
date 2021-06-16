@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import isNil from 'lodash-es/isNil';
 import { map } from 'rxjs/operators';
 
 import { CountryRef } from '@cc/app/api/damsel/domain-config/gen-nodejs/domain_types';
@@ -31,7 +32,7 @@ export class InternationalLegalEntityComponent implements OnInit {
             .pipe(
                 map((value: string) => {
                     const id: number = CountryCode[value] as number;
-                    return id !== null && id !== undefined ? null : new CountryRef({ id });
+                    return isNil(id) ? null : new CountryRef({ id });
                 })
             )
             .subscribe((country) => {
