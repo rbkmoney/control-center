@@ -28,7 +28,7 @@ export class LegalEntityComponent implements OnInit {
 
     constructor(private fb: FormBuilder) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         const russianLegalEntity = get(this, 'initialValue.russian_legal_entity', null);
         const internationalLegalEntity = get(this, 'initialValue.international_legal_entity', null);
         if (russianLegalEntity) {
@@ -41,7 +41,7 @@ export class LegalEntityComponent implements OnInit {
         }
     }
 
-    select() {
+    select(): void {
         switch (this.selected) {
             case Type.RussianLegalEntity:
                 this.form.removeControl(Type.InternationalLegalEntity);

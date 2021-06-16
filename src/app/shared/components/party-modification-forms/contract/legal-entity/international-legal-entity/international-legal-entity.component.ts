@@ -1,11 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import isNil from 'lodash-es/isNil';
+import { map } from 'rxjs/operators';
+
+import * as domain_types from '@cc/app/api/damsel/domain-config/gen-nodejs/domain_types';
+import { CountryCode } from '@cc/app/api/damsel/gen-model/domain';
 
 import { InternationalLegalEntity } from '../../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
     selector: 'cc-international-legal-entity',
     templateUrl: 'international-legal-entity.component.html',
+    styleUrls: ['international-legal-entity.component.scss'],
 })
 export class InternationalLegalEntityComponent implements OnInit {
     @Input()
@@ -14,11 +20,30 @@ export class InternationalLegalEntityComponent implements OnInit {
     @Input()
     initialValue: InternationalLegalEntity;
 
+    countryControl = new FormControl();
+
     constructor(private fb: FormBuilder) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
+        if (this.initialValue?.country) {
+            this.countryControl.setValue(CountryCode[this.initialValue.country.id]);
+        }
+        this.countryControl.valueChanges
+            .pipe(
+                map((value: string) => {
+                    const id: number = CountryCode[value] as number;
+                    return isNil(id) ? null : new domain_types.CountryRef({ id });
+                })
+            )
+            .subscribe((country) => {
+                this.form.patchValue({ country });
+            });
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         this.form.registerControl('legal_name', this.fb.control('', Validators.required));
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         this.form.registerControl('registered_address', this.fb.control('', Validators.required));
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        this.form.registerControl('country', this.fb.control(null, [Validators.required]));
 
         this.form.registerControl('trading_name', this.fb.control(''));
         this.form.registerControl('actual_address', this.fb.control(''));
