@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { prepareModificationsToBackend } from '@cc/app/shared/components/party-modification-creator/create-modification-dialog/prepare-modifications-to-backend';
+
 import {
     ContractModificationUnit,
     ContractorModificationUnit,
@@ -107,7 +109,9 @@ export class CreateModificationDialogComponent implements OnInit {
     }
 
     private addChange() {
-        this.partyModificationEmitter.modificationCreated(this.values);
+        this.partyModificationEmitter.modificationCreated(
+            prepareModificationsToBackend(this.values)
+        );
         this.dialogRef.close();
     }
 }
