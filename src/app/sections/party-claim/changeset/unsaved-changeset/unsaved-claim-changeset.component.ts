@@ -63,11 +63,11 @@ export class UnsavedClaimChangesetComponent implements OnInit {
         return index;
     }
 
-    save() {
+    save(): void {
         this.unsavedClaimChangesetService.save(this.partyID, this.claimID);
     }
 
-    menuItemSelected($event: MenuConfigItem, i: number) {
+    menuItemSelected($event: MenuConfigItem, i: number): void {
         switch ($event.action) {
             case MenuConfigAction.removeUnsavedItem:
                 this.unsavedClaimChangesetService.remove(i);

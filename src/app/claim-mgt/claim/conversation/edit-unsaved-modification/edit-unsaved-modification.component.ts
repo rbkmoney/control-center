@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { prepareModificationsToBackend } from '@cc/app/shared/components/party-modification-creator/create-modification-dialog/prepare-modifications-to-backend';
 import { getUnionKey } from '@cc/utils/get-union-key';
 
 import { PartyModification } from '../../../../thrift-services/damsel/gen-model/claim_management';
@@ -27,7 +28,9 @@ export class EditUnsavedModificationComponent {
             [this.modType]: {
                 id: this.mod[this.modType].id,
                 modification: {
-                    [getUnionKey(this.mod[this.modType].modification)]: this.form.value,
+                    [getUnionKey(
+                        this.mod[this.modType].modification
+                    )]: prepareModificationsToBackend(this.form.value),
                 },
             },
         });
