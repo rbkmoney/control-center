@@ -17,11 +17,8 @@ export class InternationalLegalEntityComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
         this.form.registerControl('legal_name', this.fb.control('', Validators.required));
-        // eslint-disable-next-line @typescript-eslint/unbound-method
         this.form.registerControl('registered_address', this.fb.control('', Validators.required));
-        // eslint-disable-next-line @typescript-eslint/unbound-method
         this.form.registerControl(
             'country',
             this.fb.control('', [Validators.required, Validators.pattern(/^[A-Z]{3}$/)])
