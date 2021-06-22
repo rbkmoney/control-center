@@ -7,6 +7,8 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import identity from 'lodash-es/identity';
+import pickBy from 'lodash-es/pickBy';
 import { merge, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith, tap } from 'rxjs/operators';
 
@@ -239,19 +241,27 @@ export class PredicateComponent implements OnChanges {
                 return { issuer_country_is: CountryCode[value.residence as string] };
             case BankCardType.paymentSystem:
                 return {
-                    payment_system: {
-                        tokenization_method_is:
-                            TokenizationMethod[value.tokenizationMethod as string],
+                    payment_system: pickBy(
+                        {
+                            tokenization_method_is:
+                                TokenizationMethod[value.tokenizationMethod as string],
 
-                        // TODO Need migration according to: https://github.com/rbkmoney/damsel/commit/61677b86006d405619bdc5f23d6416a929688180
-                        payment_system_is_deprecated:
-                            LegacyBankCardPaymentSystem[value.paymentSystem as string],
-                        token_provider_is_deprecated:
-                            LegacyBankCardTokenProvider[value.tokenProvider as string],
-                    },
+                            // TODO Need migration according to: https://github.com/rbkmoney/damsel/commit/61677b86006d405619bdc5f23d6416a929688180
+                            payment_system_is_deprecated:
+                                LegacyBankCardPaymentSystem[value.paymentSystem as string],
+                            token_provider_is_deprecated:
+                                LegacyBankCardTokenProvider[value.tokenProvider as string],
+                        },
+                        identity
+                    ),
                 };
             case BankCardType.paymentSystemIs:
-                return { payment_system_is: value.paymentSystem };
+                return {
+                    payment_system_is:
+                        LegacyBankCardPaymentSystem[
+                            value.paymentSystem as keyof LegacyBankCardPaymentSystem
+                        ],
+                };
         }
     }
 
