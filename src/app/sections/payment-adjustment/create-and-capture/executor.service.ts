@@ -5,8 +5,8 @@ import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 export enum ExecResultType {
-    Success = 'Success',
-    Error = 'Error',
+    Success = 'success',
+    Error = 'error',
 }
 
 export interface ExecResult {
