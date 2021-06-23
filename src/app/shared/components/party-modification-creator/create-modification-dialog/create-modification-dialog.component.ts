@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { prepareModificationsToBackend } from '@cc/app/shared/components/party-modification-creator/create-modification-dialog/prepare-modifications-to-backend';
+
 import {
     ContractModificationUnit,
     ContractorModificationUnit,
@@ -51,7 +53,7 @@ export class CreateModificationDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: CreateModificationData
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (this.data.unitID) {
             this.unitID = this.data.unitID;
             this.currentStep = Step.FillInModification;
@@ -62,19 +64,19 @@ export class CreateModificationDialogComponent implements OnInit {
         this.initialized = true;
     }
 
-    valueChanges(e: any) {
+    valueChanges(e: any): void {
         this.values = e;
     }
 
-    unitIDChange(unitID: string) {
+    unitIDChange(unitID: string): void {
         this.unitID = unitID;
     }
 
-    statusChanges(status: string) {
+    statusChanges(status: string): void {
         this.valid = status === 'VALID';
     }
 
-    apply() {
+    apply(): void {
         switch (this.data.action.type) {
             case ActionType.ShopAction:
             case ActionType.ContractAction:
@@ -107,7 +109,9 @@ export class CreateModificationDialogComponent implements OnInit {
     }
 
     private addChange() {
-        this.partyModificationEmitter.modificationCreated(this.values);
+        this.partyModificationEmitter.modificationCreated(
+            prepareModificationsToBackend(this.values)
+        );
         this.dialogRef.close();
     }
 }
