@@ -32,10 +32,11 @@
                 <button mat-menu-item (click)="navigateToClaim(claim.party_id, claim.id)">
                     Details
                 </button>
-                <button mat-menu-item (click)="navigateToClaimDeprecated(claim.party_id, claim.id)">
+                <!-- FR-688 
+                    <button mat-menu-item (click)="navigateToClaimDeprecated(claim.party_id, claim.id)">
                     Deprecated details
-                </button>
-                <button mat-menu-item (click)="navigateToParty(claim.party_id)">
+                </button> -->
+                <button mat-menu-item (click)="navigateToPartyClaims(claim.party_id)">
                     Party claims
                 </button>
             </mat-menu>

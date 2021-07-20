@@ -5,6 +5,9 @@ import { AppAuthGuardService, ClaimManagementRole } from '@cc/app/shared/service
 
 import { ClaimsComponent } from './claims.component';
 
+/**
+ * @deprecated FR-688
+ */
 @NgModule({
     imports: [
         RouterModule.forChild([

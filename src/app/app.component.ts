@@ -42,11 +42,12 @@ export class AppComponent implements OnInit {
         const menuItems = [
             { name: 'Domain config', route: '/domain', activateRoles: [DomainConfigRole.Checkout] },
             { name: 'Payouts', route: '/payouts', activateRoles: [PayoutRole.Read] },
-            {
-                name: 'Claims-Deprecated',
-                route: '/claims-deprecated',
-                activateRoles: [ClaimManagementRole.GetClaims],
-            },
+            // FR-688
+            // {
+            //     name: 'Claims-Deprecated',
+            //     route: '/claims-deprecated',
+            //     activateRoles: [ClaimManagementRole.GetClaims],
+            // },
             { name: 'Claims', route: '/claims', activateRoles: [ClaimManagementRole.GetClaims] },
             {
                 name: 'Payment adjustment',
