@@ -22,7 +22,8 @@ export class ClaimsTableComponent {
         this.router.navigate([`/party/${partyID}/claim/${claimID}`]);
     }
 
-    navigateToDeprecatedClaim(partyID: PartyID, claimID: ClaimID) {
-        this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
-    }
+    // FR-688
+    // navigateToDeprecatedClaim(partyID: PartyID, claimID: ClaimID) {
+    //     this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
+    // }
 }

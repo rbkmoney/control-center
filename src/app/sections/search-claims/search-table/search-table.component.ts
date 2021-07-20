@@ -16,12 +16,13 @@ export class SearchTableComponent {
 
     constructor(private router: Router) {}
 
-    navigateToClaimDeprecated(partyID: string, claimID: number) {
-        this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
-    }
+    // FR-688
+    // navigateToClaimDeprecated(partyID: string, claimID: number) {
+    //     this.router.navigate([`/claim-mgt/party/${partyID}/claim/${claimID}`]);
+    // }
 
-    navigateToParty(partyId: string) {
-        this.router.navigate([`/party/${partyId}`]);
+    navigateToPartyClaims(partyId: string) {
+        this.router.navigate([`/party/${partyId}/claims`]);
     }
 
     navigateToClaim(partyId: string, claimID: number) {

@@ -21,6 +21,9 @@ import { ConversationModule } from './conversation/conversation.module';
 import { DetailsComponent } from './details/details.component';
 import { StatusChangerComponent } from './status-changer/status-changer.component';
 
+/**
+ * @deprecated FR-688
+ */
 @NgModule({
     imports: [
         ClaimRoutingModule,
