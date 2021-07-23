@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 import { AppAuthGuardService, DepositRole } from '@cc/app/shared/services';
@@ -32,8 +30,6 @@ export class RevertsComponent implements OnInit {
 
     constructor(
         private fetchRevertsService: FetchRevertsService,
-        private route: ActivatedRoute,
-        private snackBar: MatSnackBar,
         private dialog: MatDialog,
         private authGuardService: AppAuthGuardService
     ) {}
