@@ -5,12 +5,12 @@ import { map } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
 
-import { SearchFormParams } from '../../deposits/search-form/search-form-params';
 import { KeycloakTokenInfoService } from '../../keycloak-token-info.service';
 import { createDsl, QueryDsl } from '../../query-dsl';
 import { DepositRevertParams } from '../../query-dsl/deposit-revert';
 import { SEARCH_LIMIT, SMALL_SEARCH_LIMIT } from '../../tokens';
 import { ThriftService } from '../services/thrift/thrift-service';
+import { DepositParams } from './deposit-params';
 import { StatDeposit, StatRequest, StatResponse } from './gen-model/fistful_stat';
 import { StatRequest as ThriftStatRequest } from './gen-nodejs/fistful_stat_types';
 import * as FistfulStatistics from './gen-nodejs/FistfulStatistics';
@@ -27,7 +27,7 @@ export class FistfulStatisticsService extends ThriftService {
     }
 
     getDeposits(
-        params: SearchFormParams,
+        params: DepositParams,
         continuationToken?: string
     ): Observable<FetchResult<StatDeposit>> {
         const request: StatRequest = this.depositParamsToRequest(params, continuationToken);
@@ -47,10 +47,7 @@ export class FistfulStatisticsService extends ThriftService {
         return this.toObservableAction('GetDepositReverts')(new ThriftStatRequest(request));
     }
 
-    private depositParamsToRequest(
-        params: SearchFormParams,
-        continuationToken?: string
-    ): StatRequest {
+    private depositParamsToRequest(params: DepositParams, continuationToken?: string): StatRequest {
         const {
             fromTime,
             toTime,
