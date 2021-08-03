@@ -4,7 +4,7 @@
 
 ```sh
 make wc_shell
-make compile
+npm run compile
 ```
 
 ## Запуск Sonar'a

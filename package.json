@@ -2,6 +2,7 @@
   "name": "control-center",
   "version": "0.0.0",
   "scripts": {
+    "postinstall": "ngcc",
     "start": "ng serve --proxy-config proxy.conf.json --port 7000",
     "build": "ng build --prod",
     "test": "ng test",
@@ -15,7 +16,9 @@
     "e2e": "ng e2e",
     "compile-thrift-deprecated": "ts-node --project tools/tsconfig.json tools/compile-thrift-deprecated",
     "compile-thrift": "ts-node --project tools/tsconfig.json tools/compile-thrift",
-    "postinstall": "ngcc"
+    "compile": "npm run parallel-cmd -- --names THRIFT,THRIFT_DEP \"npm run compile-thrift\" \"npm run compile-thrift-deprecated\"",
+    "ci:build": "npm run parallel-cmd -- --names PRETTIER,LINT,BUILD \"npm run prettier\" \"npm run lint-errors\" \"npm run build\"",
+    "parallel-cmd": "concurrently --kill-others-on-fail --prefix-colors magenta,green,red,yellow,blue"
   },
   "private": true,
   "dependencies": {
@@ -87,6 +90,7 @@
     "@typescript-eslint/parser": "~4.22.0",
     "chalk": "^4.1.0",
     "codelyzer": "^6.0.0",
+    "concurrently": "^6.2.0",
     "del": "^5.1.0",
     "eslint": "^7.25.0",
     "glob": "^7.1.6",
@@ -98,7 +102,6 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "npm-run-all": "^4.1.5",
     "prettier": "~2.0.4",
     "protractor": "~7.0.0",
     "ts-mockito": "^2.6.1",
