@@ -17,7 +17,7 @@ REGISTRY ?= dr2.rbkmoney.com
 BASE_IMAGE_NAME := service-fe
 BASE_IMAGE_TAG := 647d66a59ba89ea42b326ca5156f5d1e1395febc
 
-BUILD_IMAGE_TAG := 917afcdd0c0a07bf4155d597bbba72e962e1a34a
+BUILD_IMAGE_TAG := 25c031edd46040a8745334570940a0f0b2154c5c
 
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'
@@ -38,17 +38,10 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-init: install compile lint
-
-install:
-	echo -e "//npm.pkg.github.com/:_authToken=$(NPM_TOKEN)" >> .npmrc
+init:
+ 	echo -e "//npm.pkg.github.com/:_authToken=$(NPM_TOKEN)" >> .npmrc
 	npm ci
-
-compile:
-	npx run-p --aggregate-output --print-label compile-thrift compile-thrift-deprecated
-
-lint:
-	npx run-p --aggregate-output --print-label prettier lint-errors
+	npm run compile
 
 build:
-	npm run build
+	npm run ci:build
