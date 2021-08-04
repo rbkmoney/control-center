@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
     templateUrl: './pretty-json.component.html',
     styles: [
         `
-            :host /deep/ * {
+            :host ::deep * {
                 font-family: Menlo, Monaco, 'Courier New', monospace;
                 font-weight: normal;
                 font-size: 12px;
@@ -13,23 +13,23 @@ import { Component, Input } from '@angular/core';
                 letter-spacing: 0px;
             }
 
-            :host /deep/ .string {
+            :host ::deep .string {
                 color: #0451a5;
             }
 
-            :host /deep/ .number {
+            :host ::deep .number {
                 color: #09885a;
             }
 
-            :host /deep/ .boolean {
+            :host ::deep .boolean {
                 color: #0451a5;
             }
 
-            :host /deep/ .null {
+            :host ::deep .null {
                 color: #0451a5;
             }
 
-            :host /deep/ .key {
+            :host ::deep .key {
                 color: #a31515;
             }
 
