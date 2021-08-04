@@ -16,6 +16,7 @@
         "lib": ["esnext", "dom"],
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
+        "skipLibCheck": false,
         "paths": {
             "@cc/components/*": ["src/components/*"],
             "@cc/utils/*": ["src/utils/*"],

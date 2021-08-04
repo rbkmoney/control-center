@@ -15,7 +15,7 @@ export class ConfigService {
         return new Promise((resolve) => {
             this.http.get<AppConfig>('assets/appConfig.json').subscribe((config) => {
                 this.config = config;
-                resolve();
+                resolve(undefined);
             });
         });
     }
