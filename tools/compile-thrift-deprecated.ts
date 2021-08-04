@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as config from '../thrift-config.json';
 
 const ROOT_DIR = path.join(__dirname, '..');
-const THRIFT_PATH = 'woody_js/dist/thrift';
+const THRIFT_PATH = '@rbkmoney/woody_js/dist/thrift';
 
 const OUTPUT_PATH = './src/app/thrift-services';
 const GEN_MODEL_DIR = 'gen-model';
