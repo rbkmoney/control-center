@@ -1,9 +1,9 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin cc-payment-routing-rules-theme($theme) {
     $foreground: map-get($theme, foreground);
 
     .cc-payment-routing-rules-caption {
-        color: mat-color($foreground, secondary-text);
+        color: mat.get-color-from-palette($foreground, secondary-text);
     }
 }

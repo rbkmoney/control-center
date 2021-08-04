@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin cc-timeline-item-badge-theme($theme) {
     $blue: map-get($theme, blue);
@@ -9,7 +9,7 @@
     $neutral: map-get($theme, neutral);
 
     .cc-timeline-item-badge {
-        background-color: mat-color($neutral, 200);
+        background-color: mat.get-color-from-palette($neutral, 200);
 
         &.primary {
             background-color: $blue;

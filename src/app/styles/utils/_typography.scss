@@ -1,20 +1,20 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @function cc-typography-config(
     $font-family: 'Roboto, "Helvetica Neue", sans-serif',
-    $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
-    $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
-    $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
-    $display-1: mat-typography-level(34px, 40px, 400),
-    $headline: mat-typography-level(24px, 32px, 400),
-    $title: mat-typography-level(20px, 32px, 500),
-    $subheading-2: mat-typography-level(16px, 28px, 400),
-    $subheading-1: mat-typography-level(15px, 24px, 400),
-    $body-2: mat-typography-level(14px, 24px, 500),
-    $body-1: mat-typography-level(14px, 20px, 400),
-    $caption: mat-typography-level(12px, 20px, 400),
-    $button: mat-typography-level(14px, 14px, 500),
-    $input: mat-typography-level(14px, 1.15, 400)
+    $display-4: mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+    $display-3: mat.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
+    $display-2: mat.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
+    $display-1: mat.define-typography-level(34px, 40px, 400),
+    $headline: mat.define-typography-level(24px, 32px, 400),
+    $title: mat.define-typography-level(20px, 32px, 500),
+    $subheading-2: mat.define-typography-level(16px, 28px, 400),
+    $subheading-1: mat.define-typography-level(15px, 24px, 400),
+    $body-2: mat.define-typography-level(14px, 24px, 500),
+    $body-1: mat.define-typography-level(14px, 20px, 400),
+    $caption: mat.define-typography-level(12px, 20px, 400),
+    $button: mat.define-typography-level(14px, 14px, 500),
+    $input: mat.define-typography-level(14px, 1.15, 400)
 ) {
     // Declare an initial map with all of the levels.
     $config: (
@@ -72,35 +72,35 @@
 @mixin cc-base-typography($config, $selector: '.cc-typography') {
     .cc-headline,
     #{$selector} h1 {
-        @include mat-typography-level-to-styles($config, headline);
+        @include mat.typography-level($config, headline);
         margin: 0;
     }
 
     .cc-title,
     #{$selector} h2 {
-        @include mat-typography-level-to-styles($config, title);
+        @include mat.typography-level($config, title);
         margin: 0;
     }
 
     .cc-subheading-2,
     #{$selector} h3 {
-        @include mat-typography-level-to-styles($config, subheading-2);
+        @include mat.typography-level($config, subheading-2);
         margin: 0;
     }
 
     .cc-subheading-1,
     #{$selector} h4 {
-        @include mat-typography-level-to-styles($config, subheading-1);
+        @include mat.typography-level($config, subheading-1);
         margin: 0;
     }
 
     .cc-body-2 {
-        @include mat-typography-level-to-styles($config, body-2);
+        @include mat.typography-level($config, body-2);
     }
 
     .cc-body-1,
     #{$selector} {
-        @include mat-typography-level-to-styles($config, body-1);
+        @include mat.typography-level($config, body-1);
 
         p {
             margin: 0;
@@ -108,29 +108,29 @@
     }
 
     .cc-caption {
-        @include mat-typography-level-to-styles($config, caption);
+        @include mat.typography-level($config, caption);
     }
 
     .cc-display-4,
     #{$selector} .cc-display-4 {
-        @include mat-typography-level-to-styles($config, display-4);
+        @include mat.typography-level($config, display-4);
         margin: 0;
     }
 
     #{$selector} .cc-display-3 {
-        @include mat-typography-level-to-styles($config, display-3);
+        @include mat.typography-level($config, display-3);
         margin: 0;
     }
 
     .cc-display-2,
     #{$selector} .cc-display-2 {
-        @include mat-typography-level-to-styles($config, display-2);
+        @include mat.typography-level($config, display-2);
         margin: 0;
     }
 
     .cc-display-1,
     #{$selector} .cc-display-1 {
-        @include mat-typography-level-to-styles($config, display-1);
+        @include mat.typography-level($config, display-1);
         margin: 0;
     }
 }

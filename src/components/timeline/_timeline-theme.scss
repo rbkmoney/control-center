@@ -1,8 +1,9 @@
+@use '~@angular/material' as mat;
 @import './timeline-item/timeline-item-badge/timeline-item-badge-theme';
 
 @mixin cc-timeline-theme($theme) {
     $neutral: map-get($theme, neutral);
-    $line-color: mat-color($neutral, 200);
+    $line-color: mat.get-color-from-palette($neutral, 200);
 
     .cc-timeline {
         border-bottom-color: $line-color;

@@ -1,32 +1,32 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import '../utils/palette';
 @import './theme';
 
 body.light {
-    background-color: mat-color($mat-gray, 50);
+    background-color: mat.get-color-from-palette(mat.$gray-palette, 50);
 }
 
 $theme: (
-    primary: mat-palette($mat-indigo),
-    accent: mat-palette($mat-pink),
-    warn: mat-palette($mat-red),
+    primary: mat.define-palette(mat.$indigo-palette),
+    accent: mat.define-palette(mat.$pink-palette),
+    warn: mat.define-palette(mat.$red-palette),
     is-dark: false,
-    foreground: $mat-light-theme-foreground,
-    background: $mat-light-theme-background,
+    foreground: mat.$light-theme-foreground-palette,
+    background: mat.$light-theme-background-palette,
     /*
 * Custom
 *
 */ name: 'light',
-    gray: mat-palette($mat-grey),
-    success-base: mat-color(mat-palette($cc-success), 400),
-    pending-base: mat-color(mat-palette($cc-pending), 800),
-    warn-base: mat-color(mat-palette($cc-warn), 300),
+    gray: mat.define-palette(mat.$grey-palette),
+    success-base: mat.get-color-from-palette(mat.define-palette($cc-success), 400),
+    pending-base: mat.get-color-from-palette(mat.define-palette($cc-pending), 800),
+    warn-base: mat.get-color-from-palette(mat.define-palette($cc-warn), 300),
     white: white,
     blue: #0366d6,
     orange: #dbab09,
     red: #cb2431,
     green: #2cbe4e,
-    neutral: mat-palette($mat-grey),
+    neutral: mat.define-palette(mat.$grey-palette),
 );
 
 @include cc-theme($theme);
