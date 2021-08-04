@@ -13,6 +13,6 @@ $line-size: 2px;
         top: 0;
         bottom: 0;
         width: $line-size;
-        left: $size / 2 - $line-size / 2;
+        left: $size * 0.5 - $line-size * 0.5;
     }
 }
