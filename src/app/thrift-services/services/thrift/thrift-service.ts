@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
+import connectClient from '@rbkmoney/woody_js';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
-import connectClient from 'woody_js';
 
 import { KeycloakTokenInfoService } from '../../../keycloak-token-info.service';
 

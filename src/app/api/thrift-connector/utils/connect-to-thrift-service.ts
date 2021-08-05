@@ -1,6 +1,6 @@
+import connectClient from '@rbkmoney/woody_js';
+import { ConnectOptions } from '@rbkmoney/woody_js/src/connect-options';
 import { Observable } from 'rxjs';
-import connectClient from 'woody_js';
-import { ConnectOptions } from 'woody_js/src/connect-options';
 
 import { ThriftService, ThriftServiceConnection } from './types';
 

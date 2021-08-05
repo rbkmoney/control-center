@@ -1,9 +1,9 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin cc-not-found-theme($theme) {
     $foreground: map-get($theme, foreground);
 
     .not-found {
-        color: mat-color($foreground, secondary-text);
+        color: mat.get-color-from-palette($foreground, secondary-text);
     }
 }

@@ -1,4 +1,4 @@
-import { ConnectOptions } from 'woody_js/src/connect-options';
+import { ConnectOptions } from '@rbkmoney/woody_js/src/connect-options';
 
 import { KeycloakToken } from '@cc/app/shared/services';
 
