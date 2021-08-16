@@ -8,6 +8,9 @@
             "schematics": {
                 "@schematics/angular:component": {
                     "style": "scss"
+                },
+                "@schematics/angular:application": {
+                    "strict": true
                 }
             },
             "root": "",
@@ -17,12 +20,6 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist",
-                        "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "tsconfig.app.json",
-                        "aot": true,
                         "allowedCommonJsDependencies": [
                             "moment",
                             "keycloak-js",
@@ -35,20 +32,26 @@
                             "@rbkmoney/partial-fetcher",
                             "humanize-duration"
                         ],
+                        "outputPath": "dist",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
                         "assets": [
+                            "src/favicon.ico",
+                            "src/assets",
                             {
                                 "glob": "**/*",
                                 "input": "./node_modules/monaco-editor/min/vs",
                                 "output": "libs/vs"
-                            },
-                            "src/favicon.ico",
-                            "src/assets"
+                            }
                         ],
                         "styles": [
                             "src/app/styles/core.scss",
                             {
                                 "input": "src/app/styles/themes/light.scss",
-                                "bundleName": "themes/light",
+                                "bundleName": "light-theme",
                                 "inject": false
                             }
                         ],
@@ -56,19 +59,6 @@
                     },
                     "configurations": {
                         "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "optimization": true,
-                            "outputHashing": "all",
-                            "sourceMap": false,
-                            "namedChunks": false,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -80,26 +70,37 @@
                                     "maximumWarning": "6kb",
                                     "maximumError": "10kb"
                                 }
-                            ]
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
                         }
-                    }
+                    },
+                    "defaultConfiguration": "production"
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "browserTarget": "control-center:build"
-                    },
                     "configurations": {
                         "production": {
                             "browserTarget": "control-center:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "control-center:build:development"
                         }
-                    }
-                },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "control-center:build"
-                    }
+                    },
+                    "defaultConfiguration": "development"
                 },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
@@ -108,26 +109,29 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/styles.scss"],
-                        "scripts": []
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-eslint/builder:lint",
-                    "options": {
-                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
-                    }
-                },
-                "e2e": {
-                    "builder": "@angular-devkit/build-angular:protractor",
-                    "options": {
-                        "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "control-center:serve"
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets",
+                            {
+                                "glob": "**/*",
+                                "input": "./node_modules/monaco-editor/min/vs",
+                                "output": "libs/vs"
+                            }
+                        ],
+                        "styles": [
+                            "src/app/styles/core.scss",
+                            {
+                                "input": "src/app/styles/themes/light.scss",
+                                "bundleName": "light-theme",
+                                "inject": false
+                            }
+                        ],
+                        "scripts": ["./node_modules/keycloak-js/dist/keycloak.js"]
                     },
                     "configurations": {
-                        "production": {
-                            "devServerTarget": "control-center:serve:production"
+                        "ci": {
+                            "karmaConfig": "karma-ci.conf.js"
                         }
                     }
                 }
