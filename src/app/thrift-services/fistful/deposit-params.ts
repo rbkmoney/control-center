@@ -1,4 +1,4 @@
-export interface SearchFormParams {
+export interface DepositParams {
     fromTime: string;
     toTime: string;
     amountTo?: number;

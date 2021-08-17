@@ -4,7 +4,6 @@ import { KeycloakService } from 'keycloak-angular';
 import {
     AppAuthGuardService,
     ClaimManagementRole,
-    DepositRole,
     DomainConfigRole,
     OperationRole,
     PartyRole,
@@ -56,7 +55,6 @@ export class AppComponent implements OnInit {
             },
             { name: 'Merchants', route: '/parties', activateRoles: [PartyRole.Get] },
             { name: 'Repairing', route: '/repairing', activateRoles: [DomainConfigRole.Checkout] },
-            { name: 'Deposits', route: '/deposits', activateRoles: [DepositRole.Write] },
             {
                 name: 'Operations',
                 route: '/operations',

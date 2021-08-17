@@ -24,7 +24,6 @@ import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
 import { ClaimModule } from './claim/claim.module';
 import { ClaimsModule } from './claims/claims.module';
 import { CoreModule } from './core/core.module';
-import { DepositsModule } from './deposits/deposits.module';
 import { DomainModule } from './domain';
 import icons from './icons.json';
 import { NotFoundModule } from './not-found';
@@ -73,7 +72,6 @@ moment.locale('en');
         RepairingModule,
         ThemeManagerModule,
         SettingsModule,
-        DepositsModule,
         ClaimMgtModule,
         PartyModule,
         SearchPartiesModule,
