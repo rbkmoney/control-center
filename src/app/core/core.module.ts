@@ -14,14 +14,12 @@ const initializer = (
     keycloakTokenInfoService: KeycloakTokenInfoService
 ) => () =>
     Promise.all([
-        configService
-            .load()
-            .then(() =>
-                initSentry({
-                    dsn: configService.config.sentryDsn,
-                    environment: environment.production ? 'production' : 'development',
-                })
-            ),
+        configService.load().then(() =>
+            initSentry({
+                dsn: configService.config.sentryDsn,
+                environment: environment.production ? 'production' : 'development',
+            })
+        ),
         keycloak
             .init({
                 config: '/assets/authConfig.json',
