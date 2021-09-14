@@ -16,7 +16,7 @@
     "compile-thrift-deprecated": "ts-node --project tools/tsconfig.json tools/compile-thrift-deprecated",
     "compile-thrift": "ts-node --project tools/tsconfig.json tools/compile-thrift",
     "compile": "npm run parallel-cmd -- --names THRIFT,THRIFT_DEP \"npm run compile-thrift\" \"npm run compile-thrift-deprecated\"",
-    "ci:build": "npm run parallel-cmd -- --names PRETTIER,BUILD \"npm run prettier\" \"npm run build\"",
+    "ci:build": "npm run parallel-cmd -- --names PRETTIER,LINT,BUILD \"npm run prettier\" \"npm run lint-errors\" \"npm run build\"",
     "parallel-cmd": "concurrently --kill-others-on-fail --prefix-colors magenta,green,red,yellow,blue"
   },
   "private": true,
