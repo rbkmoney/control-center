@@ -3,7 +3,6 @@ const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 module.exports = {
     plugins: [
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         ...(process.env.SENTRY_AUTH_TOKEN
             ? [
                   new SentryWebpackPlugin({
