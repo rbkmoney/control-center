@@ -1,19 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-export interface AppConfig {
-    papiEndpoint: string;
-}
+import type AppConfig from '../../assets/appConfig.json';
 
 @Injectable()
 export class ConfigService {
-    config: AppConfig;
+    config: typeof AppConfig;
 
     constructor(private http: HttpClient) {}
 
-    load() {
+    load(): Promise<void> {
         return new Promise((resolve) => {
-            this.http.get<AppConfig>('assets/appConfig.json').subscribe((config) => {
+            this.http.get<typeof AppConfig>('assets/appConfig.json').subscribe((config) => {
                 this.config = config;
                 resolve(undefined);
             });

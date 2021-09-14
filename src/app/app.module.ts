@@ -18,6 +18,7 @@ import * as moment from 'moment';
 import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
 import 'moment/locale/ru';
 
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
@@ -35,6 +36,7 @@ import { PartyModule } from './sections/party/party.module';
 import { PaymentAdjustmentModule } from './sections/payment-adjustment/payment-adjustment.module';
 import { SearchClaimsModule } from './sections/search-claims/search-claims.module';
 import { SearchPartiesModule } from './sections/search-parties/search-parties.module';
+import { createSentryProviders } from './sentry/create-sentry-providers';
 import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule, ThemeName } from './theme-manager';
 import {
@@ -90,6 +92,7 @@ moment.locale('en');
         { provide: SEARCH_LIMIT, useValue: DEFAULT_SEARCH_LIMIT },
         { provide: SMALL_SEARCH_LIMIT, useValue: DEFAULT_SMALL_SEARCH_LIMIT },
         { provide: DIALOG_CONFIG, useValue: DEFAULT_DIALOG_CONFIG },
+        createSentryProviders({ logErrors: environment.production }),
     ],
     bootstrap: [AppComponent],
 })
@@ -103,7 +106,7 @@ export class AppModule {
         this.registerIcons();
     }
 
-    registerIcons() {
+    registerIcons(): void {
         for (const name of icons) {
             this.matIconRegistry.addSvgIcon(
                 name,
