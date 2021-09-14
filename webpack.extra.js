@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 module.exports = {
