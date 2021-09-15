@@ -36,6 +36,7 @@
     "@angular/router": "~12.1.4",
     "@ngneat/until-destroy": "^8.0.3",
     "@rbkmoney/partial-fetcher": "~0.4.0",
+    "@rbkmoney/sentry": "^0.0.1",
     "@rbkmoney/utils": "~0.4.0",
     "@rbkmoney/woody_js": "^0.1.0",
     "angular-file": "3.0.1",
