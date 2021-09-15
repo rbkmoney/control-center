@@ -13,6 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { createSentryProviders } from '@rbkmoney/sentry';
 import * as moment from 'moment';
 
 import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
@@ -36,7 +37,6 @@ import { PartyModule } from './sections/party/party.module';
 import { PaymentAdjustmentModule } from './sections/payment-adjustment/payment-adjustment.module';
 import { SearchClaimsModule } from './sections/search-claims/search-claims.module';
 import { SearchPartiesModule } from './sections/search-parties/search-parties.module';
-import { createSentryProviders } from './sentry/create-sentry-providers';
 import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule, ThemeName } from './theme-manager';
 import {

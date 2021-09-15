@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { initSentry } from '@rbkmoney/sentry';
 import { TraceService } from '@sentry/angular';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 import { environment } from '../../environments/environment';
 import { KeycloakTokenInfoService } from '../keycloak-token-info.service';
-import { initSentry } from '../sentry';
 import { ConfigService } from './config.service';
 
 const initializer = (
