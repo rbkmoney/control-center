@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { initSentry } from '@rbkmoney/sentry';
+import { TraceService } from '@sentry/angular';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
+import { environment } from '../../environments/environment';
 import { KeycloakTokenInfoService } from '../keycloak-token-info.service';
 import { ConfigService } from './config.service';
 
@@ -11,7 +14,12 @@ const initializer = (
     keycloakTokenInfoService: KeycloakTokenInfoService
 ) => () =>
     Promise.all([
-        configService.load(),
+        configService.load().then(() =>
+            initSentry({
+                dsn: configService.config.sentryDsn,
+                environment: environment.production ? 'production' : 'development',
+            })
+        ),
         keycloak
             .init({
                 config: '/assets/authConfig.json',
@@ -36,7 +44,13 @@ const initializer = (
             provide: APP_INITIALIZER,
             useFactory: initializer,
             multi: true,
-            deps: [KeycloakService, ConfigService, KeycloakTokenInfoService],
+            deps: [
+                KeycloakService,
+                ConfigService,
+                KeycloakTokenInfoService,
+                // Need for https://docs.sentry.io/platforms/javascript/guides/angular/
+                TraceService,
+            ],
         },
     ],
 })

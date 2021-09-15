@@ -20,8 +20,16 @@ build('control-center', 'docker-host') {
         }
       }
     }
-    runStage('build') {
-      sh 'make wc_build'
+    if (env.BRANCH_NAME == 'master') {
+      runStage('build') {
+        withCredentials([string(credentialsId: 'SENTRY_AUTH_TOKEN', variable: 'SENTRY_AUTH_TOKEN')]) {
+          sh 'make wc_build'
+        }
+      }
+    } else {
+      runStage('build') {
+        sh "make wc_cmd WC_CMD='make build_pr'"
+      }
     }
     runStage('build image') {
       sh 'make build_image'

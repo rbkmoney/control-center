@@ -18,7 +18,7 @@
             "prefix": "cc",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "ngx-build-plus:browser",
                     "options": {
                         "allowedCommonJsDependencies": [
                             "moment",
@@ -91,7 +91,7 @@
                     "defaultConfiguration": "production"
                 },
                 "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "builder": "ngx-build-plus:dev-server",
                     "configurations": {
                         "production": {
                             "browserTarget": "control-center:build:production"
@@ -103,7 +103,7 @@
                     "defaultConfiguration": "development"
                 },
                 "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
+                    "builder": "ngx-build-plus:karma",
                     "options": {
                         "main": "src/test.ts",
                         "polyfills": "src/polyfills.ts",

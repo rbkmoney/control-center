@@ -13,11 +13,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { createSentryProviders } from '@rbkmoney/sentry';
 import * as moment from 'moment';
 
 import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
 import 'moment/locale/ru';
 
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
@@ -90,6 +92,7 @@ moment.locale('en');
         { provide: SEARCH_LIMIT, useValue: DEFAULT_SEARCH_LIMIT },
         { provide: SMALL_SEARCH_LIMIT, useValue: DEFAULT_SMALL_SEARCH_LIMIT },
         { provide: DIALOG_CONFIG, useValue: DEFAULT_DIALOG_CONFIG },
+        createSentryProviders({ logErrors: environment.production }),
     ],
     bootstrap: [AppComponent],
 })
@@ -103,7 +106,7 @@ export class AppModule {
         this.registerIcons();
     }
 
-    registerIcons() {
+    registerIcons(): void {
         for (const name of icons) {
             this.matIconRegistry.addSvgIcon(
                 name,
