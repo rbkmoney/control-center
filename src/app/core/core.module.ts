@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { initSentry } from '@rbkmoney/sentry';
-import { TraceService } from '@sentry/angular';
+import { initSentry, TraceService } from '@rbkmoney/sentry';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 import { environment } from '../../environments/environment';
