@@ -41,7 +41,7 @@ export class PayoutToolInfoComponent implements OnInit {
         const walletInfo = get(this, 'initialValue.wallet_info', null);
         const paymentInstitutionAccount = get(
             this,
-            `initialValue.wallet_info.${Type.PaymentInstitutionAccount}`,
+            `initialValue.${Type.PaymentInstitutionAccount}`,
             null
         );
         if (russianBankAccount) {
