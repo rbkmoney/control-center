@@ -47,7 +47,7 @@ export class DomainCacheService {
         this.snapshot.pipe(untilDestroyed(this)).subscribe();
     }
 
-    forceReload() {
+    forceReload(): void {
         this.reload$.next();
     }
 
