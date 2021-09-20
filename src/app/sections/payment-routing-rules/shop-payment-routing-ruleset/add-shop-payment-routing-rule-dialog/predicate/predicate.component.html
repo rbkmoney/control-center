@@ -109,15 +109,13 @@
                     <mat-form-field
                         *ngIf="
                             form.value.condition.paymentTool.bankCard.type ===
-                                bankCardType.paymentSystem ||
-                            form.value.condition.paymentTool.bankCard.type ===
-                                bankCardType.paymentSystemIs
+                            bankCardType.paymentSystemIs
                         "
                     >
                         <input
                             matInput
                             placeholder="Payment system"
-                            formControlName="paymentSystem"
+                            formControlName="paymentSystemIs"
                             [matAutocomplete]="paymentSystemAuto"
                             required
                         />
@@ -126,7 +124,7 @@
                             #paymentSystemAuto="matAutocomplete"
                         >
                             <mat-option
-                                *ngFor="let option of paymentSystems$ | async"
+                                *ngFor="let option of deprecatedPaymentSystems$ | async"
                                 [value]="option"
                             >
                                 {{ option }}
@@ -139,6 +137,26 @@
                             bankCardType.paymentSystem
                         "
                     >
+                        <mat-form-field>
+                            <input
+                                matInput
+                                placeholder="Payment system"
+                                formControlName="paymentSystem"
+                                [matAutocomplete]="paymentSystemAuto"
+                                required
+                            />
+                            <mat-autocomplete
+                                autoActiveFirstOption
+                                #paymentSystemAuto="matAutocomplete"
+                            >
+                                <mat-option
+                                    *ngFor="let option of paymentSystems$ | async"
+                                    [value]="option.ref.id"
+                                >
+                                    {{ option.data?.name }}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
                         <mat-form-field>
                             <input
                                 matInput

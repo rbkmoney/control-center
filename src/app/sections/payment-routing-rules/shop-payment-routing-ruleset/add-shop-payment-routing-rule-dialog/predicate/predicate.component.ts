@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import {
     AbstractControl,
     FormArray,
@@ -12,6 +12,10 @@ import pickBy from 'lodash-es/pickBy';
 import { merge, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith, tap } from 'rxjs/operators';
 
+import { PaymentSystemObject } from '@cc/app/api/damsel/gen-model/domain';
+import { ComponentChanges } from '@cc/app/shared/utils';
+
+import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
 import {
     BankCardConditionDefinition,
     LegacyBankCardPaymentSystem,
@@ -60,7 +64,10 @@ export class PredicateComponent implements OnChanges {
     paymentToolType = PaymentToolType;
     bankCardType = BankCardType;
 
-    paymentSystems$: Observable<string[]>;
+    deprecatedPaymentSystems$: Observable<string[]>;
+    paymentSystems$: Observable<PaymentSystemObject[]> = this.domainService.getObjects(
+        'payment_system'
+    );
     tokenProviders$: Observable<string[]>;
     tokenizationMethods$: Observable<string[]>;
     residences$: Observable<string[]>;
@@ -71,11 +78,11 @@ export class PredicateComponent implements OnChanges {
         return this.form?.controls?.children as FormArray;
     }
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private domainService: DomainCacheService) {
         this.init();
     }
 
-    ngOnChanges({ form }: SimpleChanges) {
+    ngOnChanges({ form }: ComponentChanges<PredicateComponent>): void {
         if (form) {
             this.init(true);
         }
@@ -130,6 +137,7 @@ export class PredicateComponent implements OnChanges {
         });
         const {
             residence,
+            paymentSystemIs,
             paymentSystem,
             type: bankCardType,
             tokenProvider,
@@ -140,17 +148,24 @@ export class PredicateComponent implements OnChanges {
             .subscribe((t) => {
                 switch (t) {
                     case BankCardType.issuerCountryIs:
-                        residence.enable();
                         paymentSystem.disable();
+                        paymentSystemIs.disable();
+                        residence.enable();
                         break;
                     case BankCardType.paymentSystem:
+                        residence.disable();
+                        paymentSystemIs.disable();
+                        paymentSystem.enable();
+                        break;
                     case BankCardType.paymentSystemIs:
                         residence.disable();
-                        paymentSystem.enable();
+                        paymentSystem.disable();
+                        paymentSystemIs.enable();
                         break;
                     default:
                         residence.disable();
                         paymentSystem.disable();
+                        paymentSystemIs.disable();
                         break;
                 }
             });
@@ -174,7 +189,10 @@ export class PredicateComponent implements OnChanges {
                 )
             ).subscribe();
         }
-        this.paymentSystems$ = this.getFilteredKeys(paymentSystem, LegacyBankCardPaymentSystem);
+        this.deprecatedPaymentSystems$ = this.getFilteredKeys(
+            paymentSystemIs,
+            LegacyBankCardPaymentSystem
+        );
         this.tokenProviders$ = this.getFilteredKeys(tokenProvider, LegacyBankCardTokenProvider);
         this.tokenizationMethods$ = this.getFilteredKeys(tokenizationMethod, TokenizationMethod);
         this.residences$ = this.getFilteredKeys(residence, CountryCode);
@@ -190,10 +208,11 @@ export class PredicateComponent implements OnChanges {
                     bankCard: this.fb.group({
                         type: ['', Validators.required],
                         residence: ['', [Validators.required, this.enumValidator(CountryCode)]],
-                        paymentSystem: [
+                        paymentSystemIs: [
                             '',
                             [Validators.required, this.enumValidator(LegacyBankCardPaymentSystem)],
                         ],
+                        paymentSystem: ['', [Validators.required]],
                         tokenProvider: ['', this.enumValidator(LegacyBankCardTokenProvider)],
                         tokenizationMethod: ['', this.enumValidator(TokenizationMethod)],
                     }),
@@ -245,10 +264,7 @@ export class PredicateComponent implements OnChanges {
                         {
                             tokenization_method_is:
                                 TokenizationMethod[value.tokenizationMethod as string],
-
-                            // TODO Need migration according to: https://github.com/rbkmoney/damsel/commit/61677b86006d405619bdc5f23d6416a929688180
-                            payment_system_is_deprecated:
-                                LegacyBankCardPaymentSystem[value.paymentSystem as string],
+                            payment_system_is: { id: value.paymentSystem },
                             token_provider_is_deprecated:
                                 LegacyBankCardTokenProvider[value.tokenProvider as string],
                         },
@@ -259,7 +275,7 @@ export class PredicateComponent implements OnChanges {
                 return {
                     payment_system_is:
                         LegacyBankCardPaymentSystem[
-                            value.paymentSystem as keyof LegacyBankCardPaymentSystem
+                            value.paymentSystemIs as keyof LegacyBankCardPaymentSystem
                         ],
                 };
         }

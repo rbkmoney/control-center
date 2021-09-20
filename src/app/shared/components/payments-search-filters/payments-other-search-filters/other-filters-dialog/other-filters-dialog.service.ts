@@ -18,7 +18,7 @@ export class OtherFiltersDialogService {
         paymentAmountTo: '',
         paymentMethod: null,
         tokenProvider: null,
-        paymentSystem: null,
+        paymentSystemIs: null,
     });
 
     constructor(private fb: FormBuilder, private domainService: DomainService) {}
