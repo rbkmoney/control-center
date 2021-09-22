@@ -12,16 +12,25 @@
             placeholder="Claim ID"
             formControlName="claim_id"
             type="number"
-            autocomplete="false"
+            autocomplete="off"
         />
     </mat-form-field>
     <mat-form-field fxFlex>
         <input
             matInput
-            placeholder="Merchant"
-            formControlName="merchant"
+            placeholder="Participant email"
+            formControlName="email"
             type="text"
-            autocomplete="false"
+            autocomplete="off"
+        />
+    </mat-form-field>
+    <mat-form-field *ngIf="!hideMerchantSearch" fxFlex>
+        <input
+            matInput
+            placeholder="Party ID"
+            formControlName="party_id"
+            type="text"
+            autocomplete="off"
         />
     </mat-form-field>
 </form>
