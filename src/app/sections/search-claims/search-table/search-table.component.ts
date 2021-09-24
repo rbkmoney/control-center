@@ -12,7 +12,15 @@ export class SearchTableComponent {
     @Input()
     claims: Claim[];
 
-    displayedColumns = ['claimID', 'party', 'status', 'updatedAt', 'actions'];
+    displayedColumns = [
+        'claimID',
+        'party',
+        'status',
+        'revision',
+        'updatedAt',
+        'createdAt',
+        'actions',
+    ];
 
     constructor(private router: Router) {}
 

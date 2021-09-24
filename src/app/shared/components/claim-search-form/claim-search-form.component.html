@@ -1,36 +1,36 @@
 <form fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px" [formGroup]="form">
-    <mat-form-field fxFlex="25">
+    <mat-form-field fxFlex>
         <mat-select placeholder="Claim statuses" formControlName="statuses" multiple>
             <mat-option *ngFor="let status of claimStatuses" [value]="status">{{
                 status | ccClaimStatus
             }}</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field fxFlex="25">
-        <input
-            matInput
-            placeholder="Participant email"
-            formControlName="email"
-            type="string"
-            autocomplete="false"
-        />
-    </mat-form-field>
-    <mat-form-field *ngIf="!hidePartyId" fxFlex="25">
-        <input
-            matInput
-            placeholder="Party ID"
-            formControlName="party_id"
-            type="string"
-            autocomplete="false"
-        />
-    </mat-form-field>
-    <mat-form-field fxFlex="25">
+    <mat-form-field fxFlex>
         <input
             matInput
             placeholder="Claim ID"
             formControlName="claim_id"
             type="number"
-            autocomplete="false"
+            autocomplete="off"
+        />
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input
+            matInput
+            placeholder="Participant email"
+            formControlName="email"
+            type="text"
+            autocomplete="off"
+        />
+    </mat-form-field>
+    <mat-form-field *ngIf="!hideMerchantSearch" fxFlex>
+        <input
+            matInput
+            placeholder="Party ID"
+            formControlName="party_id"
+            type="text"
+            autocomplete="off"
         />
     </mat-form-field>
 </form>
