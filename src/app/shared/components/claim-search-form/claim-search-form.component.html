@@ -15,22 +15,5 @@
             autocomplete="off"
         />
     </mat-form-field>
-    <mat-form-field fxFlex>
-        <input
-            matInput
-            placeholder="Participant email"
-            formControlName="email"
-            type="text"
-            autocomplete="off"
-        />
-    </mat-form-field>
-    <mat-form-field *ngIf="!hideMerchantSearch" fxFlex>
-        <input
-            matInput
-            placeholder="Party ID"
-            formControlName="party_id"
-            type="text"
-            autocomplete="off"
-        />
-    </mat-form-field>
+    <cc-merchant-field fxFlex formControlName="merchant"></cc-merchant-field>
 </form>

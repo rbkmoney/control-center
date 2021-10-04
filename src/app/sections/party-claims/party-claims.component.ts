@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs/operators';
 
-import { SearchFormValue } from '@cc/app/shared/components';
+import { ClaimSearchForm } from '@cc/app/shared/components';
 import { ConfirmActionDialogComponent } from '@cc/components/confirm-action-dialog';
 
 import { CreateClaimService } from './create-claim.service';
@@ -36,8 +36,8 @@ export class PartyClaimsComponent implements OnInit {
         this.partyClaimsService.fetchMore();
     }
 
-    search(v: SearchFormValue) {
-        this.partyClaimsService.search(v);
+    search({ claim_id, statuses }: ClaimSearchForm) {
+        this.partyClaimsService.search({ claim_id, statuses });
     }
 
     createClaim() {

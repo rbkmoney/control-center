@@ -3,26 +3,38 @@ import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SearchFormValue } from '@cc/app/shared/components';
+import { PartyID } from '@cc/app/api/damsel/gen-model/domain';
 
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
-import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
+import {
+    Claim,
+    ClaimID,
+    ClaimStatus,
+} from '../../thrift-services/damsel/gen-model/claim_management';
+
+type SearchClaimsParams = {
+    claim_id?: ClaimID;
+    statuses?: (keyof ClaimStatus)[];
+    party_id: PartyID;
+};
 
 @Injectable()
-export class SearchClaimsService extends PartialFetcher<Claim, SearchFormValue> {
-    private readonly searchLimit = 10;
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
+export class SearchClaimsService extends PartialFetcher<Claim, SearchClaimsParams> {
     claims$: Observable<Claim[]> = this.searchResult$;
+
+    private readonly searchLimit = 10;
 
     constructor(private claimManagementService: ClaimManagementService) {
         super();
     }
 
-    protected fetch(params: any, continuationToken: string): Observable<FetchResult<Claim>> {
+    protected fetch(
+        params: SearchClaimsParams,
+        continuationToken: string
+    ): Observable<FetchResult<Claim>> {
         return this.claimManagementService
             .searchClaims({
-                ...params,
+                ...(params as any),
                 continuation_token: continuationToken,
                 limit: this.searchLimit,
             })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { SearchFormValue } from '@cc/app/shared/components';
+import { ClaimSearchForm } from '@cc/app/shared/components';
 
 import { SearchClaimsService } from './search-claims.service';
 
@@ -22,8 +22,8 @@ export class SearchClaimsComponent implements OnInit {
         );
     }
 
-    search(searchFormValue: SearchFormValue) {
-        this.searchClaimService.search(searchFormValue);
+    search({ merchant, ...v }: ClaimSearchForm) {
+        this.searchClaimService.search({ ...v, party_id: merchant?.id });
     }
 
     fetchMore() {

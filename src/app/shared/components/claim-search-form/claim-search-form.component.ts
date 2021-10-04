@@ -6,16 +6,16 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder } from '@ngneat/reactive-forms';
 import { debounceTime, map, take } from 'rxjs/operators';
 
 import { ClaimStatus } from '@cc/app/api/damsel/gen-model/claim_management';
+import { queryParamsToFormValue } from '@cc/app/shared/components/claim-search-form/query-params-to-form-value';
 import { removeEmptyProperties } from '@cc/utils/remove-empty-properties';
 
+import { ClaimSearchForm } from './claim-search-form';
 import { formValueToSearchParams } from './form-value-to-search-params';
-import { queryParamsToFormValue } from './query-params-to-form-value';
-import { SearchFormValue } from './search-form-value';
 
 @Component({
     selector: 'cc-claim-search-form',
@@ -24,13 +24,12 @@ import { SearchFormValue } from './search-form-value';
 })
 export class ClaimSearchFormComponent implements OnInit {
     @Input() hideMerchantSearch = false;
-    @Output() valueChanges = new EventEmitter<SearchFormValue>();
+    @Output() valueChanges = new EventEmitter<ClaimSearchForm>();
 
-    form: FormGroup = this.fb.group({
-        statuses: '',
-        email: '',
-        claim_id: '',
-        party_id: '',
+    form = this.fb.group<ClaimSearchForm>({
+        statuses: null,
+        claim_id: null,
+        merchant: null,
     });
 
     claimStatuses: (keyof ClaimStatus)[] = [
@@ -46,13 +45,28 @@ export class ClaimSearchFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.form.valueChanges
-            .pipe(debounceTime(600), map(removeEmptyProperties))
+            .pipe(
+                debounceTime(600),
+                map(({ merchant, ...v }) => ({
+                    ...v,
+                    merchant: merchant?.id,
+                })),
+                map(removeEmptyProperties)
+            )
             .subscribe((v) => {
                 void this.router.navigate([location.pathname], { queryParams: v });
                 this.valueChanges.emit(formValueToSearchParams(v));
             });
         this.route.queryParams
-            .pipe(take(1), map(queryParamsToFormValue))
+            .pipe(
+                take(1),
+                map(queryParamsToFormValue),
+                map(({ merchant, ...v }) => ({
+                    ...v,
+                    merchant: merchant ? { id: merchant } : null,
+                })),
+                map(removeEmptyProperties)
+            )
             .subscribe((v) => this.form.patchValue(v));
     }
 }

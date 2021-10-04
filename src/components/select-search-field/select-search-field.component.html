@@ -1,0 +1,31 @@
+<mat-form-field>
+    <mat-label>{{ label }}</mat-label>
+    <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+    <mat-select
+        (selectionChange)="select($event.value)"
+        [value]="selected$ | async"
+        [required]="required"
+    >
+        <mat-option>
+            <ngx-mat-select-search
+                [formControl]="selectSearchControl"
+                placeholderLabel="Search..."
+                noEntriesFoundLabel="No entries found"
+            >
+                <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon" ngxMatSelectSearchClear></mat-icon>
+            </ngx-mat-select-search>
+        </mat-option>
+        <mat-option
+            *ngFor="let option of isExternalSearch ? options : (filteredOptions$ | async)"
+            [value]="option.value"
+        >
+            {{ option.label }}
+        </mat-option>
+    </mat-select>
+    <button *ngIf="selected$ | async" mat-icon-button matSuffix (click)="clear($event)">
+        <ng-container *ngIf="svgIcon; else defaultIcon">
+            <mat-icon [svgIcon]="svgIcon"></mat-icon>
+        </ng-container>
+        <ng-template #defaultIcon><mat-icon>close</mat-icon></ng-template>
+    </button>
+</mat-form-field>

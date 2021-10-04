@@ -1,0 +1,8 @@
+<cc-select-search-field
+    [label]="label || 'Merchant'"
+    [required]="required"
+    [options]="options$ | async"
+    [formControl]="formControl"
+    (searchChange)="searchChange($event)"
+    isExternalSearch
+></cc-select-search-field>

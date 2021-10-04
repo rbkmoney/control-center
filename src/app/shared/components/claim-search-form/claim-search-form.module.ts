@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
+import { MerchantFieldModule } from '@cc/app/shared/components/merchant-field';
+
 import { ApiModelPipesModule } from '../../pipes';
 import { ClaimSearchFormComponent } from './claim-search-form.component';
 @NgModule({
@@ -15,6 +17,7 @@ import { ClaimSearchFormComponent } from './claim-search-form.component';
         MatSelectModule,
         ReactiveFormsModule,
         ApiModelPipesModule,
+        MerchantFieldModule,
     ],
     declarations: [ClaimSearchFormComponent],
     exports: [ClaimSearchFormComponent],

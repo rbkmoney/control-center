@@ -1,9 +1,9 @@
 import { ClaimStatus } from '../../../papi/model';
 import { ClaimID } from '../../../thrift-services/damsel/gen-model/claim_management';
+import { Party } from '../../../thrift-services/deanonimus/gen-model/deanonimus';
 
-export interface SearchFormValue {
+export interface ClaimSearchForm {
     claim_id?: ClaimID;
-    email?: string;
-    party_id?: string;
     statuses?: ClaimStatus[];
+    merchant?: Party;
 }
