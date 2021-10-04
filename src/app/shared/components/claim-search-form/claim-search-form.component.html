@@ -15,5 +15,9 @@
             autocomplete="off"
         />
     </mat-form-field>
-    <cc-merchant-field fxFlex formControlName="merchant"></cc-merchant-field>
+    <cc-merchant-field
+        *ngIf="!hideMerchantSearch"
+        fxFlex
+        formControlName="merchant"
+    ></cc-merchant-field>
 </form>
