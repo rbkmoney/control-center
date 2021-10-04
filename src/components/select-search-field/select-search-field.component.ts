@@ -14,7 +14,7 @@ import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
 import { coerceBoolean } from 'coerce-property';
-import { BehaviorSubject, combineLatest, defer, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, defer, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { ComponentChanges } from '@cc/app/shared/utils';
@@ -48,7 +48,8 @@ export class SelectSearchFieldComponent<Value> extends FormControlSuperclass<Val
         getFormValueChanges(this.selectSearchControl),
         defer(() => this.options$)
     ).pipe(map(([value, options]) => filterOptions(options, value)));
-    selected$ = new ReplaySubject<Value>(1);
+    selected$ = new BehaviorSubject<Value>(null);
+    cachedOption: Option<Value> = null;
 
     private options$ = new BehaviorSubject<Option<Value>[]>([]);
 
@@ -72,7 +73,10 @@ export class SelectSearchFieldComponent<Value> extends FormControlSuperclass<Val
     }
 
     ngOnChanges({ options }: ComponentChanges<SelectSearchFieldComponent<Value>>): void {
-        if (options) this.options$.next(options.currentValue);
+        if (options) {
+            this.options$.next(options.currentValue);
+            this.cacheOption();
+        }
     }
 
     clear(event: MouseEvent): void {
@@ -83,5 +87,11 @@ export class SelectSearchFieldComponent<Value> extends FormControlSuperclass<Val
     select(value: Value): void {
         this.selected$.next(value);
         this.emitOutgoingValue(value);
+        this.cacheOption();
+    }
+
+    private cacheOption(): void {
+        const option = this.options?.find((o) => o.value === this.selected$.value);
+        if (option) this.cachedOption = option;
     }
 }

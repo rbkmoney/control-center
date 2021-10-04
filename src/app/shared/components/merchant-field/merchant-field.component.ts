@@ -1,10 +1,19 @@
 import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
 import { coerceBoolean } from 'coerce-property';
 import { Observable, of, ReplaySubject, Subject } from 'rxjs';
-import { debounceTime, map, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import {
+    catchError,
+    debounceTime,
+    map,
+    startWith,
+    switchMap,
+    tap,
+    withLatestFrom,
+} from 'rxjs/operators';
 
 import { Option } from '@cc/components/select-search-field';
 
@@ -27,7 +36,11 @@ export class MerchantFieldComponent extends FormControlSuperclass<Party> impleme
     options$ = new ReplaySubject<Option<Party>[]>(1);
     searchChange$ = new Subject<string>();
 
-    constructor(injector: Injector, private deanonimusService: DeanonimusService) {
+    constructor(
+        injector: Injector,
+        private deanonimusService: DeanonimusService,
+        private snackBar: MatSnackBar
+    ) {
         super(injector);
     }
 
@@ -67,8 +80,13 @@ export class MerchantFieldComponent extends FormControlSuperclass<Party> impleme
     }
 
     private searchOptions(str: string): Observable<Option<Party>[]> {
-        return this.deanonimusService
-            .searchParty(str)
-            .pipe(map((parties) => parties.map((p) => ({ label: p.party.email, value: p.party }))));
+        return this.deanonimusService.searchParty(str).pipe(
+            map((parties) => parties.map((p) => ({ label: p.party.email, value: p.party }))),
+            catchError((err) => {
+                this.snackBar.open('Search error', 'OK', { duration: 2000 });
+                console.error(err);
+                return of([]);
+            })
+        );
     }
 }

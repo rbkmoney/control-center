@@ -21,6 +21,17 @@
         >
             {{ option.label }}
         </mat-option>
+        <mat-option
+            *ngIf="
+                !(isExternalSearch ? options : (filteredOptions$ | async))?.length &&
+                !selectSearchControl.value &&
+                cachedOption?.value &&
+                (selected$ | async) === cachedOption?.value
+            "
+            [value]="cachedOption.value"
+        >
+            {{ cachedOption.label }}
+        </mat-option>
     </mat-select>
     <button *ngIf="selected$ | async" mat-icon-button matSuffix (click)="clear($event)">
         <ng-container *ngIf="svgIcon; else defaultIcon">
