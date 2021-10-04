@@ -3,6 +3,6 @@
     [required]="required"
     [options]="options$ | async"
     [formControl]="formControl"
-    (searchChange)="searchChange($event)"
+    (searchChange)="this.searchChange$.next($event)"
     isExternalSearch
 ></cc-select-search-field>
