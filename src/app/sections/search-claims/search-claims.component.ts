@@ -16,17 +16,17 @@ export class SearchClaimsComponent implements OnInit {
 
     constructor(private searchClaimService: SearchClaimsService, private snackBar: MatSnackBar) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.searchClaimService.errors$.subscribe((e) =>
             this.snackBar.open(`An error occurred while search claims (${e})`, 'OK')
         );
     }
 
-    search({ merchant, ...v }: ClaimSearchForm) {
+    search({ merchant, ...v }: ClaimSearchForm): void {
         this.searchClaimService.search({ ...v, party_id: merchant?.id });
     }
 
-    fetchMore() {
+    fetchMore(): void {
         this.searchClaimService.fetchMore();
     }
 }
