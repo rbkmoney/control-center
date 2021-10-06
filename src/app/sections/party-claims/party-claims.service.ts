@@ -4,6 +4,8 @@ import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map, pluck, switchMap } from 'rxjs/operators';
 
+import { ClaimSearchQuery } from '@cc/app/api/damsel/gen-model/claim_management';
+
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
 import {
     Claim,
@@ -32,11 +34,11 @@ export class PartyClaimsService extends PartialFetcher<Claim, PartyClaimsParams>
             pluck('partyID'),
             switchMap((partyId) =>
                 this.claimManagementService.searchClaims({
+                    ...params,
                     party_id: partyId,
-                    ...(params as any),
                     continuation_token: continuationToken,
                     limit: SEARCH_LIMIT,
-                })
+                } as ClaimSearchQuery)
             ),
             map(({ result, continuation_token }) => ({
                 result,

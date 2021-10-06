@@ -9,6 +9,7 @@ import { ClaimManagementService } from '../../thrift-services/damsel/claim-manag
 import {
     Claim,
     ClaimID,
+    ClaimSearchQuery,
     ClaimStatus,
 } from '../../thrift-services/damsel/gen-model/claim_management';
 
@@ -34,10 +35,10 @@ export class SearchClaimsService extends PartialFetcher<Claim, SearchClaimsParam
     ): Observable<FetchResult<Claim>> {
         return this.claimManagementService
             .searchClaims({
-                ...(params as any),
+                ...params,
                 continuation_token: continuationToken,
                 limit: this.searchLimit,
-            })
+            } as ClaimSearchQuery)
             .pipe(
                 map((r) => ({
                     result: r.result,
