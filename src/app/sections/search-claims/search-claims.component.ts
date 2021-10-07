@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { SearchFormValue } from '@cc/app/shared/components';
+import { ClaimSearchForm } from '@cc/app/shared/components';
 
 import { SearchClaimsService } from './search-claims.service';
 
@@ -16,17 +16,17 @@ export class SearchClaimsComponent implements OnInit {
 
     constructor(private searchClaimService: SearchClaimsService, private snackBar: MatSnackBar) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.searchClaimService.errors$.subscribe((e) =>
             this.snackBar.open(`An error occurred while search claims (${e})`, 'OK')
         );
     }
 
-    search(searchFormValue: SearchFormValue) {
-        this.searchClaimService.search(searchFormValue);
+    search({ merchant, ...v }: ClaimSearchForm): void {
+        this.searchClaimService.search({ ...v, party_id: merchant?.id });
     }
 
-    fetchMore() {
+    fetchMore(): void {
         this.searchClaimService.fetchMore();
     }
 }

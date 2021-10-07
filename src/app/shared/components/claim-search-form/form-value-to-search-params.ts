@@ -5,9 +5,9 @@ import { isNumeric } from '@cc/utils/is-numeric';
 import { mapValuesToNumber } from '@cc/utils/map-values-to-number';
 import { mapValuesToThriftEnum } from '@cc/utils/map-values-to-thrift-enum';
 
-import { SearchFormValue } from './search-form-value';
+import { ClaimSearchForm } from './claim-search-form';
 
-export const formValueToSearchParams = (params: any): SearchFormValue => ({
+export const formValueToSearchParams = (params: any): ClaimSearchForm => ({
     ...params,
     ...mapValuesToThriftEnum(pick(params, 'statuses')),
     ...mapValuesToNumber(pickBy(params, isNumeric)),

@@ -20,7 +20,6 @@ import * as moment from 'moment';
 import { KeycloakTokenInfoModule } from '@cc/app/shared/services';
 import 'moment/locale/ru';
 
-import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClaimMgtModule } from './claim-mgt/claim-mgt.module';
@@ -93,7 +92,7 @@ moment.locale('en');
         { provide: SEARCH_LIMIT, useValue: DEFAULT_SEARCH_LIMIT },
         { provide: SMALL_SEARCH_LIMIT, useValue: DEFAULT_SMALL_SEARCH_LIMIT },
         { provide: DIALOG_CONFIG, useValue: DEFAULT_DIALOG_CONFIG },
-        ...createSentryProviders([Router], { logErrors: environment.production }),
+        ...createSentryProviders([Router], { logErrors: true }),
     ],
     bootstrap: [AppComponent],
 })

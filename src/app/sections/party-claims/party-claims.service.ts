@@ -4,15 +4,21 @@ import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { map, pluck, switchMap } from 'rxjs/operators';
 
-import { SearchFormValue } from '@cc/app/shared/components';
+import { ClaimSearchQuery } from '@cc/app/api/damsel/gen-model/claim_management';
 
 import { ClaimManagementService } from '../../thrift-services/damsel/claim-management.service';
-import { Claim } from '../../thrift-services/damsel/gen-model/claim_management';
+import {
+    Claim,
+    ClaimID,
+    ClaimStatus,
+} from '../../thrift-services/damsel/gen-model/claim_management';
 
 const SEARCH_LIMIT = 10;
 
+type PartyClaimsParams = { claim_id?: ClaimID; statuses?: (keyof ClaimStatus)[] };
+
 @Injectable()
-export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
+export class PartyClaimsService extends PartialFetcher<Claim, PartyClaimsParams> {
     constructor(
         private claimManagementService: ClaimManagementService,
         private route: ActivatedRoute
@@ -20,16 +26,19 @@ export class PartyClaimsService extends PartialFetcher<Claim, SearchFormValue> {
         super();
     }
 
-    protected fetch(params: any, continuationToken: string): Observable<FetchResult<Claim>> {
+    protected fetch(
+        params: PartyClaimsParams,
+        continuationToken: string
+    ): Observable<FetchResult<Claim>> {
         return this.route.params.pipe(
             pluck('partyID'),
             switchMap((partyId) =>
                 this.claimManagementService.searchClaims({
-                    party_id: partyId,
                     ...params,
+                    party_id: partyId,
                     continuation_token: continuationToken,
                     limit: SEARCH_LIMIT,
-                })
+                } as ClaimSearchQuery)
             ),
             map(({ result, continuation_token }) => ({
                 result,
