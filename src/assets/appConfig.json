@@ -1,4 +1,5 @@
 {
     "papiEndpoint": "https://iddqd.rbk.money/papi/v1",
-    "sentryDsn": "https://88c8c7fde70b40afbe2e92338966ce1e@o572161.ingest.sentry.io/5956705"
+    "sentryDsn": "https://88c8c7fde70b40afbe2e92338966ce1e@o572161.ingest.sentry.io/5956705",
+    "fileStorageEndpoint": "https://storage.rbk.money/files"
 }

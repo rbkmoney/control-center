@@ -14,24 +14,26 @@ const initializer = (
 ) => () =>
     Promise.all([
         configService.load().then(() =>
-            initSentry({
-                dsn: configService.config.sentryDsn,
-                environment: environment.production ? 'production' : 'development',
-            })
+            Promise.all([
+                initSentry({
+                    dsn: configService.config.sentryDsn,
+                    environment: environment.production ? 'production' : 'development',
+                }),
+                keycloak
+                    .init({
+                        config: '/assets/authConfig.json',
+                        initOptions: {
+                            onLoad: 'login-required',
+                            checkLoginIframe: true,
+                        },
+                        enableBearerInterceptor: true,
+                        bearerExcludedUrls: ['/assets', configService.config.fileStorageEndpoint],
+                        bearerPrefix: 'Bearer',
+                    })
+                    .then(() => keycloak.getToken())
+                    .then((token) => keycloakTokenInfoService.init(token)),
+            ])
         ),
-        keycloak
-            .init({
-                config: '/assets/authConfig.json',
-                initOptions: {
-                    onLoad: 'login-required',
-                    checkLoginIframe: true,
-                },
-                enableBearerInterceptor: true,
-                bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
-                bearerPrefix: 'Bearer',
-            })
-            .then(() => keycloak.getToken())
-            .then((token) => keycloakTokenInfoService.init(token)),
     ]);
 
 @NgModule({
