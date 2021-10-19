@@ -79,7 +79,7 @@ export class FileUploaderService {
         );
     }
 
-    private uploadFileToUrl(file: File, url: string): Observable<any> {
+    private uploadFileToUrl(file: File, url: string): Observable<unknown> {
         return this.http.put(url, file, {
             headers: {
                 'Content-Disposition': `attachment;filename=${encodeURI(file.name)}`,
