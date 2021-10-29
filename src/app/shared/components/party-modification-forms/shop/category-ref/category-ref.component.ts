@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import get from 'lodash-es/get';
+import isNil from 'lodash-es/isNil';
 import sortBy from 'lodash-es/sortBy';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/internal/operators';
 
-import { CategoryService } from '../../../../../papi/category.service';
-import { Category } from '../../../../../papi/model';
+import { DominantCacheService } from '@cc/app/api/dominant-cache';
+import { Category } from '@cc/app/api/dominant-cache/gen-model/dominant_cache';
+
 import { CategoryRef } from '../../../../../thrift-services/damsel/gen-model/domain';
 
 @Component({
@@ -15,39 +16,33 @@ import { CategoryRef } from '../../../../../thrift-services/damsel/gen-model/dom
     templateUrl: 'category-ref.component.html',
 })
 export class CategoryRefComponent implements OnInit {
-    @Input()
-    form: FormGroup;
-
-    @Input()
-    required: boolean;
-
-    @Input()
-    initialValue: CategoryRef;
+    @Input() form: FormGroup;
+    @Input() required: boolean;
+    @Input() initialValue: CategoryRef;
 
     categories$: Observable<Category[]>;
-
     isLoading = true;
 
     constructor(
-        private categoryService: CategoryService,
+        private dominantCacheService: DominantCacheService,
         private fb: FormBuilder,
         private snackBar: MatSnackBar
     ) {}
 
-    ngOnInit() {
-        const category = get(this, 'initialValue.id', '');
+    ngOnInit(): void {
+        const category = this.initialValue?.id;
         this.form.registerControl(
             'id',
             this.fb.control(
                 {
                     value: category,
-                    disabled: category.length === 0,
+                    disabled: isNil(category),
                 },
                 this.required ? Validators.required : null
             )
         );
-        this.categories$ = this.categoryService.categories$.pipe(
-            map((categories) => sortBy(categories, 'id')),
+        this.categories$ = this.dominantCacheService.getCategories().pipe(
+            map((categories) => sortBy(categories, 'ref')),
             tap(
                 () => {
                     this.form.controls.id.enable();
