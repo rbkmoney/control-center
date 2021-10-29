@@ -42,7 +42,7 @@ export class CategoryRefComponent implements OnInit {
             )
         );
         this.categories$ = this.dominantCacheService.getCategories().pipe(
-            map((categories) => sortBy(categories, 'ref')),
+            map((categories) => sortBy(categories, (o) => Number(o.ref))),
             tap(
                 () => {
                     this.form.controls.id.enable();
