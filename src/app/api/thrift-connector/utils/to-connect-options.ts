@@ -17,16 +17,19 @@ const toHeaders = (email: string, username: string, partyID: string, realm: stri
 });
 
 export const toConnectOptions = (
-    { email, name, sub }: KeycloakToken,
+    { email, sub, preferred_username }: KeycloakToken,
     deprecatedHeaders = false,
     realm = 'internal'
 ): ConnectOptions => ({
     headers: {
-        ...toHeaders(email, name, sub, realm),
-        ...(deprecatedHeaders ? toDepricatedHeaders(email, name, sub, realm) : undefined),
+        ...toHeaders(email, preferred_username, sub, realm),
+        ...(deprecatedHeaders
+            ? toDepricatedHeaders(email, preferred_username, sub, realm)
+            : undefined),
     },
     deadlineConfig: {
         amount: 3,
         unitOfTime: 'm',
     },
+    deprecatedHeaders,
 });

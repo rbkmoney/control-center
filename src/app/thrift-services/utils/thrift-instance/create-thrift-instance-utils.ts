@@ -1,4 +1,5 @@
 import difference from 'lodash-es/difference';
+import { ValueType } from 'thrift-ts';
 
 import { createThriftInstance } from './create-thrift-instance';
 import { thriftInstanceToObject } from './thrift-instance-to-object';
@@ -19,9 +20,9 @@ export function createThriftInstanceUtils<T extends { [N in string]: any }>(
 ) {
     checkNamespaces(metadata, namespaces);
     return {
-        createThriftInstance: <V>(namespace: keyof T, name: string, value: V) =>
+        createThriftInstance: <V>(namespace: keyof T, name: ValueType, value: V) =>
             createThriftInstance(metadata, namespaces, name, value, namespace as string),
-        thriftInstanceToObject: <V>(namespace: keyof T, name: string, value: V) =>
+        thriftInstanceToObject: <V>(namespace: keyof T, name: ValueType, value: V) =>
             thriftInstanceToObject(metadata, namespaces, name, value, namespace as string),
     };
 }

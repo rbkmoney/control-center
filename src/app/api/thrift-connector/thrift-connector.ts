@@ -17,10 +17,11 @@ export class ThriftConnector {
     constructor(
         protected keycloakTokenInfoService: KeycloakTokenInfoService,
         protected service: ThriftService,
-        protected endpoint: string
+        protected endpoint: string,
+        deprecatedHeaders = false
     ) {
         this.connection$ = this.keycloakTokenInfoService.decoded$.pipe(
-            map((token) => toConnectOptions(token)),
+            map((token) => toConnectOptions(token, deprecatedHeaders)),
             switchMap((connectOptions) =>
                 connectToThriftService(endpoint, service, connectOptions)
             ),
@@ -31,7 +32,7 @@ export class ThriftConnector {
         );
     }
 
-    protected callThriftServiceMethod<T, P extends any[]>(
+    protected callThriftServiceMethod<T, P extends any[] = []>(
         serviceMethodName: string,
         ...args: P
     ): Observable<T> {

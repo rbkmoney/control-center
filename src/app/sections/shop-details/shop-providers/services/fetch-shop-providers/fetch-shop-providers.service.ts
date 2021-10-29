@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { progress } from '@rbkmoney/utils';
-import { BehaviorSubject, combineLatest } from 'rxjs';
+import { combineLatest, defer, ReplaySubject } from 'rxjs';
 import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { DomainCacheService } from '../../../../../thrift-services/damsel/domain-cache.service';
@@ -9,10 +9,7 @@ import { toProvidersInfo } from './to-providers-info';
 
 @Injectable()
 export class FetchShopProvidersService {
-    private getProvidersInfo$ = new BehaviorSubject<{ partyID: PartyID; shopID: ShopID }>(null);
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    providersInfo$ = this.getProvidersInfo$.pipe(
+    providersInfo$ = defer(() => this.getProvidersInfo$).pipe(
         switchMap(({ partyID, shopID }) =>
             combineLatest([
                 this.domainCacheService.getObjects('provider'),
@@ -26,14 +23,18 @@ export class FetchShopProvidersService {
         shareReplay(1)
     );
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    inProgress$ = progress(this.getProvidersInfo$, this.providersInfo$).pipe(startWith(true));
+    inProgress$ = progress(
+        defer(() => this.getProvidersInfo$),
+        this.providersInfo$
+    ).pipe(startWith(true));
+
+    private getProvidersInfo$ = new ReplaySubject<{ partyID: PartyID; shopID: ShopID }>(1);
 
     constructor(private domainCacheService: DomainCacheService) {
         this.providersInfo$.subscribe();
     }
 
-    getProvidersInfo(partyID: PartyID, shopID: ShopID) {
+    getProvidersInfo(partyID: PartyID, shopID: ShopID): void {
         this.getProvidersInfo$.next({ partyID, shopID });
     }
 }
