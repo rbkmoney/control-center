@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { KeycloakTokenInfoService } from '@cc/app/shared/services';
 
 import { ThriftConnector } from '../../thrift-connector';
-import { dominantCacheInstanceToObject } from '../create-dominant-cache-instance';
+import { dominantCacheInstanceToObject } from '../dominant-cache-thrift-converter';
 import {
     CashRegisterProvider,
     Category,
