@@ -1,8 +1,8 @@
 <form [formGroup]="form" fxLayout="column">
     <mat-form-field fxFlex>
         <mat-select placeholder="Select category" formControlName="id" [required]="required">
-            <mat-option *ngFor="let category of categories$ | async" [value]="category.id">
-                {{ category.id }} {{ category.name }}
+            <mat-option *ngFor="let category of categories$ | async" [value]="category.ref">
+                {{ category.ref }} {{ category.name }}
             </mat-option>
         </mat-select>
     </mat-form-field>

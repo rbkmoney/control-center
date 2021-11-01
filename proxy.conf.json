@@ -1,44 +1,9 @@
-{
-    "/v1/wallet": {
-        "target": "https://iddqd.rbk.money",
-        "secure": false,
-        "logLevel": "debug",
-        "changeOrigin": true
-    },
-    "/v1": {
-        "target": "https://iddqd.rbk.money",
-        "secure": false,
-        "logLevel": "debug",
-        "changeOrigin": true
-    },
-    "/stat": {
-        "target": "https://iddqd.rbk.money",
-        "secure": false,
-        "logLevel": "debug",
-        "changeOrigin": true
-    },
-    "/fistful/stat": {
-        "target": "https://iddqd.rbk.money",
-        "secure": false,
-        "logLevel": "debug",
-        "changeOrigin": true
-    },
-    "/papi/v1": {
-        "target": "https://iddqd.rbk.money",
-        "secure": false,
-        "logLevel": "debug",
-        "changeOrigin": true
-    },
-    "/file_storage": {
-        "target": "https://iddqd.rbk.money",
-        "secure": false,
-        "logLevel": "debug",
-        "changeOrigin": true
-    },
-    "/deanonimus": {
+[
+    {
+        "context": ["/v1", "/stat", "/fistful", "/papi", "/file_storage", "/deanonimus"],
         "target": "https://iddqd.rbk.money",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     }
-}
+]

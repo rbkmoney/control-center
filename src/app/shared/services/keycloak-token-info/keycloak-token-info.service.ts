@@ -8,7 +8,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { KeycloakToken } from './types/keycloak-token';
 
 @UntilDestroy()
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class KeycloakTokenInfoService {
     decoded$: Observable<KeycloakToken> = from(this.keycloakService.getToken()).pipe(
         map((token) => jwt_decode<KeycloakToken>(token)),
