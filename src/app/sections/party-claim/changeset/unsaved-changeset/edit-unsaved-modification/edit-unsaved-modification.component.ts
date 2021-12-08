@@ -7,7 +7,11 @@ import { getUnionKey, getUnionValue } from '@cc/utils/get-union-key';
 
 import { PartyModification } from '../../../../../thrift-services/damsel/gen-model/claim_management';
 
-type ModificationType = 'contractor_modification' | 'contract_modification' | 'shop_modification';
+type ModificationType =
+    | 'contractor_modification'
+    | 'contract_modification'
+    | 'shop_modification'
+    | 'wallet_modification';
 
 @Component({
     templateUrl: 'edit-unsaved-modification.component.html',
