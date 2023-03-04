@@ -35,7 +35,7 @@
     "@angular/platform-server": "~12.1.4",
     "@angular/router": "~12.1.4",
     "@ngneat/reactive-forms": "^2.0.0",
-    "@ngneat/until-destroy": "^8.0.3",
+    "@ngneat/until-destroy": "^8.1.4",
     "@rbkmoney/partial-fetcher": "~0.4.0",
     "@rbkmoney/sentry": "^0.1.0",
     "@rbkmoney/utils": "~0.4.0",
